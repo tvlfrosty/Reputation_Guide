@@ -26,8 +26,8 @@ I appreciate all the work done on these addons.
 Contributions/Suggestions and bug reports/fixes to the addon are always welcome, to contribute you can make a [pull request](https://github.com/tvlfrosty/Reputation_Guide/pulls) or simply open a [new issue](https://github.com/tvlfrosty/Reputation_Guide/issues) in the main project repository.
 
 ## Installation
-The easiest way to install this addon is via the .... App, by either searching in the client, or via the [Curse website](https://curseforge.com/wow/addons/)  
-If you want to manually install this addon, extract the contents in this directory: PATH\World of Warcraft\\\_classic\_\\Interface\AddOns\
+The easiest way to install this addon is via the CurseForge App, by either searching in the client, or via the [Curse website](https://curseforge.com/wow/addons/)  
+If you want to manually install this addon, extract the contents in this directory: PATH\World of Warcraft\\\_<game_version>\_\\Interface\AddOns\
 
 ## Features
 This addon is made to help you reach Exalted with your factions by giving you calculated tips on how to obtain the rep most efficently.
