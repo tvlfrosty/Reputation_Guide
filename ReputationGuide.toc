@@ -1,8 +1,8 @@
 ## Interface: 30400
 ## Title: ReputationGuide
 ## Version: 3.4.0-release
-## Author: Tvlfrosty, Chawan, Marabon
-## URL: http://wow.curseforge.com/addons/ReputationGuide/
+## Author: Tvlfrosty
+## URL: https://www.curseforge.com/wow/addons/reputation-guide
 ## Description: ReputationGuide (RepHelper) helps you manage your reputation and Factions.
 ## Notes: ReputationGuide (RepHelper) helps you manage your reputation and Factions.
 ## SavedVariables: REP_Data
