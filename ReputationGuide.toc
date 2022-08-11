@@ -3,12 +3,12 @@
 ## Version: 3.4.0-release
 ## Author: Tvlfrosty
 ## URL: https://www.curseforge.com/wow/addons/reputation-guide
-## Description: ReputationGuide (RepHelper) helps you manage your reputation and Factions.
-## Notes: ReputationGuide (RepHelper) helps you manage your reputation and Factions.
+## Description: ReputationGuide helps you manage your reputation and Factions.
+## Notes: ReputationGuide helps you manage your reputation and Factions.
 ## SavedVariables: REP_Data
 ## SavedVariablesPerCharacter: REP_Suppressed
 
-## X-Curse-Project-ID: 3925528
+## X-Curse-Project-ID: 657534
 
 questdb.lua
 variables.lua

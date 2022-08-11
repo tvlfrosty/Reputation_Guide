@@ -1,6 +1,11 @@
-# ReputationGuide (RepHelper)
+# ReputationGuide
 
-## [9.0.2.1-release](https://github.com/chawan/RepHelper/tree/9.0.2.1-release) (2020-11-17)
-[Full Changelog](https://github.com/chawan/RepHelper/compare/9.0.1.1-release...9.0.2.1-release) [Previous Releases](https://github.com/chawan/RepHelper/releases)
+## [9.2.5-release](https://github.com/tvlfrosty/Reputation_Guide/tree/9.2.5-release) (2022-08-09)
+## [3.4.0-release](https://github.com/tvlfrosty/Reputation_Guide/tree/3.4.0-release) (2022-08-09)
+## [2.5.4-release](https://github.com/tvlfrosty/Reputation_Guide/tree/2.5.4-release) (2022-08-09)
+## [1.14.03-release](https://github.com/tvlfrosty/Reputation_Guide/tree/1.14.03-release) (2022-08-09)
 
-- Fixed error caused by BrowserButtonTemplate being removed  
+- Initial release for 9.2.5
+- Initial release for 3.4.0
+- Initial release for 2.5.4
+- Initial release for 1.14.03
