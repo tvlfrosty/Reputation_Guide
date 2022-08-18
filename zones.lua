@@ -415,6 +415,16 @@ else
 	zone.Nagrand_WoD = 550
 
 	---------------------------
+	-- Shadowlands --
+	---------------------------
+	zone.The_Maw = 1543
+	zone.Maldraxxus = 1536
+	zone.Bastion = 1533
+	zone.Ardenweald = 1565
+	zone.Revendreth = 1525
+	zone.Korthia = 1961
+
+	---------------------------
 	-- Battlegrounds --
 	---------------------------
 	zone.Temple_of_Kotmogu = 417
@@ -637,6 +647,11 @@ else
 	zone.Trial_of_Valor = 806
 	zone.Antorus_the_Burning_Throne = 909
 	zone.The_Nighthold = 764
+
+	---------------------------
+	-- Shadowlands Dungeons --
+	---------------------------
+	zone.Halls_of_Atonement = 1663
 end
 
 REP.zone = zone;

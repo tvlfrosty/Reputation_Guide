@@ -418,7 +418,7 @@ end
 				REP_AddQuest(909, 1, 8, 29520, 250, "nil", REP_LIMIT_TYPE_Tail)
 				REP_AddQuest(909, 1, 8, 29517, 250, "nil", REP_LIMIT_TYPE_Leat)
 				REP_AddQuest(909, 1, 8, 29510, 250, "nil", REP_LIMIT_TYPE_Ench)
-				REP_AddQuest(909, 1, 8, 29516, 250, "nil", REP_LIMIT_TYPE_Jewe)
+				REP_AddQuest(909, 1, 8, 29516, 250, "nil", REP_LIMIT_TYPE_Jewel)
 				REP_AddQuest(909, 1, 8, 29515, 250, "nil", REP_LIMIT_TYPE_Incr)
 				------ Secondary profesion
 				REP_AddQuest(909, 1, 8, 29512, 250, "nil", REP_LIMIT_TYPE_Aid)
@@ -626,10 +626,13 @@ end
 		REP_AddInstance(270, 4, 8, "Zul'Gurub", 2750)
 	end
 
-	if (not REP_AfterWotlk or REP_AfterLegion) then
-		---------------------------
-		-- Magram Clan Centaur 93 --
-		---------------------------
+	---------------------------
+	-- Magram Clan Centaur 93 --
+	---------------------------
+	if (REP_AfterWotlk) then
+		---- Quests (1 quest rewards exalted with both)
+		REP_AddQuest(93, 1, 8, 14394, 10000000) -- Death to Agogridon QuestID: 14394
+	else
 		---- Mobs
 		REP_AddMob(93, 1, 5, "Khan Shaka", 25)
 		REP_AddMob(93, 1, 6, "Gelkis Mauler", 20)
@@ -640,10 +643,15 @@ end
 		REP_AddMob(93, 1, 6, "Gelkis Windchaser", 20)
 		REP_AddMob(93, 1, 6, "Gelkis Scout", 20)
 		REP_AddMob(93, 1, 6, "Gelkis Earthcaller", 20)
+	end
 
-		---------------------------
-		-- Gelkis Clan Centaur 92 --
-		---------------------------
+	---------------------------
+	-- Gelkis Clan Centaur 92 --
+	---------------------------
+	if (REP_AfterWotlk) then
+		---- Quests (1 quest rewards exalted with both)
+		REP_AddQuest(92, 1, 8, 14394, 10000000) -- Death to Agogridon QuestID: 14394
+	else
 		---- Mobs
 		REP_AddMob(92, 1, 4, "Warug's Bodyguard", 5)
 		REP_AddMob(92, 1, 5, "Khan Jehn", 25)
@@ -694,10 +702,12 @@ end
 	  REP_AddQuest(72, 4, 8, 7027, 2.5)
 	  REP_AddQuest(72, 4, 8, 7026, 2.5, {[17643] = 1})
 	  REP_AddQuest(72, 4, 8, 6781, 2.5, {[17422] = 20})
-		---- Items
 		if (REP_AfterTBC) then
+			---- Items
 			REP_AddItems(72, 4, 8, 250, {["Stormwind Commendation Badge"] = 1}) -- 45718
 			REP_AddItems(72, 4, 8, 62.5, {[4] = 1})
+			---- General
+			REP_AddGeneral(72, 5, 8, "Killing mobs in instances while wearing the Stormwind tabard.", 5, "Killing mobs in instances while wearing the Stormwind tabard.", "Killing mobs in instances while wearing the Stormwind tabard will reward you roughly 5 reputation per kill.")
 		end
 
 		---------------------------
@@ -731,10 +741,12 @@ end
 		REP_AddQuest(47, 4, 8, 7027, 10)
 		REP_AddQuest(47, 4, 8, 7026, 10, {[17643] = 1})
 		REP_AddQuest(47, 4, 8, 6781, 10, {[17422] = 20})
-		---- Items
 		if (REP_AfterTBC) then
+			---- Items
 			REP_AddItems(47, 4, 8, 250, {["Ironforge Commendation Badge"] = 1}) -- 45717
 			REP_AddItems(47, 4, 8, 62.5, {[4] = 1})
+			---- General
+			REP_AddGeneral(47, 5, 8, "Killing mobs in instances while wearing the Ironforge tabard.", 5, "Killing mobs in instances while wearing the Ironforge tabard.", "Killing mobs in instances while wearing the Ironforge tabard will reward you roughly 5 reputation per kill.")
 		end
 
 		---------------------------
@@ -764,10 +776,12 @@ end
 		REP_AddQuest(69, 4, 8, 7027, 2.5)
 		REP_AddQuest(69, 4, 8, 7026, 2.5, {[17643] = 1})
 		REP_AddQuest(69, 4, 8, 6781, 2.5, {[17422] = 20})
-		---- Items
 		if (REP_AfterTBC) then
+			---- Items
 			REP_AddItems(69, 4, 8, 250, {["Darnassus Commendation Badge"] = 1}) -- 45714
 			REP_AddItems(69, 4, 8, 62.5, {[4] = 1})
+			---- General
+			REP_AddGeneral(69, 5, 8, "Killing mobs in instances while wearing the Darnassus tabard.", 5, "Killing mobs in instances while wearing the Darnassus tabard.", "Killing mobs in instances while wearing the Darnassus tabard will reward you roughly 5 reputation per kill.")
 		end
 
 		---------------------------
@@ -795,10 +809,12 @@ end
 	  REP_AddQuest(54, 4, 8, 7027, 2.5)
 	  REP_AddQuest(54, 4, 8, 7026, 2.5, {[17643] = 1})
 	  REP_AddQuest(54, 4, 8, 6781, 2.5, {[17422] = 20})
-		---- Items
 		if (REP_AfterTBC) then
+			---- Items
 			REP_AddItems(54, 4, 8, 250, {["Gnomeregan Commendation Badge"] = 1}) -- 45716
 			REP_AddItems(54, 4, 8, 62.5, {[4] = 1})
+			---- General
+			REP_AddGeneral(54, 5, 8, "Killing mobs in instances while wearing the Gnomeregan tabard.", 5, "Killing mobs in instances while wearing the Gnomeregan tabard.", "Killing mobs in instances while wearing the Gnomeregan tabard will reward you roughly 5 reputation per kill.")
 		end
 
 		---------------------------
@@ -925,6 +941,8 @@ end
 			---- Items
 		  REP_AddItems(76, 4, 8, 250, {[45719] = 1})
 		  REP_AddItems(76, 4, 8, 62.5, {[4] = 1})
+			---- General
+			REP_AddGeneral(76, 5, 8, "Killing mobs in instances while wearing the Orgrimmar tabard.", 5, "Killing mobs in instances while wearing the Orgrimmar tabard.", "Killing mobs in instances while wearing the Orgrimmar tabard will reward you roughly 5 reputation per kill.")
 		end
 
 		---------------------------
@@ -957,6 +975,8 @@ end
 			---- Items
 		  REP_AddItems(81, 4, 8, 250, {[45722] = 1})
 		  REP_AddItems(81, 4, 8, 62.5, {[4] = 1})
+			---- General
+			REP_AddGeneral(81, 5, 8, "Killing mobs in instances while wearing the Thunder Bluff tabard.", 5, "Killing mobs in instances while wearing the Thunder Bluff tabard.", "Killing mobs in instances while wearing the Thunder Bluff tabard will reward you roughly 5 reputation per kill.")
 		end
 
 		---------------------------
@@ -989,21 +1009,41 @@ end
 			---- Items
 			REP_AddItems(68, 4, 8, 250, {[45723] = 1})
 			REP_AddItems(68, 4, 8, 62.5, {[4] = 1})
+			---- General
+			REP_AddGeneral(68, 5, 8, "Killing mobs in instances while wearing the Undercity tabard.", 5, "Killing mobs in instances while wearing the Undercity tabard.", "Killing mobs in instances while wearing the Undercity tabard will reward you roughly 5 reputation per kill.")
 		end
 
 		---------------------------
 		-- Darkspear Trolls 530
 		---------------------------
 		---- Quests
-		---- TODO: Fix quests
 		if (not REP_AfterWotlk) then
 			if(REP_IsClassic) then
-				REP_AddQuest(68, 4, 8, 7837, 50, {[14047] = 20}) -- Additional Runecloth QuestID: 7837
-				REP_AddQuest(68, 4, 8, 8844, 5, {[21438] = 1}) -- One Commendation Signet QuestID: 8844
-				REP_AddQuest(68, 4, 8, 8845, 75, {[21438] = 10}) -- Ten Commendation Signets QuestID: 8845
+				REP_AddQuest(530, 4, 8, 7837, 50, {[14047] = 20}) -- Additional Runecloth QuestID: 7837
+				REP_AddQuest(530, 4, 8, 8844, 5, {[21438] = 1}) -- One Commendation Signet QuestID: 8844
+				REP_AddQuest(530, 4, 8, 8845, 75, {[21438] = 10}) -- Ten Commendation Signets QuestID: 8845
 			else
-				REP_AddQuest(68, 4, 8, 7837, 75, {[14047] = 20}) -- Additional Runecloth QuestID: 7837
+				REP_AddQuest(530, 4, 8, 7837, 75, {[14047] = 20}) -- Additional Runecloth QuestID: 7837
 			end
+		else
+			REP_AddQuest(530, 4, 8, 2, 65, "nil", REP_LIMIT_TYPE_Cook)
+			REP_AddQuest(530, 4, 8, 4, 65, "nil", REP_LIMIT_TYPE_Fish)
+		end
+		---- Spillover from Alterac Valley
+		REP_AddQuest(530, 4, 8, 7385, 18.75, {[17306] = 5})
+		REP_AddQuest(530, 4, 8, 6801, 2.5, {[17306] = 1})
+		REP_AddQuest(530, 4, 8, 6825, 10, {[17326] = 1})
+		REP_AddQuest(530, 4, 8, 6826, 10, {[17327] = 1})
+		REP_AddQuest(530, 4, 8, 6827, 10, {[17328] = 1})
+		REP_AddQuest(530, 4, 8, 7027, 2.5)
+		REP_AddQuest(530, 4, 8, 7002, 2.5, {[17642] = 1})
+		REP_AddQuest(530, 4, 8, 6741, 2.5, {[17422] = 20})
+		if(REP_AfterTBC) then
+			---- Items
+			REP_AddItems(530, 4, 8, 250, {[45720] = 1})
+			REP_AddItems(530, 4, 8, 62.5, {[4] = 1})
+			---- General
+			REP_AddGeneral(530, 5, 8, "Killing mobs in instances while wearing the Darkspear tabard.", 5, "Killing mobs in instances while wearing the Darkspear tabard.", "Killing mobs in instances while wearing the Darkspear tabard will reward you roughly 5 reputation per kill.")
 		end
 
 		---------------------------
@@ -1134,7 +1174,6 @@ end
 		-- Netherwing 1015 --
 		---------------------------
 		---- Quests
-		REP_AddQuest(1015, 4, 8, "Accepting All Eggs", 250, {[32506] = 1}) -- Accepting All Eggs QuestID: 11050
 		REP_AddQuest(1015, 4, 8, "Netherdust Pollen", 250, {[32468] = 40}, REP_LIMIT_TYPE_Herb) -- Netherdust Pollen QuestID: 11017
 		REP_AddQuest(1015, 4, 8, "Nethercite Ore", 250, {[32464] = 40}, REP_LIMIT_TYPE_Mine) -- Nethercite Ore QuestID: 11018
 		REP_AddQuest(1015, 4, 8, "Nethermine Flayer Hide", 250, {[32470] = 35}, REP_LIMIT_TYPE_Skin) -- Nethermine Flayer Hide QuestID: 11016
@@ -1146,6 +1185,9 @@ end
 		REP_AddQuest(1015, 5, 8, "The Booterang: A Cure For The Common Worthless Peon", 350) -- The Booterang: A Cure For The Common Worthless Peon QuestID: 11055
 		REP_AddQuest(1015, 6, 8, "Disrupting the Twilight Portal", 500) -- Disrupting the Twilight Portal QuestID: 11086
 		REP_AddQuest(1015, 7, 8, "The Deadliest Trap Ever Laid", 500) -- The Deadliest Trap Ever Laid QuestID: 11101
+		---- Items
+		REP_AddItems(1015, 4, 8, 250, {[32506] = 1}) -- Netherwing egg
+		-- REP_AddQuest(1015, 4, 8, "Accepting All Eggs", 250, {[32506] = 1}) -- Accepting All Eggs QuestID: 11050
 
 		---------------------------
 		-- Ogri'la 1038 --
@@ -1160,16 +1202,23 @@ end
 		-- Sha'tari Skyguard 1031 --
 		---------------------------
 		---- Quests
-		REP_AddQuest(1031, 4, 8, 11004, 150)
-		REP_AddQuest(1031, 4, 8, 11008, 350)
-		REP_AddQuest(1031, 4, 8, 11085, 150)
-		REP_AddQuest(1031, 4, 8, 11066, 350)
-		REP_AddQuest(1031, 4, 8, 11023, 500)
+		REP_AddQuest(1031, 4, 8, "World of Shadows", 150, {[32388] = 6}) -- World of Shadows QuestID: 11004
+		REP_AddQuest(1031, 4, 8, "Tokens of the Descendants", 350, {[32718] = 1, [32715] = 1, [32717] = 1, [32716] = 1}) -- Tokens of the Descendants QuestID: 11074
+		REP_AddQuest(1031, 4, 8, "Fires Over Skettis", 350) -- Fires Over Skettis QuestID: 11008
+		REP_AddQuest(1031, 4, 8, "Escape from Skettis", 150) -- Escape from Skettis QuestID: 11085
+		REP_AddQuest(1031, 4, 8, "Wrangle More Aether Rays!", 350) -- Wrangle More Aether Rays! QuestID: 11066
+		REP_AddQuest(1031, 4, 8, "Bomb Them Again!", 500) -- Bomb Them Again! QuestID: 11023
 		---- Mobs
-		REP_AddMob(1031, 4, 6, "Skettis Kaliri", 2.5, zone.Terokkar_Forest)
-		REP_AddMob(1031, 4, 8, "Skettis, Talonpriests, Time-Lost Skettis, Monstrous Kaliri", 10, zone.Terokkar_Forest)
-		REP_AddMob(1031, 4, 8, "Talonsworn Forest-Rager", 30, zone.Terokkar_Forest)
-		REP_AddMob(1031, 4, 8, "Akkarai, Karrog, Gezzarak, Vakkiz", 100, zone.Terokkar_Forest)
+		if (not REP_AfterWotlk) then
+			REP_AddMob(1031, 4, 6, "Skettis Kaliri", 2.5, zone.Terokkar_Forest)
+			REP_AddMob(1031, 4, 8, "Skettis, Talonpriests, Time-Lost Skettis, Monstrous Kaliri", 5, zone.Terokkar_Forest)
+			REP_AddMob(1031, 4, 8, "Talonsworn Forest-Rager", 15, zone.Terokkar_Forest)
+		else
+			REP_AddMob(1031, 4, 6, "Skettis Kaliri", 5, zone.Terokkar_Forest)
+			REP_AddMob(1031, 4, 8, "Skettis, Talonpriests, Time-Lost Skettis, Monstrous Kaliri", 10, zone.Terokkar_Forest)
+			REP_AddMob(1031, 4, 8, "Talonsworn Forest-Rager", 30, zone.Terokkar_Forest)
+		end
+		REP_AddMob(1031, 4, 8, "Karrog, Gezzarak the Huntress", 100, zone.Terokkar_Forest)
 		REP_AddMob(1031, 4, 8, "Terokk", 500, zone.Terokkar_Forest)
 
 		---------------------------
@@ -1328,6 +1377,8 @@ end
 				---- Items
 				REP_AddItems(930, 4, 8, 250, {["Exodar Commendation Badge"] = 1}) -- 45715
 				REP_AddItems(930, 4, 8, 62.5, {[4] = 1})
+				---- General
+				REP_AddGeneral(930, 5, 8, "Killing mobs in instances while wearing the Exodar tabard.", 5, "Killing mobs in instances while wearing the Exodar tabard.", "Killing mobs in instances while wearing the Exodar tabard will reward you roughly 5 reputation per kill.")
 			end
 
 			---------------------------
@@ -1356,13 +1407,14 @@ end
 			-- Kurenai 978
 			---------------------------
 			---- Quests
-			REP_AddQuest(978, 4, 8, 10476, 500, {[25433] = 10})
-			REP_AddQuest(978, 4, 8, 11502, 250)
+			REP_AddQuest(978, 4, 8, "More Warbeads", 500, {[25433] = 10}) -- More Warbeads QuestID: 10477
+			REP_AddQuest(978, 4, 8, "In Defense of Halaa", 250) -- In Defense of Halaa QuestID: 11502
 			---- Mobs
-			REP_AddMob(978, 4, 8, REP_TXT.Mob.BoulderfistOgre, 10, zone.Nagrand) -- Boulderfist Ogre ID=2562
-			REP_AddMob(978, 4, 8, "Kil'sorrow Deathsworn, Cultist & Spellbinder", 10, zone.Nagrand)
+			---- TODO: Double check the Boulderfirst ogre.
+			-- REP_AddMob(978, 4, 8, REP_TXT.Mob.BoulderfistOgre, 10, zone.Nagrand) -- Boulderfist Ogre ID=2562
+			REP_AddMob(978, 4, 8, "Kil'sorrow Deathsworn, Cultist, Ritualist & Spellbinder", 10, zone.Nagrand)
 			REP_AddMob(978, 4, 8, "Murkblood Scavenger", 2, zone.Nagrand)
-			REP_AddMob(978, 4, 8, "Murkblood ", 10, zone.Nagrand)
+			REP_AddMob(978, 4, 8, "Murkblood Brute, Invader, Putrifier & Raider", 10, zone.Nagrand)
 			REP_AddMob(978, 4, 8, "Warmaul non-elite", 10, zone.Nagrand)
 		else
 			---------------------------
@@ -1388,6 +1440,8 @@ end
 				---- Items
 				REP_AddItems(911, 4, 8, 250, {[45721] = 1})
 				REP_AddItems(911, 4, 8, 62.5, {[4] = 1})
+				---- General
+				REP_AddGeneral(911, 5, 8, "Killing mobs in instances while wearing the Silvermoon City tabard.", 5, "Killing mobs in instances while wearing the Silvermoon City tabard.", "Killing mobs in instances while wearing the Silvermoon City tabard will reward you roughly 5 reputation per kill.")
 			end
 
 			---------------------------
@@ -1441,43 +1495,48 @@ end
 		---------------------------
 		-- Argent Crusade 1106
 		---------------------------
-		---- Mobs
-		REP_AddMob(1106, 4, 8, "Crypt Slayer", 5, zone.Eastern_Plaguelands) -- MobId: 8558
+		if (REP_AfterWotlk) then
+			---- Mobs
+			REP_AddMob(1106, 4, 8, "Crypt Slayer, Crypt Stalker, Crypt Walker, Crypt Horror", 5, zone.Eastern_Plaguelands) -- MobId: 8558, 8555, 8556, 8557
+			REP_AddMob(1106, 4, 8, "Cursed Mage, Cannibal Ghoul, Scourge Soldier, Overstuffed Golem", 5, zone.Eastern_Plaguelands) -- MobId: 8524, 8530, 8523, 45851
+		end
 		---- Quests
-		REP_AddQuest(1106, 4, 8, 13302, 325)
-		REP_AddQuest(1106, 4, 8, 12587, 455)
-		REP_AddQuest(1106, 4, 8, 12604, 650)
+		REP_AddQuest(1106, 4, 8, 12587, 350) -- Troll Patrol QuestID: 12587
+		REP_AddQuest(1106, 4, 8, 12604, 500) -- Congratulations! QuestID: 12604
+		if (REP_IsAlliance) then
+			REP_AddQuest(1106, 4, 8, 13300, 325) -- Slaves to Saronite QuestID: 13300
+		else
+			REP_AddQuest(1106, 4, 8, 13302, 325) -- Slaves to Saronite QuestID: 13302
+		end
+		if (REP_IsDeathKnight) then
+			---- Quests
+			REP_AddQuest(1106, 4, 8, 13809, 325) -- Threat From Above QuestID: 13809
+			REP_AddQuest(1106, 4, 8, 13810, 325) -- Taking Battle To The Enemy QuestID: 13810
+			REP_AddQuest(1106, 4, 8, 13862, 325) -- Battle Before The Citadel QuestID: 13862
+			REP_AddQuest(1106, 4, 8, 13811, 325) -- Among the Champions QuestID: 13811
+		end
 		---- Items
 		REP_AddItems(1106, 4, 8, 520, {[44711] = 1})
 		if (REP_AfterMoP) then
 			-- Timewalking Commendation
 			REP_AddItems(1106, 1, 8, 500, {[129942] = 1})
 		end
-		---- Spells
-		REP_AddSpell(1106, 1, 8, 5, 1000)
-		REP_AddSpell(1106, 1, 8, 5, 1800)
-		if (REP_IsDeathKnight) then
-			---- Quests
-			REP_AddQuest(1106, 4, 8, 13809, 325)
-			REP_AddQuest(1106, 4, 8, 13810, 325)
-			REP_AddQuest(1106, 4, 8, 13862, 325)
-			REP_AddQuest(1106, 4, 8, 13811, 325)
-		end
+		---- General
+		REP_AddGeneral(1106, 5, 8, "Killing mobs in instances while wearing the Argent Crusade tabard.", 5, "Killing mobs in instances while wearing the Argent Crusade tabard.", "Killing mobs in instances while wearing the Argent Crusade tabard will reward you roughly 5 reputation per kill.")
 
 		---------------------------
 		-- Kirin Tor 1090 --
 		---------------------------
 		---- Quests
-		REP_AddQuest(1090, 4, 8, 99, 250, "nil", REP_LIMIT_TYPE_Cook)
-		REP_AddQuest(1090, 4, 8, 99, 250, "nil", REP_LIMIT_TYPE_Fish)
-		REP_AddQuest(1090, 4, 8, 99, 50, "nil", REP_LIMIT_TYPE_Jewel)
-		REP_AddQuest(1090, 4, 8, 99, 125)
-		REP_AddQuest(1090, 4, 8, 14203, 325)
-		REP_AddQuest(1090, 4, 8, 13845, 325)
+		REP_AddQuest(1090, 4, 8, "Dalaran Jewelcrafting daily", 25, "nil", REP_LIMIT_TYPE_Jewel)
+		REP_AddQuest(1090, 4, 8, "Dalaran Cooking daily", 150, "nil", REP_LIMIT_TYPE_Cook)
+		REP_AddQuest(1090, 4, 8, "Dalaran Fishing daily", 250, "nil", REP_LIMIT_TYPE_Fish)
+		REP_AddQuest(1090, 4, 8, 14203, 250, {[49667] = 1}) -- Waterlogged Recipe QuestID: 14203
+		REP_AddQuest(1090, 4, 8, 13845, 250, {[46005] = 1}) -- Sealed Vial of Poison QuestID: 13845
 		---- Items
 		REP_AddItems(1090, 4, 8, 520, {[43950] = 1})
-		REP_AddSpell(1090, 1, 8, 5, 1000)
-		REP_AddSpell(1090, 1, 8, 5, 1800)
+		---- General
+		REP_AddGeneral(1090, 5, 8, "Killing mobs in instances while wearing the Kirin Tor tabard.", 5, "Killing mobs in instances while wearing the Kirin Tor tabard.", "Killing mobs in instances while wearing the Kirin Tor tabard will reward you roughly 5 reputation per kill.")
 		if (REP_AfterMoP) then
 			-- Timewalking Commendation
 			REP_AddItems(1090, 1, 8, 500, {[129940] = 1})
@@ -1494,16 +1553,23 @@ end
 		REP_AddQuest(1098, 4, 8, 13071, 250) -- Vile Like Fire! QuestID: 13071
 		REP_AddQuest(1098, 4, 8, 13069, 250) -- Shoot 'Em Up QuestID: 13069
 		REP_AddQuest(1098, 4, 8, 13093, 10, {[43089] = 10}) -- Reading the Bones QuestID: 13093
+		if (REP_IsDeathKnight) then
+			if (REP_IsAlliance) then
+				REP_AddQuest(1106, 4, 8, 13793, 325) -- Among the Champions QuestID: 13793
+				REP_AddQuest(1106, 4, 8, 13864, 325) -- Battle Before The Citadel QuestID: 13864
+				REP_AddQuest(1106, 4, 8, 13791, 325) -- Taking Battle To The Enemy QuestID: 13791
+				REP_AddQuest(1106, 4, 8, 13788, 250) -- Threat From Above QuestID: 13788
+			else
+				REP_AddQuest(1106, 4, 8, 13814, 325) -- Among the Champions QuestID: 13814
+				REP_AddQuest(1106, 4, 8, 13863, 325) -- Battle Before The Citadel QuestID: 13863
+				REP_AddQuest(1106, 4, 8, 13813, 325) -- Taking Battle To The Enemy QuestID: 13813
+				REP_AddQuest(1106, 4, 8, 13812, 250) -- Threat From Above QuestID: 13812
+			end
+		end
 		---- Items
 		REP_AddItems(1098, 4, 8, 520, {[44713] = 1})
-		REP_AddSpell(1098, 1, 8, 5, 1000)
-		REP_AddSpell(1098, 1, 8, 5, 1800)
-		if (REP_IsDeathKnight) then
-			REP_AddQuest(1098, 4, 8, 13809, 325)
-			REP_AddQuest(1098, 4, 8, 13810, 325)
-			REP_AddQuest(1098, 4, 8, 13862, 325)
-			REP_AddQuest(1098, 4, 8, 13811, 325)
-		end
+		---- General
+		REP_AddGeneral(1098, 5, 8, "Killing mobs in instances while wearing the Knights of the Ebon Blade tabard.", 5, "Killing mobs in instances while wearing the Knights of the Ebon Blade tabard.", "Killing mobs in instances while wearing the Knights of the Ebon Blade tabard will reward you roughly 5 reputation per kill.")
 		if (REP_AfterMoP) then
 			-- Timewalking Commendation
 			REP_AddItems(1098, 1, 8, 500, {[129941] = 1})
@@ -1552,75 +1618,87 @@ end
 		REP_AddQuest(1091, 4, 8, 12372, 250) -- Defending Wyrmrest Temple QuestID: 12372
 		REP_AddQuest(1091, 4, 8, 13414, 250) -- Aces High! QuestID: 13414
 		REP_AddItems(1091, 4, 8, 520, {[44710] = 1})
-		---- Instances
-		REP_AddInstance(1091, 5, 8, 5, 800, false)
-		REP_AddInstance(1091, 5, 8, 5, 2000, true)
+		---- General
+		REP_AddGeneral(1091, 5, 8, "Killing mobs in instances while wearing The Wyrmrest Accord tabard.", 5, "Killing mobs in instances while wearing The Wyrmrest Accord tabard.", "Killing mobs in instances while wearing The Wyrmrest Accord tabard will reward you roughly 5 reputation per kill.")
 		if (REP_AfterMoP) then
 			-- Timewalking Commendation
 			REP_AddItems(1091, 1, 8, 500, {[129944] = 1})
+		end
+		---- TODO: Double check what this instance rep was.
+		if (REP_IsCata) then
+			---- Instances
+			REP_AddInstance(1091, 5, 8, 5, 800, false)
+			REP_AddInstance(1091, 5, 8, 5, 2000, true)
 		end
 
 		---------------------------
 		-- Frenzyheart Tribe 1104 --
 		---------------------------
 		---- Quests
-		REP_AddQuest(1104, 1, 5, 12582, 51000)
-		REP_AddQuest(1104, 6, 8, 12703, 500)
-		REP_AddQuest(1104, 6, 8, 12759, 500)
-		REP_AddQuest(1104, 6, 8, 12760, 500)
-		REP_AddQuest(1104, 6, 8, 12758, 500)
-		REP_AddQuest(1104, 6, 8, 12702, 500)
-		REP_AddQuest(1104, 6, 8, 12734, 500)
-		REP_AddQuest(1104, 6, 8, 12741, 500)
-		REP_AddQuest(1104, 6, 8, 12732, 500)
+		REP_AddQuest(1104, 1, 5, 12582, 51000) -- Frenzyheart Champion QuestID: 12582
+		REP_AddQuest(1104, 6, 8, 12703, 500) -- Kartak's Rampage QuestID: 12703
+		REP_AddQuest(1104, 6, 8, 12759, 500) -- Tools of War QuestID: 12759
+		REP_AddQuest(1104, 6, 8, 12760, 500) -- Secret Strength of the Frenzyheart QuestID: 12760
+		REP_AddQuest(1104, 6, 8, 12758, 500) -- A Hero's Headgear QuestID: 12758
+		REP_AddQuest(1104, 6, 8, 12702, 500) -- Chicken Party! QuestID: 12702
+		REP_AddQuest(1104, 6, 8, 12734, 500) -- Rejek: First Blood QuestID: 12734
+		REP_AddQuest(1104, 6, 8, 12741, 500) -- Strength of the Tempest QuestID: 12741
+		REP_AddQuest(1104, 6, 8, 12732, 500) -- The Heartblood's Strength QuestID: 12732
 
 		---------------------------
 		-- The Oracles 1105 --
 		---------------------------
 		---- Quests
-		REP_AddQuest(1105, 1, 5, 12689, 23239)
-		REP_AddQuest(1105, 6, 8, 12761, 500)
-		REP_AddQuest(1105, 6, 8, 12705, 500)
-		REP_AddQuest(1105, 6, 8, 12762, 500)
-		REP_AddQuest(1105, 6, 8, 12704, 500)
-		REP_AddQuest(1105, 6, 8, 12735, 500)
-		REP_AddQuest(1105, 6, 8, 12737, 500)
-		REP_AddQuest(1105, 6, 8, 12736, 500)
-		REP_AddQuest(1105, 6, 8, 12726, 500)
+		REP_AddQuest(1105, 1, 5, 12689, 23239) -- Hand of the Oracles QuestID: 12689
+		REP_AddQuest(1105, 6, 8, 12761, 500) -- Mastery of the Crystals QuestID: 12761
+		REP_AddQuest(1105, 6, 8, 12705, 500) -- Will of the Titans QuestID: 12705
+		REP_AddQuest(1105, 6, 8, 12762, 500) -- Power of the Great Ones QuestID: 12762
+		REP_AddQuest(1105, 6, 8, 12704, 500) -- Appeasing the Great Rain Stone QuestID: 12704
+		REP_AddQuest(1105, 6, 8, 12735, 500) -- A Cleansing Song QuestID: 12735
+		REP_AddQuest(1105, 6, 8, 12737, 500) -- Song of Fecundity QuestID: 12737
+		REP_AddQuest(1105, 6, 8, 12736, 500) -- Song of Reflection QuestID: 12736
+		REP_AddQuest(1105, 6, 8, 12726, 500) -- Song of Wind and Water QuestID: 12726
 
 		if (REP_IsAlliance) then
 			---------------------------
 			-- Alliance Vanguard 1037
 			---------------------------
 			---- Quests
-			REP_AddQuest(1037, 4, 8, 11391, 62.5)
-			REP_AddQuest(1037, 4, 8, 12869, 62.5)
-			REP_AddQuest(1037, 4, 8, 13757, 62.5, {[44981] = 1})
-			REP_AddQuest(1037, 4, 8, 13759, 62.5)
-			REP_AddQuest(1037, 4, 8, 13769, 62.5)
-			REP_AddQuest(1037, 4, 8, 13857, 62.5)
-			REP_AddQuest(1037, 4, 8, 13671, 62.5)
-			REP_AddQuest(1037, 4, 8, 13625, 62.5)
-			REP_AddQuest(1037, 4, 8, 13772, 62.5)
-			REP_AddQuest(1037, 4, 8, 13772, 62.5)
-			REP_AddQuest(1037, 4, 8, 11153, 62.5)
-			REP_AddQuest(1037, 4, 8, 13309, 62.5)
-			REP_AddQuest(1037, 4, 8, 13284, 62.5)
-			REP_AddQuest(1037, 4, 8, 13336, 62.5)
-			REP_AddQuest(1037, 4, 8, 13280, 62.5)
-			REP_AddQuest(1037, 4, 8, 12444, 62.5)
-			REP_AddQuest(1037, 4, 8, 12296, 62.5)
-			REP_AddQuest(1037, 4, 8, 12289, 62.5)
-			REP_AddQuest(1037, 4, 8, 12268, 62.5)
-			REP_AddQuest(1037, 4, 8, 12244, 62.5)
+			REP_AddQuest(1037, 4, 8, 11391, 62.5) -- Steel Gate Patrol QuestID: 11391
+			REP_AddQuest(1037, 4, 8, 12869, 62.5) -- Pushed Too Far QuestID: 12869
+			REP_AddQuest(1037, 4, 8, 13671, 62.5) -- Training In The Field QuestID: 13671
+			REP_AddQuest(1037, 4, 8, 13625, 62.5) -- Learning The Reins QuestID: 13625
+			REP_AddQuest(1037, 4, 8, 11153, 62.5) -- Break the Blockade QuestID: 11153
+			REP_AddQuest(1037, 4, 8, 13309, 62.5) -- Assault by Air QuestID: 13309
+			REP_AddQuest(1037, 4, 8, 13284, 62.5) -- Assault by Ground QuestID: 13284
+			REP_AddQuest(1037, 4, 8, 13336, 62.5) -- Blood of the Chosen QuestID: 13336
+			REP_AddQuest(1037, 4, 8, 13280, 62.5) -- King of the Mountain QuestID: 13280
+			REP_AddQuest(1037, 4, 8, 12444, 62.5) -- Blackriver Skirmish QuestID: 12444
+			REP_AddQuest(1037, 4, 8, 12296, 62.5) -- Life or Death QuestID: 12296
+			REP_AddQuest(1037, 4, 8, 12289, 62.5) -- Kick 'Em While They're Down QuestID: 12289
+			REP_AddQuest(1037, 4, 8, 12268, 62.5) -- Pieces Parts QuestID: 12268
+			REP_AddQuest(1037, 4, 8, 12244, 62.5) -- Shredder Repair QuestID: 12244
+			---- TODO: Check all the variants of this daily quest
+			REP_AddQuest(1037, 4, 8, 13666, 62.5) -- A Blade Fit For A Champion QuestID: 13666
+			REP_AddQuest(1037, 4, 8, 33625, 62.5) -- The Edge Of Winter QuestID: 33625
+			REP_AddQuest(1037, 4, 8, 13600, 62.5) -- A Worthy Weapon QuestID: 13600
+			REP_AddQuest(1037, 4, 8, 13847, 62.5) -- At The Enemy's Gates QuestID: 13847
+			REP_AddQuest(1037, 4, 8, 13665, 62.5) -- The Grand Melee QuestID: 13665
 			---- Tournament quests
-			REP_AddQuest(1037, 4, 8, 13809, 125)
-			REP_AddQuest(1037, 4, 8, 13810, 125)
-			REP_AddQuest(1037, 4, 8, 13862, 125)
-			REP_AddQuest(1037, 4, 8, 13811, 125)
+			if (REP_IsDeathKnight) then
+				REP_AddQuest(1037, 4, 8, 13788, 125) -- Threat From Above QuestID: 13788
+				REP_AddQuest(1037, 4, 8, 13791, 125) -- Taking Battle To The Enemy QuestID: 13791
+				REP_AddQuest(1037, 4, 8, 13864, 125) -- Battle Before The Citadel QuestID: 13864
+				REP_AddQuest(1037, 4, 8, 13793, 125) -- Among the Champions QuestID: 13793
+			else
+				REP_AddQuest(1037, 4, 8, 13682, 125) -- Threat From Above QuestID: 13682
+				REP_AddQuest(1037, 4, 8, 13789, 125) -- Taking Battle To The Enemy QuestID: 13789
+				REP_AddQuest(1037, 4, 8, 13861, 125) -- Battle Before The Citadel QuestID: 13861
+				REP_AddQuest(1037, 4, 8, 13790, 125) -- Among the Champions QuestID: 13790
+			end
 			---- Instances
-			REP_AddInstance(1037, 4, 8, 1, 400, false)
-			REP_AddInstance(1037, 4, 8, 1, 800, true)
+			-- REP_AddInstance(1037, 4, 8, 1, 400, false)
+			REP_AddInstance(1037, 4, 8, 1, 3000, true)
 			if (REP_AfterMoP) then
 				-- Timewalking Commendation
 				REP_AddItems(1037, 1, 8, 500, {[129955] = 1})
@@ -1630,162 +1708,198 @@ end
 			-- Explorer's League 1068
 			---------------------------
 			---- Quests
-		  REP_AddQuest(1068, 4, 8, 11391, 125)
-		  REP_AddQuest(1068, 4, 8, 12869, 62.5)
-		  REP_AddQuest(1068, 4, 8, 13757, 62.5, {[44981] = 1})
-		  REP_AddQuest(1068, 4, 8, 13759, 62.5)
-		  REP_AddQuest(1068, 4, 8, 13769, 62.5)
-		  REP_AddQuest(1068, 4, 8, 13857, 62.5)
-		  REP_AddQuest(1068, 4, 8, 13671, 62.5)
-		  REP_AddQuest(1068, 4, 8, 13625, 62.5)
-		  REP_AddQuest(1068, 4, 8, 13772, 62.5)
-		  REP_AddQuest(1068, 4, 8, 13772, 62.5)
-		  REP_AddQuest(1068, 4, 8, 11153, 62.5)
-		  REP_AddQuest(1068, 4, 8, 13309, 62.5)
-		  REP_AddQuest(1068, 4, 8, 13284, 62.5)
-		  REP_AddQuest(1068, 4, 8, 13336, 62.5)
-		  REP_AddQuest(1068, 4, 8, 13280, 62.5)
-		  REP_AddQuest(1068, 4, 8, 12444, 62.5)
-		  REP_AddQuest(1068, 4, 8, 12296, 62.5)
-		  REP_AddQuest(1068, 4, 8, 12289, 62.5)
-		  REP_AddQuest(1068, 4, 8, 12268, 62.5)
-		  REP_AddQuest(1068, 4, 8, 12244, 62.5)
+			REP_AddQuest(1068, 4, 8, 11391, 125) -- Steel Gate Patrol QuestID: 11391
+			REP_AddQuest(1068, 4, 8, 12869, 62.5) -- Pushed Too Far QuestID: 12869
+			REP_AddQuest(1068, 4, 8, 13671, 62.5) -- Training In The Field QuestID: 13671
+			REP_AddQuest(1068, 4, 8, 13625, 62.5) -- Learning The Reins QuestID: 13625
+			REP_AddQuest(1068, 4, 8, 11153, 62.5) -- Break the Blockade QuestID: 11153
+			REP_AddQuest(1068, 4, 8, 13309, 62.5) -- Assault by Air QuestID: 13309
+			REP_AddQuest(1068, 4, 8, 13284, 62.5) -- Assault by Ground QuestID: 13284
+			REP_AddQuest(1068, 4, 8, 13336, 62.5) -- Blood of the Chosen QuestID: 13336
+			REP_AddQuest(1068, 4, 8, 13280, 62.5) -- King of the Mountain QuestID: 13280
+			REP_AddQuest(1068, 4, 8, 12444, 62.5) -- Blackriver Skirmish QuestID: 12444
+			REP_AddQuest(1068, 4, 8, 12296, 62.5) -- Life or Death QuestID: 12296
+			REP_AddQuest(1068, 4, 8, 12289, 62.5) -- Kick 'Em While They're Down QuestID: 12289
+			REP_AddQuest(1068, 4, 8, 12268, 62.5) -- Pieces Parts QuestID: 12268
+			REP_AddQuest(1068, 4, 8, 12244, 62.5) -- Shredder Repair QuestID: 12244
+			---- TODO: Check all the variants of this daily quest
+			REP_AddQuest(1068, 4, 8, 13666, 125) -- A Blade Fit For A Champion QuestID: 13666
+			REP_AddQuest(1068, 4, 8, 33625, 125) -- The Edge Of Winter QuestID: 33625
+			REP_AddQuest(1068, 4, 8, 13600, 125) -- A Worthy Weapon QuestID: 13600
+			REP_AddQuest(1068, 4, 8, 13847, 125) -- At The Enemy's Gates QuestID: 13847
+			REP_AddQuest(1068, 4, 8, 13665, 125) -- The Grand Melee QuestID: 13665
 			---- Tournament quests
-		  REP_AddQuest(1068, 4, 8, 13809, 125)
-		  REP_AddQuest(1068, 4, 8, 13810, 125)
-		  REP_AddQuest(1068, 4, 8, 13862, 125)
-		  REP_AddQuest(1068, 4, 8, 13811, 125)
+			if (REP_IsDeathKnight) then
+				REP_AddQuest(1068, 4, 8, 13788, 125) -- Threat From Above QuestID: 13788
+				REP_AddQuest(1068, 4, 8, 13791, 125) -- Taking Battle To The Enemy QuestID: 13791
+				REP_AddQuest(1068, 4, 8, 13864, 125) -- Battle Before The Citadel QuestID: 13864
+				REP_AddQuest(1068, 4, 8, 13793, 125) -- Among the Champions QuestID: 13793
+			else
+				REP_AddQuest(1068, 4, 8, 13682, 125) -- Threat From Above QuestID: 13682
+				REP_AddQuest(1068, 4, 8, 13789, 125) -- Taking Battle To The Enemy QuestID: 13789
+				REP_AddQuest(1068, 4, 8, 13861, 125) -- Battle Before The Citadel QuestID: 13861
+				REP_AddQuest(1068, 4, 8, 13790, 125) -- Among the Champions QuestID: 13790
+			end
 			---- Instances
-		  REP_AddInstance(1068, 4, 8, 1, 400, false)
-		  REP_AddInstance(1068, 4, 8, 1, 800, true)
+			-- REP_AddInstance(1068, 4, 8, 1, 400, false)
+			REP_AddInstance(1068, 4, 8, 1, 1500, true)
 
 			---------------------------
 			-- The Frostborn 1126
 			---------------------------
 			---- Quests
-		  REP_AddQuest(1126, 4, 8, 12869, 125)
-		  REP_AddQuest(1126, 4, 8, 11391, 62.5)
-		  REP_AddQuest(1126, 4, 8, 13757, 62.5, {[44981] = 1})
-		  REP_AddQuest(1126, 4, 8, 13759, 62.5)
-		  REP_AddQuest(1126, 4, 8, 13769, 62.5)
-		  REP_AddQuest(1126, 4, 8, 13857, 62.5)
-		  REP_AddQuest(1126, 4, 8, 13671, 62.5)
-		  REP_AddQuest(1126, 4, 8, 13625, 62.5)
-		  REP_AddQuest(1126, 4, 8, 13772, 62.5)
-		  REP_AddQuest(1126, 4, 8, 13772, 62.5)
-		  REP_AddQuest(1126, 4, 8, 11153, 62.5)
-		  REP_AddQuest(1126, 4, 8, 13309, 62.5)
-		  REP_AddQuest(1126, 4, 8, 13284, 62.5)
-		  REP_AddQuest(1126, 4, 8, 13336, 62.5)
-		  REP_AddQuest(1126, 4, 8, 13280, 62.5)
-		  REP_AddQuest(1126, 4, 8, 12444, 62.5)
-		  REP_AddQuest(1126, 4, 8, 12296, 62.5)
-		  REP_AddQuest(1126, 4, 8, 12289, 62.5)
-		  REP_AddQuest(1126, 4, 8, 12268, 62.5)
-		  REP_AddQuest(1126, 4, 8, 12244, 62.5)
+			REP_AddQuest(1126, 4, 8, 11391, 62.5) -- Steel Gate Patrol QuestID: 11391
+			REP_AddQuest(1126, 4, 8, 12869, 125) -- Pushed Too Far QuestID: 12869
+			REP_AddQuest(1126, 4, 8, 13671, 62.5) -- Training In The Field QuestID: 13671
+			REP_AddQuest(1126, 4, 8, 13625, 62.5) -- Learning The Reins QuestID: 13625
+			REP_AddQuest(1126, 4, 8, 11153, 62.5) -- Break the Blockade QuestID: 11153
+			REP_AddQuest(1126, 4, 8, 13309, 62.5) -- Assault by Air QuestID: 13309
+			REP_AddQuest(1126, 4, 8, 13284, 62.5) -- Assault by Ground QuestID: 13284
+			REP_AddQuest(1126, 4, 8, 13336, 62.5) -- Blood of the Chosen QuestID: 13336
+			REP_AddQuest(1126, 4, 8, 13280, 62.5) -- King of the Mountain QuestID: 13280
+			REP_AddQuest(1126, 4, 8, 12444, 62.5) -- Blackriver Skirmish QuestID: 12444
+			REP_AddQuest(1126, 4, 8, 12296, 62.5) -- Life or Death QuestID: 12296
+			REP_AddQuest(1126, 4, 8, 12289, 62.5) -- Kick 'Em While They're Down QuestID: 12289
+			REP_AddQuest(1126, 4, 8, 12268, 62.5) -- Pieces Parts QuestID: 12268
+			REP_AddQuest(1126, 4, 8, 12244, 62.5) -- Shredder Repair QuestID: 12244
+			---- TODO: Check all the variants of this daily quest
+			REP_AddQuest(1126, 4, 8, 13666, 62.5) -- A Blade Fit For A Champion QuestID: 13666
+			REP_AddQuest(1126, 4, 8, 33625, 62.5) -- The Edge Of Winter QuestID: 33625
+			REP_AddQuest(1126, 4, 8, 13600, 62.5) -- A Worthy Weapon QuestID: 13600
+			REP_AddQuest(1126, 4, 8, 13847, 62.5) -- At The Enemy's Gates QuestID: 13847
+			REP_AddQuest(1126, 4, 8, 13665, 62.5) -- The Grand Melee QuestID: 13665
 			---- Tournament quests
-		  REP_AddQuest(1126, 4, 8, 13809, 125)
-		  REP_AddQuest(1126, 4, 8, 13810, 125)
-		  REP_AddQuest(1126, 4, 8, 13862, 125)
-		  REP_AddQuest(1126, 4, 8, 13811, 125)
+			if (REP_IsDeathKnight) then
+				REP_AddQuest(1126, 4, 8, 13788, 125) -- Threat From Above QuestID: 13788
+				REP_AddQuest(1126, 4, 8, 13791, 125) -- Taking Battle To The Enemy QuestID: 13791
+				REP_AddQuest(1126, 4, 8, 13864, 125) -- Battle Before The Citadel QuestID: 13864
+				REP_AddQuest(1126, 4, 8, 13793, 125) -- Among the Champions QuestID: 13793
+			else
+				REP_AddQuest(1126, 4, 8, 13682, 125) -- Threat From Above QuestID: 13682
+				REP_AddQuest(1126, 4, 8, 13789, 125) -- Taking Battle To The Enemy QuestID: 13789
+				REP_AddQuest(1126, 4, 8, 13861, 125) -- Battle Before The Citadel QuestID: 13861
+				REP_AddQuest(1126, 4, 8, 13790, 125) -- Among the Champions QuestID: 13790
+			end
 			---- Instances
-		  REP_AddInstance(1126, 4, 8, 1, 400, false)
-		  REP_AddInstance(1126, 4, 8, 1, 800, true)
+		  -- REP_AddInstance(1126, 4, 8, 1, 400, false)
+		  REP_AddInstance(1126, 4, 8, 1, 1500, true)
 
 			---------------------------
 			-- The Silver Covenant 1094
 			---------------------------
 			---- Quests
-		  REP_AddQuest(1094, 4, 8, 13757, 125, {[44981] = 1})
-		  REP_AddQuest(1094, 4, 8, 13759, 125)
-		  REP_AddQuest(1094, 4, 8, 13769, 125)
-		  REP_AddQuest(1094, 4, 8, 13857, 125)
-		  REP_AddQuest(1094, 4, 8, 13671, 125)
-		  REP_AddQuest(1094, 4, 8, 13625, 125)
-		  REP_AddQuest(1094, 4, 8, 13772, 125)
-		  REP_AddQuest(1094, 4, 8, 13772, 125)
-			REP_AddQuest(1094, 4, 8, 11391, 62.5)
-			REP_AddQuest(1094, 4, 8, 12869, 62.5)
-			REP_AddQuest(1094, 4, 8, 11153, 62.5)
-		  REP_AddQuest(1094, 4, 8, 13309, 62.5)
-		  REP_AddQuest(1094, 4, 8, 13284, 62.5)
-		  REP_AddQuest(1094, 4, 8, 13336, 62.5)
-		  REP_AddQuest(1094, 4, 8, 13280, 62.5)
-		  REP_AddQuest(1094, 4, 8, 12444, 62.5)
-		  REP_AddQuest(1094, 4, 8, 12296, 62.5)
-		  REP_AddQuest(1094, 4, 8, 12289, 62.5)
-		  REP_AddQuest(1094, 4, 8, 12268, 62.5)
-		  REP_AddQuest(1094, 4, 8, 12244, 62.5)
+			REP_AddQuest(1094, 4, 8, 11391, 62.5) -- Steel Gate Patrol QuestID:
+			REP_AddQuest(1094, 4, 8, 12869, 62.5) -- Pushed Too Far QuestID: 12869
+			REP_AddQuest(1094, 4, 8, 13759, 62.5) -- The Edge Of Winter QuestID: 13759
+			REP_AddQuest(1094, 4, 8, 13671, 62.5) -- Training In The Field QuestID: 13671
+			REP_AddQuest(1094, 4, 8, 13625, 62.5) -- Learning The Reins QuestID: 13625
+			REP_AddQuest(1094, 4, 8, 11153, 62.5) -- Break the Blockade QuestID: 11153
+			REP_AddQuest(1094, 4, 8, 13309, 62.5) -- Assault by Air QuestID: 13309
+			REP_AddQuest(1094, 4, 8, 13284, 62.5) -- Assault by Ground QuestID: 13284
+			REP_AddQuest(1094, 4, 8, 13336, 62.5) -- Blood of the Chosen QuestID: 13336
+			REP_AddQuest(1094, 4, 8, 13280, 62.5) -- King of the Mountain QuestID: 13280
+			REP_AddQuest(1094, 4, 8, 12444, 62.5) -- Blackriver Skirmish QuestID: 12444
+			REP_AddQuest(1094, 4, 8, 12296, 62.5) -- Life or Death QuestID: 12296
+			REP_AddQuest(1094, 4, 8, 12289, 62.5) -- Kick 'Em While They're Down QuestID: 12289
+			REP_AddQuest(1094, 4, 8, 12268, 62.5) -- Pieces Parts QuestID: 12268
+			REP_AddQuest(1094, 4, 8, 12244, 62.5) -- Shredder Repair QuestID: 12244
+			---- TODO: Check all the variants of this daily quest
+			REP_AddQuest(1094, 4, 8, 13666, 62.5) -- A Blade Fit For A Champion QuestID: 13666
+			REP_AddQuest(1094, 4, 8, 13600, 62.5) -- A Worthy Weapon QuestID: 13600
+			REP_AddQuest(1094, 4, 8, 13847, 62.5) -- At The Enemy's Gates QuestID: 13847
+			REP_AddQuest(1094, 4, 8, 13665, 62.5) -- The Grand Melee QuestID: 13665
 			---- Tournament quests
-		  REP_AddQuest(1094, 4, 8, 13809, 125)
-		  REP_AddQuest(1094, 4, 8, 13810, 125)
-		  REP_AddQuest(1094, 4, 8, 13862, 125)
-		  REP_AddQuest(1094, 4, 8, 13811, 125)
+			if (REP_IsDeathKnight) then
+				REP_AddQuest(1094, 4, 8, 13788, 125) -- Threat From Above QuestID: 13788
+				REP_AddQuest(1094, 4, 8, 13791, 125) -- Taking Battle To The Enemy QuestID: 13791
+				REP_AddQuest(1094, 4, 8, 13864, 125) -- Battle Before The Citadel QuestID: 13864
+				REP_AddQuest(1094, 4, 8, 13793, 125) -- Among the Champions QuestID: 13793
+			else
+				REP_AddQuest(1094, 4, 8, 13682, 125) -- Threat From Above QuestID: 13682
+				REP_AddQuest(1094, 4, 8, 13789, 125) -- Taking Battle To The Enemy QuestID: 13789
+				REP_AddQuest(1094, 4, 8, 13861, 125) -- Battle Before The Citadel QuestID: 13861
+				REP_AddQuest(1094, 4, 8, 13790, 125) -- Among the Champions QuestID: 13790
+			end
 			---- Instances
-		  REP_AddInstance(1094, 4, 8, 1, 400, false)
-		  REP_AddInstance(1094, 4, 8, 1, 800, true)
+		  -- REP_AddInstance(1094, 4, 8, 1, 400, false)
+		  REP_AddInstance(1094, 4, 8, 1, 1500, true)
 
 			---------------------------
 			-- Valiance Expedition 1050
 			---------------------------
 			---- Quests
-		  REP_AddQuest(1050, 4, 8, 11153, 125)
-		  REP_AddQuest(1050, 4, 8, 13309, 125)
-		  REP_AddQuest(1050, 4, 8, 13284, 125)
-		  REP_AddQuest(1050, 4, 8, 13336, 125)
-		  REP_AddQuest(1050, 4, 8, 13280, 125)
-		  REP_AddQuest(1050, 4, 8, 12444, 125)
-		  REP_AddQuest(1050, 4, 8, 12296, 125)
-		  REP_AddQuest(1050, 4, 8, 12289, 125)
-		  REP_AddQuest(1050, 4, 8, 12268, 125)
-		  REP_AddQuest(1050, 4, 8, 12244, 125)
-			REP_AddQuest(1050, 4, 8, 11391, 62.5)
-			REP_AddQuest(1050, 4, 8, 12869, 62.5)
-			REP_AddQuest(1050, 4, 8, 13757, 62.5, {[44981] = 1})
-		  REP_AddQuest(1050, 4, 8, 13759, 62.5)
-		  REP_AddQuest(1050, 4, 8, 13769, 62.5)
-		  REP_AddQuest(1050, 4, 8, 13857, 62.5)
-		  REP_AddQuest(1050, 4, 8, 13671, 62.5)
-		  REP_AddQuest(1050, 4, 8, 13625, 62.5)
-		  REP_AddQuest(1050, 4, 8, 13772, 62.5)
-		  REP_AddQuest(1050, 4, 8, 13772, 62.5)
+			REP_AddQuest(1050, 4, 8, 11391, 62.5) -- Steel Gate Patrol QuestID: 11391
+			REP_AddQuest(1050, 4, 8, 12869, 125) -- Pushed Too Far QuestID: 12869
+			REP_AddQuest(1050, 4, 8, 13671, 62.5) -- Training In The Field QuestID: 13671
+			REP_AddQuest(1050, 4, 8, 13625, 62.5) -- Learning The Reins QuestID: 13625
+			REP_AddQuest(1050, 4, 8, 11153, 62.5) -- Break the Blockade QuestID: 11153
+			REP_AddQuest(1050, 4, 8, 13309, 62.5) -- Assault by Air QuestID: 13309
+			REP_AddQuest(1050, 4, 8, 13284, 62.5) -- Assault by Ground QuestID: 13284
+			REP_AddQuest(1050, 4, 8, 13336, 62.5) -- Blood of the Chosen QuestID: 13336
+			REP_AddQuest(1050, 4, 8, 13280, 62.5) -- King of the Mountain QuestID: 13280
+			REP_AddQuest(1050, 4, 8, 12444, 62.5) -- Blackriver Skirmish QuestID: 12444
+			REP_AddQuest(1050, 4, 8, 12296, 62.5) -- Life or Death QuestID: 12296
+			REP_AddQuest(1050, 4, 8, 12289, 62.5) -- Kick 'Em While They're Down QuestID: 12289
+			REP_AddQuest(1050, 4, 8, 12268, 62.5) -- Pieces Parts QuestID: 12268
+			REP_AddQuest(1050, 4, 8, 12244, 62.5) -- Shredder Repair QuestID: 12244
+			---- TODO: Check all the variants of this daily quest
+			REP_AddQuest(1050, 4, 8, 13666, 62.5) -- A Blade Fit For A Champion QuestID: 13666
+			REP_AddQuest(1050, 4, 8, 33625, 62.5) -- The Edge Of Winter QuestID: 33625
+			REP_AddQuest(1050, 4, 8, 13600, 62.5) -- A Worthy Weapon QuestID: 13600
+			REP_AddQuest(1050, 4, 8, 13847, 62.5) -- At The Enemy's Gates QuestID: 13847
+			REP_AddQuest(1050, 4, 8, 13665, 62.5) -- The Grand Melee QuestID: 13665
 			---- Tournament quests
-		  REP_AddQuest(1050, 4, 8, 13809, 125)
-		  REP_AddQuest(1050, 4, 8, 13810, 125)
-		  REP_AddQuest(1050, 4, 8, 13862, 125)
-		  REP_AddQuest(1050, 4, 8, 13811, 125)
+			if (REP_IsDeathKnight) then
+				REP_AddQuest(1050, 4, 8, 13788, 125) -- Threat From Above QuestID: 13788
+				REP_AddQuest(1050, 4, 8, 13791, 125) -- Taking Battle To The Enemy QuestID: 13791
+				REP_AddQuest(1050, 4, 8, 13864, 125) -- Battle Before The Citadel QuestID: 13864
+				REP_AddQuest(1050, 4, 8, 13793, 125) -- Among the Champions QuestID: 13793
+			else
+				REP_AddQuest(1050, 4, 8, 13682, 125) -- Threat From Above QuestID: 13682
+				REP_AddQuest(1050, 4, 8, 13789, 125) -- Taking Battle To The Enemy QuestID: 13789
+				REP_AddQuest(1050, 4, 8, 13861, 125) -- Battle Before The Citadel QuestID: 13861
+				REP_AddQuest(1050, 4, 8, 13790, 125) -- Among the Champions QuestID: 13790
+			end
 			---- Instances
-		  REP_AddInstance(1050, 4, 8, 1, 400, false)
-		  REP_AddInstance(1050, 4, 8, 1, 800, true)
+		  -- REP_AddInstance(1050, 4, 8, 1, 400, false)
+		  REP_AddInstance(1050, 4, 8, 1, 1500, true)
 		else
 			---------------------------
 			-- Horde Expedition 1052
 			---------------------------
 			---- Quests
-			REP_AddQuest(1052, 4, 8, 12170, 125)
-			REP_AddQuest(1052, 4, 8, 13757, 62.5, {[44981] = 1})
-			REP_AddQuest(1052, 4, 8, 13625, 62.5)
-			REP_AddQuest(1052, 4, 8, 13769, 62.5)
-			REP_AddQuest(1052, 4, 8, 13772, 62.5)
-			REP_AddQuest(1052, 4, 8, 13671, 62.5)
-			REP_AddQuest(1052, 4, 8, 13759, 62.5)
-			REP_AddQuest(1052, 4, 8, 13772, 62.5)
-			REP_AddQuest(1052, 4, 8, 12284, 62.5)
-			REP_AddQuest(1052, 4, 8, 12280, 62.5)
-			REP_AddQuest(1052, 4, 8, 12288, 62.5)
-			REP_AddQuest(1052, 4, 8, 12270, 62.5)
-			REP_AddQuest(1052, 4, 8, 13309, 62.5)
-			REP_AddQuest(1052, 4, 8, 13284, 62.5)
-			REP_AddQuest(1052, 4, 8, 13336, 62.5)
-			REP_AddQuest(1052, 4, 8, 13280, 62.5)
+			REP_AddQuest(1052, 4, 8, 12170, 125) -- Blackriver Brawl QuestID: 12170
+			REP_AddQuest(1052, 4, 8, 13677, 62.5) -- Learning The Reins QuestID: 13677
+			REP_AddQuest(1052, 4, 8, 13676, 62.5) -- Training In The Field QuestID: 13676
+			REP_AddQuest(1052, 4, 8, 12284, 62.5) -- Keep 'Em on Their Heels QuestID: 12284
+			REP_AddQuest(1052, 4, 8, 12280, 62.5) -- Making Repairs QuestID: 12280
+			REP_AddQuest(1052, 4, 8, 12288, 62.5) -- Overwhelmed! QuestID: 12288
+			REP_AddQuest(1052, 4, 8, 12270, 62.5) -- Shred the Alliance QuestID: 12270
+			REP_AddQuest(1052, 4, 8, 13310, 62.5) -- Assault by Air QuestID: 13310
+			REP_AddQuest(1052, 4, 8, 13301, 62.5) -- Assault by Ground QuestID: 13301
+			REP_AddQuest(1052, 4, 8, 13330, 62.5) -- Blood of the Chosen QuestID: 13330
+			REP_AddQuest(1052, 4, 8, 13283, 62.5) -- King of the Mountain QuestID: 13283
+			---- TODO: Check all the variants of this daily quest
+			REP_AddQuest(1052, 4, 8, 13673, 62.5) -- A Blade Fit For A Champion QuestID: 13673
+			REP_AddQuest(1052, 4, 8, 13772, 62.5) -- The Grand Melee QuestID: 13772
+			REP_AddQuest(1052, 4, 8, 13675, 62.5) -- The Edge Of Winter QuestID: 13675
+			REP_AddQuest(1052, 4, 8, 13769, 62.5) -- A Worthy Weapon QuestID: 13769
+			REP_AddQuest(1052, 4, 8, 13856, 62.5) -- At The Enemy's Gates QuestID: 13856
 			---- Tournament quests
-			REP_AddQuest(1052, 4, 8, 13809, 125)
-			REP_AddQuest(1052, 4, 8, 13810, 125)
-			REP_AddQuest(1052, 4, 8, 13862, 125)
-			REP_AddQuest(1052, 4, 8, 13811, 125)
+			if (REP_IsDeathKnight) then
+				REP_AddQuest(1050, 4, 8, 13812, 125) -- Threat From Above QuestID: 13812
+				REP_AddQuest(1050, 4, 8, 13813, 125) -- Taking Battle To The Enemy QuestID: 13813
+				REP_AddQuest(1050, 4, 8, 13863, 125) -- Battle Before The Citadel QuestID: 13863
+				REP_AddQuest(1050, 4, 8, 13814, 125) -- Among the Champions QuestID: 13814
+			else
+				REP_AddQuest(1050, 4, 8, 13809, 125) -- Threat From Above QuestID: 13809
+				REP_AddQuest(1050, 4, 8, 13810, 125) -- Taking Battle To The Enemy QuestID: 13810
+				REP_AddQuest(1050, 4, 8, 13862, 125) -- Battle Before The Citadel QuestID: 13862
+				REP_AddQuest(1050, 4, 8, 13811, 125) -- Among the Champions QuestID: 13811
+			end
 			---- Instances
-			REP_AddInstance(1052, 4, 8, 1, 400, false)
-			REP_AddInstance(1052, 4, 8, 1, 800, true)
+			-- REP_AddInstance(1052, 4, 8, 1, 400, false)
+			REP_AddInstance(1052, 4, 8, 1, 3000, true)
 			if (REP_AfterMoP) then
 				---- Timewalking Commendation
 				REP_AddItems(1052, 1, 8, 500, {[129954] = 1})
@@ -1795,117 +1909,149 @@ end
 			-- The Hand of Vengeance 1067
 			---------------------------
 			---- Quests
-		  REP_AddQuest(1067, 4, 8, 12170, 62.5)
-		  REP_AddQuest(1067, 4, 8, 13757, 62.5, {[44981] = 1})
-		  REP_AddQuest(1067, 4, 8, 13625, 62.5)
-		  REP_AddQuest(1067, 4, 8, 13769, 62.5)
-		  REP_AddQuest(1067, 4, 8, 13772, 62.5)
-		  REP_AddQuest(1067, 4, 8, 13671, 62.5)
-		  REP_AddQuest(1067, 4, 8, 13759, 62.5)
-		  REP_AddQuest(1067, 4, 8, 13772, 62.5)
-		  REP_AddQuest(1067, 4, 8, 12284, 62.5)
-		  REP_AddQuest(1067, 4, 8, 12280, 62.5)
-		  REP_AddQuest(1067, 4, 8, 12288, 62.5)
-		  REP_AddQuest(1067, 4, 8, 12270, 62.5)
-		  REP_AddQuest(1067, 4, 8, 13309, 62.5)
-		  REP_AddQuest(1067, 4, 8, 13284, 62.5)
-		  REP_AddQuest(1067, 4, 8, 13336, 62.5)
-		  REP_AddQuest(1067, 4, 8, 13280, 62.5)
+			REP_AddQuest(1067, 4, 8, 12170, 125) -- Blackriver Brawl QuestID: 12170
+			REP_AddQuest(1067, 4, 8, 13677, 62.5) -- Learning The Reins QuestID: 13677
+			REP_AddQuest(1067, 4, 8, 13676, 62.5) -- Training In The Field QuestID: 13676
+			REP_AddQuest(1067, 4, 8, 12284, 62.5) -- Keep 'Em on Their Heels QuestID: 12284
+			REP_AddQuest(1067, 4, 8, 12280, 62.5) -- Making Repairs QuestID: 12280
+			REP_AddQuest(1067, 4, 8, 12288, 62.5) -- Overwhelmed! QuestID: 12288
+			REP_AddQuest(1067, 4, 8, 12270, 62.5) -- Shred the Alliance QuestID: 12270
+			REP_AddQuest(1067, 4, 8, 13310, 62.5) -- Assault by Air QuestID: 13310
+			REP_AddQuest(1067, 4, 8, 13301, 62.5) -- Assault by Ground QuestID: 13301
+			REP_AddQuest(1067, 4, 8, 13330, 62.5) -- Blood of the Chosen QuestID: 13330
+			REP_AddQuest(1067, 4, 8, 13283, 62.5) -- King of the Mountain QuestID: 13283
+			---- TODO: Check all the variants of this daily quest
+			REP_AddQuest(1067, 4, 8, 13673, 62.5) -- A Blade Fit For A Champion QuestID: 13673
+			REP_AddQuest(1067, 4, 8, 13772, 62.5) -- The Grand Melee QuestID: 13772
+			REP_AddQuest(1067, 4, 8, 13675, 62.5) -- The Edge Of Winter QuestID: 13675
+			REP_AddQuest(1067, 4, 8, 13769, 62.5) -- A Worthy Weapon QuestID: 13769
+			REP_AddQuest(1067, 4, 8, 13856, 62.5) -- At The Enemy's Gates QuestID: 13856
 			---- Tournament quests
-		  REP_AddQuest(1067, 4, 8, 13809, 125)
-		  REP_AddQuest(1067, 4, 8, 13810, 125)
-		  REP_AddQuest(1067, 4, 8, 13862, 125)
-		  REP_AddQuest(1067, 4, 8, 13811, 125)
+			if (REP_IsDeathKnight) then
+				REP_AddQuest(1067, 4, 8, 13812, 125) -- Threat From Above QuestID: 13812
+				REP_AddQuest(1067, 4, 8, 13813, 125) -- Taking Battle To The Enemy QuestID: 13813
+				REP_AddQuest(1067, 4, 8, 13863, 125) -- Battle Before The Citadel QuestID: 13863
+				REP_AddQuest(1067, 4, 8, 13814, 125) -- Among the Champions QuestID: 13814
+			else
+				REP_AddQuest(1067, 4, 8, 13809, 125) -- Threat From Above QuestID: 13809
+				REP_AddQuest(1067, 4, 8, 13810, 125) -- Taking Battle To The Enemy QuestID: 13810
+				REP_AddQuest(1067, 4, 8, 13862, 125) -- Battle Before The Citadel QuestID: 13862
+				REP_AddQuest(1067, 4, 8, 13811, 125) -- Among the Champions QuestID: 13811
+			end
 			---- Instances
-		  REP_AddInstance(1067, 4, 8, 1, 400, false)
-		  REP_AddInstance(1067, 4, 8, 1, 800, true)
+			-- REP_AddInstance(1067, 4, 8, 1, 400, false)
+			REP_AddInstance(1067, 4, 8, 1, 1500, true)
 
 			---------------------------
 			-- The Sunreavers 1124
 			---------------------------
 			---- Quests
-		  REP_AddQuest(1124, 4, 8, 13757, 125, {[44981] = 1})
-		  REP_AddQuest(1124, 4, 8, 13625, 125)
-		  REP_AddQuest(1124, 4, 8, 13769, 125)
-		  REP_AddQuest(1124, 4, 8, 13772, 125)
-		  REP_AddQuest(1124, 4, 8, 13671, 125)
-		  REP_AddQuest(1124, 4, 8, 13759, 125)
-		  REP_AddQuest(1124, 4, 8, 13772, 125)
-			REP_AddQuest(1124, 4, 8, 12170, 62.5)
-			REP_AddQuest(1124, 4, 8, 12284, 62.5)
-		  REP_AddQuest(1124, 4, 8, 12280, 62.5)
-		  REP_AddQuest(1124, 4, 8, 12288, 62.5)
-		  REP_AddQuest(1124, 4, 8, 12270, 62.5)
-		  REP_AddQuest(1124, 4, 8, 13309, 62.5)
-		  REP_AddQuest(1124, 4, 8, 13284, 62.5)
-		  REP_AddQuest(1124, 4, 8, 13336, 62.5)
-		  REP_AddQuest(1124, 4, 8, 13280, 62.5)
+			REP_AddQuest(1124, 4, 8, 12170, 125) -- Blackriver Brawl QuestID: 12170
+			REP_AddQuest(1124, 4, 8, 13677, 62.5) -- Learning The Reins QuestID: 13677
+			REP_AddQuest(1124, 4, 8, 13676, 62.5) -- Training In The Field QuestID: 13676
+			REP_AddQuest(1124, 4, 8, 12284, 62.5) -- Keep 'Em on Their Heels QuestID: 12284
+			REP_AddQuest(1124, 4, 8, 12280, 62.5) -- Making Repairs QuestID: 12280
+			REP_AddQuest(1124, 4, 8, 12288, 62.5) -- Overwhelmed! QuestID: 12288
+			REP_AddQuest(1124, 4, 8, 12270, 62.5) -- Shred the Alliance QuestID: 12270
+			REP_AddQuest(1124, 4, 8, 13310, 62.5) -- Assault by Air QuestID: 13310
+			REP_AddQuest(1124, 4, 8, 13301, 62.5) -- Assault by Ground QuestID: 13301
+			REP_AddQuest(1124, 4, 8, 13330, 62.5) -- Blood of the Chosen QuestID: 13330
+			REP_AddQuest(1124, 4, 8, 13283, 62.5) -- King of the Mountain QuestID: 13283
+			---- TODO: Check all the variants of this daily quest
+			REP_AddQuest(1124, 4, 8, 13673, 62.5) -- A Blade Fit For A Champion QuestID: 13673
+			REP_AddQuest(1124, 4, 8, 13772, 62.5) -- The Grand Melee QuestID: 13772
+			REP_AddQuest(1124, 4, 8, 13675, 62.5) -- The Edge Of Winter QuestID: 13675
+			REP_AddQuest(1124, 4, 8, 13769, 62.5) -- A Worthy Weapon QuestID: 13769
+			REP_AddQuest(1124, 4, 8, 13856, 62.5) -- At The Enemy's Gates QuestID: 13856
 			---- Tournament quests
-		  REP_AddQuest(1124, 4, 8, 13809, 125)
-		  REP_AddQuest(1124, 4, 8, 13810, 125)
-		  REP_AddQuest(1124, 4, 8, 13862, 125)
-		  REP_AddQuest(1124, 4, 8, 13811, 125)
+			if (REP_IsDeathKnight) then
+				REP_AddQuest(1124, 4, 8, 13812, 125) -- Threat From Above QuestID: 13812
+				REP_AddQuest(1124, 4, 8, 13813, 125) -- Taking Battle To The Enemy QuestID: 13813
+				REP_AddQuest(1124, 4, 8, 13863, 125) -- Battle Before The Citadel QuestID: 13863
+				REP_AddQuest(1124, 4, 8, 13814, 125) -- Among the Champions QuestID: 13814
+			else
+				REP_AddQuest(1124, 4, 8, 13809, 125) -- Threat From Above QuestID: 13809
+				REP_AddQuest(1124, 4, 8, 13810, 125) -- Taking Battle To The Enemy QuestID: 13810
+				REP_AddQuest(1124, 4, 8, 13862, 125) -- Battle Before The Citadel QuestID: 13862
+				REP_AddQuest(1124, 4, 8, 13811, 125) -- Among the Champions QuestID: 13811
+			end
 			---- Instances
-		  REP_AddInstance(1124, 4, 8, 1, 400, false)
-		  REP_AddInstance(1124, 4, 8, 1, 800, true)
+			-- REP_AddInstance(1124, 4, 8, 1, 400, false)
+			REP_AddInstance(1124, 4, 8, 1, 1500, true)
 
 			---------------------------
 			-- Warsong Offensive 1085
 			---------------------------
 			---- Quests
-		  REP_AddQuest(1085, 4, 8, 12284, 125)
-		  REP_AddQuest(1085, 4, 8, 12280, 125)
-		  REP_AddQuest(1085, 4, 8, 12288, 125)
-		  REP_AddQuest(1085, 4, 8, 12270, 125)
-		  REP_AddQuest(1085, 4, 8, 13309, 125)
-		  REP_AddQuest(1085, 4, 8, 13284, 125)
-		  REP_AddQuest(1085, 4, 8, 13336, 125)
-		  REP_AddQuest(1085, 4, 8, 13280, 125)
-			REP_AddQuest(1085, 4, 8, 12170, 62.5)
-			REP_AddQuest(1085, 4, 8, 13757, 62.5, {[44981] = 1})
-		  REP_AddQuest(1085, 4, 8, 13625, 62.5)
-		  REP_AddQuest(1085, 4, 8, 13769, 62.5)
-		  REP_AddQuest(1085, 4, 8, 13772, 62.5)
-		  REP_AddQuest(1085, 4, 8, 13671, 62.5)
-		  REP_AddQuest(1085, 4, 8, 13759, 62.5)
-		  REP_AddQuest(1085, 4, 8, 13772, 62.5)
+			REP_AddQuest(1085, 4, 8, 12170, 125) -- Blackriver Brawl QuestID: 12170
+			REP_AddQuest(1085, 4, 8, 13677, 62.5) -- Learning The Reins QuestID: 13677
+			REP_AddQuest(1085, 4, 8, 13676, 62.5) -- Training In The Field QuestID: 13676
+			REP_AddQuest(1085, 4, 8, 12284, 62.5) -- Keep 'Em on Their Heels QuestID: 12284
+			REP_AddQuest(1085, 4, 8, 12280, 62.5) -- Making Repairs QuestID: 12280
+			REP_AddQuest(1085, 4, 8, 12288, 62.5) -- Overwhelmed! QuestID: 12288
+			REP_AddQuest(1085, 4, 8, 12270, 62.5) -- Shred the Alliance QuestID: 12270
+			REP_AddQuest(1085, 4, 8, 13310, 62.5) -- Assault by Air QuestID: 13310
+			REP_AddQuest(1085, 4, 8, 13301, 62.5) -- Assault by Ground QuestID: 13301
+			REP_AddQuest(1085, 4, 8, 13330, 62.5) -- Blood of the Chosen QuestID: 13330
+			REP_AddQuest(1085, 4, 8, 13283, 62.5) -- King of the Mountain QuestID: 13283
+			---- TODO: Check all the variants of this daily quest
+			REP_AddQuest(1085, 4, 8, 13673, 62.5) -- A Blade Fit For A Champion QuestID: 13673
+			REP_AddQuest(1085, 4, 8, 13772, 62.5) -- The Grand Melee QuestID: 13772
+			REP_AddQuest(1085, 4, 8, 13675, 62.5) -- The Edge Of Winter QuestID: 13675
+			REP_AddQuest(1085, 4, 8, 13769, 62.5) -- A Worthy Weapon QuestID: 13769
+			REP_AddQuest(1085, 4, 8, 13856, 62.5) -- At The Enemy's Gates QuestID: 13856
 			---- Tournament quests
-		  REP_AddQuest(1085, 4, 8, 13809, 125)
-		  REP_AddQuest(1085, 4, 8, 13810, 125)
-		  REP_AddQuest(1085, 4, 8, 13862, 125)
-		  REP_AddQuest(1085, 4, 8, 13811, 125)
+			if (REP_IsDeathKnight) then
+				REP_AddQuest(1085, 4, 8, 13812, 125) -- Threat From Above QuestID: 13812
+				REP_AddQuest(1085, 4, 8, 13813, 125) -- Taking Battle To The Enemy QuestID: 13813
+				REP_AddQuest(1085, 4, 8, 13863, 125) -- Battle Before The Citadel QuestID: 13863
+				REP_AddQuest(1085, 4, 8, 13814, 125) -- Among the Champions QuestID: 13814
+			else
+				REP_AddQuest(1085, 4, 8, 13809, 125) -- Threat From Above QuestID: 13809
+				REP_AddQuest(1085, 4, 8, 13810, 125) -- Taking Battle To The Enemy QuestID: 13810
+				REP_AddQuest(1085, 4, 8, 13862, 125) -- Battle Before The Citadel QuestID: 13862
+				REP_AddQuest(1085, 4, 8, 13811, 125) -- Among the Champions QuestID: 13811
+			end
 			---- Instances
-		  REP_AddInstance(1085, 4, 8, 1, 400, false)
-		  REP_AddInstance(1085, 4, 8, 1, 800, true)
+			-- REP_AddInstance(1085, 4, 8, 1, 400, false)
+			REP_AddInstance(1085, 4, 8, 1, 1500, true)
 
 			---------------------------
 			-- The Taunka 1064
 			---------------------------
 			---- Quests
-		  REP_AddQuest(1064, 4, 8, 12170, 62.5)
-		  REP_AddQuest(1064, 4, 8, 13757, 62.5, {[44981] = 1})
-		  REP_AddQuest(1064, 4, 8, 13625, 62.5)
-		  REP_AddQuest(1064, 4, 8, 13769, 62.5)
-		  REP_AddQuest(1064, 4, 8, 13772, 62.5)
-		  REP_AddQuest(1064, 4, 8, 13671, 62.5)
-		  REP_AddQuest(1064, 4, 8, 13759, 62.5)
-		  REP_AddQuest(1064, 4, 8, 13772, 62.5)
-			REP_AddQuest(1064, 4, 8, 12284, 62.5)
-		  REP_AddQuest(1064, 4, 8, 12280, 62.5)
-		  REP_AddQuest(1064, 4, 8, 12288, 62.5)
-		  REP_AddQuest(1064, 4, 8, 12270, 62.5)
-		  REP_AddQuest(1064, 4, 8, 13309, 62.5)
-		  REP_AddQuest(1064, 4, 8, 13284, 62.5)
-		  REP_AddQuest(1064, 4, 8, 13336, 62.5)
-		  REP_AddQuest(1064, 4, 8, 13280, 62.5)
-			---- spillover from tournament
-		  REP_AddQuest(1064, 4, 8, 13809, 125)
-		  REP_AddQuest(1064, 4, 8, 13810, 125)
-		  REP_AddQuest(1064, 4, 8, 13862, 125)
-		  REP_AddQuest(1064, 4, 8, 13811, 125)
-			---- spillover from dungeon
-		  REP_AddInstance(1064, 4, 8, 1, 400, false)
-		  REP_AddInstance(1064, 4, 8, 1, 800, true)
+			REP_AddQuest(1064, 4, 8, 12170, 125) -- Blackriver Brawl QuestID: 12170
+			REP_AddQuest(1064, 4, 8, 13677, 62.5) -- Learning The Reins QuestID: 13677
+			REP_AddQuest(1064, 4, 8, 13676, 62.5) -- Training In The Field QuestID: 13676
+			REP_AddQuest(1064, 4, 8, 12284, 62.5) -- Keep 'Em on Their Heels QuestID: 12284
+			REP_AddQuest(1064, 4, 8, 12280, 62.5) -- Making Repairs QuestID: 12280
+			REP_AddQuest(1064, 4, 8, 12288, 62.5) -- Overwhelmed! QuestID: 12288
+			REP_AddQuest(1064, 4, 8, 12270, 62.5) -- Shred the Alliance QuestID: 12270
+			REP_AddQuest(1064, 4, 8, 13310, 62.5) -- Assault by Air QuestID: 13310
+			REP_AddQuest(1064, 4, 8, 13301, 62.5) -- Assault by Ground QuestID: 13301
+			REP_AddQuest(1064, 4, 8, 13330, 62.5) -- Blood of the Chosen QuestID: 13330
+			REP_AddQuest(1064, 4, 8, 13283, 62.5) -- King of the Mountain QuestID: 13283
+			---- TODO: Check all the variants of this daily quest
+			REP_AddQuest(1064, 4, 8, 13673, 62.5) -- A Blade Fit For A Champion QuestID: 13673
+			REP_AddQuest(1064, 4, 8, 13772, 62.5) -- The Grand Melee QuestID: 13772
+			REP_AddQuest(1064, 4, 8, 13675, 62.5) -- The Edge Of Winter QuestID: 13675
+			REP_AddQuest(1064, 4, 8, 13769, 62.5) -- A Worthy Weapon QuestID: 13769
+			REP_AddQuest(1064, 4, 8, 13856, 62.5) -- At The Enemy's Gates QuestID: 13856
+			---- Tournament quests
+			if (REP_IsDeathKnight) then
+				REP_AddQuest(1064, 4, 8, 13812, 125) -- Threat From Above QuestID: 13812
+				REP_AddQuest(1064, 4, 8, 13813, 125) -- Taking Battle To The Enemy QuestID: 13813
+				REP_AddQuest(1064, 4, 8, 13863, 125) -- Battle Before The Citadel QuestID: 13863
+				REP_AddQuest(1064, 4, 8, 13814, 125) -- Among the Champions QuestID: 13814
+			else
+				REP_AddQuest(1064, 4, 8, 13809, 125) -- Threat From Above QuestID: 13809
+				REP_AddQuest(1064, 4, 8, 13810, 125) -- Taking Battle To The Enemy QuestID: 13810
+				REP_AddQuest(1064, 4, 8, 13862, 125) -- Battle Before The Citadel QuestID: 13862
+				REP_AddQuest(1064, 4, 8, 13811, 125) -- Among the Champions QuestID: 13811
+			end
+			---- Instances
+			-- REP_AddInstance(1064, 4, 8, 1, 400, false)
+			REP_AddInstance(1064, 4, 8, 1, 1500, true)
 		end
 	end
 
@@ -2001,6 +2147,8 @@ end
 			-- Timewalking Commendation
 			REP_AddItems(1158, 1, 8, 500, {[133152] = 1})
 		end
+		---- General
+		REP_AddGeneral(1158, 5, 8, "Killing mobs in instances while wearing the Guardians of Hyjal tabard.", 5, "Killing mobs in instances while wearing the Guardians of Hyjal tabard.", "Killing mobs in instances while wearing the Guardians of Hyjal tabard will reward you roughly 5 reputation per kill.")
 
 		---------------------------
 		-- Ramkahen 1173 --
@@ -2020,6 +2168,8 @@ end
 			-- Timewalking Commendation
 			REP_AddItems(1173, 1, 8, 500, {[133154] = 1})
 		end
+		---- General
+		REP_AddGeneral(1173, 5, 8, "Killing mobs in instances while wearing the Ramkahen tabard.", 5, "Killing mobs in instances while wearing the Ramkahenl tabard.", "Killing mobs in instances while wearing the Ramkahen tabard will reward you roughly 5 reputation per kill.")
 
 		---------------------------
 		-- The Earthen Ring 1135 --
@@ -2036,6 +2186,8 @@ end
 			-- Timewalking Commendation
 			REP_AddItems(1135, 1, 8, 500, {[133159] = 1})
 		end
+		---- General
+		REP_AddGeneral(1135, 5, 8, "Killing mobs in instances while wearing The Earthen Ring tabard.", 5, "Killing mobs in instances while wearing The Earthen Ring tabard.", "Killing mobs in instances while wearing The Earthen Ring tabard will reward you roughly 5 reputation per kill.")
 
 		---------------------------
 		-- Therazane 1171 --
@@ -2063,6 +2215,8 @@ end
 			-- Timewalking Commendation
 			REP_AddItems(1171, 1, 8, 500, {[133160] = 1})
 		end
+		---- General
+		REP_AddGeneral(1171, 5, 8, "Killing mobs in instances while wearing the Therazane tabard.", 5, "Killing mobs in instances while wearing the Therazane tabard.", "Killing mobs in instances while wearing the Therazane tabard will reward you roughly 5 reputation per kill.")
 
 		if (REP_IsAlliance) then
 			---------------------------
@@ -2081,6 +2235,8 @@ end
 			REP_AddMob(1174, 1, 8, 4, 250, 6)
 			-- Timewalking Commendation
 			REP_AddItems(1174, 1, 8, 500, {[133151] = 1})
+			---- General
+			REP_AddGeneral(1174, 5, 8, "Killing mobs in instances while wearing the Wildhammer Clan tabard.", 5, "Killing mobs in instances while wearing the Wildhammer Clan tabard.", "Killing mobs in instances while wearing the Wildhammer Clan tabard will reward you roughly 5 reputation per kill.")
 
 			---------------------------
 			-- Baradin's Wardens 1177
@@ -2137,6 +2293,8 @@ end
 			---- Quests
 			REP_AddQuest(1134,4, 8, 2, 65, "nil", REP_LIMIT_TYPE_Cook)
 			REP_AddQuest(1134,4, 8, 4, 65, "nil", REP_LIMIT_TYPE_Fish)
+			---- General
+			REP_AddGeneral(1134, 5, 8, "Killing mobs in instances while wearing the Gilneas tabard.", 5, "Killing mobs in instances while wearing the Gilneas tabard.", "Killing mobs in instances while wearing the Gilneas tabard will reward you roughly 5 reputation per kill.")
 		else
 			---------------------------
 			-- Bilgewater Cartel 1133
@@ -2144,24 +2302,8 @@ end
 			---- General quests
 			REP_AddQuest(1133, 4, 8, 2, 65, "nil", REP_LIMIT_TYPE_Cook)
 			REP_AddQuest(1133, 4, 8, 4, 65, "nil", REP_LIMIT_TYPE_Fish)
-
-			---------------------------
-			-- Darkspear Trolls 530
-			---------------------------
-			---- Quests
-			REP_AddQuest(530, 4, 8, 2, 65, "nil", REP_LIMIT_TYPE_Cook)
-			REP_AddQuest(530, 4, 8, 4, 65, "nil", REP_LIMIT_TYPE_Fish)
-			REP_AddQuest(530, 4, 8, 7385, 18.75, {[17306] = 5})
-			REP_AddQuest(530, 4, 8, 6801, 2.5, {[17306] = 1})
-			REP_AddQuest(530, 4, 8, 6825, 10, {[17326] = 1})
-			REP_AddQuest(530, 4, 8, 6826, 10, {[17327] = 1})
-			REP_AddQuest(530, 4, 8, 6827, 10, {[17328] = 1})
-			REP_AddQuest(530, 4, 8, 7027, 2.5)
-			REP_AddQuest(530, 4, 8, 7002, 2.5, {[17642] = 1})
-			REP_AddQuest(530, 4, 8, 6741, 2.5, {[17422] = 20})
-			---- Items
-			REP_AddItems(530, 4, 8, 250, {[45720] = 1})
-			REP_AddItems(530, 4, 8, 62.5, {[4] = 1})
+			---- General
+			REP_AddGeneral(1133, 5, 8, "Killing mobs in instances while wearing the Bilgewater Cartel tabard.", 5, "Killing mobs in instances while wearing the Bilgewater Cartel tabard.", "Killing mobs in instances while wearing the Bilgewater Cartel tabard will reward you roughly 5 reputation per kill.")
 
 			---------------------------
 			-- Huojin Pandaren 1352
@@ -2188,6 +2330,8 @@ end
 			  -- Timewalking Commendation
 			  REP_AddItems(1172, 1, 8, 500, {[133150] = 1})
 			end
+			---- General
+			REP_AddGeneral(1172, 5, 8, "Killing mobs in instances while wearing the Dragonmaw Clan tabard.", 5, "Killing mobs in instances while wearing the Dragonmaw Clan tabard.", "Killing mobs in instances while wearing the Dragonmaw Clan tabard will reward you roughly 5 reputation per kill.")
 
 			---------------------------
 			-- Hellscream's Reach 1178
@@ -2411,11 +2555,7 @@ end
 		---------------------------
 		---- Items
 		REP_AddItems(1271, 1, 8, 1000, {[86592] = 1})
-		---- Quests
-		REP_AddQuest(1271, 4, 8, 99, 780)
-		REP_AddQuest(1271, 4, 8, 99, 780)
-		REP_AddQuest(1271, 4, 8, 99, 780)
-		REP_AddQuest(1271, 4, 8, 99, 780)
+		REP_AddItems(1271, 4, 8, 500, {[89155] = 1})
 		---- Quests (Jenova Longeye - Main Quests)
 		REP_AddQuest(1271, 1, 8, 30149, 125)
 		REP_AddQuest(1271, 1, 8, 30147, 125)
@@ -2472,14 +2612,14 @@ end
 		REP_AddMob(1359, 1, 7, "Shao-Tien Marauder", 10)
 		REP_AddMob(1359, 1, 7, "Kor'thik Warcaller", 100)
 		REP_AddMob(1359, 1, 7, "Rare Mobs", 400, "928")
-		---- Quests
-		REP_AddQuest(1359, 1, 8, 5, 1)
+		---- General
+		REP_AddGeneral(1359, 1, 8, "Timeless Isle Celestial World Boss", 500, "Timeless Isle Celestial World Boss", "Complete Timless Isle Celestial world boss once a week")
 
 		---------------------------
 		-- The Lorewalkers 1345 --
 		---------------------------
-		---- Quests
-		REP_AddQuest(1345, 1, 8, 5, 1)
+		---- General
+		REP_AddGeneral(1345, 1, 8, "Scroll Quests", 4100, "Complete all scroll quests", "Complete all the scroll quests collected within Pandaria. Each scroll is tied to an achievement, finishing the achievement will have quest item mailed")
 
 		---------------------------
 		-- The Anglers 1302 --
@@ -3072,9 +3212,9 @@ end
 		---------------------------
 		---- Items
 		REP_AddItems(1711, 1, 8, 1000, {[128315] = 1})
+		REP_AddItems(1711, 1, 8, 350, {[118100] = 1}) -- Highmaul Relic
 		---- Quests
 		REP_AddQuest(1711, 1, 8, 35147, 250, {[118099] = 20})
-		REP_AddQuest(1711, 1, 8, 35125, 350, {[118100] = 1})
 		REP_AddQuest(1711, 1, 8, 37210, 500, {[118654] = 1})
 		REP_AddQuest(1711, 1, 8, 37211, 500, {[118655] = 1})
 		REP_AddQuest(1711, 1, 8, 37221, 500, {[118656] = 1})
@@ -3517,6 +3657,12 @@ end
 		REP_AddGeneral(2417, 1, 8, "Threat objectives 50-75 rep", 50, "Threat Objectives", "Completing threat objectives marked by a skull or crossed swords on the minimap provide 50-75 reputation.")
 		REP_AddGeneral(2417, 1, 8, "Daily Pet Battle World Quest", 75, "Daily Pet Battle", "Complete the daily pet battle world quest to gain reputation with this faction")
 
+		---------------------------
+		-- Chromie 2135 --
+		---------------------------
+		---- General
+		REP_AddGeneral(2135, 1, 8, "Run Chromie Scenarios In Dragonblite", 3000, "Complete Chromie Scenarios", "Complete Chromie time scenarios in Dragonblight")
+
 		if (REP_IsAlliance) then
 			---------------------------
 			-- Proudmoore Admiralty 2160 --
@@ -3634,6 +3780,279 @@ end
 -- Factions released 'after' Battle for Azeroth
 --------------------------------------------------
 	if (REP_AfterBfA) then
+		---------------------------
+		-- The Ascended 2407 --
+		---------------------------
+		---- General
+		REP_AddGeneral(2407, 1, 8, "World Quests", 125, "World Quests", "Complete world quests with this faction to gain reputation")
+		REP_AddGeneral(2407, 1, 8, "A Valuable Find Dungeon Quest", 500, "Complete a Valuable Find Dungeon Quest", "Weekly quest from Ta'lan the Antiquary in Oribos")
+		REP_AddGeneral(2407, 1, 8, "Trading Favors Dungeon Quest", 500, "Complete Trading Favors Dungeon Quest", "Weekly quest from Finder Ta'sul in Oribos")
+		REP_AddGeneral(2407, 1, 8, "Kyrian Assault", 1000, "Complete Bi-Weekly Maw Assault", "Assault in the maw. Only one assault we be active at a time")
+		REP_AddGeneral(2407, 1, 8, "Rare Bastion Calling", 1500, "Complete Rare Bastion Calling", "Calling rewards Blue quality cache")
+		REP_AddGeneral(2407, 1, 8, "Epic Bastion Calling", 2000, "Complete Epic Bastion Calling", "Calling rewards Purple quality cache")
+
+		---------------------------
+		-- The Undying Army 2410 --
+		---------------------------
+		---- General
+		REP_AddGeneral(2410, 1, 8, "World Quests", 125, "World Quests", "Complete world quests with this faction to gain reputation")
+		REP_AddGeneral(2410, 1, 8, "A Valuable Find Dungeon Quest", 500, "Complete a Valuable Find Dungeon Quest", "Weekly quest from Ta'lan the Antiquary in Oribos")
+		REP_AddGeneral(2410, 1, 8, "Trading Favors Dungeon Quest", 500, "Complete Trading Favors Dungeon Quest", "Weekly quest from Finder Ta'sul in Oribos")
+		REP_AddGeneral(2410, 1, 8, "Maldraxxus Assault", 1000, "Complete Bi-Weekly Maw Assault", "Assault in the maw. Only one assault we be active at a time")
+		REP_AddGeneral(2410, 1, 8, "Rare Maldraxxus Calling", 1500, "Complete Rare Maldraxxus Calling", "Calling rewards Blue quality cache")
+		REP_AddGeneral(2410, 1, 8, "Epic Maldraxxus Calling", 2000, "Complete Epic Maldraxxus Calling", "Calling rewards Purple quality cache")
+
+		---------------------------
+		-- Court of Harvesters 2413 --
+		---------------------------
+		---- General
+		REP_AddGeneral(2413, 1, 8, "World Quests", 125, "World Quests", "Complete world quests with this faction to gain reputation")
+		REP_AddGeneral(2413, 1, 8, "A Valuable Find Dungeon Quest", 500, "Complete a Valuable Find Dungeon Quest", "Weekly quest from Ta'lan the Antiquary in Oribos")
+		REP_AddGeneral(2413, 1, 8, "Trading Favors Dungeon Quest", 500, "Complete Trading Favors Dungeon Quest", "Weekly quest from Finder Ta'sul in Oribos")
+		REP_AddGeneral(2413, 1, 8, "Venthyr Assault", 1000, "Complete Bi-Weekly Maw Assault", "Assault in the maw. Only one assault we be active at a time")
+		REP_AddGeneral(2413, 1, 8, "Rare Revendreth Calling", 1500, "Complete Rare Revendreth Calling", "Calling rewards Blue quality cache")
+		REP_AddGeneral(2413, 1, 8, "Epic Revendreth Calling", 2000, "Complete Epic Revendreth Calling", "Calling rewards Purple quality cache")
+
+		---------------------------
+		-- Ve'nari 2432 --
+		---------------------------
+		---- Mobs
+		REP_AddMob(2432, 1, 8, "Adjutant Dekaris", 80, zone.The_Maw)
+		REP_AddMob(2432, 1, 8, "Orophea", 80, zone.The_Maw)
+		REP_AddMob(2432, 1, 8, "Soulforger Rhovus", 80, zone.The_Maw)
+		REP_AddMob(2432, 1, 8, "Conjured Death", 80, zone.The_Maw)
+		REP_AddMob(2432, 1, 8, "Eternas the Tormentor", 80, zone.The_Maw)
+		REP_AddMob(2432, 1, 8, "Obolos <Prime Collector>", 80, zone.The_Maw)
+		REP_AddMob(2432, 1, 8, "Yero the Skittish", 80, zone.The_Maw)
+		REP_AddMob(2432, 1, 8, "Nascent Devourer", 80, zone.The_Maw)
+		REP_AddMob(2432, 1, 8, "Darklord Taraxis", 80, zone.The_Maw)
+		REP_AddMob(2432, 1, 8, "Silent Soulstalker", 80, zone.Korthia)
+		REP_AddMob(2432, 1, 8, "Stygian Stonecrusher", 80, zone.Korthia)
+		REP_AddMob(2432, 1, 8, "Deadsoul Hatcher", 80, zone.Korthia)
+		REP_AddMob(2432, 1, 8, "Screaming Shade", 80, zone.Korthia)
+		REP_AddMob(2432, 1, 8, "Relic Breaker Krelva", 80, zone.Korthia)
+		REP_AddMob(2432, 1, 8, "Consumption", 80, zone.Korthia)
+		REP_AddMob(2432, 1, 8, "Borr-Geth", 100, zone.The_Maw)
+		REP_AddMob(2432, 1, 8, "Ekphoras, Herald of Grief", 100, zone.The_Maw)
+		REP_AddMob(2432, 1, 8, "Apholeias, Herald of Loss", 100, zone.The_Maw)
+		REP_AddMob(2432, 1, 8, "Talaporas, Herald of Pain", 100, zone.The_Maw)
+		REP_AddMob(2432, 1, 8, "Eketra <The Impaler>", 100, zone.The_Maw)
+		REP_AddMob(2432, 1, 8, "Morguliax <Lord of Decapitation>", 100, zone.The_Maw)
+		REP_AddMob(2432, 1, 8, "Ikras the Devourer", 100, zone.The_Maw)
+		REP_AddMob(2432, 1, 8, "Shadeweaver Zeris", 100, zone.The_Maw)
+		REP_AddMob(2432, 1, 8, "Dolos <Death's Knife>", 100, zone.The_Maw)
+		REP_AddMob(2432, 1, 8, "Thanassos <Death's Voice>", 100, zone.The_Maw)
+		REP_AddMob(2432, 1, 8, "Exos, Herald of Dominion ", 100, zone.The_Maw)
+		REP_AddMob(2432, 1, 8, "Darithis the Bleak", 100, zone.The_Maw)
+		REP_AddMob(2432, 1, 8, "Consumption (Rare Elite)", 100, zone.Korthia)
+		REP_AddMob(2432, 1, 8, "Observer Yorik", 100, zone.Korthia)
+		REP_AddMob(2432, 1, 8, "Yarxhov the Pillager", 100, zone.Korthia)
+		REP_AddMob(2432, 1, 8, "Towering Exterminator", 150, zone.Korthia)
+		REP_AddMob(2432, 1, 8, "Soul Fragment", 150, zone.Korthia)
+		---- Quests
+		REP_AddQuest(2432, 1, 8, 63050, 75)
+		REP_AddQuest(2432, 1, 8, 63166, 75)
+		REP_AddQuest(2432, 1, 8, 60732, 75)
+		REP_AddQuest(2432, 1, 8, 63062, 75)
+		REP_AddQuest(2432, 1, 8, 63100, 75)
+		REP_AddQuest(2432, 1, 8, 63039, 75)
+		REP_AddQuest(2432, 1, 8, 63043, 75)
+		REP_AddQuest(2432, 1, 8, 63047, 75)
+		REP_AddQuest(2432, 1, 8, 63179, 75)
+		REP_AddQuest(2432, 1, 8, 63031, 75)
+		REP_AddQuest(2432, 1, 8, 60775, 75)
+		REP_AddQuest(2432, 1, 8, 61088, 75)
+		REP_AddQuest(2432, 1, 8, 60622, 75)
+		REP_AddQuest(2432, 1, 8, 61079, 75)
+		REP_AddQuest(2432, 1, 8, 60646, 75)
+		REP_AddQuest(2432, 1, 8, 60762, 75)
+		REP_AddQuest(2432, 1, 8, 61104, 75)
+		REP_AddQuest(2432, 1, 8, 61103, 75)
+		REP_AddQuest(2432, 1, 8, 61075, 75)
+		REP_AddQuest(2432, 1, 8, 61765, 75)
+		REP_AddQuest(2432, 1, 8, 62234, 75)
+		REP_AddQuest(2432, 1, 8, 62214, 75)
+		REP_AddQuest(2432, 1, 8, 63072, 75)
+		REP_AddQuest(2432, 1, 8, 62239, 75)
+		REP_AddQuest(2432, 1, 8, 63069, 75)
+		REP_AddQuest(2432, 1, 8, 64541, 1000)
+		---- General
+		REP_AddGeneral(2432, 1, 8, "Drifting Sorrow (The Maw)", 40, "Special encounter", "Located at /way 32, 21")
+		REP_AddGeneral(2432, 1, 8, "Razkazzar (The Maw)", 40, "Special encounter")
+		REP_AddGeneral(2432, 1, 8, "Huwerath (The Maw)", 40, "Special encounter")
+		REP_AddGeneral(2432, 1, 8, "Agonix (The Maw)", 40, "Special encounter")
+		REP_AddGeneral(2432, 1, 8, "Akros (The Maw)", 40, "Special encounter")
+		REP_AddGeneral(2432, 1, 8, "Sanngror the Torturer (The Maw)", 40, "Special encounter")
+		REP_AddGeneral(2432, 1, 8, "Skittering Broodmother (The Maw)", 40, "Special encounter")
+		REP_AddGeneral(2432, 1, 8, "Odalrik (The Maw)", 40, "Special encounter")
+		REP_AddGeneral(2432, 1, 8, "Dath Rezara (The Maw)", 40, "Special encounter")
+		REP_AddGeneral(2432, 1, 8, "Dartanos (The Maw)", 40, "Special encounter")
+		REP_AddGeneral(2432, 1, 8, "Orrholyn (The Maw)", 40, "Special encounter")
+		REP_AddGeneral(2432, 1, 8, "Soulsmith Yol-Mattar (The Maw)", 40, "Special encounter")
+		REP_AddGeneral(2432, 1, 8, "Cyrixia (The Maw)", 40, "Special encounter")
+		REP_AddGeneral(2432, 1, 8, "Krala (The Maw)", 40, "Special encounter")
+		REP_AddGeneral(2432, 1, 8, "Malevolent Stygia (The Maw)", 40, "Special encounter")
+		REP_AddGeneral(2432, 1, 8, "Houndmaster Vasanok (The Maw)", 40, "Special encounter")
+		REP_AddGeneral(2432, 1, 8, "Valis the Cruel (The Maw)", 40, "Special encounter")
+		REP_AddGeneral(2432, 1, 8, "Stygian Incinerator (The Maw)", 40, "Special encounter")
+		REP_AddGeneral(2432, 1, 8, "Tormentors of Torghast (The Maw)", 200, "Complete Totementors of Torghast Weekly", "Can only be completed once a week")
+		REP_AddGeneral(2432, 1, 8, "Wrath of the Jailer (The Maw)", 250, "Complete Wrath of the Jailer Weekly", "Can only be completed once a week")
+		REP_AddGeneral(2432, 1, 8, "Beastwarren Hunt Boss (The Maw)", 525, "Complete Beastwarren Event", "Can be completed twice a week, Tuesday 11am EST & Friday 11pm EST")
+
+		---------------------------
+		-- The Avowed 2439 --
+		---------------------------
+		---- Mobs
+		REP_AddMob(2439, 5, 8, "Inquisitor", 50, zone.Revendreth)
+		REP_AddMob(2439, 5, 8, "High Inquisitor", 100, zone.Revendreth)
+		REP_AddMob(2439, 5, 8, "Grand Inquisitor", 200, zone.Revendreth)
+		---- Instances
+		REP_AddInstance(2439, 1, 6, zone.Halls_of_Atonement, 750, false)
+
+		---------------------------
+		-- Stitchmasters 2462 --
+		---------------------------
+		---- Quests
+		REP_AddQuest(2462, 1, 8, 58525, 750)
+		REP_AddQuest(2462, 1, 8, 61511, 750)
+		REP_AddQuest(2462, 1, 8, 57634, 750)
+		REP_AddQuest(2462, 1, 8, 60237, 750)
+		REP_AddQuest(2462, 1, 8, 58432, 750)
+		REP_AddQuest(2462, 1, 8, 60765, 750)
+		REP_AddQuest(2462, 1, 8, 56470, 750)
+		REP_AddQuest(2462, 1, 8, 60291, 750)
+		REP_AddQuest(2462, 1, 8, 60340, 750)
+		REP_AddQuest(2462, 1, 8, 62213, 750)
+		REP_AddQuest(2462, 1, 8, 59043, 750)
+		REP_AddQuest(2462, 1, 8, 62276, 750)
+		REP_AddQuest(2462, 1, 8, 60342, 750)
+		REP_AddQuest(2462, 1, 8, 58992, 750)
+		REP_AddQuest(2462, 1, 8, 62194, 750)
+		REP_AddQuest(2462, 1, 8, 59293, 750)
+		REP_AddQuest(2462, 1, 8, 62407, 750)
+		REP_AddQuest(2462, 1, 8, 61510, 750)
+		REP_AddQuest(2462, 1, 8, 62244, 750)
+		REP_AddQuest(2462, 1, 8, 61522, 750)
+		REP_AddQuest(2462, 1, 8, 61523, 750)
+		REP_AddQuest(2462, 1, 8, 62261, 750)
+		REP_AddQuest(2462, 1, 8, 58515, 750)
+		REP_AddQuest(2462, 1, 8, 62256, 750)
+		REP_AddQuest(2462, 1, 8, 61509, 750)
+		REP_AddQuest(2462, 1, 8, 62217, 750)
+		REP_AddQuest(2462, 1, 8, 62195, 750)
+		REP_AddQuest(2462, 1, 8, 62232, 750)
+		REP_AddQuest(2462, 1, 8, 61996, 750)
+		REP_AddQuest(2462, 1, 8, 62294, 750)
+		REP_AddQuest(2462, 1, 8, 62216, 750)
+		REP_AddQuest(2462, 1, 8, 62041, 750)
+		REP_AddQuest(2462, 1, 8, 59126, 750)
+
+		---------------------------
+		-- Marasmius 2463 --
+		---------------------------
+		---- TODO: Fix Covenant specific reputations
+		--  (Night Fae Only) Will not work until Blizz adds rep to Faction tab
+		-- REP_AddQuest(2463, 1, 8, 62615, 350)
+		-- REP_AddQuest(2463, 1, 8, 62614, 350)
+		-- REP_AddQuest(2463, 1, 8, 62611, 350)
+		-- REP_AddQuest(2463, 1, 8, 62610, 350)
+		-- REP_AddQuest(2463, 1, 8, 62608, 350)
+		-- REP_AddQuest(2463, 1, 8, 62607, 350)
+		-- REP_AddQuest(2463, 1, 8, 62606, 350)
+		-- REP_AddQuest(2463, 1, 8, 60175, 350)
+		-- REP_AddQuest(2463, 1, 8, 57455, 500)
+		-- REP_AddQuest(2463, 1, 8, 57458, 500)
+		-- REP_AddQuest(2463, 1, 8, 57459, 500)
+		-- REP_AddQuest(2463, 1, 8, 57463, 500)
+		-- REP_AddQuest(2463, 1, 8, 57583, 500)
+		-- REP_AddQuest(2463, 1, 8, 60153, 500)
+		-- REP_AddQuest(2463, 1, 8, 62382, 500)
+		-- REP_AddQuest(2463, 1, 8, 62296, 500)
+		-- REP_AddQuest(2463, 1, 8, 62453, 500)
+		-- REP_AddQuest(2463, 1, 8, 60188, 650)
+		-- REP_AddQuest(2463, 1, 8, 62263, 650)
+		-- REP_AddQuest(2463, 1, 8, 62400, 650)
+		-- REP_AddQuest(2463, 1, 8, 62417, 650)
+		-- REP_AddQuest(2463, 1, 8, 62459, 650)
+		-- REP_AddQuest(2463, 1, 8, 62465, 650)
+		-- REP_AddQuest(2463, 1, 8, 62466, 650)
+
+		---------------------------
+		-- Court of Night 2464 --
+		---------------------------
+		---- TODO: Fix Covenant specific reputations
+		---- Quests
+		REP_AddQuest(2464, 1, 8, 62081, 750)
+		REP_AddQuest(2464, 1, 8, 62224, 750)
+		REP_AddQuest(2464, 1, 8, 62188, 750)
+		REP_AddQuest(2464, 1, 8, 62155, 750)
+		REP_AddQuest(2464, 1, 8, 61950, 750)
+		REP_AddQuest(2464, 1, 8, 61875, 750)
+		REP_AddQuest(2464, 1, 8, 61985, 750)
+		REP_AddQuest(2464, 1, 8, 62160, 750)
+		REP_AddQuest(2464, 1, 8, 61968, 750)
+		REP_AddQuest(2464, 1, 8, 62057, 750)
+		REP_AddQuest(2464, 1, 8, 62068, 1000)
+		REP_AddQuest(2464, 1, 8, 61717, 1000)
+		REP_AddQuest(2464, 1, 8, 62051, 1000)
+		REP_AddQuest(2464, 1, 8, 61394, 1000)
+
+		---------------------------
+		-- The Wild Hunt 2465 --
+		---------------------------
+		---- General
+		REP_AddGeneral(2465, 1, 8, "World Quests", 125, "World Quests", "Complete world quests with this faction to gain reputation")
+		REP_AddGeneral(2465, 1, 8, "A Valuable Find Dungeon Quest", 500, "Complete a Valuable Find Dungeon Quest", "Weekly quest from Ta'lan the Antiquary in Oribos")
+		REP_AddGeneral(2465, 1, 8, "Trading Favors Dungeon Quest", 500, "Complete Trading Favors Dungeon Quest", "Weekly quest from Finder Ta'sul in Oribos")
+		REP_AddGeneral(2465, 1, 8, "Night Fae Assault", 1000, "Complete Bi-Weekly Maw Assault", "Assault in the maw. Only one assault we be active at a time")
+		REP_AddGeneral(2465, 1, 8, "Rare Ardenweald Calling", 1500, "Complete Rare Ardenweald Calling", "Calling rewards Blue quality cache")
+		REP_AddGeneral(2465, 1, 8, "Epic Ardenweald Calling", 2000, "Complete Epic Ardenweald Calling", "Calling rewards Purple quality cache")
+
+		---------------------------
+		-- Death's Advance 2470 --
+		---------------------------
+		---- Quests
+		REP_AddQuest(2470, 1, 8, 63949, 750)
+		---- General
+		REP_AddGeneral(2470, 1, 8, "Korthia Dailes", 125, "Complete Korthia Dailies")
+		REP_AddGeneral(2470, 1, 8, "Maw World Quest", 200, "World Quests", "Complete Maw world quests")
+		REP_AddGeneral(2470, 1, 8, "Maw Assault", 350, "Complete Covenant Maw Assault", "Complete assault in the Maw")
+
+		---------------------------
+		-- The Archivists' Codex 2472 --
+		---------------------------
+		---- Items
+		REP_AddItems(2472, 1, 8, 1, {[186685] = 2})
+		REP_AddItems(2472, 1, 8, 4, {[187322] = 1})
+		REP_AddItems(2472, 1, 8, 4, {[187457] = 1})
+		REP_AddItems(2472, 1, 8, 4, {[187324] = 1})
+		REP_AddItems(2472, 1, 8, 4, {[187323] = 1})
+		REP_AddItems(2472, 1, 8, 4, {[187460] = 1})
+		REP_AddItems(2472, 1, 8, 4, {[187458] = 1})
+		REP_AddItems(2472, 1, 8, 4, {[187459] = 1})
+		REP_AddItems(2472, 1, 8, 24, {[187465] = 1})
+		REP_AddItems(2472, 1, 8, 24, {[187327] = 1})
+		REP_AddItems(2472, 1, 8, 24, {[187463] = 1})
+		REP_AddItems(2472, 1, 8, 24, {[187325] = 1})
+		REP_AddItems(2472, 1, 8, 24, {[187326] = 1})
+		REP_AddItems(2472, 1, 8, 24, {[187462] = 1})
+		REP_AddItems(2472, 1, 8, 24, {[187478] = 1})
+		REP_AddItems(2472, 1, 8, 50, {[187336] = 1})
+		REP_AddItems(2472, 1, 8, 50, {[187466] = 1})
+		REP_AddItems(2472, 1, 8, 50, {[187332] = 1})
+		REP_AddItems(2472, 1, 8, 50, {[187328] = 1})
+		REP_AddItems(2472, 1, 8, 50, {[187334] = 1})
+		REP_AddItems(2472, 1, 8, 75, {[187330] = 1})
+		REP_AddItems(2472, 1, 8, 75, {[187329] = 1})
+		REP_AddItems(2472, 1, 8, 75, {[187467] = 1})
+		REP_AddItems(2472, 1, 8, 75, {[187331] = 1})
+		REP_AddItems(2472, 1, 8, 150, {[187311] = 1})
+		REP_AddItems(2472, 1, 8, 150, {[187333] = 1})
+		REP_AddItems(2472, 1, 8, 150, {[187350] = 1})
+		REP_AddItems(2472, 1, 8, 150, {[187335] = 1})
+		---- General
+		REP_AddGeneral(2472, 1, 8, "Cataloged Research", 1, "Cataloged Research", "Vendor Turn in 1 rep per 2 Research")
+
 		if (REP_IsAlliance) then
 			-- Alliance
 		else
@@ -3667,13 +4086,21 @@ end
 	-- Dead factions --
 	--------------------------------------------------
 	---- TODO: Double check where these are used for
+	---------------------------
+	-- The Brewmasters 1351 --
+	---------------------------
+	---- Quests
+	REP_AddQuest(1351, 1, 8, 6, 1)
 
-	-- The Brewmasters 1351
-	-- REP_AddQuest(1351, 1, 8, 6, 1)
-	-- 0 guildName
+	---------------------------
+	-- 0 guildName --
+	---------------------------
 	-- if (guildName and guildCapBase) then
 	--   REP_AddQuest(guildName, 4, 8, 8, 125)
 	-- end
+	---- General
+	REP_AddGeneral(1168, 1, 8, "All non-gray quest turn ins", 125, "Gain reputation by doing this quest", "Complete any non-gray quests")
+	REP_AddGeneral(1168, 1, 8, "With Renown Tabard", 250, "Gain reputation by doing this quest", "Complete any non-gray quests")
 
 	---	local preGC = collectgarbage("count")
 		collectgarbage("collect")

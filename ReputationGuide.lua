@@ -69,7 +69,7 @@ REP_LIMIT_TYPE_Blac = 7
 REP_LIMIT_TYPE_Tail = 8
 REP_LIMIT_TYPE_Leat = 9
 REP_LIMIT_TYPE_Ench = 10
-REP_LIMIT_TYPE_Jewe = 11
+REP_LIMIT_TYPE_Jewel = 11
 REP_LIMIT_TYPE_Incr = 12
 REP_LIMIT_TYPE_Aid = 13
 REP_LIMIT_TYPE_Arch = 14
@@ -2400,7 +2400,7 @@ function REP:BuildUpdateList()
               elseif ((fg_sid_x_d_p == REP_LIMIT_TYPE_Gather) and not (REP_Herb or REP_Skin or REP_Mine)) then
                 -- no gathering profession
                 showQuest = false
-              elseif ((fg_sid_x_d_p == REP_LIMIT_TYPE_Jewe) and not REP_Jewel) then
+              elseif ((fg_sid_x_d_p == REP_LIMIT_TYPE_Jewel) and not REP_Jewel) then
                 -- if list of known professions does not contain jewelcrafting
                 showQuest = false
               elseif ((fg_sid_x_d_p == REP_LIMIT_TYPE_Cook) and not REP_Cook) then
@@ -3727,20 +3727,24 @@ function REP_Friend_Detail(factionID, standingID, factionRow)
       factionStandingtext = friendTextLevel;
       factionRow.friendshipID = friendID;
       isFriend = true;
+
+      return colorIndex, isCappedFriendship, factionStandingtext, isFriend
     else
       factionStandingtext = GetText("FACTION_STANDING_LABEL"..standingID, gender);
       factionRow.friendshipID = nil;
       colorIndex = standingID;
       isFriend = false;
+
+      return colorIndex, isCappedFriendship, factionStandingtext, isFriend
     end
   else
     factionStandingtext = GetText("FACTION_STANDING_LABEL"..standingID, gender);
     factionRow.friendshipID = nil;
     colorIndex = standingID;
     isFriend = false;
-  end
 
-  return colorIndex, isCappedFriendship, factionStandingtext, isFriend
+    return colorIndex, isCappedFriendship, factionStandingtext, isFriend
+  end
 end
 
 -----------------------------------
@@ -4160,7 +4164,7 @@ function REP:SortByStandingWithoutFactionHeader(i, expansionIndex, factionIndex,
 
     -- If exalted show a full green bar
     if(standingID == 8 or isCappedFriendship) then
-      barMin,barMax,barValue = 0,1,1;
+      barMin, barMax, barValue = 0, 1, 1;
     end
 
     -- Set reputation bar to paragon values if user option is activated and faction is at paragon rep
@@ -4196,9 +4200,9 @@ function REP:SortByStandingWithoutFactionHeader(i, expansionIndex, factionIndex,
     factionRow.index = OBS_fi_i;
 
     if (REP_Data.Global.ShowMissing) then
-      if ((barMax-barValue) ~= 0 and factionID and C_Reputation.IsFactionParagon(factionID) and REP_Data.Global.ShowParagonBar) then
+      if ((barMax - barValue) ~= 0 and factionID and C_Reputation.IsFactionParagon(factionID) and REP_Data.Global.ShowParagonBar) then
         factionRow.standingText = "Paragon".." ("..barMax - barValue..")";
-      elseif ((barMax-barValue) ~= 0) then
+      elseif ((barMax - barValue) ~= 0) then
         if(factionStandingtext) then
           factionRow.standingText = factionStandingtext.." ("..barMax - barValue..")";
         else
@@ -4363,7 +4367,7 @@ function REP:OriginalRepOrderWithoutFactionHeader(i, expansionIndex, factionInde
   end
 
   local toExalted = 0
-  if (standingID <8) then
+  if (standingID < 8) then
     toExalted = REP_ToExalted[standingID] + barMax - barValue;
   end
 
@@ -4373,9 +4377,9 @@ function REP:OriginalRepOrderWithoutFactionHeader(i, expansionIndex, factionInde
   end
 
   if (REP_Data.Global.ShowMissing) then
-    if ((barMax-barValue) ~= 0 and factionID and C_Reputation.IsFactionParagon(factionID) and REP_Data.Global.ShowParagonBar) then
+    if ((barMax - barValue) ~= 0 and factionID and C_Reputation.IsFactionParagon(factionID) and REP_Data.Global.ShowParagonBar) then
       factionRow.standingText = "Paragon".." ("..barMax - barValue..")";
-    elseif ((barMax-barValue) ~= 0) then
+    elseif ((barMax - barValue) ~= 0) then
       if factionStandingtext then
         factionRow.standingText = factionStandingtext.." ("..barMax - barValue..")";
       else
@@ -4403,10 +4407,12 @@ function REP:OriginalRepOrderWithoutFactionHeader(i, expansionIndex, factionInde
   REP_ReputationFrame_SetRowType(factionRow, isChild, isHeader, hasRep, expansionIndex);
   factionRow:Show();
 
-  if (colorIndex == nil and standingID) then
-    colorIndex = standingID;
-  else
-    colorIndex = 0;
+  if colorIndex ~= standingID then
+    if ((colorIndex == nil or colorIndex == 0) and standingID) then
+      colorIndex = standingID;
+    else
+      colorIndex = 0;
+    end
   end
 
   factionBar:SetMinMaxValues(0, barMax);
@@ -4423,7 +4429,7 @@ function REP:OriginalRepOrderWithoutFactionHeader(i, expansionIndex, factionInde
     previewValue = REP:GetReadyReputation(factionIndex)
   end
 
-  if ((previewValue > 0) and not ((standingID==8) and (barMax-barValue == 1))) then
+  if ((previewValue > 0) and not ((standingID == 8) and (barMax - barValue == 1))) then
     factionBarPreview:Show()
     factionBarPreview:SetMinMaxValues(0, barMax)
     previewValue = previewValue + barValue
