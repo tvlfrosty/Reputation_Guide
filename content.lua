@@ -2060,6 +2060,16 @@ end
 --------------------------------------------------
 	if(REP_AfterWotlk) then
 		---------------------------
+		-- Guild 1168 --
+		---------------------------
+		-- if (guildName and guildCapBase) then
+		--   REP_AddQuest(guildName, 4, 8, 8, 125)
+		-- end
+		---- General
+		REP_AddGeneral(1168, 1, 8, "All non-gray quest turn ins", 125, "Gain reputation by doing this quest", "Complete any non-gray quests")
+		REP_AddGeneral(1168, 1, 8, "With Renown Tabard", 250, "Gain reputation by doing this quest", "Complete any non-gray quests")
+
+		---------------------------
 		-- Avengers of Hyjal 1204 --
 		---------------------------
 		---- Mobs (TODO: Check if this should be REP_AddInstance)
@@ -3185,6 +3195,12 @@ end
 			  REP_AddItems(1388, 1, 8, 300, {[143939] = 1})
 			end
 		end
+
+		---------------------------
+		-- The Brewmasters 1351 --
+		---------------------------
+		---- Quests
+		REP_AddQuest(1351, 1, 8, 6, 1)
 	end
 
 --------------------------------------------------
@@ -4081,26 +4097,6 @@ end
 			-- Horde
 		end
 	end
-
-	--------------------------------------------------
-	-- Dead factions --
-	--------------------------------------------------
-	---- TODO: Double check where these are used for
-	---------------------------
-	-- The Brewmasters 1351 --
-	---------------------------
-	---- Quests
-	REP_AddQuest(1351, 1, 8, 6, 1)
-
-	---------------------------
-	-- 0 guildName --
-	---------------------------
-	-- if (guildName and guildCapBase) then
-	--   REP_AddQuest(guildName, 4, 8, 8, 125)
-	-- end
-	---- General
-	REP_AddGeneral(1168, 1, 8, "All non-gray quest turn ins", 125, "Gain reputation by doing this quest", "Complete any non-gray quests")
-	REP_AddGeneral(1168, 1, 8, "With Renown Tabard", 250, "Gain reputation by doing this quest", "Complete any non-gray quests")
 
 	---	local preGC = collectgarbage("count")
 		collectgarbage("collect")
