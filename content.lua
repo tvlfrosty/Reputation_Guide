@@ -10,9 +10,51 @@ end
 -- Factions released 'during' Vanilla/Classic
 --------------------------------------------------
 	---------------------------
-	-- Steamwheedle Cartel
+	-- Steamwheedle Cartel 169
 	---------------------------
-	-- Perhaps add future quests for hidden faction: Steamwheedle Cartel?
+	---- Quests
+	-- if (not REP_AfterWotlk) then
+	-- 	if (REP_IsClassic) then
+	-- 		REP_AddQuest(169, 1, 8, "Free Knot!", 150, {[18250] = 1}) -- Free Knot! (Gordok Shackle Key) QuestID: 5525
+	-- 		REP_AddQuest(169, 1, 8, "Refuel for the Zapping", 25, {[18958] = 6}) -- Refuel for the Zapping (Water Elemental Core) QuestID: 7726
+	-- 		REP_AddQuest(169, 1, 8, "Again With the Zapped Giants", 25, {[18956] = 10}) -- Again With the Zapped Giants (Miniaturization Residue) QuestID: 7725
+	-- 		-- REP_AddQuest(169, 1, 8, "The Gordok Ogre Suit", 100, {[18240] = 1, [14048] = 4, [8170] = 8, [14341] = 2}, nill, false) -- The Gordok Ogre Suit QuestID: 5518
+	-- 		REP_AddQuest(169, 1, 8, "The Gordok Ogre Suit", 50, {[18240] = 1, [14048] = 4, [8170] = 8, [14341] = 2}) -- The Gordok Ogre Suit (repeatable) QuestID: 5519
+	-- 	else
+	-- 		REP_AddQuest(169, 1, 8, "Free Knot!", 350, {[18250] = 1}) -- Free Knot! (Gordok Shackle Key) QuestID: 5525
+	-- 		REP_AddQuest(169, 1, 8, "Refuel for the Zapping", 25, {[18958] = 6}) -- Refuel for the Zapping (Water Elemental Core) QuestID: 7726
+	-- 		REP_AddQuest(169, 1, 8, "Again With the Zapped Giants", 25, {[18956] = 10}) -- Again With the Zapped Giants (Miniaturization Residue) QuestID: 7725
+	-- 		-- REP_AddQuest(169, 1, 8, "The Gordok Ogre Suit", 250, {[18240] = 1, [14048] = 4, [8170] = 8, [14341] = 2}, nill, false) -- The Gordok Ogre Suit QuestID: 5518
+	-- 		REP_AddQuest(169, 1, 8, "The Gordok Ogre Suit", 75, {[18240] = 1, [14048] = 4, [8170] = 8, [14341] = 2}) -- The Gordok Ogre Suit (repeatable) QuestID: 5519
+	-- 	end
+	-- 	---- Mobs
+	-- 	REP_AddMob(169, 1, 7, "Wastewander Shadow Mage", 2.5, zone.Tanaris)
+	-- 	REP_AddMob(169, 1, 7, "Wastewander Assassin", 2.5, zone.Tanaris)
+	-- 	REP_AddMob(169, 1, 7, "Wastewander Rogue", 2.5, zone.Tanaris)
+	-- 	REP_AddMob(169, 1, 7, "Wastewander Thief", 2.5, zone.Tanaris)
+	-- 	REP_AddMob(169, 1, 7, "Wastewander Bandit", 2.5, zone.Tanaris)
+	-- 	REP_AddMob(169, 1, 7, "Southsea Freebooter", 2.5, zone.Tanaris)
+	-- 	REP_AddMob(169, 1, 7, "Southsea Pirate", 2.5, zone.Tanaris)
+	-- 	REP_AddMob(169, 1, 7, "Southsea Dock Worker", 2.5, zone.Tanaris)
+	-- 	REP_AddMob(169, 1, 7, "Southsea Swashbuckler", 2.5, zone.Tanaris)
+	-- 	REP_AddMob(169, 1, 7, "Andre Firebeard", 13, zone.Tanaris)
+	-- 	REP_AddMob(169, 1, 7, "Southsea Brigand", 2.5, zone.The_Barrens)
+	-- 	REP_AddMob(169, 1, 7, "Southsea Cannoneer", 2.5, zone.The_Barrens)
+	-- 	REP_AddMob(169, 1, 7, "Southsea Cutthroat", 2.5, zone.The_Barrens)
+	-- 	REP_AddMob(169, 1, 7, "Southsea Privateer", 2.5, zone.The_Barrens)
+	-- 	REP_AddMob(169, 1, 7, "Baron Longshore", 12.5, zone.The_Barrens)
+	-- else
+	-- 	---- Mobs
+	-- 	REP_AddMob(169, 1, 7, 11, 5, zone.The_Cape_of_Stranglethorn)
+	-- 	REP_AddMob(169, 1, 7, 12, 2.5, zone.The_Cape_of_Stranglethorn)
+	-- 	REP_AddMob(169, 1, 7, 13, 2.5, zone.The_Cape_of_Stranglethorn)
+	-- 	REP_AddMob(169, 1, 7, 14, 5, zone.Northern_Stranglethorn)
+	-- 	REP_AddMob(169, 1, 7, 15, 12.5, zone.Northern_Stranglethorn)
+	-- 	REP_AddMob(169, 1, 7, 15, 7.5, zone.Northern_Stranglethorn)
+	-- 	REP_AddMob(169, 1, 7, 17, 7.5, zone.The_Cape_of_Stranglethorn)
+	-- 	REP_AddMob(169, 1, 7, "Cap'n Garvey & Alicia Cuthbert", 5, "17")
+	-- end
+
 	---------------------------
 	-- Booty Bay 21
 	---------------------------
@@ -226,9 +268,6 @@ end
 	else
 		REP_AddQuest(87, 5, 8, "Avast Ye, Admiral!", 500, nil, nil, false) -- QuestID: 4621 ("Avast Ye, Admiral!")
 	end
-	if (REP_AfterTBC) then
-		REP_AddMob(87, 1, 8, "High Admiral 'Shelly' Jorrik", 5, zone.Dun_Morogh) -- Double check rep cutoff after wotlk classic
-	end
 	if (not REP_AfterWotlk) then
 		---- Mobs
 		REP_AddMob(87, 1, 6, "Booty Bay innkeepers/traders/bankers/auctioneers", 5, zone.Stranglethorn_Vale)
@@ -242,12 +281,15 @@ end
 		REP_AddMob(87, 1, 6, "Blackwater Deckhand", 5, zone.Arathi_Highlands)
 		REP_AddMob(87, 1, 6, "Deckhand Moishe", 5, zone.Arathi_Highlands)
 		REP_AddMob(87, 1, 7, "Jazzrik", 5, zone.Badlands)
+		if (REP_AfterTBC) then
+			REP_AddMob(87, 1, 8, "High Admiral 'Shelly' Jorrik", 5, zone.Dun_Morogh) -- Double check rep cutoff after wotlk classic
+		end
 	else
 		---- Mobs
 		REP_AddMob(87, 1, 7, "Booty Bay Bruiser & Elite", 25, zone.The_Cape_of_Stranglethorn)
 		REP_AddMob(87, 1, 7, "Some Booty Bay Named", 5, zone.The_Cape_of_Stranglethorn)
 		REP_AddMob(87, 1, 7, "Most Booty Bay Named", 1, zone.The_Cape_of_Stranglethorn)
-		REP_AddMob(87, 1, 7, "Most Faldir's Cove Named", 5)
+		REP_AddMob(87, 1, 7, "Most Faldir's Cove Named", 5, zone.Arathi_Highlands)
 		REP_AddMob(87, 1, 7, "Baron Revilgaz, Grizzlowe, & Wharfmaster Lozgil", 25, zone.The_Cape_of_Stranglethorn)
 		REP_AddMob(87, 1, 7, "Viznik & Rickle Goldgrubber (bankers)", 25, zone.The_Cape_of_Stranglethorn)
 	end
@@ -257,19 +299,19 @@ end
 	---------------------------
 	if (not REP_AfterWotlk) then
 		---- Quests
-		REP_AddQuest(529, 4, 8, "Minion's Scourgestones", 25, {[12840] = 20})
-		REP_AddQuest(529, 4, 8, "Invader's Scourgestones", 25, {[12841] = 10})
-		REP_AddQuest(529, 4, 8, "Corruptor's Scourgestone", 25, {[12843] = 1})
-		REP_AddQuest(529, 4, 8, 9132, 10, {[22528] = 30})
-		REP_AddQuest(529, 4, 8, 9127, 10, {[22526] = 30})
-		REP_AddQuest(529, 4, 8, 9129, 10, {[22527] = 30})
-		REP_AddQuest(529, 4, 8, 9125, 10, {[22524] = 30})
+		REP_AddQuest(529, 4, 8, "Minion's Scourgestones", 25, {[12840] = 20}) -- Minion's Scourgestones QuestID: 5510
+		REP_AddQuest(529, 4, 8, "Invader's Scourgestones", 25, {[12841] = 10}) -- Invader's Scourgestones QuestID: 5509
+		REP_AddQuest(529, 4, 8, "Corruptor's Scourgestone", 25, {[12843] = 1}) -- Corruptor's Scourgestone QuestID: 5508
+		REP_AddQuest(529, 4, 8, 9132, 10, {[22528] = 30}) -- Dark Iron Scraps QuestID: 9132
+		REP_AddQuest(529, 4, 8, 9127, 10, {[22526] = 30}) -- Bone Fragments QuestID: 9127
+		REP_AddQuest(529, 4, 8, 9129, 10, {[22527] = 30}) -- Core of Elements QuestID: 9129
+		REP_AddQuest(529, 4, 8, 9125, 10, {[22524] = 30}) -- Crypt Fiend Parts QuestID: 9125
 		REP_AddQuest(529, 4, 8, "Gahrron's Withering Cauldron", 25, {[13320] = 1, [13354] = 4, [14047] = 4}) -- Gahrron's Withering Cauldron QuestID: 5227
 		REP_AddQuest(529, 4, 8, "Dalson's Tears Cauldron", 25, {[13320] = 1, [13356] = 5, [14047] = 4}) -- Dalson's Tears Cauldron QuestID: 5221
 		REP_AddQuest(529, 4, 8, "Felstone Field Cauldron", 25, {[13320] = 1, [13357] = 6, [14047] = 4}) -- Felstone Field Cauldron QuestID: 5218
 		REP_AddQuest(529, 4, 8, "Writhing Haunt Cauldron", 25, {[13320] = 1, [13356] = 5, [14047] = 4}) -- Writhing Haunt Cauldron QuestID: 5224
 		---- Items
-		REP_AddItems(529, 4, 8, 25, {[12844] = 1})
+		REP_AddItems(529, 4, 8, 25, {[12844] = 1}) -- Argent Dawn Valor Token
 		---- Mobs
 		REP_AddMob(529, 4, 5, "Non-Elites in Plaguelands", 5)
 		REP_AddMob(529, 4, 6, "Elites and Shadowmages Plaguelands", 5)
@@ -281,18 +323,13 @@ end
 		end
 		REP_AddMob(529, 4, 8, "Bosses in Stratholme and Scholomance", 25)
 	else
-		---- General
-	  REP_AddGeneral(529, 3, 3, "Fiona's Caravan Quests", 24000, "Fiona's Caravan Quests", "Fiona's Caravan Quests until '[42] Argent Call: The Trial of the Crypt will give enough reputation to reach Revered reputation.", nil, 0)
-	  REP_AddGeneral(529, 4, 4, "Fiona's Caravan Quests", 21000, "Fiona's Caravan Quests", "Fiona's Caravan Quests until '[42] Argent Call: The Trial of the Crypt will give enough reputation to reach Revered reputation.", nil, 0)
-	  REP_AddGeneral(529, 5, 5, "Fiona's Caravan Quests", 18000, "Fiona's Caravan Quests", "Fiona's Caravan Quests until '[42] Argent Call: The Trial of the Crypt will give enough reputation to reach Revered reputation.", nil, 0)
-	  REP_AddGeneral(529, 6, 6, "Fiona's Caravan Quests", 12000, "Fiona's Caravan Quests", "Fiona's Caravan Quests until '[42] Argent Call: The Trial of the Crypt will give enough reputation to reach Revered reputation.", nil, 0)
 		---- Quests
-	  REP_AddQuest(529, 7, 8, "Aberrations of Bone", 1000) -- QuestID: 28756
-
+	  REP_AddQuest(529, 7, 8, "Aberrations of Bone", 1000) -- Aberrations of Bone QuestID: 28756
 		if (REP_AfterLegion) then
-			---- Quests
-			REP_AddQuest(529, 7, 8, "Annals of the Silver Hand", 2000) -- QuestID: 28755
+			REP_AddQuest(529, 7, 8, "Annals of the Silver Hand", 2000) -- Annals of the Silver Hand QuestID: 28755
 		end
+		---- General
+	  REP_AddGeneral(529, 3, 7, "Fiona's Caravan Quests", 24000, "Fiona's Caravan Quests", "Fiona's Caravan Quests until '[42] Argent Call: The Trial of the Crypt will give enough reputation to reach Revered reputation.")
 	end
 
 	---------------------------
@@ -494,38 +531,54 @@ end
 	---------------------------
 	-- Timbermaw Hold 576 --
 	---------------------------
-	if (not REP_AfterWotlk) then
+	if(REP_IsClassic) then
 		---- Quests
-		if(REP_IsClassic) then
-			REP_AddQuest(576, 2, 8, 8467, 50, {[21377] = 5})
-			REP_AddQuest(576, 2, 8, 8466, 50, {[21377] = 5})
-			REP_AddQuest(576, 2, 8, 8469, 50, {[21383] = 5})
-		else
-			REP_AddQuest(576, 2, 8, 8467, 75, {[21377] = 5})
-			REP_AddQuest(576, 2, 8, 8466, 75, {[21377] = 5})
-			REP_AddQuest(576, 2, 8, 8469, 75, {[21383] = 5})
-		end
+		REP_AddQuest(576, 2, 8, 8467, 50, {[21377] = 5})
+		REP_AddQuest(576, 2, 8, 8466, 50, {[21377] = 5})
+		REP_AddQuest(576, 2, 8, 8469, 50, {[21383] = 5})
 		---- Mobs
 		REP_AddMob(576, 2, 6, "Deadwood Avenger, Den Watcher, Shaman, Gardener, Pathfinder & Warrior", 5, zone.Felwood)
 		REP_AddMob(576, 2, 6, "Winterfell Runner, Den Watcher, Shaman, Pathfinder, Totemic,  & Ursa", 5, zone.Winterspring)
 		REP_AddMob(576, 2, 8, "Chieftain Bloodmaw", 15, zone.Felwood)
 		REP_AddMob(576, 2, 8, "Overlord Ror", 15, zone.Felwood)
 		REP_AddMob(576, 2, 8, "Ragepaw (Rare)", 50, zone.Felwood)
+		REP_AddMob(576, 2, 8, "High Chief Winterfall", 20, zone.Winterspring)
 		REP_AddMob(576, 2, 8, "Grizzle Snowpaw (Rare)", 50, zone.Winterspring)
-		REP_AddMob(576, 2, 8, "High Chief Winterfall", 50, zone.Winterspring)
 	else
-		---- Quests
-		REP_AddQuest(576, 2, 8, 28395, 2000, {[21377] = 5})
-		REP_AddQuest(576, 2, 8, 28396, 2000, {[21377] = 5})
-		REP_AddQuest(576, 2, 8, 28523, 2000, {[21383] = 5})
-		---- Mobs
-		REP_AddMob(576, 2, 6, "Deadwood Avenger, Den Watcher, Shaman, Gardener, Pathfinder & Warrior", 20, zone.Felwood)
-		REP_AddMob(576, 2, 6, "Winterfell Runner, Den Watcher, Shaman, Pathfinder, Totemic,  & Ursa", 20, zone.Winterspring)
-		REP_AddMob(576, 2, 8, "Chieftain Bloodmaw", 60, zone.Felwood)
-		REP_AddMob(576, 2, 8, "Overlord Ror", 60, zone.Felwood)
-		REP_AddMob(576, 2, 8, "Ragepaw (Rare)", 50, zone.Felwood)
-		REP_AddMob(576, 2, 8, "Grizzle Snowpaw (Rare)", 50, zone.Winterspring)
-		REP_AddMob(576, 2, 8, "High Chief Winterfall", 50, zone.Winterspring)
+		if (REP_IsTBC) then
+			---- Quests
+			REP_AddQuest(576, 2, 8, 8467, 75, {[21377] = 5})
+			REP_AddQuest(576, 2, 8, 8466, 75, {[21377] = 5})
+			REP_AddQuest(576, 2, 8, 8469, 75, {[21383] = 5})
+			---- Mobs
+			REP_AddMob(576, 2, 6, "Deadwood Avenger, Den Watcher, Shaman, Gardener, Pathfinder & Warrior", 10, zone.Felwood)
+			REP_AddMob(576, 2, 6, "Winterfell Runner, Den Watcher, Shaman, Pathfinder, Totemic,  & Ursa", 10, zone.Winterspring)
+			REP_AddMob(576, 2, 8, "Chieftain Bloodmaw", 30, zone.Felwood)
+			REP_AddMob(576, 2, 8, "Overlord Ror", 30, zone.Felwood)
+			REP_AddMob(576, 2, 8, "Ragepaw (Rare)", 50, zone.Felwood)
+			REP_AddMob(576, 2, 8, "High Chief Winterfall", 20, zone.Winterspring)
+			REP_AddMob(576, 2, 8, "Grizzle Snowpaw (Rare)", 50, zone.Winterspring)
+		else
+			if (not REP_AfterWotlk) then
+				---- Quests
+				REP_AddQuest(576, 2, 8, 8467, 300, {[21377] = 5})
+				REP_AddQuest(576, 2, 8, 8466, 300, {[21377] = 5})
+				REP_AddQuest(576, 2, 8, 8469, 300, {[21383] = 5})
+			else
+				---- Quests
+				REP_AddQuest(576, 2, 8, 28395, 2000, {[21377] = 5})
+				REP_AddQuest(576, 2, 8, 28396, 2000, {[21377] = 5})
+				REP_AddQuest(576, 2, 8, 28523, 2000, {[21383] = 5})
+			end
+			---- Mobs
+			REP_AddMob(576, 2, 6, "Deadwood Avenger, Den Watcher, Shaman, Gardener, Pathfinder & Warrior", 20, zone.Felwood)
+			REP_AddMob(576, 2, 6, "Winterfell Runner, Den Watcher, Shaman, Pathfinder, Totemic,  & Ursa", 20, zone.Winterspring)
+			REP_AddMob(576, 2, 8, "Chieftain Bloodmaw", 60, zone.Felwood)
+			REP_AddMob(576, 2, 8, "Overlord Ror", 60, zone.Felwood)
+			REP_AddMob(576, 2, 8, "Ragepaw (Rare)", 100, zone.Felwood)
+			REP_AddMob(576, 2, 8, "High Chief Winterfall", 40, zone.Winterspring)
+			REP_AddMob(576, 2, 8, "Grizzle Snowpaw (Rare)", 100, zone.Winterspring)
+		end
 	end
 
 	---------------------------
@@ -548,6 +601,12 @@ end
 	---- Quests
 	REP_AddQuest(910, 1, 8, "Mortal Champions", 500, {[21229] = 1}) -- Qiraji Lord's Insignia QuestID: 8579
 	REP_AddQuest(910, 1, 8, "Secrets of the Qiraji", 1000, {[21230] = 1}) -- Ancient Qiraji Artifact
+	---- Instances
+	----  TODO: Fix with REP_AddInstance
+	-- REP_AddInstance(609, 1, 4, zone.Ruins_of_AhnQiraj, 1200)
+	-- REP_AddInstance(609, 1, 4, zone.AhnQiraj_The_Fallen_Kingdom, 19000)
+	-- REP_AddInstance(609, 5, 8, zone.Ruins_of_AhnQiraj, 1200)
+	-- REP_AddInstance(609, 5, 8, zone.AhnQiraj_The_Fallen_Kingdom, 3000)
 
 	---------------------------
 	-- Cenarion Circle 609 --
@@ -565,8 +624,8 @@ end
 	---- Mobs
 	REP_AddMob(609, 4, 5, "Any Twilight's Hammer mobs", 10)
 	---- Instances
-	REP_AddInstance(609, 4, 8, zone.Ruins_of_AhnQiraj, 1200)
-	REP_AddInstance(609, 4, 8, zone.AhnQiraj_The_Fallen_Kingdom, nil)
+	REP_AddInstance(609, 4, 8, zone.Ruins_of_AhnQiraj, 3000)
+	REP_AddInstance(609, 4, 8, zone.AhnQiraj_The_Fallen_Kingdom, 1200)
 
 	---------------------------
 	-- Hydraxian Waterlords 749 --
@@ -631,7 +690,7 @@ end
 	---------------------------
 	if (REP_AfterWotlk) then
 		---- Quests (1 quest rewards exalted with both)
-		REP_AddQuest(93, 1, 8, 14394, 10000000) -- Death to Agogridon QuestID: 14394
+		REP_AddQuest(93, 1, 8, 14394, 100000) -- Death to Agogridon QuestID: 14394
 	else
 		---- Mobs
 		REP_AddMob(93, 1, 5, "Khan Shaka", 25)
@@ -650,7 +709,7 @@ end
 	---------------------------
 	if (REP_AfterWotlk) then
 		---- Quests (1 quest rewards exalted with both)
-		REP_AddQuest(92, 1, 8, 14394, 10000000) -- Death to Agogridon QuestID: 14394
+		REP_AddQuest(92, 1, 8, 14394, 100000) -- Death to Agogridon QuestID: 14394
 	else
 		---- Mobs
 		REP_AddMob(92, 1, 4, "Warug's Bodyguard", 5)
@@ -671,6 +730,90 @@ end
 		-- Alliance --
 		---------------------------
 		-- Perhaps add future quests for hidden faction: Alliance such as Lunar festival quests?
+		-- Arp the Elder,
+		-- Beldak the Elder,
+		-- Bellowrage the Elder,
+		-- Bladeleaf the Elder,
+		-- Bladesing the Elder,
+		-- Bladeswift the Elder,
+		-- Bloodhoof the Elder,
+		-- Bluewolf the Elder,
+		-- Brightspear the Elder,
+		-- Bronzebeard the Elder,
+		-- Chogan'gada the Elder,
+		-- Darkcore the Elder,
+		-- Darkfeather the Elder,
+		-- Darkhorn the Elder,
+		-- Dawnstrider the Elder,
+		-- Deepforge the Elder,
+		-- Dreamseer the Elder,
+		-- Evershade the Elder,
+		-- Fargal the Elder,
+		-- Farwhisper the Elder,
+		-- Firebeard the Elder,
+		-- Goldwell the Elder,
+		-- Graveborn the Elder,
+		-- Graymane the Elder,
+		-- Grimtotem the Elder,
+		-- Hammershout the Elder,
+		-- High Mountain the Elder,
+		-- Highpeak the Elder,
+		-- Igasho the Elder,
+		-- Ironband the Elder,
+		-- Jarten the Elder,
+		-- Kilias the Elder,
+		-- Lunaro the Elder,
+		-- Meadowrun the Elder,
+		-- Menkhaf the Elder,
+		-- Mistwalker the Elder,
+		-- Moonlance the Elder,
+		-- Moonstrike the Elder,
+		-- Moonwarden the Elder,
+		-- Morndeep the Elder,
+		-- Morningdew the Elder,
+		-- Morthie the Elder,
+		-- Muraco the Elder,
+		-- Nightwind the Elder,
+		-- Northal the Elder,
+		-- Nurgen the Elder,
+		-- Obsidian the Elder,
+		-- Ohanzee the Elder,
+		-- Pamuya the Elder,
+		-- Primestone the Elder,
+		-- Ragetotem the Elder,
+		-- Riversong the Elder,
+		-- Rumblerock the Elder,
+		-- Runetotem the Elder,
+		-- Sandrene the Elder,
+		-- Sardis the Elder,
+		-- Sekhemi the Elder,
+		-- Silvervein the Elder,
+		-- Skychaser the Elder,
+		-- Skygleam the Elder,
+		-- Skyseer the Elder,
+		-- Skywarden the Elder,
+		-- Snowcrown the Elder,
+		-- Splitrock the Elder,
+		-- Starglade the Elder,
+		-- Starsong the Elder,
+		-- Starweave the Elder,
+		-- Stonebeard the Elder,
+		-- Stonebrand the Elder,
+		-- Stonefort the Elder,
+		-- Stonespire the Elder,
+		-- Stormbrow the Elder,
+		-- Tauros the Elder,
+		-- Thoim the Elder,
+		-- Thunderhorn the Elder,
+		-- Wanikaya the Elder,
+		-- Wheathoof the Elder,
+		-- Whurain the Elder,
+		-- Wildmane the Elder,
+		-- Windrun the Elder,
+		-- Windsong the Elder,
+		-- Windtotem the Elder,
+		-- Winterhoof the Elder,
+		-- Yurauk the Elder
 		---------------------------
 		-- Aliance Cities --
 		---------------------------
@@ -911,6 +1054,90 @@ end
 		-- Horde --
 		---------------------------
 		-- Perhaps add future quests for hidden faction: Horde, such as lunar festival quests?
+		-- Arp the Elder,
+		-- Beldak the Elder,
+		-- Bellowrage the Elder,
+		-- Bladeleaf the Elder,
+		-- Bladesing the Elder,
+		-- Bladeswift the Elder,
+		-- Bloodhoof the Elder,
+		-- Bluewolf the Elder,
+		-- Brightspear the Elder,
+		-- Bronzebeard the Elder,
+		-- Chogan'gada the Elder,
+		-- Darkcore the Elder,
+		-- Darkfeather the Elder,
+		-- Darkhorn the Elder,
+		-- Dawnstrider the Elder,
+		-- Deepforge the Elder,
+		-- Dreamseer the Elder,
+		-- Evershade the Elder,
+		-- Fargal the Elder,
+		-- Farwhisper the Elder,
+		-- Firebeard the Elder,
+		-- Goldwell the Elder,
+		-- Graveborn the Elder,
+		-- Graymane the Elder,
+		-- Grimtotem the Elder,
+		-- Hammershout the Elder,
+		-- High Mountain the Elder,
+		-- Highpeak the Elder,
+		-- Igasho the Elder,
+		-- Ironband the Elder,
+		-- Jarten the Elder,
+		-- Kilias the Elder,
+		-- Lunaro the Elder,
+		-- Meadowrun the Elder,
+		-- Menkhaf the Elder,
+		-- Mistwalker the Elder,
+		-- Moonlance the Elder,
+		-- Moonstrike the Elder,
+		-- Moonwarden the Elder,
+		-- Morndeep the Elder,
+		-- Morningdew the Elder,
+		-- Morthie the Elder,
+		-- Muraco the Elder,
+		-- Nightwind the Elder,
+		-- Northal the Elder,
+		-- Nurgen the Elder,
+		-- Obsidian the Elder,
+		-- Ohanzee the Elder,
+		-- Pamuya the Elder,
+		-- Primestone the Elder,
+		-- Ragetotem the Elder,
+		-- Riversong the Elder,
+		-- Rumblerock the Elder,
+		-- Runetotem the Elder,
+		-- Sandrene the Elder,
+		-- Sardis the Elder,
+		-- Sekhemi the Elder,
+		-- Silvervein the Elder,
+		-- Skychaser the Elder,
+		-- Skygleam the Elder,
+		-- Skyseer the Elder,
+		-- Skywarden the Elder,
+		-- Snowcrown the Elder,
+		-- Splitrock the Elder,
+		-- Starglade the Elder,
+		-- Starsong the Elder,
+		-- Starweave the Elder,
+		-- Stonebeard the Elder,
+		-- Stonebrand the Elder,
+		-- Stonefort the Elder,
+		-- Stonespire the Elder,
+		-- Stormbrow the Elder,
+		-- Tauros the Elder,
+		-- Thoim the Elder,
+		-- Thunderhorn the Elder,
+		-- Wanikaya the Elder,
+		-- Wheathoof the Elder,
+		-- Whurain the Elder,
+		-- Wildmane the Elder,
+		-- Windrun the Elder,
+		-- Windsong the Elder,
+		-- Windtotem the Elder,
+		-- Winterhoof the Elder,
+		-- Yurauk the Elder
 		---------------------------
 		-- Orgrimmar 76
 		---------------------------
@@ -1470,8 +1697,8 @@ end
 			-- The Mag'har 941
 			---------------------------
 			---- Quests
-		  REP_AddQuest(941, 4, 8, 10479, 500, {[25433] = 10})
-		  REP_AddQuest(941, 4, 8, 11503, 250)
+		  REP_AddQuest(941, 4, 8, "More Warbeads", 500, {[25433] = 10}) -- More Warbeads QuestID: 10479
+		  REP_AddQuest(941, 4, 8, "In Defense of Halaa", 250) -- In Defense of Halaa QuestID: 11503
 			---- Mobs
 		  REP_AddMob(941, 4, 8, "Boulderfist ogres", 10, zone.Nagrand)
 		  REP_AddMob(941, 4, 8, "Kil'sorrow Deathsworn, Cultist & Spellbinder", 10, zone.Nagrand)
@@ -4069,6 +4296,24 @@ end
 		---- General
 		REP_AddGeneral(2472, 1, 8, "Cataloged Research", 1, "Cataloged Research", "Vendor Turn in 1 rep per 2 Research")
 
+		---------------------------
+		-- The Enlightened 2478 --
+		---------------------------
+		---- Mobs
+		REP_AddMob(2478, 1, 8, "Corrupted Architect", 10, zone.ZerethMortis)
+		REP_AddMob(2478, 1, 8, "Vitiane", 10, zone.ZerethMortis)
+		REP_AddMob(2478, 1, 8, "Akkaris", 15, zone.ZerethMortis)
+		REP_AddMob(2478, 1, 8, "Furidian", 10, zone.ZerethMortis)
+		REP_AddMob(2478, 1, 8, "Chitali the Eldest", 10, zone.ZerethMortis)
+		REP_AddMob(2478, 1, 8, "Garudeon", 15, zone.ZerethMortis)
+		REP_AddMob(2478, 1, 8, "Mother Phestis", 15, zone.ZerethMortis)
+		REP_AddMob(2478, 1, 8, "Zatojin", 10, zone.ZerethMortis)
+		---- Items
+		REP_AddItems(2478, 1, 8, 75, {[190339] = 1})
+		REP_AddItems(2478, 1, 8, 75, {[190941] = 1})
+		---- General
+		REP_AddGeneral(2478, 1, 8, "Zereth Mortis World Boss", 500, "Zereth Mortis World Boss", "Complete Zereth Mortis world boss once a week")
+
 		if (REP_IsAlliance) then
 			-- Alliance
 		else
@@ -4088,7 +4333,7 @@ end
 	end
 
 --------------------------------------------------
--- Factions released 'after' Shadowlands
+-- Factions released 'after' Dragonflight
 --------------------------------------------------
 	if (REP_AfterDragonflight) then
 		if (REP_IsAlliance) then

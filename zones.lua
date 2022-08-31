@@ -423,6 +423,7 @@ else
 	zone.Ardenweald = 1565
 	zone.Revendreth = 1525
 	zone.Korthia = 1961
+	zone.ZerethMortis = 13536
 
 	---------------------------
 	-- Battlegrounds --

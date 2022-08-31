@@ -237,6 +237,7 @@ function REP_OnEvent(self, event, ...)
 
   local expansionIndex = GetExpansionLevel();
   if not REP_Data.Global.ExpansionIndex then REP_Data.Global.ExpansionIndex = expansionIndex end
+  if (REP_Data.Global.ExpansionIndex ~= expansionIndex) then REP_Data.Global.ExpansionIndex = expansionIndex end
 
   if (event == "ADDON_LOADED") and (arg1 == REP_NAME) then
     REP_Main:UnregisterEvent("ADDON_LOADED")
@@ -864,8 +865,10 @@ function REP_SlashHandler(msg)
         REP:Help()
       elseif (wordsLower[0]=="about") then
         REP:About()
+      elseif (wordsLower[0]=="watch") then
+        REP:WatchFaction(wordsLower[1])
       else
-        REP:PrintSlash(REP_TXT.command,msgLower)
+        REP:PrintSlash(REP_TXT.command, msgLower)
       end
     else
       -- do nothing
@@ -876,7 +879,29 @@ end
 -----------------------------------
 -- _06_ General Helper Functions --
 -----------------------------------
+function REP:WatchFaction(watchID)
+  if not watchID then return end
 
+  local numFactions = GetNumFactions();
+  for i = 1, numFactions, 1 do
+    local index = i;
+    local _, _, _, _, _, _, _, _, _, _, _, _, _, factionID, _, _ = GetFactionInfo(index);
+
+    if (factionID) then
+      if (tostring(watchID) == tostring(factionID)) then
+        return SetWatchedFactionIndex(index)
+      end
+    else
+      if watchID == index then
+        return SetWatchedFactionIndex(index)
+      else
+        return REP:Print("Could not find a faction with either factionID: "..tostring(watchID).." or index #"..tostring(watchID));
+      end
+    end
+  end
+end
+
+------------------------------------------------------------
 function REP:Print(msg, forceDefault) --zzz
   if not (msg) then return end
 
@@ -983,6 +1008,7 @@ function REP:Help()
   REP:Print(REP_Help_COLOUR..REP_TXT.usage..":|r /REP help "..REP_Help_COLOUR..REP_TXT.helphelp, true)
   REP:Print(REP_Help_COLOUR..REP_TXT.usage..":|r /REP about "..REP_Help_COLOUR..REP_TXT.helpabout, true)
   REP:Print(REP_Help_COLOUR..REP_TXT.usage..":|r /REP status "..REP_Help_COLOUR..REP_TXT.helpstatus, true)
+  REP:Print(REP_Help_COLOUR..REP_TXT.usage..":|r /REP watch <factionID> set faction as watched", true) -- TODO: Add as localised text
   REP:Print(REP_Help_COLOUR..REP_TXT.usage..":|r /REP enable { mobs | quests | instances | items | all }", true)
   REP:Print(REP_Help_COLOUR..REP_TXT.usage..":|r /REP disable { mobs | quests | instances | items | all }", true)
   REP:Print(REP_Help_COLOUR..REP_TXT.usage..":|r /REP toggle { mobs | quests | instances | items | all }", true)
@@ -4145,6 +4171,10 @@ function REP:SortByStandingWithoutFactionHeader(i, expansionIndex, factionIndex,
     local origBarValue = barValue
 
     if (factionID and C_Reputation.IsFactionParagon(factionID)) then
+      if IsAddOnLoaded("ParagonReputation") then
+        -- REP:Print("Paragon repution addon loaded throgh Repution Guide")
+      end
+
       isParagon = true
       local paragonFrame = ReputationFrame.paragonFramesPool:Acquire();
       paragonFrame.factionID = factionID;
@@ -4188,7 +4218,7 @@ function REP:SortByStandingWithoutFactionHeader(i, expansionIndex, factionIndex,
     end
 
     local toExalted = 0
-    if (standingID <8) then
+    if (standingID < 8) then
       toExalted = REP_ToExalted[standingID] + barMax - barValue;
     end
 
