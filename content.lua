@@ -499,7 +499,7 @@ end
 	---- Quests
 	REP_AddQuest(59, 4, 4, "Restoring Fiery Flux Supplies via Heavy Leather", 25, {[18944] = 2, [4234] = 10, [3857] = 1}) -- Restoring Fiery Flux Supplies via Heavy Leather QuestID: 8242
 	REP_AddQuest(59, 4, 4, "Restoring Fiery Flux Supplies via Iron", 25, {[18944] = 2, [3575] = 4, [3857] = 1}) -- Restoring Fiery Flux Supplies via Iron QuestID: 8241
-	REP_AddQuest(59, 4, 4, "Restoring Fiery Flux Supplies via Kingsblood", 25, {[18944] = 2, [4234] = 4, [3857] = 1}) -- Restoring Fiery Flux Supplies via Kingsblood QuestID: 7736
+	REP_AddQuest(59, 4, 4, "Restoring Fiery Flux Supplies via Kingsblood", 25, {[18944] = 2, [3356] = 4, [3857] = 1}) -- Restoring Fiery Flux Supplies via Kingsblood QuestID: 7736
 	REP_AddQuest(59, 5, 5, "Gaining Acceptance", 25, {[18945] = 4}) -- Gaining Acceptance QuestID 7737/13662
 	if (REP_IsClassic) then
 		REP_AddQuest(59, 6, 8, 6642, 50, {[11370] = 10}) -- Favor Amongst the Brotherhood, Dark Iron Ore QuestID: 6642
@@ -2114,15 +2114,15 @@ end
 			REP_AddQuest(1052, 4, 8, 13856, 62.5) -- At The Enemy's Gates QuestID: 13856
 			---- Tournament quests
 			if (REP_IsDeathKnight) then
-				REP_AddQuest(1050, 4, 8, 13812, 125) -- Threat From Above QuestID: 13812
-				REP_AddQuest(1050, 4, 8, 13813, 125) -- Taking Battle To The Enemy QuestID: 13813
-				REP_AddQuest(1050, 4, 8, 13863, 125) -- Battle Before The Citadel QuestID: 13863
-				REP_AddQuest(1050, 4, 8, 13814, 125) -- Among the Champions QuestID: 13814
+				REP_AddQuest(1052, 4, 8, 13812, 125) -- Threat From Above QuestID: 13812
+				REP_AddQuest(1052, 4, 8, 13813, 125) -- Taking Battle To The Enemy QuestID: 13813
+				REP_AddQuest(1052, 4, 8, 13863, 125) -- Battle Before The Citadel QuestID: 13863
+				REP_AddQuest(1052, 4, 8, 13814, 125) -- Among the Champions QuestID: 13814
 			else
-				REP_AddQuest(1050, 4, 8, 13809, 125) -- Threat From Above QuestID: 13809
-				REP_AddQuest(1050, 4, 8, 13810, 125) -- Taking Battle To The Enemy QuestID: 13810
-				REP_AddQuest(1050, 4, 8, 13862, 125) -- Battle Before The Citadel QuestID: 13862
-				REP_AddQuest(1050, 4, 8, 13811, 125) -- Among the Champions QuestID: 13811
+				REP_AddQuest(1052, 4, 8, 13809, 125) -- Threat From Above QuestID: 13809
+				REP_AddQuest(1052, 4, 8, 13810, 125) -- Taking Battle To The Enemy QuestID: 13810
+				REP_AddQuest(1052, 4, 8, 13862, 125) -- Battle Before The Citadel QuestID: 13862
+				REP_AddQuest(1052, 4, 8, 13811, 125) -- Among the Champions QuestID: 13811
 			end
 			---- Instances
 			-- REP_AddInstance(1052, 4, 8, 1, 400, false)
