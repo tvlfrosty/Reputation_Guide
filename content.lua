@@ -1300,8 +1300,8 @@ end
 		---------------------------
 		---- Quests
 		if (REP_IsClassic) then
-			REP_AddQuest(889, 4, 8, "For Great Honor", 150, {[20560] = 3, [20559] = 3, [20558] = 3}) -- For Great Honor QuestID: 8388
-			REP_AddQuest(730, 4, 8, "Invaders of Alterac Valley", 100, {[20560] = 3}) -- Invaders of Alterac Valley QuestID: 8387
+			REP_AddQuest(729, 4, 8, "For Great Honor", 150, {[20560] = 3, [20559] = 3, [20558] = 3}) -- For Great Honor QuestID: 8388
+			REP_AddQuest(729, 4, 8, "Invaders of Alterac Valley", 100, {[20560] = 3}) -- Invaders of Alterac Valley QuestID: 8387
 		end
 	  REP_AddQuest(729, 4, 8, 7385, 18.75, {[17306] = 5})
 	  REP_AddQuest(729, 4, 8, 6801, 2.5, {[17306] = 1})
@@ -1319,8 +1319,8 @@ end
 		if (not REP_AfterMoP) then
 			if (REP_IsClassic) then
 				---- Quests
-				REP_AddQuest(509, 4, 8, "For Great Honor", 100, {[20560] = 3, [20559] = 3, [20558] = 3}) -- For Great Honor QuestID: 8388
-				REP_AddQuest(509, 4, 8, "Arathi Basin Resources!", 75, {[20559] = 1}) -- Arathi Basin Resources! QuestID: 8297 (and so many more...)
+				REP_AddQuest(510, 4, 8, "For Great Honor", 100, {[20560] = 3, [20559] = 3, [20558] = 3}) -- For Great Honor QuestID: 8388
+				REP_AddQuest(510, 4, 8, "Arathi Basin Resources!", 75, {[20559] = 1}) -- Arathi Basin Resources! QuestID: 8297 (and so many more...)
 			end
 			---- General
 			REP_AddGeneral(510, 4, 8, "Arathi Basin collect 160 Resources", 10, "Collect 160 Resources", "For every 160 resources your team collects you gain 10 reputation")
@@ -1649,7 +1649,7 @@ end
 			---------------------------
 			if (not REP_AfterWotlk) then
 				---- Quests
-				REP_AddQuest(930, 4, 8, 10363, 75, {[14047] = 20}) -- Additional Runecloth QuestID: 10363
+				REP_AddQuest(911, 4, 8, 10363, 75, {[14047] = 20}) -- Additional Runecloth QuestID: 10363
 			else
 				REP_AddQuest(911, 4, 8, 2, 65, "nil", REP_LIMIT_TYPE_Cook)
 				REP_AddQuest(911, 4, 8, 4, 65, "nil", REP_LIMIT_TYPE_Fish)
@@ -1782,15 +1782,15 @@ end
 		REP_AddQuest(1098, 4, 8, 13093, 10, {[43089] = 10}) -- Reading the Bones QuestID: 13093
 		if (REP_IsDeathKnight) then
 			if (REP_IsAlliance) then
-				REP_AddQuest(1106, 4, 8, 13793, 325) -- Among the Champions QuestID: 13793
-				REP_AddQuest(1106, 4, 8, 13864, 325) -- Battle Before The Citadel QuestID: 13864
-				REP_AddQuest(1106, 4, 8, 13791, 325) -- Taking Battle To The Enemy QuestID: 13791
-				REP_AddQuest(1106, 4, 8, 13788, 250) -- Threat From Above QuestID: 13788
+				REP_AddQuest(1098, 4, 8, 13793, 325) -- Among the Champions QuestID: 13793
+				REP_AddQuest(1098, 4, 8, 13864, 325) -- Battle Before The Citadel QuestID: 13864
+				REP_AddQuest(1098, 4, 8, 13791, 325) -- Taking Battle To The Enemy QuestID: 13791
+				REP_AddQuest(1098, 4, 8, 13788, 250) -- Threat From Above QuestID: 13788
 			else
-				REP_AddQuest(1106, 4, 8, 13814, 325) -- Among the Champions QuestID: 13814
-				REP_AddQuest(1106, 4, 8, 13863, 325) -- Battle Before The Citadel QuestID: 13863
-				REP_AddQuest(1106, 4, 8, 13813, 325) -- Taking Battle To The Enemy QuestID: 13813
-				REP_AddQuest(1106, 4, 8, 13812, 250) -- Threat From Above QuestID: 13812
+				REP_AddQuest(1098, 4, 8, 13814, 325) -- Among the Champions QuestID: 13814
+				REP_AddQuest(1098, 4, 8, 13863, 325) -- Battle Before The Citadel QuestID: 13863
+				REP_AddQuest(1098, 4, 8, 13813, 325) -- Taking Battle To The Enemy QuestID: 13813
+				REP_AddQuest(1098, 4, 8, 13812, 250) -- Threat From Above QuestID: 13812
 			end
 		end
 		---- Items
