@@ -11,11 +11,12 @@
 
 ## X-Curse-Project-ID: 657534
 
+locale.xml
+
 questdb.lua
 variables.lua
 zones.lua
 content.lua
 mapping.lua
-locale.xml
 ReputationGuide.xml
 ReputationGuideSkin.lua
