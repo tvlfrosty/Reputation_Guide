@@ -1,22 +1,22 @@
-﻿-- Italiano (Italian)	
+﻿-- Italiano (Italian)
 --------------------	--------------------
-if (GetLocale() =="itIT") then	
-	
--- Binding names	
+if (GetLocale() =="itIT") then
+
+-- Binding names
 BINDING_HEADER_REPUTATIONS	= "Reputation Guide"
 BINDING_NAME_SHOWCONFIG	= "Visualizza finestra opzioni"
 BINDING_NAME_SHOWDETAILS	= "Visualizza finestra dettagli reputazione"
-	
+
 REP_TXT	= {}
 REP_TXT.Mob = {}
--- help	
+-- help
 REP_TXT.help	= "Uno strumento per gestire la tua reputazione"
 REP_TXT.command	= "Impossibile analizzare comando"
 REP_TXT.usage	= "Utilizzo"
 REP_TXT.helphelp	= "Mostra questo testo di aiuto"
 REP_TXT.helpabout	= "Mostra informazioni sull'autore"
 REP_TXT.helpstatus	= "Mostra lo stato della configurazione"
--- about	
+-- about
 REP_TXT.by	= "di"
 REP_TXT.version	= "Versione"
 REP_TXT.date	= "Data"
@@ -32,7 +32,25 @@ REP_TXT_STAND_LV[5]	= "Amichevole"
 REP_TXT_STAND_LV[6]	= "Onorato"
 REP_TXT_STAND_LV[7]	= "Venerato"
 REP_TXT_STAND_LV[8]	= "Esaltato"
--- status	
+REP_TXT_STAND_LV[9] = "Eccellenza"
+REP_TXT_STAND_LV_TIER	= {}
+REP_TXT_STAND_LV_TIER[0]	= "Sconosciuto"
+REP_TXT_STAND_LV_TIER[1] = "Livello 1"
+REP_TXT_STAND_LV_TIER[2] = "Livello 2"
+REP_TXT_STAND_LV_TIER[3] = "Livello 3"
+REP_TXT_STAND_LV_TIER[4] = "Livello 4"
+REP_TXT_STAND_LV_TIER[5] = "Livello 5"
+REP_TXT_STAND_LV_TIER[6] = "Livello 6"
+REP_TXT_STAND_LV_TRUST	= {}
+REP_TXT_STAND_LV_TRUST[0] = "Sconosciuto"
+REP_TXT_STAND_LV_TRUST[1] = "Dubbiosa"
+REP_TXT_STAND_LV_TRUST[2] = "Ansiosa"
+REP_TXT_STAND_LV_TRUST[3] = "Incerta"
+REP_TXT_STAND_LV_TRUST[4] = "Esitante"
+REP_TXT_STAND_LV_TRUST[5] = "Cordiale"
+REP_TXT_STAND_LV_TRUST[6] = "Riconoscente"
+
+-- status
 REP_TXT.status	= "Stato"
 REP_TXT.disabled	= "Disabilitato"
 REP_TXT.enabled	= "abilitato"
@@ -51,7 +69,7 @@ REP_TXT.statSwitch	= "Passare automaticamente fazione di rep bar"
 REP_TXT.statNoGuildSwitch	= "Nessuna commutazione di gilda rep"
 REP_TXT.statSilentSwitch	= "Nessun messaggio nel passaggio barra"
 REP_TXT.statGuildCap	= "Mostra cap reputazione gilda in chat"
--- XML UI elements	
+-- XML UI elements
 REP_TXT.showQuests	= "Mostra Missioni"
 REP_TXT.showInstances	= "Mostra istanze"
 REP_TXT.showMobs	= "Mostra mob"
@@ -65,7 +83,7 @@ REP_TXT.supressNoneFaction	= "Esclusione chiaro per fazione"
 REP_TXT.supressNoneGlobal	= "Esclusione chiaro per tutti"
 REP_TXT.suppressHint	= "Fai clic destro su una ricerca per escluderla dalla sintesi"
 REP_TXT.clearSessionGain	= "Azzera contatore guadagno sessione"
--- options dialog	
+-- options dialog
 REP_TXT.showMissing	= "Mostra reputazione mancante nella cornice reputazione"
 REP_TXT.extendDetails	= "Mostra estesa reputazione telaio dettaglio"
 REP_TXT.gainToChat	= "Replace original faction gain messages with a more detailed version"
@@ -81,7 +99,7 @@ REP_TXT.chatFrame	= "Usando la finestra di chat %d (%s)"
 REP_TXT.usingDefaultChatFrame	= "Ora, utilizzando chat di telaio di default"
 REP_TXT.usingChatFrame	= "Now using chat frame"
 REP_TXT.EnableParagonBar = "Display paragon reputation in bars."
--- various LUA	
+-- various LUA
 REP_TXT.options	= "Options"
 REP_TXT.orderByStanding	= "Order by Standing"
 REP_TXT.lookup	= "Looking up faction "
@@ -91,7 +109,7 @@ REP_TXT.missing2	= "Missing"
 REP_TXT.heroic	= "Heroic"
 REP_TXT.normal	= "Normal"
 REP_TXT.switchBar	= "Changing reputation bar to"
--- REP_ShowFactions	
+-- REP_ShowFactions
 REP_TXT.faction	= "Fazione"
 REP_TXT.is	= "is"
 REP_TXT.withStanding	= "with standing"
@@ -103,7 +121,7 @@ REP_TXT.quest	= "[Quest]"
 REP_TXT.instance	= "[Instance]"
 REP_TXT.items	= "[Items]"
 REP_TXT.unknown	= "is not known to this player"
--- mob Details	
+-- mob Details
 REP_TXT.tmob	= "Trash mobs"
 REP_TXT.oboss	= "Other Bosses"
 REP_TXT.aboss	= "All Bosses"
@@ -117,7 +135,7 @@ REP_TXT.Wa	= "Wastewander"
 REP_TXT.VCm	= "Any Venture Co. mob"
 REP_TXT.Mob.MoshOgg_Spellcrafter = "Creamagie Mosh'ogg"
 REP_TXT.Mob.BoulderfistOgre = "Ogre Rocciadura"
--- Quest Details	
+-- Quest Details
 REP_TXT.cdq	= "Main city cooking daily quests"
 REP_TXT.coq	= "Other city cooking daily quests"
 REP_TXT.fdq	= "Main city fishing daily quests"
@@ -126,25 +144,25 @@ REP_TXT.ndq	= "no daily quests"
 REP_TXT.deleted	= "Outdated"
 REP_TXT.Championing	= "Championing (Tabard)"
 REP_TXT.bpqfg	= "By percent of quest faction gain"
-	
--- items Details	
+
+-- items Details
 REP_TXT.cbadge	= "Other city Commendation Badge"
--- instance Details	
+-- instance Details
 REP_TXT.srfd	= "Spillover rep from dungeons"
 REP_TXT.tbd	= "ToBe Done"
 REP_TXT.nci	= "Normal Cataclysm instances"
 REP_TXT.hci	= "Heroic Cataclysm instances"
--- ToBeDone general	
+-- ToBeDone general
 REP_TXT.tfr	= "Tiller Farming rep"
 REP_TXT.nswts	= "Not sure when this starts"
 REP_TXT.mnd	= "Max number of daily quests"
 REP_TXT.mnds	= "The max number of dallies is "
-	
-	
-	
-	
-	
--- ReputationDetails	
+
+
+
+
+
+-- ReputationDetails
 REP_TXT.currentRep	= "Reputazione corrente"
 REP_TXT.neededRep	= "Reputation needed"
 REP_TXT.missingRep	= "Reputation missing"
@@ -155,15 +173,15 @@ REP_TXT.factionGained	= "Guadagnato questa sessione"
 REP_TXT.noInfo	= "No information available for this faction/reputation."
 REP_TXT.toExalted	= "Reputation to exalted"
 REP_TXT.toBestFriend = "Reputation to best friend"
--- to chat	
+-- to chat
 REP_TXT.stats	= " (Total: %s%d, Left: %d)"
 REP_TXT.statsNextStanding = " (Total: %s%d, Left to %s: %d)"
 
--- config changed	
+-- config changed
 REP_TXT.configQuestion	= "Some (new) settings were enabled. This is only done once for a setting. It is recommended that you verify the Reputations options."
 REP_TXT.showConfig	= "View config"
 REP_TXT.later	= "Later"
--- UpdateList	
+-- UpdateList
 REP_TXT.mobShort	= "[M]"
 REP_TXT.questShort	= "[Q]"
 REP_TXT.instanceShort	= "[D]"
@@ -203,7 +221,7 @@ REP_TXT.quest2	= "Quest:"
 REP_TXT.itemsRequired	= "Items required"
 REP_TXT.general2	= "Generale:"
 REP_TXT.maxStanding	= "Yields reputation until"
--- skills	
+-- skills
 REP_TXT.skillHerb	= "Herbalism"
 REP_TXT.skillMine	= "Minerario"
 REP_TXT.skillSkin	= "Scuoiatura"
@@ -219,16 +237,16 @@ REP_TXT.skillAid	= "Pronto soccorso"
 REP_TXT.skillArch	= "Archeologia"
 REP_TXT.skillCook	= "Cottura"
 REP_TXT.skillFish	= "peschereccio"
--- Tooltip	
+-- Tooltip
 REP_TXT.elements	= {}
 REP_TXT.elements.name	= {}
 REP_TXT.elements.tip	= {}
-	
+
 REP_TXT.elements.name.REP_OptionsButton	= REP_TXT.options
 REP_TXT.elements.tip.REP_OptionsButton	= "Aprire una finestra per configurare Reputations."
 REP_TXT.elements.name.REP_OrderByStandingCheckBox	= REP_TXT.orderByStanding
 REP_TXT.elements.tip.REP_OrderByStandingCheckBox	= "Se questa casella non è selezionata, l'elenco fazione viene visualizzata per impostazione predefinita (Blizzard) ordinamento, raggruppate per ordine logico e alfabetico. \r \n \r \nSe questa casella è selezionata, l'elenco fazione è ordinato per data. \r \n\r \nPer vista i | cFFFAA0A0inactive | r fazioni , deselezionare questa casella e andare in fondo alla lista."
-	
+
 REP_TXT.elements.name.REP_ShowMobsButton	= REP_TXT.showMobs
 REP_TXT.elements.tip.REP_ShowMobsButton	= "Selezionare questo pulsante per vedere mob si può uccidere per migliorare la vostra reputazione."
 REP_TXT.elements.name.REP_ShowQuestButton	= REP_TXT.showQuests
@@ -239,12 +257,12 @@ REP_TXT.elements.name.REP_ShowInstancesButton	= REP_TXT.showInstances
 REP_TXT.elements.tip.REP_ShowInstancesButton	= "Controllare questo pulsante per visualizzare le istanze è possibile eseguire per migliorare la vostra reputazione."
 REP_TXT.elements.name.REP_ShowGeneralButton	= REP_TXT.showGeneral
 REP_TXT.elements.tip.REP_ShowGeneralButton	= "Selezionare questo pulsante per visualizzare le informazioni generali su come migliorare la vostra reputazione."
-	
+
 REP_TXT.elements.name.REP_ShowAllButton	= REP_TXT.showAll
 REP_TXT.elements.tip.REP_ShowAllButton	= "Premere questo pulsante per controllare tutti e quattro le caselle di controllo a sinistra. \r\nQuesto mostrerà mob, quest, oggetti e istanze che ti danno reputazione per la fazione attualmente selezionato."
 REP_TXT.elements.name.REP_ShowNoneButton	= REP_TXT.showNone
 REP_TXT.elements.tip.REP_ShowNoneButton	= "Premere questo pulsante per deselezionare tutte e quattro le caselle di controllo a sinistra. \r\nQuesto ti mostrerà nessuno dei modi per guadagnare reputazione per la fazione attualmente selezionato."
-	
+
 REP_TXT.elements.name.REP_ExpandButton	= REP_TXT.expand
 REP_TXT.elements.tip.REP_ExpandButton	= "Premere questo pulsante per espandere tutte le voci della lista. Questo ti mostrerà i materiali necessari a portata di mano in qualsiasi elemento in grado di raccogliere quest."
 REP_TXT.elements.name.REP_CollapseButton	= REP_TXT.collapse
@@ -255,7 +273,7 @@ REP_TXT.elements.name.REP_SupressNoneGlobalButton	= REP_TXT.supressNoneGlobal
 REP_TXT.elements.tip.REP_SupressNoneGlobalButton	= "Premere questo tasto per riattivare tutte le missioni per tutte le fazioni che hai escluso facendo clic destro su di esso."
 REP_TXT.elements.name.REP_ClearSessionGainButton	= REP_TXT.clearSessionGain
 REP_TXT.elements.tip.REP_ClearSessionGainButton	= "Premere questo pulsante per cancellare azzerare il contatore per la reputazione acquisita questa sessione."
-	
+
 REP_TXT.elements.name.REP_EnableMissingBox	= REP_TXT.showMissing
 REP_TXT.elements.tip.REP_EnableMissingBox	= "Abilitare questa opzione per aggiungere i punti reputazione mancanti necessari per il prossimo livello di reputazione alle spalle l'attuale posizione di ogni fazione nella cornice reputazione."
 REP_TXT.elements.name.REP_ExtendDetailsBox	= REP_TXT.extendDetails
@@ -278,8 +296,8 @@ REP_TXT.elements.name.REP_GuildCapBox	= REP_TXT.guildCap
 REP_TXT.elements.name.REP_ChatFrameSlider	= "Chatta telaio"
 REP_TXT.elements.tip.REP_ChatFrameSlider	= "Selezionare quale chiacchierata cornice Reputations stampa i suoi messaggi."
 REP_TXT.elements.name.REP_EnableParagonBarBox = REP_TXT.EnableParagonBar
-REP_TXT.elements.tip.REP_EnableParagonBarBox  = "Enable this option to display your current paragon progress in the reputation bars."	
-	
+REP_TXT.elements.tip.REP_EnableParagonBarBox  = "Enable this option to display your current paragon progress in the reputation bars."
+
 REP_TXT.elements.name.REP_OptionEnableMissing	= REP_TXT.elements.name.REP_EnableMissingBox
 REP_TXT.elements.tip.REP_OptionEnableMissing	= REP_TXT.elements.tip.REP_EnableMissingBox
 REP_TXT.elements.name.REP_OptionEnableMissingCB	= REP_TXT.elements.name.REP_EnableMissingBox

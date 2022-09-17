@@ -1,21 +1,21 @@
-﻿-- Simplified Chinese (简体中文)	
+﻿-- Simplified Chinese (简体中文)
 --------------------	--------------------
-if (GetLocale() =="zhCN") then	
-	
--- Binding names	
+if (GetLocale() =="zhCN") then
+
+-- Binding names
 BINDING_HEADER_REPUTATIONS	= "Reputation Guide"
 BINDING_NAME_SHOWCONFIG	= "显示选项“窗口"
 BINDING_NAME_SHOWDETAILS	= "显示声誉细节窗口"
-	
+
 REP_TXT	= {}
--- help	
+-- help
 REP_TXT.help	= "一个工具来管理你的声誉"
 REP_TXT.command	= "无法解析命令"
 REP_TXT.usage	= "用法"
 REP_TXT.helphelp	= "显示此帮助文本"
 REP_TXT.helpabout	= "只看该作者信息"
 REP_TXT.helpstatus	= "显示配置状态"
--- about	
+-- about
 REP_TXT.by	= "由"
 REP_TXT.version	= "版本"
 REP_TXT.date	= "日"
@@ -31,7 +31,25 @@ REP_TXT_STAND_LV[5]	= "友好"
 REP_TXT_STAND_LV[6]	= "荣幸"
 REP_TXT_STAND_LV[7]	= "崇敬"
 REP_TXT_STAND_LV[8]	= "崇高的"
--- status	
+REP_TXT_STAND_LV[9] = "巅峰"
+REP_TXT_STAND_LV_TIER	= {}
+REP_TXT_STAND_LV_TIER[0]	= "未知"
+REP_TXT_STAND_LV_TIER[1] = "等级1"
+REP_TXT_STAND_LV_TIER[2] = "等级2"
+REP_TXT_STAND_LV_TIER[3] = "等级3"
+REP_TXT_STAND_LV_TIER[4] = "等级4"
+REP_TXT_STAND_LV_TIER[5] = "等级5"
+REP_TXT_STAND_LV_TIER[6] = "等级6"
+REP_TXT_STAND_LV_TRUST	= {}
+REP_TXT_STAND_LV_TRUST[0] = "未知"
+REP_TXT_STAND_LV_TRUST[1] = "防备"
+REP_TXT_STAND_LV_TRUST[2] = "불안"
+REP_TXT_STAND_LV_TRUST[3] = "犹豫"
+REP_TXT_STAND_LV_TRUST[4] = "纠结"
+REP_TXT_STAND_LV_TRUST[5] = "和善"
+REP_TXT_STAND_LV_TRUST[6] = "欣赏"
+
+-- status
 REP_TXT.status	= "状态"
 REP_TXT.disabled	= "禁用"
 REP_TXT.enabled	= "启用"
@@ -50,7 +68,7 @@ REP_TXT.statSwitch	= "自动切换派系信誉栏"
 REP_TXT.statNoGuildSwitch	= "公会声望没有切换"
 REP_TXT.statSilentSwitch	= "没有消息的时候切换杆"
 REP_TXT.statGuildCap	= "显示在聊天的公会声望上限"
--- XML UI elements	
+-- XML UI elements
 REP_TXT.showQuests	= "显示任务"
 REP_TXT.showInstances	= "显示实例"
 REP_TXT.showMobs	= "显示暴民"
@@ -64,7 +82,7 @@ REP_TXT.supressNoneFaction	= "清除排除派"
 REP_TXT.supressNoneGlobal	= "清除排除"
 REP_TXT.suppressHint	= "右键单击一个任务，排除它从汇总"
 REP_TXT.clearSessionGain	= "清除会话增益计数器"
--- options dialog	
+-- options dialog
 REP_TXT.showMissing	= "显示缺少的声誉，声誉框架"
 REP_TXT.extendDetails	= "显示延长声誉细节框架"
 REP_TXT.gainToChat	= "Replace original faction gain messages with a more detailed version"
@@ -80,7 +98,7 @@ REP_TXT.chatFrame	= "使用聊天框 %d (%s)"
 REP_TXT.usingDefaultChatFrame	= "Now using default chat frame"
 REP_TXT.usingChatFrame	= "Now using chat frame"
 REP_TXT.EnableParagonBar = "Display paragon reputation in bars."
--- various LUA	
+-- various LUA
 REP_TXT.options	= "Options"
 REP_TXT.orderByStanding	= "Order by Standing"
 REP_TXT.lookup	= "Looking up faction "
@@ -90,7 +108,7 @@ REP_TXT.missing2	= "Missing"
 REP_TXT.heroic	= "Heroic"
 REP_TXT.normal	= "Normal"
 REP_TXT.switchBar	= "Changing reputation bar to"
--- REP_ShowFactions	
+-- REP_ShowFactions
 REP_TXT.faction	= "Faction"
 REP_TXT.is	= "is"
 REP_TXT.withStanding	= "with standing"
@@ -102,7 +120,7 @@ REP_TXT.quest	= "[Quest]"
 REP_TXT.instance	= "[Instance]"
 REP_TXT.items	= "[Items]"
 REP_TXT.unknown	= "is not known to this player"
--- mob Details	
+-- mob Details
 REP_TXT.tmob	= "Trash mobs"
 REP_TXT.oboss	= "Other Bosses"
 REP_TXT.aboss	= "All Bosses"
@@ -114,7 +132,7 @@ REP_TXT.BB	= "Bloodsail Buccaneer"
 REP_TXT.SSP	= "Southsea Pirate"
 REP_TXT.Wa	= "Wastewander"
 REP_TXT.VCm	= "Any Venture Co. mob"
--- Quest Details	
+-- Quest Details
 REP_TXT.cdq	= "Main city cooking daily quests"
 REP_TXT.coq	= "Other city cooking daily quests"
 REP_TXT.fdq	= "Main city fishing daily quests"
@@ -123,25 +141,25 @@ REP_TXT.ndq	= "no daily quests"
 REP_TXT.deleted	= "Outdated"
 REP_TXT.Championing	= "Championing (Tabard)"
 REP_TXT.bpqfg	= "By percent of quest faction gain"
-	
--- items Details	
+
+-- items Details
 REP_TXT.cbadge	= "Other city Commendation Badge"
--- instance Details	
+-- instance Details
 REP_TXT.srfd	= "Spillover rep from dungeons"
 REP_TXT.tbd	= "ToBe Done"
 REP_TXT.nci	= "Normal Cataclysm instances"
 REP_TXT.hci	= "Heroic Cataclysm instances"
--- ToBeDone general	
+-- ToBeDone general
 REP_TXT.tfr	= "Tiller Farming rep"
 REP_TXT.nswts	= "Not sure when this starts"
 REP_TXT.mnd	= "Max number of daily quests"
 REP_TXT.mnds	= "The max number of dallies is "
-	
-	
-	
-	
-	
--- ReputationDetails	
+
+
+
+
+
+-- ReputationDetails
 REP_TXT.currentRep	= "Current reputation"
 REP_TXT.neededRep	= "Reputation needed"
 REP_TXT.missingRep	= "Reputation missing"
@@ -152,15 +170,15 @@ REP_TXT.factionGained	= "Gained this session"
 REP_TXT.noInfo	= "No information available for this faction/reputation."
 REP_TXT.toExalted	= "Reputation to exalted"
 REP_TXT.toBestFriend = "Reputation to best friend"
--- to chat	
+-- to chat
 REP_TXT.stats	= " (Total: %s%d, Left: %d)"
 REP_TXT.statsNextStanding = " (Total: %s%d, Left to %s: %d)"
 
--- config changed	
+-- config changed
 REP_TXT.configQuestion	= "Some (new) settings were enabled. This is only done once for a setting. It is recommended that you verify the Reputations options."
 REP_TXT.showConfig	= "View config"
 REP_TXT.later	= "Later"
--- UpdateList	
+-- UpdateList
 REP_TXT.mobShort	= "[M]"
 REP_TXT.questShort	= "[Q]"
 REP_TXT.instanceShort	= "[D]"
@@ -200,7 +218,7 @@ REP_TXT.quest2	= "Quest:"
 REP_TXT.itemsRequired	= "Items required"
 REP_TXT.general2	= "General:"
 REP_TXT.maxStanding	= "Yields reputation until"
--- skills	
+-- skills
 REP_TXT.skillHerb	= "草药"
 REP_TXT.skillMine	= "采矿"
 REP_TXT.skillSkin	= "剥皮"
@@ -216,16 +234,16 @@ REP_TXT.skillAid	= "急救"
 REP_TXT.skillArch	= "考古"
 REP_TXT.skillCook	= "烹饪"
 REP_TXT.skillFish	= "钓鱼"
--- Tooltip	
+-- Tooltip
 REP_TXT.elements	= {}
 REP_TXT.elements.name	= {}
 REP_TXT.elements.tip	= {}
-	
+
 REP_TXT.elements.name.REP_OptionsButton	= REP_TXT.options
 REP_TXT.elements.tip.REP_OptionsButton	= "打开窗口配置Reputations。"
 REP_TXT.elements.name.REP_OrderByStandingCheckBox	= REP_TXT.orderByStanding
 REP_TXT.elements.tip.REP_OrderByStandingCheckBox	= "如果不选中此框，派列表显示默认（暴雪）排序，分组逻辑和字母顺序排列。\r\n\r\n如果选中此复选框，派列表排序站在\r\n\r \n要查看| cFFFAA0A0无效|r派系，取消选中此框和列表的底部。"
-	
+
 REP_TXT.elements.name.REP_ShowMobsButton	= REP_TXT.showMobs
 REP_TXT.elements.tip.REP_ShowMobsButton	= "检查此按钮，看看你能杀的小怪来提高你的声誉。"
 REP_TXT.elements.name.REP_ShowQuestButton	= REP_TXT.showQuests
@@ -236,12 +254,12 @@ REP_TXT.elements.name.REP_ShowInstancesButton	= REP_TXT.showInstances
 REP_TXT.elements.tip.REP_ShowInstancesButton	= "检查此按钮可看到运行的情况下，你可以提高你的声誉。"
 REP_TXT.elements.name.REP_ShowGeneralButton	= REP_TXT.showGeneral
 REP_TXT.elements.tip.REP_ShowGeneralButton	= "检查此按钮可看到一般信息，提高你的声誉。"
-	
+
 REP_TXT.elements.name.REP_ShowAllButton	= REP_TXT.showAll
 REP_TXT.elements.tip.REP_ShowAllButton	= "按下此按钮可检查所有四个复选框的左侧。\r\n这将显示小怪，任务，物品和实例，让你的声誉目前选定的派系。"
 REP_TXT.elements.name.REP_ShowNoneButton	= REP_TXT.showNone
 REP_TXT.elements.tip.REP_ShowNoneButton	= "按下此按钮，取消所有的四个复选框的左侧。\r\n这会告诉你的方法没有赢得口碑，目前选择的派系。"
-	
+
 REP_TXT.elements.name.REP_ExpandButton	= REP_TXT.expand
 REP_TXT.elements.tip.REP_ExpandButton	= "按下此按钮可展开列表中的所有条目。这将显示您在任何项目的收集任务所需的材料手。"
 REP_TXT.elements.name.REP_CollapseButton	= REP_TXT.collapse
@@ -252,7 +270,7 @@ REP_TXT.elements.name.REP_SupressNoneGlobalButton	= REP_TXT.supressNoneGlobal
 REP_TXT.elements.tip.REP_SupressNoneGlobalButton	= "按下此按钮可重新启用通过右键点击它可以排除所有派别​​的所有任务。"
 REP_TXT.elements.name.REP_ClearSessionGainButton	= REP_TXT.clearSessionGain
 REP_TXT.elements.tip.REP_ClearSessionGainButton	= "按下此按钮来清除重置计数器声誉，获得了本次会议。"
-	
+
 REP_TXT.elements.name.REP_EnableMissingBox	= REP_TXT.showMissing
 REP_TXT.elements.tip.REP_EnableMissingBox	= "启用此设置，添加丢失的声誉点需要在未来的声誉站在每个派别的声誉框架背后的当前水平。"
 REP_TXT.elements.name.REP_ExtendDetailsBox	= REP_TXT.extendDetails
@@ -275,8 +293,8 @@ REP_TXT.elements.name.REP_GuildCapBox	= REP_TXT.guildCap
 REP_TXT.elements.name.REP_ChatFrameSlider	= "聊天帧"
 REP_TXT.elements.tip.REP_ChatFrameSlider	= "选择聊天框架Reputations打印其消息。"
 REP_TXT.elements.name.REP_EnableParagonBarBox = REP_TXT.EnableParagonBar
-REP_TXT.elements.tip.REP_EnableParagonBarBox  = "Enable this option to display your current paragon progress in the reputation bars."	
-	
+REP_TXT.elements.tip.REP_EnableParagonBarBox  = "Enable this option to display your current paragon progress in the reputation bars."
+
 REP_TXT.elements.name.REP_OptionEnableMissing	= REP_TXT.elements.name.REP_EnableMissingBox
 REP_TXT.elements.tip.REP_OptionEnableMissing	= REP_TXT.elements.tip.REP_EnableMissingBox
 REP_TXT.elements.name.REP_OptionEnableMissingCB	= REP_TXT.elements.name.REP_EnableMissingBox

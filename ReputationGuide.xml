@@ -256,7 +256,7 @@
 <!--^ set 3-->
 				<Scripts>
 					<OnClick>
-						<!-- PlaySound(SOUNDKIT.IG_MAINMENU_OPTION_CHECKBOX_ON); -->
+						if SOUNDKIT then PlaySound(SOUNDKIT.IG_MAINMENU_OPTION_CHECKBOX_ON); end
 						HideParentPanel(self);
 					</OnClick>
 				</Scripts>
@@ -281,9 +281,9 @@
 					<OnClick>
 						FactionToggleAtWar(GetSelectedFaction());
 						if (self:GetChecked()) then
-							<!-- PlaySound(SOUNDKIT.IG_MAINMENU_OPTION_CHECKBOX_ON); -->
+							if SOUNDKIT then PlaySound(SOUNDKIT.IG_MAINMENU_OPTION_CHECKBOX_ON); end
 						else
-							<!-- PlaySound(SOUNDKIT.IG_MAINMENU_OPTION_CHECKBOX_OFF); -->
+							if SOUNDKIT then PlaySound(SOUNDKIT.IG_MAINMENU_OPTION_CHECKBOX_OFF); end
 						end
 						ReputationFrame_Update();
 					</OnClick>
@@ -314,11 +314,11 @@
 					</OnLoad>
 					<OnClick>
 						if (self:GetChecked()) then
-							<!-- PlaySound(SOUNDKIT.IG_MAINMENU_OPTION_CHECKBOX_ON); -->
-							SetFactionInactive(GetSelectedFaction());
+							if SOUNDKIT then PlaySound(SOUNDKIT.IG_MAINMENU_OPTION_CHECKBOX_ON); end
+							REP:CustomSetFactionInactive(GetSelectedFaction());
 						else
-							<!-- PlaySound(SOUNDKIT.IG_MAINMENU_OPTION_CHECKBOX_OFF); -->
-							SetFactionActive(GetSelectedFaction());
+							if SOUNDKIT then PlaySound(SOUNDKIT.IG_MAINMENU_OPTION_CHECKBOX_OFF); end
+							REP:CustomSetFactionActive(GetSelectedFaction());
 						end
 					</OnClick>
 					<OnEnter>
@@ -341,10 +341,10 @@
 					</OnLoad>
 					<OnClick>
 						if (self:GetChecked()) then
-							<!-- PlaySound(SOUNDKIT.IG_MAINMENU_OPTION_CHECKBOX_ON); -->
+							if SOUNDKIT then PlaySound(SOUNDKIT.IG_MAINMENU_OPTION_CHECKBOX_ON); end
 							SetWatchedFactionIndex(GetSelectedFaction());
 						else
-							<!-- PlaySound(SOUNDKIT.IG_MAINMENU_OPTION_CHECKBOX_OFF); -->
+							if SOUNDKIT then PlaySound(SOUNDKIT.IG_MAINMENU_OPTION_CHECKBOX_OFF); end
 							SetWatchedFactionIndex(0);
 						end
 						ReputationFrame_Update();
@@ -367,9 +367,9 @@
 					<OnClick>
 						REP_Data.Global.ShowDarkmoonFaire = self:GetChecked()
 						if (REP_Data.Global.ShowDarkmoonFaire) then
-							<!-- PlaySound(SOUNDKIT.IG_MAINMENU_OPTION_CHECKBOX_ON); -->
+							if SOUNDKIT then PlaySound(SOUNDKIT.IG_MAINMENU_OPTION_CHECKBOX_ON); end
 						else
-							<!-- PlaySound(SOUNDKIT.IG_MAINMENU_OPTION_CHECKBOX_OFF); -->
+							if SOUNDKIT then PlaySound(SOUNDKIT.IG_MAINMENU_OPTION_CHECKBOX_OFF); end
 						end
 						REP:ToggleDarkmoonFaireBuff()
 					</OnClick>
@@ -465,9 +465,9 @@
 					<OnClick>
 						REP_Data.Global.ShowQuests = self:GetChecked()
 						if (REP_Data.Global.ShowQuests) then
-							<!-- PlaySound(SOUNDKIT.IG_MAINMENU_OPTION_CHECKBOX_ON); -->
+							if SOUNDKIT then PlaySound(SOUNDKIT.IG_MAINMENU_OPTION_CHECKBOX_ON); end
 						else
-							<!-- PlaySound(SOUNDKIT.IG_MAINMENU_OPTION_CHECKBOX_OFF); -->
+							if SOUNDKIT then PlaySound(SOUNDKIT.IG_MAINMENU_OPTION_CHECKBOX_OFF); end
 						end
 						REP:BuildUpdateList()
 						REP_UpdateList_Update()
@@ -501,9 +501,9 @@
 					<OnClick>
 						REP_Data.Global.ShowInstances = self:GetChecked()
 						if (REP_Data.Global.ShowInstances) then
-							<!-- PlaySound(SOUNDKIT.IG_MAINMENU_OPTION_CHECKBOX_ON); -->
+							if SOUNDKIT then PlaySound(SOUNDKIT.IG_MAINMENU_OPTION_CHECKBOX_ON); end
 						else
-							<!-- PlaySound(SOUNDKIT.IG_MAINMENU_OPTION_CHECKBOX_OFF); -->
+							if SOUNDKIT then PlaySound(SOUNDKIT.IG_MAINMENU_OPTION_CHECKBOX_OFF); end
 						end
 						REP:BuildUpdateList()
 						REP_UpdateList_Update()
@@ -537,9 +537,9 @@
 					<OnClick>
 						REP_Data.Global.ShowMobs = self:GetChecked()
 						if (REP_Data.Global.ShowMobs) then
-							<!-- PlaySound(SOUNDKIT.IG_MAINMENU_OPTION_CHECKBOX_ON); -->
+							if SOUNDKIT then PlaySound(SOUNDKIT.IG_MAINMENU_OPTION_CHECKBOX_ON); end
 						else
-							<!-- PlaySound(SOUNDKIT.IG_MAINMENU_OPTION_CHECKBOX_OFF); -->
+							if SOUNDKIT then PlaySound(SOUNDKIT.IG_MAINMENU_OPTION_CHECKBOX_OFF); end
 						end
 						REP:BuildUpdateList()
 						REP_UpdateList_Update()
@@ -573,9 +573,9 @@
 					<OnClick>
 						REP_Data.Global.ShowItems = self:GetChecked()
 						if (REP_Data.Global.ShowItems) then
-							<!-- PlaySound(SOUNDKIT.IG_MAINMENU_OPTION_CHECKBOX_ON); -->
+							if SOUNDKIT then PlaySound(SOUNDKIT.IG_MAINMENU_OPTION_CHECKBOX_ON); end
 						else
-							<!-- PlaySound(SOUNDKIT.IG_MAINMENU_OPTION_CHECKBOX_OFF); -->
+							if SOUNDKIT then PlaySound(SOUNDKIT.IG_MAINMENU_OPTION_CHECKBOX_OFF); end
 						end
 						REP:BuildUpdateList()
 						REP_UpdateList_Update()
@@ -609,9 +609,9 @@
 					<OnClick>
 						REP_Data.Global.ShowGeneral = self:GetChecked()
 						if (REP_Data.Global.ShowGeneral) then
-							<!-- PlaySound(SOUNDKIT.IG_MAINMENU_OPTION_CHECKBOX_ON); -->
+							if SOUNDKIT then PlaySound(SOUNDKIT.IG_MAINMENU_OPTION_CHECKBOX_ON); end
 						else
-							<!-- PlaySound(SOUNDKIT.IG_MAINMENU_OPTION_CHECKBOX_OFF); -->
+							if SOUNDKIT then PlaySound(SOUNDKIT.IG_MAINMENU_OPTION_CHECKBOX_OFF); end
 						end
 						REP:BuildUpdateList()
 						REP_UpdateList_Update()
@@ -638,7 +638,7 @@
 						REP_Data.Global.ShowMobs = true
 						REP_Data.Global.ShowInstances = true
 						REP_Data.Global.ShowItems = true
-						<!-- PlaySound(SOUNDKIT.IG_MAINMENU_OPTION_CHECKBOX_ON); -->
+						if SOUNDKIT then PlaySound(SOUNDKIT.IG_MAINMENU_OPTION_CHECKBOX_ON); end
 						REP:BuildUpdateList()
 						REP_UpdateList_Update()
 					</OnClick>
@@ -663,7 +663,7 @@
 						REP_Data.Global.ShowMobs = nil
 						REP_Data.Global.ShowInstances = nil
 						REP_Data.Global.ShowItems = nil
-						<!-- PlaySound(SOUNDKIT.IG_MAINMENU_OPTION_CHECKBOX_OFF); -->
+						if SOUNDKIT then PlaySound(SOUNDKIT.IG_MAINMENU_OPTION_CHECKBOX_OFF); end
 						REP:BuildUpdateList()
 						REP_UpdateList_Update()
 					</OnClick>
@@ -684,7 +684,7 @@
 				</Anchors>
 				<Scripts>
 					<OnClick>
-						<!-- PlaySound(SOUNDKIT.IG_MAINMENU_OPTION_CHECKBOX_ON); -->
+						if SOUNDKIT then PlaySound(SOUNDKIT.IG_MAINMENU_OPTION_CHECKBOX_ON); end
 						REP_ShowUpdateEntries(true)
 					</OnClick>
 					<OnEnter>
@@ -704,7 +704,7 @@
 				</Anchors>
 				<Scripts>
 					<OnClick>
-						<!-- PlaySound(SOUNDKIT.IG_MAINMENU_OPTION_CHECKBOX_OFF); -->
+						if SOUNDKIT then PlaySound(SOUNDKIT.IG_MAINMENU_OPTION_CHECKBOX_OFF); end
 						REP_ShowUpdateEntries(false)
 					</OnClick>
 					<OnEnter>
@@ -725,7 +725,7 @@
 				</Anchors>
 				<Scripts>
 					<OnClick>
-						<!-- PlaySound(SOUNDKIT.IG_MAINMENU_OPTION_CHECKBOX_OFF); -->
+						if SOUNDKIT then PlaySound(SOUNDKIT.IG_MAINMENU_OPTION_CHECKBOX_OFF); end
 						REP:SupressNone(false)
 					</OnClick>
 					<OnEnter>
@@ -745,7 +745,7 @@
 				</Anchors>
 				<Scripts>
 					<OnClick>
-						<!-- PlaySound(SOUNDKIT.IG_MAINMENU_OPTION_CHECKBOX_OFF); -->
+						if SOUNDKIT then PlaySound(SOUNDKIT.IG_MAINMENU_OPTION_CHECKBOX_OFF); end
 						REP:SupressNone(true)
 					</OnClick>
 					<OnEnter>
@@ -766,7 +766,7 @@
 				</Anchors>
 				<Scripts>
 					<OnClick>
-						<!-- PlaySound(SOUNDKIT.IG_MAINMENU_OPTION_CHECKBOX_OFF); -->
+						if SOUNDKIT then PlaySound(SOUNDKIT.IG_MAINMENU_OPTION_CHECKBOX_OFF); end
 						REP:ClearSessionGain()
 					</OnClick>
 					<OnEnter>
@@ -819,10 +819,10 @@
 			</OnHide>
 			<OnClick>
 				if(REP_OptionsFrame:IsVisible()) then
-					<!-- PlaySound(SOUNDKIT.IG_MAINMENU_OPTION_CHECKBOX_OFF); -->
+					if SOUNDKIT then PlaySound(SOUNDKIT.IG_MAINMENU_OPTION_CHECKBOX_OFF); end
 					REP_OptionsFrame:Hide();
 				else
-					<!-- PlaySound(SOUNDKIT.IG_MAINMENU_OPTION_CHECKBOX_ON); -->
+					if SOUNDKIT then PlaySound(SOUNDKIT.IG_MAINMENU_OPTION_CHECKBOX_ON); end
 					ReputationDetailFrame:Hide();
 					REP_ReputationDetailFrame:Hide();
 					REP_OptionsFrame:Show();
@@ -852,9 +852,9 @@
 			<OnClick>
 				REP_Data.Global.SortByStanding = self:GetChecked()
 				if (REP_Data.Global.SortByStanding) then
-					<!-- PlaySound(SOUNDKIT.IG_MAINMENU_OPTION_CHECKBOX_ON); -->
+					if SOUNDKIT then PlaySound(SOUNDKIT.IG_MAINMENU_OPTION_CHECKBOX_ON); end
 				else
-					<!-- PlaySound(SOUNDKIT.IG_MAINMENU_OPTION_CHECKBOX_OFF); -->
+					if SOUNDKIT then PlaySound(SOUNDKIT.IG_MAINMENU_OPTION_CHECKBOX_OFF); end
 				end
 				ReputationFrame_Update()
 			</OnClick>
@@ -951,9 +951,9 @@
 					<OnClick>
 						REP_Data.Global.ShowMissing = self:GetChecked()
 						if (REP_Data.Global.ShowMissing) then
-							<!-- PlaySound(SOUNDKIT.IG_MAINMENU_OPTION_CHECKBOX_ON); -->
+							if SOUNDKIT then PlaySound(SOUNDKIT.IG_MAINMENU_OPTION_CHECKBOX_ON); end
 						else
-							<!-- PlaySound(SOUNDKIT.IG_MAINMENU_OPTION_CHECKBOX_OFF); -->
+							if SOUNDKIT then PlaySound(SOUNDKIT.IG_MAINMENU_OPTION_CHECKBOX_OFF); end
 						end
 						ReputationFrame_Update()
 					</OnClick>
@@ -987,9 +987,9 @@
 					<OnClick>
 						REP_Data.Global.ExtendDetails = self:GetChecked()
 						if (REP_Data.Global.ExtendDetails) then
-							<!-- PlaySound(SOUNDKIT.IG_MAINMENU_OPTION_CHECKBOX_ON); -->
+							if SOUNDKIT then PlaySound(SOUNDKIT.IG_MAINMENU_OPTION_CHECKBOX_ON); end
 						else
-							<!-- PlaySound(SOUNDKIT.IG_MAINMENU_OPTION_CHECKBOX_OFF); -->
+							if SOUNDKIT then PlaySound(SOUNDKIT.IG_MAINMENU_OPTION_CHECKBOX_OFF); end
 						end
 					</OnClick>
 					<OnEnter>
@@ -1022,9 +1022,9 @@
 					<OnClick>
 						REP_Data.Global.WriteChatMessage = self:GetChecked()
 						if (REP_Data.Global.WriteChatMessage) then
-							<!-- PlaySound(SOUNDKIT.IG_MAINMENU_OPTION_CHECKBOX_ON); -->
+							if SOUNDKIT then PlaySound(SOUNDKIT.IG_MAINMENU_OPTION_CHECKBOX_ON); end
 						else
-							<!-- PlaySound(SOUNDKIT.IG_MAINMENU_OPTION_CHECKBOX_OFF); -->
+							if SOUNDKIT then PlaySound(SOUNDKIT.IG_MAINMENU_OPTION_CHECKBOX_OFF); end
 						end
 					</OnClick>
 					<OnEnter>
@@ -1057,9 +1057,9 @@
 					<OnClick>
 						REP_Data.Global.NoGuildGain = self:GetChecked()
 						if (REP_Data.Global.NoGuildGain) then
-							<!-- PlaySound(SOUNDKIT.IG_MAINMENU_OPTION_CHECKBOX_ON); -->
+							if SOUNDKIT then PlaySound(SOUNDKIT.IG_MAINMENU_OPTION_CHECKBOX_ON); end
 						else
-							<!-- PlaySound(SOUNDKIT.IG_MAINMENU_OPTION_CHECKBOX_OFF); -->
+							if SOUNDKIT then PlaySound(SOUNDKIT.IG_MAINMENU_OPTION_CHECKBOX_OFF); end
 						end
 					</OnClick>
 					<OnEnter>
@@ -1092,9 +1092,9 @@
 					<OnClick>
 						REP_Data.Global.ShowPreviewRep = self:GetChecked()
 						if (REP_Data.Global.ShowPreviewRep) then
-							<!-- PlaySound(SOUNDKIT.IG_MAINMENU_OPTION_CHECKBOX_ON); -->
+							if SOUNDKIT then PlaySound(SOUNDKIT.IG_MAINMENU_OPTION_CHECKBOX_ON); end
 						else
-							<!-- PlaySound(SOUNDKIT.IG_MAINMENU_OPTION_CHECKBOX_OFF); -->
+							if SOUNDKIT then PlaySound(SOUNDKIT.IG_MAINMENU_OPTION_CHECKBOX_OFF); end
 						end
 						ReputationFrame_Update()
 					</OnClick>
@@ -1128,9 +1128,9 @@
 					<OnClick>
 						REP_Data.Global.SwitchFactionBar = self:GetChecked()
 						if (REP_Data.Global.SwitchFactionBar) then
-							<!-- PlaySound(SOUNDKIT.IG_MAINMENU_OPTION_CHECKBOX_ON); -->
+							if SOUNDKIT then PlaySound(SOUNDKIT.IG_MAINMENU_OPTION_CHECKBOX_ON); end
 						else
-							<!-- PlaySound(SOUNDKIT.IG_MAINMENU_OPTION_CHECKBOX_OFF); -->
+							if SOUNDKIT then PlaySound(SOUNDKIT.IG_MAINMENU_OPTION_CHECKBOX_OFF); end
 						end
 						ReputationFrame_Update()
 					</OnClick>
@@ -1164,9 +1164,9 @@
 					<OnClick>
 						REP_Data.Global.SilentSwitch = self:GetChecked()
 						if (REP_Data.Global.SilentSwitch) then
-							<!-- PlaySound(SOUNDKIT.IG_MAINMENU_OPTION_CHECKBOX_ON); -->
+							if SOUNDKIT then PlaySound(SOUNDKIT.IG_MAINMENU_OPTION_CHECKBOX_ON); end
 						else
-							<!-- PlaySound(SOUNDKIT.IG_MAINMENU_OPTION_CHECKBOX_OFF); -->
+							if SOUNDKIT then PlaySound(SOUNDKIT.IG_MAINMENU_OPTION_CHECKBOX_OFF); end
 						end
 						ReputationFrame_Update()
 					</OnClick>
@@ -1200,9 +1200,9 @@
 					<OnClick>
 						REP_Data.Global.NoGuildSwitch = self:GetChecked()
 						if (REP_Data.Global.NoGuildSwitch) then
-							<!-- PlaySound(SOUNDKIT.IG_MAINMENU_OPTION_CHECKBOX_ON); -->
+							if SOUNDKIT then PlaySound(SOUNDKIT.IG_MAINMENU_OPTION_CHECKBOX_ON); end
 						else
-							<!-- PlaySound(SOUNDKIT.IG_MAINMENU_OPTION_CHECKBOX_OFF); -->
+							if SOUNDKIT then PlaySound(SOUNDKIT.IG_MAINMENU_OPTION_CHECKBOX_OFF); end
 						end
 						ReputationFrame_Update()
 					</OnClick>
@@ -1236,9 +1236,9 @@
 					<OnClick>
 						REP_Data.Global.ShowParagonBar = self:GetChecked()
 						if (REP_Data.Global.ShowParagonBar) then
-							<!-- PlaySound(SOUNDKIT.IG_MAINMENU_OPTION_CHECKBOX_ON); -->
+							if SOUNDKIT then PlaySound(SOUNDKIT.IG_MAINMENU_OPTION_CHECKBOX_ON); end
 						else
-							<!-- PlaySound(SOUNDKIT.IG_MAINMENU_OPTION_CHECKBOX_OFF); -->
+							if SOUNDKIT then PlaySound(SOUNDKIT.IG_MAINMENU_OPTION_CHECKBOX_OFF); end
 						end
 						ReputationFrame_Update()
 					</OnClick>

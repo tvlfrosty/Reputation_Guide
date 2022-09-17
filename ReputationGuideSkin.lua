@@ -1,7 +1,7 @@
 if IsAddOnLoaded("ElvUI") then
-    local E = unpack(_G.ElvUI)
+  local E = unpack(_G.ElvUI)
 
-    local buttons = {
+  local buttons = {
 		REP_OptionsButton,
 		REP_ShowAllButton,
 		REP_ExpandButton,
@@ -33,27 +33,27 @@ if IsAddOnLoaded("ElvUI") then
 		REP_EnableParagonBarBox,
 		REP_ShowDarkmoonFaireButton,
 	}
-   
-    REP_ReputationDetailFrame:StripTextures()
-    REP_ReputationDetailFrame:SetTemplate("Transparent")
 
-    REP_OptionsFrame:StripTextures()
-    REP_OptionsFrame:SetTemplate("Transparent")
+  REP_ReputationDetailFrame:StripTextures()
+  REP_ReputationDetailFrame:SetTemplate("Transparent")
 
-    E.Skins:HandleCloseButton(REP_OptionsFrameClose)
-    E.Skins:HandleCloseButton(REP_ReputationDetailCloseButton)
+  REP_OptionsFrame:StripTextures()
+  REP_OptionsFrame:SetTemplate("Transparent")
 
-    E.Skins:HandleCheckBox(REP_ReputationDetailAtWarCheckBox)
-    REP_ReputationDetailAtWarCheckBox:SetCheckedTexture('Interface\\Buttons\\UI-CheckBox-SwordCheck')
-	REP_ReputationDetailAtWarCheckBox:SetDisabledCheckedTexture('Interface\\Buttons\\UI-CheckBox-Check-Disabled')
+  E.Skins:HandleCloseButton(REP_OptionsFrameClose)
+  E.Skins:HandleCloseButton(REP_ReputationDetailCloseButton)
 
-    E.Skins:HandleScrollBar(REP_UpdateListScrollFrameScrollBar)
+  E.Skins:HandleCheckBox(REP_ReputationDetailAtWarCheckBox)
+  REP_ReputationDetailAtWarCheckBox:SetCheckedTexture('Interface\\Buttons\\UI-CheckBox-SwordCheck')
+  REP_ReputationDetailAtWarCheckBox:SetDisabledCheckedTexture('Interface\\Buttons\\UI-CheckBox-Check-Disabled')
 
-    for _,button in pairs(buttons) do
-        E.Skins:HandleButton(button)
-    end
+  E.Skins:HandleScrollBar(REP_UpdateListScrollFrameScrollBar)
 
-    for _,checkbox in pairs(checkboxes) do
-        E.Skins:HandleCheckBox(checkbox)
-    end
+  for _,button in pairs(buttons) do
+    E.Skins:HandleButton(button)
+  end
+
+  for _,checkbox in pairs(checkboxes) do
+    E.Skins:HandleCheckBox(checkbox)
+  end
 end
