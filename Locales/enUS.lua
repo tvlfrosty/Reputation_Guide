@@ -11,7 +11,7 @@ REP_TXT	= {}
 REP_TXT.Mob = {}
 -- help
 REP_TXT.help	= "A tool to manage your reputation"
-REP_TXT.command	= "Could not parse command"	
+REP_TXT.command	= "Could not parse command"
 REP_TXT.usage	= "Usage"
 REP_TXT.helphelp	= "Show this help text"
 REP_TXT.helpabout	= "Show author information"
@@ -32,6 +32,24 @@ REP_TXT_STAND_LV[5]	= "Friendly"
 REP_TXT_STAND_LV[6]	= "Honored"
 REP_TXT_STAND_LV[7]	= "Revered"
 REP_TXT_STAND_LV[8]	= "Exalted"
+REP_TXT_STAND_LV[9] = "Paragon"
+REP_TXT_STAND_LV_TIER	= {}
+REP_TXT_STAND_LV_TIER[0] = "Unknown"
+REP_TXT_STAND_LV_TIER[1] = "Tier 1"
+REP_TXT_STAND_LV_TIER[2] = "Tier 2"
+REP_TXT_STAND_LV_TIER[3] = "Tier 3"
+REP_TXT_STAND_LV_TIER[4] = "Tier 4"
+REP_TXT_STAND_LV_TIER[5] = "Tier 5"
+REP_TXT_STAND_LV_TIER[6] = "Tier 6"
+REP_TXT_STAND_LV_TRUST	= {}
+REP_TXT_STAND_LV_TRUST[0] = "Unknown"
+REP_TXT_STAND_LV_TRUST[1] = "Dubious"
+REP_TXT_STAND_LV_TRUST[2] = "Apprehensive"
+REP_TXT_STAND_LV_TRUST[3] = "Tentative"
+REP_TXT_STAND_LV_TRUST[4] = "Ambivalent"
+REP_TXT_STAND_LV_TRUST[5] = "Cordial"
+REP_TXT_STAND_LV_TRUST[6] = "Appreciative"
+
 -- status
 REP_TXT.status	= "Status"
 REP_TXT.disabled	= "disabled"

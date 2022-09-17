@@ -57,7 +57,9 @@ FACTION_BAR_COLORS = {
   [6] = {r = 0, g = 0.6, b = 0.1},
   [7] = {r = 0, g = 0.6, b = 0.1},
   [8] = {r = 0, g = 0.6, b = 0.1},
+  [9] = {r = 0, g = 0.5, b = 0.9},
 };
+
 --Profestions ggg
 REP_LIMIT_TYPE_Herb = 1
 REP_LIMIT_TYPE_Skin = 2
@@ -1817,6 +1819,7 @@ function REP_ReputationFrame_Update()
       local factionBar;
       local factionStanding;
       local factionIndex = factionOffset + i;
+
       local factionRow = _G["ReputationBar"..i];
       local factionHeader = _G["ReputationHeader"..i];
       local factionCheck = _G["ReputationBar"..i.."Check"];
@@ -1824,8 +1827,8 @@ function REP_ReputationFrame_Update()
       local factionButton = _G["ReputationBar"..i.."ExpandOrCollapseButton"];
       local factionBackground = _G["ReputationBar"..i.."Background"];
       local factionBarPreview = _G["REP_StatusBar"..i];
-      local factionAtWarIndicator = _G["ReputationBar"..i.."AtWarCheck"]
-      local factionRightBarTexture = _G["ReputationBar"..i.."ReputationBarRight"]
+      local factionAtWarIndicator = _G["ReputationBar"..i.."AtWarCheck"];
+      local factionRightBarTexture = _G["ReputationBar"..i.."ReputationBarRight"];
 
       if (expansionIndex > 1) then
         factionBar = _G["ReputationBar"..i.."ReputationBar"];
@@ -3123,8 +3126,9 @@ function REP:DumpReputationChangesToChat(initOnly)
     watchedIndex = 0
     watchName = nil
 
-    for factionIndex=1, numFactions, 1 do
+    for factionIndex = 1, numFactions, 1 do
       name, _, standingID, barMin, barMax, barValue, _, _, isHeader, _, hasRep, isWatched, _, factionID = GetFactionInfo(factionIndex)
+      local friendID, friendTextLevel, nextFriendThreshold;
 
       if(factionID and C_Reputation.IsFactionParagon(factionID)) then
         local currentValue, threshold = C_Reputation.GetFactionParagonInfo(factionID);
@@ -3132,7 +3136,7 @@ function REP:DumpReputationChangesToChat(initOnly)
       end
 
       if expansionIndex > 2 then
-        local friendID, _, _, _, _, _, friendTextLevel, _, nextFriendThreshold = GetFriendshipReputation(factionID)
+        friendID, _, _, _, _, _, friendTextLevel, _, nextFriendThreshold = GetFriendshipReputation(factionID)
       end
 
       if (not isHeader or hasRep) then
@@ -3143,8 +3147,8 @@ function REP:DumpReputationChangesToChat(initOnly)
         if REP_StoredRep[name] and not initOnly then
           if (REP_Data.Global.WriteChatMessage) then
             if (not REP_Data.Global.NoGuildGain or name ~= REP_GuildName) then
-              local sign=""
-              if ((barValue-REP_StoredRep[name].origRep)>0) then
+              local sign = ""
+              if ((barValue-REP_StoredRep[name].origRep) > 0) then
                 sign = "+"
               end
 
@@ -3152,20 +3156,20 @@ function REP:DumpReputationChangesToChat(initOnly)
                 -- increased rep
                 if (friendID ~= nil and nextFriendThreshold ~= nil) then
                   -- If the faction is a friend faction and not at max rank get the next standing text
-                  REP:Print(REP_NEW_REP_COLOUR..string.format(FACTION_STANDING_INCREASED..REP_TXT.statsNextStanding, name, barValue-REP_StoredRep[name].rep, sign, barValue-REP_StoredRep[name].origRep, REP_GetFriendFactionStandingLabel(factionID, nextFriendThreshold),barMax-barValue))
+                  REP:Print(REP_NEW_REP_COLOUR..string.format(FACTION_STANDING_INCREASED..REP_TXT.statsNextStanding, name, barValue - REP_StoredRep[name].rep, sign, barValue - REP_StoredRep[name].origRep, REP_GetFriendFactionStandingLabel(factionID, nextFriendThreshold), barMax - barValue))
                 elseif (friendID == nil and standingID < 8) then
                   -- If not a friend faction and below max rank use the format (Total: %s%d, Left to %s: %d) if not use the normal format (Total: %s%d, Left: %d)
-                  REP:Print(REP_NEW_REP_COLOUR..string.format(FACTION_STANDING_INCREASED..REP_TXT.statsNextStanding, name, barValue-REP_StoredRep[name].rep, sign, barValue-REP_StoredRep[name].origRep, _G["FACTION_STANDING_LABEL"..standingID + 1],barMax-barValue))
+                  REP:Print(REP_NEW_REP_COLOUR..string.format(FACTION_STANDING_INCREASED..REP_TXT.statsNextStanding, name, barValue - REP_StoredRep[name].rep, sign, barValue - REP_StoredRep[name].origRep, _G["FACTION_STANDING_LABEL"..standingID + 1], barMax - barValue))
                 else
-                  REP:Print(REP_NEW_REP_COLOUR..string.format(FACTION_STANDING_INCREASED..REP_TXT.stats, name, barValue-REP_StoredRep[name].rep, sign, barValue-REP_StoredRep[name].origRep, barMax-barValue))
+                  REP:Print(REP_NEW_REP_COLOUR..string.format(FACTION_STANDING_INCREASED..REP_TXT.stats, name, barValue - REP_StoredRep[name].rep, sign, barValue - REP_StoredRep[name].origRep, barMax - barValue))
                 end
               elseif (barValue < REP_StoredRep[name].rep) then
                 -- decreased rep
                 if (standingID > 1 and friendID == nil) then
                   -- Only use the new format (Total: %s%d, Left to %s: %d) if we are above the lowest rank, otherwise use the normal format (Total: %s%d, Left: %d)
-                  REP:Print(REP_NEW_REP_COLOUR..string.format(FACTION_STANDING_DECREASED..REP_TXT.statsNextStanding, name, REP_StoredRep[name].rep-barValue, sign, barValue-REP_StoredRep[name].origRep, _G["FACTION_STANDING_LABEL"..standingID - 1], barMax-barValue))
+                  REP:Print(REP_NEW_REP_COLOUR..string.format(FACTION_STANDING_DECREASED..REP_TXT.statsNextStanding, name, REP_StoredRep[name].rep-barValue, sign, barValue-REP_StoredRep[name].origRep, _G["FACTION_STANDING_LABEL"..standingID - 1], barMax - barValue))
                 else
-                  REP:Print(REP_NEW_REP_COLOUR..string.format(FACTION_STANDING_DECREASED..REP_TXT.stats, name, REP_StoredRep[name].rep-barValue, sign, barValue-REP_StoredRep[name].origRep, barMax-barValue))
+                  REP:Print(REP_NEW_REP_COLOUR..string.format(FACTION_STANDING_DECREASED..REP_TXT.stats, name, REP_StoredRep[name].rep-barValue, sign, barValue-REP_StoredRep[name].origRep, barMax - barValue))
                 end
               end
 
@@ -3504,12 +3508,21 @@ function REP:StandingSort()
 
   for i = 1, numFactions do
     local name, description, standingID, _, barMax, barValue, _, _, isHeader, _, hasRep, isWatched, isChild, factionID, hasBonusRepGain = GetFactionInfo(i);
+    local _, _, _, isFriend = REP_Friend_Detail(factionID, standingID);
 
     if (expansionIndex > 2) then
       if(factionID and C_Reputation.IsFactionParagon(factionID) and REP_Data.Global.ShowParagonBar) then
         local currentValue, threshold, _, _ = C_Reputation.GetFactionParagonInfo(factionID);
         barMax, barValue, standingID = threshold, mod(currentValue, threshold), 9;
       end
+
+      -- if isFriend then -- Fix reputations with only 6 reputation levels
+      --   if (standingID == 6) and (not C_Reputation.IsFactionParagon(factionID)) then
+      --     standingID = standingID + 2;
+      --   else
+      --     standingID = standingID + 3;
+      --   end
+      -- end
     end
 
     if (not isHeader or hasRep) then
@@ -3638,8 +3651,10 @@ function REP:Rep_Detail_Frame(faction,colorID,barValue,barMax,origBarValue,stand
   REP_ReputationDetailFactionDescription:SetText(description);
 
   if isParagon then
-    REP_ReputationDetailStandingName:SetText("Paragon")
+    colorID = 9;
+    REP_ReputationDetailStandingName:SetText(tostring(REP_TXT_STAND_LV[9]))
   elseif isFriend then
+    colorID = 5;
     REP_ReputationDetailStandingName:SetText(friendTextLevel)
   else
     REP_ReputationDetailStandingName:SetText(factionStandingtext)
@@ -3679,9 +3694,9 @@ function REP:Rep_Detail_Frame(faction,colorID,barValue,barMax,origBarValue,stand
     end
   else
     if (standingID < 8) then
-      color = FACTION_BAR_COLORS[standingID+1]
+      color = FACTION_BAR_COLORS[standingID + 1]
       --REP_ReputationDetailStandingNext:SetText(REP_TXT.nextLevel)
-      REP_ReputationDetailStandingNextValue:SetText("(--> "..GetText("FACTION_STANDING_LABEL"..standingID+1, gender)..")")
+      REP_ReputationDetailStandingNextValue:SetText("(--> "..GetText("FACTION_STANDING_LABEL"..standingID + 1, gender)..")")
       REP_ReputationDetailStandingNextValue:SetTextColor(color.r, color.g, color.b)
     else
       --REP_ReputationDetailStandingNext:SetText("")
@@ -3737,6 +3752,7 @@ function REP:Rep_Detail_Frame(faction,colorID,barValue,barMax,origBarValue,stand
 end
 
 function REP_Friend_Detail(factionID, standingID, factionRow)
+  -- Currently editing
   local expansionIndex = REP_Data.Global.ExpansionIndex;
   if expansionIndex > 2 then
     local colorIndex, factionStandingtext, isCappedFriendship;
@@ -3749,15 +3765,16 @@ function REP_Friend_Detail(factionID, standingID, factionRow)
         barMin, barMax, barValue = 0, 1, 1;
         isCappedFriendship = true;
       end
+
       colorIndex = 5;	-- always color friendships green
       factionStandingtext = friendTextLevel;
-      factionRow.friendshipID = friendID;
+      if factionRow then factionRow.friendshipID = friendID end
       isFriend = true;
 
       return colorIndex, isCappedFriendship, factionStandingtext, isFriend
     else
       factionStandingtext = GetText("FACTION_STANDING_LABEL"..standingID, gender);
-      factionRow.friendshipID = nil;
+      if factionRow then factionRow.friendshipID = nil end
       colorIndex = standingID;
       isFriend = false;
 
@@ -3765,7 +3782,7 @@ function REP_Friend_Detail(factionID, standingID, factionRow)
     end
   else
     factionStandingtext = GetText("FACTION_STANDING_LABEL"..standingID, gender);
-    factionRow.friendshipID = nil;
+    if factionRow then factionRow.friendshipID = nil end
     colorIndex = standingID;
     isFriend = false;
 
@@ -4096,30 +4113,7 @@ function REP_GetFriendFactionRemaining(factionID, factionStandingtext, barMax, b
 end
 
 function REP_GetFriendFactionStandingLabel(factionID, nextFriendThreshold)
-  -- Add localization
-  local REP_BFFLabels = {}
-  REP_BFFLabels[0] = {}
-  REP_BFFLabels[0][8400] = "Acquaintance"
-  REP_BFFLabels[0][16800] = "Buddy"
-  REP_BFFLabels[0][25200] = "Friend"
-  REP_BFFLabels[0][33600] = "Good Friend"
-  REP_BFFLabels[0][42000] = "Best Friend"
-
-  -- Corbyn
-  REP_BFFLabels[2100] = {}
-  REP_BFFLabels[2100][8400] = "Curiosity"
-  REP_BFFLabels[2100][16800] = "Non-Threat"
-  REP_BFFLabels[2100][25200] = "Friend"
-  REP_BFFLabels[2100][33600] = "Helpful Friend"
-  REP_BFFLabels[2100][42000] = "Best Friend"
-
-  -- Nat Pagle
-  REP_BFFLabels[1358] = {}
-  REP_BFFLabels[1358][8400] = "Pal"
-  REP_BFFLabels[1358][16800] = "Buddy"
-  REP_BFFLabels[1358][25200] = "Friend"
-  REP_BFFLabels[1358][33600] = "Good Friend"
-  REP_BFFLabels[1358][42000] = "Best Friend"
+  local REP_BFFLabels = REP.BFFLabels;
 
   if REP_BFFLabels[factionID] ~= nil then
     return REP_BFFLabels[factionID][nextFriendThreshold]
@@ -4148,7 +4142,7 @@ function REP:SortByStandingWithoutFactionHeader(i, expansionIndex, factionIndex,
     elseif (OBS_fi_i == 8) then
       factionTitle:SetText(GetText("FACTION_STANDING_LABEL"..OBS_fi_i, gender).." ("..tostring(OBS_fi.size)..")");
     else
-      factionTitle:SetText(GetText("FACTION_STANDING_LABEL"..OBS_fi_i, gender).." -> "..GetText("FACTION_STANDING_LABEL"..OBS_fi_i+1, gender).." ("..tostring(OBS_fi.size)..")");
+      factionTitle:SetText(GetText("FACTION_STANDING_LABEL"..OBS_fi_i, gender).." -> "..GetText("FACTION_STANDING_LABEL"..OBS_fi_i + 1, gender).." ("..tostring(OBS_fi.size)..")");
     end
 
     if (REP_Collapsed[OBS_fi_i]) then
@@ -4161,33 +4155,13 @@ function REP:SortByStandingWithoutFactionHeader(i, expansionIndex, factionIndex,
     factionRow.isCollapsed = REP_Collapsed[OBS_fi_i];
   else
     -- get the info for this Faction
-    local isParagon
+    local isParagon;
+    local isCapped;
     local name, description, standingID, barMin, barMax, barValue, atWarWith, canToggleAtWar, isHeader, isCollapsed, hasRep, isWatched, isChild, factionID, hasBonusRepGain = GetFactionInfo(OBS_fi_i);
-    local colorIndex, isCappedFriendship, factionStandingtext  = REP_Friend_Detail(factionID, standingID, factionRow);
-
-    factionTitle:SetText(name);
-
+    local colorIndex, isCappedFriendship, factionStandingtext = REP_Friend_Detail(factionID, standingID, factionRow);
     -- Normalize Values
     local origBarValue = barValue
 
-    if (factionID and C_Reputation.IsFactionParagon(factionID)) then
-      if IsAddOnLoaded("ParagonReputation") then
-        -- REP:Print("Paragon repution addon loaded throgh Repution Guide")
-      end
-
-      isParagon = true
-      local paragonFrame = ReputationFrame.paragonFramesPool:Acquire();
-      paragonFrame.factionID = factionID;
-      paragonFrame:SetPoint("RIGHT", factionRow, 11, 0);
-      local currentValue, threshold, rewardQuestID, hasRewardPending = C_Reputation.GetFactionParagonInfo(factionID);
-      origBarValue = mod(currentValue, threshold);
-      C_Reputation.RequestFactionParagonPreloadRewardData(factionID);
-      paragonFrame.Glow:SetShown(hasRewardPending);
-      paragonFrame.Check:SetShown(hasRewardPending);
-      paragonFrame:Show();
-    end
-
-    local isCapped;
     if (standingID == MAX_REPUTATION_REACTION) then
       isCapped = true;
     end
@@ -4197,15 +4171,33 @@ function REP:SortByStandingWithoutFactionHeader(i, expansionIndex, factionIndex,
       barMin, barMax, barValue = 0, 1, 1;
     end
 
-    -- Set reputation bar to paragon values if user option is activated and faction is at paragon rep
-    if(factionID and C_Reputation.IsFactionParagon(factionID) and REP_Data.Global.ShowParagonBar) then
-      local currentValue, threshold, rewardQuestID, hasRewardPending = C_Reputation.GetFactionParagonInfo(factionID);
-      barMin, barMax, barValue = 0, threshold, mod(currentValue, threshold);
-    end
-
     barMax = barMax - barMin;
     barValue = barValue - barMin;
     barMin = 0;
+
+    if (factionID and C_Reputation.IsFactionParagon(factionID)) then
+      isParagon = true
+
+      local paragonFrame = ReputationFrame.paragonFramesPool:Acquire();
+      local currentValue, threshold, rewardQuestID, hasRewardPending = C_Reputation.GetFactionParagonInfo(factionID);
+
+      origBarValue = mod(currentValue, threshold);
+      C_Reputation.RequestFactionParagonPreloadRewardData(factionID);
+
+      paragonFrame.factionID = factionID;
+      paragonFrame:SetPoint("RIGHT", factionRow, 11, 0);
+      paragonFrame.Glow:SetShown(hasRewardPending);
+      paragonFrame.Check:SetShown(hasRewardPending);
+      paragonFrame:Show();
+
+      colorIndex = 9;
+
+      -- Set reputation bar to paragon values if user option is activated and faction is at paragon rep
+      if REP_Data.Global.ShowParagonBar then
+        local currentValue, threshold, rewardQuestID, hasRewardPending = C_Reputation.GetFactionParagonInfo(factionID);
+        barMin, barMax, barValue = 0, threshold, mod(currentValue, threshold);
+      end
+    end
 
     if(factionID and C_Reputation.IsFactionParagon(factionID) and REP_Data.Global.ShowParagonBar and REP_Data.Global.ShowMissing ~= true) then
       factionRow.rolloverText = HIGHLIGHT_FONT_COLOR_CODE.." "..format(REPUTATION_PROGRESS_FORMAT, barValue, barMax)..FONT_COLOR_CODE_CLOSE;
@@ -4231,7 +4223,7 @@ function REP:SortByStandingWithoutFactionHeader(i, expansionIndex, factionIndex,
 
     if (REP_Data.Global.ShowMissing) then
       if ((barMax - barValue) ~= 0 and factionID and C_Reputation.IsFactionParagon(factionID) and REP_Data.Global.ShowParagonBar) then
-        factionRow.standingText = "Paragon".." ("..barMax - barValue..")";
+        factionRow.standingText = tostring(REP_TXT_STAND_LV[9]).." ("..barMax - barValue..")";
       elseif ((barMax - barValue) ~= 0) then
         if(factionStandingtext) then
           factionRow.standingText = factionStandingtext.." ("..barMax - barValue..")";
@@ -4243,12 +4235,13 @@ function REP:SortByStandingWithoutFactionHeader(i, expansionIndex, factionIndex,
       end
     else
       if(factionID and C_Reputation.IsFactionParagon(factionID) and REP_Data.Global.ShowParagonBar) then
-        factionRow.standingText = "Paragon";
+        factionRow.standingText = tostring(REP_TXT_STAND_LV[9]);
       else
         factionRow.standingText = factionStandingtext;
       end
     end
 
+    factionTitle:SetText(name);
     factionStanding:SetText(factionRow.standingText);
 
     if (isCappedFriendship) then
@@ -4259,7 +4252,14 @@ function REP:SortByStandingWithoutFactionHeader(i, expansionIndex, factionIndex,
 
     factionBar:SetMinMaxValues(0, barMax);
     factionBar:SetValue(barValue);
-    local color = FACTION_BAR_COLORS[standingID];
+
+    local color;
+    if colorIndex then
+      color = FACTION_BAR_COLORS[colorIndex];
+    else
+      color = FACTION_BAR_COLORS[standingID];
+    end
+
     factionBar:SetStatusBarColor(color.r, color.g, color.b);
 
     if(expansionIndex > 2) then
@@ -4271,7 +4271,7 @@ function REP:SortByStandingWithoutFactionHeader(i, expansionIndex, factionIndex,
       previewValue = REP:GetReadyReputation(OBS_fi_i)
     end
 
-    if ((previewValue > 0) and not ((standingID==8) and (barMax-barValue == 1))) then
+    if ((previewValue > 0) and not ((standingID == 8) and (barMax - barValue == 1))) then
       factionBarPreview:Show()
       factionBarPreview:SetMinMaxValues(0, barMax)
       previewValue = previewValue + barValue
@@ -4313,7 +4313,7 @@ function REP:SortByStandingWithoutFactionHeader(i, expansionIndex, factionIndex,
       end
 
       if (REP_ReputationDetailFrame:IsVisible()) then
-        REP:Rep_Detail_Frame(OBS_fi_i,standingID,barValue,barMax,origBarValue,standingID,toExalted,factionStandingtext, toBFF, isParagon, isFriend, isCappedFriendship)
+        REP:Rep_Detail_Frame(OBS_fi_i, standingID, barValue, barMax, origBarValue, standingID, toExalted, factionStandingtext, toBFF, isParagon, isFriend, isCappedFriendship)
 
         _G["ReputationBar"..i.."ReputationBarHighlight1"]:Show();
         _G["ReputationBar"..i.."ReputationBarHighlight2"]:Show();
@@ -4326,11 +4326,39 @@ function REP:SortByStandingWithoutFactionHeader(i, expansionIndex, factionIndex,
 end
 
 ----------------------------------------------
+-- SetFactionInactive
+----------------------------------------------
+function REP:CustomSetFactionInactive(factionIndex)
+  local name, _, _, _, _, _, _, _, isHeader, _, _, _, _, factionID = GetFactionInfo(factionIndex);
+
+  if (name and isHeader) then
+    if REP_Data[REP_ProfileKey].InactiveFactions == nil then REP_Data[REP_ProfileKey].InactiveFactions = {} end
+    REP_Data[REP_ProfileKey].InactiveFactions[factionID] = true
+  else
+    SetFactionInactive(factionIndex);
+  end
+end
+
+----------------------------------------------
+-- SetFactionActive
+----------------------------------------------
+function REP:CustomSetFactionActive(factionIndex)
+  local name, _, _, _, _, _, _, _, isHeader, _, _, _, _, factionID = GetFactionInfo(factionIndex);
+
+  if (name and isHeader) then
+    if REP_Data[REP_ProfileKey].InactiveFactions == nil then REP_Data[REP_ProfileKey].InactiveFactions = {} end
+    REP_Data[REP_ProfileKey].InactiveFactions[factionID] = nil
+  else
+    SetFactionActive(factionIndex);
+  end
+end
+
+----------------------------------------------
 -- REP:OriginalRepOrderWithoutFactionHeader
 ----------------------------------------------
 function REP:OriginalRepOrderWithoutFactionHeader(i, expansionIndex, factionIndex, factionRow, factionBar, factionBarPreview, factionTitle, factionButton, factionStanding, factionAtWarIndicator, factionBackground)
   -- get the info for this Faction
-  local name, description, standingID, barMin, barMax, barValue, atWarWith, canToggleAtWar, isHeader, isCollapsed, hasRep, isWatched, isChild = GetFactionInfo(factionIndex); -- , factionID, hasBonusRepGain, canBeLFGBonus
+  local name, description, standingID, barMin, barMax, barValue, atWarWith, canToggleAtWar, isHeader, isCollapsed, hasRep, isWatched, isChild, factionID, hasBonusRepGain, canBeLFGBonus = GetFactionInfo(factionIndex);
   local isParagon
 
   factionTitle:SetText(name);
@@ -4362,6 +4390,8 @@ function REP:OriginalRepOrderWithoutFactionHeader(i, expansionIndex, factionInde
       paragonFrame.Glow:SetShown(hasRewardPending);
       paragonFrame.Check:SetShown(hasRewardPending);
       paragonFrame:Show();
+
+      colorIndex = 9;
     end
   end
 
@@ -4437,17 +4467,16 @@ function REP:OriginalRepOrderWithoutFactionHeader(i, expansionIndex, factionInde
   REP_ReputationFrame_SetRowType(factionRow, isChild, isHeader, hasRep, expansionIndex);
   factionRow:Show();
 
-  if colorIndex ~= standingID then
-    if ((colorIndex == nil or colorIndex == 0) and standingID) then
-      colorIndex = standingID;
-    else
-      colorIndex = 0;
-    end
-  end
-
   factionBar:SetMinMaxValues(0, barMax);
   factionBar:SetValue(barValue);
-  local color = FACTION_BAR_COLORS[colorIndex];
+
+  local color;
+  if colorIndex then
+    color = FACTION_BAR_COLORS[colorIndex];
+  else
+    color = FACTION_BAR_COLORS[standingID];
+  end
+
   factionBar:SetStatusBarColor(color.r, color.g, color.b);
 
   if(expansionIndex > 2) then

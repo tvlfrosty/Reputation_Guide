@@ -1,22 +1,22 @@
-﻿-- Русский (Russian)	
+﻿-- Русский (Russian)
 --------------------	--------------------
-if (GetLocale() =="ruRU") then	
-	
--- Binding names	
+if (GetLocale() =="ruRU") then
+
+-- Binding names
 BINDING_HEADER_REPUTATIONS	= "Reputation Guide"
 BINDING_NAME_SHOWCONFIG	= "Показать окно опций"
 BINDING_NAME_SHOWDETAILS	= "Отображение детальной информации о репутации"
-	
+
 REP_TXT	= {}
 REP_TXT.Mob = {}
--- help	
+-- help
 REP_TXT.help	= "Инструментарий работы с репутацией"
 REP_TXT.command	= "Невозможно разобрать команду"
 REP_TXT.usage	= "Использование"
 REP_TXT.helphelp	= "Показывает этот текст помощи"
 REP_TXT.helpabout	= "Показывает информацию об авторе"
 REP_TXT.helpstatus	= "Показывает текущие настройки"
--- about	
+-- about
 REP_TXT.by	= "durch"
 REP_TXT.version	= "Версия"
 REP_TXT.date	= "дата"
@@ -32,7 +32,25 @@ REP_TXT_STAND_LV[5]	= "Дружелюбие"
 REP_TXT_STAND_LV[6]	= "Уважение"
 REP_TXT_STAND_LV[7]	= "Почтение"
 REP_TXT_STAND_LV[8]	= "Превознесение"
--- status	
+REP_TXT_STAND_LV[9] = "Парагон"
+REP_TXT_STAND_LV_TIER	= {}
+REP_TXT_STAND_LV_TIER[0]	= "Неизвестно"
+REP_TXT_STAND_LV_TIER[1] = "1-й уровень"
+REP_TXT_STAND_LV_TIER[2] = "2-й уровень"
+REP_TXT_STAND_LV_TIER[3] = "3-й уровень"
+REP_TXT_STAND_LV_TIER[4] = "4-й уровень"
+REP_TXT_STAND_LV_TIER[5] = "5-й уровень"
+REP_TXT_STAND_LV_TIER[6] = "6-й уровень"
+REP_TXT_STAND_LV_TRUST	= {}
+REP_TXT_STAND_LV_TRUST[0] = "Неизвестно"
+REP_TXT_STAND_LV_TRUST[1] = "Сомнения"
+REP_TXT_STAND_LV_TRUST[2] = "Опасения"
+REP_TXT_STAND_LV_TRUST[3] = "Настороженность"
+REP_TXT_STAND_LV_TRUST[4] = "Безразличие"
+REP_TXT_STAND_LV_TRUST[5] = "Сердечность"
+REP_TXT_STAND_LV_TRUST[6] = "Признание"
+
+-- status
 REP_TXT.status	= "Статус"
 REP_TXT.disabled	= "выключено"
 REP_TXT.enabled	= "включено"
@@ -51,7 +69,7 @@ REP_TXT.statSwitch	= "Автоматическое переключение фр
 REP_TXT.statNoGuildSwitch	= "Не переключать для репутации с гильдией"
 REP_TXT.statSilentSwitch	= "Нет сообщений при переключении полосы репутации"
 REP_TXT.statGuildCap	= "Показать лимит репутации с гильдией в чат"
--- XML UI elements	
+-- XML UI elements
 REP_TXT.showQuests	= "Квесты"
 REP_TXT.showInstances	= "Подземелья"
 REP_TXT.showMobs	= "Мобы"
@@ -65,7 +83,7 @@ REP_TXT.supressNoneFaction	= "Убрать исключения фракции"
 REP_TXT.supressNoneGlobal	= "Убрать все исключения"
 REP_TXT.suppressHint	= "Кликните правой кнопкой, чтобы исключить квест из списка"
 REP_TXT.clearSessionGain	= "Очистить счетчик увеличений за сессию"
--- options dialog	
+-- options dialog
 REP_TXT.showMissing	= "Показывать недостающую репутацию во фрейме репутации"
 REP_TXT.extendDetails	= "Показывать окно детальной информации о репутации"
 REP_TXT.gainToChat	= "Replace original faction gain messages with a more detailed version"
@@ -81,7 +99,7 @@ REP_TXT.chatFrame	= "Использовать окно чата: %d (%s)"
 REP_TXT.usingDefaultChatFrame	= "Используется окно чата по умолчанию"
 REP_TXT.usingChatFrame	= "Используется окно чата"
 REP_TXT.EnableParagonBar = "Display paragon reputation in bars."
--- various LUA	
+-- various LUA
 REP_TXT.options	= "Опции"
 REP_TXT.orderByStanding	= "Сортировать по репе"
 REP_TXT.lookup	= "Посмотреть фракцию"
@@ -91,7 +109,7 @@ REP_TXT.missing2	= "Не хватает"
 REP_TXT.heroic	= "Героик"
 REP_TXT.normal	= "Нормал"
 REP_TXT.switchBar	= "Переключаем полосу репутации на"
--- REP_ShowFactions	
+-- REP_ShowFactions
 REP_TXT.faction	= "Фракция"
 REP_TXT.is	= "есть"
 REP_TXT.withStanding	= "со стоячим"
@@ -103,7 +121,7 @@ REP_TXT.quest	= "[Квест]"
 REP_TXT.instance	= "[Подземелье]"
 REP_TXT.items	= "[Вещь]"
 REP_TXT.unknown	= "Не известно этому игроку"
--- mob Details	
+-- mob Details
 REP_TXT.tmob	= "Обычные мобы (треш)"
 REP_TXT.oboss	= "другим боссом"
 REP_TXT.aboss	= "все боссы"
@@ -117,7 +135,7 @@ REP_TXT.Wa	= "шайки Скитальцев Пустыни"
 REP_TXT.VCm	= "Любой член торговой компании"
 REP_TXT.Mob.MoshOgg_Spellcrafter = "Чаротвор Мош'Огг"
 REP_TXT.Mob.BoulderfistOgre = "Огр из клана Тяжелого Кулака"
--- Quest Details	
+-- Quest Details
 REP_TXT.cdq	= "Главный город кулинарные ежедневных заданий"
 REP_TXT.coq	= "Ежедневные кулинарные квесты других городов"
 REP_TXT.fdq	= "Главный город рыболовные ежедневных заданий"
@@ -126,25 +144,25 @@ REP_TXT.ndq	= "нет ежедневных заданий"
 REP_TXT.deleted	= "устаревший"
 REP_TXT.Championing	= "чемпиона (камзол герольда)"
 REP_TXT.bpqfg	= "По процентов поисках усиления фракции"
-	
--- items Details	
+
+-- items Details
 REP_TXT.cbadge	= "Рекомендательный значок другой город"
--- instance Details	
+-- instance Details
 REP_TXT.srfd	= "Перетекают репутация от подземелья"
 REP_TXT.tbd	= "ToBe Done"
 REP_TXT.nci	= "Нормальные случаи Cataclysm"
 REP_TXT.hci	= "Героический случаях Cataclysm"
--- ToBeDone general	
+-- ToBeDone general
 REP_TXT.tfr	= "Тиллер Сельское хозяйство репутации"
 REP_TXT.nswts	= "Не знаю, когда это начинается"
 REP_TXT.mnd	= "Максимальное количество ежедневных заданий"
 REP_TXT.mnds	= "Максимальное количество ежедневных газет является"
-	
-	
-	
-	
-	
--- ReputationDetails	
+
+
+
+
+
+-- ReputationDetails
 REP_TXT.currentRep	= "Текущая репутация"
 REP_TXT.neededRep	= "Необходимо набрать"
 REP_TXT.missingRep	= "Недостающая репутация"
@@ -155,15 +173,15 @@ REP_TXT.factionGained	= "Увеличено за сессию"
 REP_TXT.noInfo	= "Информация по этой фракции/репутации не найдена."
 REP_TXT.toExalted	= "Нужно до превознесения"
 REP_TXT.toBestFriend = "Reputation to best friend"
--- to chat	
+-- to chat
 REP_TXT.stats	= " (Всего: %s%d, Осталось: %d)"
 REP_TXT.statsNextStanding = " (Total: %s%d, Left to %s: %d)"
 
--- config changed	
+-- config changed
 REP_TXT.configQuestion	= "Некоторые (новые) настройки были включены. Это происходит только 1 раз для каждой настройки. Рекомендуется убедиться, что новые настройки Reputations'а Вас удовлетворяют."
 REP_TXT.showConfig	= "Посмотреть настройки"
 REP_TXT.later	= "Позже"
--- UpdateList	
+-- UpdateList
 REP_TXT.mobShort	= "[М]"
 REP_TXT.questShort	= "[К]"
 REP_TXT.instanceShort	= "[П]"
@@ -203,7 +221,7 @@ REP_TXT.quest2	= "Квест:"
 REP_TXT.itemsRequired	= "Вещей необходимо"
 REP_TXT.general2	= "Общий:"
 REP_TXT.maxStanding	= "Дает репутацию, пока не достигнуто"
--- skills	
+-- skills
 REP_TXT.skillHerb	= "Травничество"
 REP_TXT.skillMine	= "Горное дело"
 REP_TXT.skillSkin	= "Снятие шкур"
@@ -219,16 +237,16 @@ REP_TXT.skillAid	= "Первая помощь"
 REP_TXT.skillArch	= "Археология"
 REP_TXT.skillCook	= "Кулинария"
 REP_TXT.skillFish	= "Рыбная ловля"
--- Tooltip	
+-- Tooltip
 REP_TXT.elements	= {}
 REP_TXT.elements.name	= {}
 REP_TXT.elements.tip	= {}
-	
+
 REP_TXT.elements.name.REP_OptionsButton	= REP_TXT.options
 REP_TXT.elements.tip.REP_OptionsButton	= "Открыть окно для настройки Reputations'а."
 REP_TXT.elements.name.REP_OrderByStandingCheckBox	= REP_TXT.orderByStanding
 REP_TXT.elements.tip.REP_OrderByStandingCheckBox	= "Если это поле не отмечено, то список фракций отображается в порядке по умолчанию, т.е. фракции группируются на логические группы, а внутри них по алфавиту. \\r\\nЕсли это поле отмечено, то список фракций сортируется по отношению с ними. \\r\\nЧтобы увидеть |cFFFAA0A0неактивные|r фракции, уберите отметку в этом поле и прокрутите до низа списка."
-	
+
 REP_TXT.elements.name.REP_ShowMobsButton	= REP_TXT.showMobs
 REP_TXT.elements.tip.REP_ShowMobsButton	= "Нажмите кнопку, чтобы видеть мобов, за убийство которых растет репутация."
 REP_TXT.elements.name.REP_ShowQuestButton	= REP_TXT.showQuests
@@ -239,12 +257,12 @@ REP_TXT.elements.name.REP_ShowInstancesButton	= REP_TXT.showInstances
 REP_TXT.elements.tip.REP_ShowInstancesButton	= "Нажмите кнопку, чтобы видеть подземелья, за зачистку которых растет репутация."
 REP_TXT.elements.name.REP_ShowGeneralButton	= REP_TXT.showGeneral
 REP_TXT.elements.tip.REP_ShowGeneralButton	= "Отметьте это поле, чтобы увидеть общую информацию об увеличении репутации."
-	
+
 REP_TXT.elements.name.REP_ShowAllButton	= REP_TXT.showAll
 REP_TXT.elements.tip.REP_ShowAllButton	= "Нажмите эту кнопку чтобы выбрать все 4 элемента.\r\nБудут показаны мобы, квесты, вещи и подземелья для выбранной фракции."
 REP_TXT.elements.name.REP_ShowNoneButton	= REP_TXT.showNone
 REP_TXT.elements.tip.REP_ShowNoneButton	= "Нажмите эту кнопку чтобы снять выделение с 4 элементов.\r\nВ результате ничего не будет показано. Неожиданно, да? ;-)."
-	
+
 REP_TXT.elements.name.REP_ExpandButton	= REP_TXT.expand
 REP_TXT.elements.tip.REP_ExpandButton	= "Нажмите тут, чтобы развернуть все квесты. Будут показаны необходимые для квеста вещи."
 REP_TXT.elements.name.REP_CollapseButton	= REP_TXT.collapse
@@ -255,7 +273,7 @@ REP_TXT.elements.name.REP_SupressNoneGlobalButton	= REP_TXT.supressNoneGlobal
 REP_TXT.elements.tip.REP_SupressNoneGlobalButton	= "Нажмите эту кнопку, чтобы вернуть все квесты для всех фракций, которые Вы исключили из списка."
 REP_TXT.elements.name.REP_ClearSessionGainButton	= REP_TXT.clearSessionGain
 REP_TXT.elements.tip.REP_ClearSessionGainButton	= "Нажмите эту кнопку, чтобы сбросить счетчик полученной репутации за эту сессию."
-	
+
 REP_TXT.elements.name.REP_EnableMissingBox	= REP_TXT.showMissing
 REP_TXT.elements.tip.REP_EnableMissingBox	= "Включение этого параметра позволит смотреть недостающую репутацию в окне репутации"
 REP_TXT.elements.name.REP_ExtendDetailsBox	= REP_TXT.extendDetails
@@ -278,8 +296,8 @@ REP_TXT.elements.name.REP_GuildCapBox	= REP_TXT.guildCap
 REP_TXT.elements.name.REP_ChatFrameSlider	= "Вкладка чата"
 REP_TXT.elements.tip.REP_ChatFrameSlider	= "Выберите, в какой вкладке чата Reputations печатает свои сообщения"
 REP_TXT.elements.name.REP_EnableParagonBarBox = REP_TXT.EnableParagonBar
-REP_TXT.elements.tip.REP_EnableParagonBarBox  = "Enable this option to display your current paragon progress in the reputation bars."	
-	
+REP_TXT.elements.tip.REP_EnableParagonBarBox  = "Enable this option to display your current paragon progress in the reputation bars."
+
 REP_TXT.elements.name.REP_OptionEnableMissing	= REP_TXT.elements.name.REP_EnableMissingBox
 REP_TXT.elements.tip.REP_OptionEnableMissing	= REP_TXT.elements.tip.REP_EnableMissingBox
 REP_TXT.elements.name.REP_OptionEnableMissingCB	= REP_TXT.elements.name.REP_EnableMissingBox
@@ -326,6 +344,4 @@ REP_TXT.elements.name.REP_OptionEnableParagonBar = REP_TXT.elements.name.REP_Ena
 REP_TXT.elements.tip.REP_OptionEnableParagonBar = REP_TXT.elements.tip.REP_EnableParagonBarBox
 REP_TXT.elements.name.REP_OptionEnableParagonBarCB = REP_TXT.elements.name.REP_EnableParagonBarBox
 REP_TXT.elements.tip.REP_OptionEnableParagonBarCB = REP_TXT.elements.tip.REP_EnableParagonBarBox
-end	
-	
-	
+end

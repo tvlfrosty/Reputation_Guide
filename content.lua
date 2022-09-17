@@ -1051,7 +1051,7 @@ end
 		end
 	else
 		---------------------------
-		-- Horde --
+		-- Horde 67
 		---------------------------
 		-- Perhaps add future quests for hidden faction: Horde, such as lunar festival quests?
 		-- Arp the Elder,
