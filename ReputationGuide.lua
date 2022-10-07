@@ -1015,8 +1015,8 @@ function REP:Help()
   REP:Print(REP_Help_COLOUR..REP_TXT.usage..":|r /REP disable { mobs | quests | instances | items | all }", true)
   REP:Print(REP_Help_COLOUR..REP_TXT.usage..":|r /REP toggle { mobs | quests | instances | items | all }", true)
   REP:Print(REP_Help_COLOUR..REP_TXT.usage..":|r /REP enable { missing | details | chat | paragon }", true)
-  REP:Print(REP_Help_COLOUR..REP_TXT.usage..":|r /REP disable { missing | details | chat | paragon}", true)
-  REP:Print(REP_Help_COLOUR..REP_TXT.usage..":|r /REP toggle { missing | details | chat | paragon}" , true)
+  REP:Print(REP_Help_COLOUR..REP_TXT.usage..":|r /REP disable { missing | details | chat | paragon }", true)
+  REP:Print(REP_Help_COLOUR..REP_TXT.usage..":|r /REP toggle { missing | details | chat | paragon }" , true)
 end
 ------------------------------------------------------------
 function REP:About()
@@ -3752,7 +3752,6 @@ function REP:Rep_Detail_Frame(faction,colorID,barValue,barMax,origBarValue,stand
 end
 
 function REP_Friend_Detail(factionID, standingID, factionRow)
-  -- Currently editing
   local expansionIndex = REP_Data.Global.ExpansionIndex;
   if expansionIndex > 2 then
     local colorIndex, factionStandingtext, isCappedFriendship;
