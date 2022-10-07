@@ -1474,7 +1474,7 @@ end
 		REP_AddQuest(933, 4, 4, "More Crystal Fragments", 250, {[25416] = 10}) -- More Crystal Fragments QuestID: 9883
 		REP_AddQuest(933, 4, 4, "More Heads Full of Ivory", 250, {[25463] = 3}) -- More Heads Full of Ivory QuestID: 9915
 		REP_AddQuest(933, 5, 8, "More Obsidian Warbeads", 250, {[25433] = 10}) -- More Obsidian Warbeads QuestID: 9892
-		REP_AddQuest(933, 5, 8, "Another Heap of Ethereals", 250) -- Another Heap of Ethereals QuestID: 10308
+		REP_AddQuest(933, 5, 8, "Another Heap of Ethereals", 250, {[29209] = 10}) -- Another Heap of Ethereals QuestID: 10308
 		REP_AddQuest(933, 6, 8, "Ethereum Prisoner I.D. Catalogue", 250, {[31957] = 1}) -- Ethereum Prisoner I.D. Catalogue QuestID: 10972
 		REP_AddQuest(933, 6, 8, "A Thousand Worlds", 500, {[29460] = 5}) -- A Thousand Worlds QuestID: 10973
 		---- Instances
@@ -1637,8 +1637,7 @@ end
 			REP_AddQuest(978, 4, 8, "More Warbeads", 500, {[25433] = 10}) -- More Warbeads QuestID: 10477
 			REP_AddQuest(978, 4, 8, "In Defense of Halaa", 250) -- In Defense of Halaa QuestID: 11502
 			---- Mobs
-			---- TODO: Double check the Boulderfirst ogre.
-			-- REP_AddMob(978, 4, 8, REP_TXT.Mob.BoulderfistOgre, 10, zone.Nagrand) -- Boulderfist Ogre ID=2562
+			REP_AddMob(978, 4, 8, "Boulderfist Mage, Warrior, Mystic & Crusher", 10, zone.Nagrand) -- REP_TXT.Mob.BoulderfistOgre
 			REP_AddMob(978, 4, 8, "Kil'sorrow Deathsworn, Cultist, Ritualist & Spellbinder", 10, zone.Nagrand)
 			REP_AddMob(978, 4, 8, "Murkblood Scavenger", 2, zone.Nagrand)
 			REP_AddMob(978, 4, 8, "Murkblood Brute, Invader, Putrifier & Raider", 10, zone.Nagrand)
@@ -1742,9 +1741,10 @@ end
 			REP_AddQuest(1106, 4, 8, 13862, 325) -- Battle Before The Citadel QuestID: 13862
 			REP_AddQuest(1106, 4, 8, 13811, 325) -- Among the Champions QuestID: 13811
 		end
-		---- Items
-		REP_AddItems(1106, 4, 8, 520, {[44711] = 1})
-		if (REP_AfterMoP) then
+		if (not REP_AfterMoP) then
+			---- Items
+			REP_AddItems(1106, 4, 8, 400, {[44711] = 1}) -- Argent Crusade Commendation Badge
+		else
 			-- Timewalking Commendation
 			REP_AddItems(1106, 1, 8, 500, {[129942] = 1})
 		end
@@ -1760,14 +1760,15 @@ end
 		REP_AddQuest(1090, 4, 8, "Dalaran Fishing daily", 250, "nil", REP_LIMIT_TYPE_Fish)
 		REP_AddQuest(1090, 4, 8, 14203, 250, {[49667] = 1}) -- Waterlogged Recipe QuestID: 14203
 		REP_AddQuest(1090, 4, 8, 13845, 250, {[46005] = 1}) -- Sealed Vial of Poison QuestID: 13845
-		---- Items
-		REP_AddItems(1090, 4, 8, 520, {[43950] = 1})
-		---- General
-		REP_AddGeneral(1090, 5, 8, "Killing mobs in instances while wearing the Kirin Tor tabard.", 5, "Killing mobs in instances while wearing the Kirin Tor tabard.", "Killing mobs in instances while wearing the Kirin Tor tabard will reward you roughly 5 reputation per kill.")
-		if (REP_AfterMoP) then
+		if (not REP_AfterMoP) then
+			---- Items
+			REP_AddItems(1090, 4, 8, 400, {[43950] = 1}) -- Kirin Tor Commendation Badge
+		else
 			-- Timewalking Commendation
 			REP_AddItems(1090, 1, 8, 500, {[129940] = 1})
 		end
+		---- General
+		REP_AddGeneral(1090, 5, 8, "Killing mobs in instances while wearing the Kirin Tor tabard.", 5, "Killing mobs in instances while wearing the Kirin Tor tabard.", "Killing mobs in instances while wearing the Kirin Tor tabard will reward you roughly 5 reputation per kill.")
 
 		---------------------------
 		-- Knights of the Ebon Blade 1098 --
@@ -1793,14 +1794,15 @@ end
 				REP_AddQuest(1098, 4, 8, 13812, 250) -- Threat From Above QuestID: 13812
 			end
 		end
-		---- Items
-		REP_AddItems(1098, 4, 8, 520, {[44713] = 1})
-		---- General
-		REP_AddGeneral(1098, 5, 8, "Killing mobs in instances while wearing the Knights of the Ebon Blade tabard.", 5, "Killing mobs in instances while wearing the Knights of the Ebon Blade tabard.", "Killing mobs in instances while wearing the Knights of the Ebon Blade tabard will reward you roughly 5 reputation per kill.")
-		if (REP_AfterMoP) then
+		if (not REP_AfterMoP) then
+			---- Items
+			REP_AddItems(1098, 4, 8, 400, {[44713] = 1}) -- Knights of the Ebon Blade Commendation Badge
+		else
 			-- Timewalking Commendation
 			REP_AddItems(1098, 1, 8, 500, {[129941] = 1})
 		end
+		---- General
+		REP_AddGeneral(1098, 5, 8, "Killing mobs in instances while wearing the Knights of the Ebon Blade tabard.", 5, "Killing mobs in instances while wearing the Knights of the Ebon Blade tabard.", "Killing mobs in instances while wearing the Knights of the Ebon Blade tabard will reward you roughly 5 reputation per kill.")
 
 		---------------------------
 		-- The Ashen Verdict 1156 --
@@ -1814,15 +1816,14 @@ end
 		---------------------------
 		---- Quests
 		REP_AddQuest(1073, 4, 8, 11945, 500, {[35711] = 8}) -- Preparing for the Worst QuestID: 11945
-		REP_AddQuest(1073, 4, 8, 11960, 500, {[35692] = 10}) -- Planning for the Future QuestID: 11960
-		REP_AddQuest(1073, 4, 8, 11472, 500) -- The Way to His Heart... QuestID: 11472
+		REP_AddQuest(1073, 4, 8, 11960, 500, {[35692] = 12}) -- Planning for the Future QuestID: 11960
+		REP_AddQuest(1073, 4, 8, 11472, 250) -- The Way to His Heart... QuestID: 11472
 
 		---------------------------
 		-- The Sons of Hodir 1119 --
 		---------------------------
 		---- Quests
-		-- REP_AddQuest(1119, 1, 4, 4, 1) Not sure if this gives rep?
-		REP_AddQuest(1119, 5, 8, 13559, 325, {[42780] = 10}) -- Hodir's Tribute QuestID: 13559
+		REP_AddQuest(1119, 5, 8, 13559, 500, {[42780] = 10}) -- Hodir's Tribute QuestID: 13559
 		REP_AddQuest(1119, 5, 8, 13421, 350, {[44724] = 1}) -- Remember Everfrost! QuestID: 13421
 		REP_AddQuest(1119, 5, 8, 13006, 350, {[42640] = 5}) -- A Viscous Cleaning QuestID: 13006
 		REP_AddQuest(1119, 5, 8, 12981, 350, {[42252] = 6}) -- Hot and Cold QuestID: 12981
@@ -1830,9 +1831,10 @@ end
 		REP_AddQuest(1119, 6, 8, 12994, 350) -- Spy Hunter QuestID: 12994
 		REP_AddQuest(1119, 6, 8, 13003, 500) -- How To Slay Your Dragon QuestID: 13003
 		REP_AddQuest(1119, 7, 8, 13046, 350) -- Feeding Arngrim QuestID: 13046
-		---- Items
-		REP_AddItems(1119, 4, 8, 520, {[49702] = 1})
-		if (REP_AfterMoP) then
+		if (not REP_AfterMoP) then
+			---- Items
+			REP_AddItems(1119, 4, 8, 400, {[49702] = 1}) -- The Sons of Hodir Commendation Badge
+		else
 			-- Timewalking Commendation
 			REP_AddItems(1119, 1, 8, 501, {[129943] = 1})
 		end
@@ -1844,13 +1846,15 @@ end
 		REP_AddQuest(1091, 4, 8, 11940, 250) -- Drake Hunt QuestID: 11940
 		REP_AddQuest(1091, 4, 8, 12372, 250) -- Defending Wyrmrest Temple QuestID: 12372
 		REP_AddQuest(1091, 4, 8, 13414, 250) -- Aces High! QuestID: 13414
-		REP_AddItems(1091, 4, 8, 520, {[44710] = 1})
-		---- General
-		REP_AddGeneral(1091, 5, 8, "Killing mobs in instances while wearing The Wyrmrest Accord tabard.", 5, "Killing mobs in instances while wearing The Wyrmrest Accord tabard.", "Killing mobs in instances while wearing The Wyrmrest Accord tabard will reward you roughly 5 reputation per kill.")
-		if (REP_AfterMoP) then
+		if (not REP_AfterMoP) then
+			---- Items
+			REP_AddItems(1091, 4, 8, 400, {[44710] = 1}) -- The Wyrmrest Accord Commendation Badge
+		else
 			-- Timewalking Commendation
 			REP_AddItems(1091, 1, 8, 500, {[129944] = 1})
 		end
+		---- General
+		REP_AddGeneral(1091, 5, 8, "Killing mobs in instances while wearing The Wyrmrest Accord tabard.", 5, "Killing mobs in instances while wearing The Wyrmrest Accord tabard.", "Killing mobs in instances while wearing The Wyrmrest Accord tabard will reward you roughly 5 reputation per kill.")
 		---- TODO: Double check what this instance rep was.
 		if (REP_IsCata) then
 			---- Instances
