@@ -727,13 +727,22 @@ end
 
 	if (REP_IsAlliance) then
 		---------------------------
-		-- Alliance --
+		-- Alliance 469
 		---------------------------
-		-- Perhaps add future quests for hidden faction: Alliance such as Lunar festival quests?
-		-- Arp the Elder,
-		-- Beldak the Elder,
-		-- Bellowrage the Elder,
-		-- Bladeleaf the Elder,
+		---- Quests
+		if (REP_IsClassic) then
+			REP_AddQuest(469, 5, 8, "Bellowrage the Elder", 50) -- Bellowrage the Elder QuestID: 8647
+			REP_AddQuest(469, 5, 8, "Bladeleaf the Elder", 50) -- Bellowrage the Elder QuestID: 8715
+		else
+			REP_AddQuest(469, 5, 8, "Bellowrage the Elder", 75) -- Bellowrage the Elder QuestID: 8647
+			REP_AddQuest(469, 5, 8, "Bladeleaf the Elder", 75) -- Bellowrage the Elder QuestID: 8715
+		end
+		if (REP_AfterTBC) then
+			REP_AddQuest(469, 5, 8, "Arp the Elder", 75) -- Arp the Elder QuestID: 13033
+			REP_AddQuest(469, 5, 8, "Beldak the Elder", 75) -- Beldak the Elder QuestID: 13013
+		end
+		if (REP_AfterWotlk) then end
+
 		-- Bladesing the Elder,
 		-- Bladeswift the Elder,
 		-- Bloodhoof the Elder,
@@ -1477,6 +1486,7 @@ end
 		REP_AddQuest(933, 5, 8, "Another Heap of Ethereals", 250, {[29209] = 10}) -- Another Heap of Ethereals QuestID: 10308
 		REP_AddQuest(933, 6, 8, "Ethereum Prisoner I.D. Catalogue", 250, {[31957] = 1}) -- Ethereum Prisoner I.D. Catalogue QuestID: 10972
 		REP_AddQuest(933, 6, 8, "A Thousand Worlds", 500, {[29460] = 5}) -- A Thousand Worlds QuestID: 10973
+		REP_AddQuest(933, 6, 8, "Purging the Chambers of Bash'ir", 500, {[29460] = 5}) -- Purging the Chambers of Bash'ir QuestID: 10973
 		---- Instances
 		REP_AddInstance(933, 4, 5, zone.Mana_Tombs, 1200, false)
 		REP_AddInstance(933, 6, 8, zone.Mana_Tombs, 2400, true)
@@ -1637,11 +1647,13 @@ end
 			REP_AddQuest(978, 4, 8, "More Warbeads", 500, {[25433] = 10}) -- More Warbeads QuestID: 10477
 			REP_AddQuest(978, 4, 8, "In Defense of Halaa", 250) -- In Defense of Halaa QuestID: 11502
 			---- Mobs
-			REP_AddMob(978, 4, 8, "Boulderfist Mage, Warrior, Mystic & Crusher", 10, zone.Nagrand) -- REP_TXT.Mob.BoulderfistOgre
-			REP_AddMob(978, 4, 8, "Kil'sorrow Deathsworn, Cultist, Ritualist & Spellbinder", 10, zone.Nagrand)
-			REP_AddMob(978, 4, 8, "Murkblood Scavenger", 2, zone.Nagrand)
+			REP_AddMob(978, 4, 8, "Boulderfist Crusher, Hunter, Mage, Mystic & Warrior", 10, zone.Nagrand) -- REP_TXT.Mob.BoulderfistOgre
+			REP_AddMob(978, 4, 8, "Warmaul Brute, Reaver, Shaman & Warlock", 10, zone.Nagrand) -- Warmaul non-elite
+			REP_AddMob(978, 4, 8, "Kil'sorrow Cultist, Deathsworn, Ritualist & Spellbinder", 10, zone.Nagrand)
 			REP_AddMob(978, 4, 8, "Murkblood Brute, Invader, Putrifier & Raider", 10, zone.Nagrand)
-			REP_AddMob(978, 4, 8, "Warmaul non-elite", 10, zone.Nagrand)
+			REP_AddMob(978, 4, 8, "Murkblood Scavenger", 2, zone.Nagrand)
+			REP_AddMob(978, 4, 8, "Ortor of Murkblood", 10, zone.Nagrand)
+			REP_AddMob(978, 4, 8, "Zorbo the Advisor", 10, zone.Nagrand)
 		else
 			---------------------------
 			-- Silvermoon City 911
@@ -1699,11 +1711,13 @@ end
 		  REP_AddQuest(941, 4, 8, "More Warbeads", 500, {[25433] = 10}) -- More Warbeads QuestID: 10479
 		  REP_AddQuest(941, 4, 8, "In Defense of Halaa", 250) -- In Defense of Halaa QuestID: 11503
 			---- Mobs
-		  REP_AddMob(941, 4, 8, "Boulderfist ogres", 10, zone.Nagrand)
-		  REP_AddMob(941, 4, 8, "Kil'sorrow Deathsworn, Cultist & Spellbinder", 10, zone.Nagrand)
-		  REP_AddMob(941, 4, 8, "Murkblood Scavenger", 2, zone.Nagrand)
-		  REP_AddMob(941, 4, 8, "Murkblood ", 10, zone.Nagrand)
-		  REP_AddMob(941, 4, 8, "Warmaul non-elite", 10, zone.Nagrand)
+			REP_AddMob(941, 4, 8, "Boulderfist Crusher, Hunter, Mage, Mystic & Warrior", 10, zone.Nagrand) -- REP_TXT.Mob.BoulderfistOgre
+			REP_AddMob(941, 4, 8, "Warmaul Brute, Reaver, Shaman & Warlock", 10, zone.Nagrand) -- Warmaul non-elite
+			REP_AddMob(941, 4, 8, "Kil'sorrow Cultist, Deathsworn, Ritualist & Spellbinder", 10, zone.Nagrand)
+			REP_AddMob(941, 4, 8, "Murkblood Brute, Invader, Putrifier & Raider", 10, zone.Nagrand)
+			REP_AddMob(941, 4, 8, "Murkblood Scavenger", 2, zone.Nagrand)
+			REP_AddMob(941, 4, 8, "Ortor of Murkblood", 10, zone.Nagrand)
+			REP_AddMob(941, 4, 8, "Zorbo the Advisor", 10, zone.Nagrand)
 
 			---------------------------
 			-- Tranquillien 922
@@ -1817,7 +1831,7 @@ end
 		---- Quests
 		REP_AddQuest(1073, 4, 8, 11945, 500, {[35711] = 8}) -- Preparing for the Worst QuestID: 11945
 		REP_AddQuest(1073, 4, 8, 11960, 500, {[35692] = 12}) -- Planning for the Future QuestID: 11960
-		REP_AddQuest(1073, 4, 8, 11472, 250) -- The Way to His Heart... QuestID: 11472
+		REP_AddQuest(1073, 4, 8, 11472, 500) -- The Way to His Heart... QuestID: 11472
 
 		---------------------------
 		-- The Sons of Hodir 1119 --
@@ -1867,9 +1881,9 @@ end
 		---------------------------
 		---- Quests
 		REP_AddQuest(1104, 1, 5, 12582, 51000) -- Frenzyheart Champion QuestID: 12582
-		REP_AddQuest(1104, 6, 8, 12703, 500) -- Kartak's Rampage QuestID: 12703
-		REP_AddQuest(1104, 6, 8, 12759, 500) -- Tools of War QuestID: 12759
-		REP_AddQuest(1104, 6, 8, 12760, 500) -- Secret Strength of the Frenzyheart QuestID: 12760
+		REP_AddQuest(1104, 6, 8, 12703, 700) -- Kartak's Rampage QuestID: 12703
+		REP_AddQuest(1104, 6, 8, 12759, 700) -- Tools of War QuestID: 12759
+		REP_AddQuest(1104, 6, 8, 12760, 700) -- Secret Strength of the Frenzyheart QuestID: 12760
 		REP_AddQuest(1104, 6, 8, 12758, 500) -- A Hero's Headgear QuestID: 12758
 		REP_AddQuest(1104, 6, 8, 12702, 500) -- Chicken Party! QuestID: 12702
 		REP_AddQuest(1104, 6, 8, 12734, 500) -- Rejek: First Blood QuestID: 12734
@@ -1880,10 +1894,10 @@ end
 		-- The Oracles 1105 --
 		---------------------------
 		---- Quests
-		REP_AddQuest(1105, 1, 5, 12689, 23239) -- Hand of the Oracles QuestID: 12689
-		REP_AddQuest(1105, 6, 8, 12761, 500) -- Mastery of the Crystals QuestID: 12761
-		REP_AddQuest(1105, 6, 8, 12705, 500) -- Will of the Titans QuestID: 12705
-		REP_AddQuest(1105, 6, 8, 12762, 500) -- Power of the Great Ones QuestID: 12762
+		REP_AddQuest(1105, 1, 5, 12689, 51000) -- Hand of the Oracles QuestID: 12689
+		REP_AddQuest(1105, 6, 8, 12761, 700) -- Mastery of the Crystals QuestID: 12761
+		REP_AddQuest(1105, 6, 8, 12705, 700) -- Will of the Titans QuestID: 12705
+		REP_AddQuest(1105, 6, 8, 12762, 700) -- Power of the Great Ones QuestID: 12762
 		REP_AddQuest(1105, 6, 8, 12704, 500) -- Appeasing the Great Rain Stone QuestID: 12704
 		REP_AddQuest(1105, 6, 8, 12735, 500) -- A Cleansing Song QuestID: 12735
 		REP_AddQuest(1105, 6, 8, 12737, 500) -- Song of Fecundity QuestID: 12737

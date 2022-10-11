@@ -1,5 +1,5 @@
 ----------------------------------------------------------
--- Reputation Guide (RepHelper) | A World of Warcraft addon to help you manage your reputation and Factions. --
+-- Reputation Guide | A World of Warcraft addon to help you manage your reputation and Factions. --
 -------------------------------------------------------
 ---------------------------
 -- _00_ Variables Set up --
@@ -393,7 +393,6 @@ end
 function REP:Init()
   if REP_InitComplete then return end
   local expansionIndex = REP_Data.Global.ExpansionIndex
-
 
   -- TODO: Check actual expansionIndex
   if (expansionIndex > 6) then
@@ -1300,16 +1299,14 @@ function REP:InitFactor(REP_IsHuman, faction)
   local factionIndex;
   local factor_h = 0
 
-  for i=1,numFactions do
+  for i = 1, numFactions do
     local factionIndex = factionOffset + i;
     if (factionIndex <= numFactions) then
       local name, hasBonusRepGain;
       local name, _, _, _, _, _, _, _, _, _, _, _, _, _, hasBonusRepGain, _ = GetFactionInfo(factionIndex);
       if (faction == name) then
-          --- f_if	REP:Printtest(faction,name,"test")
         if (hasBonusRepGain) then
-          --- f_if	REP:Printtest(faction,name,"Gain")
-          factor=factor + 1;
+          factor = factor + 1;
         end
       end
     end
@@ -1356,8 +1353,8 @@ function REP:Content(faction, from, to, name, rep)
   if not name then return 0 end
   if not rep then return 0 end
   if (type(rep) ~= "number") then return 0 end
-  if ((from<1) or (from>8)) then return 0 end
-  if ((to<1) or (to>8)) then return 0 end
+  if ((from < 1) or (from > 8)) then return 0 end
+  if ((to < 1) or (to > 8)) then return 0 end
   if (from > to) then return 0 end
   return 1
 end
@@ -1374,7 +1371,7 @@ function REP_AddSpell(faction, from, to, name, rep, zone, limit)
     if (from > to) then return end
   --]]--
 
-  if REP:Content(faction, from, to, name, rep) ~=1 then return end
+  if REP:Content(faction, from, to, name, rep) ~= 1 then return end
   --[[-- REP_Initspellname(name)
   -- REP:InitMapName(zone)
 
@@ -1433,11 +1430,11 @@ function REP_AddMob(faction, from, to, name, rep, zone, limit)
     if (from > to) then return end
   --]]--
 
-  if REP:Content(faction, from, to, name, rep) ~=1 then return end
+  if REP:Content(faction, from, to, name, rep) ~= 1 then return end
   faction = string.lower(REP:InitFaction(REP_GuildName, faction));
   rep = rep * REP:InitFactor(REP_IsHuman,REP_faction);
 
-  for standing = from,to do
+  for standing = from, to do
     local faction_info = REP_FactionGain[faction];
     if not faction_info then
       faction_info = {}
@@ -1781,10 +1778,6 @@ function REP_ReputationFrame_Update()
   local expansionIndex = REP_Data.Global.ExpansionIndex;
 
   if (REP_OnLoadingScreen == false) then
-    if expansionIndex > 2 then
-      ReputationFrame.paragonFramesPool:ReleaseAll();
-    end
-
     local numFactions
     if REP_Data.Global.SortByStanding then
       REP:StandingSort()
@@ -1811,6 +1804,7 @@ function REP_ReputationFrame_Update()
 
     if expansionIndex > 2 then
       numberOfFactionsToDisplay = NUM_FACTIONS_DISPLAYED
+      ReputationFrame.paragonFramesPool:ReleaseAll();
     else
       numberOfFactionsToDisplay = numFactions
     end
@@ -1819,6 +1813,17 @@ function REP_ReputationFrame_Update()
       local factionBar;
       local factionStanding;
       local factionIndex = factionOffset + i;
+
+      local name, _, _, _, _, _, _, _, _, _, _, _, _, factionID, _ = GetFactionInfo(factionIndex);
+      local inactive = IsFactionInactive(factionIndex)
+
+      if (REP_ProfileKey) then
+        if REP_Data[REP_ProfileKey].InactiveFactions == nil then REP_Data[REP_ProfileKey].InactiveFactions = {} end
+
+        if (inactive and not REP_Data[REP_ProfileKey].InactiveFactions[factionID]) then
+          REP_Data[REP_ProfileKey].InactiveFactions[factionID] = true;
+        end
+      end
 
       local factionRow = _G["ReputationBar"..i];
       local factionHeader = _G["ReputationHeader"..i];
@@ -1853,11 +1858,8 @@ function REP_ReputationFrame_Update()
           end
         end
       else
-        factionRow:Hide();
-
-        if (expansionIndex < 2) then
-          factionHeader:Hide();
-        end
+        if factionRow then factionRow:Hide(); end
+        if factionHeader then factionHeader:Hide(); end
       end
     end
 
@@ -3510,47 +3512,53 @@ function REP:StandingSort()
     local name, description, standingID, _, barMax, barValue, _, _, isHeader, _, hasRep, isWatched, isChild, factionID, hasBonusRepGain = GetFactionInfo(i);
     local _, _, _, isFriend = REP_Friend_Detail(factionID, standingID);
 
-    if (expansionIndex > 2) then
-      if(factionID and C_Reputation.IsFactionParagon(factionID) and REP_Data.Global.ShowParagonBar) then
-        local currentValue, threshold, _, _ = C_Reputation.GetFactionParagonInfo(factionID);
-        barMax, barValue, standingID = threshold, mod(currentValue, threshold), 9;
-      end
-
-      -- if isFriend then -- Fix reputations with only 6 reputation levels
-      --   if (standingID == 6) and (not C_Reputation.IsFactionParagon(factionID)) then
-      --     standingID = standingID + 2;
-      --   else
-      --     standingID = standingID + 3;
-      --   end
-      -- end
+    if (REP_ProfileKey) then
+      if REP_Data[REP_ProfileKey].InactiveFactions == nil then REP_Data[REP_ProfileKey].InactiveFactions = {} end
     end
 
-    if (not isHeader or hasRep) then
-      if not standings[standingID] then
-        standings[standingID] = {}
+    if (not REP_ProfileKey or not REP_Data[REP_ProfileKey].InactiveFactions[factionID]) then
+      if (expansionIndex > 2) then
+        if(factionID and C_Reputation.IsFactionParagon(factionID) and REP_Data.Global.ShowParagonBar) then
+          local currentValue, threshold, _, _ = C_Reputation.GetFactionParagonInfo(factionID);
+          barMax, barValue, standingID = threshold, mod(currentValue, threshold), 9;
+        end
+
+        -- if isFriend then -- Fix reputations with only 6 reputation levels
+        --   if (standingID == 6) and (not C_Reputation.IsFactionParagon(factionID)) then
+        --     standingID = standingID + 2;
+        --   else
+        --     standingID = standingID + 3;
+        --   end
+        -- end
       end
 
-      local size = REP:TableSize(standings[standingID])
-      local entry = {}
-      local inserted = false
-      entry.missing = barMax-barValue
-      entry.i = i
+      if (not isHeader or hasRep) then
+        if not standings[standingID] then
+          standings[standingID] = {}
+        end
 
-      if (size) then
-        for j = 1, size do
-          if (not inserted) then
-            if (standings[standingID][j].missing > entry.missing) then
-              table.insert(standings[standingID], j, entry);
-              inserted = true
+        local size = REP:TableSize(standings[standingID])
+        local entry = {}
+        local inserted = false
+        entry.missing = barMax - barValue
+        entry.i = i
+
+        if (size) then
+          for j = 1, size do
+            if (not inserted) then
+              if (standings[standingID][j].missing > entry.missing) then
+                table.insert(standings[standingID], j, entry);
+                inserted = true
+              end
             end
           end
-        end
 
-        if (not inserted) then
+          if (not inserted) then
+            table.insert(standings[standingID], entry)
+          end
+        else
           table.insert(standings[standingID], entry)
         end
-      else
-        table.insert(standings[standingID], entry)
       end
     end
   end
@@ -3564,7 +3572,6 @@ function REP:StandingSort()
   end
 
   for i = 9, 1, -1 do
-    --for i In pairs(standings) do
     if REP:TableSize(standings[i]) then
       if (standings[i]) then
         numFactions = numFactions + 1 -- count standing as header
@@ -4165,8 +4172,8 @@ function REP:SortByStandingWithoutFactionHeader(i, expansionIndex, factionIndex,
       isCapped = true;
     end
 
-    -- If exalted show a full green bar
-    if(standingID == 8 or isCappedFriendship) then
+    if(expansionIndex > 2 and (isCappedFriendship or standingID == 8)) then
+      -- If exalted show a full green bar
       barMin, barMax, barValue = 0, 1, 1;
     end
 
@@ -4330,9 +4337,12 @@ end
 function REP:CustomSetFactionInactive(factionIndex)
   local name, _, _, _, _, _, _, _, isHeader, _, _, _, _, factionID = GetFactionInfo(factionIndex);
 
-  if (name and isHeader) then
+  if (name) then
     if REP_Data[REP_ProfileKey].InactiveFactions == nil then REP_Data[REP_ProfileKey].InactiveFactions = {} end
-    REP_Data[REP_ProfileKey].InactiveFactions[factionID] = true
+    REP_Data[REP_ProfileKey].InactiveFactions[factionID] = true;
+
+    SetFactionInactive(factionIndex);
+    REP_ReputationFrame_Update();
   else
     SetFactionInactive(factionIndex);
   end
@@ -4344,9 +4354,12 @@ end
 function REP:CustomSetFactionActive(factionIndex)
   local name, _, _, _, _, _, _, _, isHeader, _, _, _, _, factionID = GetFactionInfo(factionIndex);
 
-  if (name and isHeader) then
+  if (name) then
     if REP_Data[REP_ProfileKey].InactiveFactions == nil then REP_Data[REP_ProfileKey].InactiveFactions = {} end
-    REP_Data[REP_ProfileKey].InactiveFactions[factionID] = nil
+    REP_Data[REP_ProfileKey].InactiveFactions[factionID] = nil;
+
+    SetFactionActive(factionIndex);
+    REP_ReputationFrame_Update();
   else
     SetFactionActive(factionIndex);
   end
@@ -4399,8 +4412,8 @@ function REP:OriginalRepOrderWithoutFactionHeader(i, expansionIndex, factionInde
     isCapped = true;
   end
 
-  -- If exalted show a full green bar
-  if(standingID == 8 or isCappedFriendship) then
+  if(expansionIndex > 2 and (isCappedFriendship or standingID == 8)) then
+    -- If exalted show a full green bar
     barMin, barMax, barValue = 0, 1, 1;
   end
 
