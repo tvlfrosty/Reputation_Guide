@@ -1,7 +1,5 @@
 -- Default (English)
 --------------------	--------------------
-
-
 -- Binding names
 BINDING_HEADER_REPUTATIONS	= "Reputation Guide"
 BINDING_NAME_SHOWCONFIG	= "Show options window"
@@ -22,34 +20,6 @@ REP_TXT.version	= "Version"
 REP_TXT.date	= "Date"
 REP_TXT.web	= "Website"
 REP_TXT.slash	= "Slash command"
-REP_TXT_STAND_LV	= {}
-REP_TXT_STAND_LV[0]	= "Unknown"
-REP_TXT_STAND_LV[1]	= "Hated"
-REP_TXT_STAND_LV[2]	= "Hostile"
-REP_TXT_STAND_LV[3]	= "Unfriendly"
-REP_TXT_STAND_LV[4]	= "Neutral"
-REP_TXT_STAND_LV[5]	= "Friendly"
-REP_TXT_STAND_LV[6]	= "Honored"
-REP_TXT_STAND_LV[7]	= "Revered"
-REP_TXT_STAND_LV[8]	= "Exalted"
-REP_TXT_STAND_LV[9] = "Paragon"
-REP_TXT_STAND_LV_TIER	= {}
-REP_TXT_STAND_LV_TIER[0] = "Unknown"
-REP_TXT_STAND_LV_TIER[1] = "Tier 1"
-REP_TXT_STAND_LV_TIER[2] = "Tier 2"
-REP_TXT_STAND_LV_TIER[3] = "Tier 3"
-REP_TXT_STAND_LV_TIER[4] = "Tier 4"
-REP_TXT_STAND_LV_TIER[5] = "Tier 5"
-REP_TXT_STAND_LV_TIER[6] = "Tier 6"
-REP_TXT_STAND_LV_TRUST	= {}
-REP_TXT_STAND_LV_TRUST[0] = "Unknown"
-REP_TXT_STAND_LV_TRUST[1] = "Dubious"
-REP_TXT_STAND_LV_TRUST[2] = "Apprehensive"
-REP_TXT_STAND_LV_TRUST[3] = "Tentative"
-REP_TXT_STAND_LV_TRUST[4] = "Ambivalent"
-REP_TXT_STAND_LV_TRUST[5] = "Cordial"
-REP_TXT_STAND_LV_TRUST[6] = "Appreciative"
-
 -- status
 REP_TXT.status	= "Status"
 REP_TXT.disabled	= "disabled"
@@ -84,6 +54,8 @@ REP_TXT.supressNoneFaction	= "Clear exclusion for faction"
 REP_TXT.supressNoneGlobal	= "Clear exclusion for all"
 REP_TXT.suppressHint	= "Right-click on a quest to exclude it from the summary"
 REP_TXT.clearSessionGain	= "Clear session gain counter"
+REP_TXT.moveToInactive = "Move to inactive"
+REP_TXT.showFactionOnMainscreen = "Show faction as exp bar"
 -- options dialog
 REP_TXT.showMissing	= "Show missing reputation in reputation frame"
 REP_TXT.extendDetails	= "Show extended reputation detail frame"
@@ -145,7 +117,6 @@ REP_TXT.ndq	= "no daily quests"
 REP_TXT.deleted	= "Outdated"
 REP_TXT.Championing	= "Championing (Tabard)"
 REP_TXT.bpqfg	= "By percent of quest faction gain"
-
 -- items Details
 REP_TXT.cbadge	= "Other city Commendation Badge"
 -- instance Details
@@ -158,11 +129,6 @@ REP_TXT.tfr	= "Tiller Farming rep"
 REP_TXT.nswts	= "Not sure when this starts"
 REP_TXT.mnd	= "Max number of daily quests"
 REP_TXT.mnds	= "The max number of dallies is "
-
-
-
-
-
 -- ReputationDetails
 REP_TXT.currentRep	= "Current reputation"
 REP_TXT.neededRep	= "Reputation needed"
@@ -177,7 +143,6 @@ REP_TXT.toBestFriend = "Reputation to best friend"
 -- to chat
 REP_TXT.stats	= " (Total: %s%d, Left: %d)"
 REP_TXT.statsNextStanding = " (Total: %s%d, Left to %s: %d)"
-
 -- config changed
 REP_TXT.configQuestion	= "Some (new) settings were enabled. This is only done once for a setting. It is recommended that you verify the Reputations options."
 REP_TXT.showConfig	= "View config"
@@ -238,16 +203,80 @@ REP_TXT.skillAid	= "First Aid"
 REP_TXT.skillArch	= "Archaeology"
 REP_TXT.skillCook	= "Cooking"
 REP_TXT.skillFish	= "Fishing"
--- Tooltip
+---------------------------
+-- Reputation Standing
+---------------------------
+---- Initialize
+REP_TXT.STAND_LV	= {}
+REP_TXT.STAND_LV_TIER	= {}
+REP_TXT.STAND_LV_TRUST = {}
+REP_TXT.STAND_LV_RENOWN	= {}
+---- Normal standings
+REP_TXT.STAND_LV[0]	= "Unknown"
+REP_TXT.STAND_LV[1]	= "Hated"
+REP_TXT.STAND_LV[2]	= "Hostile"
+REP_TXT.STAND_LV[3]	= "Unfriendly"
+REP_TXT.STAND_LV[4]	= "Neutral"
+REP_TXT.STAND_LV[5]	= "Friendly"
+REP_TXT.STAND_LV[6]	= "Honored"
+REP_TXT.STAND_LV[7]	= "Revered"
+REP_TXT.STAND_LV[8]	= "Exalted"
+REP_TXT.STAND_LV[9] = "Paragon"
+---- Tier standings
+REP_TXT.STAND_LV_TIER[0] = "Unknown"
+REP_TXT.STAND_LV_TIER[1] = "Tier 1"
+REP_TXT.STAND_LV_TIER[2] = "Tier 2"
+REP_TXT.STAND_LV_TIER[3] = "Tier 3"
+REP_TXT.STAND_LV_TIER[4] = "Tier 4"
+REP_TXT.STAND_LV_TIER[5] = "Tier 5"
+REP_TXT.STAND_LV_TIER[6] = "Tier 6"
+---- Trust standings
+REP_TXT.STAND_LV_TRUST[0] = "Unknown"
+REP_TXT.STAND_LV_TRUST[1] = "Dubious"
+REP_TXT.STAND_LV_TRUST[2] = "Apprehensive"
+REP_TXT.STAND_LV_TRUST[3] = "fail"
+REP_TXT.STAND_LV_TRUST[4] = "Ambivalent"
+REP_TXT.STAND_LV_TRUST[5] = "Cordial"
+REP_TXT.STAND_LV_TRUST[6] = "Appreciative"
+---- Renown standings
+REP_TXT.STAND_LV_RENOWN[0] = "Unknown"
+REP_TXT.STAND_LV_RENOWN[1] = "Renown 1"
+REP_TXT.STAND_LV_RENOWN[2] = "Renown 2"
+REP_TXT.STAND_LV_RENOWN[3] = "Renown 3"
+REP_TXT.STAND_LV_RENOWN[4] = "Renown 4"
+REP_TXT.STAND_LV_RENOWN[5] = "Renown 5"
+REP_TXT.STAND_LV_RENOWN[6] = "Renown 6"
+REP_TXT.STAND_LV_RENOWN[7] = "Renown 7"
+REP_TXT.STAND_LV_RENOWN[8] = "Renown 8"
+REP_TXT.STAND_LV_RENOWN[9] = "Renown 9"
+REP_TXT.STAND_LV_RENOWN[10] = "Renown 10"
+REP_TXT.STAND_LV_RENOWN[11] = "Renown 11"
+REP_TXT.STAND_LV_RENOWN[12] = "Renown 12"
+REP_TXT.STAND_LV_RENOWN[13] = "Renown 13"
+REP_TXT.STAND_LV_RENOWN[14] = "Renown 14"
+REP_TXT.STAND_LV_RENOWN[15] = "Renown 15"
+REP_TXT.STAND_LV_RENOWN[16] = "Renown 16"
+REP_TXT.STAND_LV_RENOWN[17] = "Renown 17"
+REP_TXT.STAND_LV_RENOWN[18] = "Renown 18"
+REP_TXT.STAND_LV_RENOWN[19] = "Renown 19"
+REP_TXT.STAND_LV_RENOWN[20] = "Renown 20"
+REP_TXT.STAND_LV_RENOWN[21] = "Renown 21"
+REP_TXT.STAND_LV_RENOWN[22] = "Renown 22"
+REP_TXT.STAND_LV_RENOWN[23] = "Renown 23"
+REP_TXT.STAND_LV_RENOWN[24] = "Renown 24"
+REP_TXT.STAND_LV_RENOWN[25] = "Renown 25"
+---------------------------
+-- Tooltips
+---------------------------
+---- Initialize
 REP_TXT.elements	= {}
 REP_TXT.elements.name	= {}
 REP_TXT.elements.tip	= {}
-
+---- Names and tips
 REP_TXT.elements.name.REP_OptionsButton	= REP_TXT.options
 REP_TXT.elements.tip.REP_OptionsButton	= "Open a window to configure Reputations."
 REP_TXT.elements.name.REP_OrderByStandingCheckBox	= REP_TXT.orderByStanding
 REP_TXT.elements.tip.REP_OrderByStandingCheckBox	= "If this box is unchecked, the faction list is displayed by default (Blizzard) sorting, grouped by logical and alphabetical order.\r\n\r\nIf this box is checked, the faction list is sorted by standing.\r\n\r\nTo view the |cFFFAA0A0inactive|r factions, uncheck this box and go to the bottom of the list."
-
 REP_TXT.elements.name.REP_ShowMobsButton	= REP_TXT.showMobs
 REP_TXT.elements.tip.REP_ShowMobsButton	= "Check this button to see mobs you can kill to improve your reputation."
 REP_TXT.elements.name.REP_ShowQuestButton	= REP_TXT.showQuests
@@ -258,12 +287,10 @@ REP_TXT.elements.name.REP_ShowInstancesButton	= REP_TXT.showInstances
 REP_TXT.elements.tip.REP_ShowInstancesButton	= "Check this button to see instances you can run to improve your reputation."
 REP_TXT.elements.name.REP_ShowGeneralButton	= REP_TXT.showGeneral
 REP_TXT.elements.tip.REP_ShowGeneralButton	= "Check this button to see general information about improving your reputation."
-
 REP_TXT.elements.name.REP_ShowAllButton	= REP_TXT.showAll
 REP_TXT.elements.tip.REP_ShowAllButton	= "Press this button to check all four of the checkboxes to the left.\r\nThis will show mobs, quests, items and instances that give you reputation for the currently selected faction."
 REP_TXT.elements.name.REP_ShowNoneButton	= REP_TXT.showNone
 REP_TXT.elements.tip.REP_ShowNoneButton	= "Press this button to deselect all four of the checkboxes to the left.\r\nThis will show you none of the ways to gain reputation for the currently selected faction."
-
 REP_TXT.elements.name.REP_ExpandButton	= REP_TXT.expand
 REP_TXT.elements.tip.REP_ExpandButton	= "Press this button to expand all entries in the list. This will show you the materials needed to hand in any item gathering quests."
 REP_TXT.elements.name.REP_CollapseButton	= REP_TXT.collapse
@@ -276,7 +303,6 @@ REP_TXT.elements.name.REP_ClearSessionGainButton	= REP_TXT.clearSessionGain
 REP_TXT.elements.tip.REP_ClearSessionGainButton	= "Press this button to clear reset the counter for reputation gained this session."
 REP_TXT.elements.name.REP_ShowDarkmoonFaireButton = "Darkmoon Faire Buff"
 REP_TXT.elements.tip.REP_ShowDarkmoonFaireButton = "Toggle this option to show how much reputation you would earn with the Darkmoon Faire buff active."
-
 REP_TXT.elements.name.REP_EnableMissingBox	= REP_TXT.showMissing
 REP_TXT.elements.tip.REP_EnableMissingBox	= "Enable this setting to add the missing reputation points needed for the next reputation level behind the current standing of each faction in the reputation frame."
 REP_TXT.elements.name.REP_ExtendDetailsBox	= REP_TXT.extendDetails
@@ -300,7 +326,6 @@ REP_TXT.elements.name.REP_ChatFrameSlider	= "Chat frame"
 REP_TXT.elements.tip.REP_ChatFrameSlider	= "Select which chat frame Reputations prints its messages."
 REP_TXT.elements.name.REP_EnableParagonBarBox = REP_TXT.EnableParagonBar
 REP_TXT.elements.tip.REP_EnableParagonBarBox  = "Enable this option to display your current paragon progress in the reputation bars."
-
 REP_TXT.elements.name.REP_OptionEnableMissing	= REP_TXT.elements.name.REP_EnableMissingBox
 REP_TXT.elements.tip.REP_OptionEnableMissing	= REP_TXT.elements.tip.REP_EnableMissingBox
 REP_TXT.elements.name.REP_OptionEnableMissingCB	= REP_TXT.elements.name.REP_EnableMissingBox

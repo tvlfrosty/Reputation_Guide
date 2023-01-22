@@ -1,7 +1,6 @@
-﻿-- Deutsch (German)
+-- Deutsch (German)
 --------------------	--------------------
 if (GetLocale() == "deDE") then
-
 -- Binding names
 BINDING_HEADER_REPUTATIONS	= "Reputation Guide"
 BINDING_NAME_SHOWCONFIG	= "Optionen zeigen"
@@ -22,33 +21,6 @@ REP_TXT.version	= "Version"
 REP_TXT.date	= "Datum"
 REP_TXT.web	= "Webseite"
 REP_TXT.slash	= "Slash Kommando"
-REP_TXT_STAND_LV	= {}
-REP_TXT_STAND_LV[0]	= "Unbekannt"
-REP_TXT_STAND_LV[1]	= "Hasserfüllt"
-REP_TXT_STAND_LV[2]	= "Feindselig"
-REP_TXT_STAND_LV[3]	= "Unfreundlich"
-REP_TXT_STAND_LV[4]	= "Neutral"
-REP_TXT_STAND_LV[5]	= "Freundlich"
-REP_TXT_STAND_LV[6]	= "Wohlwollend"
-REP_TXT_STAND_LV[7]	= "Respektvoll"
-REP_TXT_STAND_LV[8]	= "Ehrfürchtig"
-REP_TXT_STAND_LV[9] = "Paragon"
-REP_TXT_STAND_LV_TIER	= {}
-REP_TXT_STAND_LV_TIER[0] = "Unbekannt"
-REP_TXT_STAND_LV_TIER[1] = "Stufe 1"
-REP_TXT_STAND_LV_TIER[2] = "Stufe 2"
-REP_TXT_STAND_LV_TIER[3] = "Stufe 3"
-REP_TXT_STAND_LV_TIER[4] = "Stufe 4"
-REP_TXT_STAND_LV_TIER[5] = "Stufe 5"
-REP_TXT_STAND_LV_TIER[6] = "Stufe 6"
-REP_TXT_STAND_LV_TRUST	= {}
-REP_TXT_STAND_LV_TRUST[0] = "Unbekannt"
-REP_TXT_STAND_LV_TRUST[1] = "Unsicher"
-REP_TXT_STAND_LV_TRUST[2] = "Besorgt"
-REP_TXT_STAND_LV_TRUST[3] = "Unverbindlich"
-REP_TXT_STAND_LV_TRUST[4] = "Zwiespältig"
-REP_TXT_STAND_LV_TRUST[5] = "Herzlich"
-REP_TXT_STAND_LV_TRUST[6] = "Wertschätzend"
 
 -- status
 REP_TXT.status	= "Status"
@@ -158,10 +130,6 @@ REP_TXT.nswts	= "Nicht sicher, wenn diese beginnt"
 REP_TXT.mnd	= "Max. Anzahl von tägliche Quests"
 REP_TXT.mnds	= "Die maximale Anzahl von Tageszeitungen ist"
 
-
-
-
-
 -- ReputationDetails
 REP_TXT.currentRep	= "Aktueller Ruf"
 REP_TXT.neededRep	= "Benötigter Ruf"
@@ -236,16 +204,80 @@ REP_TXT.skillAid	= "Erste Hilfe"
 REP_TXT.skillArch	= "Archäologie"
 REP_TXT.skillCook	= "Kochkunst"
 REP_TXT.skillFish	= "Angeln"
--- Tooltip
+---------------------------
+-- Reputation Standing
+---------------------------
+---- Initialize
+REP_TXT.STAND_LV	= {}
+REP_TXT.STAND_LV_TIER	= {}
+REP_TXT.STAND_LV_TRUST	= {}
+REP_TXT.STAND_LV_RENOWN	= {}
+---- Normal standings
+REP_TXT.STAND_LV[0]	= "Unbekannt"
+REP_TXT.STAND_LV[1]	= "Hasserfüllt"
+REP_TXT.STAND_LV[2]	= "Feindselig"
+REP_TXT.STAND_LV[3]	= "Unfreundlich"
+REP_TXT.STAND_LV[4]	= "Neutral"
+REP_TXT.STAND_LV[5]	= "Freundlich"
+REP_TXT.STAND_LV[6]	= "Wohlwollend"
+REP_TXT.STAND_LV[7]	= "Respektvoll"
+REP_TXT.STAND_LV[8]	= "Ehrfürchtig"
+REP_TXT.STAND_LV[9] = "Paragon"
+---- Tier standings
+REP_TXT.STAND_LV_TIER[0] = "Unbekannt"
+REP_TXT.STAND_LV_TIER[1] = "Stufe 1"
+REP_TXT.STAND_LV_TIER[2] = "Stufe 2"
+REP_TXT.STAND_LV_TIER[3] = "Stufe 3"
+REP_TXT.STAND_LV_TIER[4] = "Stufe 4"
+REP_TXT.STAND_LV_TIER[5] = "Stufe 5"
+REP_TXT.STAND_LV_TIER[6] = "Stufe 6"
+---- Trust standings
+REP_TXT.STAND_LV_TRUST[0] = "Unbekannt"
+REP_TXT.STAND_LV_TRUST[1] = "Unsicher"
+REP_TXT.STAND_LV_TRUST[2] = "Besorgt"
+REP_TXT.STAND_LV_TRUST[3] = "Unverbindlich"
+REP_TXT.STAND_LV_TRUST[4] = "Zwiespältig"
+REP_TXT.STAND_LV_TRUST[5] = "Herzlich"
+REP_TXT.STAND_LV_TRUST[6] = "Wertschätzend"
+---- Renown standings
+REP_TXT.STAND_LV_RENOWN[0] = "Unbekannt"
+REP_TXT.STAND_LV_RENOWN[1] = "Ruhm 1"
+REP_TXT.STAND_LV_RENOWN[2] = "Ruhm 2"
+REP_TXT.STAND_LV_RENOWN[3] = "Ruhm 3"
+REP_TXT.STAND_LV_RENOWN[4] = "Ruhm 4"
+REP_TXT.STAND_LV_RENOWN[5] = "Ruhm 5"
+REP_TXT.STAND_LV_RENOWN[6] = "Ruhm 6"
+REP_TXT.STAND_LV_RENOWN[7] = "Ruhm 7"
+REP_TXT.STAND_LV_RENOWN[8] = "Ruhm 8"
+REP_TXT.STAND_LV_RENOWN[9] = "Ruhm 9"
+REP_TXT.STAND_LV_RENOWN[10] = "Ruhm 10"
+REP_TXT.STAND_LV_RENOWN[11] = "Ruhm 11"
+REP_TXT.STAND_LV_RENOWN[12] = "Ruhm 12"
+REP_TXT.STAND_LV_RENOWN[13] = "Ruhm 13"
+REP_TXT.STAND_LV_RENOWN[14] = "Ruhm 14"
+REP_TXT.STAND_LV_RENOWN[15] = "Ruhm 15"
+REP_TXT.STAND_LV_RENOWN[16] = "Ruhm 16"
+REP_TXT.STAND_LV_RENOWN[17] = "Ruhm 17"
+REP_TXT.STAND_LV_RENOWN[18] = "Ruhm 18"
+REP_TXT.STAND_LV_RENOWN[19] = "Ruhm 19"
+REP_TXT.STAND_LV_RENOWN[20] = "Ruhm 20"
+REP_TXT.STAND_LV_RENOWN[21] = "Ruhm 21"
+REP_TXT.STAND_LV_RENOWN[22] = "Ruhm 22"
+REP_TXT.STAND_LV_RENOWN[23] = "Ruhm 23"
+REP_TXT.STAND_LV_RENOWN[24] = "Ruhm 24"
+REP_TXT.STAND_LV_RENOWN[25] = "Ruhm 25"
+---------------------------
+-- Tooltips
+---------------------------
+---- Initialize
 REP_TXT.elements	= {}
 REP_TXT.elements.name	= {}
 REP_TXT.elements.tip	= {}
-
+---- Names and tips
 REP_TXT.elements.name.REP_OptionsButton	= REP_TXT.options
 REP_TXT.elements.tip.REP_OptionsButton	= "Öffnet ein Fenster, in welchem Reputations konfiguriert werden kann."
 REP_TXT.elements.name.REP_OrderByStandingCheckBox	= REP_TXT.orderByStanding
 REP_TXT.elements.tip.REP_OrderByStandingCheckBox	= "Wenn diese Option nicht aktiviert ist, wird die Fraktionsliste wie im Original (Blizzard) sortiert, d.h. logisch und alphabetisch gruppiert.\r\n\r\nWenn diese Option aktiviert ist, wird die Fraktionsliste nach Ruf sortiert.\r\n\r\nUm |cFFFAA0A0inaktive"
-
 REP_TXT.elements.name.REP_ShowMobsButton	= REP_TXT.showMobs
 REP_TXT.elements.tip.REP_ShowMobsButton	= "Diese Option aktivieren, um Mobs anzuzeigen, mit denen Du Deinen Ruf steigern kannst."
 REP_TXT.elements.name.REP_ShowQuestButton	= REP_TXT.showQuests
@@ -256,12 +288,10 @@ REP_TXT.elements.name.REP_ShowInstancesButton	= REP_TXT.showInstances
 REP_TXT.elements.tip.REP_ShowInstancesButton	= "Diese Option aktivieren, um Instanzen anzuzeigen, mit denen Du Deinen Ruf steigern kannst."
 REP_TXT.elements.name.REP_ShowGeneralButton	= REP_TXT.showGeneral
 REP_TXT.elements.tip.REP_ShowGeneralButton	= "Diese Option aktivieren, um allgemeine Informationen zur Rufsteigerung anzuzeigen."
-
 REP_TXT.elements.name.REP_ShowAllButton	= REP_TXT.showAll
 REP_TXT.elements.tip.REP_ShowAllButton	= "Auf diesen Knopf klicken, um alle vier links stehenden Optionen zu aktivieren. Es werden Mobs, Quests, Gegenstände und Instanzen angezeigt, die Deinen Ruf der ausgewählten Fraktion verbessern."
 REP_TXT.elements.name.REP_ShowNoneButton	= REP_TXT.showNone
 REP_TXT.elements.tip.REP_ShowNoneButton	= "Auf diesen Knopf klicken, um alle vier links stehenden Optionen zu deaktivieren. \r\nEs werden dadurch keine Methoden mehr angezeigt, die Ruf mit der ausgewählten Fraktion verbessern."
-
 REP_TXT.elements.name.REP_ExpandButton	= REP_TXT.expand
 REP_TXT.elements.tip.REP_ExpandButton	= "Auf diesen Knopf klicken, um alle Einträge aufzuklappen. Dies zeigt die Gegenstände an, die für die jeweiligen Sammelquests benötigt werden."
 REP_TXT.elements.name.REP_CollapseButton	= REP_TXT.collapse
@@ -272,7 +302,6 @@ REP_TXT.elements.name.REP_SupressNoneGlobalButton	= REP_TXT.supressNoneGlobal
 REP_TXT.elements.tip.REP_SupressNoneGlobalButton	= "Auf diesen Knopf klicken, um die Quests für alle Fraktionen wieder zu aktivieren, die durch Rechtsklicken deaktiviert wurden."
 REP_TXT.elements.name.REP_ClearSessionGainButton	= REP_TXT.clearSessionGain
 REP_TXT.elements.tip.REP_ClearSessionGainButton	= "Auf diesen Knopf klicken, um den Zähler für die Rufsteigerung seit Spielstart zurückzusetzen."
-
 REP_TXT.elements.name.REP_EnableMissingBox	= REP_TXT.showMissing
 REP_TXT.elements.tip.REP_EnableMissingBox	= "Diese Option aktivieren, um im Ruffenster hinter der Rufstufe die fehlenden Rufpunkte anzuzeigen, die nötig sind, um die nächste Stufe zu erreichen."
 REP_TXT.elements.name.REP_ExtendDetailsBox	= REP_TXT.extendDetails
@@ -296,7 +325,6 @@ REP_TXT.elements.name.REP_ChatFrameSlider	= "Chatfenster"
 REP_TXT.elements.tip.REP_ChatFrameSlider	= "Wähle aus, in welchem Chatfenster Reputations seine Meldungen anzeigt."
 REP_TXT.elements.name.REP_EnableParagonBarBox = REP_TXT.EnableParagonBar
 REP_TXT.elements.tip.REP_EnableParagonBarBox  = "Enable this option to display your current paragon progress in the reputation bars."
-
 REP_TXT.elements.name.REP_OptionEnableMissing	= REP_TXT.elements.name.REP_EnableMissingBox
 REP_TXT.elements.tip.REP_OptionEnableMissing	= REP_TXT.elements.tip.REP_EnableMissingBox
 REP_TXT.elements.name.REP_OptionEnableMissingCB	= REP_TXT.elements.name.REP_EnableMissingBox

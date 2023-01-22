@@ -1,13 +1,13 @@
-local addonName, vars = ...
-local L = vars.L
-REP = vars
-
+---------------------------
+-- Initialize Addon vars --
+---------------------------
+local _, vars = ...
+local REP = vars
 --------------------------------------------------
 -- /run local mapID = <mapID>; print(C_Map.GetMapInfo(mapID).name)
 --------------------------------------------------
-
 local zone = {}
-if (not REP_AfterWrath) then
+if (not REP.AfterWotlk) then
 	--------------------------------------------------
 	-- Zone ID's till after Wrath of the Lich King
 	--------------------------------------------------

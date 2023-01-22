@@ -22,34 +22,6 @@ REP_TXT.version	= "Versión"
 REP_TXT.date	= "fecha"
 REP_TXT.web	= "sitio web"
 REP_TXT.slash	= "comando slash"
-REP_TXT_STAND_LV	= {}
-REP_TXT_STAND_LV[0]	= "Desconocido"
-REP_TXT_STAND_LV[1]	= "Odiado"
-REP_TXT_STAND_LV[2]	= "Hostil"
-REP_TXT_STAND_LV[3]	= "Antipático"
-REP_TXT_STAND_LV[4]	= "Neutral"
-REP_TXT_STAND_LV[5]	= "Amistoso"
-REP_TXT_STAND_LV[6]	= "Honorable"
-REP_TXT_STAND_LV[7]	= "Venerado"
-REP_TXT_STAND_LV[8]	= "Exaltado"
-REP_TXT_STAND_LV[9] = "Paragón"
-REP_TXT_STAND_LV_TIER	= {}
-REP_TXT_STAND_LV_TIER[0] = "Desconocido"
-REP_TXT_STAND_LV_TIER[1] = "Nivel 1"
-REP_TXT_STAND_LV_TIER[2] = "Nivel 2"
-REP_TXT_STAND_LV_TIER[3] = "Nivel 3"
-REP_TXT_STAND_LV_TIER[4] = "Nivel 4"
-REP_TXT_STAND_LV_TIER[5] = "Nivel 5"
-REP_TXT_STAND_LV_TIER[6] = "Nivel 6"
-REP_TXT_STAND_LV_TRUST	= {}
-REP_TXT_STAND_LV_TRUST[0] = "Desconocido"
-REP_TXT_STAND_LV_TRUST[1] = "Dubitativa"
-REP_TXT_STAND_LV_TRUST[2] = "Aprensiva"
-REP_TXT_STAND_LV_TRUST[3] = "Indecisa"
-REP_TXT_STAND_LV_TRUST[4] = "Ambivalente"
-REP_TXT_STAND_LV_TRUST[5] = "Cordial"
-REP_TXT_STAND_LV_TRUST[6] = "Agradecida"
-
 -- status
 REP_TXT.status	= "estado"
 REP_TXT.disabled	= "deshabilitado"
@@ -237,16 +209,80 @@ REP_TXT.skillAid	= "Primeros auxilios"
 REP_TXT.skillArch	= "Arqueología"
 REP_TXT.skillCook	= "Cocina"
 REP_TXT.skillFish	= "Pesca"
--- Tooltip
+---------------------------
+-- Reputation Standing
+---------------------------
+---- Initialize
+REP_TXT.STAND_LV	= {}
+REP_TXT.STAND_LV_TIER	= {}
+REP_TXT.STAND_LV_TRUST	= {}
+REP_TXT.STAND_LV_RENOWN	= {}
+---- Normal standings
+REP_TXT.STAND_LV[0]	= "Desconocido"
+REP_TXT.STAND_LV[1]	= "Odiado"
+REP_TXT.STAND_LV[2]	= "Hostil"
+REP_TXT.STAND_LV[3]	= "Antipático"
+REP_TXT.STAND_LV[4]	= "Neutral"
+REP_TXT.STAND_LV[5]	= "Amistoso"
+REP_TXT.STAND_LV[6]	= "Honorable"
+REP_TXT.STAND_LV[7]	= "Venerado"
+REP_TXT.STAND_LV[8]	= "Exaltado"
+REP_TXT.STAND_LV[9] = "Paragón"
+---- Tier standings
+REP_TXT.STAND_LV_TIER[0] = "Desconocido"
+REP_TXT.STAND_LV_TIER[1] = "Nivel 1"
+REP_TXT.STAND_LV_TIER[2] = "Nivel 2"
+REP_TXT.STAND_LV_TIER[3] = "Nivel 3"
+REP_TXT.STAND_LV_TIER[4] = "Nivel 4"
+REP_TXT.STAND_LV_TIER[5] = "Nivel 5"
+REP_TXT.STAND_LV_TIER[6] = "Nivel 6"
+---- Trust standings
+REP_TXT.STAND_LV_TRUST[0] = "Desconocido"
+REP_TXT.STAND_LV_TRUST[1] = "Dubitativa"
+REP_TXT.STAND_LV_TRUST[2] = "Aprensiva"
+REP_TXT.STAND_LV_TRUST[3] = "Indecisa"
+REP_TXT.STAND_LV_TRUST[4] = "Ambivalente"
+REP_TXT.STAND_LV_TRUST[5] = "Cordial"
+REP_TXT.STAND_LV_TRUST[6] = "Agradecida"
+---- Renown standings
+REP_TXT.STAND_LV_RENOWN[0] = "Desconocido"
+REP_TXT.STAND_LV_RENOWN[1] = "Renombre 1"
+REP_TXT.STAND_LV_RENOWN[2] = "Renombre 2"
+REP_TXT.STAND_LV_RENOWN[3] = "Renombre 3"
+REP_TXT.STAND_LV_RENOWN[4] = "Renombre 4"
+REP_TXT.STAND_LV_RENOWN[5] = "Renombre 5"
+REP_TXT.STAND_LV_RENOWN[6] = "Renombre 6"
+REP_TXT.STAND_LV_RENOWN[7] = "Renombre 7"
+REP_TXT.STAND_LV_RENOWN[8] = "Renombre 8"
+REP_TXT.STAND_LV_RENOWN[9] = "Renombre 9"
+REP_TXT.STAND_LV_RENOWN[10] = "Renombre 10"
+REP_TXT.STAND_LV_RENOWN[11] = "Renombre 11"
+REP_TXT.STAND_LV_RENOWN[12] = "Renombre 12"
+REP_TXT.STAND_LV_RENOWN[13] = "Renombre 13"
+REP_TXT.STAND_LV_RENOWN[14] = "Renombre 14"
+REP_TXT.STAND_LV_RENOWN[15] = "Renombre 15"
+REP_TXT.STAND_LV_RENOWN[16] = "Renombre 16"
+REP_TXT.STAND_LV_RENOWN[17] = "Renombre 17"
+REP_TXT.STAND_LV_RENOWN[18] = "Renombre 18"
+REP_TXT.STAND_LV_RENOWN[19] = "Renombre 19"
+REP_TXT.STAND_LV_RENOWN[20] = "Renombre 20"
+REP_TXT.STAND_LV_RENOWN[21] = "Renombre 21"
+REP_TXT.STAND_LV_RENOWN[22] = "Renombre 22"
+REP_TXT.STAND_LV_RENOWN[23] = "Renombre 23"
+REP_TXT.STAND_LV_RENOWN[24] = "Renombre 24"
+REP_TXT.STAND_LV_RENOWN[25] = "Renombre 25"
+---------------------------
+-- Tooltips
+---------------------------
+---- Initialize
 REP_TXT.elements	= {}
 REP_TXT.elements.name	= {}
 REP_TXT.elements.tip	= {}
-
+---- Names and tips
 REP_TXT.elements.name.REP_OptionsButton	= REP_TXT.options
 REP_TXT.elements.tip.REP_OptionsButton	= "Abrir la ventana de configuración."
 REP_TXT.elements.name.REP_OrderByStandingCheckBox	= REP_TXT.orderByStanding
 REP_TXT.elements.tip.REP_OrderByStandingCheckBox	= "Si esta casilla no está marcada, la lista facción se muestra mediante la clasificación por defecto de Blizzard, agrupados por orden lógico y alfabético. \r\n\r\n Si se marca esta casilla, la lista se ordena las reputaciones por nivel. \r\n\r\n Para ver las reputaciones inactivas, desactive esta casilla y vaya a la parte inferior de la lista."
-
 REP_TXT.elements.name.REP_ShowMobsButton	= REP_TXT.showMobs
 REP_TXT.elements.tip.REP_ShowMobsButton	= "Marque este botón para ver los mobs que se pueden matar para mejorar su reputación."
 REP_TXT.elements.name.REP_ShowQuestButton	= REP_TXT.showQuests
@@ -257,12 +293,10 @@ REP_TXT.elements.name.REP_ShowInstancesButton	= REP_TXT.showInstances
 REP_TXT.elements.tip.REP_ShowInstancesButton	= "Marque este botón para ver las instancias que puede ejecutar para mejorar su reputación."
 REP_TXT.elements.name.REP_ShowGeneralButton	= REP_TXT.showGeneral
 REP_TXT.elements.tip.REP_ShowGeneralButton	= "Marque este botón para ver la información general sobre la mejora de su reputación."
-
 REP_TXT.elements.name.REP_ShowAllButton	= REP_TXT.showAll
 REP_TXT.elements.tip.REP_ShowAllButton	= "Pulse este botón para restablecer las cuatro casillas de la izquierda. \r\nEsto mostrará mobs, misiones, objetos e instancias que le den reputación de la facción seleccionada."
 REP_TXT.elements.name.REP_ShowNoneButton	= REP_TXT.showNone
 REP_TXT.elements.tip.REP_ShowNoneButton	= "Pulse este botón para desmarcar la selección de las cuatro casillas de la izquierda. \r\nEsto ocultara mobs, misiones, objetos e instancias que le den reputación de la facción seleccionada."
-
 REP_TXT.elements.name.REP_ExpandButton	= REP_TXT.expand
 REP_TXT.elements.tip.REP_ExpandButton	= "Pulse este botón para expandir todas las entradas de la lista."
 REP_TXT.elements.name.REP_CollapseButton	= REP_TXT.collapse
@@ -273,8 +307,6 @@ REP_TXT.elements.name.REP_SupressNoneGlobalButton	= REP_TXT.supressNoneGlobal
 REP_TXT.elements.tip.REP_SupressNoneGlobalButton	= "Pulse este botón para restablecer todos los elementos excluidos de todas las facciones."
 REP_TXT.elements.name.REP_ClearSessionGainButton	= REP_TXT.clearSessionGain
 REP_TXT.elements.tip.REP_ClearSessionGainButton	= "Pulse este botón para reiniciar el contador de reputación de esta sesión."
-
-
 REP_TXT.elements.name.REP_EnableMissingBox	= REP_TXT.showMissing
 REP_TXT.elements.tip.REP_EnableMissingBox	= "Esta opción añade entre parentesis la reputación faltante para el siguiente nivel en la ventana de reputación.u"
 REP_TXT.elements.name.REP_ExtendDetailsBox	= REP_TXT.extendDetails
@@ -298,7 +330,6 @@ REP_TXT.elements.name.REP_ChatFrameSlider	= "Chat frame"
 REP_TXT.elements.tip.REP_ChatFrameSlider	= "Select which chat frame Reputations prints its messages."
 REP_TXT.elements.name.REP_EnableParagonBarBox = REP_TXT.EnableParagonBar
 REP_TXT.elements.tip.REP_EnableParagonBarBox  = "Enable this option to display your current paragon progress in the reputation bars."
-
 REP_TXT.elements.name.REP_OptionEnableMissing	= REP_TXT.elements.name.REP_EnableMissingBox
 REP_TXT.elements.tip.REP_OptionEnableMissing	= REP_TXT.elements.tip.REP_EnableMissingBox
 REP_TXT.elements.name.REP_OptionEnableMissingCB	= REP_TXT.elements.name.REP_EnableMissingBox

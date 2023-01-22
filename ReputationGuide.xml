@@ -315,10 +315,10 @@
 					<OnClick>
 						if (self:GetChecked()) then
 							if SOUNDKIT then PlaySound(SOUNDKIT.IG_MAINMENU_OPTION_CHECKBOX_ON); end
-							REP:CustomSetFactionInactive(GetSelectedFaction());
+							REP_CustomSetFactionInactive(GetSelectedFaction());
 						else
 							if SOUNDKIT then PlaySound(SOUNDKIT.IG_MAINMENU_OPTION_CHECKBOX_OFF); end
-							REP:CustomSetFactionActive(GetSelectedFaction());
+							REP_CustomSetFactionActive(GetSelectedFaction());
 						end
 					</OnClick>
 					<OnEnter>
@@ -371,7 +371,7 @@
 						else
 							if SOUNDKIT then PlaySound(SOUNDKIT.IG_MAINMENU_OPTION_CHECKBOX_OFF); end
 						end
-						REP:ToggleDarkmoonFaireBuff()
+						REP_ToggleDarkmoonFaireBuff()
 					</OnClick>
 					<OnEnter>
 						REP_ShowHelpToolTip(self, self:GetName())

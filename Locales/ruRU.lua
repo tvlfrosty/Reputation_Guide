@@ -1,7 +1,6 @@
-﻿-- Русский (Russian)
+-- Русский (Russian)
 --------------------	--------------------
 if (GetLocale() =="ruRU") then
-
 -- Binding names
 BINDING_HEADER_REPUTATIONS	= "Reputation Guide"
 BINDING_NAME_SHOWCONFIG	= "Показать окно опций"
@@ -22,34 +21,6 @@ REP_TXT.version	= "Версия"
 REP_TXT.date	= "дата"
 REP_TXT.web	= "сайт"
 REP_TXT.slash	= "Слэш команды"
-REP_TXT_STAND_LV	= {}
-REP_TXT_STAND_LV[0]	= "Неизвестно"
-REP_TXT_STAND_LV[1]	= "Ненависть"
-REP_TXT_STAND_LV[2]	= "Враждебность"
-REP_TXT_STAND_LV[3]	= "недружественный"
-REP_TXT_STAND_LV[4]	= "Равнодушие"
-REP_TXT_STAND_LV[5]	= "Дружелюбие"
-REP_TXT_STAND_LV[6]	= "Уважение"
-REP_TXT_STAND_LV[7]	= "Почтение"
-REP_TXT_STAND_LV[8]	= "Превознесение"
-REP_TXT_STAND_LV[9] = "Парагон"
-REP_TXT_STAND_LV_TIER	= {}
-REP_TXT_STAND_LV_TIER[0]	= "Неизвестно"
-REP_TXT_STAND_LV_TIER[1] = "1-й уровень"
-REP_TXT_STAND_LV_TIER[2] = "2-й уровень"
-REP_TXT_STAND_LV_TIER[3] = "3-й уровень"
-REP_TXT_STAND_LV_TIER[4] = "4-й уровень"
-REP_TXT_STAND_LV_TIER[5] = "5-й уровень"
-REP_TXT_STAND_LV_TIER[6] = "6-й уровень"
-REP_TXT_STAND_LV_TRUST	= {}
-REP_TXT_STAND_LV_TRUST[0] = "Неизвестно"
-REP_TXT_STAND_LV_TRUST[1] = "Сомнения"
-REP_TXT_STAND_LV_TRUST[2] = "Опасения"
-REP_TXT_STAND_LV_TRUST[3] = "Настороженность"
-REP_TXT_STAND_LV_TRUST[4] = "Безразличие"
-REP_TXT_STAND_LV_TRUST[5] = "Сердечность"
-REP_TXT_STAND_LV_TRUST[6] = "Признание"
-
 -- status
 REP_TXT.status	= "Статус"
 REP_TXT.disabled	= "выключено"
@@ -144,7 +115,6 @@ REP_TXT.ndq	= "нет ежедневных заданий"
 REP_TXT.deleted	= "устаревший"
 REP_TXT.Championing	= "чемпиона (камзол герольда)"
 REP_TXT.bpqfg	= "По процентов поисках усиления фракции"
-
 -- items Details
 REP_TXT.cbadge	= "Рекомендательный значок другой город"
 -- instance Details
@@ -157,11 +127,6 @@ REP_TXT.tfr	= "Тиллер Сельское хозяйство репутаци
 REP_TXT.nswts	= "Не знаю, когда это начинается"
 REP_TXT.mnd	= "Максимальное количество ежедневных заданий"
 REP_TXT.mnds	= "Максимальное количество ежедневных газет является"
-
-
-
-
-
 -- ReputationDetails
 REP_TXT.currentRep	= "Текущая репутация"
 REP_TXT.neededRep	= "Необходимо набрать"
@@ -176,7 +141,6 @@ REP_TXT.toBestFriend = "Reputation to best friend"
 -- to chat
 REP_TXT.stats	= " (Всего: %s%d, Осталось: %d)"
 REP_TXT.statsNextStanding = " (Total: %s%d, Left to %s: %d)"
-
 -- config changed
 REP_TXT.configQuestion	= "Некоторые (новые) настройки были включены. Это происходит только 1 раз для каждой настройки. Рекомендуется убедиться, что новые настройки Reputations'а Вас удовлетворяют."
 REP_TXT.showConfig	= "Посмотреть настройки"
@@ -237,16 +201,80 @@ REP_TXT.skillAid	= "Первая помощь"
 REP_TXT.skillArch	= "Археология"
 REP_TXT.skillCook	= "Кулинария"
 REP_TXT.skillFish	= "Рыбная ловля"
--- Tooltip
+---------------------------
+-- Reputation Standing
+---------------------------
+---- Initialize
+REP_TXT.STAND_LV	= {}
+REP_TXT.STAND_LV_TIER	= {}
+REP_TXT.STAND_LV_TRUST = {}
+REP_TXT.STAND_LV_RENOWN	= {}
+---- Normal standings
+REP_TXT.STAND_LV[0]	= "Неизвестно"
+REP_TXT.STAND_LV[1]	= "Ненависть"
+REP_TXT.STAND_LV[2]	= "Враждебность"
+REP_TXT.STAND_LV[3]	= "недружественный"
+REP_TXT.STAND_LV[4]	= "Равнодушие"
+REP_TXT.STAND_LV[5]	= "Дружелюбие"
+REP_TXT.STAND_LV[6]	= "Уважение"
+REP_TXT.STAND_LV[7]	= "Почтение"
+REP_TXT.STAND_LV[8]	= "Превознесение"
+REP_TXT.STAND_LV[9] = "Парагон"
+---- Tier standings
+REP_TXT.STAND_LV_TIER[0]	= "Неизвестно"
+REP_TXT.STAND_LV_TIER[1] = "1-й уровень"
+REP_TXT.STAND_LV_TIER[2] = "2-й уровень"
+REP_TXT.STAND_LV_TIER[3] = "3-й уровень"
+REP_TXT.STAND_LV_TIER[4] = "4-й уровень"
+REP_TXT.STAND_LV_TIER[5] = "5-й уровень"
+REP_TXT.STAND_LV_TIER[6] = "6-й уровень"
+---- Trust standings
+REP_TXT.STAND_LV_TRUST[0] = "Неизвестно"
+REP_TXT.STAND_LV_TRUST[1] = "Сомнения"
+REP_TXT.STAND_LV_TRUST[2] = "Опасения"
+REP_TXT.STAND_LV_TRUST[3] = "Настороженность"
+REP_TXT.STAND_LV_TRUST[4] = "Безразличие"
+REP_TXT.STAND_LV_TRUST[5] = "Сердечность"
+REP_TXT.STAND_LV_TRUST[6] = "Признание"
+---- Renown standings
+REP_TXT.STAND_LV_RENOWN[0] = "Неизвестно"
+REP_TXT.STAND_LV_RENOWN[1] = "Известность 1"
+REP_TXT.STAND_LV_RENOWN[2] = "Известность 2"
+REP_TXT.STAND_LV_RENOWN[3] = "Известность 3"
+REP_TXT.STAND_LV_RENOWN[4] = "Известность 4"
+REP_TXT.STAND_LV_RENOWN[5] = "Известность 5"
+REP_TXT.STAND_LV_RENOWN[6] = "Известность 6"
+REP_TXT.STAND_LV_RENOWN[7] = "Известность 7"
+REP_TXT.STAND_LV_RENOWN[8] = "Известность 8"
+REP_TXT.STAND_LV_RENOWN[9] = "Известность 9"
+REP_TXT.STAND_LV_RENOWN[10] = "Известность 10"
+REP_TXT.STAND_LV_RENOWN[11] = "Известность 11"
+REP_TXT.STAND_LV_RENOWN[12] = "Известность 12"
+REP_TXT.STAND_LV_RENOWN[13] = "Известность 13"
+REP_TXT.STAND_LV_RENOWN[14] = "Известность 14"
+REP_TXT.STAND_LV_RENOWN[15] = "Известность 15"
+REP_TXT.STAND_LV_RENOWN[16] = "Известность 16"
+REP_TXT.STAND_LV_RENOWN[17] = "Известность 17"
+REP_TXT.STAND_LV_RENOWN[18] = "Известность 18"
+REP_TXT.STAND_LV_RENOWN[19] = "Известность 19"
+REP_TXT.STAND_LV_RENOWN[20] = "Известность 20"
+REP_TXT.STAND_LV_RENOWN[21] = "Известность 21"
+REP_TXT.STAND_LV_RENOWN[22] = "Известность 22"
+REP_TXT.STAND_LV_RENOWN[23] = "Известность 23"
+REP_TXT.STAND_LV_RENOWN[24] = "Известность 24"
+REP_TXT.STAND_LV_RENOWN[25] = "Известность 25"
+---------------------------
+-- Tooltips
+---------------------------
+---- Initialize
 REP_TXT.elements	= {}
 REP_TXT.elements.name	= {}
 REP_TXT.elements.tip	= {}
-
+---- Names and tips
 REP_TXT.elements.name.REP_OptionsButton	= REP_TXT.options
 REP_TXT.elements.tip.REP_OptionsButton	= "Открыть окно для настройки Reputations'а."
 REP_TXT.elements.name.REP_OrderByStandingCheckBox	= REP_TXT.orderByStanding
 REP_TXT.elements.tip.REP_OrderByStandingCheckBox	= "Если это поле не отмечено, то список фракций отображается в порядке по умолчанию, т.е. фракции группируются на логические группы, а внутри них по алфавиту. \\r\\nЕсли это поле отмечено, то список фракций сортируется по отношению с ними. \\r\\nЧтобы увидеть |cFFFAA0A0неактивные|r фракции, уберите отметку в этом поле и прокрутите до низа списка."
-
 REP_TXT.elements.name.REP_ShowMobsButton	= REP_TXT.showMobs
 REP_TXT.elements.tip.REP_ShowMobsButton	= "Нажмите кнопку, чтобы видеть мобов, за убийство которых растет репутация."
 REP_TXT.elements.name.REP_ShowQuestButton	= REP_TXT.showQuests
@@ -257,12 +285,10 @@ REP_TXT.elements.name.REP_ShowInstancesButton	= REP_TXT.showInstances
 REP_TXT.elements.tip.REP_ShowInstancesButton	= "Нажмите кнопку, чтобы видеть подземелья, за зачистку которых растет репутация."
 REP_TXT.elements.name.REP_ShowGeneralButton	= REP_TXT.showGeneral
 REP_TXT.elements.tip.REP_ShowGeneralButton	= "Отметьте это поле, чтобы увидеть общую информацию об увеличении репутации."
-
 REP_TXT.elements.name.REP_ShowAllButton	= REP_TXT.showAll
 REP_TXT.elements.tip.REP_ShowAllButton	= "Нажмите эту кнопку чтобы выбрать все 4 элемента.\r\nБудут показаны мобы, квесты, вещи и подземелья для выбранной фракции."
 REP_TXT.elements.name.REP_ShowNoneButton	= REP_TXT.showNone
 REP_TXT.elements.tip.REP_ShowNoneButton	= "Нажмите эту кнопку чтобы снять выделение с 4 элементов.\r\nВ результате ничего не будет показано. Неожиданно, да? ;-)."
-
 REP_TXT.elements.name.REP_ExpandButton	= REP_TXT.expand
 REP_TXT.elements.tip.REP_ExpandButton	= "Нажмите тут, чтобы развернуть все квесты. Будут показаны необходимые для квеста вещи."
 REP_TXT.elements.name.REP_CollapseButton	= REP_TXT.collapse
@@ -273,7 +299,6 @@ REP_TXT.elements.name.REP_SupressNoneGlobalButton	= REP_TXT.supressNoneGlobal
 REP_TXT.elements.tip.REP_SupressNoneGlobalButton	= "Нажмите эту кнопку, чтобы вернуть все квесты для всех фракций, которые Вы исключили из списка."
 REP_TXT.elements.name.REP_ClearSessionGainButton	= REP_TXT.clearSessionGain
 REP_TXT.elements.tip.REP_ClearSessionGainButton	= "Нажмите эту кнопку, чтобы сбросить счетчик полученной репутации за эту сессию."
-
 REP_TXT.elements.name.REP_EnableMissingBox	= REP_TXT.showMissing
 REP_TXT.elements.tip.REP_EnableMissingBox	= "Включение этого параметра позволит смотреть недостающую репутацию в окне репутации"
 REP_TXT.elements.name.REP_ExtendDetailsBox	= REP_TXT.extendDetails
@@ -297,7 +322,6 @@ REP_TXT.elements.name.REP_ChatFrameSlider	= "Вкладка чата"
 REP_TXT.elements.tip.REP_ChatFrameSlider	= "Выберите, в какой вкладке чата Reputations печатает свои сообщения"
 REP_TXT.elements.name.REP_EnableParagonBarBox = REP_TXT.EnableParagonBar
 REP_TXT.elements.tip.REP_EnableParagonBarBox  = "Enable this option to display your current paragon progress in the reputation bars."
-
 REP_TXT.elements.name.REP_OptionEnableMissing	= REP_TXT.elements.name.REP_EnableMissingBox
 REP_TXT.elements.tip.REP_OptionEnableMissing	= REP_TXT.elements.tip.REP_EnableMissingBox
 REP_TXT.elements.name.REP_OptionEnableMissingCB	= REP_TXT.elements.name.REP_EnableMissingBox
