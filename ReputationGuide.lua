@@ -1017,6 +1017,8 @@ function REP:Quest_Names(questIndex)
     else
       if (expansionIndex < 2) then
         quest = "Quest name not available. QuestID: "..questIndex
+      elseif (expansionIndex < 9) then
+        quest = C_QuestLog.GetQuestInfo(questIndex)
       else
         REP_HiddenQuestTooltip:SetOwner(WorldFrame, ANCHOR_NONE)
         REP_HiddenQuestTooltip:SetHyperlink(format("quest:%d", questIndex))
