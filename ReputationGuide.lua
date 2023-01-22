@@ -2,89 +2,16 @@
 -- Reputation Guide | A World of Warcraft addon to help you manage your reputation and Factions. --
 -------------------------------------------------------
 ---------------------------
+-- Initialize Addon vars --
+---------------------------
+local addonName, vars = ...
+local REP = vars
+---------------------------
 -- _00_ Variables Set up --
 ---------------------------
-REP_ToExalted = {}
-REP_ToExalted[0] = 84000;
-REP_ToExalted[1] = 48000;	-- working on Hated -> Hostile, base offset 21k+12k+6k+3k+3k+3k
-REP_ToExalted[2] = 45000;	-- working on Hostile -> Unfriendly, base offset 21k+12k+6k+3k+3k
-REP_ToExalted[3] = 42000;	-- working on Unfriendly -> Neutral, base offset 21k+12k+6k+3k
-REP_ToExalted[4] = 39000;	-- working on Neutral -> Friendly, base offset 21k+12k+6k
-REP_ToExalted[5] = 33000;	-- working on Friendly -> Honored, base offset 21k+12k
-REP_ToExalted[6] = 21000;	-- working on Honored -> Revered, base offset 21k
-REP_ToExalted[7] = 0;	-- working on Revered -> Exalted, so no base offset
-REP_ToExalted[8] = 0;	-- already at Exalted -> no offset
--- Expansions
-REP_Expansions = {}
-REP_Expansions[0] = "Classic";
-REP_Expansions[1] = "The Burning Crusade";
-REP_Expansions[2] = "Wrath of the Lich King";
-REP_Expansions[3] = "Cataclysm";
-REP_Expansions[4] = "Mists of Pandaria";
-REP_Expansions[5] = "Warlords of Draenor";
-REP_Expansions[6] = "Legion";
-REP_Expansions[7] = "Battle for Azeroth";
-REP_Expansions[8] = "Shadowlands";
-REP_Expansions[9] = "Dragonflight";
--- REP_Expansions[10] = "";
-
--- Addon constants
-REP_NAME = "ReputationGuide"
-REP_VNMBR = 6020012	-- Number code for this version
-local addonName, vars = ...
-local L = vars.L
-REP = vars
-
--- Colours
-REP_Help_COLOUR = "|cFFFFFF7F"
-REP_NEW_REP_COLOUR = "|cFF7F7FFF"
-REP_NEW_STANDING_COLOUR = "|cFF6060C0"
-REP_BAG_COLOUR = "|cFFC0FFC0"
-REP_BAG_BANK_COLOUR = "|cFFFFFF7F"
-REP_QUEST_COLOUR = "|cFFC0FFC0"
-REP_HIGHLIGHT_COLOUR = "|cFF00FF00"
-REP_QUEST_ACTIVE_COLOUR = "|cFFFF7F7F"
-REP_LOWLIGHT_COLOUR = "|cFFFF3F3F"
-REP_SUPPRESS_COLOUR = "|cFF7F7F7F"
--- Faction bar colors
-FACTION_BAR_COLORS = {
-  [0] = {r = 0.8, g = 0.3, b = 0.22},
-  [1] = {r = 0.8, g = 0.3, b = 0.22},
-  [2] = {r = 0.8, g = 0.3, b = 0.22},
-  [3] = {r = 0.75, g = 0.27, b = 0},
-  [4] = {r = 0.9, g = 0.7, b = 0},
-  [5] = {r = 0, g = 0.6, b = 0.1},
-  [6] = {r = 0, g = 0.6, b = 0.1},
-  [7] = {r = 0, g = 0.6, b = 0.1},
-  [8] = {r = 0, g = 0.6, b = 0.1},
-  [9] = {r = 0, g = 0.5, b = 0.9},
-};
-
---Profestions ggg
-REP_LIMIT_TYPE_Herb = 1
-REP_LIMIT_TYPE_Skin = 2
-REP_LIMIT_TYPE_Mine = 3
-REP_LIMIT_TYPE_Gather = 4
-REP_LIMIT_TYPE_Engi = 5
-REP_LIMIT_TYPE_Alch = 6
-REP_LIMIT_TYPE_Blac = 7
-REP_LIMIT_TYPE_Tail = 8
-REP_LIMIT_TYPE_Leat = 9
-REP_LIMIT_TYPE_Ench = 10
-REP_LIMIT_TYPE_Jewel = 11
-REP_LIMIT_TYPE_Incr = 12
-REP_LIMIT_TYPE_Aid = 13
-REP_LIMIT_TYPE_Arch = 14
-REP_LIMIT_TYPE_Cook = 15
-REP_LIMIT_TYPE_Fish = 16
-
---------------------------
--- _01_ Addon Variables --
---------------------------
--- Stored data (Data saved between sessions)
--- REP_Data = {}
-
--- Initialization
+---- Stored data (Data saved between sessions)
+REP_Data = {}
+---- Initialization
 REP_Main = nil
 REP_InitComplete = nil
 REP_VarsLoaded = nil
@@ -94,65 +21,11 @@ REP_difficultyID = 0
 REP_UpdateRequest = nil
 REP_UPDATE_INTERVAL = 5
 REP_OnLoadingScreen = false
-
--- Faction information
+---- Faction information
 REP_FactionMapping = {}
 REP_FactionGain = {}
-
--- Tracking data
+---- Tracking data
 REP_Entries = {}
-
--- Skill Tracking ggg
-REP_Herb = false
-REP_Skin = false
-REP_Mine = false
-REP_Jewel = false
-REP_Cook = false
-REP_Arch = false
-REP_Fish = false
-REP_Aid = false
-REP_Black = false
-REP_Tailor = false
-REP_Leath = false
-REP_Enchan = false
-REP_Engin = false
-REP_Incrip = false
-REP_Alche = false
-
---- Race/Side/Difficulty
-REP_IsHuman = false
-REP_IsDeathKnight = false
-REP_IsAlliance = false
-REP_IsHorde = false
-REP_IsHeroic = false
-
--- Guild Tracking
-REP_GuildName = nil
-
--- Garrison Trading post level 3
-REP_HasTradingPost = false
-
---- Current Expansion
-REP_IsClassic = false
-REP_IsTBC = false
-REP_IsWotlk = false
-REP_IsCata = false
-REP_IsMoP = false
-REP_IsWoD = false
-REP_IsLegion = false
-REP_IsBfA = false
-REP_IsShadowLands = false
-
---- After Expansion
-REP_AfterClassic = false
-REP_AfterTBC = false
-REP_AfterWotlk = false
-REP_AfterCata = false
-REP_AfterMoP = false
-REP_AfterWoD = false
-REP_AfterLegion = false
-REP_AfterBfA = false
-REP_AfterShadowLands = false
 
 ------------------------
 -- _02_ Addon Startup --
@@ -185,30 +58,28 @@ function REP_OnLoad(self)
     ShowMobs = true,
     OriginalCollapsed = {},
     ShowMissing = true,
-    Version = REP_VNMBR,
     ShowItems = true,
     ShowPreviewRep = true,
     ShowGeneral = true,
     SortByStanding = false,
-    Version = REP_VNMBR,
   }
 
   -- Assign the default settings
   if not REP_Data then REP_Data = {} end
-  if not REP_Data.Global then REP_Data.Global = defaultData; end
+  if not REP_Data.Global then REP_Data.Global = defaultData end
 
   for option, default in pairs(defaultData) do
     if REP_Data.Global[option] == nil then REP_Data.Global[option] = default end
   end
 
-  REP_Orig_GetFactionInfo = GetFactionInfo;  -- api function
-  -- GetFactionInfo = REP_GetFactionInfo;  -- api function
+  REP_Orig_GetFactionInfo = GetFactionInfo
+  -- GetFactionInfo = REP_GetFactionInfo
 
-  REP_Orig_ReputationFrame_Update = ReputationFrame_Update -- rfl function
-  ReputationFrame_Update = REP_ReputationFrame_Update -- rfl function
+  REP_Orig_ReputationFrame_Update = ReputationFrame_Update
+  ReputationFrame_Update = REP_ReputationFrame_Update
 
-  REP_Orig_ReputationBar_OnClick = ReputationBar_OnClick -- rfl function
-  ReputationBar_OnClick = REP_ReputationBar_OnClick -- rfl function
+  REP_Orig_ReputationBar_OnClick = ReputationBar_OnClick
+  ReputationBar_OnClick = REP_ReputationBar_OnClick
 
   REP_Orig_ExpandFactionHeader = ExpandFactionHeader
   ExpandFactionHeader = REP_ExpandFactionHeader
@@ -237,11 +108,11 @@ function REP_OnEvent(self, event, ...)
 
   local arg1, arg2, arg3, arg4, arg5, arg6, arg7, arg8, arg9, arg10, arg11, arg12, arg13 = ...
 
-  local expansionIndex = GetExpansionLevel();
+  local expansionIndex = GetExpansionLevel()
   if not REP_Data.Global.ExpansionIndex then REP_Data.Global.ExpansionIndex = expansionIndex end
   if (REP_Data.Global.ExpansionIndex ~= expansionIndex) then REP_Data.Global.ExpansionIndex = expansionIndex end
 
-  if (event == "ADDON_LOADED") and (arg1 == REP_NAME) then
+  if (event == "ADDON_LOADED") and (arg1 == addonName) then
     REP_Main:UnregisterEvent("ADDON_LOADED")
     REP_InitStages = REP_InitStages + 1
     REP:Init()
@@ -279,20 +150,25 @@ function REP_OnEvent(self, event, ...)
       REP_Main:RegisterEvent("GARRISON_UPDATE")
     end
 
+    -- HookScripts
+    if (ReputationWatchBar ~= nil) then
+      ReputationWatchBar:HookScript("OnMouseDown", function(self) if (not InCombatLockdown()) then REP:WatchedFactionDetails(self.factionID) end end, nil)
+    end
+
     -- new chat hook system
     ChatFrame_AddMessageEventFilter("CHAT_MSG_COMBAT_FACTION_CHANGE", REP_ChatFilter)
     ChatFrame_AddMessageEventFilter("COMBAT_TEXT_UPDATE", REP_ChatFilter)
 
-    REP:MakeUIChanges(expansionIndex);
+    REP:MakeUIChanges(expansionIndex)
   elseif (event == "UPDATE_FACTION" or event == "QUEST_COMPLETE" or event == "QUEST_WATCH_UPDATE") then
     if (ReputationFrame:IsVisible()) then
-      ReputationFrame_Update();
+      ReputationFrame_Update()
     end
     if (REP_ReputationDetailFrame:IsVisible()) then
-      REP:BuildUpdateList();
-      REP_UpdateList_Update();
+      REP:BuildUpdateList()
+      REP_UpdateList_Update()
     end
-    REP:DumpReputationChangesToChat();
+    REP:DumpReputationChangesToChat()
   elseif (event == "BAG_UPDATE") then
     if (REP_ReputationDetailFrame:IsVisible()) then
       -- Update rep frame (implicitely updates detail frame which In turn implicitely reparses bag contents)
@@ -307,7 +183,7 @@ function REP_OnEvent(self, event, ...)
       REP_BankOpen = nil
       if (REP_ReputationDetailFrame:IsVisible()) then
         -- Update rep frame (implicitely updates detail frame which In turn implicitely reparses bag contents)
-        ReputationFrame_Update();
+        ReputationFrame_Update()
       end
     end
   elseif (event == "PLAYER_DIFFICULTY_CHANGED") then
@@ -315,7 +191,7 @@ function REP_OnEvent(self, event, ...)
   elseif (event == "CHAT_MSG_SKILL") or (event == "SKILL_LINES_CHANGED") or (event == "UPDATE_TRADESKILL_RECAST") then
     REP:ExtractSkills()
     if (ReputationFrame:IsVisible()) then
-      ReputationFrame_Update(); -- rfl Event
+      ReputationFrame_Update()
     end
     if (REP_ReputationDetailFrame:IsVisible()) then
       REP:BuildUpdateList()
@@ -326,7 +202,7 @@ function REP_OnEvent(self, event, ...)
     local garrisonBuildings = C_Garrison.GetBuildings(Enum.GarrisonType.Type_6_0)
     for i, building in pairs(garrisonBuildings) do
       if building["buildingID"] == 145 then
-        REP_HasTradingPost = true
+        REP.HasTradingPost = true
       end
     end
 
@@ -394,17 +270,14 @@ function REP:Init()
   if REP_InitComplete then return end
   local expansionIndex = REP_Data.Global.ExpansionIndex
 
-  -- TODO: Check actual expansionIndex
-  if (expansionIndex > 6) then
+  if (expansionIndex >= 5) then
     if (REP_InitStages ~= 20) then return end
   else
     if (REP_InitStages ~= 15) then return end
   end
 
-  local version = GetAddOnMetadata("ReputationGuide", "Version");
-  if (version == nil) then
-    version = "unknown";
-  end
+  local version = GetAddOnMetadata("ReputationGuide", "Version")
+  if (version == nil) then version = "unknown" end
 
   -- create data structures
   if not REP_Data.Global.OriginalCollapsed then REP_Data.Global.OriginalCollapsed = {} end
@@ -430,30 +303,30 @@ function REP:Init()
   end
 
   if (changed > 0) then
+    local cancelOptionsSound
+    if SOUNDKIT then cancelOptionsSound = SOUNDKIT.IG_QUEST_LOG_ABANDON_QUEST end
+
     StaticPopupDialogs["REP_CONFIG_CHANGED"] = {
       text = REP_TXT.configQuestion,
       button1 = REP_TXT.showConfig,
       button2 = REP_TXT.later,
       OnAccept = function()
-        REP:ToggleConfigWindow();
+        REP:ToggleConfigWindow()
       end,
-      --OnCancel = function()
-      --	REP:Print(GLDG_Data.colours.help..GLDG_NAME..":|cFFFF0000 "..GLDG_TXT.reload)
-      --end,
+      OnCancel = function()
+      	REP:Print("|cFFFFFF7F"..addonName..":|cFFFF0000 ".."If you change the settings later you will have to reload your UI for the changes to go in effect.")
+      end,
       timeout = 0,
       whileDead = 1,
       hideOnEscape = 1,
-      -- sound = SOUNDKIT.IG_QUEST_LOG_ABANDON_QUEST,
-    };
+      sound = cancelOptionsSound,
+    }
 
-    StaticPopup_Show("REP_CONFIG_CHANGED");
+    StaticPopup_Show("REP_CONFIG_CHANGED")
   end
 
-  -- keep version In configuration file
-  REP_Data.Global.Version = REP_VNMBR
-
   -- Set up UI
-  REP_OptionsFrameTitle:SetText(REP_NAME.." "..REP_TXT.options)
+  REP_OptionsFrameTitle:SetText(addonName.." "..REP_TXT.options)
   REP_EnableMissingBoxText:SetText(REP_TXT.showMissing)
   REP_ExtendDetailsBoxText:SetText(REP_TXT.extendDetails)
   REP_GainToChatBoxText:SetText(REP_TXT.gainToChat)
@@ -463,30 +336,26 @@ function REP:Init()
   REP_OrderByStandingCheckBoxText:SetText(REP_TXT.orderByStanding)
 
   if (expansionIndex > 6) then
-    REP_NoGuildGainBox:Show();
-    REP_NoGuildSwitchBox:Show();
-    REP_EnableParagonBarBox:Show();
+    REP_NoGuildGainBox:Show()
+    REP_NoGuildSwitchBox:Show()
+    REP_EnableParagonBarBox:Show()
     REP_NoGuildGainBoxText:SetText(REP_TXT.noGuildGain)
     REP_NoGuildSwitchBoxText:SetText(REP_TXT.noGuildSwitch)
     REP_EnableParagonBarBoxText:SetText(REP_TXT.EnableParagonBar)
-
-    REP_ShowPreviewRepBox:SetPoint("TOPLEFT", REP_GainToChatBox, "BOTTOMLEFT", 0, -20);
+    REP_ShowPreviewRepBox:SetPoint("TOPLEFT", REP_GainToChatBox, "BOTTOMLEFT", 0, -20)
 
     REP:ExtractSkills()
   else
-    REP_NoGuildGainBox:Hide();
-    REP_NoGuildSwitchBox:Hide();
-    REP_EnableParagonBarBox:Hide();
-
-    REP_ShowPreviewRepBox:SetPoint("TOPLEFT", REP_GainToChatBox, "BOTTOMLEFT", 0, -5);
+    REP_NoGuildGainBox:Hide()
+    REP_NoGuildSwitchBox:Hide()
+    REP_EnableParagonBarBox:Hide()
+    REP_ShowPreviewRepBox:SetPoint("TOPLEFT", REP_GainToChatBox, "BOTTOMLEFT", 0, -5)
   end
-
-  ---	REP_OnShowOptionFrame()
 
   local _, race = UnitRace("player")
   local faction, locFaction = UnitFactionGroup("player")
   local class, enClass = UnitClass("player")
-  REP_Expansion = REP_Expansions[expansionIndex]
+  REP_Expansion = REP.Expansions[expansionIndex]
   REP_Player = UnitName("player")
   REP_Gender = UnitSex("player")
   REP_Realm = GetRealmName()
@@ -509,101 +378,44 @@ function REP:Init()
   if REP_Data[REP_ProfileKey].quests == nil then REP_Data[REP_ProfileKey].quests = {} end
 
   if (IsInGuild()) then
-    if (REP_GuildName == nil or REP_GuildName == "") then REP_GuildName = GetGuildInfo("player") end
+    if (REP.GuildName == nil or REP.GuildName == "") then REP.GuildName = GetGuildInfo("player") end
   end
 
   if (race and faction and locFaction and REP_Player and REP_Realm) then
-    if (REP_Expansion) then
-      if(REP_Expansion == "Classic") then
-        REP_IsClassic = true
-      elseif(REP_Expansion == "The Burning Crusade") then
-        REP_IsTBC = true
-      elseif(REP_Expansion == "Wrath of the Lich King") then
-        REP_IsWotlk = true
-      elseif(REP_Expansion == "Cataclysm") then
-        REP_IsCata = true
-      elseif(REP_Expansion == "Mists of Pandaria") then
-        REP_IsMoP = true
-      elseif(REP_Expansion == "Warlords of Draenor") then
-        REP_IsWoD = true
-      elseif(REP_Expansion == "Legion") then
-        REP_IsLegion = true
-      elseif(REP_Expansion == "Battle for Azeroth") then
-        REP_IsBfA = true
-      elseif(REP_Expansion == "Shadowlands") then
-        REP_IsShadowLands = true
-      elseif(REP_Expansion == "Dragonflight") then
-        REP_IsDragonflight = true
-      else
-        REP_IsClassic = true
-      end
+    if (expansionIndex and REP.REP_ExpansionFunctionsTable[expansionIndex]) then
+      REP.REP_ExpansionFunctionsTable[expansionIndex]()
     else
-      REP_IsClassic = true
+      REP.IsClassic = true
     end
 
-    if (not REP_IsClassic) then
-      REP_AfterClassic = true
-      if (not REP_IsTBC) then
-        REP_AfterTBC = true
-        if (not REP_IsWotlk) then
-          REP_AfterWotlk = true
-          if (not REP_IsCata) then
-            REP_AfterCata = true
-            if (not REP_IsMoP) then
-              REP_AfterMoP = true
-              if (not REP_IsWoD) then
-                REP_AfterWoD = true
-                if (not REP_IsLegion) then
-                  REP_AfterLegion = true
-                  if (not REP_IsBfA) then
-                    REP_AfterBfA = true
-                    if (not REP_IsShadowLands) then
-                      REP_AfterShadowLands = true
-                      if (not REP_IsDragonflight) then
-                        REP_AfterDragonflight = true
-                      end
-                    end
-                  end
-                end
-              end
-            end
-          end
-        end
-      end
+    if race == "Human" then
+      REP.IsHuman = true
     end
 
-    if (race == "Human") then
-      REP_IsHuman = true
-    end
-
-    if enClass and enClass == "DEATHKNIGHT" then
-      REP_IsDeathKnight = true
+    if (enClass and enClass == "DEATHKNIGHT") then
+      REP.IsDeathKnight = true
     end
 
     if (faction == FACTION_ALLIANCE) or (locFaction == FACTION_ALLIANCE) then
-      REP_IsAlliance = true
+      REP.IsAlliance = true
     end
 
     if (faction == FACTION_HORDE) or (locFaction == FACTION_HORDE) then
-      REP_IsHorde = true
+      REP.IsHorde = true
     end
-
-    REP:InitFactor(REP_IsHuman)
 
     -- Initialize Faction information
     local locale = GetLocale()
-    REP:InitFactionMap(locale, REP_GuildName)
+    REP:InitFactor(REP.IsHuman)
+    REP:InitFactionMap(locale, REP.GuildName)
     -- Changed by Bagdad for easy reputation content moderation
     REP_FactionGain = {}
-    REP_InitEnFactionGains(REP_GuildName)
+    REP_InitEnFactionGains(REP.GuildName)
     REP:DumpReputationChangesToChat(true)
 
     REP_InitComplete = true
     if (REP_InitCount <= 5) then
       REP_UpdateRequest = GetTime() + REP_UPDATE_INTERVAL
-      --REP:Print("Init complete, setting up updates ("..tostring(REP_InitCount).." already done)")
-      --else
-      --REP:Print("Init complete, not starting updates")
     end
   end
 end
@@ -612,17 +424,17 @@ end
 -- UI Changes based on expansionIndex --
 ----------------------------------------
 function REP:MakeUIChanges(expansionIndex)
-  if (not expansionIndex) then expansionIndex = REP_Data.Global.ExpansionIndex; end
+  if (not expansionIndex) then expansionIndex = REP_Data.Global.ExpansionIndex end
 
   if expansionIndex > 6 then
-    REP_OrderByStandingCheckBox:SetPoint("TOPLEFT", ReputationFrame, "TOPLEFT", 55, -20);
-    REP_OptionsButton:SetPoint("TOPRIGHT", ReputationFrame, "TOPRIGHT", -2, -22);
-    REP_OptionsFrame:SetPoint("TOPLEFT", ReputationFrame, "TOPRIGHT", 0, 0);
-    REP_ReputationDetailFrame:SetPoint("TOPLEFT", ReputationFrame, "TOPRIGHT", 0, 0);
+    REP_OrderByStandingCheckBox:SetPoint("TOPLEFT", ReputationFrame, "TOPLEFT", 55, -20)
+    REP_OptionsButton:SetPoint("TOPRIGHT", ReputationFrame, "TOPRIGHT", -2, -22)
+    REP_OptionsFrame:SetPoint("TOPLEFT", ReputationFrame, "TOPRIGHT", 0, 0)
+    REP_ReputationDetailFrame:SetPoint("TOPLEFT", ReputationFrame, "TOPRIGHT", 0, 0)
   end
 end
 
-function REP:ToggleDarkmoonFaireBuff()
+function REP_ToggleDarkmoonFaireBuff()
   REP_FactionGain = {}
   REP_InitEnFactionGains(REP_GuildName)
   REP_ReputationFrame_Update()
@@ -684,19 +496,19 @@ function REP_SlashHandler(msg)
             FD_SH.NoGuildSwitch = false
             FD_SH.SilentSwitch = false
           else
-            REP:PrintSlash(REP_TXT.command,msgLower)
+            REP:PrintSlash(REP_TXT.command, msgLower)
           end
 
           if (ReputationFrame:IsVisible()) then
-            ReputationFrame_Update();
+            ReputationFrame_Update()
           end
 
           if (REP_ReputationDetailFrame:IsVisible()) then
-            REP:BuildUpdateList();
-            REP_UpdateList_Update();
+            REP:BuildUpdateList()
+            REP_UpdateList_Update()
           end
         else
-          REP:PrintSlash(REP_TXT.command,msgLower);
+          REP:PrintSlash(REP_TXT.command, msgLower)
         end
       elseif (wordsLower[0]=="disable") then
         if (size>1) then
@@ -740,11 +552,11 @@ function REP_SlashHandler(msg)
             FD_SH.NoGuildSwitch = false
             FD_SH.SilentSwitch = false
           else
-            REP:PrintSlash(REP_TXT.command,msgLower)
+            REP:PrintSlash(REP_TXT.command, msgLower)
           end
 
           if (ReputationFrame:IsVisible()) then
-            ReputationFrame_Update(); -- rfl Event
+            ReputationFrame_Update()
           end
 
           if (REP_ReputationDetailFrame:IsVisible()) then
@@ -752,7 +564,7 @@ function REP_SlashHandler(msg)
             REP_UpdateList_Update()
           end
         else
-          REP:PrintSlash(REP_TXT.command,msgLower)
+          REP:PrintSlash(REP_TXT.command, msgLower)
         end
       elseif (wordsLower[0]=="toggle") then
         if (size>1) then
@@ -780,7 +592,7 @@ function REP_SlashHandler(msg)
             FD_SH.NoGuildSwitch = false
             FD_SH.SilentSwitch = false
           elseif (wordsLower[1]=="paragon") then
-            FD_SH.ShowParagonBar = not FD_SH.ShowParagonBar;
+            FD_SH.ShowParagonBar = not FD_SH.ShowParagonBar
           elseif (wordsLower[1]=="all") then
             FD_SH.ShowMobs = not FD_SH.ShowMobs
             FD_SH.ShowQuests = not FD_SH.ShowQuests
@@ -796,11 +608,11 @@ function REP_SlashHandler(msg)
             FD_SH.NoGuildSwitch = false
             FD_SH.SilentSwitch = false
           else
-            REP:PrintSlash(REP_TXT.command,msgLower);
+            REP:PrintSlash(REP_TXT.command, msgLower)
           end
 
           if (ReputationFrame:IsVisible()) then
-            ReputationFrame_Update();
+            ReputationFrame_Update()
           end
 
           if (REP_ReputationDetailFrame:IsVisible()) then
@@ -808,7 +620,7 @@ function REP_SlashHandler(msg)
             REP_UpdateList_Update()
           end
         else
-          REP:PrintSlash(REP_TXT.command,msgLower)
+          REP:PrintSlash(REP_TXT.command, msgLower)
         end
       elseif (wordsLower[0]=="list") then
         if (size > 1) then
@@ -829,7 +641,7 @@ function REP_SlashHandler(msg)
           elseif (wordsLower[1] == "8" or wordsLower[1] == string.lower(_G["FACTION_STANDING_LABEL8"])) then
             REP:ListByStanding(8)
           else
-            REP:PrintSlash(REP_TXT.command,msgLower)
+            REP:PrintSlash(REP_TXT.command, msgLower)
           end
         else
           REP:ListByStanding()
@@ -853,7 +665,7 @@ function REP_SlashHandler(msg)
           elseif (wordsLower[1] == "8" or wordsLower[1] == string.lower(_G["FACTION_STANDING_LABEL8"])) then
             REP:ListByStanding(8)
           else
-            REP:PrintSlash(REP_TXT.command,msgLower)
+            REP:PrintSlash(REP_TXT.command, msgLower)
           end
         else
           REP_ShowGerman()
@@ -868,6 +680,12 @@ function REP_SlashHandler(msg)
         REP:About()
       elseif (wordsLower[0]=="watch") then
         REP:WatchFaction(wordsLower[1])
+      elseif (wordsLower[0]=="hide") then
+        if (wordsLower[1]=="AchievementTrackerInfoFrame") then
+          if AchievementTrackerInfoFrame then
+            AchievementTrackerInfoFrame:Hide()
+          end
+        end
       else
         REP:PrintSlash(REP_TXT.command, msgLower)
       end
@@ -883,10 +701,10 @@ end
 function REP:WatchFaction(watchID)
   if not watchID then return end
 
-  local numFactions = GetNumFactions();
+  local numFactions = GetNumFactions()
   for i = 1, numFactions, 1 do
-    local index = i;
-    local _, _, _, _, _, _, _, _, _, _, _, _, _, factionID, _, _ = GetFactionInfo(index);
+    local index = i
+    local _, _, _, _, _, _, _, _, _, _, _, _, _, factionID, _, _ = GetFactionInfo(index)
 
     if (factionID) then
       if (tostring(watchID) == tostring(factionID)) then
@@ -896,17 +714,17 @@ function REP:WatchFaction(watchID)
       if watchID == index then
         return SetWatchedFactionIndex(index)
       else
-        return REP:Print("Could not find a faction with either factionID: "..tostring(watchID).." or index #"..tostring(watchID));
+        return REP:Print("Could not find a faction with either factionID: "..tostring(watchID).." or index #"..tostring(watchID))
       end
     end
   end
 end
 
 ------------------------------------------------------------
-function REP:Print(msg, forceDefault) --zzz
+function REP:Print(msg, forceDefault)
   if not (msg) then return end
 
-  if ((REP_Data==nil) or forceDefault) then
+  if ((REP_Data == nil) or forceDefault) then
     DEFAULT_CHAT_FRAME:AddMessage(msg)
   else
     for i = 1, NUM_CHAT_WINDOWS do
@@ -924,12 +742,12 @@ function REP:Print(msg, forceDefault) --zzz
   end
 end
 ------------------------------------------------------------
-function REP:Printtest(msg,msg1,msg2)
+function REP:Printtest(msg, msg1, msg2)
   REP:Print(""..tostring(msg).." "..tostring(msg1).."  "..tostring(msg2), nil)
 end
 ------------------------------------------------------------
-function REP:PrintSlash(msg,msg1)
-  REP:Print(REP_Help_COLOUR..REP_NAME..":|r "..msg.." ["..REP_Help_COLOUR..msg1.."|r]", true)
+function REP:PrintSlash(msg, msg1)
+  REP:Print(REP.HELP_COLOUR..addonName..":|r "..msg.." ["..REP.HELP_COLOUR..msg1.."|r]", true)
   REP:Help()
 end
 ------------------------------------------------------------
@@ -948,28 +766,28 @@ end
 
 ------------------------------------------------------------
 function REP:GetWords(str)
-  local ret = {};
-  local pos=0;
-  local index=0
+  local ret = {}
+  local pos = 0
+  local index = 0
   while(true) do
-    local word;
-    _,pos,word=string.find(str, "^ *([^%s]+) *", pos+1);
+    local word
+    _, pos, word = string.find(str, "^ *([^%s]+) *", pos + 1)
     if(not word) then
-      return ret;
+      return ret
     end
-    ret[index]=word
-    index = index+1
+    ret[index] = word
+    index = index + 1
   end
 end
 
 ------------------------------------------------------------
 function REP:Concat(list, start, stop)
-  local ret = "";
+  local ret = ""
 
   if (start == nil) then start = 0 end
   if (stop == nil) then stop = REP:TableSize(list) end
 
-  for i = start,stop do
+  for i = start, stop do
     if list[i] then
       if (ret ~= "") then ret = ret.." " end
         ret = ret..list[i]
@@ -1005,58 +823,58 @@ end
 ------------------------
 function REP:Help()
   REP:Print(" ", true)
-  REP:Print(REP_Help_COLOUR..REP_NAME..":|r "..REP_TXT.help, true)
-  REP:Print(REP_Help_COLOUR..REP_TXT.usage..":|r /REP help "..REP_Help_COLOUR..REP_TXT.helphelp, true)
-  REP:Print(REP_Help_COLOUR..REP_TXT.usage..":|r /REP about "..REP_Help_COLOUR..REP_TXT.helpabout, true)
-  REP:Print(REP_Help_COLOUR..REP_TXT.usage..":|r /REP status "..REP_Help_COLOUR..REP_TXT.helpstatus, true)
-  REP:Print(REP_Help_COLOUR..REP_TXT.usage..":|r /REP watch <factionID> set faction as watched", true) -- TODO: Add as localised text
-  REP:Print(REP_Help_COLOUR..REP_TXT.usage..":|r /REP enable { mobs | quests | instances | items | all }", true)
-  REP:Print(REP_Help_COLOUR..REP_TXT.usage..":|r /REP disable { mobs | quests | instances | items | all }", true)
-  REP:Print(REP_Help_COLOUR..REP_TXT.usage..":|r /REP toggle { mobs | quests | instances | items | all }", true)
-  REP:Print(REP_Help_COLOUR..REP_TXT.usage..":|r /REP enable { missing | details | chat | paragon }", true)
-  REP:Print(REP_Help_COLOUR..REP_TXT.usage..":|r /REP disable { missing | details | chat | paragon }", true)
-  REP:Print(REP_Help_COLOUR..REP_TXT.usage..":|r /REP toggle { missing | details | chat | paragon }" , true)
+  REP:Print(REP.HELP_COLOUR..addonName..":|r "..REP_TXT.help, true)
+  REP:Print(REP.HELP_COLOUR..REP_TXT.usage..":|r /REP help "..REP.HELP_COLOUR..REP_TXT.helphelp, true)
+  REP:Print(REP.HELP_COLOUR..REP_TXT.usage..":|r /REP about "..REP.HELP_COLOUR..REP_TXT.helpabout, true)
+  REP:Print(REP.HELP_COLOUR..REP_TXT.usage..":|r /REP status "..REP.HELP_COLOUR..REP_TXT.helpstatus, true)
+  REP:Print(REP.HELP_COLOUR..REP_TXT.usage..":|r /REP watch <factionID> set faction as watched", true) -- TODO: Add as localised text
+  REP:Print(REP.HELP_COLOUR..REP_TXT.usage..":|r /REP enable { mobs | quests | instances | items | all }", true)
+  REP:Print(REP.HELP_COLOUR..REP_TXT.usage..":|r /REP disable { mobs | quests | instances | items | all }", true)
+  REP:Print(REP.HELP_COLOUR..REP_TXT.usage..":|r /REP toggle { mobs | quests | instances | items | all }", true)
+  REP:Print(REP.HELP_COLOUR..REP_TXT.usage..":|r /REP enable { missing | details | chat | paragon }", true)
+  REP:Print(REP.HELP_COLOUR..REP_TXT.usage..":|r /REP disable { missing | details | chat | paragon }", true)
+  REP:Print(REP.HELP_COLOUR..REP_TXT.usage..":|r /REP toggle { missing | details | chat | paragon }" , true)
 end
 ------------------------------------------------------------
 function REP:About()
-  local ver = GetAddOnMetadata("ReputationGuide", "Version");
-  local date = GetAddOnMetadata("ReputationGuide", "X-Date");
-  local author = GetAddOnMetadata("ReputationGuide", "Author");
-  local web = GetAddOnMetadata("ReputationGuide", "X-Website");
+  local ver = GetAddOnMetadata("ReputationGuide", "Version")
+  local date = GetAddOnMetadata("ReputationGuide", "X-Date")
+  local author = GetAddOnMetadata("ReputationGuide", "Author")
+  local web = GetAddOnMetadata("ReputationGuide", "X-Website")
 
   if (author ~= nil) then
-    REP:Print(REP_NAME.." "..REP_TXT.by..": "..REP_Help_COLOUR..author.."|r"..", updated and maintained by: "..REP_Help_COLOUR.."Tvlfrosty-Firemaw".."|r", true);
+    REP:Print(addonName.." "..REP_TXT.by..": "..REP.HELP_COLOUR..author.."|r"..", updated and maintained by: "..REP.HELP_COLOUR.."Tvlfrosty-Firemaw".."|r", true)
   end
   if (ver ~= nil) then
-    REP:Print(" "..REP_TXT.version..": "..REP_Help_COLOUR..ver.."|r", true);
+    REP:Print(" "..REP_TXT.version..": "..REP.HELP_COLOUR..ver.."|r", true)
   end
 
   if (date ~= nil) then
-    REP:Print(" "..REP_TXT.date..": "..REP_Help_COLOUR..date.."|r", true);
+    REP:Print(" "..REP_TXT.date..": "..REP.HELP_COLOUR..date.."|r", true)
   end
   if (web ~= nil) then
-    REP:Print(" "..REP_TXT.web..": "..REP_Help_COLOUR..web.."|r", true);
+    REP:Print(" "..REP_TXT.web..": "..REP.HELP_COLOUR..web.."|r", true)
   end
 end
 ------------------------------------------------------------
 function REP:Status()
   REP:Print(" ", true)
-  REP:Print(REP_Help_COLOUR..REP_NAME..":|r "..REP_TXT.status, true)
-  REP:Print("   "..REP_TXT.statMobs..": "..REP_Help_COLOUR..REP:BoolToEnabled(REP_Data.Global.ShowMobs).."|r", true)
-  REP:Print("   "..REP_TXT.statQuests..": "..REP_Help_COLOUR..REP:BoolToEnabled(REP_Data.Global.ShowQuests).."|r", true)
-  REP:Print("   "..REP_TXT.statInstances..": "..REP_Help_COLOUR..REP:BoolToEnabled(REP_Data.Global.ShowInstances).."|r", true)
-  REP:Print("   "..REP_TXT.statItems..": "..REP_Help_COLOUR..REP:BoolToEnabled(REP_Data.Global.ShowItems).."|r", true)
-  REP:Print("   "..REP_TXT.statGeneral..": "..REP_Help_COLOUR..REP:BoolToEnabled(REP_Data.Global.ShowGeneral).."|r", true)
-  REP:Print("   "..REP_TXT.statMissing..": "..REP_Help_COLOUR..REP:BoolToEnabled(REP_Data.Global.ShowMissing).."|r", true)
-  REP:Print("   "..REP_TXT.statDetails..": "..REP_Help_COLOUR..REP:BoolToEnabled(REP_Data.Global.ExtendDetails).."|r", true)
-  REP:Print("   "..REP_TXT.statChat..": "..REP_Help_COLOUR..REP:BoolToEnabled(REP_Data.Global.WriteChatMessage).."|r", true)
+  REP:Print(REP.HELP_COLOUR..addonName..":|r "..REP_TXT.status, true)
+  REP:Print("   "..REP_TXT.statMobs..": "..REP.HELP_COLOUR..REP:BoolToEnabled(REP_Data.Global.ShowMobs).."|r", true)
+  REP:Print("   "..REP_TXT.statQuests..": "..REP.HELP_COLOUR..REP:BoolToEnabled(REP_Data.Global.ShowQuests).."|r", true)
+  REP:Print("   "..REP_TXT.statInstances..": "..REP.HELP_COLOUR..REP:BoolToEnabled(REP_Data.Global.ShowInstances).."|r", true)
+  REP:Print("   "..REP_TXT.statItems..": "..REP.HELP_COLOUR..REP:BoolToEnabled(REP_Data.Global.ShowItems).."|r", true)
+  REP:Print("   "..REP_TXT.statGeneral..": "..REP.HELP_COLOUR..REP:BoolToEnabled(REP_Data.Global.ShowGeneral).."|r", true)
+  REP:Print("   "..REP_TXT.statMissing..": "..REP.HELP_COLOUR..REP:BoolToEnabled(REP_Data.Global.ShowMissing).."|r", true)
+  REP:Print("   "..REP_TXT.statDetails..": "..REP.HELP_COLOUR..REP:BoolToEnabled(REP_Data.Global.ExtendDetails).."|r", true)
+  REP:Print("   "..REP_TXT.statChat..": "..REP.HELP_COLOUR..REP:BoolToEnabled(REP_Data.Global.WriteChatMessage).."|r", true)
 
-  REP:Print("   "..REP_TXT.statNoGuildChat..": "..REP_Help_COLOUR..REP:BoolToEnabled(REP_Data.Global.NoGuildGain).."|r", true)
-  REP:Print("   "..REP_TXT.statPreview..": "..REP_Help_COLOUR..REP:BoolToEnabled(REP_Data.Global.ShowPreviewRep).."|r", true)
-  REP:Print("   "..REP_TXT.statSwitch..": "..REP_Help_COLOUR..REP:BoolToEnabled(REP_Data.Global.SwitchFactionBar).."|r", true)
-  REP:Print("   "..REP_TXT.statNoGuildSwitch..": "..REP_Help_COLOUR..REP:BoolToEnabled(REP_Data.Global.NoGuildSwitch).."|r", true)
-  REP:Print("   "..REP_TXT.statSilentSwitch..": "..REP_Help_COLOUR..REP:BoolToEnabled(REP_Data.Global.SilentSwitch).."|r", true)
-  REP:Print("   "..REP_TXT.EnableParagonBar..": "..REP_Help_COLOUR..REP:BoolToEnabled(REP_Data.Global.ShowParagonBar).."|r", true)
+  REP:Print("   "..REP_TXT.statNoGuildChat..": "..REP.HELP_COLOUR..REP:BoolToEnabled(REP_Data.Global.NoGuildGain).."|r", true)
+  REP:Print("   "..REP_TXT.statPreview..": "..REP.HELP_COLOUR..REP:BoolToEnabled(REP_Data.Global.ShowPreviewRep).."|r", true)
+  REP:Print("   "..REP_TXT.statSwitch..": "..REP.HELP_COLOUR..REP:BoolToEnabled(REP_Data.Global.SwitchFactionBar).."|r", true)
+  REP:Print("   "..REP_TXT.statNoGuildSwitch..": "..REP.HELP_COLOUR..REP:BoolToEnabled(REP_Data.Global.NoGuildSwitch).."|r", true)
+  REP:Print("   "..REP_TXT.statSilentSwitch..": "..REP.HELP_COLOUR..REP:BoolToEnabled(REP_Data.Global.SilentSwitch).."|r", true)
+  REP:Print("   "..REP_TXT.EnableParagonBar..": "..REP.HELP_COLOUR..REP:BoolToEnabled(REP_Data.Global.ShowParagonBar).."|r", true)
 end
 
 -----------------------------------
@@ -1079,10 +897,10 @@ function REP:InitMapName(fimap)
     elseif not fimap then
       map = " "
     else
-      local mapObj;
-      local mapName;
+      local mapObj
+      local mapName
       if C_Map then
-        mapObj = C_Map.GetMapInfo(fimap);
+        mapObj = C_Map.GetMapInfo(fimap)
 
         if mapObj then
           mapName = mapObj.name
@@ -1090,7 +908,7 @@ function REP:InitMapName(fimap)
           mapName = fimap
         end
       elseif GetMapInfo then
-        mapObj = GetMapInfo(fimap);
+        mapObj = GetMapInfo(fimap)
 
         if mapObj then
           mapName = mapObj.name
@@ -1141,7 +959,7 @@ function REP:InitMobName(fimob)
     mob = (REP_TXT.AN.." "..REP_TXT.Wa)
   else
     --[[--
-      local mobName = GetmobNameByID(fimob);
+      local mobName = GetmobNameByID(fimob)
       mob = mobName
     --]]--
   end
@@ -1153,7 +971,7 @@ function REP:InitMobName(fimob)
   return mob
 end
 
-function REP:InitItemName(fiitem,amt)
+function REP:InitItemName(fiitem, amt)
   if fiitem==1 then
     item_name = REP_TXT.cdq
   elseif fiitem==2 then
@@ -1189,32 +1007,27 @@ function REP:Quest_Names(questIndex)
   local expansionIndex = REP_Data.Global.ExpansionIndex
   local quest = nil
 
-  if (expansionIndex < 2) then
-    if (type(questIndex) == "number") then
-      if (REP_QuestDB[questIndex]) then
-        local localization = GetLocale()
-        if localization == "esMX" then localization = "esES" end
-        if localization == "zhTW" then localization = "zhCN" end
+  if (type(questIndex) == "number") then
+    if (REP_QuestDB[questIndex]) then
+      local localization = GetLocale()
+      if localization == "esMX" then localization = "esES" end
+      if localization == "zhTW" then localization = "zhCN" end
 
-        quest = REP_QuestDB[questIndex][localization]
-      else
-        quest = "Quest name not available. QuestID: "..questIndex
-      end
+      quest = REP_QuestDB[questIndex][localization]
     else
-      quest = questIndex
+      if (expansionIndex < 2) then
+        quest = "Quest name not available. QuestID: "..questIndex
+      else
+        REP_HiddenQuestTooltip:SetOwner(WorldFrame, ANCHOR_NONE)
+        REP_HiddenQuestTooltip:SetHyperlink(format("quest:%d", questIndex))
+
+        quest = REP_HiddenQuestTooltipTextLeft1:GetText()
+        REP_HiddenQuestTooltip:Hide()
+      end
     end
   else
-    if (type(questIndex) == "number") then
-      REP_HiddenQuestTooltip:SetOwner(WorldFrame, ANCHOR_NONE)
-      REP_HiddenQuestTooltip:SetHyperlink(format("quest:%d", questIndex))
-
-      quest = REP_HiddenQuestTooltipTextLeft1:GetText()
-      REP_HiddenQuestTooltip:Hide()
-    else
-      quest = questIndex
-    end
+    quest = questIndex
   end
-
 
   if questIndex == 1 then
     quest = REP_TXT.cdq
@@ -1263,7 +1076,7 @@ function REP:GetTabardFaction()
   if DEBUG then self:Debug("GetChampionedFaction:", "none") end
 end
 
-function REP:InitFactor(REP_IsHuman, faction)
+function REP:InitFactor(IsHuman, faction)
   --- Thanks Gwalkmaur for the heads up
 
   local draenorFactions = {"Council of Exarchs",
@@ -1282,10 +1095,10 @@ function REP:InitFactor(REP_IsHuman, faction)
   local factor = 1.0
 
   -- Race check
-  if REP_IsHuman then factor = factor + 0.1 end
+  if IsHuman then factor = factor + 0.1 end
   -- WoD Faction trading post bonus
-  if REP:has_value(draenorFactions, faction) and REP_HasTradingPost then
-    factor = factor + 0.2;
+  if REP:has_value(draenorFactions, faction) and REP.HasTradingPost then
+    factor = factor + 0.2
   end
 
   -- Darkmoon Faire reputation buff setting
@@ -1294,19 +1107,19 @@ function REP:InitFactor(REP_IsHuman, faction)
   end
 
   -- bonus repgain check
-  local numFactions = GetNumFactions();
-  local factionOffset = 0;
-  local factionIndex;
+  local numFactions = GetNumFactions()
+  local factionOffset = 0
+  local factionIndex
   local factor_h = 0
 
   for i = 1, numFactions do
-    local factionIndex = factionOffset + i;
+    local factionIndex = factionOffset + i
     if (factionIndex <= numFactions) then
-      local name, hasBonusRepGain;
-      local name, _, _, _, _, _, _, _, _, _, _, _, _, _, hasBonusRepGain, _ = GetFactionInfo(factionIndex);
+      local name, hasBonusRepGain
+      local name, _, _, _, _, _, _, _, _, _, _, _, _, _, hasBonusRepGain, _ = GetFactionInfo(factionIndex)
       if (faction == name) then
         if (hasBonusRepGain) then
-          factor = factor + 1;
+          factor = factor + 1
         end
       end
     end
@@ -1315,7 +1128,7 @@ function REP:InitFactor(REP_IsHuman, faction)
 end
 
 function REP:InitFaction(guildName, faction)
-  if faction == "guildName" or faction == REP_GuildName then
+  if faction == "guildName" or faction == REP.GuildName then
     REP_faction = faction
   else
     REP_faction = GetFactionInfoByID(faction)
@@ -1326,7 +1139,7 @@ end
 
 function REP:InitFactionMap(locale, guildName)
   REP_FactionMapping = {}
-  REP_InitEnFactions();
+  REP_InitEnFactions()
 
   if (guildName) then
     REP_AddMapping(guildName, guildName)
@@ -1338,7 +1151,7 @@ function REP_AddMapping(english, localised)
     REP_FactionMapping = {}
   end
 
-  if (REP:InitFaction(REP_GuildName,localised)) then
+if (REP:InitFaction(REP.GuildName, localised)) then
     REP_FactionMapping[string.lower(REP_faction)] = string.lower(english)
   end
 end
@@ -1360,82 +1173,17 @@ function REP:Content(faction, from, to, name, rep)
 end
 
 function REP_AddSpell(faction, from, to, name, rep, zone, limit)
-  --[[--	if not faction then return end
-    if not from then return end
-    if not to then return end
-    if not name then return end
-    if not rep then return end
-    if (type(rep) ~= "number") then return end
-    if ((from<1) or (from>8)) then return end
-    if ((to<1) or (to>8)) then return end
-    if (from > to) then return end
-  --]]--
-
   if REP:Content(faction, from, to, name, rep) ~= 1 then return end
-  --[[-- REP_Initspellname(name)
-  -- REP:InitMapName(zone)
-
-  rep = rep * REP:InitFactor(REP_IsHuman,REP_faction)
-  faction = string.lower(REP:InitFaction(REP_GuildName,faction))
-
-  for standing = from, to do
-    local faction_info = REP_FactionGain[faction]
-    if not faction_info then
-      faction_info = {}
-      REP_FactionGain[faction] = faction_info
-    end
-
-    local standing_info = faction_info[standing]
-    if not standing_info then
-      standing_info = {}
-      faction_info[standing] = standing_info
-    end
-
-    local add_info = standing_info.spells
-    if add_info then
-      add_info.count = add_info.count + 1
-    else
-      add_info = {}
-      add_info.data = {}
-      add_info.count = 0
-      standing_info.spells = add_info
-    end
-
-    local count = add_info.count;
-    add_info.data[count] = {};
-    local add_count=add_info.data[count];
-    add_count.name = mark_spell;
-    add_count.rep = rep;
-    add_count.zone = zone;
-    add_count.maxStanding = to;
-
-    if ((standing == to) and limit) then
-      add_count.limit = limit
-    end
-
-    REP:Debug("Added spell ["..name.."] for faction ["..faction.."] and standing [".._G["FACTION_STANDING_LABEL"..standing].."]")
-  end	--]]--
 end
 
 function REP_AddMob(faction, from, to, name, rep, zone, limit)
-  --[[--
-    if not faction then return end
-    if not from then return end
-    if not to then return end
-    if not name then return end
-    if not rep then return end
-    if (type(rep) ~= "number") then return end
-    if ((from<1) or (from>8)) then return end
-    if ((to<1) or (to>8)) then return end
-    if (from > to) then return end
-  --]]--
-
   if REP:Content(faction, from, to, name, rep) ~= 1 then return end
-  faction = string.lower(REP:InitFaction(REP_GuildName, faction));
-  rep = rep * REP:InitFactor(REP_IsHuman,REP_faction);
+
+  faction = string.lower(REP:InitFaction(REP.GuildName, faction))
+  rep = rep * REP:InitFactor(REP.IsHuman, REP_faction)
 
   for standing = from, to do
-    local faction_info = REP_FactionGain[faction];
+    local faction_info = REP_FactionGain[faction]
     if not faction_info then
       faction_info = {}
       REP_FactionGain[faction] = faction_info
@@ -1457,13 +1205,13 @@ function REP_AddMob(faction, from, to, name, rep, zone, limit)
       standing_info.mobs = add_info
     end
 
-    local count = add_info.count;
-    add_info.data[count] = {};
-    local add_count=add_info.data[count];
-    add_count.name = name;
-    add_count.rep = rep;
-    add_count.maxStanding = to;
-    add_count.zone = zone;
+    local count = add_info.count
+    add_info.data[count] = {}
+    local add_count=add_info.data[count]
+    add_count.name = name
+    add_count.rep = rep
+    add_count.maxStanding = to
+    add_count.zone = zone
     if ((standing == to) and limit) then
       add_count.limit = limit
     end
@@ -1473,24 +1221,13 @@ function REP_AddMob(faction, from, to, name, rep, zone, limit)
 end
 
 function REP_AddQuest(faction, from, to, name, rep, itemList, limitType, repeatable)
-  --[[--	if not faction then return end
-    if not from then return end
-    if not to then return end
-    if not name then return end
-    if not rep then return end
-    if (type(rep) ~= "number") then return end
-    if ((from<1) or (from>8)) then return end
-    if ((to<1) or (to>8)) then return end
-    if (from > to) then return end
-  --]]--
-
-  local expansionIndex = REP_Data.Global.ExpansionIndex;
-
-  if not key then key = REP_ProfileKey end
   if REP:Content(faction, from, to, name, rep) ~= 1 then return end
 
-  faction = string.lower(REP:InitFaction(REP_GuildName, faction))
-  rep = rep * REP:InitFactor(REP_IsHuman, REP_faction)
+  local expansionIndex = REP_Data.Global.ExpansionIndex
+  if not key then key = REP_ProfileKey end
+
+  faction = string.lower(REP:InitFaction(REP.GuildName, faction))
+  rep = rep * REP:InitFactor(REP.IsHuman, REP_faction)
 
   for standing = from, to do
     local faction_info = REP_FactionGain[faction]
@@ -1553,24 +1290,12 @@ function REP_AddQuest(faction, from, to, name, rep, itemList, limitType, repeata
 end
 
 function REP_AddInstance(faction, from, to, name, rep, heroic)
-  --[[--
-    if not faction then return end
-    if not from then return end
-    if not to then return end
-    if not name then return end
-    if not rep then return end
-    if (type(rep) ~= "number") then return end
-    if ((from<1) or (from>8)) then return end
-    if ((to<1) or (to>8)) then return end
-    if (from > to) then return end
-  --]]--
-
   if REP:Content(faction, from, to, name, rep) ~=1 then return end
 
-  faction = string.lower(REP:InitFaction(REP_GuildName,faction))
-  rep = rep * REP:InitFactor(REP_IsHuman,REP_faction)
+  faction = string.lower(REP:InitFaction(REP.GuildName, faction))
+  rep = rep * REP:InitFactor(REP.IsHuman, REP_faction)
 
-  for standing = from,to do
+  for standing = from, to do
     local faction_info = REP_FactionGain[faction]
     if not faction_info then
       faction_info = {}
@@ -1609,25 +1334,13 @@ function REP_AddInstance(faction, from, to, name, rep, heroic)
 end
 
 function REP_AddItems(faction, from, to, rep, itemList, alternativeItemList)
-  --[[--
-    if not faction then return end
-    if not from then return end
-    if not to then return end
-    if not rep then return end
-    if not itemList then return end
-    if (type(rep) ~= "number") then return end
-    if ((from<1) or (from>8)) then return end
-    if ((to<1) or (to>8)) then return end
-    if (from > to) then return end
-  --]]--
-
   if REP:Content(faction, from, to, itemList, rep) ~=1 then return end
 
-  faction = string.lower(REP:InitFaction(REP_GuildName,faction))
-  rep = rep * REP:InitFactor(REP_IsHuman,REP_faction)
+  faction = string.lower(REP:InitFaction(REP.GuildName, faction))
+  rep = rep * REP:InitFactor(REP.IsHuman, REP_faction)
   local itemString = ""
 
-  for standing = from,to do
+  for standing = from, to do
     local faction_info = REP_FactionGain[faction]
     if not faction_info then
       faction_info = {}
@@ -1650,9 +1363,9 @@ function REP_AddItems(faction, from, to, rep, itemList, alternativeItemList)
       standing_info.items = add_info
     end
 
-    local count=add_info.count
+    local count = add_info.count
     add_info.data[count] = {}
-    local add_count=add_info.data[count]
+    local add_count = add_info.data[count]
     add_count.rep = rep
     add_count.maxStanding = to
     if ((standing == to) and limit) then
@@ -1678,22 +1391,10 @@ function REP_AddItems(faction, from, to, rep, itemList, alternativeItemList)
 end
 
 function REP_AddGeneral(faction, from, to, name, rep, head, tip, tipList, flag)
-  --[[--
-    if not faction then return end
-    if not from then return end
-    if not to then return end
-    if not name then return end
-    if not rep then return end
-    if (type(rep) ~= "number") then return end
-    if ((from<1) or (from>8)) then return end
-    if ((to<1) or (to>8)) then return end
-    if (from > to) then return end
-  --]]--
-
   if REP:Content(faction, from, to, name, rep) ~= 1 then return end
 
-  faction = string.lower(REP:InitFaction(REP_GuildName,faction))
-  rep = rep * REP:InitFactor(REP_IsHuman,REP_faction)
+  faction = string.lower(REP:InitFaction(REP.GuildName,faction))
+  rep = rep * REP:InitFactor(REP.IsHuman,REP_faction)
   local tipString = ""
 
   for standing = from, to do
@@ -1721,7 +1422,7 @@ function REP_AddGeneral(faction, from, to, name, rep, head, tip, tipList, flag)
 
     local count = add_info.count
     add_info.data[count] = {}
-    local add_count=add_info.data[count]
+    local add_count = add_info.data[count]
     add_count.name = name
     add_count.rep = rep
     add_count.maxStanding = to
@@ -1759,23 +1460,25 @@ function REP_GetFactionInfo(factionIndex)
   local name, description, standingID, barMin, barMax, barValue, atWarWith, canToggleAtWar, isHeader, isCollapsed, hasRep, isWatched, isChild, factionID, hasBonusRepGain = REP_Orig_GetFactionInfo(factionIndex)
 
   -- Normalize Values to within standing
-  local normMax = barMax-barMin
-  local normCurrent = barValue-barMin
+  local normMax = barMax - barMin
+  local normCurrent = barValue - barMin
 
   -- add missing reputation
-  if (REP_Data.Global.ShowMissing and isHeader and not hasRep and ((normMax-normCurrent)>0)) then
-    name = name.." ("..normMax-normCurrent..")"
+  if (REP_Data.Global.ShowMissing and isHeader and not hasRep and ((normMax - normCurrent) > 0)) then
+    name = name.." ("..normMax - normCurrent..")"
   end
 
   -- return Values
-  return name, description, standingID, barMin, barMax, barValue, atWarWith, canToggleAtWar, isHeader, isCollapsed, hasRep, isWatched, isChild, factionID, hasBonusRepGain;
+  return name, description, standingID, barMin, barMax, barValue, atWarWith, canToggleAtWar, isHeader, isCollapsed, hasRep, isWatched, isChild, factionID, hasBonusRepGain
 end
 
 -----------------------------------
 -- REP_RepFrame_Up Start --
 -----------------------------------
 function REP_ReputationFrame_Update()
-  local expansionIndex = REP_Data.Global.ExpansionIndex;
+  local expansionIndex = REP_Data.Global.ExpansionIndex
+  -- TODO: Fix the GetBuildInfo()
+  local version, build, date, tocversion = GetBuildInfo()
 
   if (REP_OnLoadingScreen == false) then
     local numFactions
@@ -1783,12 +1486,14 @@ function REP_ReputationFrame_Update()
       REP:StandingSort()
       numFactions = REP_OBS_numFactions
     else
-      numFactions = GetNumFactions();
+      numFactions = GetNumFactions()
     end
 
-    -- Update scroll frame
-    if (not FauxScrollFrame_Update(ReputationListScrollFrame, numFactions, NUM_FACTIONS_DISPLAYED, REPUTATIONFRAME_FACTIONHEIGHT)) then
-      ReputationListScrollFrameScrollBar:SetValue(0);
+    if (tonumber(tocversion) < 100000) then
+      -- Update scroll frame
+      if (not FauxScrollFrame_Update(ReputationListScrollFrame, numFactions, NUM_FACTIONS_DISPLAYED, REPUTATIONFRAME_FACTIONHEIGHT)) then
+        ReputationListScrollFrameScrollBar:SetValue(0)
+      end
     end
 
     if (REP_Data.Global.ShowMissing) then
@@ -1797,50 +1502,52 @@ function REP_ReputationFrame_Update()
       ReputationFrameStandingLabel:SetText(REP_Orig_StandingText)
     end
 
-    local i;
-    local gender = UnitSex("player");
-    local factionOffset = FauxScrollFrame_GetOffset(ReputationListScrollFrame);
+    local i
+    local gender = UnitSex("player")
+    local factionOffset = FauxScrollFrame_GetOffset(ReputationListScrollFrame)
     local numberOfFactionsToDisplay
 
     if expansionIndex > 2 then
       numberOfFactionsToDisplay = NUM_FACTIONS_DISPLAYED
-      ReputationFrame.paragonFramesPool:ReleaseAll();
+      if(ReputationFrame.paragonFramesPool) then
+        ReputationFrame.paragonFramesPool:ReleaseAll()
+      end
     else
       numberOfFactionsToDisplay = numFactions
     end
 
     for i = 1, NUM_FACTIONS_DISPLAYED, 1 do
-      local factionBar;
-      local factionStanding;
-      local factionIndex = factionOffset + i;
+      local factionBar
+      local factionStanding
+      local factionIndex = factionOffset + i
 
-      local name, _, _, _, _, _, _, _, _, _, _, _, _, factionID, _ = GetFactionInfo(factionIndex);
+      local name, _, _, _, _, _, _, _, _, _, _, _, _, factionID, _ = GetFactionInfo(factionIndex)
       local inactive = IsFactionInactive(factionIndex)
 
       if (REP_ProfileKey) then
         if REP_Data[REP_ProfileKey].InactiveFactions == nil then REP_Data[REP_ProfileKey].InactiveFactions = {} end
 
         if (inactive and not REP_Data[REP_ProfileKey].InactiveFactions[factionID]) then
-          REP_Data[REP_ProfileKey].InactiveFactions[factionID] = true;
+          REP_Data[REP_ProfileKey].InactiveFactions[factionID] = true
         end
       end
 
-      local factionRow = _G["ReputationBar"..i];
-      local factionHeader = _G["ReputationHeader"..i];
-      local factionCheck = _G["ReputationBar"..i.."Check"];
-      local factionTitle = _G["ReputationBar"..i.."FactionName"];
-      local factionButton = _G["ReputationBar"..i.."ExpandOrCollapseButton"];
-      local factionBackground = _G["ReputationBar"..i.."Background"];
-      local factionBarPreview = _G["REP_StatusBar"..i];
-      local factionAtWarIndicator = _G["ReputationBar"..i.."AtWarCheck"];
-      local factionRightBarTexture = _G["ReputationBar"..i.."ReputationBarRight"];
+      local factionRow = _G["ReputationBar"..i]
+      local factionHeader = _G["ReputationHeader"..i]
+      local factionCheck = _G["ReputationBar"..i.."Check"]
+      local factionTitle = _G["ReputationBar"..i.."FactionName"]
+      local factionButton = _G["ReputationBar"..i.."ExpandOrCollapseButton"]
+      local factionBackground = _G["ReputationBar"..i.."Background"]
+      local factionBarPreview = _G["REP_StatusBar"..i]
+      local factionAtWarIndicator = _G["ReputationBar"..i.."AtWarCheck"]
+      local factionRightBarTexture = _G["ReputationBar"..i.."ReputationBarRight"]
 
       if (expansionIndex > 1) then
-        factionBar = _G["ReputationBar"..i.."ReputationBar"];
-        factionStanding = _G["ReputationBar"..i.."ReputationBarFactionStanding"];
+        factionBar = _G["ReputationBar"..i.."ReputationBar"]
+        factionStanding = _G["ReputationBar"..i.."ReputationBarFactionStanding"]
       else
-        factionBar = _G["ReputationBar"..i];
-        factionStanding = _G["ReputationBar"..i.."FactionStanding"];
+        factionBar = _G["ReputationBar"..i]
+        factionStanding = _G["ReputationBar"..i.."FactionStanding"]
       end
 
       if (factionIndex <= numFactions) then
@@ -1858,14 +1565,14 @@ function REP_ReputationFrame_Update()
           end
         end
       else
-        if factionRow then factionRow:Hide(); end
-        if factionHeader then factionHeader:Hide(); end
+        if factionRow then factionRow:Hide() end
+        if factionHeader then factionHeader:Hide() end
       end
     end
 
     if (GetSelectedFaction() == 0) then
-      ReputationDetailFrame:Hide();
-      REP_ReputationDetailFrame:Hide();
+      ReputationDetailFrame:Hide()
+      REP_ReputationDetailFrame:Hide()
     end
   end
 end
@@ -1879,97 +1586,92 @@ function REP_ExpandFactionHeader(index)
     REP_ReputationFrame_Update()
   else
     REP_Orig_ExpandFactionHeader(index)
-    --[[
-      local name = REP_Orig_GetFactionInfo(index);
-      REP_Data.Global.OriginalCollapsed[name] = nil
-      REP_ShowCollapsedList()
-    ]]--
   end
 end
 
 function REP_ReputationFrame_SetRowType(factionRow, isChild, isHeader, hasRep, expansionIndex)
   -- rowType is a binary table of type isHeader, isChild
   local factionRowName = factionRow:GetName()
-  local factionBar = _G[factionRowName.."ReputationBar"];
-  local factionTitle = _G[factionRowName.."FactionName"];
-  local factionStanding = _G[factionRowName.."ReputationBarFactionStanding"];
-  local factionBackground = _G[factionRowName.."Background"];
-  local factionLeftTexture = _G[factionRowName.."ReputationBarLeftTexture"];
-  local factionRightTexture = _G[factionRowName.."ReputationBarRightTexture"];
-  local factionButton;
+  local factionBar = _G[factionRowName.."ReputationBar"]
+  local factionTitle = _G[factionRowName.."FactionName"]
+  local factionStanding = _G[factionRowName.."ReputationBarFactionStanding"]
+  local factionBackground = _G[factionRowName.."Background"]
+  local factionLeftTexture = _G[factionRowName.."ReputationBarLeftTexture"]
+  local factionRightTexture = _G[factionRowName.."ReputationBarRightTexture"]
+  local factionButton
 
   if((not expansionIndex) or (expansionIndex < 2)) then
-    factionButton = _G[factionRowName.."ReputationHeader"];
+    factionButton = _G[factionRowName.."ReputationHeader"]
   else
-    factionButton = _G[factionRowName.."ExpandOrCollapseButton"];
+    factionButton = _G[factionRowName.."ExpandOrCollapseButton"]
   end
 
-  if (factionLeftTexture) then factionLeftTexture:SetWidth(62); end
-  if (factionRightTexture) then factionRightTexture:SetWidth(42); end
-  if (factionBar) then factionBar:SetPoint("RIGHT", factionRow, "RIGHT", 0, 0); end
+  if (factionLeftTexture) then factionLeftTexture:SetWidth(62) end
+  if (factionRightTexture) then factionRightTexture:SetWidth(42) end
+  if (factionBar) then factionBar:SetPoint("RIGHT", factionRow, "RIGHT", 0, 0) end
 
   if (isHeader) then
     -- show indent on child rows (isChild)
     if (false) then
-      factionRow:SetPoint("LEFT", ReputationFrame, "LEFT", 35, 0);
+      factionRow:SetPoint("LEFT", ReputationFrame, "LEFT", 35, 0)
     else
-      factionRow:SetPoint("LEFT", ReputationFrame, "LEFT", 23, 0);
+      factionRow:SetPoint("LEFT", ReputationFrame, "LEFT", 23, 0)
     end
 
     if (factionButton) then
-      factionButton:SetPoint("LEFT", factionRow, "LEFT", 3, 0);
-      factionButton:Show();
+      factionButton:SetPoint("LEFT", factionRow, "LEFT", 3, 0)
+      factionButton:Show()
     end
 
-    factionTitle:SetWidth(145);
-    factionTitle:SetPoint("LEFT",factionButton,"RIGHT",10, 0);
-    factionTitle:SetFontObject(GameFontNormalLeft);
+    factionTitle:SetWidth(145)
+    factionTitle:SetPoint("LEFT",factionButton,"RIGHT",10, 0)
+    factionTitle:SetFontObject(GameFontNormalLeft)
 
 
-    if (factionBackground) then factionBackground:Hide(); end
+    if (factionBackground) then factionBackground:Hide() end
 
     if (factionLeftTexture) then
-      factionLeftTexture:SetHeight(15);
-      factionLeftTexture:SetWidth(60);
-      factionLeftTexture:SetTexCoord(0.765625, 1.0, 0.046875, 0.28125);
+      factionLeftTexture:SetHeight(15)
+      factionLeftTexture:SetWidth(60)
+      factionLeftTexture:SetTexCoord(0.765625, 1.0, 0.046875, 0.28125)
     end
 
     if (factionRightTexture) then
-      factionRightTexture:SetHeight(15);
-      factionRightTexture:SetWidth(39);
-      factionRightTexture:SetTexCoord(0.0, 0.15234375, 0.390625, 0.625);
+      factionRightTexture:SetHeight(15)
+      factionRightTexture:SetWidth(39)
+      factionRightTexture:SetTexCoord(0.0, 0.15234375, 0.390625, 0.625)
     end
 
-    if (factionBar) then factionBar:SetWidth(99); end
+    if (factionBar) then factionBar:SetWidth(99) end
   else
     -- show indent on child rows (no way of saying when it's a child row of an other child row)
     if(false) then
-      factionRow:SetPoint("LEFT", ReputationFrame, "LEFT", 41, 0);
+      factionRow:SetPoint("LEFT", ReputationFrame, "LEFT", 41, 0)
     else
-      factionRow:SetPoint("LEFT", ReputationFrame, "LEFT", 29, 0);
+      factionRow:SetPoint("LEFT", ReputationFrame, "LEFT", 29, 0)
     end
 
-    factionTitle:SetWidth(160);
-    factionButton:Hide();
-    factionTitle:SetPoint("LEFT", factionRow, "LEFT", 10, 0);
-    factionTitle:SetFontObject(GameFontHighlightSmall);
-    factionBackground:Show();
-    factionLeftTexture:SetHeight(21);
-    factionRightTexture:SetHeight(21);
-    factionLeftTexture:SetTexCoord(0.7578125, 1.0, 0.0, 0.328125);
-    factionRightTexture:SetTexCoord(0.0, 0.1640625, 0.34375, 0.671875);
+    factionTitle:SetWidth(160)
+    factionButton:Hide()
+    factionTitle:SetPoint("LEFT", factionRow, "LEFT", 10, 0)
+    factionTitle:SetFontObject(GameFontHighlightSmall)
+    factionBackground:Show()
+    factionLeftTexture:SetHeight(21)
+    factionRightTexture:SetHeight(21)
+    factionLeftTexture:SetTexCoord(0.7578125, 1.0, 0.0, 0.328125)
+    factionRightTexture:SetTexCoord(0.0, 0.1640625, 0.34375, 0.671875)
     factionBar:SetWidth(101)
   end
 
   if ((hasRep) or (not isHeader)) then
-    factionStanding:Show();
-    factionBar:Show();
-    factionBar:GetParent().hasRep = true;
+    factionStanding:Show()
+    factionBar:Show()
+    factionBar:GetParent().hasRep = true
   else
-    if (factionStanding) then factionStanding:Hide(); end
+    if (factionStanding) then factionStanding:Hide() end
     if (factionBar) then
-      factionBar:Hide();
-      factionBar:GetParent().hasRep = false;
+      factionBar:Hide()
+      factionBar:GetParent().hasRep = false
     end
   end
 end
@@ -1985,34 +1687,30 @@ function REP_CollapseFactionHeader(index)
     REP_ReputationFrame_Update()
   else
     REP_Orig_CollapseFactionHeader(index)
-
-    --[[
-    local name = REP_Orig_GetFactionInfo(index);
-    REP_Data.Global.OriginalCollapsed[name] = true
-    --REP:Print("Collapsing original index "..tostring(index).." which is ["..tostring(name).."]")
-    REP_ShowCollapsedList()
-    ]]--
   end
 end
 
 function REP_ReputationBar_OnClick(self)
   -- redo from the main Reputation file
   if ((ReputationDetailFrame:IsVisible() or REP_ReputationDetailFrame:IsVisible()) and (GetSelectedFaction() == self.index)) then
-    ReputationDetailFrame:Hide();
-    REP_ReputationDetailFrame:Hide();
+    if SOUNDKIT then PlaySound(SOUNDKIT.IG_MAINMENU_OPTION_CHECKBOX_OFF) end
+    ReputationDetailFrame:Hide()
+    REP_ReputationDetailFrame:Hide()
   else
     if (self.hasRep) then
-      REP_ReputationDetailFrame:Show();
-      SetSelectedFaction(self.index);
-      ReputationDetailFrame:Hide();
-      REP_OptionsFrame:Hide();
+      if SOUNDKIT then PlaySound(SOUNDKIT.IG_MAINMENU_OPTION_CHECKBOX_ON) end
+
+      REP_ReputationDetailFrame:Show()
+      SetSelectedFaction(self.index)
+      ReputationDetailFrame:Hide()
+      REP_OptionsFrame:Hide()
 
       if (REP_Data.Global.ExtendDetails) then
         REP:BuildUpdateList()
         REP_UpdateList_Update()
       end
 
-      ReputationFrame_Update();
+      ReputationFrame_Update()
     end
   end
 end
@@ -2023,45 +1721,45 @@ function REP_UpdateList_Update()
   -- usually called In conjuction with REP:BuildUpdateList
   if (not REP_ReputationDetailFrame:IsVisible()) then return end
 
-  local expansionIndex = REP_Data.Global.ExpansionIndex;
+  local expansionIndex = REP_Data.Global.ExpansionIndex
 
-  REP_UpdateListScrollFrame:Show();
-  REP_ShowQuestButton:SetChecked(REP_Data.Global.ShowQuests);
-  REP_ShowItemsButton:SetChecked(REP_Data.Global.ShowItems);
-  REP_ShowMobsButton:SetChecked(REP_Data.Global.ShowMobs);
-  REP_ShowInstancesButton:SetChecked(REP_Data.Global.ShowInstances);
-  REP_ShowGeneralButton:SetChecked(REP_Data.Global.ShowGeneral);
+  REP_UpdateListScrollFrame:Show()
+  REP_ShowQuestButton:SetChecked(REP_Data.Global.ShowQuests)
+  REP_ShowItemsButton:SetChecked(REP_Data.Global.ShowItems)
+  REP_ShowMobsButton:SetChecked(REP_Data.Global.ShowMobs)
+  REP_ShowInstancesButton:SetChecked(REP_Data.Global.ShowInstances)
+  REP_ShowGeneralButton:SetChecked(REP_Data.Global.ShowGeneral)
 
-  REP_ShowQuestButtonText:SetText(REP_TXT.showQuests);
-  REP_ShowItemsButtonText:SetText(REP_TXT.showItems);
-  REP_ShowMobsButtonText:SetText(REP_TXT.showMobs);
-  REP_ShowInstancesButtonText:SetText(REP_TXT.showInstances);
-  REP_ShowGeneralButtonText:SetText(REP_TXT.showGeneral);
+  REP_ShowQuestButtonText:SetText(REP_TXT.showQuests)
+  REP_ShowItemsButtonText:SetText(REP_TXT.showItems)
+  REP_ShowMobsButtonText:SetText(REP_TXT.showMobs)
+  REP_ShowInstancesButtonText:SetText(REP_TXT.showInstances)
+  REP_ShowGeneralButtonText:SetText(REP_TXT.showGeneral)
 
-  REP_ShowAllButton:SetText(REP_TXT.showAll);
-  REP_ShowNoneButton:SetText(REP_TXT.showNone);
-  REP_ExpandButton:SetText(REP_TXT.expand);
-  REP_CollapseButton:SetText(REP_TXT.collapse);
+  REP_ShowAllButton:SetText(REP_TXT.showAll)
+  REP_ShowNoneButton:SetText(REP_TXT.showNone)
+  REP_ExpandButton:SetText(REP_TXT.expand)
+  REP_CollapseButton:SetText(REP_TXT.collapse)
 
-  REP_SupressNoneFactionButton:SetText(REP_TXT.supressNoneFaction);
-  REP_SupressNoneGlobalButton:SetText(REP_TXT.supressNoneGlobal);
-  REP_ReputationDetailSuppressHint:SetText(REP_TXT.suppressHint);
-  REP_ClearSessionGainButton:SetText(REP_TXT.clearSessionGain);
+  REP_SupressNoneFactionButton:SetText(REP_TXT.supressNoneFaction)
+  REP_SupressNoneGlobalButton:SetText(REP_TXT.supressNoneGlobal)
+  REP_ReputationDetailSuppressHint:SetText(REP_TXT.suppressHint)
+  REP_ClearSessionGainButton:SetText(REP_TXT.clearSessionGain)
 
   if (expansionIndex > 4) then
     -- Mists of Pandaria
-    REP_ShowDarkmoonFaireButton:Show();
-    REP_ShowDarkmoonFaireButton:SetChecked(REP_Data.Global.ShowDarkmoonFaire);
-    REP_ShowDarkmoonFaireButtonText:SetText(REP_TXT.darkmoonFaireBuff);
+    REP_ShowDarkmoonFaireButton:Show()
+    REP_ShowDarkmoonFaireButton:SetChecked(REP_Data.Global.ShowDarkmoonFaire)
+    REP_ShowDarkmoonFaireButtonText:SetText(REP_TXT.darkmoonFaireBuff)
   else
-    REP_ShowDarkmoonFaireButton:Hide();
+    REP_ShowDarkmoonFaireButton:Hide()
   end
 
   local numEntries, highestVisible = REP:GetUpdateListSize()
 
   -- Update scroll frame
   if (not FauxScrollFrame_Update(REP_UpdateListScrollFrame, numEntries, REP_UPDATE_LIST_HEIGHT, 16)) then
-    REP_UpdateListScrollFrameScrollBar:SetValue(0);
+    REP_UpdateListScrollFrameScrollBar:SetValue(0)
   end
 
   local entryIndex
@@ -2070,9 +1768,9 @@ function REP_UpdateList_Update()
   local entryItemTimes, entryItemName, entryItemTotal
   local postfix
 
-  local entryOffset = FauxScrollFrame_GetOffset(REP_UpdateListScrollFrame);
+  local entryOffset = FauxScrollFrame_GetOffset(REP_UpdateListScrollFrame)
 
-  local haveInfo = false;
+  local haveInfo = false
   entryIndex = 1
   local i = 0
   local max = REP:TableSize(REP_UpdateList)
@@ -2115,11 +1813,11 @@ function REP_UpdateList_Update()
 
       local color = ""
       if (F_UL_ei.highlight) then
-        color = REP_HIGHLIGHT_COLOUR
+        color = REP.HIGHLIGHT_COLOUR
       elseif (F_UL_ei.suppress) then
-        color = REP_SUPPRESS_COLOUR
+        color = REP.SUPPRESS_COLOUR
       elseif (F_UL_ei.lowlight) then
-        color = REP_LOWLIGHT_COLOUR
+        color = REP.LOWLIGHT_COLOUR
       end
 
       if (F_UL_ei.type ~= "") then
@@ -2132,12 +1830,12 @@ function REP_UpdateList_Update()
 
         if (F_UL_ei.hasList) then
           if (F_UL_ei.listShown) then
-            entryTexture:SetTexture("Interface\\Addons\\"..REP_NAME.."\\Textures\\UI-MinusButton-Up"..postfix..".tga")
+            entryTexture:SetTexture("Interface\\Addons\\"..addonName.."\\Textures\\UI-MinusButton-Up"..postfix..".tga")
           else
-            entryTexture:SetTexture("Interface\\Addons\\"..REP_NAME.."\\Textures\\UI-PlusButton-Up"..postfix..".tga")
+            entryTexture:SetTexture("Interface\\Addons\\"..addonName.."\\Textures\\UI-PlusButton-Up"..postfix..".tga")
           end
         else
-          entryTexture:SetTexture("Interface\\Addons\\"..REP_NAME.."\\Textures\\UI-EmptyButton-Up"..postfix..".tga")
+          entryTexture:SetTexture("Interface\\Addons\\"..addonName.."\\Textures\\UI-EmptyButton-Up"..postfix..".tga")
         end
 
         if (F_UL_ei.canSuppress) then
@@ -2185,7 +1883,6 @@ function REP_UpdateList_Update()
 end
 
 function REP_MouseButtonUp(self, button)
-  -- unkown call
   if (button and button == "LeftButton") then
     REP_UpdateEntryClick(self)
   elseif (button and button == "RightButton") then
@@ -2230,7 +1927,6 @@ function REP:UpdateEntrySuppress(self)
 end
 
 function REP:SupressNone(allFactions)
-  -- unkown call
   if (allFactions == true) then
     REP_Suppressed = {}
     REP:BuildUpdateList()
@@ -2266,18 +1962,16 @@ function REP:Update_Tooltip(x, l1,r1)
 end
 
 function REP:BuildUpdateList()
+  if (not REP_ReputationDetailFrame:IsVisible()) then return end
+
   REP_UpdateList = {}
   REP_CurrentRepInBag = 0
   REP_CurrentRepInBagBank = 0
   REP_CurrentRepInQuest = 0
+
   local index = 1
-
-  local expansionIndex = REP_Data.Global.ExpansionIndex;
-
-  if (not REP_ReputationDetailFrame:IsVisible()) then return end
-
+  local expansionIndex = REP_Data.Global.ExpansionIndex
   local factionIndex = GetSelectedFaction()
-  --local faction, description, standingId, barMin, barMax, barValue = GetFactionInfo(factionIndex)
   local faction, description, standingId, barMin, barMax, barValue, _, _, _, _, _, _, _, factionID, _, _ = GetFactionInfo(factionIndex)
 
   if (faction) then
@@ -2290,11 +1984,22 @@ function REP:BuildUpdateList()
     end
 
     if(factionID and C_Reputation.IsFactionParagon(factionID)) then
-      local currentValue, threshold, rewardQuestID, hasRewardPending = C_Reputation.GetFactionParagonInfo(factionID);
-      barMin, barMax, barValue = 0, threshold, mod(currentValue, threshold);
+      local currentValue, threshold, rewardQuestID, hasRewardPending = C_Reputation.GetFactionParagonInfo(factionID)
+      barMin, barMax, barValue = 0, threshold, mod(currentValue, threshold)
     end
 
-    -- local friendID, _, _, _, _, _, _, _, _ = GetFriendshipReputation(factionID);
+    local friendID
+    local version, build, date, tocversion = GetBuildInfo()
+
+    -- TODO: Fix the GetBuildInfo()
+    if (expansionIndex > 2 and factionID) then
+      if (tonumber(tocversion) < 100000) then
+        friendID, _, _, _, _, _, _, _, _ = GetFriendshipReputation(factionID)
+      else
+        local reputationInfo = C_GossipInfo.GetFriendshipReputation(factionID)
+        if reputationInfo and reputationInfo.friendshipFactionID > 0 then friendID = reputationInfo.friendshipFactionID end
+      end
+    end
 
     if friendID ~= nil and barMax == 43000 then
       barMax = 42000
@@ -2419,52 +2124,52 @@ function REP:BuildUpdateList()
 
             if (fg_sid_x_d.profession) then
               local fg_sid_x_d_p=fg_sid_x_d.profession
-              if ((fg_sid_x_d_p == REP_LIMIT_TYPE_Herb) and not REP_Herb) then
+              if ((fg_sid_x_d_p == REP.LIMIT_TYPE_Herb) and not REP.Herb) then
                 -- if list of known professions does not contain Herbology
                 showQuest = false
-              elseif ((fg_sid_x_d_p == REP_LIMIT_TYPE_Skin) and not REP_Skin) then
+              elseif ((fg_sid_x_d_p == REP.LIMIT_TYPE_Skin) and not REP.Skin) then
                 -- if list of known professions does not contain Herbology
                 showQuest = false
-              elseif ((fg_sid_x_d_p == REP_LIMIT_TYPE_Mine) and not REP_Mine) then
+              elseif ((fg_sid_x_d_p == REP.LIMIT_TYPE_Mine) and not REP.Mine) then
                 -- if list of known professions does not contain Herbology
                 showQuest = false
-              elseif ((fg_sid_x_d_p == REP_LIMIT_TYPE_Gather) and not (REP_Herb or REP_Skin or REP_Mine)) then
+              elseif ((fg_sid_x_d_p == REP.LIMIT_TYPE_Gather) and not (REP.Herb or REP.Skin or REP.Mine)) then
                 -- no gathering profession
                 showQuest = false
-              elseif ((fg_sid_x_d_p == REP_LIMIT_TYPE_Jewel) and not REP_Jewel) then
+              elseif ((fg_sid_x_d_p == REP.LIMIT_TYPE_Jewel) and not REP.Jewel) then
                 -- if list of known professions does not contain jewelcrafting
                 showQuest = false
-              elseif ((fg_sid_x_d_p == REP_LIMIT_TYPE_Cook) and not REP_Cook) then
+              elseif ((fg_sid_x_d_p == REP.LIMIT_TYPE_Cook) and not REP.Cook) then
                 -- if list of known professions does not contain jewelcrafting
                 showQuest = false
-              elseif ((fg_sid_x_d_p == REP_LIMIT_TYPE_Arch) and not REP_Arch) then
+              elseif ((fg_sid_x_d_p == REP.LIMIT_TYPE_Arch) and not REP.Arch) then
                 -- if list of known professions does not contain jewelcrafting
                 showQuest = false
-              elseif ((fg_sid_x_d_p == REP_LIMIT_TYPE_Fish) and not REP_Fish) then
+              elseif ((fg_sid_x_d_p == REP.LIMIT_TYPE_Fish) and not REP.Fish) then
                 -- if list of known professions does not contain jewelcrafting
                 showQuest = false
-              elseif ((fg_sid_x_d_p == REP_LIMIT_TYPE_Aid) and not REP_Aid) then
+              elseif ((fg_sid_x_d_p == REP.LIMIT_TYPE_Aid) and not REP.Aid) then
                 -- if list of known professions does not contain jewelcrafting
                 showQuest = false
-              elseif ((fg_sid_x_d_p == REP_LIMIT_TYPE_Blac) and not REP_Black) then
+              elseif ((fg_sid_x_d_p == REP.LIMIT_TYPE_Blac) and not REP.Black) then
                 -- if list of known professions does not contain BLACKsmith
                 showQuest = false
-              elseif ((fg_sid_x_d_p == REP_LIMIT_TYPE_Tail) and not REP_Tailor) then
+              elseif ((fg_sid_x_d_p == REP.LIMIT_TYPE_Tail) and not REP.Tailor) then
                 -- if list of known professions does not contain tailor
                 showQuest = false
-              elseif ((fg_sid_x_d_p == REP_LIMIT_TYPE_Leat) and not REP_Leath) then
+              elseif ((fg_sid_x_d_p == REP.LIMIT_TYPE_Leat) and not REP.Leath) then
                 -- if list of known professions does not contain leather
                 showQuest = false
-              elseif ((fg_sid_x_d_p == REP_LIMIT_TYPE_Ench) and not REP_Enchan) then
+              elseif ((fg_sid_x_d_p == REP.LIMIT_TYPE_Ench) and not REP.Enchan) then
                 -- if list of known professions does not contain enchanter
                 showQuest = false
-              elseif ((fg_sid_x_d_p == REP_LIMIT_TYPE_Engi) and not REP_Engin) then
+              elseif ((fg_sid_x_d_p == REP.LIMIT_TYPE_Engi) and not REP.Engin) then
                 -- if list of known professions does not contain BLACKsmith
                 showQuest = false
-              elseif ((fg_sid_x_d_p == REP_LIMIT_TYPE_Incr) and not REP_Incrip) then
+              elseif ((fg_sid_x_d_p == REP.LIMIT_TYPE_Incr) and not REP.Incrip) then
                 -- if list of known professions does not contain leather
                 showQuest = false
-              elseif ((fg_sid_x_d_p == REP_LIMIT_TYPE_Alch) and not REP_Alche) then
+              elseif ((fg_sid_x_d_p == REP.LIMIT_TYPE_Alch) and not REP.Alche) then
                 -- if list of known professions does not contain enchanter
                 showQuest = false
               else
@@ -2529,7 +2234,7 @@ function REP:BuildUpdateList()
                   FUL_I.lowlight = nil
 
                   -- check if this quest is known
-                  local entries, quests;
+                  local entries, quests
 
                   if (expansionIndex > 6) then
                     entries, quests = C_QuestLog.GetNumQuestLogEntries()
@@ -2538,7 +2243,7 @@ function REP:BuildUpdateList()
                   end
 
                   for z = 1, entries do
-                    local title, level, tag, group, header, collapsed, complete, daily;
+                    local title, level, tag, group, header, collapsed, complete, daily
 
                     if (expansionIndex > 6) then
                       title, level, tag, group, header, collapsed, complete, daily = C_QuestLog.GetTitleForLogIndex(z)
@@ -2550,13 +2255,13 @@ function REP:BuildUpdateList()
                       if string.find(string.lower(bul_name), string.lower(title)) then
                         -- this quest matches
                         FUL_I.lowlight = true
-                        FUL_I.name = FUL_I.name..REP_QUEST_ACTIVE_COLOUR.." ("..REP_TXT.active..")|r"
+                        FUL_I.name = FUL_I.name..REP.QUEST_ACTIVE_COLOUR.." ("..REP_TXT.active..")|r"
                       end
                     end
                   end
 
                   -- add items
-                  local itemIndex = index+1
+                  local itemIndex = index + 1
                   local currentQuestTimesBag = -1
                   local currentQuestTimesBagBank = -1
 
@@ -2581,7 +2286,7 @@ function REP:BuildUpdateList()
                   if (currentQuestTimesBag > 0) then
                     FUL_I.highlight = true
                     FUL_I.lowlight = nil
-                    FUL_I.name = FUL_I.name..REP_BAG_COLOUR.." ["..currentQuestTimesBag.."x]|r"
+                    FUL_I.name = FUL_I.name..REP.BAG_COLOUR.." ["..currentQuestTimesBag.."x]|r"
                     FUL_I.currentTimesBag = currentQuestTimesBag
                     FUL_I.currentRepBag = currentQuestTimesBag * FUL_I.rep
                     REP_CurrentRepInBag = REP_CurrentRepInBag + FUL_I.currentRepBag
@@ -2596,7 +2301,7 @@ function REP:BuildUpdateList()
                   end
 
                   if (currentQuestTimesBagBank > 0) then
-                    FUL_I.name = FUL_I.name..REP_BAG_BANK_COLOUR.." ["..currentQuestTimesBagBank.."x]|r"
+                    FUL_I.name = FUL_I.name..REP.BAG_BANK_COLOUR.." ["..currentQuestTimesBagBank.."x]|r"
                     FUL_I.currentTimesBagBank = currentQuestTimesBagBank
                     FUL_I.currentRepBagBank = currentQuestTimesBagBank * FUL_I.rep
                     FUL_I.highlight = true
@@ -2625,7 +2330,7 @@ function REP:BuildUpdateList()
                   FUL_I.lowlight = nil
 
                   -- check if this quest is known and/or completed
-                  local entries, quests;
+                  local entries, quests
 
                   if (expansionIndex > 6) then
                     entries, quests = C_QuestLog.GetNumQuestLogEntries()
@@ -2634,7 +2339,7 @@ function REP:BuildUpdateList()
                   end
 
                   for z = 1, entries do
-                    local title, level, tag, group, header, collapsed, complete, daily;
+                    local title, level, tag, group, header, collapsed, complete, daily
 
                     if (expansionIndex > 6) then
                       title, level, tag, group, header, collapsed, complete, daily = C_QuestLog.GetTitleForLogIndex(z)
@@ -2647,7 +2352,7 @@ function REP:BuildUpdateList()
                         -- this quest matches
                         if (complete) then
                           FUL_I.highlight = true
-                          FUL_I.name = FUL_I.name..REP_QUEST_COLOUR.." ("..REP_TXT.complete..")|r"
+                          FUL_I.name = FUL_I.name..REP.QUEST_COLOUR.." ("..REP_TXT.complete..")|r"
                           FUL_I.currentTimesQuest = 1
                           FUL_I.currentRepQuest = FUL_I.rep
                           REP_CurrentRepInQuest = REP_CurrentRepInQuest + fg_sid_x_d.rep
@@ -2656,7 +2361,7 @@ function REP:BuildUpdateList()
                           FUL_I_TD[x], x = REP:Update_Tooltip(x, REP_TXT.reputation, string.format("%d", FUL_I.currentRepQuest))
                         else
                           FUL_I.lowlight = true
-                          FUL_I.name = FUL_I.name..REP_QUEST_ACTIVE_COLOUR.." ("..REP_TXT.active..")|r"
+                          FUL_I.name = FUL_I.name..REP.QUEST_ACTIVE_COLOUR.." ("..REP_TXT.active..")|r"
                         end
                       end
                     end
@@ -2699,9 +2404,9 @@ function REP:BuildUpdateList()
 
         -- items
         if (fg_sid.items and REP_Data.Global.ShowItems) then
-          local fg_sid_x=fg_sid.items
+          local fg_sid_x = fg_sid.items
           for i = 0, fg_sid_x.count do
-            local fg_sid_x_d=fg_sid_x.data[i]
+            local fg_sid_x_d = fg_sid_x.data[i]
             if (not fg_sid_x_d.limit or (normCurrent < fg_sid_x_d.limit)) then
               local toDo = ceil(repToNext / fg_sid_x_d.rep)
               if (fg_sid_x_d.limit) then
@@ -2777,7 +2482,7 @@ function REP:BuildUpdateList()
                 if (currentQuestTimesBag > 0) then
                   FUL_I.highlight = true
                   FUL_I.lowlight = nil
-                  FUL_I.name = FUL_I.name..REP_BAG_COLOUR.." ["..currentQuestTimesBag.."x]|r"
+                  FUL_I.name = FUL_I.name..REP.BAG_COLOUR.." ["..currentQuestTimesBag.."x]|r"
                   FUL_I.currentTimesBag = currentQuestTimesBag
                   FUL_I.currentRepBag = currentQuestTimesBag * FUL_I.rep
                   REP_CurrentRepInBag = REP_CurrentRepInBag + FUL_I.currentRepBag
@@ -2790,7 +2495,7 @@ function REP:BuildUpdateList()
                 if (currentQuestTimesBagBank > 0) then
                   FUL_I.highlight = true
                   FUL_I.lowlight = nil
-                  FUL_I.name = FUL_I.name..REP_BAG_BANK_COLOUR.." ["..currentQuestTimesBagBank.."]|r"
+                  FUL_I.name = FUL_I.name..REP.BAG_BANK_COLOUR.." ["..currentQuestTimesBagBank.."]|r"
                   FUL_I.currentTimesBagBank = currentQuestTimesBagBank
                   FUL_I.currentRepBagBank = currentQuestTimesBagBank * FUL_I.rep
                   REP_CurrentRepInBagBank = REP_CurrentRepInBagBank + FUL_I.currentRepBagBank
@@ -2883,11 +2588,11 @@ function REP:BuildUpdateList()
     end
   end
 
-  REP_UpdateList_Update();
+  REP_UpdateList_Update()
 end
 
 function REP:Quest_Items(itemsNeed, currentQuestTimesBag, currentQuestTimesBagBank, QuestItem, item)
-  local expansionIndex = REP_Data.Global.ExpansionIndex;
+  local expansionIndex = REP_Data.Global.ExpansionIndex
 
   if not QuestItem.times then
     QuestItem = {}
@@ -2912,7 +2617,7 @@ function REP:Quest_Items(itemsNeed, currentQuestTimesBag, currentQuestTimesBagBa
     local itemBank = itemTotal - itemBag
     if ((itemBag >= itemsNeed) and (itemsNeed > 0)) then
       QuestItem.currentTimesBag = floor(itemBag / itemsNeed)
-      QuestItem.name = QuestItem.name..REP_BAG_COLOUR.." ["..itemBag.."x]|r"
+      QuestItem.name = QuestItem.name..REP.BAG_COLOUR.." ["..itemBag.."x]|r"
 
       if (currentQuestTimesBag == -1) then
         -- first items for this quest --> take value
@@ -2932,7 +2637,7 @@ function REP:Quest_Items(itemsNeed, currentQuestTimesBag, currentQuestTimesBagBa
 
     if itemBank > 0 then
       if ((itemTotal >= itemsNeed) and (itemsNeed > 0)) then
-        QuestItem.name = QuestItem.name..REP_BAG_BANK_COLOUR.." ["..itemTotal.."x]|r"
+        QuestItem.name = QuestItem.name..REP.BAG_BANK_COLOUR.." ["..itemTotal.."x]|r"
         QuestItem.currentTimesBagBank = floor(itemBank / itemsNeed)
 
         if (currentQuestTimesBagBank == -1) then
@@ -3047,11 +2752,11 @@ function REP_ShowHelpToolTip(self, element)
   --end
 
   -- cut off trailing Number In case of line and collect
-  --local s,e = string.find(name, "Line");
+  --local s,e = string.find(name, "Line")
   --if (s and e) then
   --	name = string.sub(name, 0, e)
   --end
-  --s,e = string.find(name, "Collect");
+  --s,e = string.find(name, "Collect")
   --if (s and e) then
   --	name = string.sub(name, 0, e)
   --end
@@ -3059,12 +2764,12 @@ function REP_ShowHelpToolTip(self, element)
   -- cut off colour button/texture
   --if (string.find(name, "Colour") == 1) then
   --	-- ["ColourGuildNewButton"] = true,
-  --	s,e = string.find(name, "Button");
+  --	s,e = string.find(name, "Button")
   --	if (s and e) then
   --		name = string.sub(name, 0, s-1)
   --	end
   --	-- ["ColourGuildNewColour"] = true,
-  --	s,e = string.find(name, "Colour", 2);	-- start at 2 to skip the initial Colour
+  --	s,e = string.find(name, "Colour", 2)	-- start at 2 to skip the initial Colour
   --	if (s and e) then
   --		name = string.sub(name, 0, s-1)
   --	end
@@ -3092,7 +2797,7 @@ function REP_ShowHelpToolTip(self, element)
   end
 
   --GameTooltip_SetDefaultAnchor(GameTooltip, self)
-  GameTooltip:SetOwner(self, "ANCHOR_RIGHT");
+  GameTooltip:SetOwner(self, "ANCHOR_RIGHT")
 
   if (head ~= "") then
     GameTooltip:SetText(head, 1, 1, 0.5, 1.0, 1)
@@ -3117,11 +2822,10 @@ function REP:DumpReputationChangesToChat(initOnly)
   if not REP_StoredRep then REP_StoredRep = {} end
 
   if (REP_OnLoadingScreen == false) then
-    local numFactions = GetNumFactions();
-    local expansionIndex = REP_Data.Global.ExpansionIndex;
+    local numFactions = GetNumFactions()
+    local expansionIndex = REP_Data.Global.ExpansionIndex
     local factionIndex, watchIndex, watchedIndex, watchName
     local name, standingID, barMin, barMax, barValue, isHeader, hasRep
-    local RepRemains
     local factionID
 
     watchIndex = 0
@@ -3130,15 +2834,27 @@ function REP:DumpReputationChangesToChat(initOnly)
 
     for factionIndex = 1, numFactions, 1 do
       name, _, standingID, barMin, barMax, barValue, _, _, isHeader, _, hasRep, isWatched, _, factionID = GetFactionInfo(factionIndex)
-      local friendID, friendTextLevel, nextFriendThreshold;
+      local friendID, friendTextLevel, nextFriendThreshold
 
       if(factionID and C_Reputation.IsFactionParagon(factionID)) then
-        local currentValue, threshold = C_Reputation.GetFactionParagonInfo(factionID);
-        barMin, barMax, barValue = 0, threshold, mod(currentValue, threshold);
+        local currentValue, threshold = C_Reputation.GetFactionParagonInfo(factionID)
+        barMin, barMax, barValue = 0, threshold, mod(currentValue, threshold)
       end
 
-      if expansionIndex > 2 then
-        friendID, _, _, _, _, _, friendTextLevel, _, nextFriendThreshold = GetFriendshipReputation(factionID)
+      local version, build, date, tocversion = GetBuildInfo()
+
+      -- TODO: Fix the GetBuildInfo()
+      if (expansionIndex > 2 and factionID) then
+        if (tonumber(tocversion) < 100000) then
+          friendID, _, _, _, _, _, friendTextLevel, _, nextFriendThreshold = GetFriendshipReputation(factionID)
+        else
+          local reputationInfo = C_GossipInfo.GetFriendshipReputation(factionID)
+          if reputationInfo and reputationInfo.friendshipFactionID > 0 then
+            friendID = reputationInfo.friendshipFactionID
+            friendTextLevel = reputationInfo.reaction
+            nextFriendThreshold = reputationInfo.nextThreshold
+          end
+        end
       end
 
       if (not isHeader or hasRep) then
@@ -3158,35 +2874,35 @@ function REP:DumpReputationChangesToChat(initOnly)
                 -- increased rep
                 if (friendID ~= nil and nextFriendThreshold ~= nil) then
                   -- If the faction is a friend faction and not at max rank get the next standing text
-                  REP:Print(REP_NEW_REP_COLOUR..string.format(FACTION_STANDING_INCREASED..REP_TXT.statsNextStanding, name, barValue - REP_StoredRep[name].rep, sign, barValue - REP_StoredRep[name].origRep, REP_GetFriendFactionStandingLabel(factionID, nextFriendThreshold), barMax - barValue))
+                  REP:Print(REP.NEW_REP_COLOUR..string.format(FACTION_STANDING_INCREASED..REP_TXT.statsNextStanding, name, barValue - REP_StoredRep[name].rep, sign, barValue - REP_StoredRep[name].origRep, REP_GetFriendFactionStandingLabel(factionID, nextFriendThreshold), barMax - barValue))
                 elseif (friendID == nil and standingID < 8) then
                   -- If not a friend faction and below max rank use the format (Total: %s%d, Left to %s: %d) if not use the normal format (Total: %s%d, Left: %d)
-                  REP:Print(REP_NEW_REP_COLOUR..string.format(FACTION_STANDING_INCREASED..REP_TXT.statsNextStanding, name, barValue - REP_StoredRep[name].rep, sign, barValue - REP_StoredRep[name].origRep, _G["FACTION_STANDING_LABEL"..standingID + 1], barMax - barValue))
+                  REP:Print(REP.NEW_REP_COLOUR..string.format(FACTION_STANDING_INCREASED..REP_TXT.statsNextStanding, name, barValue - REP_StoredRep[name].rep, sign, barValue - REP_StoredRep[name].origRep, _G["FACTION_STANDING_LABEL"..standingID + 1], barMax - barValue))
                 else
-                  REP:Print(REP_NEW_REP_COLOUR..string.format(FACTION_STANDING_INCREASED..REP_TXT.stats, name, barValue - REP_StoredRep[name].rep, sign, barValue - REP_StoredRep[name].origRep, barMax - barValue))
+                  REP:Print(REP.NEW_REP_COLOUR..string.format(FACTION_STANDING_INCREASED..REP_TXT.stats, name, barValue - REP_StoredRep[name].rep, sign, barValue - REP_StoredRep[name].origRep, barMax - barValue))
                 end
               elseif (barValue < REP_StoredRep[name].rep) then
                 -- decreased rep
                 if (standingID > 1 and friendID == nil) then
                   -- Only use the new format (Total: %s%d, Left to %s: %d) if we are above the lowest rank, otherwise use the normal format (Total: %s%d, Left: %d)
-                  REP:Print(REP_NEW_REP_COLOUR..string.format(FACTION_STANDING_DECREASED..REP_TXT.statsNextStanding, name, REP_StoredRep[name].rep-barValue, sign, barValue-REP_StoredRep[name].origRep, _G["FACTION_STANDING_LABEL"..standingID - 1], barMax - barValue))
+                  REP:Print(REP.NEW_REP_COLOUR..string.format(FACTION_STANDING_DECREASED..REP_TXT.statsNextStanding, name, REP_StoredRep[name].rep-barValue, sign, barValue-REP_StoredRep[name].origRep, _G["FACTION_STANDING_LABEL"..standingID - 1], barMax - barValue))
                 else
-                  REP:Print(REP_NEW_REP_COLOUR..string.format(FACTION_STANDING_DECREASED..REP_TXT.stats, name, REP_StoredRep[name].rep-barValue, sign, barValue-REP_StoredRep[name].origRep, barMax - barValue))
+                  REP:Print(REP.NEW_REP_COLOUR..string.format(FACTION_STANDING_DECREASED..REP_TXT.stats, name, REP_StoredRep[name].rep-barValue, sign, barValue-REP_StoredRep[name].origRep, barMax - barValue))
                 end
               end
 
               if (REP_StoredRep[name].standingID ~= standingID) then
                 if friendID == nil then
-                  REP:Print(REP_NEW_STANDING_COLOUR..string.format(FACTION_STANDING_CHANGED, _G["FACTION_STANDING_LABEL"..standingID], name))
+                  REP:Print(REP.NEW_STANDING_COLOUR..string.format(FACTION_STANDING_CHANGED, _G["FACTION_STANDING_LABEL"..standingID], name))
                 else
-                  REP:Print(REP_NEW_STANDING_COLOUR..string.format(FACTION_STANDING_CHANGED, friendTextLevel, name))
+                  REP:Print(REP.NEW_STANDING_COLOUR..string.format(FACTION_STANDING_CHANGED, friendTextLevel, name))
                 end
               end
             end
           end
 
           if (REP_Data.Global.SwitchFactionBar) then
-            if (not REP_Data.Global.NoGuildSwitch or name ~= REP_GuildName) then
+            if (not REP_Data.Global.NoGuildSwitch or name ~= REP.GuildName) then
               if (barValue > REP_StoredRep[name].rep) then
                 watchIndex = factionIndex
                 watchName = name
@@ -3214,7 +2930,7 @@ function REP:DumpReputationChangesToChat(initOnly)
     if (watchIndex > 0) then
       if (watchIndex ~= watchedIndex) then
         if (not REP_Data.Global.SilentSwitch) then
-          REP:Print(REP_Help_COLOUR..REP_NAME..":|r "..REP_TXT.switchBar.." ["..tostring(watchName).."|r]")
+          REP:Print(REP.HELP_COLOUR..addonName..":|r "..REP_TXT.switchBar.." ["..tostring(watchName).."|r]")
         end
       end
 
@@ -3258,7 +2974,7 @@ function REP_ChatFilter(chatFrame, event, ...) -- chatFrame = self
     for faction gain, the amount of reputation gained.
   ]]--
 
-  local msg, arg2, arg3, arg4, arg5, arg6, arg7, arg8, arg9, arg10, arg11, arg12, arg13 = ...;
+  local msg, arg2, arg3, arg4, arg5, arg6, arg7, arg8, arg9, arg10, arg11, arg12, arg13 = ...
 
   local skip = false
   if (REP_Data.Global.WriteChatMessage and event) then
@@ -3287,15 +3003,15 @@ function REP:ToggleConfigWindow()
     else
       -- options window not shown -> show, hide any detail window
       REP_OptionsFrame:Show()
-      REP_ReputationDetailFrame:Hide();
-      ReputationDetailFrame:Hide();
+      REP_ReputationDetailFrame:Hide()
+      ReputationDetailFrame:Hide()
     end
 
   else
     -- window not shown -> show both
     ToggleCharacter("ReputationFrame")
-    REP_ReputationDetailFrame:Hide();
-    ReputationDetailFrame:Hide();
+    REP_ReputationDetailFrame:Hide()
+    ReputationDetailFrame:Hide()
     REP_OptionsFrame:Show()
   end
 end
@@ -3310,9 +3026,9 @@ function REP:ToggleDetailWindow()
       else
         -- detail window not shown -> show it, hide any others
         REP_ReputationDetailFrame:Show()
-        ReputationDetailFrame:Hide();
-        REP_OptionsFrame:Hide();
-        ReputationFrame_Update();
+        ReputationDetailFrame:Hide()
+        REP_OptionsFrame:Hide()
+        ReputationFrame_Update()
       end
     else
       if ReputationDetailFrame:IsVisible() then
@@ -3322,22 +3038,22 @@ function REP:ToggleDetailWindow()
       else
         -- detail window not shown -> show it, hide any others
         REP_ReputationDetailFrame:Hide()
-        ReputationDetailFrame:Show();
-        REP_OptionsFrame:Hide();
-        ReputationFrame_Update();
+        ReputationDetailFrame:Show()
+        REP_OptionsFrame:Hide()
+        ReputationFrame_Update()
       end
     end
   else
     -- window not shown -> show both
     ToggleCharacter("ReputationFrame")
     if (REP_Data.Global.ExtendDetails) then
-      REP_ReputationDetailFrame:Show();
+      REP_ReputationDetailFrame:Show()
     else
-      ReputationDetailFrame:Show();
+      ReputationDetailFrame:Show()
     end
 
     REP_OptionsFrame:Hide()
-    ReputationFrame_Update();
+    ReputationFrame_Update()
   end
 end
 
@@ -3345,34 +3061,44 @@ end
 -- _14_ Testing
 -----------------------------------
 function REP_Test()
-  if (REP_GuildFactionBar:GetParent()) then
-    REP:Print("REP_GuildFactionBar parent: "..tostring(REP_GuildFactionBar:GetParent():GetName()))
-  else
-    REP:Print("REP_GuildFactionBar has no parent")
+  if REP_GuildFactionBar then
+    if (REP_GuildFactionBar:GetParent()) then
+      REP:Print("REP_GuildFactionBar parent: "..tostring(REP_GuildFactionBar:GetParent():GetName()))
+    else
+      REP:Print("REP_GuildFactionBar has no parent")
+    end
   end
 
-  if (REP_GuildFactionBarCapHeader:GetParent()) then
-    REP:Print("REP_GuildFactionBarCapHeader parent: "..tostring(REP_GuildFactionBarCapHeader:GetParent():GetName()))
-  else
-    REP:Print("REP_GuildFactionBarCapHeader has no parent")
+  if REP_GuildFactionBarCapHeader then
+    if (REP_GuildFactionBarCapHeader:GetParent()) then
+      REP:Print("REP_GuildFactionBarCapHeader parent: "..tostring(REP_GuildFactionBarCapHeader:GetParent():GetName()))
+    else
+      REP:Print("REP_GuildFactionBarCapHeader has no parent")
+    end
   end
 
-  if (REP_GuildFactionBarCapText:GetParent()) then
-    REP:Print("REP_GuildFactionBarCapText parent: "..tostring(REP_GuildFactionBarCapText:GetParent():GetName()))
-  else
-    REP:Print("REP_GuildFactionBarCapText has no parent")
+  if REP_GuildFactionBarCapText then
+    if (REP_GuildFactionBarCapText:GetParent()) then
+      REP:Print("REP_GuildFactionBarCapText parent: "..tostring(REP_GuildFactionBarCapText:GetParent():GetName()))
+    else
+      REP:Print("REP_GuildFactionBarCapText has no parent")
+    end
   end
 
-  if (REP_GuildFactionBarCapMarker:GetParent()) then
-    REP:Print("REP_GuildFactionBarCapMarker parent: "..tostring(REP_GuildFactionBarCapMarker:GetParent():GetName()))
-  else
-    REP:Print("REP_GuildFactionBarCapMarker has no parent")
+  if REP_GuildFactionBarCapMarker then
+    if (REP_GuildFactionBarCapMarker:GetParent()) then
+      REP:Print("REP_GuildFactionBarCapMarker parent: "..tostring(REP_GuildFactionBarCapMarker:GetParent():GetName()))
+    else
+      REP:Print("REP_GuildFactionBarCapMarker has no parent")
+    end
   end
 
-  if (REP_GuildFactionBarBaseMarker:GetParent()) then
-    REP:Print("REP_GuildFactionBarBaseMarker parent: "..tostring(REP_GuildFactionBarBaseMarker:GetParent():GetName()))
-  else
-    REP:Print("REP_GuildFactionBarBaseMarker has no parent")
+  if REP_GuildFactionBarBaseMarker then
+    if (REP_GuildFactionBarBaseMarker:GetParent()) then
+      REP:Print("REP_GuildFactionBarBaseMarker parent: "..tostring(REP_GuildFactionBarBaseMarker:GetParent():GetName()))
+    else
+      REP:Print("REP_GuildFactionBarBaseMarker has no parent")
+    end
   end
 end
 
@@ -3497,7 +3223,7 @@ function REP:GetReadyReputation(factionIndex)
     end
   end
 
-  return result;
+  return result
 end	--]]--
 
 ----------------------------------
@@ -3505,12 +3231,12 @@ end	--]]--
 -----------------------------------
 function REP:StandingSort()
   local standings = {}
-  local numFactions = GetNumFactions();
-  local expansionIndex = REP_Data.Global.ExpansionIndex;
+  local numFactions = GetNumFactions()
+  local expansionIndex = REP_Data.Global.ExpansionIndex
 
   for i = 1, numFactions do
-    local name, description, standingID, _, barMax, barValue, _, _, isHeader, _, hasRep, isWatched, isChild, factionID, hasBonusRepGain = GetFactionInfo(i);
-    local _, _, _, isFriend = REP_Friend_Detail(factionID, standingID);
+    local name, description, standingID, _, barMax, barValue, _, _, isHeader, _, hasRep, isWatched, isChild, factionID, hasBonusRepGain = GetFactionInfo(i)
+    local _, _, _, isFriend = REP_Friend_Detail(factionID, standingID)
 
     if (REP_ProfileKey) then
       if REP_Data[REP_ProfileKey].InactiveFactions == nil then REP_Data[REP_ProfileKey].InactiveFactions = {} end
@@ -3519,15 +3245,15 @@ function REP:StandingSort()
     if (not REP_ProfileKey or not REP_Data[REP_ProfileKey].InactiveFactions[factionID]) then
       if (expansionIndex > 2) then
         if(factionID and C_Reputation.IsFactionParagon(factionID) and REP_Data.Global.ShowParagonBar) then
-          local currentValue, threshold, _, _ = C_Reputation.GetFactionParagonInfo(factionID);
-          barMax, barValue, standingID = threshold, mod(currentValue, threshold), 9;
+          local currentValue, threshold, _, _ = C_Reputation.GetFactionParagonInfo(factionID)
+          barMax, barValue, standingID = threshold, mod(currentValue, threshold), 9
         end
 
         -- if isFriend then -- Fix reputations with only 6 reputation levels
         --   if (standingID == 6) and (not C_Reputation.IsFactionParagon(factionID)) then
-        --     standingID = standingID + 2;
+        --     standingID = standingID + 2
         --   else
-        --     standingID = standingID + 3;
+        --     standingID = standingID + 3
         --   end
         -- end
       end
@@ -3547,7 +3273,7 @@ function REP:StandingSort()
           for j = 1, size do
             if (not inserted) then
               if (standings[standingID][j].missing > entry.missing) then
-                table.insert(standings[standingID], j, entry);
+                table.insert(standings[standingID], j, entry)
                 inserted = true
               end
             end
@@ -3597,77 +3323,102 @@ function REP:StandingSort()
 end
 
 function REP_ReputationDetailFrame_IsShown(faction, flag, flag2, i)
-  local name, description, _, _, _, _, atWarWith, canToggleAtWar, _, _, _, isWatched, _, _, _, _ = GetFactionInfo(faction);
+  local name, description, _, _, _, _, atWarWith, canToggleAtWar, _, _, _, isWatched, _, _, _, _ = GetFactionInfo(faction)
 
-  ReputationDetailFactionName:SetText(name);
-  ReputationDetailFactionDescription:SetText(description);
+  ReputationDetailFactionName:SetText(name)
+  ReputationDetailFactionDescription:SetText(description)
 
   if (atWarWith) then
-    ReputationDetailAtWarCheckBox:SetChecked(true);
+    ReputationDetailAtWarCheckBox:SetChecked(true)
   else
-    ReputationDetailAtWarCheckBox:SetChecked(false);
+    ReputationDetailAtWarCheckBox:SetChecked(false)
   end
 
   if flag then
-    ReputationDetailAtWarCheckBox:Enable();
-    ReputationDetailAtWarCheckBoxText:SetTextColor(RED_FONT_COLOR.r, RED_FONT_COLOR.g, RED_FONT_COLOR.b);
+    ReputationDetailAtWarCheckBox:Enable()
+    ReputationDetailAtWarCheckBoxText:SetTextColor(RED_FONT_COLOR.r, RED_FONT_COLOR.g, RED_FONT_COLOR.b)
   else
-    ReputationDetailAtWarCheckBox:Disable();
-    ReputationDetailAtWarCheckBoxText:SetTextColor(GRAY_FONT_COLOR.r, GRAY_FONT_COLOR.g, GRAY_FONT_COLOR.b);
+    ReputationDetailAtWarCheckBox:Disable()
+    ReputationDetailAtWarCheckBoxText:SetTextColor(GRAY_FONT_COLOR.r, GRAY_FONT_COLOR.g, GRAY_FONT_COLOR.b)
   end
 
   if flag2 == 2 then
     if (not isHeader) then
-      ReputationDetailInactiveCheckBox:Enable();
-      ReputationDetailInactiveCheckBoxText:SetTextColor(ReputationDetailInactiveCheckBoxText:GetFontObject():GetTextColor());
+      ReputationDetailInactiveCheckBox:Enable()
+      ReputationDetailInactiveCheckBoxText:SetTextColor(ReputationDetailInactiveCheckBoxText:GetFontObject():GetTextColor())
     else
-      ReputationDetailInactiveCheckBox:Disable();
-      ReputationDetailInactiveCheckBoxText:SetTextColor(GRAY_FONT_COLOR.r, GRAY_FONT_COLOR.g, GRAY_FONT_COLOR.b);
+      ReputationDetailInactiveCheckBox:Disable()
+      ReputationDetailInactiveCheckBoxText:SetTextColor(GRAY_FONT_COLOR.r, GRAY_FONT_COLOR.g, GRAY_FONT_COLOR.b)
     end
 
-    _G["ReputationBar"..i.."ReputationBarHighlight1"]:Show();
-    _G["ReputationBar"..i.."ReputationBarHighlight2"]:Show();
+    _G["ReputationBar"..i.."ReputationBarHighlight1"]:Show()
+    _G["ReputationBar"..i.."ReputationBarHighlight2"]:Show()
   end
 
   if (IsFactionInactive(faction)) then
-    ReputationDetailInactiveCheckBox:SetChecked(true);
+    ReputationDetailInactiveCheckBox:SetChecked(true)
   else
-    ReputationDetailInactiveCheckBox:SetChecked(false);
+    ReputationDetailInactiveCheckBox:SetChecked(false)
   end
 
   if (isWatched) then
-    ReputationDetailMainScreenCheckBox:SetChecked(true);
+    ReputationDetailMainScreenCheckBox:SetChecked(true)
   else
-    ReputationDetailMainScreenCheckBox:SetChecked(false);
+    ReputationDetailMainScreenCheckBox:SetChecked(false)
   end
 end
 
-function REP:Rep_Detail_Frame(faction,colorID,barValue,barMax,origBarValue,standingID,toExalted,factionStandingtext, toBFF, isParagon, isFriend, isCappedFriendship)
-  local name, description, _, _, _, _, atWarWith, canToggleAtWar, _, _, _, isWatched, _, factionID, _, _ = GetFactionInfo(faction);
+function REP:Rep_Detail_Frame(faction,colorID,barValue,barMax,origBarValue,standingID,toExalted,factionStandingtext, toBFF, isParagon, isFriend, isCappedFriendship, isMajorFaction)
+  local name, description, _, _, _, _, atWarWith, canToggleAtWar, _, _, _, isWatched, _, factionID, _, _ = GetFactionInfo(faction)
 
   local friendInfo
   local friendID, friendRep, friendMaxRep, friendName, friendText, friendTextLevel, nextFriendThreshold
 
   if isFriend then
-    friendID, friendRep, friendMaxRep, friendName, friendText, _, friendTextLevel, friendThreshold, nextFriendThreshold = GetFriendshipReputation(factionID)
+    local version, build, date, tocversion = GetBuildInfo()
+
+    -- TODO: Fix the GetBuildInfo()
+    if (expansionIndex > 2 and factionID) then
+      if (tonumber(tocversion) < 100000) then
+        friendID, friendRep, friendMaxRep, friendName, friendText, _, friendTextLevel, friendThreshold, nextFriendThreshold = GetFriendshipReputation(factionID)
+      else
+        local reputationInfo = C_GossipInfo.GetFriendshipReputation(factionID)
+        if reputationInfo and reputationInfo.friendshipFactionID > 0 then
+          friendID = reputationInfo.friendshipFactionID
+          friendRep = reputationInfo.standing
+          friendMaxRep = reputationInfo.maxRep
+          friendName = reputationInfo.name
+          friendText = reputationInfo.text
+          friendTextLevel = reputationInfo.reaction
+          friendThreshold = reputationInfo.reactionThreshold
+          nextFriendThreshold = reputationInfo.nextThreshold
+        end
+      end
+    end
   end
 
-  local gender = UnitSex("player");
+  local gender = UnitSex("player")
   REP:BuildUpdateList()
-  REP_ReputationDetailFactionName:SetText(name);
-  REP_ReputationDetailFactionDescription:SetText(description);
+  REP_ReputationDetailFactionName:SetText(name)
+  REP_ReputationDetailFactionDescription:SetText(description)
 
   if isParagon then
-    colorID = 9;
-    REP_ReputationDetailStandingName:SetText(tostring(REP_TXT_STAND_LV[9]))
+    colorID = 9
+    REP_ReputationDetailStandingName:SetText(tostring(REP_TXT.STAND_LV[9]))
   elseif isFriend then
-    colorID = 5;
+    colorID = 5
     REP_ReputationDetailStandingName:SetText(friendTextLevel)
   else
     REP_ReputationDetailStandingName:SetText(factionStandingtext)
   end
 
-  local color = FACTION_BAR_COLORS[colorID]
+  local color = REP.FACTION_BAR_COLORS[colorID]
+
+  if isMajorFaction then
+    -- color = BLUE_FONT_COLOR
+  end
+
+
   REP_ReputationDetailStandingName:SetTextColor(color.r, color.g, color.b)
 
   REP_ReputationDetailStandingCurrent:SetText(REP_TXT.currentRep)
@@ -3680,7 +3431,7 @@ function REP:Rep_Detail_Frame(faction,colorID,barValue,barMax,origBarValue,stand
 
   REP_ReputationDetailStandingCurrentValue:SetText(barValue)
   REP_ReputationDetailStandingNeededValue:SetText(barMax)
-  REP_ReputationDetailStandingMissingValue:SetText(barMax-barValue)
+  REP_ReputationDetailStandingMissingValue:SetText(barMax - barValue)
   REP_ReputationDetailStandingBagValue:SetText(REP_CurrentRepInBag)
   REP_ReputationDetailStandingBagBankValue:SetText(REP_CurrentRepInBagBank)
   REP_ReputationDetailStandingQuestsValue:SetText(REP_CurrentRepInQuest)
@@ -3693,7 +3444,7 @@ function REP:Rep_Detail_Frame(faction,colorID,barValue,barMax,origBarValue,stand
 
   if isFriend then
     if isCappedFriendship ~= true then
-      color = FACTION_BAR_COLORS[8]
+      color = REP.FACTION_BAR_COLORS[8]
       REP_ReputationDetailStandingNextValue:SetText("(--> "..REP_GetFriendFactionStandingLabel(factionID, nextFriendThreshold)..")")
       REP_ReputationDetailStandingNextValue:SetTextColor(color.r, color.g, color.b)
     else
@@ -3701,7 +3452,7 @@ function REP:Rep_Detail_Frame(faction,colorID,barValue,barMax,origBarValue,stand
     end
   else
     if (standingID < 8) then
-      color = FACTION_BAR_COLORS[standingID + 1]
+      color = REP.FACTION_BAR_COLORS[standingID + 1]
       --REP_ReputationDetailStandingNext:SetText(REP_TXT.nextLevel)
       REP_ReputationDetailStandingNextValue:SetText("(--> "..GetText("FACTION_STANDING_LABEL"..standingID + 1, gender)..")")
       REP_ReputationDetailStandingNextValue:SetTextColor(color.r, color.g, color.b)
@@ -3732,65 +3483,87 @@ function REP:Rep_Detail_Frame(faction,colorID,barValue,barMax,origBarValue,stand
   end
 
   if (atWarWith) then
-    REP_ReputationDetailAtWarCheckBox:SetChecked(true);
+    REP_ReputationDetailAtWarCheckBox:SetChecked(true)
   else
-    REP_ReputationDetailAtWarCheckBox:SetChecked(false);
+    REP_ReputationDetailAtWarCheckBox:SetChecked(false)
   end
 
   if (canToggleAtWar) then
-    REP_ReputationDetailAtWarCheckBox:Enable();
-    REP_ReputationDetailAtWarCheckBoxText:SetTextColor(RED_FONT_COLOR.r, RED_FONT_COLOR.g, RED_FONT_COLOR.b);
+    REP_ReputationDetailAtWarCheckBox:Enable()
+    REP_ReputationDetailAtWarCheckBoxText:SetTextColor(RED_FONT_COLOR.r, RED_FONT_COLOR.g, RED_FONT_COLOR.b)
   else
-    REP_ReputationDetailAtWarCheckBox:Disable();
-    REP_ReputationDetailAtWarCheckBoxText:SetTextColor(GRAY_FONT_COLOR.r, GRAY_FONT_COLOR.g, GRAY_FONT_COLOR.b);
+    REP_ReputationDetailAtWarCheckBox:Disable()
+    REP_ReputationDetailAtWarCheckBoxText:SetTextColor(GRAY_FONT_COLOR.r, GRAY_FONT_COLOR.g, GRAY_FONT_COLOR.b)
   end
 
   if (IsFactionInactive(faction)) then
-    REP_ReputationDetailInactiveCheckBox:SetChecked(true);
+    REP_ReputationDetailInactiveCheckBox:SetChecked(true)
   else
-    REP_ReputationDetailInactiveCheckBox:SetChecked(false);
+    REP_ReputationDetailInactiveCheckBox:SetChecked(false)
   end
 
   if (isWatched) then
-    REP_ReputationDetailMainScreenCheckBox:SetChecked(true);
+    REP_ReputationDetailMainScreenCheckBox:SetChecked(true)
   else
-    REP_ReputationDetailMainScreenCheckBox:SetChecked(false);
+    REP_ReputationDetailMainScreenCheckBox:SetChecked(false)
   end
 end
 
 function REP_Friend_Detail(factionID, standingID, factionRow)
-  local expansionIndex = REP_Data.Global.ExpansionIndex;
+  local expansionIndex = REP_Data.Global.ExpansionIndex
   if expansionIndex > 2 then
-    local colorIndex, factionStandingtext, isCappedFriendship;
-    local friendID, friendRep, friendMaxRep, friendName, friendText, friendTexture, friendTextLevel, friendThreshold, nextFriendThreshold = GetFriendshipReputation(factionID);
+    local colorIndex, factionStandingtext, isCappedFriendship
+    local friendID, friendRep, friendMaxRep, friendName, friendText, friendTexture, friendTextLevel, friendThreshold, nextFriendThreshold = GetFriendshipReputation(factionID)
+
+    local version, build, date, tocversion = GetBuildInfo()
+
+    -- TODO: Fix the GetBuildInfo()
+    if (expansionIndex > 2 and factionID) then
+      if (tonumber(tocversion) < 100000) then
+        friendID, friendRep, friendMaxRep, friendName, friendText, friendTexture, friendTextLevel, friendThreshold, nextFriendThreshold = GetFriendshipReputation(factionID)
+      else
+        local reputationInfo = C_GossipInfo.GetFriendshipReputation(factionID)
+        if reputationInfo and reputationInfo.friendshipFactionID > 0 then
+          friendID = reputationInfo.friendshipFactionID
+          friendRep = reputationInfo.standing
+          friendMaxRep = reputationInfo.maxRep
+          friendName = reputationInfo.name
+          friendText = reputationInfo.text
+          friendTexture = reputationInfo.texture
+          friendTextLevel = reputationInfo.reaction
+          friendThreshold = reputationInfo.reactionThreshold
+          nextFriendThreshold = reputationInfo.nextThreshold
+        end
+      end
+    end
 
     if (friendID ~= nil) then
       if (nextFriendThreshold) then
-        barMin, barMax, barValue = friendThreshold, nextFriendThreshold, friendRep;
+        barMin, barMax, barValue = friendThreshold, nextFriendThreshold, friendRep
       else	-- max rank, make it look like a full bar
-        barMin, barMax, barValue = 0, 1, 1;
-        isCappedFriendship = true;
+        barMin, barMax, barValue = 0, 1, 1
+        isCappedFriendship = true
       end
 
-      colorIndex = 5;	-- always color friendships green
-      factionStandingtext = friendTextLevel;
+      colorIndex = 5	-- always color friendships green
+      factionStandingtext = friendTextLevel
       if factionRow then factionRow.friendshipID = friendID end
-      isFriend = true;
+      isFriend = true
 
       return colorIndex, isCappedFriendship, factionStandingtext, isFriend
     else
-      factionStandingtext = GetText("FACTION_STANDING_LABEL"..standingID, gender);
+      factionStandingtext = GetText("FACTION_STANDING_LABEL"..standingID, gender)
       if factionRow then factionRow.friendshipID = nil end
-      colorIndex = standingID;
-      isFriend = false;
+      colorIndex = standingID
+      isFriend = false
 
       return colorIndex, isCappedFriendship, factionStandingtext, isFriend
     end
   else
-    factionStandingtext = GetText("FACTION_STANDING_LABEL"..standingID, gender);
+    factionStandingtext = GetText("FACTION_STANDING_LABEL"..standingID, gender)
     if factionRow then factionRow.friendshipID = nil end
-    colorIndex = standingID;
-    isFriend = false;
+    colorIndex = standingID
+    isFriend = false
 
     return colorIndex, isCappedFriendship, factionStandingtext, isFriend
   end
@@ -3800,22 +3573,22 @@ end
 -- _16_ Listing by standing
 -----------------------------------
 function REP:ListByStanding(standing)
-  local numFactions = GetNumFactions();
-  local name, description, standingID, barMin, barMax, barValue, atWarWith, canToggleAtWar, isHeader, hasRep, isCollapsed, isWatched;
+  local numFactions = GetNumFactions()
+  local name, description, standingID, barMin, barMax, barValue, atWarWith, canToggleAtWar, isHeader, hasRep, isCollapsed, isWatched
   local list = {}
 
   -- get factions by standing
   for i = 1, numFactions do
     name, description, standingID, barMin, barMax, barValue, _, _, isHeader, _, hasRep = GetFactionInfo(i)
     if (not isHeader or hasRep) then
-      if ((standing == nil) or (standing==standingID)) then
+      if ((standing == nil) or (standing == standingID)) then
         if (not list[standingID]) then
           list[standingID] = {}
         end
 
         list[standingID][name]={}
-        list[standingID][name].max = barMax-barMin
-        list[standingID][name].value = barValue-barMin
+        list[standingID][name].max = barMax - barMin
+        list[standingID][name].value = barValue - barMin
       end
     end
   end
@@ -3823,11 +3596,10 @@ function REP:ListByStanding(standing)
   -- output
   for i = 1, 8 do
     if (list[i]) then
-      REP:Print(REP_Help_COLOUR..REP_NAME..":|r "..REP:RGBToColour_perc(1, FACTION_BAR_COLORS[i].r, FACTION_BAR_COLORS[i].g, FACTION_BAR_COLORS[i].b).."--- "..REP_TXT_STAND_LV[i].." ("..i..") ---|r")
+      REP:Print(REP.HELP_COLOUR..addonName..":|r "..REP:RGBToColour_perc(1, REP.FACTION_BAR_COLORS[i].r, REP.FACTION_BAR_COLORS[i].g, REP.FACTION_BAR_COLORS[i].b).."--- "..REP_TXT_STAND_LV[i].." ("..i..") ---|r")
 
       for p in pairs(list[i]) do
-        --REP:Print("    "..p..": "..list[i][p].value.."/"..list[i][p].max.." ("..REP_TXT.missing2..": "..list[i][p].max-list[i][p].value..")")
-        REP:Print("    "..p..": "..REP_TXT.missing2..": "..list[i][p].max-list[i][p].value)
+        REP:Print("    "..p..": "..REP_TXT.missing2..": "..list[i][p].max - list[i][p].value)
       end
 
       if (not standing) then
@@ -3841,91 +3613,75 @@ end
 -- _17_ extracting Skill information
 ------------------------
 function REP:ExtractSkills()
-  REP_Herb = false
-  REP_Skin = false
-  REP_Mine = false
-  REP_Alche = false
-  REP_Black = false
-  REP_Enchan = false
-  REP_Engin = false
-  REP_Jewel = false
-  REP_Incrip = false
-  REP_Leath = false
-  REP_Tailor = false
-  REP_Aid = false
-  REP_Arch = false
-  REP_Cook = false
-  REP_Fish = false
-
-  local expansionIndex = REP_Data.Global.ExpansionIndex;
+  local expansionIndex = REP_Data.Global.ExpansionIndex
 
   if (expansionIndex > 2) then
     local professions = {}
     local name, skillLine
-    local prof1, prof2, archaeology, fishing, cooking, firstaid = GetProfessions();
+    local prof1, prof2, archaeology, fishing, cooking, firstaid = GetProfessions()
 
     if (prof1) then
-      name, _, _, _, _, _, skillLine = GetProfessionInfo(prof1);
+      name, _, _, _, _, _, skillLine = GetProfessionInfo(prof1)
       if name then professions[1] = name end
     end
 
     if (prof2) then
-      name, _, _, _, _, _, skillLine = GetProfessionInfo(prof2);
+      name, _, _, _, _, _, skillLine = GetProfessionInfo(prof2)
       if name then professions[2] = name end
     end
 
     if (archaeology) then
-      name, _, _, _, _, _, skillLine = GetProfessionInfo(archaeology);
+      name, _, _, _, _, _, skillLine = GetProfessionInfo(archaeology)
       if name then professions[3] = name end
     end
 
     if (fishing) then
-      name, _, _, _, _, _, skillLine = GetProfessionInfo(fishing);
+      name, _, _, _, _, _, skillLine = GetProfessionInfo(fishing)
       if name then professions[4] = name end
     end
 
     if (cooking) then
-      name, _, _, _, _, _, skillLine = GetProfessionInfo(cooking);
+      name, _, _, _, _, _, skillLine = GetProfessionInfo(cooking)
       if name then professions[5] = name end
     end
 
     if (firstaid) then
-      name, _, _, _, _, _, skillLine = GetProfessionInfo(firstaid);
+      name, _, _, _, _, _, skillLine = GetProfessionInfo(firstaid)
       if name then professions[6] = name end
     end
 
     for skillIndex in pairs(professions) do
-      skillName = professions[skillIndex] --- ggg zzz
+      skillName = professions[skillIndex]
       if (skillName == REP_TXT.skillHerb) then
-        REP_Herb = true
+        REP.Herb = true
       elseif (skillName == REP_TXT.skillSkin) then
-        REP_Skin = true
+        REP.Skin = true
       elseif (skillName == REP_TXT.skillMine) then
-        REP_Mine = true
+        REP.Mine = true
       elseif (skillName == REP_TXT.skillAlch) then
-        REP_Alche = true
+        REP.Alche = true
       elseif (skillName == REP_TXT.skillBlack) then
-        REP_Black = true
+        REP.Black = true
       elseif (skillName == REP_TXT.skillEnch) then
-        REP_Enchan = true
+        REP.Enchan = true
       elseif (skillName == REP_TXT.skillEngi) then
-        REP_Engin = true
+        REP.Engin = true
       elseif (skillName == REP_TXT.skillIncrip) then
-        REP_Incrip = true
+        REP.Incrip = true
       elseif (skillName == REP_TXT.skillJewel) then
-        REP_Jewel = true
+        REP.Jewel = true
       elseif (skillName == REP_TXT.skillLeath) then
-        REP_Leath = true
+        REP.Leath = true
       elseif (skillName == REP_TXT.skillTail) then
-        REP_Tailor = true
+        REP.Tailor = true
       elseif (skillName == REP_TXT.skillAid) then
-        REP_Aid = true
+        REP.Aid = true
       elseif (skillName == REP_TXT.skillArch) then
-        REP_Arch = true
+        REP.Arch = true
       elseif (skillName == REP_TXT.skillCook) then
-        REP_Cook = true
+        REP.Cook = true
       elseif (skillName == REP_TXT.skillFish) then
-        REP_Fish = true
+        REP.Fish = true
       end
     end
   else
@@ -3933,78 +3689,61 @@ function REP:ExtractSkills()
       local skillName = GetSkillLineInfo(i)
 
       if (skillName == REP_TXT.skillAlch) then
-        REP_Alche = true
+        REP.Alche = true
       end
 
       if (skillName == REP_TXT.skillBlack) then
-        REP_Black = true
+        REP.Black = true
       end
 
       if (skillName == REP_TXT.skillEnch) then
-        REP_Enchan = true
+        REP.Enchan = true
       end
 
       if (skillName == REP_TXT.skillEngi) then
-        REP_Engin = true
+        REP.Engin = true
       end
 
       if (skillName == REP_TXT.skillHerb) then
-        REP_Herb = true
+        REP.Herb = true
       end
 
       if (skillName == REP_TXT.skillLeath) then
-        REP_Leath = true
+        REP.Leath = true
       end
 
       if (skillName == REP_TXT.skillMine) then
-        REP_Mine = true
+        REP.Mine = true
       end
 
       if (skillName == REP_TXT.skillSkin) then
-        REP_Skin = true
+        REP.Skin = true
       end
 
       if (skillName == REP_TXT.skillTail) then
-        REP_Tailor = true
+        REP.Tailor = true
       end
 
       if (skillName == REP_TXT.skillCook) then
-        REP_Cook = true
+        REP.Cook = true
       end
 
       if (skillName == REP_TXT.skillAid) then
-        REP_Aid = true
+        REP.Aid = true
       end
 
       if (skillName == REP_TXT.skillFish) then
-        REP_Fish = true
+        REP.Fish = true
       end
     end
   end
-
-  --REP:Printtest(prof1, prof2, archaeology)
-  --REP:Printtest(fishing, cooking, firstaid)
-  --REP:Printtest("skillHerb",REP_TXT.skillHerb,REP_Herb)
-  --REP:Printtest("skillHerb",REP_TXT.skillMine,REP_Mine)
-  --REP:Printtest("skillHerb",REP_TXT.skillSkin,REP_Skin)
-  --REP:Printtest("skillHerb",REP_TXT.skillAlch,REP_Alche)
-  --REP:Printtest("skillHerb",REP_TXT.skillBlack,REP_Black)
-  --REP:Printtest("skillHerb",REP_TXT.skillEnch,REP_Enchan)
-  --REP:Printtest("skillHerb",REP_TXT.skillEngi,REP_Engin)
-  --REP:Printtest("skillHerb",REP_TXT.skillIncrip,REP_Incrip)
-  --REP:Printtest("skillHerb",REP_TXT.skillJewel,REP_Jewel)
-  --REP:Printtest("skillHerb",REP_TXT.skillLeath,REP_Leath)
-  --REP:Printtest("skillHerb",REP_TXT.skillAid,REP_Aid)
-  --REP:Printtest("skillHerb",REP_TXT.skillArch,REP_Arch)
-  --REP:Printtest("skillHerb",REP_TXT.skillCook,REP_Cook)
-  --REP:Printtest("skillHerb",REP_TXT.skillFish,REP_Fish)
 end
 
 --------------------------
 -- _18_ classic options
 --------------------------
 function REP_OnShowOptionFrame()
-  local expansionIndex = REP_Data.Global.ExpansionIndex;
+  local expansionIndex = REP_Data.Global.ExpansionIndex
 
   REP_EnableMissingBox:SetChecked(REP_Data.Global.ShowMissing)
   REP_ExtendDetailsBox:SetChecked(REP_Data.Global.ExtendDetails)
@@ -4025,16 +3764,15 @@ end
 -- _19_ interface options
 --------------------------
 function REP_OnLoadOptions(panel)
-  local expansionIndex = REP_Data.Global.ExpansionIndex;
+  local expansionIndex = REP_Data.Global.ExpansionIndex
+  if (not expansionIndex) then expansionIndex = GetExpansionLevel() end
 
-  if (not expansionIndex) then expansionIndex = GetExpansionLevel(); end
-
-  panel.name = REP_NAME
+  panel.name = addonName
   panel.okay = REP_OptionsOk
   panel.cancel = REP_OptionsCancel
   panel.default = REP_OptionsDefault
 
-  InterfaceOptions_AddCategory(panel);
+  InterfaceOptions_AddCategory(panel)
 
   REP_OptionEnableMissingCBText:SetText(REP_TXT.showMissing)
   REP_OptionExtendDetailsCBText:SetText(REP_TXT.extendDetails)
@@ -4053,7 +3791,8 @@ end
 ------------------------------------------------------------
 function REP_OnShowOptions(self)
   if (REP_Data and REP_VarsLoaded) then
-    local expansionIndex = REP_Data.Global.ExpansionIndex;
+    local expansionIndex = REP_Data.Global.ExpansionIndex
+    if (not expansionIndex) then expansionIndex = GetExpansionLevel() end
 
     REP_OptionsShown = true
     REP_OptionEnableMissingCB:SetChecked(REP_Data.Global.ShowMissing)
@@ -4074,7 +3813,8 @@ end
 ------------------------------------------------------------
 function REP_OptionsOk()
   if (REP_OptionsShown) then
-    local expansionIndex = REP_Data.Global.ExpansionIndex;
+    local expansionIndex = REP_Data.Global.ExpansionIndex
+    if (not expansionIndex) then expansionIndex = GetExpansionLevel() end
 
     REP_Data.Global.ShowMissing = REP_OptionEnableMissingCB:GetChecked()
     REP_Data.Global.ExtendDetails = REP_OptionExtendDetailsCB:GetChecked()
@@ -4107,19 +3847,36 @@ function REP_OptionsDefault()
 end
 
 function REP_GetFriendFactionRemaining(factionID, factionStandingtext, barMax, barValue)
-  local _, friendRep, friendMaxRep, _, _, _, _, _, _ = GetFriendshipReputation(factionID);
+  local expansionIndex = REP_Data.Global.ExpansionIndex
+  if not expansionIndex then expansionIndex = GetExpansionLevel() end
+
+  local friendRep, friendMaxRep
   local bodyguards = {1738, 1740, 1733, 1741, 1737, 1736, 1739}
+
+  local version, build, date, tocversion = GetBuildInfo()
+  -- TODO: Fix the GetBuildInfo()
+  if (expansionIndex > 2 and factionID) then
+    if (tonumber(tocversion) < 100000) then
+      _, friendRep, friendMaxRep, _, _, _, _, _, _ = GetFriendshipReputation(factionID)
+    else
+      local reputationInfo = C_GossipInfo.GetFriendshipReputation(factionID)
+      if reputationInfo and reputationInfo.friendshipFactionID > 0 then
+        friendRep = reputationInfo.standing
+        friendMaxRep = reputationInfo.maxRep
+      end
+    end
+  end
 
   -- WoD bodyguards are capped at 20k reputation but GetFriendshipReputation still returns 42k reputation as maximum so we need to check for that and set max to 20k
   if tContains(bodyguards, factionID) then
     friendMaxRep = 20000
   end
 
-  return friendMaxRep - friendRep;
+  return friendMaxRep - friendRep
 end
 
 function REP_GetFriendFactionStandingLabel(factionID, nextFriendThreshold)
-  local REP_BFFLabels = REP.BFFLabels;
+  local REP_BFFLabels = REP.BFFLabels
 
   if REP_BFFLabels[factionID] ~= nil then
     return REP_BFFLabels[factionID][nextFriendThreshold]
@@ -4140,84 +3897,84 @@ function REP:SortByStandingWithoutFactionHeader(i, expansionIndex, factionIndex,
   local OBS_fi_i = OBS_fi.i
 
   if (OBS_fi.header) then
-    REP_ReputationFrame_SetRowType(factionRow, isChild, OBS_fi.header, hasRep, expansionIndex);
+    REP_ReputationFrame_SetRowType(factionRow, isChild, OBS_fi.header, hasRep, expansionIndex)
 
     -- display the standingID as Header
     if (OBS_fi_i == 9) then
-      factionTitle:SetText("Paragon".." ("..tostring(OBS_fi.size)..")");
+      factionTitle:SetText("Paragon".." ("..tostring(OBS_fi.size)..")")
     elseif (OBS_fi_i == 8) then
-      factionTitle:SetText(GetText("FACTION_STANDING_LABEL"..OBS_fi_i, gender).." ("..tostring(OBS_fi.size)..")");
+      factionTitle:SetText(GetText("FACTION_STANDING_LABEL"..OBS_fi_i, gender).." ("..tostring(OBS_fi.size)..")")
     else
-      factionTitle:SetText(GetText("FACTION_STANDING_LABEL"..OBS_fi_i, gender).." -> "..GetText("FACTION_STANDING_LABEL"..OBS_fi_i + 1, gender).." ("..tostring(OBS_fi.size)..")");
+      factionTitle:SetText(GetText("FACTION_STANDING_LABEL"..OBS_fi_i, gender).." -> "..GetText("FACTION_STANDING_LABEL"..OBS_fi_i + 1, gender).." ("..tostring(OBS_fi.size)..")")
     end
 
     if (REP_Collapsed[OBS_fi_i]) then
-      factionButton:SetNormalTexture("Interface\\Buttons\\UI-PlusButton-Up");
+      factionButton:SetNormalTexture("Interface\\Buttons\\UI-PlusButton-Up")
     else
-      factionButton:SetNormalTexture("Interface\\Buttons\\UI-MinusButton-Up");
+      factionButton:SetNormalTexture("Interface\\Buttons\\UI-MinusButton-Up")
     end
 
     factionRow.index = factionIndex
-    factionRow.isCollapsed = REP_Collapsed[OBS_fi_i];
+    factionRow.isCollapsed = REP_Collapsed[OBS_fi_i]
   else
     -- get the info for this Faction
-    local isParagon;
-    local isCapped;
-    local name, description, standingID, barMin, barMax, barValue, atWarWith, canToggleAtWar, isHeader, isCollapsed, hasRep, isWatched, isChild, factionID, hasBonusRepGain = GetFactionInfo(OBS_fi_i);
-    local colorIndex, isCappedFriendship, factionStandingtext = REP_Friend_Detail(factionID, standingID, factionRow);
+    local isParagon
+    local isCapped
+    local name, description, standingID, barMin, barMax, barValue, atWarWith, canToggleAtWar, isHeader, isCollapsed, hasRep, isWatched, isChild, factionID, hasBonusRepGain = GetFactionInfo(OBS_fi_i)
+    local colorIndex, isCappedFriendship, factionStandingtext = REP_Friend_Detail(factionID, standingID, factionRow)
     -- Normalize Values
     local origBarValue = barValue
 
     if (standingID == MAX_REPUTATION_REACTION) then
-      isCapped = true;
+      isCapped = true
     end
 
     if(expansionIndex > 2 and (isCappedFriendship or standingID == 8)) then
       -- If exalted show a full green bar
-      barMin, barMax, barValue = 0, 1, 1;
+      barMin, barMax, barValue = 0, 1, 1
     end
 
-    barMax = barMax - barMin;
-    barValue = barValue - barMin;
-    barMin = 0;
+    barMax = barMax - barMin
+    barValue = barValue - barMin
+    barMin = 0
 
     if (factionID and C_Reputation.IsFactionParagon(factionID)) then
       isParagon = true
 
-      local paragonFrame = ReputationFrame.paragonFramesPool:Acquire();
-      local currentValue, threshold, rewardQuestID, hasRewardPending = C_Reputation.GetFactionParagonInfo(factionID);
+      local paragonFrame = ReputationFrame.paragonFramesPool:Acquire()
+      local currentValue, threshold, rewardQuestID, hasRewardPending = C_Reputation.GetFactionParagonInfo(factionID)
 
-      origBarValue = mod(currentValue, threshold);
-      C_Reputation.RequestFactionParagonPreloadRewardData(factionID);
+      origBarValue = mod(currentValue, threshold)
+      C_Reputation.RequestFactionParagonPreloadRewardData(factionID)
 
-      paragonFrame.factionID = factionID;
-      paragonFrame:SetPoint("RIGHT", factionRow, 11, 0);
-      paragonFrame.Glow:SetShown(hasRewardPending);
-      paragonFrame.Check:SetShown(hasRewardPending);
-      paragonFrame:Show();
+      paragonFrame.factionID = factionID
+      paragonFrame:SetPoint("RIGHT", factionRow, 11, 0)
+      paragonFrame.Glow:SetShown(hasRewardPending)
+      paragonFrame.Check:SetShown(hasRewardPending)
+      paragonFrame:Show()
 
-      colorIndex = 9;
+      colorIndex = 9
 
       -- Set reputation bar to paragon values if user option is activated and faction is at paragon rep
       if REP_Data.Global.ShowParagonBar then
-        local currentValue, threshold, rewardQuestID, hasRewardPending = C_Reputation.GetFactionParagonInfo(factionID);
-        barMin, barMax, barValue = 0, threshold, mod(currentValue, threshold);
+        local currentValue, threshold, rewardQuestID, hasRewardPending = C_Reputation.GetFactionParagonInfo(factionID)
+        barMin, barMax, barValue = 0, threshold, mod(currentValue, threshold)
       end
     end
 
     if(factionID and C_Reputation.IsFactionParagon(factionID) and REP_Data.Global.ShowParagonBar and REP_Data.Global.ShowMissing ~= true) then
-      factionRow.rolloverText = HIGHLIGHT_FONT_COLOR_CODE.." "..format(REPUTATION_PROGRESS_FORMAT, barValue, barMax)..FONT_COLOR_CODE_CLOSE;
+      factionRow.rolloverText = HIGHLIGHT_FONT_COLOR_CODE.." "..format(REPUTATION_PROGRESS_FORMAT, barValue, barMax)..FONT_COLOR_CODE_CLOSE
     elseif(isCapped or isCappedFriendship) then
-      factionRow.rolloverText = nil;
+      factionRow.rolloverText = nil
     elseif(REP_Data.Global.ShowMissing ~= true) then
-      factionRow.rolloverText = HIGHLIGHT_FONT_COLOR_CODE.." "..format(tostring(REPUTATION_PROGRESS_FORMAT), barValue, barMax)..FONT_COLOR_CODE_CLOSE;
+      factionRow.rolloverText = HIGHLIGHT_FONT_COLOR_CODE.." "..format(tostring(REPUTATION_PROGRESS_FORMAT), barValue, barMax)..FONT_COLOR_CODE_CLOSE
     else
-      factionRow.rolloverText = nil;
+      factionRow.rolloverText = nil
     end
 
     local toExalted = 0
     if (standingID < 8) then
-      toExalted = REP_ToExalted[standingID] + barMax - barValue;
+      toExalted = REP.ToExalted[standingID] + barMax - barValue
     end
 
     local toBFF = 0
@@ -4225,51 +3982,51 @@ function REP:SortByStandingWithoutFactionHeader(i, expansionIndex, factionIndex,
       toBFF = REP_GetFriendFactionRemaining(factionID, factionStandingtext, barMax, barValue)
     end
 
-    factionRow.index = OBS_fi_i;
+    factionRow.index = OBS_fi_i
 
     if (REP_Data.Global.ShowMissing) then
       if ((barMax - barValue) ~= 0 and factionID and C_Reputation.IsFactionParagon(factionID) and REP_Data.Global.ShowParagonBar) then
-        factionRow.standingText = tostring(REP_TXT_STAND_LV[9]).." ("..barMax - barValue..")";
+        factionRow.standingText = tostring(REP_TXT_STAND_LV[9]).." ("..barMax - barValue..")"
       elseif ((barMax - barValue) ~= 0) then
         if(factionStandingtext) then
-          factionRow.standingText = factionStandingtext.." ("..barMax - barValue..")";
+          factionRow.standingText = factionStandingtext.." ("..barMax - barValue..")"
         else
-          factionRow.standingText = "("..barMax - barValue..")";
+          factionRow.standingText = "("..barMax - barValue..")"
         end
       else
-        factionRow.standingText = factionStandingtext;
+        factionRow.standingText = factionStandingtext
       end
     else
       if(factionID and C_Reputation.IsFactionParagon(factionID) and REP_Data.Global.ShowParagonBar) then
-        factionRow.standingText = tostring(REP_TXT_STAND_LV[9]);
+        factionRow.standingText = tostring(REP_TXT_STAND_LV[9])
       else
-        factionRow.standingText = factionStandingtext;
+        factionRow.standingText = factionStandingtext
       end
     end
 
-    factionTitle:SetText(name);
-    factionStanding:SetText(factionRow.standingText);
+    factionTitle:SetText(name)
+    factionStanding:SetText(factionRow.standingText)
 
     if (isCappedFriendship) then
-      factionRow.tooltip = nil;
+      factionRow.tooltip = nil
     else
-      factionRow.tooltip = HIGHLIGHT_FONT_COLOR_CODE.." "..barValue.." / "..barMax..FONT_COLOR_CODE_CLOSE;
+      factionRow.tooltip = HIGHLIGHT_FONT_COLOR_CODE.." "..barValue.." / "..barMax..FONT_COLOR_CODE_CLOSE
     end
 
-    factionBar:SetMinMaxValues(0, barMax);
-    factionBar:SetValue(barValue);
+    factionBar:SetMinMaxValues(0, barMax)
+    factionBar:SetValue(barValue)
 
-    local color;
+    local color
     if colorIndex then
-      color = FACTION_BAR_COLORS[colorIndex];
+      color = REP.FACTION_BAR_COLORS[colorIndex]
     else
-      color = FACTION_BAR_COLORS[standingID];
+      color = REP.FACTION_BAR_COLORS[standingID]
     end
 
-    factionBar:SetStatusBarColor(color.r, color.g, color.b);
+    factionBar:SetStatusBarColor(color.r, color.g, color.b)
 
     if(expansionIndex > 2) then
-      factionBar.BonusIcon:SetShown(hasBonusRepGain);
+      factionBar.BonusIcon:SetShown(hasBonusRepGain)
     end
 
     local previewValue = 0
@@ -4293,21 +4050,21 @@ function REP:SortByStandingWithoutFactionHeader(i, expansionIndex, factionIndex,
       end
     end
 
-    REP_ReputationFrame_SetRowType(factionRow, isChild, OBS_fi.header, hasRep, expansionIndex);
-    factionRow:Show();
+    REP_ReputationFrame_SetRowType(factionRow, isChild, OBS_fi.header, hasRep, expansionIndex)
+    factionRow:Show()
 
     -- Update details if this is the selected Faction
     if (atWarWith) then
-      _G["ReputationBar"..i.."ReputationBarAtWarHighlight1"]:Show();
-      _G["ReputationBar"..i.."ReputationBarAtWarHighlight2"]:Show();
+      _G["ReputationBar"..i.."ReputationBarAtWarHighlight1"]:Show()
+      _G["ReputationBar"..i.."ReputationBarAtWarHighlight2"]:Show()
       if factionAtWarIndicator then
-        factionAtWarIndicator:Show();
+        factionAtWarIndicator:Show()
       end
     else
-      _G["ReputationBar"..i.."ReputationBarAtWarHighlight1"]:Hide();
-      _G["ReputationBar"..i.."ReputationBarAtWarHighlight2"]:Hide();
+      _G["ReputationBar"..i.."ReputationBarAtWarHighlight1"]:Hide()
+      _G["ReputationBar"..i.."ReputationBarAtWarHighlight2"]:Hide()
       if factionAtWarIndicator then
-        factionAtWarIndicator:Hide();
+        factionAtWarIndicator:Hide()
       end
     end
 
@@ -4321,12 +4078,12 @@ function REP:SortByStandingWithoutFactionHeader(i, expansionIndex, factionIndex,
       if (REP_ReputationDetailFrame:IsVisible()) then
         REP:Rep_Detail_Frame(OBS_fi_i, standingID, barValue, barMax, origBarValue, standingID, toExalted, factionStandingtext, toBFF, isParagon, isFriend, isCappedFriendship)
 
-        _G["ReputationBar"..i.."ReputationBarHighlight1"]:Show();
-        _G["ReputationBar"..i.."ReputationBarHighlight2"]:Show();
+        _G["ReputationBar"..i.."ReputationBarHighlight1"]:Show()
+        _G["ReputationBar"..i.."ReputationBarHighlight2"]:Show()
       end
     else
-      _G["ReputationBar"..i.."ReputationBarHighlight1"]:Hide();
-      _G["ReputationBar"..i.."ReputationBarHighlight2"]:Hide();
+      _G["ReputationBar"..i.."ReputationBarHighlight1"]:Hide()
+      _G["ReputationBar"..i.."ReputationBarHighlight2"]:Hide()
     end
   end
 end
@@ -4334,34 +4091,34 @@ end
 ----------------------------------------------
 -- SetFactionInactive
 ----------------------------------------------
-function REP:CustomSetFactionInactive(factionIndex)
-  local name, _, _, _, _, _, _, _, isHeader, _, _, _, _, factionID = GetFactionInfo(factionIndex);
+function REP_CustomSetFactionInactive(factionIndex)
+  local name, _, _, _, _, _, _, _, isHeader, _, _, _, _, factionID = GetFactionInfo(factionIndex)
 
   if (name) then
     if REP_Data[REP_ProfileKey].InactiveFactions == nil then REP_Data[REP_ProfileKey].InactiveFactions = {} end
-    REP_Data[REP_ProfileKey].InactiveFactions[factionID] = true;
+    REP_Data[REP_ProfileKey].InactiveFactions[factionID] = true
 
-    SetFactionInactive(factionIndex);
-    REP_ReputationFrame_Update();
+    SetFactionInactive(factionIndex)
+    REP_ReputationFrame_Update()
   else
-    SetFactionInactive(factionIndex);
+    SetFactionInactive(factionIndex)
   end
 end
 
 ----------------------------------------------
 -- SetFactionActive
 ----------------------------------------------
-function REP:CustomSetFactionActive(factionIndex)
-  local name, _, _, _, _, _, _, _, isHeader, _, _, _, _, factionID = GetFactionInfo(factionIndex);
+function REP_CustomSetFactionActive(factionIndex)
+  local name, _, _, _, _, _, _, _, isHeader, _, _, _, _, factionID = GetFactionInfo(factionIndex)
 
   if (name) then
     if REP_Data[REP_ProfileKey].InactiveFactions == nil then REP_Data[REP_ProfileKey].InactiveFactions = {} end
-    REP_Data[REP_ProfileKey].InactiveFactions[factionID] = nil;
+    REP_Data[REP_ProfileKey].InactiveFactions[factionID] = nil
 
-    SetFactionActive(factionIndex);
-    REP_ReputationFrame_Update();
+    SetFactionActive(factionIndex)
+    REP_ReputationFrame_Update()
   else
-    SetFactionActive(factionIndex);
+    SetFactionActive(factionIndex)
   end
 end
 
@@ -4370,77 +4127,77 @@ end
 ----------------------------------------------
 function REP:OriginalRepOrderWithoutFactionHeader(i, expansionIndex, factionIndex, factionRow, factionBar, factionBarPreview, factionTitle, factionButton, factionStanding, factionAtWarIndicator, factionBackground)
   -- get the info for this Faction
-  local name, description, standingID, barMin, barMax, barValue, atWarWith, canToggleAtWar, isHeader, isCollapsed, hasRep, isWatched, isChild, factionID, hasBonusRepGain, canBeLFGBonus = GetFactionInfo(factionIndex);
+  local name, description, standingID, barMin, barMax, barValue, atWarWith, canToggleAtWar, isHeader, isCollapsed, hasRep, isWatched, isChild, factionID, hasBonusRepGain, canBeLFGBonus = GetFactionInfo(factionIndex)
   local isParagon
 
-  factionTitle:SetText(name);
+  factionTitle:SetText(name)
 
   if (isCollapsed) then
-    factionButton:SetNormalTexture("Interface\\Buttons\\UI-PlusButton-Up");
+    factionButton:SetNormalTexture("Interface\\Buttons\\UI-PlusButton-Up")
   else
-    factionButton:SetNormalTexture("Interface\\Buttons\\UI-MinusButton-Up");
+    factionButton:SetNormalTexture("Interface\\Buttons\\UI-MinusButton-Up")
   end
 
-  factionRow.index = factionIndex;
-  factionRow.isCollapsed = isCollapsed;
+  factionRow.index = factionIndex
+  factionRow.isCollapsed = isCollapsed
 
-  local colorIndex, isCappedFriendship, factionStandingtext, isFriend = REP_Friend_Detail(factionID, standingID, factionRow);
+  local colorIndex, isCappedFriendship, factionStandingtext, isFriend = REP_Friend_Detail(factionID, standingID, factionRow)
   local origBarValue = barValue
 
   if expansionIndex > 2 then
     if (factionID and C_Reputation.IsFactionParagon(factionID)) then
       isParagon = true
 
-      local currentValue, threshold, rewardQuestID, hasRewardPending = C_Reputation.GetFactionParagonInfo(factionID);
-      local paragonFrame = ReputationFrame.paragonFramesPool:Acquire();
+      local currentValue, threshold, rewardQuestID, hasRewardPending = C_Reputation.GetFactionParagonInfo(factionID)
+      local paragonFrame = ReputationFrame.paragonFramesPool:Acquire()
 
-      paragonFrame.factionID = factionID;
-      paragonFrame:SetPoint("RIGHT", factionRow, 11, 0);
+      paragonFrame.factionID = factionID
+      paragonFrame:SetPoint("RIGHT", factionRow, 11, 0)
 
-      origBarValue = mod(currentValue, threshold);
-      C_Reputation.RequestFactionParagonPreloadRewardData(factionID);
-      paragonFrame.Glow:SetShown(hasRewardPending);
-      paragonFrame.Check:SetShown(hasRewardPending);
-      paragonFrame:Show();
+      origBarValue = mod(currentValue, threshold)
+      C_Reputation.RequestFactionParagonPreloadRewardData(factionID)
+      paragonFrame.Glow:SetShown(hasRewardPending)
+      paragonFrame.Check:SetShown(hasRewardPending)
+      paragonFrame:Show()
 
-      colorIndex = 9;
+      colorIndex = 9
     end
   end
 
-  local isCapped;
+  local isCapped
   if (standingID == MAX_REPUTATION_REACTION) then
-    isCapped = true;
+    isCapped = true
   end
 
   if(expansionIndex > 2 and (isCappedFriendship or standingID == 8)) then
     -- If exalted show a full green bar
-    barMin, barMax, barValue = 0, 1, 1;
+    barMin, barMax, barValue = 0, 1, 1
   end
 
   -- Set reputation bar to paragon values if user option is activated and faction is at paragon rep
   if(factionID and C_Reputation.IsFactionParagon(factionID) and REP_Data.Global.ShowParagonBar) then
-    local currentValue, threshold, rewardQuestID, hasRewardPending = C_Reputation.GetFactionParagonInfo(factionID);
-    barMin, barMax, barValue = 0, threshold, mod(currentValue, threshold);
+    local currentValue, threshold, rewardQuestID, hasRewardPending = C_Reputation.GetFactionParagonInfo(factionID)
+    barMin, barMax, barValue = 0, threshold, mod(currentValue, threshold)
   end
 
   -- Normalize Values
-  barMax = barMax - barMin;
-  barValue = barValue - barMin;
-  barMin = 0;
+  barMax = barMax - barMin
+  barValue = barValue - barMin
+  barMin = 0
 
   if(factionID and C_Reputation.IsFactionParagon(factionID) and REP_Data.Global.ShowParagonBar and REP_Data.Global.ShowMissing ~= true) then
-    factionRow.rolloverText = HIGHLIGHT_FONT_COLOR_CODE.." "..format(REPUTATION_PROGRESS_FORMAT, barValue, barMax)..FONT_COLOR_CODE_CLOSE;
+    factionRow.rolloverText = HIGHLIGHT_FONT_COLOR_CODE.." "..format(REPUTATION_PROGRESS_FORMAT, barValue, barMax)..FONT_COLOR_CODE_CLOSE
   elseif(isCapped or isCappedFriendship) then
-    factionRow.rolloverText = nil;
+    factionRow.rolloverText = nil
   elseif(REP_Data.Global.ShowMissing ~= true) then
-    factionRow.rolloverText = HIGHLIGHT_FONT_COLOR_CODE.." "..format(tostring(REPUTATION_PROGRESS_FORMAT), barValue, barMax)..FONT_COLOR_CODE_CLOSE;
+    factionRow.rolloverText = HIGHLIGHT_FONT_COLOR_CODE.." "..format(tostring(REPUTATION_PROGRESS_FORMAT), barValue, barMax)..FONT_COLOR_CODE_CLOSE
   else
-    factionRow.rolloverText = nil;
+    factionRow.rolloverText = nil
   end
 
   local toExalted = 0
   if (standingID < 8) then
-    toExalted = REP_ToExalted[standingID] + barMax - barValue;
+    toExalted = REP.ToExalted[standingID] + barMax - barValue
   end
 
   local toBFF = 0
@@ -4450,49 +4207,49 @@ function REP:OriginalRepOrderWithoutFactionHeader(i, expansionIndex, factionInde
 
   if (REP_Data.Global.ShowMissing) then
     if ((barMax - barValue) ~= 0 and factionID and C_Reputation.IsFactionParagon(factionID) and REP_Data.Global.ShowParagonBar) then
-      factionRow.standingText = "Paragon".." ("..barMax - barValue..")";
+      factionRow.standingText = "Paragon".." ("..barMax - barValue..")"
     elseif ((barMax - barValue) ~= 0) then
       if factionStandingtext then
-        factionRow.standingText = factionStandingtext.." ("..barMax - barValue..")";
+        factionRow.standingText = factionStandingtext.." ("..barMax - barValue..")"
       else
-       factionRow.standingText = "("..barMax - barValue..")";
+       factionRow.standingText = "("..barMax - barValue..")"
       end
     else
-      factionRow.standingText = factionStandingtext;
+      factionRow.standingText = factionStandingtext
     end
   else
     if(factionID and C_Reputation.IsFactionParagon(factionID) and REP_Data.Global.ShowParagonBar) then
-      factionRow.standingText = "Paragon";
+      factionRow.standingText = "Paragon"
     else
-      factionRow.standingText = factionStandingtext;
+      factionRow.standingText = factionStandingtext
     end
   end
 
-  factionStanding:SetText(factionRow.standingText);
+  factionStanding:SetText(factionRow.standingText)
 
   if (isCappedFriendship) then
-    factionRow.tooltip = nil;
+    factionRow.tooltip = nil
   else
-    factionRow.tooltip = HIGHLIGHT_FONT_COLOR_CODE.." "..barValue.." / "..barMax..FONT_COLOR_CODE_CLOSE;
+    factionRow.tooltip = HIGHLIGHT_FONT_COLOR_CODE.." "..barValue.." / "..barMax..FONT_COLOR_CODE_CLOSE
   end
 
-  REP_ReputationFrame_SetRowType(factionRow, isChild, isHeader, hasRep, expansionIndex);
-  factionRow:Show();
+  REP_ReputationFrame_SetRowType(factionRow, isChild, isHeader, hasRep, expansionIndex)
+  factionRow:Show()
 
-  factionBar:SetMinMaxValues(0, barMax);
-  factionBar:SetValue(barValue);
+  factionBar:SetMinMaxValues(0, barMax)
+  factionBar:SetValue(barValue)
 
-  local color;
+  local color
   if colorIndex then
-    color = FACTION_BAR_COLORS[colorIndex];
+    color = REP.FACTION_BAR_COLORS[colorIndex]
   else
-    color = FACTION_BAR_COLORS[standingID];
+    color = REP.FACTION_BAR_COLORS[standingID]
   end
 
-  factionBar:SetStatusBarColor(color.r, color.g, color.b);
+  factionBar:SetStatusBarColor(color.r, color.g, color.b)
 
   if(expansionIndex > 2) then
-    factionBar.BonusIcon:SetShown(hasBonusRepGain);
+    factionBar.BonusIcon:SetShown(hasBonusRepGain)
   end
 
   local previewValue = 0
@@ -4516,33 +4273,33 @@ function REP:OriginalRepOrderWithoutFactionHeader(i, expansionIndex, factionInde
 
   -- Update details if this is the selected Faction
   if (atWarWith) then
-    _G["ReputationBar"..i.."ReputationBarAtWarHighlight1"]:Show();
-    _G["ReputationBar"..i.."ReputationBarAtWarHighlight2"]:Show();
+    _G["ReputationBar"..i.."ReputationBarAtWarHighlight1"]:Show()
+    _G["ReputationBar"..i.."ReputationBarAtWarHighlight2"]:Show()
     if factionAtWarIndicator then
-      factionAtWarIndicator:Show();
+      factionAtWarIndicator:Show()
     end
   else
-    _G["ReputationBar"..i.."ReputationBarAtWarHighlight1"]:Hide();
-    _G["ReputationBar"..i.."ReputationBarAtWarHighlight2"]:Hide();
+    _G["ReputationBar"..i.."ReputationBarAtWarHighlight1"]:Hide()
+    _G["ReputationBar"..i.."ReputationBarAtWarHighlight2"]:Hide()
     if factionAtWarIndicator then
-      factionAtWarIndicator:Hide();
+      factionAtWarIndicator:Hide()
     end
   end
 
   if (factionIndex == GetSelectedFaction()) then
     if (ReputationDetailFrame:IsShown()) then
       if (canToggleAtWar and (not isHeader)) then local flag = 1 end
-      REP_ReputationDetailFrame_IsShown(factionIndex,flag,2)
+      REP_ReputationDetailFrame_IsShown(factionIndex, flag, 2)
     end
 
     if (REP_ReputationDetailFrame:IsVisible()) then
       REP:Rep_Detail_Frame(factionIndex, colorIndex, barValue, barMax, origBarValue, standingID, toExalted, factionStandingtext, toBFF, isParagon, isFriend, isCappedFriendship)
-      _G["ReputationBar"..i.."ReputationBarHighlight1"]:Show();
-      _G["ReputationBar"..i.."ReputationBarHighlight2"]:Show();
+      _G["ReputationBar"..i.."ReputationBarHighlight1"]:Show()
+      _G["ReputationBar"..i.."ReputationBarHighlight2"]:Show()
     end
   else
-    _G["ReputationBar"..i.."ReputationBarHighlight1"]:Hide();
-    _G["ReputationBar"..i.."ReputationBarHighlight2"]:Hide();
+    _G["ReputationBar"..i.."ReputationBarHighlight1"]:Hide()
+    _G["ReputationBar"..i.."ReputationBarHighlight2"]:Hide()
   end
 end
 ----------------------------------------------
@@ -4552,7 +4309,7 @@ function REP:SortByStandingWithFactionHeader(i, expansionIndex, factionIndex, fa
   local OBS_fi = REP_Entries[factionIndex]
   local OBS_fi_i = OBS_fi.i
 
-  local name, description, standingID, barMin, barMax, barValue, atWarWith, canToggleAtWar, isHeader, isCollapsed, hasRep, isWatched, isChild, factionID, hasBonusRepGain, canBeLFGBonus = GetFactionInfo(OBS_fi_i);
+  local name, description, standingID, barMin, barMax, barValue, atWarWith, canToggleAtWar, isHeader, isCollapsed, hasRep, isWatched, isChild, factionID, hasBonusRepGain, canBeLFGBonus = GetFactionInfo(OBS_fi_i)
   local origBarValue = barValue
   local toExalted
 
@@ -4560,17 +4317,17 @@ function REP:SortByStandingWithFactionHeader(i, expansionIndex, factionIndex, fa
     if (OBS_fi_i == 8) then
       factionHeader.Text:SetText(GetText("FACTION_STANDING_LABEL"..OBS_fi_i, gender).." ("..tostring(OBS_fi.size)..")")
     else
-      factionHeader.Text:SetText(GetText("FACTION_STANDING_LABEL"..OBS_fi_i, gender).." -> "..GetText("FACTION_STANDING_LABEL"..OBS_fi_i+1, gender).." ("..tostring(OBS_fi.size)..")")
+      factionHeader.Text:SetText(GetText("FACTION_STANDING_LABEL"..OBS_fi_i, gender).." -> "..GetText("FACTION_STANDING_LABEL"..OBS_fi_i + 1, gender).." ("..tostring(OBS_fi.size)..")")
     end
 
     if (REP_Collapsed[OBS_fi_i]) then
-      factionHeader:SetNormalTexture("Interface\\Buttons\\UI-PlusButton-Up");
+      factionHeader:SetNormalTexture("Interface\\Buttons\\UI-PlusButton-Up")
     else
-      factionHeader:SetNormalTexture("Interface\\Buttons\\UI-MinusButton-Up");
+      factionHeader:SetNormalTexture("Interface\\Buttons\\UI-MinusButton-Up")
     end
 
-    factionHeader.index = factionIndex;
-    factionHeader.isCollapsed = REP_Collapsed[OBS_fi_i];
+    factionHeader.index = factionIndex
+    factionHeader.isCollapsed = REP_Collapsed[OBS_fi_i]
 
     factionBar:Hide()
     factionHeader:Show()
@@ -4582,11 +4339,11 @@ function REP:SortByStandingWithFactionHeader(i, expansionIndex, factionIndex, fa
 
     if (atWarWith) then
       if factionAtWarIndicator then
-        factionAtWarIndicator:Show();
+        factionAtWarIndicator:Show()
       end
     else
       if factionAtWarIndicator then
-        factionAtWarIndicator:Hide();
+        factionAtWarIndicator:Hide()
       end
     end
 
@@ -4595,7 +4352,7 @@ function REP:SortByStandingWithFactionHeader(i, expansionIndex, factionIndex, fa
     barMin = 0
 
     if (standingID < 8) then
-      toExalted = REP_ToExalted[standingID] + barMax - barValue
+      toExalted = REP.ToExalted[standingID] + barMax - barValue
     end
 
     factionBar.index = OBS_fi_i
@@ -4603,7 +4360,7 @@ function REP:SortByStandingWithFactionHeader(i, expansionIndex, factionIndex, fa
     factionBar.tooltip  = HIGHLIGHT_FONT_COLOR_CODE.." "..barValue.." / "..barMax..FONT_COLOR_CODE_CLOSE
     factionBar:SetMinMaxValues(0, barMax)
     factionBar:SetValue(barValue)
-    color = FACTION_BAR_COLORS[standingID]
+    color = REP.FACTION_BAR_COLORS[standingID]
     factionBar:SetStatusBarColor(color.r, color.g, color.b)
     factionBar:SetID(factionIndex)
     factionBar:Show()
@@ -4634,34 +4391,34 @@ function REP:SortByStandingWithFactionHeader(i, expansionIndex, factionIndex, fa
 
     if (OBS_fi_i == GetSelectedFaction()) then
       if (ReputationDetailFrame:IsShown()) then
-        ReputationDetailfactionTitle:SetText(name);
-        ReputationDetailFactionDescription:SetText(description);
+        ReputationDetailfactionTitle:SetText(name)
+        ReputationDetailFactionDescription:SetText(description)
 
         if (atWarWith) then
-          ReputationDetailAtWarCheckBox:SetChecked(1);
+          ReputationDetailAtWarCheckBox:SetChecked(1)
         else
-          ReputationDetailAtWarCheckBox:SetChecked(nil);
+          ReputationDetailAtWarCheckBox:SetChecked(nil)
         end
 
         if (canToggleAtWar) then
-          ReputationDetailAtWarCheckBox:Enable();
-          ReputationDetailAtWarCheckBoxText:SetTextColor(RED_FONT_COLOR.r, RED_FONT_COLOR.g, RED_FONT_COLOR.b);
+          ReputationDetailAtWarCheckBox:Enable()
+          ReputationDetailAtWarCheckBoxText:SetTextColor(RED_FONT_COLOR.r, RED_FONT_COLOR.g, RED_FONT_COLOR.b)
           REP_ReputationDetailFrame_IsShown(OBS_fi_i, 1, 1)
         else
-          ReputationDetailAtWarCheckBox:Disable();
-          ReputationDetailAtWarCheckBoxText:SetTextColor(GRAY_FONT_COLOR.r, GRAY_FONT_COLOR.g, GRAY_FONT_COLOR.b);
+          ReputationDetailAtWarCheckBox:Disable()
+          ReputationDetailAtWarCheckBoxText:SetTextColor(GRAY_FONT_COLOR.r, GRAY_FONT_COLOR.g, GRAY_FONT_COLOR.b)
         end
 
         if (IsFactionInactive(factionIndex)) then
-          ReputationDetailInactiveCheckBox:SetChecked(1);
+          ReputationDetailInactiveCheckBox:SetChecked(1)
         else
-          ReputationDetailInactiveCheckBox:SetChecked(nil);
+          ReputationDetailInactiveCheckBox:SetChecked(nil)
         end
 
         if (isWatched) then
-          ReputationDetailMainScreenCheckBox:SetChecked(1);
+          ReputationDetailMainScreenCheckBox:SetChecked(1)
         else
-          ReputationDetailMainScreenCheckBox:SetChecked(nil);
+          ReputationDetailMainScreenCheckBox:SetChecked(nil)
         end
       end
 
@@ -4669,11 +4426,11 @@ function REP:SortByStandingWithFactionHeader(i, expansionIndex, factionIndex, fa
         REP:Rep_Detail_Frame(OBS_fi_i,standingID,barValue,barMax,origBarValue,standingID,toExalted,factionStandingText)
       end
 
-      _G["ReputationBar"..i.."Highlight1"]:Show();
-      _G["ReputationBar"..i.."Highlight2"]:Show();
+      _G["ReputationBar"..i.."Highlight1"]:Show()
+      _G["ReputationBar"..i.."Highlight2"]:Show()
     else
-      _G["ReputationBar"..i.."Highlight1"]:Hide();
-      _G["ReputationBar"..i.."Highlight2"]:Hide();
+      _G["ReputationBar"..i.."Highlight1"]:Hide()
+      _G["ReputationBar"..i.."Highlight2"]:Hide()
     end
   end
 end
@@ -4683,7 +4440,7 @@ end
 ----------------------------------------------
 function REP:OriginalRepOrderWithFactionHeader(i, expansionIndex, factionIndex, factionBar, factionHeader, factionCheck, factionTitle, factionStanding, factionAtWarIndicator, factionRightBarTexture)
   -- get the info for this Faction
-  local name, description, standingID, barMin, barMax, barValue, atWarWith, canToggleAtWar, isHeader, isCollapsed, hasRep, isWatched, isChild, factionID, hasBonusRepGain, canBeLFGBonus = GetFactionInfo(factionIndex);
+  local name, description, standingID, barMin, barMax, barValue, atWarWith, canToggleAtWar, isHeader, isCollapsed, hasRep, isWatched, isChild, factionID, hasBonusRepGain, canBeLFGBonus = GetFactionInfo(factionIndex)
   local origBarValue = barValue
   local toExalted
 
@@ -4691,13 +4448,13 @@ function REP:OriginalRepOrderWithFactionHeader(i, expansionIndex, factionIndex, 
     factionHeader.Text:SetText(name)
 
     if (isCollapsed) then
-      factionHeader:SetNormalTexture("Interface\\Buttons\\UI-PlusButton-Up");
+      factionHeader:SetNormalTexture("Interface\\Buttons\\UI-PlusButton-Up")
     else
-      factionHeader:SetNormalTexture("Interface\\Buttons\\UI-MinusButton-Up");
+      factionHeader:SetNormalTexture("Interface\\Buttons\\UI-MinusButton-Up")
     end
 
-    factionHeader.index = factionIndex;
-    factionHeader.isCollapsed = isCollapsed;
+    factionHeader.index = factionIndex
+    factionHeader.isCollapsed = isCollapsed
 
     factionBar:Hide()
     factionHeader:Show()
@@ -4709,11 +4466,11 @@ function REP:OriginalRepOrderWithFactionHeader(i, expansionIndex, factionIndex, 
 
     if (atWarWith) then
       if factionAtWarIndicator then
-        factionAtWarIndicator:Show();
+        factionAtWarIndicator:Show()
       end
     else
       if factionAtWarIndicator then
-        factionAtWarIndicator:Hide();
+        factionAtWarIndicator:Hide()
       end
     end
 
@@ -4722,7 +4479,7 @@ function REP:OriginalRepOrderWithFactionHeader(i, expansionIndex, factionIndex, 
     barMin = 0
 
     if (standingID < 8) then
-      toExalted = REP_ToExalted[standingID] + barMax - barValue
+      toExalted = REP.ToExalted[standingID] + barMax - barValue
     end
 
     factionBar.index = factionIndex
@@ -4730,7 +4487,7 @@ function REP:OriginalRepOrderWithFactionHeader(i, expansionIndex, factionIndex, 
     factionBar.tooltip  = HIGHLIGHT_FONT_COLOR_CODE.." "..barValue.." / "..barMax..FONT_COLOR_CODE_CLOSE
     factionBar:SetMinMaxValues(0, barMax)
     factionBar:SetValue(barValue)
-    color = FACTION_BAR_COLORS[standingID]
+    color = REP.FACTION_BAR_COLORS[standingID]
     factionBar:SetStatusBarColor(color.r, color.g, color.b)
     factionBar:SetID(factionIndex)
     factionBar:Show()
@@ -4761,46 +4518,107 @@ function REP:OriginalRepOrderWithFactionHeader(i, expansionIndex, factionIndex, 
 
     if (factionIndex == GetSelectedFaction()) then
       if (ReputationDetailFrame:IsShown()) then
-        ReputationDetailFactionName:SetText(name);
-        ReputationDetailFactionDescription:SetText(description);
+        ReputationDetailFactionName:SetText(name)
+        ReputationDetailFactionDescription:SetText(description)
 
         if (atWarWith) then
-          ReputationDetailAtWarCheckBox:SetChecked(1);
+          ReputationDetailAtWarCheckBox:SetChecked(1)
         else
-          ReputationDetailAtWarCheckBox:SetChecked(nil);
+          ReputationDetailAtWarCheckBox:SetChecked(nil)
         end
 
         if (canToggleAtWar) then
-          ReputationDetailAtWarCheckBox:Enable();
-          ReputationDetailAtWarCheckBoxText:SetTextColor(RED_FONT_COLOR.r, RED_FONT_COLOR.g, RED_FONT_COLOR.b);
+          ReputationDetailAtWarCheckBox:Enable()
+          ReputationDetailAtWarCheckBoxText:SetTextColor(RED_FONT_COLOR.r, RED_FONT_COLOR.g, RED_FONT_COLOR.b)
           REP_ReputationDetailFrame_IsShown(factionIndex, 1, 2)
         else
-          ReputationDetailAtWarCheckBox:Disable();
-          ReputationDetailAtWarCheckBoxText:SetTextColor(GRAY_FONT_COLOR.r, GRAY_FONT_COLOR.g, GRAY_FONT_COLOR.b);
+          ReputationDetailAtWarCheckBox:Disable()
+          ReputationDetailAtWarCheckBoxText:SetTextColor(GRAY_FONT_COLOR.r, GRAY_FONT_COLOR.g, GRAY_FONT_COLOR.b)
         end
 
         if (IsFactionInactive(factionIndex)) then
-          ReputationDetailInactiveCheckBox:SetChecked(1);
+          ReputationDetailInactiveCheckBox:SetChecked(1)
         else
-          ReputationDetailInactiveCheckBox:SetChecked(nil);
+          ReputationDetailInactiveCheckBox:SetChecked(nil)
         end
 
         if (isWatched) then
-          ReputationDetailMainScreenCheckBox:SetChecked(1);
+          ReputationDetailMainScreenCheckBox:SetChecked(1)
         else
-          ReputationDetailMainScreenCheckBox:SetChecked(nil);
+          ReputationDetailMainScreenCheckBox:SetChecked(nil)
         end
       end
 
       if (REP_ReputationDetailFrame:IsVisible()) then
-        REP:Rep_Detail_Frame(factionIndex,standingID,barValue,barMax,origBarValue,standingID,toExalted,factionStandingText)
+        REP:Rep_Detail_Frame(factionIndex, standingID, barValue, barMax, origBarValue, standingID, toExalted, factionStandingText)
       end
 
-      _G["ReputationBar"..i.."Highlight1"]:Show();
-      _G["ReputationBar"..i.."Highlight2"]:Show();
+      _G["ReputationBar"..i.."Highlight1"]:Show()
+      _G["ReputationBar"..i.."Highlight2"]:Show()
     else
-      _G["ReputationBar"..i.."Highlight1"]:Hide();
-      _G["ReputationBar"..i.."Highlight2"]:Hide();
+      _G["ReputationBar"..i.."Highlight1"]:Hide()
+      _G["ReputationBar"..i.."Highlight2"]:Hide()
     end
+  end
+end
+
+----------------------------------------------
+-- REP:WatchedFactionDetails
+----------------------------------------------
+function REP:WatchedFactionDetails(watchedFactionID)
+  local name, _, _, _, _ = GetWatchedFactionInfo()
+  local watchedFactionName = name
+  local factionIndex = nil
+  local toExalted, ToBFF = 0, 0
+  local colorID, repValue, repMax, origBarValue, repFactionStandingtext, isRepParagon, isRepFriend, isRepCappedFriendship
+
+  local numFactions = GetNumFactions()
+  for i = 1, numFactions, 1 do
+    local index = i
+    local name, _, standingID, _, barMax, barValue, _, _, _, _, _, _, _, factionID, _, _ = GetFactionInfo(index)
+
+    if (factionID and (name == watchedFactionName or factionID == watchedFactionID)) then
+      if (standingID < 8) then toExalted = REP.ToExalted[standingID] + barMax - barValue end
+
+      local _, isCappedFriendship, factionStandingtext, isFriend = REP_Friend_Detail(factionID, standingID)
+
+      if (isCappedFriendship ~= true and isFriend) then
+        toBFF = REP_GetFriendFactionRemaining(factionID, factionStandingtext, barMax, barValue)
+      end
+
+      factionIndex = index
+      colorID = standingID
+      repValue = barValue
+      repMax = barMax
+      origBarValue = barValue
+      isRepParagon = C_Reputation.IsFactionParagon(factionID)
+      isRepFriend = isFriend
+      isRepCappedFriendship = isCappedFriendship
+      repFactionStandingtext = factionStandingtext
+    end
+  end
+
+  if factionIndex ~= nil then
+    if (REP_OptionsFrame:IsVisible()) then REP_OptionsFrame:Hide() end
+    if (ReputationDetailFrame:IsVisible()) then ReputationDetailFrame:Hide() end
+
+    if (not CharacterFrame:IsVisible()) then
+      CharacterFrame:Show()
+      tinsert(UISpecialFrames, "CharacterFrame")
+
+      if (not ReputationFrame:IsVisible()) then ToggleCharacter('ReputationFrame') end
+    end
+
+    if (not REP_ReputationDetailFrame:IsVisible()) then REP_ReputationDetailFrame:Show() end
+
+    SetSelectedFaction(factionIndex)
+    REP:Rep_Detail_Frame(factionIndex, colorID, repValue, repMax, origBarValue, colorID, toExalted, repFactionStandingtext, toBFF, isRepParagon, isRepFriend, isRepCappedFriendship)
+
+    if (REP_Data.Global.ExtendDetails) then
+      REP:BuildUpdateList()
+      REP_UpdateList_Update()
+    end
+
+    ReputationFrame_Update()
   end
 end

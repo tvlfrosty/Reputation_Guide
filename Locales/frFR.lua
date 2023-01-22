@@ -1,4 +1,4 @@
-﻿-- Français (French)
+-- Français (French)
 --------------------	--------------------
 if (GetLocale() =="frFR") then
 
@@ -22,34 +22,6 @@ REP_TXT.version	= "Version"
 REP_TXT.date	= "date"
 REP_TXT.web	= "site Web"
 REP_TXT.slash	= "slash commande"
-REP_TXT_STAND_LV	= {}
-REP_TXT_STAND_LV[0]	= "Inconnue"
-REP_TXT_STAND_LV[1]	= "Détesté"
-REP_TXT_STAND_LV[2]	= "Hostile"
-REP_TXT_STAND_LV[3]	= "Défavorable"
-REP_TXT_STAND_LV[4]	= "Neutre"
-REP_TXT_STAND_LV[5]	= "Amical"
-REP_TXT_STAND_LV[6]	= "Honoré"
-REP_TXT_STAND_LV[7]	= "Révéré"
-REP_TXT_STAND_LV[8]	= "Exalté"
-REP_TXT_STAND_LV[9] = "Parangon"
-REP_TXT_STAND_LV_TIER	= {}
-REP_TXT_STAND_LV_TIER[0] = "Inconnue"
-REP_TXT_STAND_LV_TIER[1] = "Palier 1"
-REP_TXT_STAND_LV_TIER[2] = "Palier 2"
-REP_TXT_STAND_LV_TIER[3] = "Palier 3"
-REP_TXT_STAND_LV_TIER[4] = "Palier 4"
-REP_TXT_STAND_LV_TIER[5] = "Palier 5"
-REP_TXT_STAND_LV_TIER[6] = "Palier 6"
-REP_TXT_STAND_LV_TRUST	= {}
-REP_TXT_STAND_LV_TRUST[0] = "Inconnue"
-REP_TXT_STAND_LV_TRUST[1] = "Méfiance"
-REP_TXT_STAND_LV_TRUST[2] = "Crainte"
-REP_TXT_STAND_LV_TRUST[3] = "Hésitation"
-REP_TXT_STAND_LV_TRUST[4] = "Incertitude"
-REP_TXT_STAND_LV_TRUST[5] = "Bienveillance"
-REP_TXT_STAND_LV_TRUST[6] = "Reconnaissance"
-
 -- status
 REP_TXT.status	= "statut"
 REP_TXT.disabled	= "désactivé"
@@ -144,7 +116,6 @@ REP_TXT.ndq	= "aucune quête journalière"
 REP_TXT.deleted	= "dépassé"
 REP_TXT.Championing	= "Défendre (Tabard)"
 REP_TXT.bpqfg	= "En pourcentage du gain de faction de la quête"
-
 -- items Details
 REP_TXT.cbadge	= "Ecusson de mérite d'une autre ville"
 -- instance Details
@@ -157,11 +128,6 @@ REP_TXT.tfr	= "Tiller agriculture représentant"
 REP_TXT.nswts	= "Ne sais pas quand cela commence"
 REP_TXT.mnd	= "Nombre maximum de quêtes journalières"
 REP_TXT.mnds	= "Le nombre quotidien maximum est de "
-
-
-
-
-
 -- ReputationDetails
 REP_TXT.currentRep	= "Réputation actuelle"
 REP_TXT.neededRep	= "Réputation nécessaire"
@@ -176,7 +142,6 @@ REP_TXT.toBestFriend = "Reputation à Amical"
 -- to chat
 REP_TXT.stats	= " (Totale: %s%d, Reste: %d)"
 REP_TXT.statsNextStanding = " (Total: %s%d, Left to %s: %d)"
-
 -- config changed
 REP_TXT.configQuestion	= "Une (nouvelle) configuration a été activée. Ceci n'a lieu qu'une fois par configuration. Il est recommandé de vérifier les options de Reputations."
 REP_TXT.showConfig	= "Afficher Config"
@@ -237,16 +202,80 @@ REP_TXT.skillAid	= "Premiers soins"
 REP_TXT.skillArch	= "Archéologie"
 REP_TXT.skillCook	= "Cuisine"
 REP_TXT.skillFish	= "Pêche"
--- Tooltip
+---------------------------
+-- Reputation Standing
+---------------------------
+---- Initialize
+REP_TXT.STAND_LV	= {}
+REP_TXT.STAND_LV_TIER	= {}
+REP_TXT.STAND_LV_TRUST = {}
+REP_TXT.STAND_LV_RENOWN	= {}
+---- Normal standings
+REP_TXT.STAND_LV[0]	= "Inconnue"
+REP_TXT.STAND_LV[1]	= "Détesté"
+REP_TXT.STAND_LV[2]	= "Hostile"
+REP_TXT.STAND_LV[3]	= "Défavorable"
+REP_TXT.STAND_LV[4]	= "Neutre"
+REP_TXT.STAND_LV[5]	= "Amical"
+REP_TXT.STAND_LV[6]	= "Honoré"
+REP_TXT.STAND_LV[7]	= "Révéré"
+REP_TXT.STAND_LV[8]	= "Exalté"
+REP_TXT.STAND_LV[9] = "Parangon"
+---- Tier standings
+REP_TXT.STAND_LV_TIER[0] = "Inconnue"
+REP_TXT.STAND_LV_TIER[1] = "Palier 1"
+REP_TXT.STAND_LV_TIER[2] = "Palier 2"
+REP_TXT.STAND_LV_TIER[3] = "Palier 3"
+REP_TXT.STAND_LV_TIER[4] = "Palier 4"
+REP_TXT.STAND_LV_TIER[5] = "Palier 5"
+REP_TXT.STAND_LV_TIER[6] = "Palier 6"
+---- Trust standings
+REP_TXT.STAND_LV_TRUST[0] = "Inconnue"
+REP_TXT.STAND_LV_TRUST[1] = "Méfiance"
+REP_TXT.STAND_LV_TRUST[2] = "Crainte"
+REP_TXT.STAND_LV_TRUST[3] = "Hésitation"
+REP_TXT.STAND_LV_TRUST[4] = "Incertitude"
+REP_TXT.STAND_LV_TRUST[5] = "Bienveillance"
+REP_TXT.STAND_LV_TRUST[6] = "Reconnaissance"
+---- Renown standings
+REP_TXT.STAND_LV_RENOWN[0] = "Inconnue"
+REP_TXT.STAND_LV_RENOWN[1] = "Renom 1"
+REP_TXT.STAND_LV_RENOWN[2] = "Renom 2"
+REP_TXT.STAND_LV_RENOWN[3] = "Renom 3"
+REP_TXT.STAND_LV_RENOWN[4] = "Renom 4"
+REP_TXT.STAND_LV_RENOWN[5] = "Renom 5"
+REP_TXT.STAND_LV_RENOWN[6] = "Renom 6"
+REP_TXT.STAND_LV_RENOWN[7] = "Renom 7"
+REP_TXT.STAND_LV_RENOWN[8] = "Renom 8"
+REP_TXT.STAND_LV_RENOWN[9] = "Renom 9"
+REP_TXT.STAND_LV_RENOWN[10] = "Renom 10"
+REP_TXT.STAND_LV_RENOWN[11] = "Renom 11"
+REP_TXT.STAND_LV_RENOWN[12] = "Renom 12"
+REP_TXT.STAND_LV_RENOWN[13] = "Renom 13"
+REP_TXT.STAND_LV_RENOWN[14] = "Renom 14"
+REP_TXT.STAND_LV_RENOWN[15] = "Renom 15"
+REP_TXT.STAND_LV_RENOWN[16] = "Renom 16"
+REP_TXT.STAND_LV_RENOWN[17] = "Renom 17"
+REP_TXT.STAND_LV_RENOWN[18] = "Renom 18"
+REP_TXT.STAND_LV_RENOWN[19] = "Renom 19"
+REP_TXT.STAND_LV_RENOWN[20] = "Renom 20"
+REP_TXT.STAND_LV_RENOWN[21] = "Renom 21"
+REP_TXT.STAND_LV_RENOWN[22] = "Renom 22"
+REP_TXT.STAND_LV_RENOWN[23] = "Renom 23"
+REP_TXT.STAND_LV_RENOWN[24] = "Renom 24"
+REP_TXT.STAND_LV_RENOWN[25] = "Renom 25"
+---------------------------
+-- Tooltips
+---------------------------
+---- Initialize
 REP_TXT.elements	= {}
 REP_TXT.elements.name	= {}
 REP_TXT.elements.tip	= {}
-
+---- Names and tips
 REP_TXT.elements.name.REP_OptionsButton	= REP_TXT.options
 REP_TXT.elements.tip.REP_OptionsButton	= "Ouvre une fenêtre pour configurer Reputations."
 REP_TXT.elements.name.REP_OrderByStandingCheckBox	= REP_TXT.orderByStanding
 REP_TXT.elements.tip.REP_OrderByStandingCheckBox	= "Si cette case n'est pas cochée, la liste de faction est affichée triée par défaut (Blizzard), regroupées par ordre logique et alphabétique. \r\n\r\n Si cette case est cochée, la liste de factions est triée par date. \r\n\r\n Pour vopir les factions | cFFFAA0A0inactive |r  , décochez cette case et allez à la fin de la liste."
-
 REP_TXT.elements.name.REP_ShowMobsButton	= REP_TXT.showMobs
 REP_TXT.elements.tip.REP_ShowMobsButton	= "Cochez cette case pour voir les mobs que vous pouvez tuer pour améliorer votre réputation."
 REP_TXT.elements.name.REP_ShowQuestButton	= REP_TXT.showQuests
@@ -257,12 +286,10 @@ REP_TXT.elements.name.REP_ShowInstancesButton	= REP_TXT.showInstances
 REP_TXT.elements.tip.REP_ShowInstancesButton	= "Cochez cette case pour voir les donjons que vous pouvez exécuter pour améliorer votre réputation."
 REP_TXT.elements.name.REP_ShowGeneralButton	= REP_TXT.showGeneral
 REP_TXT.elements.tip.REP_ShowGeneralButton	= "Cochez cette case pour afficher des informations générales sur l'amélioration de votre réputation."
-
 REP_TXT.elements.name.REP_ShowAllButton	= REP_TXT.showAll
 REP_TXT.elements.tip.REP_ShowAllButton	= "Appuyez sur ce bouton pour sélectionner les quatre cases de gauche. \r\nCela fera apparaître les monstres, quêtes, objets et instances qui vous donnent la réputation de la faction actuellement sélectionnée."
 REP_TXT.elements.name.REP_ShowNoneButton	= REP_TXT.showNone
 REP_TXT.elements.tip.REP_ShowNoneButton	= "Appuyez sur ce bouton pour désélectionner les quatre cases de gauche. \r\nCela cachera les façons de gagner de la réputation de la faction actuellement sélectionné."
-
 REP_TXT.elements.name.REP_ExpandButton	= REP_TXT.expand
 REP_TXT.elements.tip.REP_ExpandButton	= "Appuyez sur ce bouton pour développer toutes les entrées de la liste. Cela va vous montrer les matériaux nécessaires à obtenir dans les quêtes de collecte."
 REP_TXT.elements.name.REP_CollapseButton	= REP_TXT.collapse
@@ -273,7 +300,6 @@ REP_TXT.elements.name.REP_SupressNoneGlobalButton	= REP_TXT.supressNoneGlobal
 REP_TXT.elements.tip.REP_SupressNoneGlobalButton	= "Appuyez sur ce bouton pour réactiver toutes les quêtes pour toutes les factions que vous avez exclues par un clic droit sur elles."
 REP_TXT.elements.name.REP_ClearSessionGainButton	= REP_TXT.clearSessionGain
 REP_TXT.elements.tip.REP_ClearSessionGainButton	= "Appuyez sur ce bouton pour réinitialiser le compteur de réputation acquise cette session."
-
 REP_TXT.elements.name.REP_EnableMissingBox	= REP_TXT.showMissing
 REP_TXT.elements.tip.REP_EnableMissingBox	= "Activez ce paramètre pour ajouter des points de réputation manquantes nécessaires pour le prochain niveau de réputation derrière la position actuelle de chaque faction dans le cadre de réputation."
 REP_TXT.elements.name.REP_ExtendDetailsBox	= REP_TXT.extendDetails
@@ -297,7 +323,6 @@ REP_TXT.elements.name.REP_ChatFrameSlider	= "Fenêtre de chat"
 REP_TXT.elements.tip.REP_ChatFrameSlider	= "Sélectionnez la fenêtre de chat dans laquelle Reputations affiche ses messages"
 REP_TXT.elements.name.REP_EnableParagonBarBox = REP_TXT.EnableParagonBar
 REP_TXT.elements.tip.REP_EnableParagonBarBox  = "Activez cette option pour afficher votre réputation paragon actuelle dans la barre de réputation."
-
 REP_TXT.elements.name.REP_OptionEnableMissing	= REP_TXT.elements.name.REP_EnableMissingBox
 REP_TXT.elements.tip.REP_OptionEnableMissing	= REP_TXT.elements.tip.REP_EnableMissingBox
 REP_TXT.elements.name.REP_OptionEnableMissingCB	= REP_TXT.elements.name.REP_EnableMissingBox

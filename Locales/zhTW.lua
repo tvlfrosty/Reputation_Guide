@@ -1,7 +1,6 @@
-﻿-- Traditional Chinese (正體中文)
+-- Traditional Chinese (正體中文)
 --------------------	--------------------
 if (GetLocale() =="zhTW") then
-
 -- Binding names
 BINDING_HEADER_REPUTATIONS	= "Reputation Guide"
 BINDING_NAME_SHOWCONFIG	= "顯示選項“窗口"
@@ -21,34 +20,6 @@ REP_TXT.version	= "版本"
 REP_TXT.date	= "日"
 REP_TXT.web	= "網站"
 REP_TXT.slash	= "斜線命令"
-REP_TXT_STAND_LV	= {}
-REP_TXT_STAND_LV[0]	= "未知"
-REP_TXT_STAND_LV[1]	= "討厭"
-REP_TXT_STAND_LV[2]	= "敵對的"
-REP_TXT_STAND_LV[3]	= "不友好"
-REP_TXT_STAND_LV[4]	= "中性"
-REP_TXT_STAND_LV[5]	= "友好"
-REP_TXT_STAND_LV[6]	= "榮幸"
-REP_TXT_STAND_LV[7]	= "崇敬"
-REP_TXT_STAND_LV[8]	= "崇高的"
-REP_TXT_STAND_LV[9] = "巅峰"
-REP_TXT_STAND_LV_TIER	= {}
-REP_TXT_STAND_LV_TIER[0]	= "未知"
-REP_TXT_STAND_LV_TIER[1] = "等級1"
-REP_TXT_STAND_LV_TIER[2] = "等級2"
-REP_TXT_STAND_LV_TIER[3] = "等級3"
-REP_TXT_STAND_LV_TIER[4] = "等級4"
-REP_TXT_STAND_LV_TIER[5] = "等級5"
-REP_TXT_STAND_LV_TIER[6] = "等級6"
-REP_TXT_STAND_LV_TRUST	= {}
-REP_TXT_STAND_LV_TRUST[0] = "未知"
-REP_TXT_STAND_LV_TRUST[1] = "防備"
-REP_TXT_STAND_LV_TRUST[2] = "불안"
-REP_TXT_STAND_LV_TRUST[3] = "猶豫"
-REP_TXT_STAND_LV_TRUST[4] = "糾結"
-REP_TXT_STAND_LV_TRUST[5] = "和善"
-REP_TXT_STAND_LV_TRUST[6] = "欣賞"
-
 -- status
 REP_TXT.status	= "狀態"
 REP_TXT.disabled	= "禁用"
@@ -141,7 +112,6 @@ REP_TXT.ndq	= "no daily quests"
 REP_TXT.deleted	= "Outdated"
 REP_TXT.Championing	= "Championing (Tabard)"
 REP_TXT.bpqfg	= "By percent of quest faction gain"
-
 -- items Details
 REP_TXT.cbadge	= "Other city Commendation Badge"
 -- instance Details
@@ -154,11 +124,6 @@ REP_TXT.tfr	= "Tiller Farming rep"
 REP_TXT.nswts	= "Not sure when this starts"
 REP_TXT.mnd	= "Max number of daily quests"
 REP_TXT.mnds	= "The max number of dallies is "
-
-
-
-
-
 -- ReputationDetails
 REP_TXT.currentRep	= "Current reputation"
 REP_TXT.neededRep	= "Reputation needed"
@@ -173,7 +138,6 @@ REP_TXT.toBestFriend = "Reputation to best friend"
 -- to chat
 REP_TXT.stats	= " (Total: %s%d, Left: %d)"
 REP_TXT.statsNextStanding = " (Total: %s%d, Left to %s: %d)"
-
 -- config changed
 REP_TXT.configQuestion	= "Some (new) settings were enabled. This is only done once for a setting. It is recommended that you verify the Reputations options."
 REP_TXT.showConfig	= "View config"
@@ -234,16 +198,80 @@ REP_TXT.skillAid	= "急救"
 REP_TXT.skillArch	= "考古"
 REP_TXT.skillCook	= "烹飪"
 REP_TXT.skillFish	= "釣魚"
--- Tooltip
+---------------------------
+-- Reputation Standing
+---------------------------
+---- Initialize
+REP_TXT.STAND_LV	= {}
+REP_TXT.STAND_LV_TIER	= {}
+REP_TXT.STAND_LV_TRUST = {}
+REP_TXT.STAND_LV_RENOWN	= {}
+---- Normal standings
+REP_TXT.STAND_LV[0]	= "未知"
+REP_TXT.STAND_LV[1]	= "討厭"
+REP_TXT.STAND_LV[2]	= "敵對的"
+REP_TXT.STAND_LV[3]	= "不友好"
+REP_TXT.STAND_LV[4]	= "中性"
+REP_TXT.STAND_LV[5]	= "友好"
+REP_TXT.STAND_LV[6]	= "榮幸"
+REP_TXT.STAND_LV[7]	= "崇敬"
+REP_TXT.STAND_LV[8]	= "崇高的"
+REP_TXT.STAND_LV[9] = "巅峰"
+---- Tier standings
+REP_TXT.STAND_LV_TIER[0]	= "未知"
+REP_TXT.STAND_LV_TIER[1] = "等級1"
+REP_TXT.STAND_LV_TIER[2] = "等級2"
+REP_TXT.STAND_LV_TIER[3] = "等級3"
+REP_TXT.STAND_LV_TIER[4] = "等級4"
+REP_TXT.STAND_LV_TIER[5] = "等級5"
+REP_TXT.STAND_LV_TIER[6] = "等級6"
+---- Trust standings
+REP_TXT.STAND_LV_TRUST[0] = "未知"
+REP_TXT.STAND_LV_TRUST[1] = "防備"
+REP_TXT.STAND_LV_TRUST[2] = "불안"
+REP_TXT.STAND_LV_TRUST[3] = "猶豫"
+REP_TXT.STAND_LV_TRUST[4] = "糾結"
+REP_TXT.STAND_LV_TRUST[5] = "和善"
+REP_TXT.STAND_LV_TRUST[6] = "欣賞"
+---- Renown standings
+REP_TXT.STAND_LV_RENOWN[0] = "未知"
+REP_TXT.STAND_LV_RENOWN[1] = "名聲 1"
+REP_TXT.STAND_LV_RENOWN[2] = "名聲 2"
+REP_TXT.STAND_LV_RENOWN[3] = "名聲 3"
+REP_TXT.STAND_LV_RENOWN[4] = "名聲 4"
+REP_TXT.STAND_LV_RENOWN[5] = "名聲 5"
+REP_TXT.STAND_LV_RENOWN[6] = "名聲 6"
+REP_TXT.STAND_LV_RENOWN[7] = "名聲 7"
+REP_TXT.STAND_LV_RENOWN[8] = "名聲 8"
+REP_TXT.STAND_LV_RENOWN[9] = "名聲 9"
+REP_TXT.STAND_LV_RENOWN[10] = "名聲 10"
+REP_TXT.STAND_LV_RENOWN[11] = "名聲 11"
+REP_TXT.STAND_LV_RENOWN[12] = "名聲 12"
+REP_TXT.STAND_LV_RENOWN[13] = "名聲 13"
+REP_TXT.STAND_LV_RENOWN[14] = "名聲 14"
+REP_TXT.STAND_LV_RENOWN[15] = "名聲 15"
+REP_TXT.STAND_LV_RENOWN[16] = "名聲 16"
+REP_TXT.STAND_LV_RENOWN[17] = "名聲 17"
+REP_TXT.STAND_LV_RENOWN[18] = "名聲 18"
+REP_TXT.STAND_LV_RENOWN[19] = "名聲 19"
+REP_TXT.STAND_LV_RENOWN[20] = "名聲 20"
+REP_TXT.STAND_LV_RENOWN[21] = "名聲 21"
+REP_TXT.STAND_LV_RENOWN[22] = "名聲 22"
+REP_TXT.STAND_LV_RENOWN[23] = "名聲 23"
+REP_TXT.STAND_LV_RENOWN[24] = "名聲 24"
+REP_TXT.STAND_LV_RENOWN[25] = "名聲 25"
+---------------------------
+-- Tooltips
+---------------------------
+---- Initialize
 REP_TXT.elements	= {}
 REP_TXT.elements.name	= {}
 REP_TXT.elements.tip	= {}
-
+---- Names and tips
 REP_TXT.elements.name.REP_OptionsButton	= REP_TXT.options
 REP_TXT.elements.tip.REP_OptionsButton	= "打開窗口配置Reputations。"
 REP_TXT.elements.name.REP_OrderByStandingCheckBox	= REP_TXT.orderByStanding
 REP_TXT.elements.tip.REP_OrderByStandingCheckBox	= "如果不選中此框，派列表顯示默認（暴雪）排序，分組邏輯和字母順序排列。\r\n\r\n如果選中此複選框，派列表排序站在\r\n\r\n要查看| cFFFAA0A0無效|r派系，取消選中此框和列表的底部。"
-
 REP_TXT.elements.name.REP_ShowMobsButton	= REP_TXT.showMobs
 REP_TXT.elements.tip.REP_ShowMobsButton	= "檢查此按鈕，看你能殺小怪來提高你的聲譽。"
 REP_TXT.elements.name.REP_ShowQuestButton	= REP_TXT.showQuests
@@ -254,12 +282,10 @@ REP_TXT.elements.name.REP_ShowInstancesButton	= REP_TXT.showInstances
 REP_TXT.elements.tip.REP_ShowInstancesButton	= "檢查此按鈕可看到運行的情況下，你可以提高你的聲譽。"
 REP_TXT.elements.name.REP_ShowGeneralButton	= REP_TXT.showGeneral
 REP_TXT.elements.tip.REP_ShowGeneralButton	= "檢查此按鈕可看到一般信息，提高你的聲譽。"
-
 REP_TXT.elements.name.REP_ShowAllButton	= REP_TXT.showAll
 REP_TXT.elements.tip.REP_ShowAllButton	= "按下此按鈕可檢查所有四個複選框的左側。\r\n這將顯示小怪，任務，物品和實例，讓你的聲譽目前選定的派系。"
 REP_TXT.elements.name.REP_ShowNoneButton	= REP_TXT.showNone
 REP_TXT.elements.tip.REP_ShowNoneButton	= "按下此按鈕，取消所有的四個複選框的左側。\r\n這會告訴你的方法沒有贏得口碑，目前選擇的派系。"
-
 REP_TXT.elements.name.REP_ExpandButton	= REP_TXT.expand
 REP_TXT.elements.tip.REP_ExpandButton	= "按下此按鈕可展開列表中的所有條目。這將顯示您在任何項目的收集任務所需的材料手。"
 REP_TXT.elements.name.REP_CollapseButton	= REP_TXT.collapse
@@ -270,7 +296,6 @@ REP_TXT.elements.name.REP_SupressNoneGlobalButton	= REP_TXT.supressNoneGlobal
 REP_TXT.elements.tip.REP_SupressNoneGlobalButton	= "按下此按鈕可重新啟用通過右鍵點擊它可以排除所有派別的所有任務。"
 REP_TXT.elements.name.REP_ClearSessionGainButton	= REP_TXT.clearSessionGain
 REP_TXT.elements.tip.REP_ClearSessionGainButton	= "按下此按鈕來清除重置計數器聲譽，獲得了本次會議。"
-
 REP_TXT.elements.name.REP_EnableMissingBox	= REP_TXT.showMissing
 REP_TXT.elements.tip.REP_EnableMissingBox	= "啟用此設置，添加丟失的聲譽點需要在未來的聲譽站在每個派別的聲譽框架背後的當前水平。"
 REP_TXT.elements.name.REP_ExtendDetailsBox	= REP_TXT.extendDetails
@@ -294,7 +319,6 @@ REP_TXT.elements.name.REP_ChatFrameSlider	= "聊天幀"
 REP_TXT.elements.tip.REP_ChatFrameSlider	= "選擇聊天框架Reputations打印其消息。"
 REP_TXT.elements.name.REP_EnableParagonBarBox = REP_TXT.EnableParagonBar
 REP_TXT.elements.tip.REP_EnableParagonBarBox  = "Enable this option to display your current paragon progress in the reputation bars."
-
 REP_TXT.elements.name.REP_OptionEnableMissing	= REP_TXT.elements.name.REP_EnableMissingBox
 REP_TXT.elements.tip.REP_OptionEnableMissing	= REP_TXT.elements.tip.REP_EnableMissingBox
 REP_TXT.elements.name.REP_OptionEnableMissingCB	= REP_TXT.elements.name.REP_EnableMissingBox

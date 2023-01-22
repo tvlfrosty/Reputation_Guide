@@ -1,10 +1,16 @@
+---------------------------
+-- Initialize Addon vars --
+---------------------------
+local _, vars = ...
+local REP = vars
+
 function REP_InitEnFactionGains(guildName, guildCapBase)
 local zone = REP.zone
 
-if (not REP_IsAlliance) and (not REP_IsHorde) then
+if (not REP.IsAlliance) and (not REP.IsHorde) then
 	local locFaction = UnitFactionGroup("player")
-	if (locFaction == FACTION_ALLIANCE) then REP_IsAlliance = true end
-	if (locFaction == FACTION_HORDE) then REP_IsHorde = true end
+	if (locFaction == FACTION_ALLIANCE) then REP.IsAlliance = true end
+	if (locFaction == FACTION_HORDE) then REP.IsHorde = true end
 end
 --------------------------------------------------
 -- Factions released 'during' Vanilla/Classic
@@ -13,8 +19,8 @@ end
 	-- Steamwheedle Cartel 169
 	---------------------------
 	---- Quests
-	-- if (not REP_AfterWotlk) then
-	-- 	if (REP_IsClassic) then
+	-- if (not REP.AfterWotlk) then
+	-- 	if (REP.IsClassic) then
 	-- 		REP_AddQuest(169, 1, 8, "Free Knot!", 150, {[18250] = 1}) -- Free Knot! (Gordok Shackle Key) QuestID: 5525
 	-- 		REP_AddQuest(169, 1, 8, "Refuel for the Zapping", 25, {[18958] = 6}) -- Refuel for the Zapping (Water Elemental Core) QuestID: 7726
 	-- 		REP_AddQuest(169, 1, 8, "Again With the Zapped Giants", 25, {[18956] = 10}) -- Again With the Zapped Giants (Miniaturization Residue) QuestID: 7725
@@ -63,8 +69,8 @@ end
 	REP_AddQuest(21, 1, 4, 9266, 250, {[14047] = 40, [3857] = 4})
 	REP_AddQuest(21, 1, 4, 9268, 250, {[4338] = 40, [3466] = 4})
 	REP_AddQuest(21, 1, 4, 9267, 250, {[2589] = 40, [3371] = 4})
-	if (not REP_AfterWotlk) then
-		if (REP_IsClassic) then
+	if (not REP.AfterWotlk) then
+		if (REP.IsClassic) then
 			REP_AddQuest(21, 1, 8, "Free Knot!", 150, {[18250] = 1}) -- Free Knot! (Gordok Shackle Key) QuestID: 5525
 			REP_AddQuest(21, 1, 8, "Refuel for the Zapping", 25, {[18958] = 6}) -- Refuel for the Zapping (Water Elemental Core) QuestID: 7726
 			REP_AddQuest(21, 1, 8, "Again With the Zapped Giants", 25, {[18956] = 10}) -- Again With the Zapped Giants (Miniaturization Residue) QuestID: 7725
@@ -113,8 +119,8 @@ end
 	REP_AddQuest(577, 1, 4, 9268, 250, {[4338] = 40, [3466] = 4})
 	REP_AddQuest(577, 1, 4, 9267, 250, {[2589] = 40, [3371] = 4})
 	REP_AddQuest(577, 1, 4, 9259, 250, {[4306] = 40, [2604] = 4})
-	if (not REP_AfterWotlk) then
-		if (REP_IsClassic) then
+	if (not REP.AfterWotlk) then
+		if (REP.IsClassic) then
 			REP_AddQuest(577, 1, 8, "Free Knot!", 150, {[18250] = 1}) -- Free Knot! (Gordok Shackle Key) QuestID: 5525
 			REP_AddQuest(577, 1, 8, "Refuel for the Zapping", 25, {[18958] = 6}) -- Refuel for the Zapping (Water Elemental Core) QuestID: 7726
 			REP_AddQuest(577, 1, 8, "Again With the Zapped Giants", 25, {[18956] = 10}) -- Again With the Zapped Giants (Miniaturization Residue) QuestID: 7725
@@ -163,8 +169,8 @@ end
 	REP_AddQuest(369, 1, 4, 9266, 250, {[14047] = 40, [3857] = 4})
 	REP_AddQuest(369, 1, 4, 9267, 250, {[2589] = 40, [3371] = 4})
 	REP_AddQuest(369, 1, 4, 9259, 250, {[4306] = 40, [2604] = 4})
-	if (not REP_AfterWotlk) then
-		if (REP_IsClassic) then
+	if (not REP.AfterWotlk) then
+		if (REP.IsClassic) then
 			REP_AddQuest(369, 1, 8, "Free Knot!", 150, {[18250] = 1}) -- Free Knot! (Gordok Shackle Key) QuestID: 5525
 			REP_AddQuest(369, 1, 8, "Refuel for the Zapping", 25, {[18958] = 6}) -- Refuel for the Zapping (Water Elemental Core) QuestID: 7726
 			REP_AddQuest(369, 1, 8, "Again With the Zapped Giants", 25, {[18956] = 10}) -- Again With the Zapped Giants (Miniaturization Residue) QuestID: 7725
@@ -214,8 +220,8 @@ end
 	REP_AddQuest(470, 1, 4, 9266, 250, {[14047] = 40, [3857] = 4})
 	REP_AddQuest(470, 1, 4, 9268, 250, {[4338] = 40, [3466] = 4})
 	REP_AddQuest(470, 1, 4, 9259, 250, {[4306] = 40, [2604] = 4})
-	if (not REP_AfterWotlk) then
-		if (REP_IsClassic) then
+	if (not REP.AfterWotlk) then
+		if (REP.IsClassic) then
 			REP_AddQuest(470, 1, 8, "Free Knot!", 150, {[18250] = 1}) -- Free Knot! (Gordok Shackle Key) QuestID: 5525
 			REP_AddQuest(470, 1, 8, "Refuel for the Zapping", 25, {[18958] = 6}) -- Refuel for the Zapping (Water Elemental Core) QuestID: 7726
 			REP_AddQuest(470, 1, 8, "Again With the Zapped Giants", 25, {[18956] = 10}) -- Again With the Zapped Giants (Miniaturization Residue) QuestID: 7725
@@ -263,12 +269,12 @@ end
 	---- Quests
 	REP_AddQuest(87, 5, 8, "Dressing the Part", 10, nil, nil, false) -- QuestID: 9272 ("Dressing the Part")
 	REP_AddQuest(87, 5, 8, "Avast Ye, Scallywag", 25, nil, nil, false) -- QuestID: 1036 ("Avast Ye, Scallywag")
-	if (REP_IsClassic) then
+	if (REP.IsClassic) then
 		REP_AddQuest(87, 5, 8, "Avast Ye, Admiral!", 200, nil, nil, false) -- QuestID: 4621 ("Avast Ye, Admiral!")
 	else
 		REP_AddQuest(87, 5, 8, "Avast Ye, Admiral!", 500, nil, nil, false) -- QuestID: 4621 ("Avast Ye, Admiral!")
 	end
-	if (not REP_AfterWotlk) then
+	if (not REP.AfterWotlk) then
 		---- Mobs
 		REP_AddMob(87, 1, 6, "Booty Bay innkeepers/traders/bankers/auctioneers", 5, zone.Stranglethorn_Vale)
 		REP_AddMob(87, 1, 6, "Booty Bay Bruiser", 25, zone.Stranglethorn_Vale)
@@ -281,7 +287,7 @@ end
 		REP_AddMob(87, 1, 6, "Blackwater Deckhand", 5, zone.Arathi_Highlands)
 		REP_AddMob(87, 1, 6, "Deckhand Moishe", 5, zone.Arathi_Highlands)
 		REP_AddMob(87, 1, 7, "Jazzrik", 5, zone.Badlands)
-		if (REP_AfterTBC) then
+		if (REP.AfterTBC) then
 			REP_AddMob(87, 1, 8, "High Admiral 'Shelly' Jorrik", 5, zone.Dun_Morogh) -- Double check rep cutoff after wotlk classic
 		end
 	else
@@ -297,7 +303,7 @@ end
 	---------------------------
 	-- Argent Dawn 529
 	---------------------------
-	if (not REP_AfterWotlk) then
+	if (not REP.AfterWotlk) then
 		---- Quests
 		REP_AddQuest(529, 4, 8, "Minion's Scourgestones", 25, {[12840] = 20}) -- Minion's Scourgestones QuestID: 5510
 		REP_AddQuest(529, 4, 8, "Invader's Scourgestones", 25, {[12841] = 10}) -- Invader's Scourgestones QuestID: 5509
@@ -316,7 +322,7 @@ end
 		REP_AddMob(529, 4, 5, "Non-Elites in Plaguelands", 5)
 		REP_AddMob(529, 4, 6, "Elites and Shadowmages Plaguelands", 5)
 		REP_AddMob(529, 4, 6, "Cauldron Lords", 12)
-		if(REP_IsClassic) then
+		if(REP.IsClassic) then
 			REP_AddMob(529, 4, 7, "Trash mobs in Stratholme and Scholomance", 5)
 		else
 			REP_AddMob(529, 4, 8, "Trash mobs in Stratholme and Scholomance", 5)
@@ -325,7 +331,7 @@ end
 	else
 		---- Quests
 	  REP_AddQuest(529, 7, 8, "Aberrations of Bone", 1000) -- Aberrations of Bone QuestID: 28756
-		if (REP_AfterLegion) then
+		if (REP.AfterLegion) then
 			REP_AddQuest(529, 7, 8, "Annals of the Silver Hand", 2000) -- Annals of the Silver Hand QuestID: 28755
 		end
 		---- General
@@ -336,7 +342,7 @@ end
 	-- Darkmoon Faire 909
 	---------------------------
 	-- TODO: Find a way to work around the weird rep cut off of 2500/6000.
-	if (REP_IsClassic) then
+	if (REP.IsClassic) then
 		---- Quests
 		REP_AddQuest(909, 4, 4, "Small Furry Paws", 100, {[5134] = 5}) -- Small Furry Paws QuestID: 7899
 		REP_AddQuest(909, 4, 4, "Torn Bear Pelts", 100, {[11407] = 5}) -- Torn Bear Pelts QuestID: 7900
@@ -369,7 +375,7 @@ end
 		REP_AddQuest(909, 4, 8, "Your Fortune Awaits You...", 50, {["Sayge's Fortune #25"] = 1}) -- Quest ID: 7944, Item ID: 19443 (not added to questdb.lua)
 		REP_AddQuest(909, 4, 8, "Your Fortune Awaits You...", 50, {["Sayge's Fortune #27"] = 1}) -- Quest ID: 7945, Item ID: 19452 (not added to questdb.lua)
 	else
-		if (not REP_AfterWotlk) then
+		if (not REP.AfterWotlk) then
 			---- Quests
 			REP_AddQuest(909, 4, 4, "Small Furry Paws", 250, {[5134] = 5}) -- Small Furry Paws QuestID: 7899
 			REP_AddQuest(909, 4, 4, "Torn Bear Pelts", 250, {[11407] = 5}) -- Torn Bear Pelts QuestID: 7900
@@ -408,7 +414,7 @@ end
 		REP_AddQuest(909, 4, 8, "Your Fortune Awaits You...", 75, {["Sayge's Fortune #25"] = 1}) -- Quest ID: 7944, Item ID: 19443 (not added to questdb.lua)
 		REP_AddQuest(909, 4, 8, "Your Fortune Awaits You...", 75, {["Sayge's Fortune #27"] = 1}) -- Quest ID: 7945, Item ID: 19452 (not added to questdb.lua)
 
-		if(REP_AfterTBC) then
+		if(REP.AfterTBC) then
 			---- Quests (Minor decks)
 			REP_AddQuest(909, 4, 8, 12517, 25, {[43039] = 1}) -- rogues-deck
 			REP_AddQuest(909, 4, 8, 12798, 25, {[42922] = 1}) -- swords-deck
@@ -420,7 +426,7 @@ end
 			REP_AddQuest(909, 4, 8, 13324, 350, {[44259] = 1}) -- darkmoon-prisms-deck
 			REP_AddQuest(909, 4, 8, 13327, 350, {[44294] = 1}) -- darkmoon-undeath-deck
 
-			if (REP_AfterWotlk) then
+			if (REP.AfterWotlk) then
 				---- Quests (Major decks)
 				REP_AddQuest(909, 4, 8, 27667, 350, {[62046] = 1}) -- darkmoon-earthquake-deck
 				REP_AddQuest(909, 4, 8, 27665, 350, {[62045] = 1}) -- darkmoon-hurricane-deck
@@ -446,22 +452,22 @@ end
 				REP_AddQuest(909, 1, 8, 29761, 250)
 				REP_AddQuest(909, 1, 8, 29433, 250)
 				------ Main profesion
-				REP_AddQuest(909, 1, 8, 29514, 250, "nil", REP_LIMIT_TYPE_Herb)
-				REP_AddQuest(909, 1, 8, 29519, 250, "nil", REP_LIMIT_TYPE_Skin)
-				REP_AddQuest(909, 1, 8, 29518, 250, "nil", REP_LIMIT_TYPE_Mine)
-				REP_AddQuest(909, 1, 8, 29511, 250, "nil", REP_LIMIT_TYPE_Engi)
-				REP_AddQuest(909, 1, 8, 29506, 250, "nil", REP_LIMIT_TYPE_Alch)
-				REP_AddQuest(909, 1, 8, 29508, 250, "nil", REP_LIMIT_TYPE_Blac)
-				REP_AddQuest(909, 1, 8, 29520, 250, "nil", REP_LIMIT_TYPE_Tail)
-				REP_AddQuest(909, 1, 8, 29517, 250, "nil", REP_LIMIT_TYPE_Leat)
-				REP_AddQuest(909, 1, 8, 29510, 250, "nil", REP_LIMIT_TYPE_Ench)
-				REP_AddQuest(909, 1, 8, 29516, 250, "nil", REP_LIMIT_TYPE_Jewel)
-				REP_AddQuest(909, 1, 8, 29515, 250, "nil", REP_LIMIT_TYPE_Incr)
+				REP_AddQuest(909, 1, 8, 29514, 250, "nil", REP.LIMIT_TYPE_Herb)
+				REP_AddQuest(909, 1, 8, 29519, 250, "nil", REP.LIMIT_TYPE_Skin)
+				REP_AddQuest(909, 1, 8, 29518, 250, "nil", REP.LIMIT_TYPE_Mine)
+				REP_AddQuest(909, 1, 8, 29511, 250, "nil", REP.LIMIT_TYPE_Engi)
+				REP_AddQuest(909, 1, 8, 29506, 250, "nil", REP.LIMIT_TYPE_Alch)
+				REP_AddQuest(909, 1, 8, 29508, 250, "nil", REP.LIMIT_TYPE_Blac)
+				REP_AddQuest(909, 1, 8, 29520, 250, "nil", REP.LIMIT_TYPE_Tail)
+				REP_AddQuest(909, 1, 8, 29517, 250, "nil", REP.LIMIT_TYPE_Leat)
+				REP_AddQuest(909, 1, 8, 29510, 250, "nil", REP.LIMIT_TYPE_Ench)
+				REP_AddQuest(909, 1, 8, 29516, 250, "nil", REP.LIMIT_TYPE_Jewel)
+				REP_AddQuest(909, 1, 8, 29515, 250, "nil", REP.LIMIT_TYPE_Incr)
 				------ Secondary profesion
-				REP_AddQuest(909, 1, 8, 29512, 250, "nil", REP_LIMIT_TYPE_Aid)
-				REP_AddQuest(909, 1, 8, 29507, 250, "nil", REP_LIMIT_TYPE_Arch)
-				REP_AddQuest(909, 1, 8, 29509, 250, "nil", REP_LIMIT_TYPE_Cook)
-				REP_AddQuest(909, 1, 8, 29513, 250, "nil", REP_LIMIT_TYPE_Fish)
+				REP_AddQuest(909, 1, 8, 29512, 250, "nil", REP.LIMIT_TYPE_Aid)
+				REP_AddQuest(909, 1, 8, 29507, 250, "nil", REP.LIMIT_TYPE_Arch)
+				REP_AddQuest(909, 1, 8, 29509, 250, "nil", REP.LIMIT_TYPE_Cook)
+				REP_AddQuest(909, 1, 8, 29513, 250, "nil", REP.LIMIT_TYPE_Fish)
 			end
 		end
 	end
@@ -501,17 +507,17 @@ end
 	REP_AddQuest(59, 4, 4, "Restoring Fiery Flux Supplies via Iron", 25, {[18944] = 2, [3575] = 4, [3857] = 1}) -- Restoring Fiery Flux Supplies via Iron QuestID: 8241
 	REP_AddQuest(59, 4, 4, "Restoring Fiery Flux Supplies via Kingsblood", 25, {[18944] = 2, [3356] = 4, [3857] = 1}) -- Restoring Fiery Flux Supplies via Kingsblood QuestID: 7736
 	REP_AddQuest(59, 5, 5, "Gaining Acceptance", 25, {[18945] = 4}) -- Gaining Acceptance QuestID 7737/13662
-	if (REP_IsClassic) then
+	if (REP.IsClassic) then
 		REP_AddQuest(59, 6, 8, 6642, 50, {[11370] = 10}) -- Favor Amongst the Brotherhood, Dark Iron Ore QuestID: 6642
 		REP_AddQuest(59, 6, 8, 6645, 150, {[17012] = 2}) -- Favor Amongst the Brotherhood, Core Leather QuestID: 6645
 		REP_AddQuest(59, 6, 8, 6646, 200, {[11382] = 1}) -- Favor Amongst the Brotherhood, Blood of the Mountain QuestID: 6646
 		REP_AddQuest(59, 6, 8, 6643, 200, {[17010] = 1}) -- Favor Amongst the Brotherhood, Fiery Core QuestID: 6643
 		REP_AddQuest(59, 6, 8, 6644, 200, {[17011] = 1}) -- Favor Amongst the Brotherhood, Lava Core QuestID: 6644
 	else
-		-- if (REP_AfterTBC) then
+		-- if (REP.AfterTBC) then
 		-- 	REP_AddQuest(59, 5, 5, "Gaining Acceptance", 15, {[18945] = 4}) -- Gaining Acceptance QuestID 13662 (3.3.0.10772 version)
 		-- end
-		if (not REP_AfterWotlk) then
+		if (not REP.AfterWotlk) then
 			REP_AddQuest(59, 6, 8, 6642, 75, {[11370] = 10}) -- Favor Amongst the Brotherhood, Dark Iron Ore QuestID: 6642
 			REP_AddQuest(59, 6, 8, 6645, 350, {[17012] = 2}) -- Favor Amongst the Brotherhood, Core Leather QuestID: 6645
 			REP_AddQuest(59, 6, 8, 6646, 500, {[11382] = 1}) -- Favor Amongst the Brotherhood, Blood of the Mountain QuestID: 6646
@@ -531,7 +537,7 @@ end
 	---------------------------
 	-- Timbermaw Hold 576 --
 	---------------------------
-	if(REP_IsClassic) then
+	if(REP.IsClassic) then
 		---- Quests
 		REP_AddQuest(576, 2, 8, 8467, 50, {[21377] = 5})
 		REP_AddQuest(576, 2, 8, 8466, 50, {[21377] = 5})
@@ -545,7 +551,7 @@ end
 		REP_AddMob(576, 2, 8, "High Chief Winterfall", 20, zone.Winterspring)
 		REP_AddMob(576, 2, 8, "Grizzle Snowpaw (Rare)", 50, zone.Winterspring)
 	else
-		if (REP_IsTBC) then
+		if (REP.IsTBC) then
 			---- Quests
 			REP_AddQuest(576, 2, 8, 8467, 75, {[21377] = 5})
 			REP_AddQuest(576, 2, 8, 8466, 75, {[21377] = 5})
@@ -559,7 +565,7 @@ end
 			REP_AddMob(576, 2, 8, "High Chief Winterfall", 20, zone.Winterspring)
 			REP_AddMob(576, 2, 8, "Grizzle Snowpaw (Rare)", 50, zone.Winterspring)
 		else
-			if (not REP_AfterWotlk) then
+			if (not REP.AfterWotlk) then
 				---- Quests
 				REP_AddQuest(576, 2, 8, 8467, 300, {[21377] = 5})
 				REP_AddQuest(576, 2, 8, 8466, 300, {[21377] = 5})
@@ -614,7 +620,7 @@ end
 	---- General
 	REP_AddGeneral(609, 4, 8, "Silithyst Geyser", 10, "Silithyst Geyser", "Turn in the Silithyst Geyser at your faction's camp.")
 	---- Quests
-	if (REP_IsClassic) then
+	if (REP.IsClassic) then
 		REP_AddQuest(609, 4, 8, 8319, 100, {[20404] = 10}) -- Encrypted Twilight Texts QuestID: 8319
 		REP_AddQuest(609, 4, 8, "Mortal Champions", 100, {[21229] = 1}) -- Mortal Champions QuestID: 8579
 	else
@@ -642,12 +648,12 @@ end
 	REP_AddInstance(749, 4, 7, zone.Molten_Core, 1050)
 	REP_AddInstance(749, 8, 8, zone.Molten_Core, 350)
 
-	if (not REP_AfterWotlk) then
+	if (not REP.AfterWotlk) then
 		---------------------------
 		-- Shen'dralar 809 --
 		---------------------------
 		---- Quests
-		if (REP_IsClassic) then
+		if (REP.IsClassic) then
 			REP_AddQuest(809, 4, 8, 7483, 200, {[18332] = 1, [18335] = 1, [14344] = 2, [12938] = 2}) -- Libram of Rapidity QuestID: 7483
 			REP_AddQuest(809, 4, 8, 7484, 200, {[18333] = 1, [18335] = 1, [14344] = 4, [12753] = 2}) -- Libram of Focus QuestID: 7484
 			REP_AddQuest(809, 4, 8, 7485, 200, {[18334] = 1, [18335] = 1, [14344] = 2, [12735] = 1}) -- Libram of Protection QuestID: 7485
@@ -661,13 +667,13 @@ end
 		-- Zandalar Tribe 270 --
 		---------------------------
 		---- Quests
-		if (REP_IsClassic) then
+		if (REP.IsClassic) then
 			REP_AddQuest(270, 4, 8, 9210, 200, {[18330] = 1})
 			REP_AddQuest(270, 4, 8, 9208, 200, {[18331] = 1})
 			REP_AddQuest(270, 4, 8, 9209, 200, {[18329] = 1})
 			-- REP_AddQuest(270, 4, 8, "A Bijou for Zanza", 150, nil, nil, false) -- A Bijou for Zanza QuestID: 8240
 		else
-			if (not REP_AfterWotlk) then
+			if (not REP.AfterWotlk) then
 				REP_AddQuest(270, 4, 8, 9210, 500, {[18330] = 1})
 				REP_AddQuest(270, 4, 8, 9208, 500, {[18331] = 1})
 				REP_AddQuest(270, 4, 8, 9209, 500, {[18329] = 1})
@@ -688,7 +694,7 @@ end
 	---------------------------
 	-- Magram Clan Centaur 93 --
 	---------------------------
-	if (REP_AfterWotlk) then
+	if (REP.AfterWotlk) then
 		---- Quests (1 quest rewards exalted with both)
 		REP_AddQuest(93, 1, 8, 14394, 100000) -- Death to Agogridon QuestID: 14394
 	else
@@ -707,7 +713,7 @@ end
 	---------------------------
 	-- Gelkis Clan Centaur 92 --
 	---------------------------
-	if (REP_AfterWotlk) then
+	if (REP.AfterWotlk) then
 		---- Quests (1 quest rewards exalted with both)
 		REP_AddQuest(92, 1, 8, 14394, 100000) -- Death to Agogridon QuestID: 14394
 	else
@@ -725,23 +731,23 @@ end
 		REP_AddMob(92, 1, 6, "Magram Pack Runner", 20)
 	end
 
-	if (REP_IsAlliance) then
+	if (REP.IsAlliance) then
 		---------------------------
 		-- Alliance 469
 		---------------------------
 		---- Quests
-		if (REP_IsClassic) then
+		if (REP.IsClassic) then
 			REP_AddQuest(469, 5, 8, "Bellowrage the Elder", 50) -- Bellowrage the Elder QuestID: 8647
 			REP_AddQuest(469, 5, 8, "Bladeleaf the Elder", 50) -- Bellowrage the Elder QuestID: 8715
 		else
 			REP_AddQuest(469, 5, 8, "Bellowrage the Elder", 75) -- Bellowrage the Elder QuestID: 8647
 			REP_AddQuest(469, 5, 8, "Bladeleaf the Elder", 75) -- Bellowrage the Elder QuestID: 8715
 		end
-		if (REP_AfterTBC) then
+		if (REP.AfterTBC) then
 			REP_AddQuest(469, 5, 8, "Arp the Elder", 75) -- Arp the Elder QuestID: 13033
 			REP_AddQuest(469, 5, 8, "Beldak the Elder", 75) -- Beldak the Elder QuestID: 13013
 		end
-		if (REP_AfterWotlk) then end
+		if (REP.AfterWotlk) then end
 
 		-- Bladesing the Elder,
 		-- Bladeswift the Elder,
@@ -830,9 +836,9 @@ end
 		-- Stormwind 72 --
 		---------------------------
 		---- Quests
-		if(not REP_AfterWotlk) then
+		if(not REP.AfterWotlk) then
 			REP_AddQuest(72, 4, 8, 1423, 25, {[6172] = 1})
-			if(REP_IsClassic) then
+			if(REP.IsClassic) then
 				REP_AddQuest(72, 4, 8, 7796, 50, {[14047] = 20})
 				REP_AddQuest(72, 4, 8, 8836, 5, {[21436] = 1})
 				REP_AddQuest(72, 4, 8, 8822, 75, {[21436] = 10})
@@ -840,10 +846,10 @@ end
 				REP_AddQuest(72, 4, 8, 7796, 75, {[14047] = 20})
 			end
 		else
-			REP_AddQuest(72, 4, 8, 1, 250, "nil", REP_LIMIT_TYPE_Cook)
-			REP_AddQuest(72, 4, 8, 2, 65, "nil", REP_LIMIT_TYPE_Cook)
-			REP_AddQuest(72, 4, 8, 3, 250, "nil", REP_LIMIT_TYPE_Fish)
-			REP_AddQuest(72, 4, 8, 4, 65, "nil", REP_LIMIT_TYPE_Fish)
+			REP_AddQuest(72, 4, 8, 1, 250, "nil", REP.LIMIT_TYPE_Cook)
+			REP_AddQuest(72, 4, 8, 2, 65, "nil", REP.LIMIT_TYPE_Cook)
+			REP_AddQuest(72, 4, 8, 3, 250, "nil", REP.LIMIT_TYPE_Fish)
+			REP_AddQuest(72, 4, 8, 4, 65, "nil", REP.LIMIT_TYPE_Fish)
 		end
 		---- Quests (Spillover from Alterac Valley) TODO: Double check rep values
 		REP_AddQuest(72, 4, 8, "Crystal Cluster", 18.75, {[17423] = 5}) -- Crystal Cluster QuestID: 7386
@@ -854,7 +860,7 @@ end
 	  REP_AddQuest(72, 4, 8, 7027, 2.5)
 	  REP_AddQuest(72, 4, 8, 7026, 2.5, {[17643] = 1})
 	  REP_AddQuest(72, 4, 8, 6781, 2.5, {[17422] = 20})
-		if (REP_AfterTBC) then
+		if (REP.AfterTBC) then
 			---- Items
 			REP_AddItems(72, 4, 8, 250, {["Stormwind Commendation Badge"] = 1}) -- 45718
 			REP_AddItems(72, 4, 8, 62.5, {[4] = 1})
@@ -866,8 +872,8 @@ end
 		-- Ironforge 47 --
 		---------------------------
 		---- Quests
-		if (not REP_AfterWotlk) then
-			if (REP_IsClassic) then
+		if (not REP.AfterWotlk) then
+			if (REP.IsClassic) then
 				REP_AddQuest(47, 4, 8, 7806, 50, {[14047] = 20})
 				REP_AddQuest(47, 4, 8, 8834, 5, {[21436] = 1})
 				REP_AddQuest(47, 4, 8, 8821, 75, {[21436] = 10})
@@ -875,13 +881,13 @@ end
 				REP_AddQuest(47, 4, 8, 7806, 75, {[14047] = 20})
 			end
 		else
-			REP_AddQuest(47, 4, 8, 1, 250, "nil", REP_LIMIT_TYPE_Cook)
-			REP_AddQuest(47, 4, 8, 2, 65, "nil", REP_LIMIT_TYPE_Cook)
-			REP_AddQuest(47, 4, 8, 3, 250, "nil", REP_LIMIT_TYPE_Fish)
-			REP_AddQuest(47, 4, 8, 4, 65, "nil", REP_LIMIT_TYPE_Fish)
+			REP_AddQuest(47, 4, 8, 1, 250, "nil", REP.LIMIT_TYPE_Cook)
+			REP_AddQuest(47, 4, 8, 2, 65, "nil", REP.LIMIT_TYPE_Cook)
+			REP_AddQuest(47, 4, 8, 3, 250, "nil", REP.LIMIT_TYPE_Fish)
+			REP_AddQuest(47, 4, 8, 4, 65, "nil", REP.LIMIT_TYPE_Fish)
 		end
 		---- Quests (Spillover from Alterac Valley)
-		if (REP_IsClassic) then
+		if (REP.IsClassic) then
 			REP_AddQuest(47, 4, 8, "Crystal Cluster", 50, {[17423] = 5}) -- Crystal Cluster QuestID: 7386
 		else
 			REP_AddQuest(47, 4, 8, "Crystal Cluster", 75, {[17423] = 5}) -- Crystal Cluster QuestID: 7386
@@ -893,7 +899,7 @@ end
 		REP_AddQuest(47, 4, 8, 7027, 10)
 		REP_AddQuest(47, 4, 8, 7026, 10, {[17643] = 1})
 		REP_AddQuest(47, 4, 8, 6781, 10, {[17422] = 20})
-		if (REP_AfterTBC) then
+		if (REP.AfterTBC) then
 			---- Items
 			REP_AddItems(47, 4, 8, 250, {["Ironforge Commendation Badge"] = 1}) -- 45717
 			REP_AddItems(47, 4, 8, 62.5, {[4] = 1})
@@ -905,8 +911,8 @@ end
 		-- Darnassus 69 --
 		---------------------------
 		---- Quests
-		if (not REP_AfterWotlk) then
-			if (REP_IsClassic) then
+		if (not REP.AfterWotlk) then
+			if (REP.IsClassic) then
 				REP_AddQuest(69, 4, 8, 7801, 50, {[14047] = 20})
 				REP_AddQuest(69, 4, 8, 8811, 5, {[21436] = 1})
 				REP_AddQuest(69, 4, 8, 8819, 75, {[21436] = 10})
@@ -914,10 +920,10 @@ end
 				REP_AddQuest(69, 4, 8, 7801, 75, {[14047] = 20})
 			end
 		else
-			REP_AddQuest(69, 4, 8, 1, 250, "nil", REP_LIMIT_TYPE_Cook)
-			REP_AddQuest(69, 4, 8, 2, 65, "nil", REP_LIMIT_TYPE_Cook)
-			REP_AddQuest(69, 4, 8, 3, 250, "nil", REP_LIMIT_TYPE_Fish)
-			REP_AddQuest(69, 4, 8, 4, 65, "nil", REP_LIMIT_TYPE_Fish)
+			REP_AddQuest(69, 4, 8, 1, 250, "nil", REP.LIMIT_TYPE_Cook)
+			REP_AddQuest(69, 4, 8, 2, 65, "nil", REP.LIMIT_TYPE_Cook)
+			REP_AddQuest(69, 4, 8, 3, 250, "nil", REP.LIMIT_TYPE_Fish)
+			REP_AddQuest(69, 4, 8, 4, 65, "nil", REP.LIMIT_TYPE_Fish)
 		end
 		---- Spillover from Alterac Valley
 		REP_AddQuest(69, 4, 8, "Crystal Cluster", 18.75, {[17423] = 5}) -- Crystal Cluster QuestID: 7386
@@ -928,7 +934,7 @@ end
 		REP_AddQuest(69, 4, 8, 7027, 2.5)
 		REP_AddQuest(69, 4, 8, 7026, 2.5, {[17643] = 1})
 		REP_AddQuest(69, 4, 8, 6781, 2.5, {[17422] = 20})
-		if (REP_AfterTBC) then
+		if (REP.AfterTBC) then
 			---- Items
 			REP_AddItems(69, 4, 8, 250, {["Darnassus Commendation Badge"] = 1}) -- 45714
 			REP_AddItems(69, 4, 8, 62.5, {[4] = 1})
@@ -940,8 +946,8 @@ end
 		-- Gnomeregan Exiles 54
 		---------------------------
 		---- Quests
-		if (not REP_AfterWotlk) then
-			if (REP_IsClassic) then
+		if (not REP.AfterWotlk) then
+			if (REP.IsClassic) then
 				REP_AddQuest(54, 4, 8, 7812, 50, {[14047] = 20})
 				REP_AddQuest(54, 4, 8, 8812, 5, {[21436] = 1})
 				REP_AddQuest(54, 4, 8, 8820, 75, {[21436] = 10})
@@ -949,8 +955,8 @@ end
 				REP_AddQuest(54, 4, 8, 7812, 75, {[14047] = 20})
 			end
 		else
-			REP_AddQuest(54,4, 8, 2, 65, "nil", REP_LIMIT_TYPE_Cook)
-			REP_AddQuest(54,4, 8, 4, 65, "nil", REP_LIMIT_TYPE_Fish)
+			REP_AddQuest(54,4, 8, 2, 65, "nil", REP.LIMIT_TYPE_Cook)
+			REP_AddQuest(54,4, 8, 4, 65, "nil", REP.LIMIT_TYPE_Fish)
 		end
 		---- Spillover from Alterac Valley
 	  REP_AddQuest(54, 4, 8, "Crystal Cluster", 18.75, {[17423] = 5}) -- Crystal Cluster QuestID: 7386
@@ -961,7 +967,7 @@ end
 	  REP_AddQuest(54, 4, 8, 7027, 2.5)
 	  REP_AddQuest(54, 4, 8, 7026, 2.5, {[17643] = 1})
 	  REP_AddQuest(54, 4, 8, 6781, 2.5, {[17422] = 20})
-		if (REP_AfterTBC) then
+		if (REP.AfterTBC) then
 			---- Items
 			REP_AddItems(54, 4, 8, 250, {["Gnomeregan Commendation Badge"] = 1}) -- 45716
 			REP_AddItems(54, 4, 8, 62.5, {[4] = 1})
@@ -976,8 +982,8 @@ end
 		-- Silverwing Sentinels (Warsong Gulch) 890
 		---------------------------
 		---- Quests
-		if (not REP_AfterMoP) then
-			if (REP_IsClassic) then
+		if (not REP.AfterMoP) then
+			if (REP.IsClassic) then
 				REP_AddQuest(890, 4, 8, "Concerted Efforts", 100, {[20560] = 3, [20559] = 3, [20558] = 3}) -- Concerted Efforts QuestID: 8385
 				REP_AddQuest(890, 4, 8, "Fight for Warsong Gulch", 50, {[20558] = 3}) -- Fight for Warsong Gulch QuestID: 8408 (and so many more...)
 			end
@@ -986,7 +992,7 @@ end
 			REP_AddGeneral(890, 4, 8, "Warsong Gulch flag capture", 100, "Warsong Gulch flag capture", "Every time your team captures a flag you gain 100 reputation")
 			REP_AddGeneral(890, 4, 8, "Warsong Gulch victory", 100, "Warsong Gulch victory", "Every time your team wins you gain 100 reputation")
 			REP_AddGeneral(890, 4, 8, "Warsong Gulch loss", 35, "Warsong Gulch loss", "Every time your team lose you gain 35 reputation")
-			if (REP_AfterWoD) then
+			if (REP.AfterWoD) then
 				----  TODO: Add Brawl reputation rewards
 			end
 		end
@@ -995,7 +1001,7 @@ end
 		-- Stormpike Guard (Alterac Valley) 730
 		---------------------------
 		---- Quests
-		if (REP_IsClassic) then
+		if (REP.IsClassic) then
 			REP_AddQuest(730, 4, 8, "Concerted Efforts", 150, {[20560] = 3, [20559] = 3, [20558] = 3}) -- Concerted Efforts QuestID: 8388
 			REP_AddQuest(730, 4, 8, "Remember Alterac Valley!", 100, {[20560] = 3}) -- Remember Alterac Valley! QuestID: 8383
 		end
@@ -1012,8 +1018,8 @@ end
 		-- The League of Arathor (Arathi Basin) 509
 		---------------------------
 		---- Quests
-		if (not REP_AfterMoP) then
-			if (REP_IsClassic) then
+		if (not REP.AfterMoP) then
+			if (REP.IsClassic) then
 				REP_AddQuest(509, 4, 8, "Concerted Efforts", 100, {[20560] = 3, [20559] = 3, [20558] = 3}) -- Concerted Efforts QuestID: 8385
 				REP_AddQuest(509, 4, 8, "Arathi Basin Resources!", 100, {[20559] = 3}) -- Arathi Basin Resources! QuestID: 8297 (and so many more...)
 			end
@@ -1027,7 +1033,7 @@ end
 		---------------------------
 		-- Wildhammer Clan 471
 		---------------------------
-		if (REP_IsClassic) then
+		if (REP.IsClassic) then
 			---- Quests
 			REP_AddQuest(471, 4, 8, 2880, 100, {[9259] = 5})
 			REP_AddQuest(471, 4, 8, 2881, 25, {[9259] = 5})
@@ -1040,8 +1046,8 @@ end
 		-- Wintersaber Trainers 589
 		---------------------------
 		---- Quests
-		if (not REP_AfterWotlk) then
-			if (REP_IsClassic) then
+		if (not REP.AfterWotlk) then
+			if (REP.IsClassic) then
 				REP_AddQuest(589, 4, 8, 4970, 50, {[12622] = 5, [12623] = 5})
 				REP_AddQuest(589, 4, 8, 5201, 50)
 				REP_AddQuest(589, 6, 8, 5981, 50)
@@ -1151,8 +1157,8 @@ end
 		-- Orgrimmar 76
 		---------------------------
 		---- Quests
-		if (not REP_AfterWotlk) then
-			if(REP_IsClassic) then
+		if (not REP.AfterWotlk) then
+			if(REP.IsClassic) then
 				REP_AddQuest(76, 4, 8, 7832, 50, {[14047] = 20}) -- Additional Runecloth QuestID: 7832
 				REP_AddQuest(76, 4, 8, 8840, 5, {[21438] = 1}) -- One Commendation Signet QuestID: 8840
 				REP_AddQuest(76, 4, 8, 8841, 75, {[21438] = 10}) -- Ten Commendation Signets QuestID: 8841
@@ -1160,10 +1166,10 @@ end
 				REP_AddQuest(76, 4, 8, 7832, 75, {[14047] = 20}) -- Additional Runecloth QuestID: 7832
 			end
 		else
-			REP_AddQuest(76, 4, 8, 1, 250, "nil", REP_LIMIT_TYPE_Cook)
-			REP_AddQuest(76, 4, 8, 2, 65, "nil", REP_LIMIT_TYPE_Cook)
-			REP_AddQuest(76, 4, 8, 3, 250, "nil", REP_LIMIT_TYPE_Fish)
-			REP_AddQuest(76, 4, 8, 4, 65, "nil", REP_LIMIT_TYPE_Fish)
+			REP_AddQuest(76, 4, 8, 1, 250, "nil", REP.LIMIT_TYPE_Cook)
+			REP_AddQuest(76, 4, 8, 2, 65, "nil", REP.LIMIT_TYPE_Cook)
+			REP_AddQuest(76, 4, 8, 3, 250, "nil", REP.LIMIT_TYPE_Fish)
+			REP_AddQuest(76, 4, 8, 4, 65, "nil", REP.LIMIT_TYPE_Fish)
 		end
 	  REP_AddQuest(76, 4, 8, 7385, 18.75, {[17306] = 5})
 	  REP_AddQuest(76, 4, 8, 6801, 2.5, {[17306] = 1})
@@ -1173,7 +1179,7 @@ end
 	  REP_AddQuest(76, 4, 8, 7027, 2.5)
 	  REP_AddQuest(76, 4, 8, 7002, 2.5, {[17642] = 1})
 	  REP_AddQuest(76, 4, 8, 6741, 2.5, {[17422] = 20})
-		if (REP_AfterTBC) then
+		if (REP.AfterTBC) then
 			---- Items
 		  REP_AddItems(76, 4, 8, 250, {[45719] = 1})
 		  REP_AddItems(76, 4, 8, 62.5, {[4] = 1})
@@ -1185,8 +1191,8 @@ end
 		-- Thunder Bluff 81
 		---------------------------
 		---- Quests
-		if (not REP_AfterWotlk) then
-			if(REP_IsClassic) then
+		if (not REP.AfterWotlk) then
+			if(REP.IsClassic) then
 				REP_AddQuest(81, 4, 8, 7825, 50, {[14047] = 20}) -- Additional Runecloth QuestID: 7825
 				REP_AddQuest(81, 4, 8, 8842, 5, {[21438] = 1}) -- One Commendation Signet QuestID: 8842
 				REP_AddQuest(81, 4, 8, 8843, 75, {[21438] = 10}) -- Ten Commendation Signets QuestID: 8843
@@ -1194,10 +1200,10 @@ end
 				REP_AddQuest(81, 4, 8, 7825, 75, {[14047] = 20}) -- Additional Runecloth QuestID: 7825
 			end
 		else
-			REP_AddQuest(81, 4, 8, 1, 250, "nil", REP_LIMIT_TYPE_Cook)
-			REP_AddQuest(81, 4, 8, 2, 65, "nil", REP_LIMIT_TYPE_Cook)
-			REP_AddQuest(81, 4, 8, 3, 250, "nil", REP_LIMIT_TYPE_Fish)
-			REP_AddQuest(81, 4, 8, 4, 65, "nil", REP_LIMIT_TYPE_Fish)
+			REP_AddQuest(81, 4, 8, 1, 250, "nil", REP.LIMIT_TYPE_Cook)
+			REP_AddQuest(81, 4, 8, 2, 65, "nil", REP.LIMIT_TYPE_Cook)
+			REP_AddQuest(81, 4, 8, 3, 250, "nil", REP.LIMIT_TYPE_Fish)
+			REP_AddQuest(81, 4, 8, 4, 65, "nil", REP.LIMIT_TYPE_Fish)
 		end
 	  REP_AddQuest(81, 4, 8, 7385, 18.75, {[17306] = 5})
 	  REP_AddQuest(81, 4, 8, 6801, 2.5, {[17306] = 1})
@@ -1207,7 +1213,7 @@ end
 	  REP_AddQuest(81, 4, 8, 7027, 2.5)
 	  REP_AddQuest(81, 4, 8, 7002, 2.5, {[17642] = 1})
 	  REP_AddQuest(81, 4, 8, 6741, 2.5, {[17422] = 20})
-		if (REP_AfterTBC) then
+		if (REP.AfterTBC) then
 			---- Items
 		  REP_AddItems(81, 4, 8, 250, {[45722] = 1})
 		  REP_AddItems(81, 4, 8, 62.5, {[4] = 1})
@@ -1219,8 +1225,8 @@ end
 		-- Undercity 68
 		---------------------------
 		---- Quests
-		if (not REP_AfterWotlk) then
-			if(REP_IsClassic) then
+		if (not REP.AfterWotlk) then
+			if(REP.IsClassic) then
 				REP_AddQuest(68, 4, 8, 7819, 50, {[14047] = 20}) -- Additional Runecloth QuestID: 7819
 				REP_AddQuest(68, 4, 8, 8832, 5, {[21438] = 1}) -- One Commendation Signet QuestID: 8832
 				REP_AddQuest(68, 4, 8, 8833, 75, {[21438] = 10}) -- Ten Commendation Signets QuestID: 8833
@@ -1228,10 +1234,10 @@ end
 				REP_AddQuest(68, 4, 8, 7819, 75, {[14047] = 20}) -- Additional Runecloth QuestID: 7819
 			end
 		else
-			REP_AddQuest(68, 4, 8, 1, 250, "nil", REP_LIMIT_TYPE_Cook)
-		  REP_AddQuest(68, 4, 8, 2, 65, "nil", REP_LIMIT_TYPE_Cook)
-		  REP_AddQuest(68, 4, 8, 3, 250, "nil", REP_LIMIT_TYPE_Fish)
-		  REP_AddQuest(68, 4, 8, 4, 65, "nil", REP_LIMIT_TYPE_Fish)
+			REP_AddQuest(68, 4, 8, 1, 250, "nil", REP.LIMIT_TYPE_Cook)
+		  REP_AddQuest(68, 4, 8, 2, 65, "nil", REP.LIMIT_TYPE_Cook)
+		  REP_AddQuest(68, 4, 8, 3, 250, "nil", REP.LIMIT_TYPE_Fish)
+		  REP_AddQuest(68, 4, 8, 4, 65, "nil", REP.LIMIT_TYPE_Fish)
 		end
 		REP_AddQuest(68, 4, 8, 7385, 18.75, {[17306] = 5})
 		REP_AddQuest(68, 4, 8, 6801, 2.5, {[17306] = 1})
@@ -1241,7 +1247,7 @@ end
 		REP_AddQuest(68, 4, 8, 7027, 2.5)
 		REP_AddQuest(68, 4, 8, 7002, 2.5, {[17642] = 1})
 		REP_AddQuest(68, 4, 8, 6741, 2.5, {[17422] = 20})
-		if (REP_AfterTBC) then
+		if (REP.AfterTBC) then
 			---- Items
 			REP_AddItems(68, 4, 8, 250, {[45723] = 1})
 			REP_AddItems(68, 4, 8, 62.5, {[4] = 1})
@@ -1253,8 +1259,8 @@ end
 		-- Darkspear Trolls 530
 		---------------------------
 		---- Quests
-		if (not REP_AfterWotlk) then
-			if(REP_IsClassic) then
+		if (not REP.AfterWotlk) then
+			if(REP.IsClassic) then
 				REP_AddQuest(530, 4, 8, 7837, 50, {[14047] = 20}) -- Additional Runecloth QuestID: 7837
 				REP_AddQuest(530, 4, 8, 8844, 5, {[21438] = 1}) -- One Commendation Signet QuestID: 8844
 				REP_AddQuest(530, 4, 8, 8845, 75, {[21438] = 10}) -- Ten Commendation Signets QuestID: 8845
@@ -1262,8 +1268,8 @@ end
 				REP_AddQuest(530, 4, 8, 7837, 75, {[14047] = 20}) -- Additional Runecloth QuestID: 7837
 			end
 		else
-			REP_AddQuest(530, 4, 8, 2, 65, "nil", REP_LIMIT_TYPE_Cook)
-			REP_AddQuest(530, 4, 8, 4, 65, "nil", REP_LIMIT_TYPE_Fish)
+			REP_AddQuest(530, 4, 8, 2, 65, "nil", REP.LIMIT_TYPE_Cook)
+			REP_AddQuest(530, 4, 8, 4, 65, "nil", REP.LIMIT_TYPE_Fish)
 		end
 		---- Spillover from Alterac Valley
 		REP_AddQuest(530, 4, 8, 7385, 18.75, {[17306] = 5})
@@ -1274,7 +1280,7 @@ end
 		REP_AddQuest(530, 4, 8, 7027, 2.5)
 		REP_AddQuest(530, 4, 8, 7002, 2.5, {[17642] = 1})
 		REP_AddQuest(530, 4, 8, 6741, 2.5, {[17422] = 20})
-		if(REP_AfterTBC) then
+		if(REP.AfterTBC) then
 			---- Items
 			REP_AddItems(530, 4, 8, 250, {[45720] = 1})
 			REP_AddItems(530, 4, 8, 62.5, {[4] = 1})
@@ -1289,8 +1295,8 @@ end
 		-- Warsong Outriders (Warsong Gulch) 889
 		---------------------------
 		---- Quests
-		if (not REP_AfterMoP) then
-			if (REP_IsClassic) then
+		if (not REP.AfterMoP) then
+			if (REP.IsClassic) then
 				REP_AddQuest(889, 4, 8, "For Great Honor", 100, {[20560] = 3, [20559] = 3, [20558] = 3}) -- For Great Honor QuestID: 8388
 				REP_AddQuest(889, 4, 8, "Battle of Warsong Gulch", 50, {[20558] = 3}) -- Battle of Warsong Gulch QuestID: 8435 (and so many more...)
 			end
@@ -1299,7 +1305,7 @@ end
 			REP_AddGeneral(889, 4, 8, "Warsong Gulch flag capture", 100, "Warsong Gulch flag capture", "Every time your team captures a flag you gain 100 reputation")
 			REP_AddGeneral(889, 4, 8, "Warsong Gulch victory", 100, "Warsong Gulch victory", "Every time your team wins you gain 100 reputation")
 			REP_AddGeneral(889, 4, 8, "Warsong Gulch loss", 35, "Warsong Gulch loss", "Every time your team lose you gain 35 reputation")
-			if (REP_AfterWoD) then
+			if (REP.AfterWoD) then
 				----  TODO: Add Brawl reputation rewards from
 			end
 		end
@@ -1308,7 +1314,7 @@ end
 		-- Frostwolf Clan (Alterac Valley) 729
 		---------------------------
 		---- Quests
-		if (REP_IsClassic) then
+		if (REP.IsClassic) then
 			REP_AddQuest(729, 4, 8, "For Great Honor", 150, {[20560] = 3, [20559] = 3, [20558] = 3}) -- For Great Honor QuestID: 8388
 			REP_AddQuest(729, 4, 8, "Invaders of Alterac Valley", 100, {[20560] = 3}) -- Invaders of Alterac Valley QuestID: 8387
 		end
@@ -1325,8 +1331,8 @@ end
 		-- The Defilers (Arathi Basin) 510
 		---------------------------
 		---- General
-		if (not REP_AfterMoP) then
-			if (REP_IsClassic) then
+		if (not REP.AfterMoP) then
+			if (REP.IsClassic) then
 				---- Quests
 				REP_AddQuest(510, 4, 8, "For Great Honor", 100, {[20560] = 3, [20559] = 3, [20558] = 3}) -- For Great Honor QuestID: 8388
 				REP_AddQuest(510, 4, 8, "Arathi Basin Resources!", 75, {[20559] = 1}) -- Arathi Basin Resources! QuestID: 8297 (and so many more...)
@@ -1343,7 +1349,7 @@ end
 --------------------------------------------------
 -- Factions released 'after' Vanilla/Classic
 --------------------------------------------------
-	if(REP_AfterClassic) then
+	if(REP.AfterClassic) then
 		---------------------------
 		-- The Violet Eye 967 --
 		---------------------------
@@ -1369,7 +1375,7 @@ end
 		REP_AddQuest(942, 4, 5, "Plants of Zangarmarsh", 250, {[24401] = 10}) -- Plants of Zangarmarsh QuestID: 9802
 		REP_AddQuest(942, 4, 6, "Uncatalogued Species", 500, {[24407] = 1}) -- Uncatalogued Species QuestID: 9875
 		REP_AddQuest(942, 4, 8, "Coilfang Armaments", 75, {[24368] = 1}) -- Coilfang Armaments QuestID: 9766
-		if (REP_AfterWotlk) then
+		if (REP.AfterWotlk) then
 			REP_AddQuest(942, 4, 8, "Can't Get Ear-nough...", 150) -- Can't Get Ear-nough... QuestID: 11867
 		end
 		---- Mobs
@@ -1388,7 +1394,7 @@ end
 		REP_AddInstance(942, 6, 8, zone.The_Underbog, 1000, true)
 		REP_AddInstance(942, 4, 8, zone.The_Steamvault, 1662, false)
 		REP_AddInstance(942, 4, 8, zone.The_Steamvault, 2319, true)
-		if (REP_AfterMoP) then
+		if (REP.AfterMoP) then
 			-- Timewalking Commendation
 			REP_AddItems(942, 1, 8, 500, {[129949] = 1})
 		end
@@ -1401,7 +1407,7 @@ end
 		REP_AddInstance(989, 4, 8, zone.Old_Hillsbrad_Foothills, 2445, true)
 		REP_AddInstance(989, 4, 8, zone.The_Black_Morass, 1110, false)
 		REP_AddInstance(989, 4, 8, zone.The_Black_Morass, 1725, true)
-		if (REP_AfterMoP) then
+		if (REP.AfterMoP) then
 			-- Timewalking Commendation
 			REP_AddItems(989, 1, 8, 500, {[129950] = 1})
 		end
@@ -1410,9 +1416,9 @@ end
 		-- Netherwing 1015 --
 		---------------------------
 		---- Quests
-		REP_AddQuest(1015, 4, 8, "Netherdust Pollen", 250, {[32468] = 40}, REP_LIMIT_TYPE_Herb) -- Netherdust Pollen QuestID: 11017
-		REP_AddQuest(1015, 4, 8, "Nethercite Ore", 250, {[32464] = 40}, REP_LIMIT_TYPE_Mine) -- Nethercite Ore QuestID: 11018
-		REP_AddQuest(1015, 4, 8, "Nethermine Flayer Hide", 250, {[32470] = 35}, REP_LIMIT_TYPE_Skin) -- Nethermine Flayer Hide QuestID: 11016
+		REP_AddQuest(1015, 4, 8, "Netherdust Pollen", 250, {[32468] = 40}, REP.LIMIT_TYPE_Herb) -- Netherdust Pollen QuestID: 11017
+		REP_AddQuest(1015, 4, 8, "Nethercite Ore", 250, {[32464] = 40}, REP.LIMIT_TYPE_Mine) -- Nethercite Ore QuestID: 11018
+		REP_AddQuest(1015, 4, 8, "Nethermine Flayer Hide", 250, {[32470] = 35}, REP.LIMIT_TYPE_Skin) -- Nethermine Flayer Hide QuestID: 11016
 		REP_AddQuest(1015, 4, 8, "A Slow Death", 250) -- A Slow Death QuestID: 11020
 		REP_AddQuest(1015, 4, 8, "The Not-So-Friendly Skies...", 250, {[32509] = 10}) -- The Not-So-Friendly Skies... QuestID: 11035
 		REP_AddQuest(1015, 4, 8, "Netherwing Crystals", 250, {[32427] = 30}) -- Netherwing Crystals QuestID: 11015
@@ -1445,7 +1451,7 @@ end
 		REP_AddQuest(1031, 4, 8, "Wrangle More Aether Rays!", 350) -- Wrangle More Aether Rays! QuestID: 11066
 		REP_AddQuest(1031, 4, 8, "Bomb Them Again!", 500) -- Bomb Them Again! QuestID: 11023
 		---- Mobs
-		if (not REP_AfterWotlk) then
+		if (not REP.AfterWotlk) then
 			REP_AddMob(1031, 4, 6, "Skettis Kaliri", 2.5, zone.Terokkar_Forest)
 			REP_AddMob(1031, 4, 8, "Skettis, Talonpriests, Time-Lost Skettis, Monstrous Kaliri", 5, zone.Terokkar_Forest)
 			REP_AddMob(1031, 4, 8, "Talonsworn Forest-Rager", 15, zone.Terokkar_Forest)
@@ -1490,7 +1496,7 @@ end
 		---- Instances
 		REP_AddInstance(933, 4, 5, zone.Mana_Tombs, 1200, false)
 		REP_AddInstance(933, 6, 8, zone.Mana_Tombs, 2400, true)
-		if(REP_AfterMoP) then
+		if(REP.AfterMoP) then
 			-- Timewalking Commendation
 			REP_AddItems(933, 1, 8, 500, {[129945] = 1})
 		end
@@ -1507,7 +1513,7 @@ end
 		REP_AddInstance(1011, 4, 8, zone.Sethekk_Halls, 1250, true)
 		REP_AddInstance(1011, 4, 8, zone.Shadow_Labyrinth, 2000, false)
 		REP_AddInstance(1011, 4, 8, zone.Shadow_Labyrinth, 2700, true)
-		if(REP_AfterMoP) then
+		if(REP.AfterMoP) then
 			-- Timewalking Commendation
 			REP_AddItems(1011, 1, 8, 500, {[129951] = 1})
 		end
@@ -1516,7 +1522,7 @@ end
 		-- Shattered Sun Offensive 1077 --
 		---------------------------
 		---- Quests
-		REP_AddQuest(1077, 4, 8, "Gaining the Advantage", 250, {[35229] = 8}, REP_LIMIT_TYPE_Gather) -- Gaining the Advantage QuestID: 11877
+		REP_AddQuest(1077, 4, 8, "Gaining the Advantage", 250, {[35229] = 8}, REP.LIMIT_TYPE_Gather) -- Gaining the Advantage QuestID: 11877
 		REP_AddQuest(1077, 4, 8, "Sunfury Attack Plans", 250) -- Sunfury Attack Plans QuestID: 11877
 		REP_AddQuest(1077, 4, 8, "The Multiphase Survey", 150) -- The Multiphase Survey QuestID: 11880
 		REP_AddQuest(1077, 4, 8, "Blood for Blood", 250) -- Blood for Blood QuestID: 11515
@@ -1585,21 +1591,21 @@ end
 		REP_AddInstance(935, 4, 8, zone.The_Botanica, 3000, true)
 		REP_AddInstance(935, 4, 8, zone.The_Arcatraz, 1800, false)
 		REP_AddInstance(935, 4, 8, zone.The_Arcatraz, 3000, true)
-		if(REP_AfterMoP) then
+		if(REP.AfterMoP) then
 			-- Timewalking Commendation
 			REP_AddItems(935, 1, 8, 500, {[129946] = 1})
 		end
 
-		if (REP_IsAlliance) then
+		if (REP.IsAlliance) then
 			---------------------------
 			-- Exodar 930 --
 			---------------------------
-			if (not REP_AfterWotlk) then
+			if (not REP.AfterWotlk) then
 				---- Quests
 				REP_AddQuest(930, 4, 8, 10358, 75, {[14047] = 20}) -- Additional Runecloth QuestID: 10358
 			else
-				REP_AddQuest(930, 4, 8, 2, 65, "nil", REP_LIMIT_TYPE_Cook)
-				REP_AddQuest(930, 4, 8, 4, 65, "nil", REP_LIMIT_TYPE_Fish)
+				REP_AddQuest(930, 4, 8, 2, 65, "nil", REP.LIMIT_TYPE_Cook)
+				REP_AddQuest(930, 4, 8, 4, 65, "nil", REP.LIMIT_TYPE_Fish)
 			end
 			---- Spillover from Alterac Valley
 		  REP_AddQuest(930, 4, 8, "Crystal Cluster", 18.75, {[17423] = 5}) -- Crystal Cluster QuestID: 7386
@@ -1610,7 +1616,7 @@ end
 		  REP_AddQuest(930, 4, 8, 7027, 2.5)
 		  REP_AddQuest(930, 4, 8, 7026, 2.5, {[17643] = 1})
 		  REP_AddQuest(930, 4, 8, 6781, 2.5, {[17422] = 20})
-			if (REP_AfterTBC) then
+			if (REP.AfterTBC) then
 				---- Items
 				REP_AddItems(930, 4, 8, 250, {["Exodar Commendation Badge"] = 1}) -- 45715
 				REP_AddItems(930, 4, 8, 62.5, {[4] = 1})
@@ -1630,11 +1636,11 @@ end
 			REP_AddInstance(946, 6, 8, zone.The_Blood_Furnace, 2700, true)
 			REP_AddInstance(946, 4, 8, zone.The_Shattered_Halls, 1600, false)
 			REP_AddInstance(946, 4, 8, zone.The_Shattered_Halls, 2900, true)
-			if (REP_AfterWotlk) then
+			if (REP.AfterWotlk) then
 				---- Mobs
 				REP_AddMob(946, 4, 7, REP_TXT.Mob.MoshOgg_Spellcrafter, 5, zone.Northern_Stranglethorn) -- Mosh'Ogg Spellcrafter ID=710
 				REP_AddMob(946, 4, 8, REP_TXT.Mob.MoshOgg_Spellcrafter, 15, zone.Northern_Stranglethorn) -- Mosh'Ogg Spellcrafter ID=710
-				if (REP_AfterMoP) then
+				if (REP.AfterMoP) then
 					-- Timewalking commendation
 					REP_AddItems(946, 1, 8, 500, {[129948] = 1})
 				end
@@ -1658,12 +1664,12 @@ end
 			---------------------------
 			-- Silvermoon City 911
 			---------------------------
-			if (not REP_AfterWotlk) then
+			if (not REP.AfterWotlk) then
 				---- Quests
 				REP_AddQuest(911, 4, 8, 10363, 75, {[14047] = 20}) -- Additional Runecloth QuestID: 10363
 			else
-				REP_AddQuest(911, 4, 8, 2, 65, "nil", REP_LIMIT_TYPE_Cook)
-				REP_AddQuest(911, 4, 8, 4, 65, "nil", REP_LIMIT_TYPE_Fish)
+				REP_AddQuest(911, 4, 8, 2, 65, "nil", REP.LIMIT_TYPE_Cook)
+				REP_AddQuest(911, 4, 8, 4, 65, "nil", REP.LIMIT_TYPE_Fish)
 			end
 			---- Spillover from Alterac Valley
 			REP_AddQuest(911, 4, 8, "A Gallon of Blood", 18.75, {[17306] = 5}) -- A Gallon of Blood QuestID: 7385
@@ -1674,7 +1680,7 @@ end
 			REP_AddQuest(911, 4, 8, 7027, 2.5)
 			REP_AddQuest(911, 4, 8, 7002, 2.5, {[17642] = 1})
 			REP_AddQuest(911, 4, 8, 6741, 2.5, {[17422] = 20})
-			if (REP_AfterTBC) then
+			if (REP.AfterTBC) then
 				---- Items
 				REP_AddItems(911, 4, 8, 250, {[45721] = 1})
 				REP_AddItems(911, 4, 8, 62.5, {[4] = 1})
@@ -1699,7 +1705,7 @@ end
 			REP_AddInstance(947, 6, 8, zone.The_Blood_Furnace, 2700, true)
 			REP_AddInstance(947, 4, 8, zone.The_Shattered_Halls, 1600, false)
 			REP_AddInstance(947, 4, 8, zone.The_Shattered_Halls, 2900, true)
-			if (REP_AfterMoP) then
+			if (REP.AfterMoP) then
 			  -- Timewalking Commendation
 			  REP_AddItems(947, 1, 8, 500, {[129947] = 1})
 			end
@@ -1731,11 +1737,11 @@ end
 --------------------------------------------------
 -- Factions released 'after' The Burning Crusade
 --------------------------------------------------
-	if(REP_AfterTBC) then
+	if(REP.AfterTBC) then
 		---------------------------
 		-- Argent Crusade 1106
 		---------------------------
-		if (REP_AfterWotlk) then
+		if (REP.AfterWotlk) then
 			---- Mobs
 			REP_AddMob(1106, 4, 8, "Crypt Slayer, Crypt Stalker, Crypt Walker, Crypt Horror", 5, zone.Eastern_Plaguelands) -- MobId: 8558, 8555, 8556, 8557
 			REP_AddMob(1106, 4, 8, "Cursed Mage, Cannibal Ghoul, Scourge Soldier, Overstuffed Golem", 5, zone.Eastern_Plaguelands) -- MobId: 8524, 8530, 8523, 45851
@@ -1743,19 +1749,19 @@ end
 		---- Quests
 		REP_AddQuest(1106, 4, 8, 12587, 350) -- Troll Patrol QuestID: 12587
 		REP_AddQuest(1106, 4, 8, 12604, 500) -- Congratulations! QuestID: 12604
-		if (REP_IsAlliance) then
+		if (REP.IsAlliance) then
 			REP_AddQuest(1106, 4, 8, 13300, 325) -- Slaves to Saronite QuestID: 13300
 		else
 			REP_AddQuest(1106, 4, 8, 13302, 325) -- Slaves to Saronite QuestID: 13302
 		end
-		if (REP_IsDeathKnight) then
+		if (REP.IsDeathKnight) then
 			---- Quests
 			REP_AddQuest(1106, 4, 8, 13809, 325) -- Threat From Above QuestID: 13809
 			REP_AddQuest(1106, 4, 8, 13810, 325) -- Taking Battle To The Enemy QuestID: 13810
 			REP_AddQuest(1106, 4, 8, 13862, 325) -- Battle Before The Citadel QuestID: 13862
 			REP_AddQuest(1106, 4, 8, 13811, 325) -- Among the Champions QuestID: 13811
 		end
-		if (not REP_AfterMoP) then
+		if (not REP.AfterMoP) then
 			---- Items
 			REP_AddItems(1106, 4, 8, 400, {[44711] = 1}) -- Argent Crusade Commendation Badge
 		else
@@ -1769,12 +1775,12 @@ end
 		-- Kirin Tor 1090 --
 		---------------------------
 		---- Quests
-		REP_AddQuest(1090, 4, 8, "Dalaran Jewelcrafting daily", 25, "nil", REP_LIMIT_TYPE_Jewel)
-		REP_AddQuest(1090, 4, 8, "Dalaran Cooking daily", 150, "nil", REP_LIMIT_TYPE_Cook)
-		REP_AddQuest(1090, 4, 8, "Dalaran Fishing daily", 250, "nil", REP_LIMIT_TYPE_Fish)
+		REP_AddQuest(1090, 4, 8, "Dalaran Jewelcrafting daily", 25, "nil", REP.LIMIT_TYPE_Jewel)
+		REP_AddQuest(1090, 4, 8, "Dalaran Cooking daily", 150, "nil", REP.LIMIT_TYPE_Cook)
+		REP_AddQuest(1090, 4, 8, "Dalaran Fishing daily", 250, "nil", REP.LIMIT_TYPE_Fish)
 		REP_AddQuest(1090, 4, 8, 14203, 250, {[49667] = 1}) -- Waterlogged Recipe QuestID: 14203
 		REP_AddQuest(1090, 4, 8, 13845, 250, {[46005] = 1}) -- Sealed Vial of Poison QuestID: 13845
-		if (not REP_AfterMoP) then
+		if (not REP.AfterMoP) then
 			---- Items
 			REP_AddItems(1090, 4, 8, 400, {[43950] = 1}) -- Kirin Tor Commendation Badge
 		else
@@ -1795,8 +1801,8 @@ end
 		REP_AddQuest(1098, 4, 8, 13071, 250) -- Vile Like Fire! QuestID: 13071
 		REP_AddQuest(1098, 4, 8, 13069, 250) -- Shoot 'Em Up QuestID: 13069
 		REP_AddQuest(1098, 4, 8, 13093, 10, {[43089] = 10}) -- Reading the Bones QuestID: 13093
-		if (REP_IsDeathKnight) then
-			if (REP_IsAlliance) then
+		if (REP.IsDeathKnight) then
+			if (REP.IsAlliance) then
 				REP_AddQuest(1098, 4, 8, 13793, 325) -- Among the Champions QuestID: 13793
 				REP_AddQuest(1098, 4, 8, 13864, 325) -- Battle Before The Citadel QuestID: 13864
 				REP_AddQuest(1098, 4, 8, 13791, 325) -- Taking Battle To The Enemy QuestID: 13791
@@ -1808,7 +1814,7 @@ end
 				REP_AddQuest(1098, 4, 8, 13812, 250) -- Threat From Above QuestID: 13812
 			end
 		end
-		if (not REP_AfterMoP) then
+		if (not REP.AfterMoP) then
 			---- Items
 			REP_AddItems(1098, 4, 8, 400, {[44713] = 1}) -- Knights of the Ebon Blade Commendation Badge
 		else
@@ -1845,7 +1851,7 @@ end
 		REP_AddQuest(1119, 6, 8, 12994, 350) -- Spy Hunter QuestID: 12994
 		REP_AddQuest(1119, 6, 8, 13003, 500) -- How To Slay Your Dragon QuestID: 13003
 		REP_AddQuest(1119, 7, 8, 13046, 350) -- Feeding Arngrim QuestID: 13046
-		if (not REP_AfterMoP) then
+		if (not REP.AfterMoP) then
 			---- Items
 			REP_AddItems(1119, 4, 8, 400, {[49702] = 1}) -- The Sons of Hodir Commendation Badge
 		else
@@ -1860,7 +1866,7 @@ end
 		REP_AddQuest(1091, 4, 8, 11940, 250) -- Drake Hunt QuestID: 11940
 		REP_AddQuest(1091, 4, 8, 12372, 250) -- Defending Wyrmrest Temple QuestID: 12372
 		REP_AddQuest(1091, 4, 8, 13414, 250) -- Aces High! QuestID: 13414
-		if (not REP_AfterMoP) then
+		if (not REP.AfterMoP) then
 			---- Items
 			REP_AddItems(1091, 4, 8, 400, {[44710] = 1}) -- The Wyrmrest Accord Commendation Badge
 		else
@@ -1870,7 +1876,7 @@ end
 		---- General
 		REP_AddGeneral(1091, 5, 8, "Killing mobs in instances while wearing The Wyrmrest Accord tabard.", 5, "Killing mobs in instances while wearing The Wyrmrest Accord tabard.", "Killing mobs in instances while wearing The Wyrmrest Accord tabard will reward you roughly 5 reputation per kill.")
 		---- TODO: Double check what this instance rep was.
-		if (REP_IsCata) then
+		if (REP.IsCata) then
 			---- Instances
 			REP_AddInstance(1091, 5, 8, 5, 800, false)
 			REP_AddInstance(1091, 5, 8, 5, 2000, true)
@@ -1904,7 +1910,7 @@ end
 		REP_AddQuest(1105, 6, 8, 12736, 500) -- Song of Reflection QuestID: 12736
 		REP_AddQuest(1105, 6, 8, 12726, 500) -- Song of Wind and Water QuestID: 12726
 
-		if (REP_IsAlliance) then
+		if (REP.IsAlliance) then
 			---------------------------
 			-- Alliance Vanguard 1037
 			---------------------------
@@ -1930,7 +1936,7 @@ end
 			REP_AddQuest(1037, 4, 8, 13847, 62.5) -- At The Enemy's Gates QuestID: 13847
 			REP_AddQuest(1037, 4, 8, 13665, 62.5) -- The Grand Melee QuestID: 13665
 			---- Tournament quests
-			if (REP_IsDeathKnight) then
+			if (REP.IsDeathKnight) then
 				REP_AddQuest(1037, 4, 8, 13788, 125) -- Threat From Above QuestID: 13788
 				REP_AddQuest(1037, 4, 8, 13791, 125) -- Taking Battle To The Enemy QuestID: 13791
 				REP_AddQuest(1037, 4, 8, 13864, 125) -- Battle Before The Citadel QuestID: 13864
@@ -1944,7 +1950,7 @@ end
 			---- Instances
 			-- REP_AddInstance(1037, 4, 8, 1, 400, false)
 			REP_AddInstance(1037, 4, 8, 1, 3000, true)
-			if (REP_AfterMoP) then
+			if (REP.AfterMoP) then
 				-- Timewalking Commendation
 				REP_AddItems(1037, 1, 8, 500, {[129955] = 1})
 			end
@@ -1974,7 +1980,7 @@ end
 			REP_AddQuest(1068, 4, 8, 13847, 125) -- At The Enemy's Gates QuestID: 13847
 			REP_AddQuest(1068, 4, 8, 13665, 125) -- The Grand Melee QuestID: 13665
 			---- Tournament quests
-			if (REP_IsDeathKnight) then
+			if (REP.IsDeathKnight) then
 				REP_AddQuest(1068, 4, 8, 13788, 125) -- Threat From Above QuestID: 13788
 				REP_AddQuest(1068, 4, 8, 13791, 125) -- Taking Battle To The Enemy QuestID: 13791
 				REP_AddQuest(1068, 4, 8, 13864, 125) -- Battle Before The Citadel QuestID: 13864
@@ -2014,7 +2020,7 @@ end
 			REP_AddQuest(1126, 4, 8, 13847, 62.5) -- At The Enemy's Gates QuestID: 13847
 			REP_AddQuest(1126, 4, 8, 13665, 62.5) -- The Grand Melee QuestID: 13665
 			---- Tournament quests
-			if (REP_IsDeathKnight) then
+			if (REP.IsDeathKnight) then
 				REP_AddQuest(1126, 4, 8, 13788, 125) -- Threat From Above QuestID: 13788
 				REP_AddQuest(1126, 4, 8, 13791, 125) -- Taking Battle To The Enemy QuestID: 13791
 				REP_AddQuest(1126, 4, 8, 13864, 125) -- Battle Before The Citadel QuestID: 13864
@@ -2054,7 +2060,7 @@ end
 			REP_AddQuest(1094, 4, 8, 13847, 62.5) -- At The Enemy's Gates QuestID: 13847
 			REP_AddQuest(1094, 4, 8, 13665, 62.5) -- The Grand Melee QuestID: 13665
 			---- Tournament quests
-			if (REP_IsDeathKnight) then
+			if (REP.IsDeathKnight) then
 				REP_AddQuest(1094, 4, 8, 13788, 125) -- Threat From Above QuestID: 13788
 				REP_AddQuest(1094, 4, 8, 13791, 125) -- Taking Battle To The Enemy QuestID: 13791
 				REP_AddQuest(1094, 4, 8, 13864, 125) -- Battle Before The Citadel QuestID: 13864
@@ -2094,7 +2100,7 @@ end
 			REP_AddQuest(1050, 4, 8, 13847, 62.5) -- At The Enemy's Gates QuestID: 13847
 			REP_AddQuest(1050, 4, 8, 13665, 62.5) -- The Grand Melee QuestID: 13665
 			---- Tournament quests
-			if (REP_IsDeathKnight) then
+			if (REP.IsDeathKnight) then
 				REP_AddQuest(1050, 4, 8, 13788, 125) -- Threat From Above QuestID: 13788
 				REP_AddQuest(1050, 4, 8, 13791, 125) -- Taking Battle To The Enemy QuestID: 13791
 				REP_AddQuest(1050, 4, 8, 13864, 125) -- Battle Before The Citadel QuestID: 13864
@@ -2131,7 +2137,7 @@ end
 			REP_AddQuest(1052, 4, 8, 13769, 62.5) -- A Worthy Weapon QuestID: 13769
 			REP_AddQuest(1052, 4, 8, 13856, 62.5) -- At The Enemy's Gates QuestID: 13856
 			---- Tournament quests
-			if (REP_IsDeathKnight) then
+			if (REP.IsDeathKnight) then
 				REP_AddQuest(1052, 4, 8, 13812, 125) -- Threat From Above QuestID: 13812
 				REP_AddQuest(1052, 4, 8, 13813, 125) -- Taking Battle To The Enemy QuestID: 13813
 				REP_AddQuest(1052, 4, 8, 13863, 125) -- Battle Before The Citadel QuestID: 13863
@@ -2145,7 +2151,7 @@ end
 			---- Instances
 			-- REP_AddInstance(1052, 4, 8, 1, 400, false)
 			REP_AddInstance(1052, 4, 8, 1, 3000, true)
-			if (REP_AfterMoP) then
+			if (REP.AfterMoP) then
 				---- Timewalking Commendation
 				REP_AddItems(1052, 1, 8, 500, {[129954] = 1})
 			end
@@ -2172,7 +2178,7 @@ end
 			REP_AddQuest(1067, 4, 8, 13769, 62.5) -- A Worthy Weapon QuestID: 13769
 			REP_AddQuest(1067, 4, 8, 13856, 62.5) -- At The Enemy's Gates QuestID: 13856
 			---- Tournament quests
-			if (REP_IsDeathKnight) then
+			if (REP.IsDeathKnight) then
 				REP_AddQuest(1067, 4, 8, 13812, 125) -- Threat From Above QuestID: 13812
 				REP_AddQuest(1067, 4, 8, 13813, 125) -- Taking Battle To The Enemy QuestID: 13813
 				REP_AddQuest(1067, 4, 8, 13863, 125) -- Battle Before The Citadel QuestID: 13863
@@ -2209,7 +2215,7 @@ end
 			REP_AddQuest(1124, 4, 8, 13769, 62.5) -- A Worthy Weapon QuestID: 13769
 			REP_AddQuest(1124, 4, 8, 13856, 62.5) -- At The Enemy's Gates QuestID: 13856
 			---- Tournament quests
-			if (REP_IsDeathKnight) then
+			if (REP.IsDeathKnight) then
 				REP_AddQuest(1124, 4, 8, 13812, 125) -- Threat From Above QuestID: 13812
 				REP_AddQuest(1124, 4, 8, 13813, 125) -- Taking Battle To The Enemy QuestID: 13813
 				REP_AddQuest(1124, 4, 8, 13863, 125) -- Battle Before The Citadel QuestID: 13863
@@ -2246,7 +2252,7 @@ end
 			REP_AddQuest(1085, 4, 8, 13769, 62.5) -- A Worthy Weapon QuestID: 13769
 			REP_AddQuest(1085, 4, 8, 13856, 62.5) -- At The Enemy's Gates QuestID: 13856
 			---- Tournament quests
-			if (REP_IsDeathKnight) then
+			if (REP.IsDeathKnight) then
 				REP_AddQuest(1085, 4, 8, 13812, 125) -- Threat From Above QuestID: 13812
 				REP_AddQuest(1085, 4, 8, 13813, 125) -- Taking Battle To The Enemy QuestID: 13813
 				REP_AddQuest(1085, 4, 8, 13863, 125) -- Battle Before The Citadel QuestID: 13863
@@ -2283,7 +2289,7 @@ end
 			REP_AddQuest(1064, 4, 8, 13769, 62.5) -- A Worthy Weapon QuestID: 13769
 			REP_AddQuest(1064, 4, 8, 13856, 62.5) -- At The Enemy's Gates QuestID: 13856
 			---- Tournament quests
-			if (REP_IsDeathKnight) then
+			if (REP.IsDeathKnight) then
 				REP_AddQuest(1064, 4, 8, 13812, 125) -- Threat From Above QuestID: 13812
 				REP_AddQuest(1064, 4, 8, 13813, 125) -- Taking Battle To The Enemy QuestID: 13813
 				REP_AddQuest(1064, 4, 8, 13863, 125) -- Battle Before The Citadel QuestID: 13863
@@ -2303,7 +2309,7 @@ end
 --------------------------------------------------
 -- Factions released 'after' Wrath of the lich king
 --------------------------------------------------
-	if(REP_AfterWotlk) then
+	if(REP.AfterWotlk) then
 		---------------------------
 		-- Guild 1168 --
 		---------------------------
@@ -2366,8 +2372,8 @@ end
 		-- Guardians of Hyjal 1158 --
 		---------------------------
 		---- Quests
-		REP_AddQuest(1158, 4, 8, 29177, 250, REP_LIMIT_TYPE_FALSE)
-		REP_AddQuest(1158, 4, 8, 29163, 250, REP_LIMIT_TYPE_TRUE)
+		REP_AddQuest(1158, 4, 8, 29177, 250, REP.LIMIT_TYPE_FALSE)
+		REP_AddQuest(1158, 4, 8, 29163, 250, REP.LIMIT_TYPE_TRUE)
 		REP_AddQuest(1158, 4, 8, 29122, 250)
 		REP_AddQuest(1158, 4, 8, 29162, 250)
 		REP_AddQuest(1158, 4, 8, 29246, 250)
@@ -2398,7 +2404,7 @@ end
 		---- Instances
 		REP_AddInstance(1158, 4, 8, 5, 1000, false)
 		REP_AddInstance(1158, 4, 8, 5, 1800, true)
-		if (REP_AfterMoP) then
+		if (REP.AfterMoP) then
 			-- Timewalking Commendation
 			REP_AddItems(1158, 1, 8, 500, {[133152] = 1})
 		end
@@ -2419,7 +2425,7 @@ end
 		---- Quests
 		REP_AddQuest(1173, 4, 8, 28250, 150)
 		REP_AddQuest(1173, 4, 8, 28736, 250)
-		if (REP_AfterMoP) then
+		if (REP.AfterMoP) then
 			-- Timewalking Commendation
 			REP_AddItems(1173, 1, 8, 500, {[133154] = 1})
 		end
@@ -2437,7 +2443,7 @@ end
 		REP_AddMob(1135, 1, 8, 1, 15, 6)
 		REP_AddMob(1135, 1, 8, 4, 150, 5)
 		REP_AddMob(1135, 1, 8, 4, 250, 6)
-		if (REP_AfterMoP) then
+		if (REP.AfterMoP) then
 			-- Timewalking Commendation
 			REP_AddItems(1135, 1, 8, 500, {[133159] = 1})
 		end
@@ -2466,14 +2472,14 @@ end
 		REP_AddQuest(1171, 4, 8, 27048, 250)
 		REP_AddQuest(1171, 5, 8, 28390, 350)
 		REP_AddQuest(1171, 5, 8, 28391, 350)
-		if(REP_AfterMoP) then
+		if(REP.AfterMoP) then
 			-- Timewalking Commendation
 			REP_AddItems(1171, 1, 8, 500, {[133160] = 1})
 		end
 		---- General
 		REP_AddGeneral(1171, 5, 8, "Killing mobs in instances while wearing the Therazane tabard.", 5, "Killing mobs in instances while wearing the Therazane tabard.", "Killing mobs in instances while wearing the Therazane tabard will reward you roughly 5 reputation per kill.")
 
-		if (REP_IsAlliance) then
+		if (REP.IsAlliance) then
 			---------------------------
 			-- Wildhammer Clan 1174
 			---------------------------
@@ -2546,8 +2552,8 @@ end
 			-- Gilneas 1134
 			---------------------------
 			---- Quests
-			REP_AddQuest(1134,4, 8, 2, 65, "nil", REP_LIMIT_TYPE_Cook)
-			REP_AddQuest(1134,4, 8, 4, 65, "nil", REP_LIMIT_TYPE_Fish)
+			REP_AddQuest(1134,4, 8, 2, 65, "nil", REP.LIMIT_TYPE_Cook)
+			REP_AddQuest(1134,4, 8, 4, 65, "nil", REP.LIMIT_TYPE_Fish)
 			---- General
 			REP_AddGeneral(1134, 5, 8, "Killing mobs in instances while wearing the Gilneas tabard.", 5, "Killing mobs in instances while wearing the Gilneas tabard.", "Killing mobs in instances while wearing the Gilneas tabard will reward you roughly 5 reputation per kill.")
 		else
@@ -2555,8 +2561,8 @@ end
 			-- Bilgewater Cartel 1133
 			---------------------------
 			---- General quests
-			REP_AddQuest(1133, 4, 8, 2, 65, "nil", REP_LIMIT_TYPE_Cook)
-			REP_AddQuest(1133, 4, 8, 4, 65, "nil", REP_LIMIT_TYPE_Fish)
+			REP_AddQuest(1133, 4, 8, 2, 65, "nil", REP.LIMIT_TYPE_Cook)
+			REP_AddQuest(1133, 4, 8, 4, 65, "nil", REP.LIMIT_TYPE_Fish)
 			---- General
 			REP_AddGeneral(1133, 5, 8, "Killing mobs in instances while wearing the Bilgewater Cartel tabard.", 5, "Killing mobs in instances while wearing the Bilgewater Cartel tabard.", "Killing mobs in instances while wearing the Bilgewater Cartel tabard will reward you roughly 5 reputation per kill.")
 
@@ -2564,8 +2570,8 @@ end
 			-- Huojin Pandaren 1352
 			---------------------------
 			---- Quests
-		  REP_AddQuest(1352, 4, 8, 2, 65, "nil", REP_LIMIT_TYPE_Cook)
-		  REP_AddQuest(1352, 4, 8, 4, 65, "nil", REP_LIMIT_TYPE_Fish)
+		  REP_AddQuest(1352, 4, 8, 2, 65, "nil", REP.LIMIT_TYPE_Cook)
+		  REP_AddQuest(1352, 4, 8, 4, 65, "nil", REP.LIMIT_TYPE_Fish)
 
 			---------------------------
 			-- Dragonmaw Clan 1172
@@ -2581,7 +2587,7 @@ end
 		  REP_AddMob(1172, 1, 8, 1, 15, 6)
 		  REP_AddMob(1172, 1, 8, 4, 150, 5)
 		  REP_AddMob(1172, 1, 8, 4, 250, 6)
-			if(REP_AfterMoP) then
+			if(REP.AfterMoP) then
 			  -- Timewalking Commendation
 			  REP_AddItems(1172, 1, 8, 500, {[133150] = 1})
 			end
@@ -2639,7 +2645,7 @@ end
 --------------------------------------------------
 -- Factions released 'after' Cataclysm
 --------------------------------------------------
-	if (REP_AfterCata) then
+	if (REP.AfterCata) then
 		---------------------------
 		-- Golden Lotus 1269 --
 		---------------------------
@@ -2658,7 +2664,7 @@ end
 		REP_AddQuest(1269, 1, 8, 30243, 250)
 		REP_AddQuest(1269, 1, 8, 30266, 250)
 		REP_AddQuest(1269, 1, 8, 32648, 300)
-		if (REP_AfterMoP) then
+		if (REP.AfterMoP) then
 			-- Timewalking Commendation
 			REP_AddItems(1269, 1, 8, 300, {[143937] = 1})
 		end
@@ -2695,7 +2701,7 @@ end
 		REP_AddQuest(1270, 1, 8, 31117, 250)
 		REP_AddQuest(1270, 1, 8, 31062, 250)
 		REP_AddQuest(1270, 1, 8, 32650, 300)
-		if (REP_AfterMoP) then
+		if (REP.AfterMoP) then
 			-- Timewalking Commendation
 			REP_AddItems(1270, 1, 8, 300, {[143936] = 1})
 		end
@@ -2756,7 +2762,7 @@ end
 		REP_AddQuest(1341, 1, 8, 30957, 250)
 		REP_AddQuest(1341, 1, 8, 30956, 350)
 		REP_AddQuest(1341, 1, 8, 30952, 300)
-		if (REP_AfterMoP) then
+		if (REP.AfterMoP) then
 			-- Timewalking Commendation
 			REP_AddItems(1341, 1, 8, 300, {[143938] = 1})
 		end
@@ -2800,7 +2806,7 @@ end
 		REP_AddQuest(1337, 1, 8, 31502, 130)
 		REP_AddQuest(1337, 1, 8, 31677, 130)
 		REP_AddQuest(1337, 1, 8, 32659, 400)
-		if (REP_AfterMoP) then
+		if (REP.AfterMoP) then
 			-- Timewalking Commendation
 			REP_AddItems(1337, 1, 8, 300, {[143935] = 1})
 		end
@@ -2848,7 +2854,7 @@ end
 		REP_AddQuest(1271, 1, 8, 31700, 450)
 		REP_AddQuest(1271, 1, 8, 30152, 600)
 		REP_AddQuest(1271, 1, 8, 31718, 450)
-		if (REP_AfterMoP) then
+		if (REP.AfterMoP) then
 			-- Timewalking Commendation
 			REP_AddItems(1271, 1, 8, 300, {[143942] = 1})
 		end
@@ -2897,7 +2903,7 @@ end
 		REP_AddQuest(1302, 1, 8, 30701, 500)
 		REP_AddQuest(1302, 1, 8, 30585, 500)
 		REP_AddQuest(1302, 1, 8, 30598, 500)
-		if (REP_AfterMoP) then
+		if (REP.AfterMoP) then
 			-- Timewalking Commendation
 			REP_AddItems(1302, 1, 8, 300, {[143946] = 1})
 		end
@@ -2962,7 +2968,7 @@ end
 		REP_AddQuest(1272, 1, 8, 30476, 150)
 		REP_AddQuest(1272, 1, 8, 30472, 150)
 		REP_AddQuest(1272, 1, 8, 30470, 150)
-		if (REP_AfterMoP) then
+		if (REP.AfterMoP) then
 			-- Timewalking Commendation
 			REP_AddItems(1272, 1, 8, 300, {[143941] = 1})
 		end
@@ -3134,7 +3140,7 @@ end
 		REP_AddQuest(1492, 1, 8, 33342, 250)
 		REP_AddQuest(1492, 1, 8, 33343, 250)
 		REP_AddQuest(1492, 1, 8, 33374, 250)
-		if (REP_AfterMoP) then
+		if (REP.AfterMoP) then
 			-- Timewalking Commendation
 			REP_AddItems(1492, 1, 8, 500, {[143947] = 1})
 		end
@@ -3150,12 +3156,12 @@ end
 		REP_AddQuest(1435, 1, 8, 32641, 300, {[94221] = 3})
 		REP_AddQuest(1435, 1, 8, 32707, 200, {[94221] = 3})
 		REP_AddQuest(1435, 1, 8, 32708, 300)
-		if (REP_AfterMoP) then
+		if (REP.AfterMoP) then
 		-- Timewalking Commendation
 		REP_AddItems(1435, 1, 8, 300, {[143945] = 1})
 		end
 
-		if (REP_IsAlliance) then
+		if (REP.IsAlliance) then
 			---------------------------
 			-- Operation: Shieldwall 1376 --
 			---------------------------
@@ -3291,8 +3297,8 @@ end
 			-- Tushui Pandaren 1353
 			---------------------------
 			---- Quests
-			REP_AddQuest(1353, 4, 8, 2, 65, "nil", REP_LIMIT_TYPE_Cook)
-			REP_AddQuest(1353, 4, 8, 4, 65, "nil", REP_LIMIT_TYPE_Fish)
+			REP_AddQuest(1353, 4, 8, 2, 65, "nil", REP.LIMIT_TYPE_Cook)
+			REP_AddQuest(1353, 4, 8, 4, 65, "nil", REP.LIMIT_TYPE_Fish)
 		else
 			---------------------------
 			-- Brawl'gar Arena 1374
@@ -3351,7 +3357,7 @@ end
 		  REP_AddQuest(1375, 1, 8, 32170, 200)
 		  REP_AddQuest(1375, 1, 8, 32171, 200)
 
-			if (REP_AfterWoD) then
+			if (REP.AfterWoD) then
 			  -- Timewalking Commendation
 			  REP_AddItems(1375, 1, 8, 300, {[143943] = 1})
 			end
@@ -3435,7 +3441,7 @@ end
 		  REP_AddQuest(1388, 4, 8, 32233, 150)
 		  REP_AddQuest(1388, 4, 8, 32232, 150)
 		  REP_AddQuest(1388, 4, 8, 32583, 200)
-			if (REP_AfterWoD) then
+			if (REP.AfterWoD) then
 			  -- Timewalking Commendation
 			  REP_AddItems(1388, 1, 8, 300, {[143939] = 1})
 			end
@@ -3451,7 +3457,7 @@ end
 --------------------------------------------------
 -- Factions released 'after' Mist of Pandaria
 --------------------------------------------------
-	if (REP_AfterMoP) then
+	if (REP.AfterMoP) then
 		---------------------------
 		-- Arakkoa Outcasts 1515 --
 		---------------------------
@@ -3510,13 +3516,13 @@ end
 		REP_AddMob(1850, 1, 8, "The Blackfang (Rare elite)", 500, ZONE.Tanaan_Jungle)
 		---- Quests
 		REP_AddQuest(1850, 1, 8, 39565, 3500)
-		if REP_IsAlliance then
+		if REP.IsAlliance then
 			REP_AddQuest(1850, 1, 8, 39582, 1500, {[124099] = 100})
 		else
 			REP_AddQuest(1850, 1, 8, 39529, 1500, {[124099] = 100})
 		end
 
-		if (REP_IsAlliance) then
+		if (REP.IsAlliance) then
 			---------------------------
 			-- Council of Exarchs 1731
 			---------------------------
@@ -3653,7 +3659,7 @@ end
 --------------------------------------------------
 -- Factions released 'after' Warlords of Draenor
 --------------------------------------------------
-	if (REP_AfterWoD) then
+	if (REP.AfterWoD) then
 		---------------------------
 		-- Armies of Legionfall 2045 --
 		---------------------------
@@ -3857,7 +3863,7 @@ end
 		---- General (Weekly Quests)
 		REP_AddGeneral(2170, 1, 8, "Fuel of a Doomed World Weekly", 250, "Weekly Quest", "Complete the Fuel of a Doomed World weekly quest to gain reputation.")
 
-		if (REP_IsAlliance) then
+		if (REP.IsAlliance) then
 			-- Alliance
 		else
 			-- Horde
@@ -3867,7 +3873,7 @@ end
 --------------------------------------------------
 -- Factions released 'after' Legion
 --------------------------------------------------
-	if (REP_AfterLegion) then
+	if (REP.AfterLegion) then
 		---------------------------
 		-- Champions of Azeroth 2164 --
 		---------------------------
@@ -3924,7 +3930,7 @@ end
 		---- General
 		REP_AddGeneral(2135, 1, 8, "Run Chromie Scenarios In Dragonblite", 3000, "Complete Chromie Scenarios", "Complete Chromie time scenarios in Dragonblight")
 
-		if (REP_IsAlliance) then
+		if (REP.IsAlliance) then
 			---------------------------
 			-- Proudmoore Admiralty 2160 --
 			---------------------------
@@ -4040,7 +4046,7 @@ end
 --------------------------------------------------
 -- Factions released 'after' Battle for Azeroth
 --------------------------------------------------
-	if (REP_AfterBfA) then
+	if (REP.AfterBfA) then
 		---------------------------
 		-- The Ascended 2407 --
 		---------------------------
@@ -4332,7 +4338,7 @@ end
 		---- General
 		REP_AddGeneral(2478, 1, 8, "Zereth Mortis World Boss", 500, "Zereth Mortis World Boss", "Complete Zereth Mortis world boss once a week")
 
-		if (REP_IsAlliance) then
+		if (REP.IsAlliance) then
 			-- Alliance
 		else
 			-- Horde
@@ -4342,8 +4348,8 @@ end
 --------------------------------------------------
 -- Factions released 'after' Shadowlands
 --------------------------------------------------
-	if (REP_AfterShadowLands) then
-		if (REP_IsAlliance) then
+	if (REP.AfterShadowLands) then
+		if (REP.IsAlliance) then
 			-- Alliance
 		else
 			-- Horde
@@ -4353,8 +4359,8 @@ end
 --------------------------------------------------
 -- Factions released 'after' Dragonflight
 --------------------------------------------------
-	if (REP_AfterDragonflight) then
-		if (REP_IsAlliance) then
+	if (REP.AfterDragonflight) then
+		if (REP.IsAlliance) then
 			-- Alliance
 		else
 			-- Horde

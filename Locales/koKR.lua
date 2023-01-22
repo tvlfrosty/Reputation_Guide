@@ -1,7 +1,6 @@
-﻿-- Korean(한국어)
+-- Korean(한국어)
 --------------------	--------------------
 if (GetLocale() =="koKR") then
-
 -- Binding names
 BINDING_HEADER_REPUTATIONS	= "Reputation Guide"
 BINDING_NAME_SHOWCONFIG	= "옵션 창에서보기"
@@ -21,34 +20,6 @@ REP_TXT.version	= "버전"
 REP_TXT.date	= "당일"
 REP_TXT.web	= "웹 사이트"
 REP_TXT.slash	= "명령을 슬래시"
-REP_TXT_STAND_LV	= {}
-REP_TXT_STAND_LV[0]	= "알 수없는"
-REP_TXT_STAND_LV[1]	= "미워하는"
-REP_TXT_STAND_LV[2]	= "적의"
-REP_TXT_STAND_LV[3]	= "해로운"
-REP_TXT_STAND_LV[4]	= "중립국"
-REP_TXT_STAND_LV[5]	= "친한"
-REP_TXT_STAND_LV[6]	= "영광"
-REP_TXT_STAND_LV[7]	= "존경"
-REP_TXT_STAND_LV[8]	= "고귀한"
-REP_TXT_STAND_LV[9] = "불멸의 동맹"
-REP_TXT_STAND_LV_TIER	= {}
-REP_TXT_STAND_LV_TIER[0]	= "알 수없는"
-REP_TXT_STAND_LV_TIER[1] = "1 단계"
-REP_TXT_STAND_LV_TIER[2] = "2 단계"
-REP_TXT_STAND_LV_TIER[3] = "3 단계"
-REP_TXT_STAND_LV_TIER[4] = "4 단계"
-REP_TXT_STAND_LV_TIER[5] = "5 단계"
-REP_TXT_STAND_LV_TIER[6] = "6 단계"
-REP_TXT_STAND_LV_TRUST	= {}
-REP_TXT_STAND_LV_TRUST[0] = "알 수없는"
-REP_TXT_STAND_LV_TRUST[1] = "의심"
-REP_TXT_STAND_LV_TRUST[2] = "불안"
-REP_TXT_STAND_LV_TRUST[3] = "불확신"
-REP_TXT_STAND_LV_TRUST[4] = "애증"
-REP_TXT_STAND_LV_TRUST[5] = "호감"
-REP_TXT_STAND_LV_TRUST[6] = "경의"
-
 -- status
 REP_TXT.status	= "지위"
 REP_TXT.disabled	= "비활성화"
@@ -141,7 +112,6 @@ REP_TXT.ndq	= "no daily quests"
 REP_TXT.deleted	= "Outdated"
 REP_TXT.Championing	= "Championing (Tabard)"
 REP_TXT.bpqfg	= "By percent of quest faction gain"
-
 -- items Details
 REP_TXT.cbadge	= "Other city Commendation Badge"
 -- instance Details
@@ -154,11 +124,6 @@ REP_TXT.tfr	= "Tiller Farming rep"
 REP_TXT.nswts	= "Not sure when this starts"
 REP_TXT.mnd	= "Max number of daily quests"
 REP_TXT.mnds	= "The max number of dallies is "
-
-
-
-
-
 -- ReputationDetails
 REP_TXT.currentRep	= "Current reputation"
 REP_TXT.neededRep	= "Reputation needed"
@@ -173,7 +138,6 @@ REP_TXT.toBestFriend = "Reputation to best friend"
 -- to chat
 REP_TXT.stats	= " (Total: %s%d, Left: %d)"
 REP_TXT.statsNextStanding = " (Total: %s%d, Left to %s: %d)"
-
 -- config changed
 REP_TXT.configQuestion	= "Some (new) settings were enabled. This is only done once for a setting. It is recommended that you verify the Reputations options."
 REP_TXT.showConfig	= "View config"
@@ -234,16 +198,80 @@ REP_TXT.skillAid	= "응급 치료"
 REP_TXT.skillArch	= "고고학"
 REP_TXT.skillCook	= "요리"
 REP_TXT.skillFish	= "낚시"
--- Tooltip
+---------------------------
+-- Reputation Standing
+---------------------------
+---- Initialize
+REP_TXT.STAND_LV	= {}
+REP_TXT.STAND_LV_TIER	= {}
+REP_TXT.STAND_LV_TRUST = {}
+REP_TXT.STAND_LV_RENOWN	= {}
+---- Normal standings
+REP_TXT.STAND_LV[0]	= "알 수없는"
+REP_TXT.STAND_LV[1]	= "미워하는"
+REP_TXT.STAND_LV[2]	= "적의"
+REP_TXT.STAND_LV[3]	= "해로운"
+REP_TXT.STAND_LV[4]	= "중립국"
+REP_TXT.STAND_LV[5]	= "친한"
+REP_TXT.STAND_LV[6]	= "영광"
+REP_TXT.STAND_LV[7]	= "존경"
+REP_TXT.STAND_LV[8]	= "고귀한"
+REP_TXT.STAND_LV[9] = "불멸의 동맹"
+---- Tier standings
+REP_TXT.STAND_LV_TIER[0]	= "알 수없는"
+REP_TXT.STAND_LV_TIER[1] = "1 단계"
+REP_TXT.STAND_LV_TIER[2] = "2 단계"
+REP_TXT.STAND_LV_TIER[3] = "3 단계"
+REP_TXT.STAND_LV_TIER[4] = "4 단계"
+REP_TXT.STAND_LV_TIER[5] = "5 단계"
+REP_TXT.STAND_LV_TIER[6] = "6 단계"
+---- Trust standings
+REP_TXT.STAND_LV_TRUST[0] = "알 수없는"
+REP_TXT.STAND_LV_TRUST[1] = "의심"
+REP_TXT.STAND_LV_TRUST[2] = "불안"
+REP_TXT.STAND_LV_TRUST[3] = "불확신"
+REP_TXT.STAND_LV_TRUST[4] = "애증"
+REP_TXT.STAND_LV_TRUST[5] = "호감"
+REP_TXT.STAND_LV_TRUST[6] = "경의"
+---- Renown standings
+REP_TXT.STAND_LV_RENOWN[0] = "알 수없는"
+REP_TXT.STAND_LV_RENOWN[1] = "영예 1"
+REP_TXT.STAND_LV_RENOWN[2] = "영예 2"
+REP_TXT.STAND_LV_RENOWN[3] = "영예 3"
+REP_TXT.STAND_LV_RENOWN[4] = "영예 4"
+REP_TXT.STAND_LV_RENOWN[5] = "영예 5"
+REP_TXT.STAND_LV_RENOWN[6] = "영예 6"
+REP_TXT.STAND_LV_RENOWN[7] = "영예 7"
+REP_TXT.STAND_LV_RENOWN[8] = "영예 8"
+REP_TXT.STAND_LV_RENOWN[9] = "영예 9"
+REP_TXT.STAND_LV_RENOWN[10] = "영예 10"
+REP_TXT.STAND_LV_RENOWN[11] = "영예 11"
+REP_TXT.STAND_LV_RENOWN[12] = "영예 12"
+REP_TXT.STAND_LV_RENOWN[13] = "영예 13"
+REP_TXT.STAND_LV_RENOWN[14] = "영예 14"
+REP_TXT.STAND_LV_RENOWN[15] = "영예 15"
+REP_TXT.STAND_LV_RENOWN[16] = "영예 16"
+REP_TXT.STAND_LV_RENOWN[17] = "영예 17"
+REP_TXT.STAND_LV_RENOWN[18] = "영예 18"
+REP_TXT.STAND_LV_RENOWN[19] = "영예 19"
+REP_TXT.STAND_LV_RENOWN[20] = "영예 20"
+REP_TXT.STAND_LV_RENOWN[21] = "영예 21"
+REP_TXT.STAND_LV_RENOWN[22] = "영예 22"
+REP_TXT.STAND_LV_RENOWN[23] = "영예 23"
+REP_TXT.STAND_LV_RENOWN[24] = "영예 24"
+REP_TXT.STAND_LV_RENOWN[25] = "영예 25"
+---------------------------
+-- Tooltips
+---------------------------
+---- Initialize
 REP_TXT.elements	= {}
 REP_TXT.elements.name	= {}
 REP_TXT.elements.tip	= {}
-
+---- Names and tips
 REP_TXT.elements.name.REP_OptionsButton	= REP_TXT.options
 REP_TXT.elements.tip.REP_OptionsButton	= "Reputations를 구성하는 창을 엽니 다."
 REP_TXT.elements.name.REP_OrderByStandingCheckBox	= REP_TXT.orderByStanding
 REP_TXT.elements.tip.REP_OrderByStandingCheckBox	= "이 확인란을 선택하지 않으면 파벌 목록은 논리적 알파벳 순서로 그룹화 기본 블리자드 정렬로 표시됩니다. 이 상자를 선택하면, 파벌 목록 서에 의해 정렬됩니다. |cFFFAA0A0 비활성 r 파벌이 상자를 선택 취소하고 목록의 맨 아래로 이동을 볼 수 있습니다."
-
 REP_TXT.elements.name.REP_ShowMobsButton	= REP_TXT.showMobs
 REP_TXT.elements.tip.REP_ShowMobsButton	= "당신의 평판을 개선하기 위해 죽일 수있는 몹을 보려면이 단추를 선택하십시오."
 REP_TXT.elements.name.REP_ShowQuestButton	= REP_TXT.showQuests
@@ -254,12 +282,10 @@ REP_TXT.elements.name.REP_ShowInstancesButton	= REP_TXT.showInstances
 REP_TXT.elements.tip.REP_ShowInstancesButton	= "당신의 평판을 개선하기 위해 실행할 수있는 인스턴스를 참조하려면이 단추를 선택하십시오."
 REP_TXT.elements.name.REP_ShowGeneralButton	= REP_TXT.showGeneral
 REP_TXT.elements.tip.REP_ShowGeneralButton	= "명성 향상에 대한 일반적인 정보를 보려면이 단추를 선택하십시오."
-
 REP_TXT.elements.name.REP_ShowAllButton	= REP_TXT.showAll
 REP_TXT.elements.tip.REP_ShowAllButton	= "왼쪽에있는 체크 박스의 모든 네 가지를 확인하려면이 버튼을 누릅니다. \r\n이가 몹, 퀘스트, 아이템과 현재 선택된 파 당신에게 명성을주고 인스턴스를 표시합니다."
 REP_TXT.elements.name.REP_ShowNoneButton	= REP_TXT.showNone
 REP_TXT.elements.tip.REP_ShowNoneButton	= "왼쪽에있는 체크 박스의 모든 네 가지의 선택을 해제하려면이 버튼을 누릅니다. \r\n이 당신에게 현재 선택한 진영에 대한 평판을 얻을 수있는 방법을 전혀 표시되지 않습니다."
-
 REP_TXT.elements.name.REP_ExpandButton	= REP_TXT.expand
 REP_TXT.elements.tip.REP_ExpandButton	= "목록에있는 모든 항목을 확장하려면이 버튼을 누릅니다. 이것은 당신에게 어떤 아이템 수집 퀘스트의 손에 필요한 자료를 표시합니다."
 REP_TXT.elements.name.REP_CollapseButton	= REP_TXT.collapse
@@ -270,7 +296,6 @@ REP_TXT.elements.name.REP_SupressNoneGlobalButton	= REP_TXT.supressNoneGlobal
 REP_TXT.elements.tip.REP_SupressNoneGlobalButton	= "당신이 그것을 마우스 오른쪽 버튼으로 클릭하여 제외 한 모든 세력에 대한 모든 퀘스트를 다시 사용하려면이 버튼을 누릅니다."
 REP_TXT.elements.name.REP_ClearSessionGainButton	= REP_TXT.clearSessionGain
 REP_TXT.elements.tip.REP_ClearSessionGainButton	= "재설정이 세션을 얻은 평판 카운터를 지우려면이 버튼을 누르십시오."
-
 REP_TXT.elements.name.REP_EnableMissingBox	= REP_TXT.showMissing
 REP_TXT.elements.tip.REP_EnableMissingBox	= "평판 프레임에있는 각 파벌의 현재 서 뒤에 다음 신뢰도 수준에 필요한 누락 명성 포인트를 추가하려면이 설정을 사용합니다."
 REP_TXT.elements.name.REP_ExtendDetailsBox	= REP_TXT.extendDetails
@@ -294,7 +319,6 @@ REP_TXT.elements.name.REP_ChatFrameSlider	= "프레임 채팅"
 REP_TXT.elements.tip.REP_ChatFrameSlider	= "프레임 Reputations는 메시지를 출력하는 대화를 선택합니다."
 REP_TXT.elements.name.REP_EnableParagonBarBox = REP_TXT.EnableParagonBar
 REP_TXT.elements.tip.REP_EnableParagonBarBox  = "Enable this option to display your current paragon progress in the reputation bars."
-
 REP_TXT.elements.name.REP_OptionEnableMissing	= REP_TXT.elements.name.REP_EnableMissingBox
 REP_TXT.elements.tip.REP_OptionEnableMissing	= REP_TXT.elements.tip.REP_EnableMissingBox
 REP_TXT.elements.name.REP_OptionEnableMissingCB	= REP_TXT.elements.name.REP_EnableMissingBox

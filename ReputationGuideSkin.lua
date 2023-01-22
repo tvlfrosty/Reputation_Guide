@@ -49,11 +49,11 @@ if IsAddOnLoaded("ElvUI") then
 
   E.Skins:HandleScrollBar(REP_UpdateListScrollFrameScrollBar)
 
-  for _,button in pairs(buttons) do
+  for _, button in pairs(buttons) do
     E.Skins:HandleButton(button)
   end
 
-  for _,checkbox in pairs(checkboxes) do
+  for _, checkbox in pairs(checkboxes) do
     E.Skins:HandleCheckBox(checkbox)
   end
 end
