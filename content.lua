@@ -1631,11 +1631,11 @@ end
 			REP_AddQuest(946, 4, 7, "Hellfire Fortifications", 150) -- Hellfire Fortifications QuestID: 13410
 			---- Instances
 			REP_AddInstance(946, 4, 5, zone.Hellfire_Ramparts, 600, false)
-			REP_AddInstance(946, 6, 8, zone.Hellfire_Ramparts, 2000, true)
+			REP_AddInstance(946, 6, 8, zone.Hellfire_Ramparts, 2275, true)
 			REP_AddInstance(946, 4, 5, zone.The_Blood_Furnace, 750, false)
-			REP_AddInstance(946, 6, 8, zone.The_Blood_Furnace, 2700, true)
+			REP_AddInstance(946, 6, 8, zone.The_Blood_Furnace, 2655, true)
 			REP_AddInstance(946, 4, 8, zone.The_Shattered_Halls, 1600, false)
-			REP_AddInstance(946, 4, 8, zone.The_Shattered_Halls, 2900, true)
+			REP_AddInstance(946, 4, 8, zone.The_Shattered_Halls, 2575, true)
 			if (REP.AfterWotlk) then
 				---- Mobs
 				REP_AddMob(946, 4, 7, REP_TXT.Mob.MoshOgg_Spellcrafter, 5, zone.Northern_Stranglethorn) -- Mosh'Ogg Spellcrafter ID=710
