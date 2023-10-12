@@ -4622,5 +4622,9 @@ function REP:WatchedFactionDetails(watchedFactionID)
     end
 
     ReputationFrame_Update()
+  elseif (watchedFactionName == "Alliance") then
+    REP:Print('Alliance will soon be visible')
+  elseif ( watchedFactionName == "Horde") then
+    REP:Print('Horde will soon be visible')
   end
 end
