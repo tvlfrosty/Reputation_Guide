@@ -1,6 +1,6 @@
-## Interface: 30401
+## Interface: 30403
 ## Title: ReputationGuide
-## Version: 3.4.1.1-release
+## Version: 3.4.3-release
 ## Author: Tvlfrosty
 ## X-Discord: https://discord.gg/3zh4EFptta
 ## URL: https://www.curseforge.com/wow/addons/reputation-guide
