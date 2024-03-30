@@ -1,11 +1,12 @@
-## Interface: 30403
-## Title: ReputationGuide
-## Version: 3.4.3-release
+## Interface: 100206
+## Title: ReputationGuide (Dragonflight)
+## IconTexture: Interface/Addons/ReputationGuide/assets/factions_logo_256x256
+## Version: 10.2.6-release
 ## Author: Tvlfrosty
 ## X-Discord: https://discord.gg/3zh4EFptta
 ## URL: https://www.curseforge.com/wow/addons/reputation-guide
-## Description: ReputationGuide helps you manage your reputation and Factions.
-## Notes: ReputationGuide helps you manage your reputation and Factions.
+## Description: ReputationGuide helps you manage your reputation and factions.
+## Notes: ReputationGuide helps you manage your reputation and factions.
 ## SavedVariables: REP_Data
 ## SavedVariablesPerCharacter: REP_Suppressed
 
@@ -18,5 +19,5 @@ variables.lua
 zones.lua
 content.lua
 mapping.lua
-ReputationGuide.xml
+RetailUI\RetailReputationGuide.xml
 ReputationGuideSkin.lua

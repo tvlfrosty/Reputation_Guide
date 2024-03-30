@@ -94,6 +94,7 @@ REP.Expansions[6] = "Legion"
 REP.Expansions[7] = "Battle for Azeroth"
 REP.Expansions[8] = "Shadowlands"
 REP.Expansions[9] = "Dragonflight"
+REP.Expansions[10] = "The War Within"
 ---- Current Expansion
 REP.IsClassic = false
 REP.IsTBC = false
@@ -105,6 +106,7 @@ REP.IsLegion = false
 REP.IsBfA = false
 REP.IsShadowLands = false
 REP.IsDragonflight = false
+REP.IsTheWarWithin = false
 ---- After Expansion
 REP.AfterClassic = false
 REP.AfterTBC = false
@@ -116,139 +118,453 @@ REP.AfterLegion = false
 REP.AfterBfA = false
 REP.AfterShadowLands = false
 REP.AfterDragonflight = false
----- After Expansion
-REP.REP_ExpansionFunctionsTable = {
-  [0] = function () REP.IsClassic = true end,
-  [1] = function ()
-    REP.AfterClassic = true
-    REP.IsClassic = false
-    REP.IsTBC = true
-  end,
-  [2] = function ()
-    REP.AfterClassic = true
-    REP.AfterTBC = true
-    REP.IsClassic = false
-    REP.IsTBC = false
-    REP.IsWotlk = true
-  end,
-  [3] = function ()
-    REP.AfterClassic = true
-    REP.AfterTBC = true
-    REP.AfterWotlk = true
-    REP.IsClassic = false
-    REP.IsTBC = false
-    REP.IsWotlk = false
-    REP.IsCata = true
-  end,
-  [4] = function ()
-    REP.AfterClassic = true
-    REP.AfterTBC = true
-    REP.AfterWotlk = true
-    REP.AfterCata = true
-    REP.IsClassic = false
-    REP.IsTBC = false
-    REP.IsWotlk = false
-    REP.IsCata = false
-    REP.IsMoP = true
-  end,
-  [5] = function ()
-    REP.AfterClassic = true
-    REP.AfterTBC = true
-    REP.AfterWotlk = true
-    REP.AfterCata = true
-    REP.AfterMoP = true
-    REP.IsClassic = false
-    REP.IsTBC = false
-    REP.IsWotlk = false
-    REP.IsCata = false
-    REP.IsMoP = false
-    REP.IsWoD = true
-  end,
-  [6] = function ()
-    REP.AfterClassic = true
-    REP.AfterTBC = true
-    REP.AfterWotlk = true
-    REP.AfterCata = true
-    REP.AfterMoP = true
-    REP.AfterWoD = true
-    REP.IsClassic = false
-    REP.IsTBC = false
-    REP.IsWotlk = false
-    REP.IsCata = false
-    REP.IsMoP = false
-    REP.IsWoD = false
-    REP.IsLegion = true
-  end,
-  [7] = function ()
-    REP.AfterClassic = true
-    REP.AfterTBC = true
-    REP.AfterWotlk = true
-    REP.AfterCata = true
-    REP.AfterMoP = true
-    REP.AfterWoD = true
-    REP.AfterLegion = true
-    REP.IsClassic = false
-    REP.IsTBC = false
-    REP.IsWotlk = false
-    REP.IsCata = false
-    REP.IsMoP = false
-    REP.IsWoD = false
-    REP.IsLegion = false
-    REP.IsBfA = true
-  end,
-  [8] = function ()
-    REP.AfterClassic = true
-    REP.AfterTBC = true
-    REP.AfterWotlk = true
-    REP.AfterCata = true
-    REP.AfterMoP = true
-    REP.AfterWoD = true
-    REP.AfterLegion = true
-    REP.AfterBfA = true
-    REP.IsClassic = false
-    REP.IsTBC = false
-    REP.IsWotlk = false
-    REP.IsCata = false
-    REP.IsMoP = false
-    REP.IsWoD = false
-    REP.IsLegion = false
-    REP.IsBfA = false
-    REP.IsShadowLands = true
-  end,
-  [9] = function ()
-    REP.AfterClassic = true
-    REP.AfterTBC = true
-    REP.AfterWotlk = true
-    REP.AfterCata = true
-    REP.AfterMoP = true
-    REP.AfterWoD = true
-    REP.AfterLegion = true
-    REP.AfterBfA = true
-    REP.AfterShadowLands = true
-    REP.IsClassic = false
-    REP.IsTBC = false
-    REP.IsWotlk = false
-    REP.IsCata = false
-    REP.IsMoP = false
-    REP.IsWoD = false
-    REP.IsLegion = false
-    REP.IsBfA = false
-    REP.IsShadowLands = false
-    REP.IsDragonflight = true
-  end,
-  [10] = function ()
-    REP.AfterClassic = true
-    REP.AfterTBC = true
-    REP.AfterWotlk = true
-    REP.AfterCata = true
-    REP.AfterMoP = true
-    REP.AfterWoD = true
-    REP.AfterLegion = true
-    REP.AfterBfA = true
-    REP.AfterShadowLands = true
-    REP.AfterDragonflight = true
-  end,
-}
+REP.AfterTheWarWithin = false
+---- Phases to show
+-- Classic
+REP.ShowClassicPhaseOne = false
+REP.ShowClassicPhaseTwo = false
+REP.ShowClassicPhaseThree = false
+REP.ShowClassicPhaseFour = false
+REP.ShowClassicPhaseFive = false
+REP.ShowClassicPhaseSix = false
+-- Classic SOM
+REP.ShowClassicSOMPhaseOne = false
+REP.ShowClassicSOMPhaseTwo = false
+REP.ShowClassicSOMPhaseThree = false
+REP.ShowClassicSOMPhaseFour = false
+-- Classic SOD
+REP.ShowClassicSODPhaseOne = false
+REP.ShowClassicSODPhaseTwo = false
+REP.ShowClassicSODPhaseThree = false
+-- The Burning Crusade
+REP.ShowTBCPhaseOne = false
+REP.ShowTBCPhaseTwo = false
+REP.ShowTBCPhaseThree = false
+REP.ShowTBCPhaseFour = false
+REP.ShowTBCPhaseFive = false
+-- Wrath of the Lich King
+REP.ShowWotlkPhaseOne = false
+REP.ShowWotlkPhaseTwo = false
+REP.ShowWotlkPhaseThree = false
+REP.ShowWotlkPhaseFour = false
+REP.ShowWotlkPhaseFive = false
+-- Cataclysm
+REP.ShowCataPhaseOne = false
+REP.ShowCataPhaseTwo = false
+REP.ShowCataPhaseThree = false
+REP.ShowCataPhaseFour = false
+-- Mists of Pandaria
+REP.ShowMoPPhaseOne = false
+REP.ShowMoPPhaseTwo = false
+REP.ShowMoPPhaseThree = false
+REP.ShowMoPPhaseFour = false
+REP.ShowMoPPhaseFive = false
+-- Warlords of Draenor
+REP.ShowWoDPhaseOne = false
+REP.ShowWoDPhaseTwo = false
+REP.ShowWoDPhaseThree = false
+REP.ShowWoDPhaseFour = false
+-- Legion
+REP.ShowLegionPhaseOne = false
+REP.ShowLegionPhaseTwo = false
+REP.ShowLegionPhaseThree = false
+-- Battle for Azeroth
+REP.ShowBfAPhaseOne = false
+REP.ShowBfAPhaseTwo = false
+REP.ShowBfAPhaseThree = false
+REP.ShowBfAPhaseFour = false
+-- Shadowlands
+REP.ShowShadowLandsPhaseOne = false
+REP.ShowShadowLandsPhaseTwo = false
+REP.ShowShadowLandsPhaseThree = false
+-- Dragonflight
+REP.ShowDragonflightPhaseOne = false
+REP.ShowDragonflightPhaseTwo = false
+REP.ShowDragonflightPhaseThree = false
+-- The War Within
+REP.ShowTheWarWithinPhaseOne = false
+----  Current phase
+-- Classic
+REP.IsClassicPhaseOne = false
+REP.IsClassicPhaseTwo = false
+REP.IsClassicPhaseThree = false
+REP.IsClassicPhaseFour = false
+REP.IsClassicPhaseFive = false
+REP.IsClassicPhaseSix = false
+-- Classic SOM
+REP.IsClassicSOMPhaseOne = false
+REP.IsClassicSOMPhaseTwo = false
+REP.IsClassicSOMPhaseThree = false
+REP.IsClassicSOMPhaseFour = false
+-- Classic SOD
+REP.IsClassicSODPhaseOne = false
+REP.IsClassicSODPhaseTwo = false
+REP.IsClassicSODPhaseThree = false
+-- The Burning Crusade
+REP.IsTBCPhaseOne = false
+REP.IsTBCPhaseTwo = false
+REP.IsTBCPhaseThree = false
+REP.IsTBCPhaseFour = false
+REP.IsTBCPhaseFive = false
+-- Wrath of the Lich King
+REP.IsWotlkPhaseOne = false
+REP.IsWotlkPhaseTwo = false
+REP.IsWotlkPhaseThree = false
+REP.IsWotlkPhaseFour = false
+REP.IsWotlkPhaseFive = false
+-- Cataclysm
+REP.IsCataPhaseOne = false
+REP.IsCataPhaseTwo = false
+REP.IsCataPhaseThree = false
+REP.IsCataPhaseFour = false
+-- Mists of Pandaria
+REP.IsMoPPhaseOne = false
+REP.IsMoPPhaseTwo = false
+REP.IsMoPPhaseThree = false
+REP.IsMoPPhaseFour = false
+REP.IsMoPPhaseFive = false
+-- Warlords of Draenor
+REP.IsWoDPhaseOne = false
+REP.IsWoDPhaseTwo = false
+REP.IsWoDPhaseThree = false
+REP.IsWoDPhaseFour = false
+-- Legion
+REP.IsLegionPhaseOne = false
+REP.IsLegionPhaseTwo = false
+REP.IsLegionPhaseThree = false
+-- Battle for Azeroth
+REP.IsBfAPhaseOne = false
+REP.IsBfAPhaseTwo = false
+REP.IsBfAPhaseThree = false
+REP.IsBfAPhaseFour = false
+-- Shadowlands
+REP.IsShadowLandsPhaseOne = false
+REP.IsShadowLandsPhaseTwo = false
+REP.IsShadowLandsPhaseThree = false
+-- Dragonflight
+REP.IsDragonflightPhaseOne = false
+REP.IsDragonflightPhaseTwo = false
+REP.IsDragonflightPhaseThree = false
+-- The War Within
+REP.IsTheWarWithinPhaseOne = false
+
+-------------------------------
+-- GetActiveExpansionAndPhase --
+-------------------------------
+function REP:GetActiveExpansionAndPhase()
+  local expansionIndex = GetExpansionLevel()
+  local gameBuildVersion = select(4, GetBuildInfo());
+
+  if not expansionIndex or not gameBuildVersion then return end
+
+  REP.GameExpansionIndex = expansionIndex
+  REP.GameBuildVersion = gameBuildVersion
+
+  REP:ResetsActiveExpansionAndPhase()
+  REP:GetActiveExpansion(expansionIndex)
+  REP:GetActivePhase(gameBuildVersion)
+end
+
+--------------------------------------
+-- Get active expansion --
+--------------------------------------
+function REP:GetActiveExpansion(expansionIndex)
+  if not expansionIndex then return end
+  if expansionIndex == 0 then -- Classic
+    REP.IsClassic = true
+    -- Check for active Season in Classic
+    local season = C_Seasons and C_Seasons.GetActiveSeason() or 0;
+    if season > 0 then
+    	if season == 1 then	-- SOM
+    		REP.IsClassicSOM = true
+    	end
+    	if season == 2 then	-- SOD
+    		REP.IsClassicSOD = true
+    	end
+    end
+  end
+  if expansionIndex > 0 then REP.AfterClassic = true end
+  if expansionIndex == 1 then REP.IsTBC = true end -- The Burning Crusade
+  if expansionIndex > 1 then REP.AfterTBC = true end
+  if expansionIndex == 2 then REP.IsWotlk = true end -- Wrath of the Lich King
+  if expansionIndex > 2 then REP.AfterWotlk = true end
+  if expansionIndex == 3 then REP.IsCata = true end -- Cataclysm
+  if expansionIndex > 3 then REP.AfterCata = true end
+  if expansionIndex == 4 then REP.IsMoP = true end -- Mists of Pandaria
+  if expansionIndex > 4 then REP.AfterMoP = true end
+  if expansionIndex == 5 then REP.IsWoD = true end -- Warlords of Draenor
+  if expansionIndex > 5 then REP.AfterWoD = true end
+  if expansionIndex == 6 then REP.IsLegion = true end -- Legion
+  if expansionIndex > 6 then REP.AfterLegion = true end
+  if expansionIndex == 7 then REP.IsBfA = true end -- Battle for Azeroth
+  if expansionIndex > 7 then REP.AfterBfA = true end
+  if expansionIndex == 8 then REP.IsShadowLands = true end -- Shadowlands
+  if expansionIndex > 8 then REP.AfterShadowLands = true end
+  if expansionIndex == 9 then REP.IsDragonflight = true end -- Dragonflight
+  if expansionIndex > 9 then REP.AfterDragonflight = true end
+  if expansionIndex == 10 then REP.IsTheWarWithin = true end -- The War Within
+  if expansionIndex > 10 then REP.AfterTheWarWithin = true end
+end
+
+--------------------------------------
+-- Get active phase --
+--------------------------------------
+function REP:GetActivePhase(gameBuildVersion)
+  if not gameBuildVersion then return end
+  ---- Show phases
+  if gameBuildVersion > 10000 then REP.ShowClassicPhaseOne = true end
+  if gameBuildVersion > 11302 then REP.ShowClassicPhaseTwo = true end
+  if gameBuildVersion > 11303 then REP.ShowClassicPhaseThree = true end
+  if gameBuildVersion > 11304 then REP.ShowClassicPhaseFour = true end
+  if gameBuildVersion > 11305 then REP.ShowClassicPhaseFive = true end
+  if gameBuildVersion > 11306 then REP.ShowClassicPhaseSix = true end
+  -- Classic SOM
+  if gameBuildVersion > 11400 and gameBuildVersion < 11402 then REP.ShowClassicSOMPhaseOne = true end
+  if gameBuildVersion > 11401 and gameBuildVersion < 11403 then REP.ShowClassicSOMPhaseTwo = true end
+  if gameBuildVersion > 11402 and gameBuildVersion < 11404 then REP.ShowClassicSOMPhaseThree = true end
+  if gameBuildVersion > 11403 and gameBuildVersion < 11500 then REP.ShowClassicSOMPhaseFour = true end
+  -- Classic SOD
+  if gameBuildVersion > 11500 and gameBuildVersion < 11503 then REP.ShowClassicSODPhaseOne = true end
+  if gameBuildVersion > 11501 and gameBuildVersion < 11503 then REP.ShowClassicSODPhaseTwo = true end
+  if gameBuildVersion > 11502 and gameBuildVersion < 11504 then REP.ShowClassicSODPhaseThree = true end
+  -- The Burning Crusade
+  if gameBuildVersion > 20000 then REP.ShowTBCPhaseOne = true end
+  if gameBuildVersion > 20000 then REP.ShowTBCPhaseTwo = true end
+  if gameBuildVersion > 20502 then REP.ShowTBCPhaseThree = true end
+  if gameBuildVersion > 20503 then REP.ShowTBCPhaseFour = true end
+  if gameBuildVersion > 20503 then REP.ShowTBCPhaseFive = true end
+  -- Wrath of the Lich King
+  if gameBuildVersion > 30000 then REP.ShowWotlkPhaseOne = true end
+  if gameBuildVersion > 30400 then REP.ShowWotlkPhaseTwo = true end
+  if gameBuildVersion > 30401 then REP.ShowWotlkPhaseThree = true end
+  if gameBuildVersion > 30402 then REP.ShowWotlkPhaseFour = true end
+  if gameBuildVersion > 30402 then REP.ShowWotlkPhaseFive = true end
+  -- Cataclysm
+  if gameBuildVersion > 40000 then REP.ShowCataPhaseOne = true end
+
+  ---- Current phase
+  if REP.ShowClassicPhaseOne and not REP.ShowClassicPhaseTwo then REP.IsClassicPhaseOne = true end
+  if REP.ShowClassicPhaseTwo and not REP.ShowClassicPhaseThree then REP.IsClassicPhaseTwo = true end
+  if REP.ShowClassicPhaseThree and not REP.ShowClassicPhaseFour then REP.IsClassicPhaseThree = true end
+  if REP.ShowClassicPhaseFour and not REP.ShowClassicPhaseFive then REP.IsClassicPhaseFour = true end
+  if REP.ShowClassicPhaseFive and not REP.ShowClassicPhaseSix then REP.IsClassicPhaseFive = true end
+  if REP.ShowClassicPhaseSix and not REP.ShowTBCPhaseOne then REP.IsClassicPhaseSix = true end
+  -- Classic SOM
+  if REP.ShowClassicSOMPhaseOne and not REP.ShowClassicSOMPhaseTwo then REP.IsClassicSOMPhaseOne = true end
+  if REP.ShowClassicSOMPhaseTwo and not REP.ShowClassicSOMPhaseThree then REP.IsClassicSOMPhaseTwo = true end
+  if REP.ShowClassicSOMPhaseThree and not REP.ShowClassicSOMPhaseFour then REP.IsClassicSOMPhaseThree = true end
+  if REP.ShowClassicSOMPhaseFour then REP.IsClassicSOMPhaseFour = true end
+  -- Classic SOD
+  if REP.ShowClassicSODPhaseOne and not REP.ShowClassicSODPhaseTwo then REP.IsClassicSOMPhaseOne = true end
+  if REP.ShowClassicSODPhaseTwo then REP.IsClassicSOMPhaseTwo = true end
+  -- The Burning Crusade
+  if REP.ShowTBCPhaseOne and not REP.ShowTBCPhaseTwo then REP.IsTBCPhaseOne = true end
+  if REP.ShowTBCPhaseTwo and not REP.ShowTBCPhaseThree then REP.IsTBCPhaseTwo = true end
+  if REP.ShowTBCPhaseThree and not REP.ShowTBCPhaseFour then REP.IsTBCPhaseThree = true end
+  if REP.ShowTBCPhaseFour and not REP.ShowTBCPhaseFive then REP.IsTBCPhaseFour = true end
+  if REP.ShowTBCPhaseFive and not REP.ShowWotlkPhaseOne then REP.IsTBCPhaseFive = true end
+  -- Wrath of the Lich King
+  if REP.ShowWotlkPhaseOne and not REP.ShowWotlkPhaseTwo then REP.IsWotlkPhaseOne = true end
+  if REP.ShowWotlkPhaseTwo and not REP.ShowWotlkPhaseThree then REP.IsWotlkPhaseTwo = true end
+  if REP.ShowWotlkPhaseThree and not REP.ShowWotlkPhaseFour then REP.IsWotlkPhaseThree = true end
+  if REP.ShowWotlkPhaseFour and not REP.ShowWotlkPhaseFive then REP.IsWotlkPhaseFour = true end
+  if REP.ShowWotlkPhaseFive and not REP.ShowCataPhaseOne then REP.IsWotlkPhaseFive = true end
+  -- Cataclysm
+  if REP.ShowCataPhaseOne and not REP.ShowCataPhaseTwo then REP.IsCataPhaseOne = true end
+  if REP.ShowCataPhaseTwo and not REP.ShowCataPhaseThree then REP.IsCataPhaseTwo = true end
+  if REP.ShowCataPhaseThree and not REP.ShowCataPhaseFour then REP.IsCataPhaseThree = true end
+  if REP.ShowCataPhaseFour and not REP.ShowMoPPhaseOne then REP.IsCataPhaseFour = true end
+  -- Mists of Pandaria
+  if REP.ShowMoPPhaseOne and not REP.ShowMoPPhaseTwo then REP.IsMoPPhaseOne = true end
+  if REP.ShowMoPPhaseTwo and not REP.ShowMoPPhaseThree then REP.IsMoPPhaseTwo = true end
+  if REP.ShowMoPPhaseThree and not REP.ShowMoPPhaseFour then REP.IsMoPPhaseThree = true end
+  if REP.ShowMoPPhaseFour and not REP.ShowMoPPhaseFive then REP.IsMoPPhaseFour = true end
+  if REP.ShowMoPPhaseFive and not REP.ShowWoDPhaseOne then REP.IsMoPPhaseFive = true end
+  -- Warlords of Draenor
+  if REP.ShowWoDPhaseOne and not REP.ShowWoDPhaseTwo then REP.IsWoDPhaseOne = true end
+  if REP.ShowWoDPhaseTwo and not REP.ShowWoDPhaseThree then REP.IsWoDPhaseTwo = true end
+  if REP.ShowWoDPhaseThree and not REP.ShowWoDPhaseFour then REP.IsWoDPhaseThree = true end
+  if REP.ShowWoDPhaseFour and not REP.ShowLegionPhaseOne then REP.IsWoDPhaseFour = true end
+  -- Legion
+  if REP.ShowLegionPhaseOne and not REP.ShowLegionPhaseTwo then REP.IsLegionPhaseOne = true end
+  if REP.ShowLegionPhaseTwo and not REP.ShowLegionPhaseThree then REP.IsLegionPhaseTwo = true end
+  if REP.ShowLegionPhaseThree and not REP.ShowBfAPhaseOne then REP.IsLegionPhaseThree = true end
+  -- Battle for Azeroth
+  if REP.ShowBfAPhaseOne and not REP.ShowBfAPhaseTwo then REP.IsBfAPhaseOne = true end
+  if REP.ShowBfAPhaseTwo and not REP.ShowBfAPhaseThree then REP.IsBfAPhaseTwo = true end
+  if REP.ShowBfAPhaseThree and not REP.ShowBfAPhaseFour then REP.IsBfAPhaseThree = true end
+  if REP.ShowBfAPhaseFour and not REP.ShowShadowLandsPhaseOne then REP.IsBfAPhaseFour = true end
+  -- Shadowlands
+  if REP.ShowShadowLandsPhaseOne and not REP.ShowShadowLandsPhaseTwo then REP.IsShadowLandsPhaseOne = true end
+  if REP.ShowShadowLandsPhaseTwo and not REP.ShowShadowLandsPhaseThree then REP.IsShadowLandsPhaseTwo = true end
+  if REP.ShowShadowLandsPhaseThree and not REP.ShowDragonflightPhaseOne then REP.IsShadowLandsPhaseThree = true end
+  -- Dragonflight
+  if REP.ShowDragonflightPhaseOne and not REP.ShowDragonflightPhaseTwo then REP.IsDragonflightPhaseOne = true end
+  if REP.ShowDragonflightPhaseTwo and not REP.ShowDragonflightPhaseThree then REP.IsDragonflightPhaseTwo = true end
+  if REP.ShowDragonflightPhaseThree and not REP.ShowTheWarWithinPhaseOne then REP.IsDragonflightPhaseThree = true end
+  -- The War Within
+  if REP.ShowTheWarWithinPhaseOne then REP.IsTheWarWithinPhaseOne = true end
+end
+
+--------------------------------------
+-- Reset active expansion and phase --
+--------------------------------------
+function REP:ResetsActiveExpansionAndPhase()
+  ---- Current Expansion
+  REP.IsClassic = false
+  REP.IsClassicSOM = false
+  REP.IsClassicSOD = false
+  REP.IsTBC = false
+  REP.IsWotlk = false
+  REP.IsCata = false
+  REP.IsMoP = false
+  REP.IsWoD = false
+  REP.IsLegion = false
+  REP.IsBfA = false
+  REP.IsShadowLands = false
+  REP.IsDragonflight = false
+  REP.IsTheWarWithin = false
+  ---- After Expansion
+  REP.AfterClassic = false
+  REP.AfterTBC = false
+  REP.AfterWotlk = false
+  REP.AfterCata = false
+  REP.AfterMoP = false
+  REP.AfterWoD = false
+  REP.AfterLegion = false
+  REP.AfterBfA = false
+  REP.AfterShadowLands = false
+  REP.AfterDragonflight = false
+  REP.AfterTheWarWithin = false
+  ---- Phases to show
+  -- Classic
+  REP.ShowClassicPhaseOne = false
+  REP.ShowClassicPhaseTwo = false
+  REP.ShowClassicPhaseThree = false
+  REP.ShowClassicPhaseFour = false
+  REP.ShowClassicPhaseFive = false
+  REP.ShowClassicPhaseSix = false
+  -- Classic SOM
+  REP.ShowClassicSOMPhaseOne = false
+  REP.ShowClassicSOMPhaseTwo = false
+  REP.ShowClassicSOMPhaseThree = false
+  REP.ShowClassicSOMPhaseFour = false
+  -- Classic SOD
+  REP.ShowClassicSODPhaseOne = false
+  REP.ShowClassicSODPhaseTwo = false
+  -- The Burning Crusade
+  REP.ShowTBCPhaseOne = false
+  REP.ShowTBCPhaseTwo = false
+  REP.ShowTBCPhaseThree = false
+  REP.ShowTBCPhaseFour = false
+  REP.ShowTBCPhaseFive = false
+  -- Wrath of the Lich King
+  REP.ShowWotlkPhaseOne = false
+  REP.ShowWotlkPhaseTwo = false
+  REP.ShowWotlkPhaseThree = false
+  REP.ShowWotlkPhaseFour = false
+  REP.ShowWotlkPhaseFive = false
+  -- Cataclysm
+  REP.ShowCataPhaseOne = false
+  REP.ShowCataPhaseTwo = false
+  REP.ShowCataPhaseThree = false
+  REP.ShowCataPhaseFour = false
+  -- Mists of Pandaria
+  REP.ShowMoPPhaseOne = false
+  REP.ShowMoPPhaseTwo = false
+  REP.ShowMoPPhaseThree = false
+  REP.ShowMoPPhaseFour = false
+  REP.ShowMoPPhaseFive = false
+  -- Warlords of Draenor
+  REP.ShowWoDPhaseOne = false
+  REP.ShowWoDPhaseTwo = false
+  REP.ShowWoDPhaseThree = false
+  REP.ShowWoDPhaseFour = false
+  -- Legion
+  REP.ShowLegionPhaseOne = false
+  REP.ShowLegionPhaseTwo = false
+  REP.ShowLegionPhaseThree = false
+  -- Battle for Azeroth
+  REP.ShowBfAPhaseOne = false
+  REP.ShowBfAPhaseTwo = false
+  REP.ShowBfAPhaseThree = false
+  REP.ShowBfAPhaseFour = false
+  -- Shadowlands
+  REP.ShowShadowLandsPhaseOne = false
+  REP.ShowShadowLandsPhaseTwo = false
+  REP.ShowShadowLandsPhaseThree = false
+  -- Dragonflight
+  REP.ShowDragonflightPhaseOne = false
+  REP.ShowDragonflightPhaseTwo = false
+  REP.ShowDragonflightPhaseThree = false
+  -- The War Within
+  REP.ShowTheWarWithinPhaseOne = false
+  ----  Current phase
+  -- Classic
+  REP.IsClassicPhaseOne = false
+  REP.IsClassicPhaseTwo = false
+  REP.IsClassicPhaseThree = false
+  REP.IsClassicPhaseFour = false
+  REP.IsClassicPhaseFive = false
+  REP.IsClassicPhaseSix = false
+  -- Classic SOM
+  REP.IsClassicSOMPhaseOne = false
+  REP.IsClassicSOMPhaseTwo = false
+  REP.IsClassicSOMPhaseThree = false
+  REP.IsClassicSOMPhaseFour = false
+  -- Classic SOD
+  REP.IsClassicSODPhaseOne = false
+  REP.IsClassicSODPhaseTwo = false
+  REP.IsClassicSODPhaseThree = false
+  -- The Burning Crusade
+  REP.IsTBCPhaseOne = false
+  REP.IsTBCPhaseTwo = false
+  REP.IsTBCPhaseThree = false
+  REP.IsTBCPhaseFour = false
+  REP.IsTBCPhaseFive = false
+  -- Wrath of the Lich King
+  REP.IsWotlkPhaseOne = false
+  REP.IsWotlkPhaseTwo = false
+  REP.IsWotlkPhaseThree = false
+  REP.IsWotlkPhaseFour = false
+  REP.IsWotlkPhaseFive = false
+  -- Cataclysm
+  REP.IsCataPhaseOne = false
+  REP.IsCataPhaseTwo = false
+  REP.IsCataPhaseThree = false
+  REP.IsCataPhaseFour = false
+  -- Mists of Pandaria
+  REP.IsMoPPhaseOne = false
+  REP.IsMoPPhaseTwo = false
+  REP.IsMoPPhaseThree = false
+  REP.IsMoPPhaseFour = false
+  REP.IsMoPPhaseFive = false
+  -- Warlords of Draenor
+  REP.IsWoDPhaseOne = false
+  REP.IsWoDPhaseTwo = false
+  REP.IsWoDPhaseThree = false
+  REP.IsWoDPhaseFour = false
+  -- Legion
+  REP.IsLegionPhaseOne = false
+  REP.IsLegionPhaseTwo = false
+  REP.IsLegionPhaseThree = false
+  -- Battle for Azeroth
+  REP.IsBfAPhaseOne = false
+  REP.IsBfAPhaseTwo = false
+  REP.IsBfAPhaseThree = false
+  REP.IsBfAPhaseFour = false
+  -- Shadowlands
+  REP.IsShadowLandsPhaseOne = false
+  REP.IsShadowLandsPhaseTwo = false
+  REP.IsShadowLandsPhaseThree = false
+  -- Dragonflight
+  REP.IsDragonflightPhaseOne = false
+  REP.IsDragonflightPhaseTwo = false
+  REP.IsDragonflightPhaseThree = false
+  -- The War Within
+  REP.IsTheWarWithinPhaseOne = false
+end
+
 ---------------------------
 -- Character variables --
 ---------------------------

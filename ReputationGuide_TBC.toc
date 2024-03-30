@@ -1,0 +1,22 @@
+## Interface: 20504
+## Title: ReputationGuide |cfd9b9b9b(TBC)|r
+## Version: 2.5.4-release
+## Author: Tvlfrosty
+## X-Discord: https://discord.gg/3zh4EFptta
+## URL: https://www.curseforge.com/wow/addons/reputation-guide
+## Description: ReputationGuide helps you manage your reputation and Factions.
+## Notes: ReputationGuide helps you manage your reputation and Factions.
+## SavedVariables: REP_Data
+## SavedVariablesPerCharacter: REP_Suppressed
+
+## X-Curse-Project-ID: 657534
+
+locale.xml
+
+questdb.lua
+variables.lua
+zones.lua
+content.lua
+mapping.lua
+ReputationGuide.xml
+ReputationGuideSkin.lua

@@ -263,9 +263,11 @@
 <!--v set 4-->
 			</Button>
 			<CheckButton name="REP_ReputationDetailAtWarCheckBox">
-				<Size x="26" y="26"/><Anchors>
+				<Size x="26" y="26"/>
+				<Anchors>
 					<Anchor point="TOPLEFT" relativeTo="REP_ReputationDetailDivider" relativePoint="BOTTOMLEFT">
-					<Offset x="10" y="20"/></Anchor></Anchors>
+					<Offset x="10" y="20"/></Anchor>
+				</Anchors>
 				<Layers>
 					<Layer level="ARTWORK">
 						<FontString name="$parentText" inherits="GameFontNormalSmall">
@@ -301,17 +303,38 @@
 				</CheckedTexture>
 				<DisabledCheckedTexture file="Interface\Buttons\UI-CheckBox-Check-Disabled"/>
 			</CheckButton>
-			<CheckButton name="REP_ReputationDetailInactiveCheckBox" inherits="OptionsCheckButtonTemplate">
-				<Size x="26" y="26"/><Anchors>
+			<Button name="REP_ReputationDetailViewRenownButton" mixin="ReputationDetailViewRenownButtonMixin" inherits="SharedGoldRedButtonSmallTemplate, DisabledTooltipButtonTemplate" text="VIEW_RENOWN_BUTTON_LABEL">
+				<KeyValues>
+					<KeyValue key="disabledTooltipAnchor" value="ANCHOR_RIGHT" type="string"/>
+				</KeyValues>
+				<Size x="120" y="16"/>
+				<Anchors>
+					<Anchor point="TOPLEFT" relativeTo="REP_ReputationDetailAtWarCheckBox" relativePoint="BOTTOMLEFT" />
+				</Anchors>
+				<Scripts>
+					<OnClick method="OnClick"/>
+				</Scripts>
+				<NormalFont style="GameFontNormalSmall"/>
+				<HighlightFont style="GameFontWhiteSmall"/>
+				<DisabledFont style="GameFontDisableSmall"/>
+			</Button>
+			<CheckButton name="REP_ReputationDetailInactiveCheckBox" inherits="ChatConfigCheckButtonTemplate">
+				<Size x="26" y="26"/>
+				<Anchors>
 					<Anchor point="LEFT" relativeTo="REP_ReputationDetailAtWarCheckBoxText" relativePoint="RIGHT">
-					<Offset x="3" y="0"/></Anchor></Anchors>
+					<Offset x="3" y="0"/></Anchor>
+				</Anchors>
+				<Layers>
+					<Layer level="ARTWORK">
+						<FontString name="$parentText" inherits="GameFontNormalSmall">
+							<Anchors><Anchor point="LEFT" relativePoint="RIGHT"><Offset x="-2" y="0"/></Anchor></Anchors>
+						</FontString>
+					</Layer>
+				</Layers>
 				<HitRectInsets>
 					<AbsInset left="0" right="0" top="0" bottom="0"/>
 				</HitRectInsets>
 				<Scripts>
-					<OnLoad>
-						_G[self:GetName().."Text"]:SetText(MOVE_TO_INACTIVE);
-					</OnLoad>
 					<OnClick>
 						if (self:GetChecked()) then
 							if SOUNDKIT then PlaySound(SOUNDKIT.IG_MAINMENU_OPTION_CHECKBOX_ON); end
@@ -328,17 +351,23 @@
 					<OnLeave function="GameTooltip_Hide"/>
 				</Scripts>
 			</CheckButton>
-			<CheckButton name="REP_ReputationDetailMainScreenCheckBox" inherits="OptionsCheckButtonTemplate">
-				<Size x="26" y="26"/><Anchors>
+			<CheckButton name="REP_ReputationDetailMainScreenCheckBox" inherits="ChatConfigCheckButtonTemplate">
+				<Size x="26" y="26"/>
+				<Anchors>
 					<Anchor point="LEFT" relativeTo="REP_ReputationDetailInactiveCheckBoxText" relativePoint="RIGHT">
-					<Offset x="3" y="0"/></Anchor></Anchors>
+					<Offset x="3" y="0"/></Anchor>
+				</Anchors>
+				<Layers>
+					<Layer level="ARTWORK">
+						<FontString name="$parentText" inherits="GameFontNormalSmall">
+							<Anchors><Anchor point="LEFT" relativePoint="RIGHT"><Offset x="-2" y="0"/></Anchor></Anchors>
+						</FontString>
+					</Layer>
+				</Layers>
 				<HitRectInsets>
 					<AbsInset left="0" right="0" top="0" bottom="0"/>
 				</HitRectInsets>
 				<Scripts>
-					<OnLoad>
-						_G[self:GetName().."Text"]:SetText(SHOW_FACTION_ON_MAINSCREEN);
-					</OnLoad>
 					<OnClick>
 						if (self:GetChecked()) then
 							if SOUNDKIT then PlaySound(SOUNDKIT.IG_MAINMENU_OPTION_CHECKBOX_ON); end
@@ -356,7 +385,7 @@
 					<OnLeave function="GameTooltip_Hide"/>
 				</Scripts>
 			</CheckButton>
-			<CheckButton name="REP_ShowDarkmoonFaireButton" inherits="OptionsCheckButtonTemplate">
+			<CheckButton name="REP_ShowDarkmoonFaireButton" inherits="ChatConfigCheckButtonTemplate">
 				<Size x="26" y="26"/><Anchors>
 					<Anchor point="LEFT" relativeTo="REP_ReputationDetailMainScreenCheckBoxText" relativePoint="RIGHT">
 					<Offset x="3" y="0"/></Anchor></Anchors>
@@ -447,7 +476,7 @@
 				</Anchors>
 			</Button>
 
-			<CheckButton name="REP_ShowNonPvPQuestsButton" inherits="OptionsCheckButtonTemplate">
+			<CheckButton name="REP_ShowNonPvPQuestsButton" inherits="ChatConfigCheckButtonTemplate">
 				<Size x="20" y="20"/>
         <Anchors>
 					<Anchor point="TOPLEFT" relativeTo="REP_ReputationDetailDivider3" relativePoint="BOTTOMLEFT">
@@ -484,7 +513,7 @@
 				</Scripts>
 			</CheckButton>
 
-      <CheckButton name="REP_ShowPvPQuestsButton" inherits="OptionsCheckButtonTemplate">
+      <CheckButton name="REP_ShowPvPQuestsButton" inherits="ChatConfigCheckButtonTemplate">
 				<Size x="20" y="20"/>
 						<Anchors>
 					<Anchor point="TOPLEFT" relativeTo="REP_ReputationDetailDivider3" relativePoint="BOTTOMLEFT">
@@ -521,7 +550,7 @@
 				</Scripts>
 			</CheckButton>
 
-			<CheckButton name="REP_ShowInstancesButton" inherits="OptionsCheckButtonTemplate">
+			<CheckButton name="REP_ShowInstancesButton" inherits="ChatConfigCheckButtonTemplate">
 				<Size x="20" y="20"/>
 						<Anchors>
 					<Anchor point="TOPLEFT" relativeTo="REP_ReputationDetailDivider3" relativePoint="BOTTOMLEFT">
@@ -557,7 +586,7 @@
 					</OnLeave>
 				</Scripts>
 			</CheckButton>
-			<CheckButton name="REP_ShowMobsButton" inherits="OptionsCheckButtonTemplate">
+			<CheckButton name="REP_ShowMobsButton" inherits="ChatConfigCheckButtonTemplate">
 				<Size x="20" y="20"/>
 						<Anchors>
 					<Anchor point="TOPLEFT" relativeTo="REP_ReputationDetailDivider3" relativePoint="BOTTOMLEFT">
@@ -593,12 +622,12 @@
 					</OnLeave>
 				</Scripts>
 			</CheckButton>
-			<CheckButton name="REP_ShowItemsButton" inherits="OptionsCheckButtonTemplate">
+			<CheckButton name="REP_ShowItemsButton" inherits="ChatConfigCheckButtonTemplate">
 				<Size x="20" y="20"/>
 						<Anchors>
 					<Anchor point="TOPLEFT" relativeTo="REP_ReputationDetailDivider3" relativePoint="BOTTOMLEFT">
 						<Offset x="115" y="-20"/>
-          </Anchor>
+								</Anchor>
 				</Anchors>
 				<HitRectInsets>
 					<AbsInset left="0" right="-80" top="0" bottom="0"/>
@@ -629,7 +658,7 @@
 					</OnLeave>
 				</Scripts>
 			</CheckButton>
-			<CheckButton name="REP_ShowGeneralButton" inherits="OptionsCheckButtonTemplate">
+			<CheckButton name="REP_ShowGeneralButton" inherits="ChatConfigCheckButtonTemplate">
 				<Size x="20" y="20"/>
 						<Anchors>
 					<Anchor point="TOPLEFT" relativeTo="REP_ReputationDetailDivider3" relativePoint="BOTTOMLEFT">
@@ -879,13 +908,20 @@
 	</Button>
 
 <!--> ============================================================================================================== <-->
-	<CheckButton name="REP_OrderByStandingCheckBox" parent="ReputationFrame" inherits="OptionsCheckButtonTemplate">
+	<!-- <CheckButton name="REP_OrderByStandingCheckBox" parent="ReputationFrame" inherits="ChatConfigCheckButtonTemplate">
 		<Size x="26" y="26"/>
 		<Anchors>
 			<Anchor point="TOPLEFT" relativePoint="TOPLEFT">
 				<Offset x="75" y="-35"/>
 			</Anchor>
 		</Anchors>
+		<Layers>
+			<Layer level="ARTWORK">
+				<FontString name="$parentText" inherits="GameFontNormalSmall">
+					<Anchors><Anchor point="LEFT" relativePoint="RIGHT"><Offset x="-2" y="0"/></Anchor></Anchors>
+				</FontString>
+			</Layer>
+		</Layers>
 		<HitRectInsets>
 			<AbsInset left="0" right="-150" top="0" bottom="0"/>
 		</HitRectInsets>
@@ -906,7 +942,7 @@
 				GameTooltip:Hide();
 			</OnLeave>
 		</Scripts>
-	</CheckButton>
+	</CheckButton> -->
 
 <!--> ============================================================================================================== <-->
 	<FontString name="REP_OptionText" inherits="GameFontNormal" justifyH="RIGHT" virtual="true">
@@ -969,7 +1005,7 @@
 				</Anchors>
 			</Button>
 
-			<CheckButton name="REP_EnableMissingBox" inherits="OptionsCheckButtonTemplate">
+			<CheckButton name="REP_EnableMissingBox" inherits="ChatConfigCheckButtonTemplate">
 				<Size x="20" y="20"/>
 				<Anchors>
 					<Anchor point="TOPLEFT" relativeTo="$parent" relativePoint="TOPLEFT">
@@ -1007,7 +1043,7 @@
 				</Scripts>
 			</CheckButton>
 
-			<CheckButton name="REP_ExtendDetailsBox" inherits="OptionsCheckButtonTemplate">
+			<CheckButton name="REP_ExtendDetailsBox" inherits="ChatConfigCheckButtonTemplate">
 				<Size x="20" y="20"/>
 						<Anchors>
 					<Anchor point="TOPLEFT" relativeTo="REP_EnableMissingBox" relativePoint="BOTTOMLEFT">
@@ -1042,7 +1078,7 @@
 				</Scripts>
 			</CheckButton>
 
-			<CheckButton name="REP_GainToChatBox" inherits="OptionsCheckButtonTemplate">
+			<CheckButton name="REP_GainToChatBox" inherits="ChatConfigCheckButtonTemplate">
 				<Size x="20" y="20"/>
 						<Anchors>
 					<Anchor point="TOPLEFT" relativeTo="REP_ExtendDetailsBox" relativePoint="BOTTOMLEFT">
@@ -1077,7 +1113,7 @@
 				</Scripts>
 			</CheckButton>
 
-			<CheckButton name="REP_NoGuildGainBox" inherits="OptionsCheckButtonTemplate">
+			<CheckButton name="REP_NoGuildGainBox" inherits="ChatConfigCheckButtonTemplate">
 				<Size x="20" y="20"/>
 						<Anchors>
 					<Anchor point="TOPLEFT" relativeTo="REP_GainToChatBox" relativePoint="BOTTOMLEFT">
@@ -1112,7 +1148,7 @@
 				</Scripts>
 			</CheckButton>
 
-			<CheckButton name="REP_ShowPreviewRepBox" inherits="OptionsCheckButtonTemplate">
+			<CheckButton name="REP_ShowPreviewRepBox" inherits="ChatConfigCheckButtonTemplate">
 				<Size x="20" y="20"/>
 						<Anchors>
 					<Anchor point="TOPLEFT" relativeTo="REP_GainToChatBox" relativePoint="BOTTOMLEFT">
@@ -1148,7 +1184,7 @@
 				</Scripts>
 			</CheckButton>
 
-			<CheckButton name="REP_SwitchFactionBarBox" inherits="OptionsCheckButtonTemplate">
+			<CheckButton name="REP_SwitchFactionBarBox" inherits="ChatConfigCheckButtonTemplate">
 				<Size x="20" y="20"/>
 						<Anchors>
 					<Anchor point="TOPLEFT" relativeTo="REP_ShowPreviewRepBox" relativePoint="BOTTOMLEFT">
@@ -1184,7 +1220,7 @@
 				</Scripts>
 			</CheckButton>
 
-			<CheckButton name="REP_SilentSwitchBox" inherits="OptionsCheckButtonTemplate">
+			<CheckButton name="REP_SilentSwitchBox" inherits="ChatConfigCheckButtonTemplate">
 				<Size x="20" y="20"/>
 						<Anchors>
 					<Anchor point="TOPLEFT" relativeTo="REP_SwitchFactionBarBox" relativePoint="BOTTOMLEFT">
@@ -1220,7 +1256,7 @@
 				</Scripts>
 			</CheckButton>
 
-			<CheckButton name="REP_NoGuildSwitchBox" inherits="OptionsCheckButtonTemplate">
+			<CheckButton name="REP_NoGuildSwitchBox" inherits="ChatConfigCheckButtonTemplate">
 				<Size x="20" y="20"/>
 						<Anchors>
 					<Anchor point="TOPLEFT" relativeTo="REP_SilentSwitchBox" relativePoint="BOTTOMLEFT">
@@ -1256,7 +1292,7 @@
 				</Scripts>
 			</CheckButton>
 
-			<CheckButton name="REP_EnableParagonBarBox" inherits="OptionsCheckButtonTemplate">
+			<CheckButton name="REP_EnableParagonBarBox" inherits="ChatConfigCheckButtonTemplate">
 				<Size x="20" y="20"/>
 				<Anchors>
 					<Anchor point="TOPLEFT" relativeTo="REP_NoGuildSwitchBox" relativePoint="BOTTOMLEFT">
