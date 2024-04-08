@@ -324,9 +324,9 @@ function REP:GetActivePhase(gameBuildVersion)
   if gameBuildVersion > 11402 and gameBuildVersion < 11404 then REP.ShowClassicSOMPhaseThree = true end
   if gameBuildVersion > 11403 and gameBuildVersion < 11500 then REP.ShowClassicSOMPhaseFour = true end
   -- Classic SOD
-  if gameBuildVersion > 11500 and gameBuildVersion < 11503 then REP.ShowClassicSODPhaseOne = true end
-  if gameBuildVersion > 11501 and gameBuildVersion < 11503 then REP.ShowClassicSODPhaseTwo = true end
-  if gameBuildVersion > 11502 and gameBuildVersion < 11504 then REP.ShowClassicSODPhaseThree = true end
+  if gameBuildVersion > 11499 and gameBuildVersion < 11501 then REP.ShowClassicSODPhaseOne = true end
+  if gameBuildVersion > 11500 and gameBuildVersion < 11502 then REP.ShowClassicSODPhaseTwo = true end
+  if gameBuildVersion > 11501 and gameBuildVersion < 11503 then REP.ShowClassicSODPhaseThree = true end
   -- The Burning Crusade
   if gameBuildVersion > 20000 then REP.ShowTBCPhaseOne = true end
   if gameBuildVersion > 20000 then REP.ShowTBCPhaseTwo = true end
@@ -342,6 +342,37 @@ function REP:GetActivePhase(gameBuildVersion)
   -- Cataclysm
   if gameBuildVersion > 40000 then REP.ShowCataPhaseOne = true end
 
+  -- TEMP Retail fix
+  if gameBuildVersion > 50000 then
+    REP.ShowMoPPhaseOne = true
+    REP.ShowMoPPhaseTwo = true
+    REP.ShowMoPPhaseThree = true
+    REP.ShowMoPPhaseFour = true
+    REP.ShowMoPPhaseFive = true
+
+    REP.ShowWoDPhaseOne = true
+    REP.ShowWoDPhaseTwo = true
+    REP.ShowWoDPhaseThree = true
+    REP.ShowWoDPhaseFour = true
+
+    REP.ShowLegionPhaseOne = true
+    REP.ShowLegionPhaseTwo = true
+    REP.ShowLegionPhaseThree = true
+
+    REP.ShowBfAPhaseOne = true
+    REP.ShowBfAPhaseTwo = true
+    REP.ShowBfAPhaseThree = true
+    REP.ShowBfAPhaseFour = true
+
+    REP.ShowShadowLandsPhaseOne = true
+    REP.ShowShadowLandsPhaseTwo = true
+    REP.ShowShadowLandsPhaseThree = true
+
+    REP.ShowDragonflightPhaseOne = true
+    REP.ShowDragonflightPhaseTwo = true
+    REP.ShowDragonflightPhaseThree = true
+  end
+
   ---- Current phase
   if REP.ShowClassicPhaseOne and not REP.ShowClassicPhaseTwo then REP.IsClassicPhaseOne = true end
   if REP.ShowClassicPhaseTwo and not REP.ShowClassicPhaseThree then REP.IsClassicPhaseTwo = true end
@@ -355,8 +386,9 @@ function REP:GetActivePhase(gameBuildVersion)
   if REP.ShowClassicSOMPhaseThree and not REP.ShowClassicSOMPhaseFour then REP.IsClassicSOMPhaseThree = true end
   if REP.ShowClassicSOMPhaseFour then REP.IsClassicSOMPhaseFour = true end
   -- Classic SOD
-  if REP.ShowClassicSODPhaseOne and not REP.ShowClassicSODPhaseTwo then REP.IsClassicSOMPhaseOne = true end
-  if REP.ShowClassicSODPhaseTwo then REP.IsClassicSOMPhaseTwo = true end
+  if REP.ShowClassicSODPhaseOne and not REP.ShowClassicSODPhaseTwo then REP.IsClassicSODPhaseOne = true end
+  if REP.ShowClassicSODPhaseTwo and not REP.ShowClassicSODPhaseThree then REP.IsClassicSODPhaseTwo = true end
+  if REP.ShowClassicSODPhaseThree then REP.IsClassicSODPhaseThree = true end
   -- The Burning Crusade
   if REP.ShowTBCPhaseOne and not REP.ShowTBCPhaseTwo then REP.IsTBCPhaseOne = true end
   if REP.ShowTBCPhaseTwo and not REP.ShowTBCPhaseThree then REP.IsTBCPhaseTwo = true end
@@ -645,3 +677,35 @@ REP.BFFLabels[2507][55000] = REP_TXT.STAND_LV_RENOWN[22]
 REP.BFFLabels[2507][57500] = REP_TXT.STAND_LV_RENOWN[23]
 REP.BFFLabels[2507][60000] = REP_TXT.STAND_LV_RENOWN[24]
 REP.BFFLabels[2507][62500] = REP_TXT.STAND_LV_RENOWN[25]
+---- Wrathion 2517
+REP.BFFLabels[2517] = {} -- Acquaintance
+REP.BFFLabels[2517][8400] = "Cohort"
+REP.BFFLabels[2517][16800] = "Ally"
+REP.BFFLabels[2517][25200] = "Fang"
+REP.BFFLabels[2517][33600] = "Friend"
+REP.BFFLabels[2517][42000] = "True Friend"
+---- Sabellian 2518
+REP.BFFLabels[2518] = {} -- Acquaintance
+REP.BFFLabels[2518][8400] = "Cohort"
+REP.BFFLabels[2518][16800] = "Ally"
+REP.BFFLabels[2518][25200] = "Fang"
+REP.BFFLabels[2518][33600] = "Friend"
+REP.BFFLabels[2518][42000] = "True Friend"
+---- Artisan's Consortium - Dragon Isles Branch 2544
+REP.BFFLabels[2544] = {} -- Neutral
+REP.BFFLabels[2544][500] = "Preferred"
+REP.BFFLabels[2544][2500] = "Respected"
+REP.BFFLabels[2544][5500] = "Valued"
+REP.BFFLabels[2544][12500] = "Esteemed"
+---- Cobalt Assembly 2550
+REP.BFFLabels[2550] = {} -- Empty
+REP.BFFLabels[2550][300] = "Low"
+REP.BFFLabels[2550][1200] = "Medium"
+REP.BFFLabels[2550][3600] = "High"
+REP.BFFLabels[2550][10000] = "Maximum"
+---- Soridormi 2553
+REP.BFFLabels[2553] = {} -- Anomaly
+REP.BFFLabels[2553][7000] = "Future Friend"
+REP.BFFLabels[2553][14000] = "Rift-Mender"
+REP.BFFLabels[2553][24000] = "Timewalker"
+REP.BFFLabels[2553][42000] = "Legend"

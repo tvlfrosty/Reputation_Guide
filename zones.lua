@@ -663,6 +663,7 @@ function REP:SetZoneIdsBasedOnExpansion()
     -- Dragonflight zones --
     ---------------------------
     zone.Emerald_dream = 2200
+    zone.The_Waking_Shores = 2022
   end
 
   REP.zone = zone

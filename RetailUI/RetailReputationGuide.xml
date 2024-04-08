@@ -705,6 +705,7 @@
 				<Scripts>
 					<OnClick>
 						REP_Data.Global.ShowQuests = true
+            REP_Data.Global.ShowPvPQuests = true
 						REP_Data.Global.ShowMobs = true
 						REP_Data.Global.ShowInstances = true
 						REP_Data.Global.ShowItems = true
@@ -730,6 +731,7 @@
 				<Scripts>
 					<OnClick>
 						REP_Data.Global.ShowQuests = nil
+            REP_Data.Global.ShowPvPQuests = nil
 						REP_Data.Global.ShowMobs = nil
 						REP_Data.Global.ShowInstances = nil
 						REP_Data.Global.ShowItems = nil
