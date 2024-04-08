@@ -1304,20 +1304,20 @@ function REP:GetTabardFaction()
 end
 
 function REP:InitFactor(IsHuman, faction)
-  --- Thanks Gwalkmaur for the heads up
-
-  local draenorFactions = {"Council of Exarchs",
-  "Frostwolf Orcs",
-  "Wrynn's Vanguard",
-  "Vol'jin's Spear",
-  "Sha'tari Defense",
-  "Laughing Skull Orcs",
-  "Hand of the Prophet",
-  "Vol'jin's Headhunters",
-  "Arakkoa Outcasts",
-  "Order of the Awakened",
-  "The Saberstalkers",
-  "Steamwheedle Preservation Society"}
+  local draenorFactions = {
+    "Council of Exarchs",
+    "Frostwolf Orcs",
+    "Wrynn's Vanguard",
+    "Vol'jin's Spear",
+    "Sha'tari Defense",
+    "Laughing Skull Orcs",
+    "Hand of the Prophet",
+    "Vol'jin's Headhunters",
+    "Arakkoa Outcasts",
+    "Order of the Awakened",
+    "The Saberstalkers",
+    "Steamwheedle Preservation Society"
+  }
 
   local factor = 1.0
 
@@ -1342,8 +1342,7 @@ function REP:InitFactor(IsHuman, faction)
   for i = 1, numFactions do
     local factionIndex = factionOffset + i
     if (factionIndex <= numFactions) then
-      local name, hasBonusRepGain
-      local name, _, _, _, _, _, _, _, _, _, _, _, _, _, hasBonusRepGain, _ = GetFactionInfo(factionIndex)
+      local name, _, _, _, _, _, _, _, _, _, _, _, _, factionID, hasBonusRepGain, _ = GetFactionInfo(factionIndex)
       if (faction == name) then
         if (hasBonusRepGain) then
           factor = factor + 1
@@ -1355,8 +1354,8 @@ function REP:InitFactor(IsHuman, faction)
 end
 
 function REP:InitFaction(guildName, faction)
-  if faction == "guildName" or faction == REP.GuildName then
-    REP_faction = faction
+  if faction == "guildName" or faction == REP.GuildName or faction == 1168 then
+    REP_faction = tostring(REP.GuildName).." (guild)"
   else
     REP_faction = GetFactionInfoByID(faction)
   end
@@ -1379,7 +1378,11 @@ function REP_AddMapping(english, localised)
   end
 
   if (REP:InitFaction(REP.GuildName, localised)) then
-    REP_FactionMapping[string.lower(REP_faction)] = string.lower(english)
+    if localised == 1168 then
+      REP_FactionMapping[string.lower(REP_faction)] = tostring(string.lower(english)).." (guild)"
+    else
+      REP_FactionMapping[string.lower(REP_faction)] = string.lower(english)
+    end
   end
 end
 
@@ -1567,7 +1570,7 @@ end
 
 function REP_AddItems(faction, from, to, rep, itemList, alternativeItemList, isRenownFaction)
   faction = REP:InitFaction(REP.GuildName, faction)
-  if REP:Content(faction, from, to, name, rep, isRenownFaction) ~= 1 then return end
+  if REP:Content(faction, from, to, itemList, rep, isRenownFaction) ~=1 then return end
   faction = string.lower(faction)
   rep = rep * REP:InitFactor(REP.IsHuman, REP_faction)
   local itemString = ""
@@ -2308,13 +2311,17 @@ function REP_SupressNone(allFactions)
     REP_BuildUpdateList()
   else
     local factionIndex = GetSelectedFaction()
-    local faction = GetFactionInfo(factionIndex)
+    local faction, _, _, _, _, _, _, _, _, _, _, _, _, factionID, _, _ = GetFactionInfo(factionIndex)
 
     if (faction) then
       faction = string.lower(faction)
 
       if (REP_FactionMapping[faction]) then
         faction = REP_FactionMapping[faction]
+      end
+
+      if factionID == 1168 then
+        faction = faction.." (guild)"
       end
 
       if (not REP_Suppressed) then
@@ -2355,12 +2362,24 @@ function REP_BuildUpdateList()
   end
 
   if (faction) then
-    local origFaction = faction
-    local oFaction = string.lower(faction)
-    faction = string.lower(faction)
+    local origFaction, oFaction
+
+    if factionID == 1168 then
+      origFaction = faction.." (guild)"
+      oFaction = string.lower(faction).." (guild)"
+      faction = string.lower(faction).." (guild)"
+    else
+      origFaction = faction
+      oFaction = string.lower(faction)
+      faction = string.lower(faction)
+    end
 
     if (REP_FactionMapping[faction]) then
       faction = REP_FactionMapping[faction]
+    end
+
+    if factionID == 1168 then
+      faction = faction.." (guild)"
     end
 
     if(factionID and C_Reputation.IsFactionParagon(factionID)) then
@@ -3289,6 +3308,10 @@ function REP:DumpReputationChangesToChat(initOnly)
 
       if not name then return end
 
+      if factionID == 1168 then
+        name = name.." (guild)"
+      end
+
       if REP.AfterWoD then
         if(factionID and C_Reputation.IsFactionParagon(factionID)) then
           local currentValue, threshold = C_Reputation.GetFactionParagonInfo(factionID)
@@ -3447,6 +3470,10 @@ function REP_ClearSessionGain()
   local name, _, standingID, barMin, barMax, barValue, _, _, isHeader, _, hasRep, isWatched, _, factionID = GetFactionInfo(factionIndex)
 
   if (name) then
+    if factionID == 1168 then
+      name = name.." (guild)"
+    end
+
     REP_StoredRep[name] = {}
 
     if REP.AfterShadowLands then
@@ -3922,7 +3949,27 @@ function REP:Rep_Detail_Frame(faction, colorID, barValue, barMax, origBarValue, 
 
   local gender = UnitSex("player")
   REP_BuildUpdateList()
-  REP_ReputationDetailFactionName:SetText(name)
+
+  -- Fix for super long names to force name on 2nd line
+  local formattedName = name
+  if (string.len(name) > 25 and string.find(name, "-")) then
+    local tb = {}
+    for i in (name .. "-"):gmatch("([^-]*)-") do
+        table.insert(tb, i) -- in case you want to store each separate element in a table
+    end
+
+    REP_ReputationDetailFactionName:SetSize(0, 24)
+
+    formattedName = tostring(tb[1]).." -"..string.char(10)..tostring(tb[2])
+  else
+    REP_ReputationDetailFactionName:SetSize(0, 12)
+  end
+
+  REP_ReputationDetailFactionName:SetText(formattedName)
+
+  if factionID == 1168 then
+    name = name.." (guild)"
+  end
 
   if description == nil or description == '' then
     if (name == "Alliance") then
@@ -3949,7 +3996,6 @@ function REP:Rep_Detail_Frame(faction, colorID, barValue, barMax, origBarValue, 
   if isMajorFaction then
     color = BLUE_FONT_COLOR
   end
-
 
   REP_ReputationDetailStandingName:SetTextColor(color.r, color.g, color.b)
 
@@ -4440,7 +4486,11 @@ function REP_CustomSetFactionInactive(factionIndex)
     REP_Data[REP_ProfileKey].InactiveFactions[factionID] = true
 
     SetFactionInactive(factionIndex)
-    REP_ReputationFrame_Update()
+    if REP.AfterShadowLands then
+      ReputationFrame_Update()
+    else
+      REP_ReputationFrame_Update()
+    end
   else
     SetFactionInactive(factionIndex)
   end
@@ -4457,7 +4507,11 @@ function REP_CustomSetFactionActive(factionIndex)
     REP_Data[REP_ProfileKey].InactiveFactions[factionID] = nil
 
     SetFactionActive(factionIndex)
-    REP_ReputationFrame_Update()
+    if REP.AfterShadowLands then
+      ReputationFrame_Update()
+    else
+      REP_ReputationFrame_Update()
+    end
   else
     SetFactionActive(factionIndex)
   end
@@ -5120,8 +5174,19 @@ function REP:WatchedFactionDetails(watchedFactionID)
   for i = 1, numFactions, 1 do
     local index = i
     local name, _, standingID, _, barMax, barValue, _, _, _, _, _, _, _, factionID, _, _ = GetFactionInfo(index)
+    local isMatchingFaction
 
-    if (factionID and (name == watchedFactionName or factionID == watchedFactionID)) then
+
+    if (factionID and factionID == 1168 and name == REP.GuildName and name == watchedFactionName) then
+      isMatchingFaction = true
+    elseif (factionID and name ~= REP.GuildName and name == watchedFactionName) then
+      isMatchingFaction = true
+    else
+      isMatchingFaction = false
+    end
+
+
+    if (isMatchingFaction) then
       if (standingID < 8) then toExalted = REP.ToExalted[standingID] + barMax - barValue end
 
       local _, isCappedFriendship, factionStandingtext, isFriend = REP_Friend_Detail(factionID, standingID)

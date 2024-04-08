@@ -1474,8 +1474,87 @@ if REP.ShowClassicSODPhaseThree then
   ---------------------------
 	-- Emerald Wardens 2641 --
 	---------------------------
-  ---- General
-  REP_AddGeneral(2641, 4, 8, "Complete Nightmare Incursions.", 1, "Complete Nightmare Incursions.", "Complete Nightmare Incursions in Ashenvale, Feralas, Duskwood, or The Hinterlands.")
+  ---- Quests
+  -- DuskWood
+  REP_AddQuest(2641, 4, 8, 81716, 10) -- QuestID: 81716 - Recover Incursion Field Report: Duskwood
+  REP_AddQuest(2641, 4, 8, 81730, 75) -- QuestID: 81730 - Duskwood Mission I: Defeat Worgen
+  REP_AddQuest(2641, 4, 8, 81731, 75) -- QuestID: 81731 - Duskwood Mission II: Defeat Ogres
+  REP_AddQuest(2641, 4, 8, 81732, 75) -- QuestID: 81732 - Duskwood Mission III: Defeat Dragonkin
+  REP_AddQuest(2641, 4, 8, 81733, 75) -- QuestID: 81733 - Duskwood Mission IV: Ogre Intelligence
+  REP_AddQuest(2641, 4, 8, 81734, 75) -- QuestID: 81734 - Duskwood Mission V: Worgen Intelligence
+  REP_AddQuest(2641, 4, 8, 81735, 75) -- QuestID: 81735 - Duskwood Mission VI: Dragon Intelligence
+  REP_AddQuest(2641, 4, 8, 81736, 75) -- QuestID: 81736 - Duskwood Mission VII: Recover Shadowscythe
+  REP_AddQuest(2641, 4, 8, 81737, 75) -- QuestID: 81737 - Duskwood Mission VIII: Recover Ogre Magi text
+  REP_AddQuest(2641, 4, 8, 81738, 75) -- QuestID: 81738 - Duskwood Mission IX: Recover Dragon Egg
+  REP_AddQuest(2641, 4, 8, 81739, 75) -- QuestID: 81739 - Duskwood Mission X: Nightmare Moss
+  REP_AddQuest(2641, 4, 8, 81740, 75) -- QuestID: 81740 - Duskwood Mission XI: Cold Iron Ore
+  REP_AddQuest(2641, 4, 8, 81741, 75) -- QuestID: 81741 - Duskwood Mission XII: Dream-Touched Dragonscale
+  REP_AddQuest(2641, 4, 8, 81742, 200) -- QuestID: 81742 - Duskwood Mission XIII: Defeat Ylanthrius
+  REP_AddQuest(2641, 4, 8, 81743, 75) -- QuestID: 81743 - Duskwood Mission XIV: Defeat Vvarc'zul
+  REP_AddQuest(2641, 4, 8, 81744, 75) -- QuestID: 81744 - Duskwood Mission XV: Defeat Amokarok
+  REP_AddQuest(2641, 4, 8, 81745, 75) -- QuestID: 81745 - Duskwood Mission XVI: Rescue Kroll Mountainshade
+  REP_AddQuest(2641, 4, 8, 81746, 75) -- QuestID: 81746 - Duskwood Mission XVII: Rescue Alara Grovemender
+  REP_AddQuest(2641, 4, 8, 81747, 75) -- QuestID: 81747 - Duskwood Mission XVIII: Rescue Elenora Marshwalker
+  -- Ashenvale
+  REP_AddQuest(2641, 4, 8, 81727, 10) -- QuestID: 81727 - Recover Incursion Field Report: Ashenvale
+  REP_AddQuest(2641, 4, 8, 81768, 75) -- QuestID: 81768 - Ashenvale Mission I: Defeat Satyrs
+  REP_AddQuest(2641, 4, 8, 81769, 75) -- QuestID: 81769 - Ashenvale Mission II: Defeat Treants
+  REP_AddQuest(2641, 4, 8, 81770, 75) -- QuestID: 81770 - Ashenvale Mission III: Defeat Dragonkin
+  REP_AddQuest(2641, 4, 8, 81771, 75) -- QuestID: 81771 - Ashenvale Mission IV: Dragon Intelligence
+  REP_AddQuest(2641, 4, 8, 81772, 75) -- QuestID: 81772 - Ashenvale Mission V: Satyr Intelligence
+  REP_AddQuest(2641, 4, 8, 81773, 75) -- QuestID: 81773 - Ashenvale Mission VI: Treant Intelligence
+  REP_AddQuest(2641, 4, 8, 81774, 75) -- QuestID: 81774 - Ashenvale Mission VII: Recover Dreamengine
+  REP_AddQuest(2641, 4, 8, 81775, 75) -- QuestID: 81775 - Ashenvale Mission VIII: Recover Azsharan Prophecy
+  REP_AddQuest(2641, 4, 8, 81776, 75) -- QuestID: 81776 - Ashenvale Mission IX: Recover Dream-Touched Dragonegg
+  REP_AddQuest(2641, 4, 8, 81777, 75) -- QuestID: 81777 - Ashenvale Mission X: Dreamroot
+  REP_AddQuest(2641, 4, 8, 81778, 75) -- QuestID: 81778 - Ashenvale Mission XI: Fool's Gold Dust
+  REP_AddQuest(2641, 4, 8, 81779, 75) -- QuestID: 81779 - Ashenvale Mission XII: Dream-Infused Dragonscale
+  REP_AddQuest(2641, 4, 8, 81780, 200) -- QuestID: 81780 - Ashenvale Mission XIII: Defeat Larsera
+  REP_AddQuest(2641, 4, 8, 81781, 75) -- QuestID: 81781 - Ashenvale Mission XIV: Defeat Zalius
+  REP_AddQuest(2641, 4, 8, 81782, 75) -- QuestID: 81782 - Ashenvale Mission XV: Defeat Shredder 9000
+  REP_AddQuest(2641, 4, 8, 81783, 75) -- QuestID: 81783 - Ashenvale Mission XVI: Rescue Alyssian Windcaller
+  REP_AddQuest(2641, 4, 8, 81784, 75) -- QuestID: 81784 - Ashenvale Mission XVII: Rescue Doran Dreambough
+  REP_AddQuest(2641, 4, 8, 81785, 75) -- QuestID: 81785 - Ashenvale Mission XVIII: Rescue Maseara Autumnmoon
+  -- Hinterlands
+  REP_AddQuest(2641, 4, 8, 81786, 75) -- QuestID: 81786 - Hinterlands Mission I: Defeat Moonkin
+  REP_AddQuest(2641, 4, 8, 81787, 75) -- QuestID: 81787 - Hinterlands Mission II: Defeat Giant Turtles
+  REP_AddQuest(2641, 4, 8, 81788, 75) -- QuestID: 81788 - Hinterlands Mission III: Defeat Dragonkin
+  REP_AddQuest(2641, 4, 8, 81789, 75) -- QuestID: 81789 - Hinterlands Mission IV: Dragon Intelligence
+  REP_AddQuest(2641, 4, 8, 81817, 75) -- QuestID: 81817 - Hinterlands Mission V: Turtle Intelligence
+  REP_AddQuest(2641, 4, 8, 81820, 75) -- QuestID: 81820 - Hinterlands Mission VI: Moonkin Intelligence
+  REP_AddQuest(2641, 4, 8, 81826, 75) -- QuestID: 81826 - Hinterlands Mission VII: Recover Star-Touched Dragonegg
+  REP_AddQuest(2641, 4, 8, 81830, 75) -- QuestID: 81830 - Hinterlands Mission VIII: Recover Elunar Relic
+  REP_AddQuest(2641, 4, 8, 81832, 75) -- QuestID: 81832 - Hinterlands Mission IX: Recover Dreampearl
+  REP_AddQuest(2641, 4, 8, 81833, 75) -- QuestID: 81833 - Hinterlands Mission X: Star Lotus
+  REP_AddQuest(2641, 4, 8, 81834, 75) -- QuestID: 81834 - Hinterlands Mission XI: Starsilver Ore
+  REP_AddQuest(2641, 4, 8, 81835, 75) -- QuestID: 81835 - Hinterlands Mission XII: Starshells
+  REP_AddQuest(2641, 4, 8, 81837, 200) -- QuestID: 81837 - Hinterlands Mission XIII: Defeat Florius
+  REP_AddQuest(2641, 4, 8, 81838, 75) -- QuestID: 81838 - Hinterlands Mission XIV: Defeat Doomkin
+  REP_AddQuest(2641, 4, 8, 81839, 75) -- QuestID: 81839 - Hinterlands Mission XV: Defeat Ghamoo-Raja
+  REP_AddQuest(2641, 4, 8, 81850, 75) -- QuestID: 81850 - Hinterlands Mission XVI: Rescue Elianar Shadowdrinker
+  REP_AddQuest(2641, 4, 8, 81851, 75) -- QuestID: 81851 - Hinterlands Mission XVII: Rescue Serlina Starbright
+  REP_AddQuest(2641, 4, 8, 81852, 75) -- QuestID: 81852 - Hinterlands Mission XVIII: Rescue Veanna Cloudsleeper
+  -- Feralas
+  REP_AddQuest(2641, 4, 8, 81855, 75) -- QuestID: 81855 - Feralas Mission I: Defeat Children of Cenarius
+  REP_AddQuest(2641, 4, 8, 81856, 75) -- QuestID: 81856 - Feralas Mission II: Defeat Harpies
+  REP_AddQuest(2641, 4, 8, 81857, 75) -- QuestID: 81857 - Feralas Mission III: Defeat Dragonkin
+  REP_AddQuest(2641, 4, 8, 81858, 75) -- QuestID: 81858 - Feralas Mission IV: Dragon Intelligence
+  REP_AddQuest(2641, 4, 8, 81859, 75) -- QuestID: 81859 - Feralas Mission V: Cenarion Intelligence
+  REP_AddQuest(2641, 4, 8, 81860, 75) -- QuestID: 81860 - Feralas Mission VI: Harpy Intelligence
+  REP_AddQuest(2641, 4, 8, 81861, 75) -- QuestID: 81861 - Feralas Mission VII: Recover Moonglow Dragonegg
+  REP_AddQuest(2641, 4, 8, 81863, 75) -- QuestID: 81863 - Feralas Mission VIII: Recover Keeper's Notes
+  REP_AddQuest(2641, 4, 8, 81864, 75) -- QuestID: 81864 - Feralas Mission IX: Recover Harpy Screed
+  REP_AddQuest(2641, 4, 8, 81865, 75) -- QuestID: 81865 - Feralas Mission X: Moonroot
+  REP_AddQuest(2641, 4, 8, 81866, 75) -- QuestID: 81866 - Feralas Mission XI: Greater Moonstone
+  REP_AddQuest(2641, 4, 8, 81867, 75) -- QuestID: 81867 - Feralas Mission XII: Greater Moondragon Scales
+  REP_AddQuest(2641, 4, 8, 81868, 200) -- QuestID: 81868 - Feralas Mission XIII: Defeat Tyrannikus
+  REP_AddQuest(2641, 4, 8, 81870, 75) -- QuestID: 81870 - Feralas Mission XIV: Defeat Alondrius
+  REP_AddQuest(2641, 4, 8, 81871, 75) -- QuestID: 81871 - Feralas Mission XV: Defeat Slirena
+  REP_AddQuest(2641, 4, 8, 81872, 75) -- QuestID: 81872 - Feralas Mission XVI: Rescue Mellias Earthtender
+  REP_AddQuest(2641, 4, 8, 81873, 75) -- QuestID: 81873 - Feralas Mission XVII: Rescue Nerene Brooksinger
+  REP_AddQuest(2641, 4, 8, 81874, 75) -- QuestID: 81874 - Feralas Mission XVIII: Rescue Jamniss Treemender
+  -- Hinterlands/Feralas
+  REP_AddQuest(2641, 4, 8, 82068, 1000) -- QuestID: 82068 - Fight the Nightmare Incursions
 end
 
 --------------------------------------------------
@@ -4535,6 +4614,9 @@ end
 		---------------------------
 		-- Dragonscale Expedition 2507 (Goes to 25 Renown) --
 		---------------------------
+    ---- Quests
+    REP_AddQuest(2507, 1, 25, 72259, 30, {[201411] = 1}, nil, true, true) -- Vault Artifacts
+    REP_AddQuest(2507, 1, 25, 72260, 150, {[201411] = 5}, nil, true, true) -- Vault Artifacts
 		---- Items
 		REP_AddItems(2507, 1, 25, 15, {[192055] = 1}, nil, true) -- Dragon Isles Artifact
     REP_AddItems(2507, 1, 25, 50, {[200285] = 1}, nil, true) -- Dragonscale Expedition Insignia
@@ -4542,37 +4624,70 @@ end
 		---------------------------
 		-- Valdrakken Accord 2510 (Goes to 30 Renown) --
 		---------------------------
+    ---- Quests
+		REP_AddQuest(2510, 1, 30, 66130, 50, {[191264] = 1}, nil, true, true) -- Unlocking Our Past QuestID: 66130
 		---- Items
 		REP_AddItems(2510, 1, 30, 15, {[199906] = 1}, nil, true) -- Titan Relic
     REP_AddItems(2510, 1, 30, 50, {[200289] = 1}, nil, true) -- Valdrakken Accord Insignia
 		REP_AddItems(2510, 5, 30, 250, {[200072] = 1}, nil, true) -- Dragonbane Keep Strongbox
 		---- General
-		REP_AddGeneral(2510, 1, 30, "Dragon Isles World Boss", 150, "Dragon Isles World Boss", "Defeat Dragon Isles world boss once a week")
+    REP_AddGeneral(2510, 1, 30, "World Quests", 50, "World Quests", "Complete world quests with this faction to gain reputation.", nil, nil, true)
+		REP_AddGeneral(2510, 1, 30, "Dragon Isles World Boss", 150, "Dragon Isles World Boss", "Defeat Dragon Isles world boss once a week", nil, nil, true)
+    REP_AddGeneral(2510, 5, 30, "Siege on Dragonbane Keep", 50, "Siege on Dragonbane Keep", "Complete the Siege on Dragonbane Keep event", nil, nil, true)
+    REP_AddGeneral(2510, 5, 30, "First 'Siege on Dragonbane Keep' event of the week", 250, "Siege on Dragonbane Keep", "Complete the Siege on Dragonbane Keep event", nil, nil, true)
 
 		---------------------------
 		-- Iskaara Tuskarr 2511 (Goes to 30 Renown) --
 		---------------------------
 		---- Quests
-		-- REP_AddQuest(2503, 1, 25, "More Stolen Totems", 75, {[200071] = 5}) -- More Stolen Totems QuestID: 70927
+    REP_AddQuest(2511, 1, 30, 70926, 75, {[200071] = 1}, nil, true, true) -- Stolen Totems QuestID: 70926
+		REP_AddQuest(2511, 1, 30, 70927, 75, {[200071] = 5}, nil, true, true) -- More Stolen Totems QuestID: 70927
+    REP_AddQuest(2511, 1, 30, 70893, 500, nil, nil, true, true) -- Community Feast QuestID: 70893
+    REP_AddQuest(2511, 4, 30, 70199, 100, {[194730] = 20}, nil, true, true) -- Catch and Release: Scalebelly Mackerel QuestID: 70199
+    REP_AddQuest(2511, 4, 30, 70200, 100, {[194966] = 20}, nil, true, true) -- Catch and Release: Thousandbite Piranha QuestID: 70200
+    REP_AddQuest(2511, 4, 30, 70201, 100, {[194967] = 20}, nil, true, true) -- Catch and Release: Aileron Seamoth QuestID: 70201
+    REP_AddQuest(2511, 4, 30, 70202, 100, {[194968] = 20}, nil, true, true) -- Catch and Release: Cerulean Spinefish QuestID: 70202
+    REP_AddQuest(2511, 4, 30, 70203, 100, {[194969] = 20}, nil, true, true) -- Catch and Release: Temporal Dragonhead QuestID: 70203
+    REP_AddQuest(2511, 4, 30, 70935, 200, {[194970] = 20}, nil, true, true) -- Catch and Release: Islefin Dorado QuestID: 70935
 		---- Items
-		REP_AddItems(2511, 1, 30, 15, {[200071] = 1}, nil, true) -- Sacred Tuskarr Totem
+		-- REP_AddItems(2511, 1, 30, 15, {[200071] = 1}, nil, true) -- Sacred Tuskarr Totem
     REP_AddItems(2511, 1, 30, 50, {[200287] = 1}, nil, true) -- Iskaara Tuskarr Insignia
-
+    ---- General
+    REP_AddGeneral(2511, 1, 30, "Chef tasks (Community Feast)", 25, "Chef tasks (Community Feast)", "Complete chef tasks during the 'Community Feast'.", nil, nil, true)
+    REP_AddGeneral(2511, 1, 30, "World Quests", 50, "World Quests", "Complete world quests with this faction to gain reputation.", nil, nil, true)
 		---------------------------
 		-- Wrathion 2517 --
 		---------------------------
 		---- Quests
-		REP_AddQuest(2517, 1, 6, "Unlocking Our Past", 50, {[191264] = 1}) -- Draconic Defensive
-		-- REP_AddQuest(2517, 1, 6, "Good Things in Large Boxes", 150) -- Good Things in Large Boxes
+		REP_AddQuest(2517, 1, 6, 66130, 250, {[191264] = 1}, nil, true, true) -- Unlocking Our Past QuestID: 66130
+    REP_AddQuest(2517, 1, 6, 66133, 1000, {[191255] = 1}, nil, true, true) -- Keys of Loyalty QuestID: 66133
+    ---- Mobs
+		REP_AddMob(2517, 1, 6, "Shas'ith", 250, zone.The_Waking_Shores, nil, true)
+    REP_AddMob(2517, 1, 6, "Morchok", 100, zone.The_Waking_Shores, nil, true)
 
 		---------------------------
 		-- Sabellian 2518 --
 		---------------------------
-		-- REP_AddQuest(2518, 1, 6, "Good Things in Large Boxes", 150) -- Good Things in Large Boxes
+		---- Quests
+		REP_AddQuest(2518, 1, 6, 66131, 250, {[191264] = 1}, nil, true, true) -- Unlocking Our Past QuestID: 66131
+    REP_AddQuest(2518, 1, 6, 66805, 1000, {[191255] = 1}, nil, true, true) -- Keys of Loyalty QuestID: 66805
+    ---- Mobs
+		REP_AddMob(2518, 1, 6, "Death's Shadow", 250, zone.The_Waking_Shores, nil, true)
+    REP_AddMob(2518, 1, 6, "Morchok", 100, zone.The_Waking_Shores, nil, true)
 
-    ---------------------------
-		-- Obsidian Warders 2524 --
-		---------------------------
+    if (REP.IsAlliance) then
+      ---------------------------
+      -- Obsidian Warders 2524 --
+      ---------------------------
+      ---- General
+      REP_AddGeneral(2524, 1, 8, "World Quests", 50, "World Quests", "Complete world quests with this faction to gain reputation.")
+    else
+      ---------------------------
+      -- Dark Talons 2523 --
+      ---------------------------
+      ---- General
+      REP_AddGeneral(2523, 1, 8, "World Quests", 50, "World Quests", "Complete world quests with this faction to gain reputation.")
+    end
 
 		---------------------------
 		-- Winterpelt Furbolg 2526 --
@@ -4581,6 +4696,8 @@ end
 		---------------------------
 		-- Artisan's Consortium - Dragon Isles Branch 2544 --
 		---------------------------
+    ---- General
+    REP_AddGeneral(2544, 1, 8, "World Quests", 100, "World Quests", "Complete world quests with this faction while having a 'Contract: Artisan's Consortium' active to gain reputation.")
 
 		---------------------------
 		-- Cobalt Assembly 2550 --
@@ -4592,27 +4709,37 @@ end
     ---------------------------
 		-- Loamm Niffen 2564 (Goes to 20 Renown) --
 		---------------------------
+    ---- Quests
+		REP_AddQuest(2564, 1, 20, 75665, 500, nil, nil, true, true) -- A Worthy Ally: Loamm Niffen QuestID: 75665
     ---- Items
     REP_AddItems(2564, 1, 20, 50, {[205365] = 1}, nil, true) -- Loamm Niffen Insignia
+    ---- General
+    REP_AddGeneral(2564, 1, 20, "World Quests", 50, "World Quests", "Complete world quests with this faction to gain reputation.", nil, nil, true)
+    REP_AddGeneral(2564, 5, 20, "Researchers Under Fire", 250, "Researchers Under Fire", "Complete the Researchers Under Fire event", nil, nil, true)
 
     ---------------------------
 		-- Dream Wardens 2574 (Goes to 20 Renown) --
 		---------------------------
     ---- Quests
-		-- REP_AddQuest(2574, 1, 20, "Greedy Gessie", 25, nil, nil, true, true) -- QuestID: 77982 - Greedy Gessie
-    -- REP_AddQuest(2574, 1, 20, "Nuoberon, the Wild Dream of a Child", 25, nil, nil, true, true) -- QuestID: 77570 - Nuoberon, the Wild Dream of a Child
-    -- REP_AddQuest(2574, 1, 20, "Envoy of Winter", 25, {[208881] = 1}, nil, true, true) -- QuestID: 77878 - Envoy of Winter
-    -- REP_AddQuest(2574, 1, 20, "Firebrand Fystia", 25, nil, nil, true, true) -- QuestID: 78015 - Firebrand Fystia
-    -- REP_AddQuest(2574, 1, 20, "Moruud", 25, nil, nil, true, true) -- QuestID: 77867 - Moruud
+    REP_AddQuest(2574, 1, 20, 78444, 500, nil, nil, true, true) -- QuestID: 78444 - A Worthy Ally: Dream Wardens
     ---- Items
-		REP_AddItems(2574, 1, 25, 25, {[211303] = 1}, nil, true) -- Dryad's Supply Pouch
+		REP_AddItems(2574, 1, 20, 25, {[211303] = 1}, nil, true) -- Dryad's Supply Pouch
+    REP_AddItems(2574, 1, 20, 500, {[210421] = 1}, nil, true) -- Dream Wardens Insignia
     ---- Mobs
-		REP_AddMob(2574, 1, 25, "Envoy of Winter", 25, zone.Emerald_dream, nil, true)
-    REP_AddMob(2574, 1, 25, "Firebrand Fystia", 25, zone.Emerald_dream, nil, true)
-    REP_AddMob(2574, 1, 25, "Greedy Gessie", 25, zone.Emerald_dream, nil, true)
-    REP_AddMob(2574, 1, 25, "Nuoberon", 25, zone.Emerald_dream, nil, true)
-    REP_AddMob(2574, 1, 25, "Raszageth's Last Breath", 25, zone.Emerald_dream, nil, true)
-    REP_AddMob(2574, 1, 25, "Reefbreaker Moruud", 25, zone.Emerald_dream, nil, true)
+		REP_AddMob(2574, 1, 20, "Envoy of Winter", 25, zone.Emerald_dream, nil, true)
+    REP_AddMob(2574, 1, 20, "Firebrand Fystia", 25, zone.Emerald_dream, nil, true)
+    REP_AddMob(2574, 1, 20, "Greedy Gessie", 25, zone.Emerald_dream, nil, true)
+    REP_AddMob(2574, 1, 20, "Nuoberon", 25, zone.Emerald_dream, nil, true)
+    REP_AddMob(2574, 1, 20, "Raszageth's Last Breath", 25, zone.Emerald_dream, nil, true)
+    REP_AddMob(2574, 1, 20, "Reefbreaker Moruud", 25, zone.Emerald_dream, nil, true)
+    ---- General
+    REP_AddGeneral(2574, 1, 20, "World Quests", 50, "World Quests", "Complete world quests with this faction to gain reputation.", nil, nil, true)
+
+    ---------------------------
+		-- Keg Leg's Crew 2593 (Goes to 40 Renown) --
+		---------------------------
+    ---- General
+    REP_AddGeneral(2593, 1, 40, "Earn plunder in Plunderstorm", 1, "Earn plunder in Plunderstorm", "Earn plunder in Plunderstorm to gain renown with this faction.", nil, nil, true)
 	end
 
 --------------------------------------------------
