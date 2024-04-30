@@ -534,11 +534,6 @@ function REP:Init()
   if REP.AfterWotlk then
     changed = changed + REP:InitVariable("NoGuildGain", true)
     changed = changed + REP:InitVariable("NoGuildSwitch", true)
-
-    -- if not REP.AfterMoP then
-    --   changed = changed + REP:InitVariable("GuildRepBuffRankOne", true)
-    --   changed = changed + REP:InitVariable("GuildRepBuffRankTwo", true)
-    -- end
   end
 
   if REP.AfterWoD then
@@ -732,8 +727,6 @@ function REP_SlashHandler(msg)
             FD_SH.SilentSwitch = false
           elseif (wordsLower[1]=="paragon") then
             FD_SH.ShowParagonBar = true
-          -- elseif (wordsLower[1]=="guildrepbuff") then
-          --   FD_SH.GuildRepBuff = true
           elseif (wordsLower[1]=="all") then
             FD_SH.ShowMobs = true
             FD_SH.ShowQuests = true
@@ -793,8 +786,6 @@ function REP_SlashHandler(msg)
             FD_SH.SilentSwitch = false
           elseif (wordsLower[1]=="paragon") then
             FD_SH.ShowParagonBar = false
-          -- elseif (wordsLower[1]=="guildrepbuff") then
-          --   FD_SH.GuildRepBuff = false
           elseif (wordsLower[1]=="all") then
             FD_SH.ShowMobs = false
             FD_SH.ShowQuests = false
@@ -854,8 +845,6 @@ function REP_SlashHandler(msg)
             FD_SH.SilentSwitch = false
           elseif (wordsLower[1]=="paragon") then
             FD_SH.ShowParagonBar = not FD_SH.ShowParagonBar
-          -- elseif (wordsLower[1]=="guildrepbuff") then
-          --   FD_SH.GuildRepBuff = not FD_SH.GuildRepBuff
           elseif (wordsLower[1]=="all") then
             FD_SH.ShowMobs = not FD_SH.ShowMobs
             FD_SH.ShowQuests = not FD_SH.ShowQuests
@@ -1091,9 +1080,9 @@ function REP:Help()
   REP:Print(REP.HELP_COLOUR..REP_TXT.usage..":|r /REP enable { mobs | quests | pvpquests | instances | items | all }", true)
   REP:Print(REP.HELP_COLOUR..REP_TXT.usage..":|r /REP disable { mobs | quests | pvpquests | instances | items | all }", true)
   REP:Print(REP.HELP_COLOUR..REP_TXT.usage..":|r /REP toggle { mobs | quests | pvpquests | instances | items | all }", true)
-  REP:Print(REP.HELP_COLOUR..REP_TXT.usage..":|r /REP enable { missing | details | chat | paragon }", true) -- | guildrepbuff 
-  REP:Print(REP.HELP_COLOUR..REP_TXT.usage..":|r /REP disable { missing | details | chat | paragon }", true) -- | guildrepbuff 
-  REP:Print(REP.HELP_COLOUR..REP_TXT.usage..":|r /REP toggle { missing | details | chat | paragon }" , true) -- | guildrepbuff 
+  REP:Print(REP.HELP_COLOUR..REP_TXT.usage..":|r /REP enable { missing | details | chat | paragon }", true)
+  REP:Print(REP.HELP_COLOUR..REP_TXT.usage..":|r /REP disable { missing | details | chat | paragon }", true)
+  REP:Print(REP.HELP_COLOUR..REP_TXT.usage..":|r /REP toggle { missing | details | chat | paragon }" , true)
 end
 ------------------------------------------------------------
 function REP:About()
