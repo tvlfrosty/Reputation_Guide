@@ -385,31 +385,6 @@
 					<OnLeave function="GameTooltip_Hide"/>
 				</Scripts>
 			</CheckButton>
-			<CheckButton name="REP_ShowDarkmoonFaireButton" inherits="ChatConfigCheckButtonTemplate">
-				<Size x="26" y="26"/><Anchors>
-					<Anchor point="LEFT" relativeTo="REP_ReputationDetailMainScreenCheckBoxText" relativePoint="RIGHT">
-					<Offset x="3" y="0"/></Anchor></Anchors>
-				<HitRectInsets>
-					<AbsInset left="0" right="0" top="0" bottom="0"/>
-				</HitRectInsets>
-				<Scripts>
-					<OnClick>
-						REP_Data.Global.ShowDarkmoonFaire = self:GetChecked()
-						if (REP_Data.Global.ShowDarkmoonFaire) then
-							if SOUNDKIT then PlaySound(SOUNDKIT.IG_MAINMENU_OPTION_CHECKBOX_ON); end
-						else
-							if SOUNDKIT then PlaySound(SOUNDKIT.IG_MAINMENU_OPTION_CHECKBOX_OFF); end
-						end
-						REP_ToggleDarkmoonFaireBuff()
-					</OnClick>
-					<OnEnter>
-						REP_ShowHelpToolTip(self, self:GetName())
-					</OnEnter>
-					<OnLeave>
-						GameTooltip:Hide();
-					</OnLeave>
-				</Scripts>
-			</CheckButton>
 <!--^ set 4-->
 <!--v set 5-->
 			<ScrollFrame name="REP_UpdateListScrollFrame" inherits="FauxScrollFrameTemplate">
@@ -890,15 +865,7 @@
 				self.Icon:SetPoint(point, relativeTo, relativePoint, self.origX, self.origY);
 			</OnHide>
 			<OnClick>
-				if(REP_OptionsFrame:IsVisible()) then
-					if SOUNDKIT then PlaySound(SOUNDKIT.IG_MAINMENU_OPTION_CHECKBOX_OFF); end
-					REP_OptionsFrame:Hide();
-				else
-					if SOUNDKIT then PlaySound(SOUNDKIT.IG_MAINMENU_OPTION_CHECKBOX_ON); end
-					ReputationDetailFrame:Hide();
-					REP_ReputationDetailFrame:Hide();
-					REP_OptionsFrame:Show();
-				end
+				REP_OpenSettings();
 			</OnClick>
 			<OnEnter>
 				REP_ShowHelpToolTip(self, self:GetName())
@@ -956,7 +923,7 @@
 		</Scripts>
 	</FontString>
 
-	<Frame name="REP_OptionsFrame" hidden="true" parent="ReputationFrame" inherits="BackdropTemplate">
+	<!-- <Frame name="REP_OptionsFrame" hidden="true" parent="ReputationFrame" inherits="BackdropTemplate">
 		<Size x="450" y="350" />
 		<Anchors>
 			<Anchor point="TOPLEFT" relativePoint="TOPRIGHT">
@@ -968,7 +935,6 @@
 		</KeyValues>
 		<Layers>
 			<Layer level="ARTWORK">
-				<!-->Title box<-->
 				<Texture file="Interface\DialogFrame\UI-DialogBox-Header">
 					<Size x="300" y="64"/>
 					<Anchors>
@@ -977,7 +943,6 @@
 						</Anchor>
 					</Anchors>
 				</Texture>
-				<!-->Close box<-->
 				<Texture file="Interface\DialogFrame\UI-DialogBox-Corner">
 					<Anchors>
 						<Anchor point="TOPRIGHT">
@@ -987,7 +952,6 @@
 				</Texture>
 			</Layer>
 			<Layer level="OVERLAY">
-				<!-->Title text<-->
 				<FontString name="$parentTitle" inherits="GameFontNormal">
 					<Anchors>
 						<Anchor point="TOP">
@@ -998,7 +962,6 @@
 			</Layer>
 		</Layers>
 		<Frames>
-			<!-->Close button<-->
 			<Button name="$parentClose" inherits="UIPanelCloseButton">
 				<Anchors>
 					<Anchor point="CENTER" relativePoint="TOPRIGHT">
@@ -1330,7 +1293,7 @@
 				</Scripts>
 			</CheckButton>
 		</Frames>
-	</Frame>
+	</Frame> -->
 
 <!--> ============================================================================================================== <-->
 	<!-- <StatusBar name="REP_PreviewBarTemplate" virtual="true" drawLayer="BACKGROUND" minValue="0" maxValue="1" defaultValue="0">
@@ -1422,8 +1385,7 @@
 		</Frames>
 	</Frame>
 
-	<!-->Interface options frame<-->
-	<Frame name="ReputationGuideOptions">
+	<!-- <Frame name="ReputationGuideOptions">
 		<Layers>
 			<Layer level="OVERLAY">
 				<FontString name="$parentHeader" inherits="GameFontNormal" justifyH="LEFT">
@@ -1472,7 +1434,7 @@
 			<OnLoad>REP_OnLoadOptions(self)</OnLoad>
 			<OnShow>REP_OnShowOptions(self)</OnShow>
 		</Scripts>
-	</Frame>
+	</Frame> -->
 
 <!--> ============================================================================================================== <-->
 <!--

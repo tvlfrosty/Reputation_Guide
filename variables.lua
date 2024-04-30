@@ -319,14 +319,14 @@ function REP:GetActivePhase(gameBuildVersion)
   if gameBuildVersion > 11305 then REP.ShowClassicPhaseFive = true end
   if gameBuildVersion > 11306 then REP.ShowClassicPhaseSix = true end
   -- Classic SOM
-  if gameBuildVersion > 11400 and gameBuildVersion < 11402 then REP.ShowClassicSOMPhaseOne = true end
-  if gameBuildVersion > 11401 and gameBuildVersion < 11403 then REP.ShowClassicSOMPhaseTwo = true end
-  if gameBuildVersion > 11402 and gameBuildVersion < 11404 then REP.ShowClassicSOMPhaseThree = true end
-  if gameBuildVersion > 11403 and gameBuildVersion < 11500 then REP.ShowClassicSOMPhaseFour = true end
+  if gameBuildVersion > 11400 and gameBuildVersion < 11499 then REP.ShowClassicSOMPhaseOne = true end
+  if gameBuildVersion > 11401 and gameBuildVersion < 11499 then REP.ShowClassicSOMPhaseTwo = true end
+  if gameBuildVersion > 11402 and gameBuildVersion < 11499 then REP.ShowClassicSOMPhaseThree = true end
+  if gameBuildVersion > 11403 and gameBuildVersion < 11499 then REP.ShowClassicSOMPhaseFour = true end
   -- Classic SOD
-  if gameBuildVersion > 11499 and gameBuildVersion < 11501 then REP.ShowClassicSODPhaseOne = true end
-  if gameBuildVersion > 11500 and gameBuildVersion < 11502 then REP.ShowClassicSODPhaseTwo = true end
-  if gameBuildVersion > 11501 and gameBuildVersion < 11503 then REP.ShowClassicSODPhaseThree = true end
+  if gameBuildVersion > 11499 and gameBuildVersion < 11599 then REP.ShowClassicSODPhaseOne = true end
+  if gameBuildVersion > 11500 and gameBuildVersion < 11599 then REP.ShowClassicSODPhaseTwo = true end
+  if gameBuildVersion > 11501 and gameBuildVersion < 11599 then REP.ShowClassicSODPhaseThree = true end
   -- The Burning Crusade
   if gameBuildVersion > 20000 then REP.ShowTBCPhaseOne = true end
   if gameBuildVersion > 20000 then REP.ShowTBCPhaseTwo = true end
@@ -341,6 +341,7 @@ function REP:GetActivePhase(gameBuildVersion)
   if gameBuildVersion > 30402 then REP.ShowWotlkPhaseFive = true end
   -- Cataclysm
   if gameBuildVersion > 40000 then REP.ShowCataPhaseOne = true end
+  if gameBuildVersion > 40400 then REP.ShowCataPhaseTwo = true end
 
   -- TEMP Retail fix
   if gameBuildVersion > 50000 then

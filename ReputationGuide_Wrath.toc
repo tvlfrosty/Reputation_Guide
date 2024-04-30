@@ -20,3 +20,5 @@ content.lua
 mapping.lua
 ReputationGuide.xml
 ReputationGuideSkin.lua
+
+settings.lua

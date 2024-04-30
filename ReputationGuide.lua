@@ -101,7 +101,7 @@ function REP_OnLoad(self)
   -- GetFactionInfo = REP_GetFactionInfo
   -- REP_Orig_ChatFrame_OnEvent = ChatFrame_OnEvent
   -- ChatFrame_OnEvent = REP_ChatFrame_OnEvent
-
+  
   ------------------------
   -- Attempt to fix 10.0 --
   ------------------------
@@ -265,7 +265,6 @@ function REP_OnLoad(self)
       if (factionIndex == GetSelectedFaction()) then
         if (ReputationDetailFrame:IsShown()) then
           ReputationDetailFrame:Hide()
-          REP_OptionsFrame:Hide()
           REP_ReputationDetailFrame:Show()
     
           if isMajorFaction then
@@ -276,7 +275,7 @@ function REP_OnLoad(self)
             REP_ReputationDetailViewRenownButton:Refresh()
           else
             REP_ReputationDetailAtWarCheckBox:SetPoint("TOPLEFT", REP_ReputationDetailDivider, "BOTTOMLEFT", 10, 20)
-            REP_ReputationDetailDivider:SetHeight(32)
+            -- REP_ReputationDetailDivider:SetHeight(32)
             REP_ReputationDetailViewRenownButton:Hide()
             REP_ReputationDetailFrame:SetHeight(520)
           end
@@ -341,6 +340,10 @@ function REP_OnEvent(self, event, ...)
     REP_Main:RegisterEvent("BAG_UPDATE")
     REP_Main:RegisterEvent("BANKFRAME_OPENED")
     REP_Main:RegisterEvent("BANKFRAME_CLOSED")
+
+    -- REP_Main:RegisterEvent("PLAYER_AURAS_CHANGED")
+    REP_Main:RegisterEvent("UNIT_AURA")
+
     -- to keep list of known skills up to date
     REP_Main:RegisterEvent("CHAT_MSG_SKILL")
     REP_Main:RegisterEvent("SKILL_LINES_CHANGED")
@@ -360,6 +363,27 @@ function REP_OnEvent(self, event, ...)
       REP_Main:RegisterEvent("MAJOR_FACTION_RENOWN_LEVEL_CHANGED")
       REP_Main:RegisterEvent("MAJOR_FACTION_UNLOCKED")
     end
+
+    ---- Check for (old) guild reputation buff perk ranks.
+    if REP.AfterWotlk and not REP.AfterMoP then
+      -- Check rank 2 first as it overrides rank 1 and should always be leading.
+      local mrPopularityRankTwoBuffActive = IsSpellKnown(78635) -- Mr. Popularity (Guild Perk, Rank 2)
+
+      if mrPopularityRankTwoBuffActive then
+        REP_Data.Global.GuildRepBuffRankOne = false
+
+        if not REP_Data.Global.GuildRepBuffRankTwo then
+          REP_Data.Global.GuildRepBuffRankTwo = true
+        end
+      else
+        local mrPopularityRankOneBuffActive = IsSpellKnown(78634) -- Mr. Popularity (Guild Perk, Rank 1)
+        if mrPopularityRankOneBuffActive and not REP_Data.Global.GuildRepBuffRankOne then
+          REP_Data.Global.GuildRepBuffRankOne = true
+          REP_Data.Global.GuildRepBuffRankTwo = false
+        end
+      end
+    end
+
     -- to keep the UI up to date based on expansion changes
     REP:MakeUIChanges()
     -- HookScripts
@@ -407,6 +431,8 @@ function REP_OnEvent(self, event, ...)
       REP_BuildUpdateList()
       REP_UpdateList_Update()
     end
+  elseif (event == "UNIT_AURA") then
+    REP:CheckActiveReputationBuffs()
   elseif (event == "GARRISON_UPDATE") then
     -- Get garrison buildings to check for trading post
     local garrisonBuildings = C_Garrison.GetBuildings(Enum.GarrisonType.Type_6_0)
@@ -485,6 +511,7 @@ function REP:Init()
 
   local version = GetAddOnMetadata("ReputationGuide", "Version")
   if (version == nil) then version = "unknown" end
+  REP.Version = version
 
   -- create data structures
   if not REP_Data.Global.OriginalCollapsed then REP_Data.Global.OriginalCollapsed = {} end
@@ -522,7 +549,7 @@ function REP:Init()
       button1 = REP_TXT.showConfig,
       button2 = REP_TXT.later,
       OnAccept = function()
-        REP:ToggleConfigWindow()
+        REP_OpenSettings()
       end,
       OnCancel = function()
       	REP:Print("|cFFFFFF7F"..addonName..":|cFFFF0000 ".."If you change the settings later you will have to reload your UI for the changes to go in effect.")
@@ -537,32 +564,8 @@ function REP:Init()
   end
 
   -- Set up UI
-  REP_OptionsFrameTitle:SetText(addonName.." "..REP_TXT.options)
-  REP_EnableMissingBoxText:SetText(REP_TXT.showMissing)
-  REP_ExtendDetailsBoxText:SetText(REP_TXT.extendDetails)
-  REP_GainToChatBoxText:SetText(REP_TXT.gainToChat)
-  REP_ShowPreviewRepBoxText:SetText(REP_TXT.showPreviewRep)
-  REP_SwitchFactionBarBoxText:SetText(REP_TXT.switchFactionBar)
-  REP_SilentSwitchBoxText:SetText(REP_TXT.silentSwitch)
-
   if REP.AfterWotlk then
     REP:ExtractSkills()
-    REP_NoGuildGainBox:Show()
-    REP_NoGuildSwitchBox:Show()
-    REP_NoGuildGainBoxText:SetText(REP_TXT.noGuildGain)
-    REP_NoGuildSwitchBoxText:SetText(REP_TXT.noGuildSwitch)
-    REP_ShowPreviewRepBox:SetPoint("TOPLEFT", REP_GainToChatBox, "BOTTOMLEFT", 0, -20)
-  else
-    REP_NoGuildGainBox:Hide()
-    REP_NoGuildSwitchBox:Hide()
-    REP_ShowPreviewRepBox:SetPoint("TOPLEFT", REP_GainToChatBox, "BOTTOMLEFT", 0, -5)
-  end
-
-  if REP.AfterWoD then
-    REP_EnableParagonBarBox:Show()
-    REP_EnableParagonBarBoxText:SetText(REP_TXT.EnableParagonBar)
-  else
-    REP_EnableParagonBarBox:Hide()
   end
 
   if not REP.AfterShadowLands then
@@ -643,20 +646,42 @@ end
 -- UI Changes based on current expansion --
 ----------------------------------------
 function REP:MakeUIChanges()
-  if REP.AfterLegion then
+  if REP.AfterWotlk then
+    REP_ReputationDetailFrame:SetPoint("TOPLEFT", ReputationFrame, "TOPRIGHT", 0, 0)
+    REP_OptionsButton:SetPoint("TOPRIGHT", ReputationFrame, "TOPRIGHT", -2, -22)
+
     if not REP.AfterShadowLands then
       REP_OrderByStandingCheckBox:SetPoint("TOPLEFT", ReputationFrame, "TOPLEFT", 55, -20)
     end
-    REP_OptionsButton:SetPoint("TOPRIGHT", ReputationFrame, "TOPRIGHT", -2, -22)
-    REP_OptionsFrame:SetPoint("TOPLEFT", ReputationFrame, "TOPRIGHT", 0, 0)
-    REP_ReputationDetailFrame:SetPoint("TOPLEFT", ReputationFrame, "TOPRIGHT", 0, 0)
   end
 end
 
-function REP_ToggleDarkmoonFaireBuff()
-  REP_FactionGain = {}
-  REP_InitEnFactionGains(REP.GuildName)
-  ReputationFrame_Update()
+function REP:CheckActiveReputationBuffs()
+  local i = 1;
+  local buff = UnitBuff("player", i);
+  while buff do
+    local _, _, _, _, _, _, _, _, _, spellId = UnitBuff("player", i);
+    
+    if (spellId == 24705 or spellId == 95987) and not REP_Data.Global.WickermanRepBuff then
+      REP_Data.Global.WickermanRepBuff = true
+    end
+
+    if spellId == 61849 and not REP_Data.Global.HarvestBountyRepBuff then
+      REP_Data.Global.HarvestBountyRepBuff = true
+    end
+
+    if spellId == 136583 and not REP_Data.Global.DarkmoonfaireHatRepBuff then
+      REP_Data.Global.DarkmoonfaireHatRepBuff = true
+    end
+
+    if spellId == 46668 and not REP_Data.Global.DarkmoonfaireWeeRepBuff then
+      REP_Data.Global.DarkmoonfaireWeeRepBuff = true
+    end
+
+    -- Get next buff if there is any.
+    i = i + 1;
+    buff = UnitBuff("player", i);
+  end
 end
 
 ------------------------
@@ -1323,14 +1348,32 @@ function REP:InitFactor(IsHuman, faction)
 
   -- Race check
   if IsHuman then factor = factor + 0.1 end
-  -- WoD Faction trading post bonus
-  if REP:has_value(draenorFactions, faction) and REP.HasTradingPost then
-    factor = factor + 0.2
+
+  -- Wickerman (Hallow's end) reputation buff setting
+  if REP_Data.Global.WickermanRepBuff then
+    factor = factor + 0.1
+  end
+
+  -- Pilgrim's Bounty festival reputation buff setting
+  if REP_Data.Global.HarvestBountyRepBuff then
+    factor = factor + 0.1
+  end
+
+  -- Guild reputation buff rank setting, rank 2 overrides rank 1 and should always be leading.
+  if REP_Data.Global.GuildRepBuffRankTwo then
+    factor = factor + 0.1
+  elseif REP_Data.Global.GuildRepBuffRankOne then
+    factor = factor + 0.05
   end
 
   -- Darkmoon Faire reputation buff setting
-  if REP_Data.Global.ShowDarkmoonFaire then
+  if REP_Data.Global.DarkmoonfaireWeeRepBuff or REP_Data.Global.DarkmoonfaireHatRepBuff then
     factor = factor + 0.1
+  end
+
+  -- WoD Faction trading post bonus
+  if REP:has_value(draenorFactions, faction) and REP.HasTradingPost then
+    factor = factor + 0.2
   end
 
   -- bonus repgain check
@@ -2079,7 +2122,7 @@ function REP_ReputationBar_OnClick(self)
       REP_ReputationDetailFrame:Show()
       SetSelectedFaction(self.index)
       ReputationDetailFrame:Hide()
-      REP_OptionsFrame:Hide()
+      --REP_OptionsFrame:Hide()
 
       if (REP_Data.Global.ExtendDetails) then
         REP_BuildUpdateList()
@@ -2121,14 +2164,6 @@ function REP_UpdateList_Update()
   REP_SupressNoneGlobalButton:SetText(REP_TXT.supressNoneGlobal)
   REP_ReputationDetailSuppressHint:SetText(REP_TXT.suppressHint)
   REP_ClearSessionGainButton:SetText(REP_TXT.clearSessionGain)
-
-  if REP.AfterMoP then
-    REP_ShowDarkmoonFaireButton:Show()
-    REP_ShowDarkmoonFaireButton:SetChecked(REP_Data.Global.ShowDarkmoonFaire)
-    REP_ShowDarkmoonFaireButtonText:SetText(REP_TXT.darkmoonFaireBuff)
-  else
-    REP_ShowDarkmoonFaireButton:Hide()
-  end
 
   local numEntries, highestVisible = REP:GetUpdateListSize()
 
@@ -3544,26 +3579,32 @@ end
 -----------------------------------
 -- _13_ show option window
 -----------------------------------
-function REP:ToggleConfigWindow()
-  if ReputationFrame:IsVisible() then
-    if REP_OptionsFrame:IsVisible() then
-      -- both windows shown -> hide them both
-      REP_OptionsFrame:Hide()
-      HideUIPanel(CharacterFrame)
-    else
-      -- options window not shown -> show, hide any detail window
-      REP_OptionsFrame:Show()
-      REP_ReputationDetailFrame:Hide()
-      ReputationDetailFrame:Hide()
-    end
+function REP_OpenSettings()
+  REP.Tools.Settings:Open()
+end
 
-  else
-    -- window not shown -> show both
-    ToggleCharacter("ReputationFrame")
-    REP_ReputationDetailFrame:Hide()
-    ReputationDetailFrame:Hide()
-    REP_OptionsFrame:Show()
-  end
+function REP:ToggleConfigWindow()
+  REP.Tools.Settings:Open()
+
+  -- if ReputationFrame:IsVisible() then
+  --   if REP_OptionsFrame:IsVisible() then
+  --     -- both windows shown -> hide them both
+  --     REP_OptionsFrame:Hide()
+  --     HideUIPanel(CharacterFrame)
+  --   else
+  --     -- options window not shown -> show, hide any detail window
+  --     REP_OptionsFrame:Show()
+  --     REP_ReputationDetailFrame:Hide()
+  --     ReputationDetailFrame:Hide()
+  --   end
+
+  -- else
+  --   -- window not shown -> show both
+  --   ToggleCharacter("ReputationFrame")
+  --   REP_ReputationDetailFrame:Hide()
+  --   ReputationDetailFrame:Hide()
+  --   REP_OptionsFrame:Show()
+  -- end
 end
 
 function REP:ToggleDetailWindow()
@@ -3577,7 +3618,7 @@ function REP:ToggleDetailWindow()
         -- detail window not shown -> show it, hide any others
         REP_ReputationDetailFrame:Show()
         ReputationDetailFrame:Hide()
-        REP_OptionsFrame:Hide()
+        --REP_OptionsFrame:Hide()
         ReputationFrame_Update()
       end
     else
@@ -3589,7 +3630,7 @@ function REP:ToggleDetailWindow()
         -- detail window not shown -> show it, hide any others
         REP_ReputationDetailFrame:Hide()
         ReputationDetailFrame:Show()
-        REP_OptionsFrame:Hide()
+        --REP_OptionsFrame:Hide()
         ReputationFrame_Update()
       end
     end
@@ -3602,7 +3643,7 @@ function REP:ToggleDetailWindow()
       ReputationDetailFrame:Show()
     end
 
-    REP_OptionsFrame:Hide()
+    --REP_OptionsFrame:Hide()
     ReputationFrame_Update()
   end
 end
@@ -4330,24 +4371,8 @@ end
 -- _18_ classic options
 --------------------------
 function REP_OnShowOptionFrame()
-  REP_EnableMissingBox:SetChecked(REP_Data.Global.ShowMissing)
-  REP_ExtendDetailsBox:SetChecked(REP_Data.Global.ExtendDetails)
-  REP_GainToChatBox:SetChecked(REP_Data.Global.WriteChatMessage)
-  REP_ShowPreviewRepBox:SetChecked(REP_Data.Global.ShowPreviewRep)
-  REP_SwitchFactionBarBox:SetChecked(REP_Data.Global.SwitchFactionBar)
-  REP_SilentSwitchBox:SetChecked(REP_Data.Global.SilentSwitch)
-
   if not REP.AfterShadowLands then
     REP_OrderByStandingCheckBox:SetChecked(REP_Data.Global.SortByStanding)
-  end
-
-  if REP.AfterWotlk then
-    REP_NoGuildGainBox:SetChecked(REP_Data.Global.NoGuildGain)
-    REP_NoGuildSwitchBox:SetChecked(REP_Data.Global.NoGuildSwitch)
-  end
-
-  if REP.AfterWoD then
-    REP_EnableParagonBarBox:SetChecked(REP_Data.Global.ShowParagonBar)
   end
 end
 
@@ -5162,7 +5187,7 @@ end
 -- REP:WatchedFactionDetails
 ----------------------------------------------
 function REP:WatchedFactionDetails(watchedFactionID)
-  if (REP_OptionsFrame:IsVisible()) then REP_OptionsFrame:Hide() end
+  -- if (REP_OptionsFrame:IsVisible()) then REP_OptionsFrame:Hide() end
   
   local name, _, _, _, _ = GetWatchedFactionInfo()
   local watchedFactionName = name

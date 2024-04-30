@@ -21,3 +21,5 @@ content.lua
 mapping.lua
 RetailUI\RetailReputationGuide.xml
 ReputationGuideSkin.lua
+
+settings.lua

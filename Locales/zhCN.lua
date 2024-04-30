@@ -368,4 +368,30 @@ REP_TXT.elements.name.REP_OptionEnableParagonBar = REP_TXT.elements.name.REP_Ena
 REP_TXT.elements.tip.REP_OptionEnableParagonBar = REP_TXT.elements.tip.REP_EnableParagonBarBox
 REP_TXT.elements.name.REP_OptionEnableParagonBarCB = REP_TXT.elements.name.REP_EnableParagonBarBox
 REP_TXT.elements.tip.REP_OptionEnableParagonBarCB = REP_TXT.elements.tip.REP_EnableParagonBarBox
+---------------------------
+-- New options settings
+---------------------------
+---- General
+REP_TXT.settings = {}
+REP_TXT.settings.info = {}
+---- Titles
+REP_TXT.settings.buffTitle = "Reputation Buffs"
+REP_TXT.settings.buffSubTitle = "You can toggle these reputation buffs to see how much reputation you would get from different activities. Buffs that don't stack will be disabled when toggling their counterparts."
+---- Buffs
+REP_TXT.settings.harvestBountyRepBuff = "The Spirit of Sharing (Pilgrim's Bounty)"
+REP_TXT.settings.info.harvestBountyRepBuff = "Increases reputation gained by 10%.  Lasts 1 hour."
+REP_TXT.settings.wickermanRepBuff = "Invocation of the Wickerman (Hallow's End)"
+REP_TXT.settings.info.wickermanRepBuff = "Increases experience earned and reputation gained by 10%.  Lasts 2 hrs."
+REP_TXT.settings.wickermanRepBuffUnburdened = "Unburdened (Hallow's End)"
+REP_TXT.settings.info.wickermanRepBuffUnburdened = "You have cast your worries into the Wickerman's fire. Increases experience earned and reputation gained by 10%.  Lasts 2 hrs."
+REP_TXT.settings.wickermanRepBuffGrimVisage = "Grim Visage (Hallow's End)"
+REP_TXT.settings.info.wickermanRepBuffGrimVisage = "You have painted your face with the Wickerman's ashes. Increases experience earned and reputation gained by 10%.  Lasts 2 hrs."
+REP_TXT.settings.MrPopularityRankOne = "Mr. Popularity (Guild Perk, Rank 1)"
+REP_TXT.settings.info.MrPopularityRankOne = "Reputation gained from killing monsters and completing quests increased by 5%."
+REP_TXT.settings.MrPopularityRankTwo = "Mr. Popularity (Guild Perk, Rank 2)"
+REP_TXT.settings.info.MrPopularityRankTwo = "Reputation gained from killing monsters and completing quests increased by 10%."
+REP_TXT.settings.DarkmoonFaireWeeRepBuff = "WHEE! (Darkmoon Faire)"
+REP_TXT.settings.info.DarkmoonFaireWeeRepBuff = "Rode the Darkmoon carousel or roller coaster. Experience and Reputation gains increased by 10%."
+REP_TXT.settings.DarkmoonFaireHatRep = "Darkmoon Top Hat (Darkmoon Faire)"
+REP_TXT.settings.info.DarkmoonFaireHatRep = "Increase experience and reputation gains by 10% for 1 hour. Hat is consumed on use."
 end

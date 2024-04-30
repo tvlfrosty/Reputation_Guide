@@ -32,7 +32,6 @@ if IsAddOnLoaded("ElvUI") then
 		REP_ShowItemsButton,
 		REP_ShowGeneralButton,
 		REP_EnableParagonBarBox,
-		REP_ShowDarkmoonFaireButton,
 	}
 
   REP_ReputationDetailFrame:StripTextures()
