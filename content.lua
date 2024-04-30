@@ -361,6 +361,14 @@ end
 		REP_AddQuest(909, 4, 8, 7907, 150, {[19228] = 1}) -- Darkmoon Beast Deck QuestID: 7907
 		REP_AddQuest(909, 4, 8, 7928, 150, {[19257] = 1}) -- Darkmoon Warlords Deck QuestID: 7928
 		REP_AddQuest(909, 4, 8, 7927, 150, {[19277] = 1}) -- Darkmoon Portals Deck QuestID: 7927
+
+    if REP.ShowClassicSODPhaseThree then
+      REP_AddQuest(909, 4, 8, 82055, 150, {[221289] = 1}) -- Darkmoon Dunes Deck QuestID: 82055
+      REP_AddQuest(909, 4, 8, 82058, 150, {[221272] = 1}) -- Darkmoon Wilds Deck QuestID: 82058
+      REP_AddQuest(909, 4, 8, 82057, 150, {[221280] = 1}) -- Darkmoon Plagues Deck QuestID: 82057
+      REP_AddQuest(909, 4, 8, 82056, 150, {[221299] = 1}) -- Darkmoon Nightmares Deck QuestID: 82056
+    end
+
 		REP_AddQuest(909, 4, 8, "Your Fortune Awaits You...", 50, {["Sayge's Fortune #23"] = 1}) -- Quest ID: 7937, Item ID: 19423 (not added to questdb.lua)
 		REP_AddQuest(909, 4, 8, "Your Fortune Awaits You...", 50, {["Sayge's Fortune #24"] = 1}) -- Quest ID: 7938, Item ID: 19424 (not added to questdb.lua)
 		REP_AddQuest(909, 4, 8, "Your Fortune Awaits You...", 50, {["Sayge's Fortune #25"] = 1}) -- Quest ID: 7944, Item ID: 19443 (not added to questdb.lua)
@@ -1147,6 +1155,117 @@ end
 			REP_AddQuest(589, 4, 6, 29040, 1500) -- Cub's First Toy
 			REP_AddQuest(589, 5, 8, 29034, 42999)
 		end
+
+    if REP.ShowClassicSODPhaseOne then
+      ---------------------------
+      -- Azeroth Commerce Authority 2586
+      ---------------------------
+      ---- Items
+      REP_AddItems(2586, 4, 5, 300, {[211331] = 1}) -- 211331  Waylaid Supplies: Brilliant Smallfish
+      REP_AddItems(2586, 4, 5, 300, {[210771] = 1}) -- 210771  Waylaid Supplies: Copper Bars
+      REP_AddItems(2586, 4, 5, 300, {[211332] = 1}) -- 211332  Waylaid Supplies: Heavy Linen Bandages
+      REP_AddItems(2586, 4, 5, 300, {[211329] = 1}) -- 211329  Waylaid Supplies: Herb Baked Eggs
+      REP_AddItems(2586, 4, 5, 300, {[211315] = 1}) -- 211315  Waylaid Supplies: Light Leather
+      REP_AddItems(2586, 4, 5, 300, {[211316] = 1}) -- 211316  Waylaid Supplies: Peacebloom
+      REP_AddItems(2586, 4, 5, 300, {[211933] = 1}) -- 211933  Waylaid Supplies: Rough Stone
+      REP_AddItems(2586, 4, 5, 300, {[211317] = 1}) -- 211317  Waylaid Supplies: Silverleaf
+      REP_AddItems(2586, 4, 5, 300, {[211330] = 1}) -- 211330  Waylaid Supplies: Spiced Wolf Meat
+      REP_AddItems(2586, 4, 5, 450, {[211328] = 1}) -- 211328  Waylaid Supplies: Brown Linen Robes
+      REP_AddItems(2586, 4, 5, 450, {[211319] = 1}) -- 211319  Waylaid Supplies: Copper Shortswords
+      REP_AddItems(2586, 4, 5, 450, {[211326] = 1}) -- 211326  Waylaid Supplies: Embossed Leather Vests
+      REP_AddItems(2586, 4, 5, 450, {[211325] = 1}) -- 211325  Waylaid Supplies: Handstitched Leather Belts
+      REP_AddItems(2586, 4, 5, 450, {[211934] = 1}) -- 211934  Waylaid Supplies: Healing Potions
+      REP_AddItems(2586, 4, 5, 450, {[211321] = 1}) -- 211321  Waylaid Supplies: Lesser Magic Wands
+      REP_AddItems(2586, 4, 5, 450, {[211318] = 1}) -- 211318  Waylaid Supplies: Minor Healing Potions
+      REP_AddItems(2586, 4, 5, 450, {[211322] = 1}) -- 211322  Waylaid Supplies: Minor Wizard Oil
+      REP_AddItems(2586, 4, 5, 450, {[211324] = 1}) -- 211324  Waylaid Supplies: Rough Boomsticks
+      REP_AddItems(2586, 4, 5, 450, {[211323] = 1}) -- 211323  Waylaid Supplies: Rough Copper Bombs
+      REP_AddItems(2586, 4, 5, 450, {[211320] = 1}) -- 211320  Waylaid Supplies: Runed Copper Pants
+      REP_AddItems(2586, 5, 6, 500, {[211819] = 1}) -- 211819  Waylaid Supplies: Bronze Bars
+      REP_AddItems(2586, 5, 6, 500, {[211822] = 1}) -- 211822  Waylaid Supplies: Bruiseweed
+      REP_AddItems(2586, 5, 6, 500, {[211837] = 1}) -- 211837  Waylaid Supplies: Goblin Deviled Clams
+      REP_AddItems(2586, 5, 6, 500, {[211838] = 1}) -- 211838  Waylaid Supplies: Heavy Wool Bandages
+      REP_AddItems(2586, 5, 6, 500, {[211821] = 1}) -- 211821  Waylaid Supplies: Medium Leather
+      REP_AddItems(2586, 5, 6, 500, {[211820] = 1}) -- 211820  Waylaid Supplies: Silver Bars
+      REP_AddItems(2586, 5, 6, 500, {[211836] = 1}) -- 211836  Waylaid Supplies: Smoked Bear Meat
+      REP_AddItems(2586, 5, 6, 500, {[211835] = 1}) -- 211835  Waylaid Supplies: Smoked Sagefish
+      REP_AddItems(2586, 5, 6, 500, {[211823] = 1}) -- 211823  Waylaid Supplies: Swiftthistle
+      REP_AddItems(2586, 5, 6, 650, {[211831] = 1}) -- 211831  Waylaid Supplies: Dark Leather Cloaks
+      REP_AddItems(2586, 5, 6, 650, {[211833] = 1}) -- 211833  Waylaid Supplies: Gray Woolen Shirts
+      REP_AddItems(2586, 5, 6, 650, {[211824] = 1}) -- 211824  Waylaid Supplies: Lesser Mana Potions
+      REP_AddItems(2586, 5, 6, 650, {[211828] = 1}) -- 211828  Waylaid Supplies: Minor Mana Oil
+      REP_AddItems(2586, 5, 6, 650, {[211825] = 1}) -- 211825  Waylaid Supplies: Rough Bronze Boots
+      REP_AddItems(2586, 5, 6, 650, {[211829] = 1}) -- 211829  Waylaid Supplies: Small Bronze Bombs
+      REP_AddItems(2586, 5, 6, 800, {[211935] = 1}) -- 211935  Waylaid Supplies: Elixir of Firepower
+      REP_AddItems(2586, 5, 6, 800, {[211832] = 1}) -- 211832  Waylaid Supplies: Hillman's Shoulders
+      REP_AddItems(2586, 5, 6, 800, {[211830] = 1}) -- 211830  Waylaid Supplies: Ornate Spyglasses
+      REP_AddItems(2586, 5, 6, 800, {[211834] = 1}) -- 211834  Waylaid Supplies: Pearl-clasped Cloaks
+      REP_AddItems(2586, 5, 6, 800, {[211827] = 1}) -- 211827  Waylaid Supplies: Runed Silver Rods
+      REP_AddItems(2586, 5, 6, 800, {[211826] = 1}) -- 211826  Waylaid Supplies: Silver Skeleton Keys
+    end
+    ---- SOD phase 2
+    if REP.ShowClassicSODPhaseTwo then
+      REP_AddItems(2586, 6, 7, 700, {[215413] = 1}) -- 215413  Waylaid Supplies: Formal White Shirts
+      REP_AddItems(2586, 6, 7, 700, {[215421] = 1}) -- 215421  Waylaid Supplies: Fire Oil
+      REP_AddItems(2586, 6, 7, 700, {[215391] = 1}) -- 215391  Waylaid Supplies: Wintersbite
+      REP_AddItems(2586, 6, 7, 700, {[215420] = 1}) -- 215420  Waylaid Supplies: Rockscale Cod
+      REP_AddItems(2586, 6, 7, 700, {[215389] = 1}) -- 215389  Waylaid Supplies: Fadeleaf
+      REP_AddItems(2586, 6, 7, 700, {[215400] = 1}) -- 215400  Waylaid Supplies: Solid Grinding Stones
+      REP_AddItems(2586, 6, 7, 700, {[215387] = 1}) -- 215387  Waylaid Supplies: Heavy Hide
+      REP_AddItems(2586, 6, 7, 700, {[215392] = 1}) -- 215392  Waylaid Supplies: Purple Lotus
+      REP_AddItems(2586, 6, 7, 700, {[215418] = 1}) -- 215418  Waylaid Supplies: Spider Sausages
+      REP_AddItems(2586, 6, 7, 700, {[215417] = 1}) -- 215417  Waylaid Supplies: Soothing Turtle Bisque
+      REP_AddItems(2586, 6, 7, 700, {[215419] = 1}) -- 215419  Waylaid Supplies: Heavy Silk Bandages
+      REP_AddItems(2586, 6, 7, 700, {[215388] = 1}) -- 215388  Waylaid Supplies: Thick Leather
+      REP_AddItems(2586, 6, 7, 700, {[215386] = 1}) -- 215386  Waylaid Supplies: Mithril Bars
+      REP_AddItems(2586, 6, 7, 700, {[215390] = 1}) -- 215390  Waylaid Supplies: Khadgar's Whisker
+      REP_AddItems(2586, 6, 7, 850, {[215411] = 1}) -- 215411  Waylaid Supplies: Frost Leather Cloaks
+      REP_AddItems(2586, 6, 7, 850, {[215408] = 1}) -- 215408  Waylaid Supplies: Guardian Gloves
+      REP_AddItems(2586, 6, 7, 850, {[215398] = 1}) -- 215398  Waylaid Supplies: Green Iron Bracers
+      REP_AddItems(2586, 6, 7, 850, {[215403] = 1}) -- 215403  Waylaid Supplies: Deadly Scopes
+      REP_AddItems(2586, 6, 7, 850, {[215402] = 1}) -- 215402  Waylaid Supplies: Big Iron Bombs
+      REP_AddItems(2586, 6, 7, 850, {[215407] = 1}) -- 215407  Waylaid Supplies: Barbaric Shoulders
+      REP_AddItems(2586, 6, 7, 850, {[215415] = 1}) -- 215415  Waylaid Supplies: Rich Purple Silk Shirts
+      REP_AddItems(2586, 6, 7, 850, {[215399] = 1}) -- 215399  Waylaid Supplies: Heavy Mithril Gauntlets
+      REP_AddItems(2586, 6, 7, 850, {[215414] = 1}) -- 215414  Waylaid Supplies: Crimson Silk Pantaloons
+      REP_AddItems(2586, 6, 7, 850, {[215401] = 1}) -- 215401  Waylaid Supplies: Compact Harvest Reaper Kits
+      REP_AddItems(2586, 6, 7, 850, {[215385] = 1}) -- 215385  Waylaid Supplies: Gold Bars
+      REP_AddItems(2586, 6, 7, 850, {[215395] = 1}) -- 215395  Waylaid Supplies: Elixirs of Agility
+      REP_AddItems(2586, 6, 7, 850, {[215393] = 1}) -- 215393  Waylaid Supplies: Greater Healing Potions
+      REP_AddItems(2586, 6, 7, 1000, {[215416] = 1}) -- 215416  Waylaid Supplies: White Bandit Masks
+      REP_AddItems(2586, 6, 7, 1000, {[215409] = 1}) -- 215409  Waylaid Supplies: Turtle Scale Bracers
+      REP_AddItems(2586, 6, 7, 1000, {[215397] = 1}) -- 215397  Waylaid Supplies: Massive Iron Axes
+      REP_AddItems(2586, 6, 7, 1000, {[215396] = 1}) -- 215396  Waylaid Supplies: Elixirs of Greater Defense
+      REP_AddItems(2586, 6, 7, 1000, {[215404] = 1}) -- 215404  Waylaid Supplies: Mithril Blunderbuss
+    end
+    ---- SOD Phase 3
+    if REP.ShowClassicSODPhaseThree then
+      REP_AddItems(2586, 7, 8, 950, {[220927] = 1}) -- 220927  Waylaid Supplies: Thick Hide
+      REP_AddItems(2586, 7, 8, 950, {[220926] = 1}) -- 220926  Waylaid Supplies: Rugged Leather
+      REP_AddItems(2586, 7, 8, 950, {[220925] = 1}) -- 220925  Waylaid Supplies: Thorium Bars
+      REP_AddItems(2586, 7, 8, 950, {[220924] = 1}) -- 220924  Waylaid Supplies: Truesilver Bars
+      REP_AddItems(2586, 7, 8, 950, {[220923] = 1}) -- 220923  Waylaid Supplies: Dreamfoil
+      REP_AddItems(2586, 7, 8, 950, {[220922] = 1}) -- 220922  Waylaid Supplies: Sungrass
+      REP_AddItems(2586, 7, 8, 950, {[220921] = 1}) -- 220921  Waylaid Supplies: Heavy Mageweave Bandages
+      REP_AddItems(2586, 7, 8, 950, {[220920] = 1}) -- 220920  Waylaid Supplies: Tender Wolf Steaks
+      REP_AddItems(2586, 7, 8, 950, {[220919] = 1}) -- 220919  Waylaid Supplies: Nightfin Soup
+      REP_AddItems(2586, 7, 8, 950, {[220918] = 1}) -- 220918  Waylaid Supplies: Undermine Clam Chowder
+      REP_AddItems(2586, 7, 8, 1300, {[220942] = 1}) -- 220942  Waylaid Supplies: Tuxedo Shirts
+      REP_AddItems(2586, 7, 8, 1300, {[220940] = 1}) -- 220940  Waylaid Supplies: Black Mageweave Headbands
+      REP_AddItems(2586, 7, 8, 1300, {[220938] = 1}) -- 220938  Waylaid Supplies: Wicked Leather Bracers
+      REP_AddItems(2586, 7, 8, 1300, {[220937] = 1}) -- 220937  Waylaid Supplies: Rugged Armor Kits
+      REP_AddItems(2586, 7, 8, 1300, {[220935] = 1}) -- 220935  Waylaid Supplies: Thorium Belts
+      REP_AddItems(2586, 7, 8, 1300, {[220934] = 1}) -- 220934  Waylaid Supplies: Mithril Coifs
+      REP_AddItems(2586, 7, 8, 1300, {[220932] = 1}) -- 220932  Waylaid Supplies: Thorium Grenades
+      REP_AddItems(2586, 7, 8, 1300, {[220931] = 1}) -- 220931  Waylaid Supplies: Hi-Explosive Bombs
+      REP_AddItems(2586, 7, 8, 1300, {[220930] = 1}) -- 220930  Waylaid Supplies: Major Healing Potions
+      REP_AddItems(2586, 7, 8, 1300, {[220929] = 1}) -- 220929  Waylaid Supplies: Superior Mana Potions
+      REP_AddItems(2586, 7, 8, 1300, {[220928] = 1}) -- 220928  Waylaid Supplies: Enchanted Thorium Bars
+      REP_AddItems(2586, 7, 8, 1850, {[220941] = 1}) -- 220941  Waylaid Supplies: Runecloth Belts
+      REP_AddItems(2586, 7, 8, 1850, {[220939] = 1}) -- 220939  Waylaid Supplies: Runic Leather Bracers
+      REP_AddItems(2586, 7, 8, 1850, {[220936] = 1}) -- 220936  Waylaid Supplies: Truesilver Gauntlets
+      REP_AddItems(2586, 7, 8, 1850, {[220933] = 1}) -- 220933  Waylaid Supplies: Thorium Rifles
+    end
 	else
 		---------------------------
 		-- Horde 67
@@ -1465,6 +1584,118 @@ end
 			REP_AddGeneral(510, 4, 8, "Arathi Basin collect 160 Resources", 50, "Collect 160 Resources", "For every 160 resources your team collects you gain 50 reputation")
 		  REP_AddGeneral(510, 4, 8, "Arathi Basin win (1500 Resources)", 500, "Arathi Basin win (1500 Resources)", "If your team wins with 1500 resources you will earn a total of 500 reputation")
 		end
+
+
+    if REP.ShowClassicSODPhaseOne then
+      ---------------------------
+      -- Durotar Supply and Logistics 2587
+      ---------------------------
+      ---- Items
+      REP_AddItems(2587, 4, 5, 300, {[211331] = 1}) -- 211331  Waylaid Supplies: Brilliant Smallfish
+      REP_AddItems(2587, 4, 5, 300, {[210771] = 1}) -- 210771  Waylaid Supplies: Copper Bars
+      REP_AddItems(2587, 4, 5, 300, {[211332] = 1}) -- 211332  Waylaid Supplies: Heavy Linen Bandages
+      REP_AddItems(2587, 4, 5, 300, {[211329] = 1}) -- 211329  Waylaid Supplies: Herb Baked Eggs
+      REP_AddItems(2587, 4, 5, 300, {[211315] = 1}) -- 211315  Waylaid Supplies: Light Leather
+      REP_AddItems(2587, 4, 5, 300, {[211316] = 1}) -- 211316  Waylaid Supplies: Peacebloom
+      REP_AddItems(2587, 4, 5, 300, {[211933] = 1}) -- 211933  Waylaid Supplies: Rough Stone
+      REP_AddItems(2587, 4, 5, 300, {[211317] = 1}) -- 211317  Waylaid Supplies: Silverleaf
+      REP_AddItems(2587, 4, 5, 300, {[211330] = 1}) -- 211330  Waylaid Supplies: Spiced Wolf Meat
+      REP_AddItems(2587, 4, 5, 450, {[211328] = 1}) -- 211328  Waylaid Supplies: Brown Linen Robes
+      REP_AddItems(2587, 4, 5, 450, {[211319] = 1}) -- 211319  Waylaid Supplies: Copper Shortswords
+      REP_AddItems(2587, 4, 5, 450, {[211326] = 1}) -- 211326  Waylaid Supplies: Embossed Leather Vests
+      REP_AddItems(2587, 4, 5, 450, {[211325] = 1}) -- 211325  Waylaid Supplies: Handstitched Leather Belts
+      REP_AddItems(2587, 4, 5, 450, {[211934] = 1}) -- 211934  Waylaid Supplies: Healing Potions
+      REP_AddItems(2587, 4, 5, 450, {[211321] = 1}) -- 211321  Waylaid Supplies: Lesser Magic Wands
+      REP_AddItems(2587, 4, 5, 450, {[211318] = 1}) -- 211318  Waylaid Supplies: Minor Healing Potions
+      REP_AddItems(2587, 4, 5, 450, {[211322] = 1}) -- 211322  Waylaid Supplies: Minor Wizard Oil
+      REP_AddItems(2587, 4, 5, 450, {[211324] = 1}) -- 211324  Waylaid Supplies: Rough Boomsticks
+      REP_AddItems(2587, 4, 5, 450, {[211323] = 1}) -- 211323  Waylaid Supplies: Rough Copper Bombs
+      REP_AddItems(2587, 4, 5, 450, {[211320] = 1}) -- 211320  Waylaid Supplies: Runed Copper Pants
+      REP_AddItems(2587, 5, 6, 500, {[211819] = 1}) -- 211819  Waylaid Supplies: Bronze Bars
+      REP_AddItems(2587, 5, 6, 500, {[211822] = 1}) -- 211822  Waylaid Supplies: Bruiseweed
+      REP_AddItems(2587, 5, 6, 500, {[211837] = 1}) -- 211837  Waylaid Supplies: Goblin Deviled Clams
+      REP_AddItems(2587, 5, 6, 500, {[211838] = 1}) -- 211838  Waylaid Supplies: Heavy Wool Bandages
+      REP_AddItems(2587, 5, 6, 500, {[211821] = 1}) -- 211821  Waylaid Supplies: Medium Leather
+      REP_AddItems(2587, 5, 6, 500, {[211820] = 1}) -- 211820  Waylaid Supplies: Silver Bars
+      REP_AddItems(2587, 5, 6, 500, {[211836] = 1}) -- 211836  Waylaid Supplies: Smoked Bear Meat
+      REP_AddItems(2587, 5, 6, 500, {[211835] = 1}) -- 211835  Waylaid Supplies: Smoked Sagefish
+      REP_AddItems(2587, 5, 6, 500, {[211823] = 1}) -- 211823  Waylaid Supplies: Swiftthistle
+      REP_AddItems(2587, 5, 6, 650, {[211831] = 1}) -- 211831  Waylaid Supplies: Dark Leather Cloaks
+      REP_AddItems(2587, 5, 6, 650, {[211833] = 1}) -- 211833  Waylaid Supplies: Gray Woolen Shirts
+      REP_AddItems(2587, 5, 6, 650, {[211824] = 1}) -- 211824  Waylaid Supplies: Lesser Mana Potions
+      REP_AddItems(2587, 5, 6, 650, {[211828] = 1}) -- 211828  Waylaid Supplies: Minor Mana Oil
+      REP_AddItems(2587, 5, 6, 650, {[211825] = 1}) -- 211825  Waylaid Supplies: Rough Bronze Boots
+      REP_AddItems(2587, 5, 6, 650, {[211829] = 1}) -- 211829  Waylaid Supplies: Small Bronze Bombs
+      REP_AddItems(2587, 5, 6, 800, {[211935] = 1}) -- 211935  Waylaid Supplies: Elixir of Firepower
+      REP_AddItems(2587, 5, 6, 800, {[211832] = 1}) -- 211832  Waylaid Supplies: Hillman's Shoulders
+      REP_AddItems(2587, 5, 6, 800, {[211830] = 1}) -- 211830  Waylaid Supplies: Ornate Spyglasses
+      REP_AddItems(2587, 5, 6, 800, {[211834] = 1}) -- 211834  Waylaid Supplies: Pearl-clasped Cloaks
+      REP_AddItems(2587, 5, 6, 800, {[211827] = 1}) -- 211827  Waylaid Supplies: Runed Silver Rods
+      REP_AddItems(2587, 5, 6, 800, {[211826] = 1}) -- 211826  Waylaid Supplies: Silver Skeleton Keys
+    end
+    ---- SOD phase 2
+    if REP.ShowClassicSODPhaseTwo then
+      REP_AddItems(2587, 6, 7, 700, {[215413] = 1}) -- 215413  Waylaid Supplies: Formal White Shirts
+      REP_AddItems(2587, 6, 7, 700, {[215421] = 1}) -- 215421  Waylaid Supplies: Fire Oil
+      REP_AddItems(2587, 6, 7, 700, {[215391] = 1}) -- 215391  Waylaid Supplies: Wintersbite
+      REP_AddItems(2587, 6, 7, 700, {[215420] = 1}) -- 215420  Waylaid Supplies: Rockscale Cod
+      REP_AddItems(2587, 6, 7, 700, {[215389] = 1}) -- 215389  Waylaid Supplies: Fadeleaf
+      REP_AddItems(2587, 6, 7, 700, {[215400] = 1}) -- 215400  Waylaid Supplies: Solid Grinding Stones
+      REP_AddItems(2587, 6, 7, 700, {[215387] = 1}) -- 215387  Waylaid Supplies: Heavy Hide
+      REP_AddItems(2587, 6, 7, 700, {[215392] = 1}) -- 215392  Waylaid Supplies: Purple Lotus
+      REP_AddItems(2587, 6, 7, 700, {[215418] = 1}) -- 215418  Waylaid Supplies: Spider Sausages
+      REP_AddItems(2587, 6, 7, 700, {[215417] = 1}) -- 215417  Waylaid Supplies: Soothing Turtle Bisque
+      REP_AddItems(2587, 6, 7, 700, {[215419] = 1}) -- 215419  Waylaid Supplies: Heavy Silk Bandages
+      REP_AddItems(2587, 6, 7, 700, {[215388] = 1}) -- 215388  Waylaid Supplies: Thick Leather
+      REP_AddItems(2587, 6, 7, 700, {[215386] = 1}) -- 215386  Waylaid Supplies: Mithril Bars
+      REP_AddItems(2587, 6, 7, 700, {[215390] = 1}) -- 215390  Waylaid Supplies: Khadgar's Whisker
+      REP_AddItems(2587, 6, 7, 850, {[215411] = 1}) -- 215411  Waylaid Supplies: Frost Leather Cloaks
+      REP_AddItems(2587, 6, 7, 850, {[215408] = 1}) -- 215408  Waylaid Supplies: Guardian Gloves
+      REP_AddItems(2587, 6, 7, 850, {[215398] = 1}) -- 215398  Waylaid Supplies: Green Iron Bracers
+      REP_AddItems(2587, 6, 7, 850, {[215403] = 1}) -- 215403  Waylaid Supplies: Deadly Scopes
+      REP_AddItems(2587, 6, 7, 850, {[215402] = 1}) -- 215402  Waylaid Supplies: Big Iron Bombs
+      REP_AddItems(2587, 6, 7, 850, {[215407] = 1}) -- 215407  Waylaid Supplies: Barbaric Shoulders
+      REP_AddItems(2587, 6, 7, 850, {[215415] = 1}) -- 215415  Waylaid Supplies: Rich Purple Silk Shirts
+      REP_AddItems(2587, 6, 7, 850, {[215399] = 1}) -- 215399  Waylaid Supplies: Heavy Mithril Gauntlets
+      REP_AddItems(2587, 6, 7, 850, {[215414] = 1}) -- 215414  Waylaid Supplies: Crimson Silk Pantaloons
+      REP_AddItems(2587, 6, 7, 850, {[215401] = 1}) -- 215401  Waylaid Supplies: Compact Harvest Reaper Kits
+      REP_AddItems(2587, 6, 7, 850, {[215385] = 1}) -- 215385  Waylaid Supplies: Gold Bars
+      REP_AddItems(2587, 6, 7, 850, {[215395] = 1}) -- 215395  Waylaid Supplies: Elixirs of Agility
+      REP_AddItems(2587, 6, 7, 850, {[215393] = 1}) -- 215393  Waylaid Supplies: Greater Healing Potions
+      REP_AddItems(2587, 6, 7, 1000, {[215416] = 1}) -- 215416  Waylaid Supplies: White Bandit Masks
+      REP_AddItems(2587, 6, 7, 1000, {[215409] = 1}) -- 215409  Waylaid Supplies: Turtle Scale Bracers
+      REP_AddItems(2587, 6, 7, 1000, {[215397] = 1}) -- 215397  Waylaid Supplies: Massive Iron Axes
+      REP_AddItems(2587, 6, 7, 1000, {[215396] = 1}) -- 215396  Waylaid Supplies: Elixirs of Greater Defense
+      REP_AddItems(2587, 6, 7, 1000, {[215404] = 1}) -- 215404  Waylaid Supplies: Mithril Blunderbuss
+    end
+    ---- SOD Phase 3
+    if REP.ShowClassicSODPhaseThree then
+      REP_AddItems(2587, 7, 8, 950, {[220927] = 1}) -- 220927  Waylaid Supplies: Thick Hide
+      REP_AddItems(2587, 7, 8, 950, {[220926] = 1}) -- 220926  Waylaid Supplies: Rugged Leather
+      REP_AddItems(2587, 7, 8, 950, {[220925] = 1}) -- 220925  Waylaid Supplies: Thorium Bars
+      REP_AddItems(2587, 7, 8, 950, {[220924] = 1}) -- 220924  Waylaid Supplies: Truesilver Bars
+      REP_AddItems(2587, 7, 8, 950, {[220923] = 1}) -- 220923  Waylaid Supplies: Dreamfoil
+      REP_AddItems(2587, 7, 8, 950, {[220922] = 1}) -- 220922  Waylaid Supplies: Sungrass
+      REP_AddItems(2587, 7, 8, 950, {[220921] = 1}) -- 220921  Waylaid Supplies: Heavy Mageweave Bandages
+      REP_AddItems(2587, 7, 8, 950, {[220920] = 1}) -- 220920  Waylaid Supplies: Tender Wolf Steaks
+      REP_AddItems(2587, 7, 8, 950, {[220919] = 1}) -- 220919  Waylaid Supplies: Nightfin Soup
+      REP_AddItems(2587, 7, 8, 950, {[220918] = 1}) -- 220918  Waylaid Supplies: Undermine Clam Chowder
+      REP_AddItems(2587, 7, 8, 1300, {[220942] = 1}) -- 220942  Waylaid Supplies: Tuxedo Shirts
+      REP_AddItems(2587, 7, 8, 1300, {[220940] = 1}) -- 220940  Waylaid Supplies: Black Mageweave Headbands
+      REP_AddItems(2587, 7, 8, 1300, {[220938] = 1}) -- 220938  Waylaid Supplies: Wicked Leather Bracers
+      REP_AddItems(2587, 7, 8, 1300, {[220937] = 1}) -- 220937  Waylaid Supplies: Rugged Armor Kits
+      REP_AddItems(2587, 7, 8, 1300, {[220935] = 1}) -- 220935  Waylaid Supplies: Thorium Belts
+      REP_AddItems(2587, 7, 8, 1300, {[220934] = 1}) -- 220934  Waylaid Supplies: Mithril Coifs
+      REP_AddItems(2587, 7, 8, 1300, {[220932] = 1}) -- 220932  Waylaid Supplies: Thorium Grenades
+      REP_AddItems(2587, 7, 8, 1300, {[220931] = 1}) -- 220931  Waylaid Supplies: Hi-Explosive Bombs
+      REP_AddItems(2587, 7, 8, 1300, {[220930] = 1}) -- 220930  Waylaid Supplies: Major Healing Potions
+      REP_AddItems(2587, 7, 8, 1300, {[220929] = 1}) -- 220929  Waylaid Supplies: Superior Mana Potions
+      REP_AddItems(2587, 7, 8, 1300, {[220928] = 1}) -- 220928  Waylaid Supplies: Enchanted Thorium Bars
+      REP_AddItems(2587, 7, 8, 1850, {[220941] = 1}) -- 220941  Waylaid Supplies: Runecloth Belts
+      REP_AddItems(2587, 7, 8, 1850, {[220939] = 1}) -- 220939  Waylaid Supplies: Runic Leather Bracers
+      REP_AddItems(2587, 7, 8, 1850, {[220936] = 1}) -- 220936  Waylaid Supplies: Truesilver Gauntlets
+      REP_AddItems(2587, 7, 8, 1850, {[220933] = 1}) -- 220933  Waylaid Supplies: Thorium Rifles
+    end
 	end
 
 --------------------------------------------------
@@ -1865,8 +2096,9 @@ end
 			REP_AddInstance(946, 4, 8, zone.The_Shattered_Halls, 2900, true)
 			if (REP.AfterWotlk) then
 				---- Mobs
-				REP_AddMob(946, 4, 7, REP_TXT.Mob.MoshOgg_Spellcrafter, 5, zone.Northern_Stranglethorn) -- Mosh'Ogg Spellcrafter ID=710
-				REP_AddMob(946, 4, 8, REP_TXT.Mob.MoshOgg_Spellcrafter, 15, zone.Northern_Stranglethorn) -- Mosh'Ogg Spellcrafter ID=710
+        ---- TODO: Test once cata is live.
+				-- REP_AddMob(946, 4, 7, REP_TXT.Mob.MoshOgg_Spellcrafter, 5, zone.Northern_Stranglethorn) -- Mosh'Ogg Spellcrafter ID=710
+				-- REP_AddMob(946, 4, 8, REP_TXT.Mob.MoshOgg_Spellcrafter, 15, zone.Northern_Stranglethorn) -- Mosh'Ogg Spellcrafter ID=710
 				if (REP.AfterMoP) then
 					-- Timewalking commendation
 					REP_AddItems(946, 1, 8, 500, {[129948] = 1})
@@ -1922,11 +2154,6 @@ end
 			---------------------------
 			-- Thrallmar 947
 			---------------------------
-			---- Mobs
-		  REP_AddMob(947, 4, 7, 725, 5)
-		  REP_AddMob(947, 4, 8, 725, 15)
-		  REP_AddMob(947, 4, 7, 710, 5)
-		  REP_AddMob(947, 4, 8, 710, 15)
 			---- Quests
 		  REP_AddQuest(947, 4, 7, 13410, 150)
 			---- Instances
@@ -1936,10 +2163,16 @@ end
 			REP_AddInstance(947, 6, 8, zone.The_Blood_Furnace, 2700, true)
 			REP_AddInstance(947, 4, 8, zone.The_Shattered_Halls, 1600, false)
 			REP_AddInstance(947, 4, 8, zone.The_Shattered_Halls, 2900, true)
-			if (REP.AfterMoP) then
-			  -- Timewalking Commendation
-			  REP_AddItems(947, 1, 8, 500, {[129947] = 1})
-			end
+      if (REP.AfterWotlk) then
+				---- Mobs
+        ---- TODO: Test once cata is live.
+				-- REP_AddMob(947, 4, 7, REP_TXT.Mob.MoshOgg_Spellcrafter, 5, zone.Northern_Stranglethorn) -- Mosh'Ogg Spellcrafter ID=710
+				-- REP_AddMob(947, 4, 8, REP_TXT.Mob.MoshOgg_Spellcrafter, 15, zone.Northern_Stranglethorn) -- Mosh'Ogg Spellcrafter ID=710
+        if (REP.AfterMoP) then
+          -- Timewalking Commendation
+          REP_AddItems(947, 1, 8, 500, {[129947] = 1})
+        end
+      end
 
 			---------------------------
 			-- The Mag'har 941
@@ -1982,7 +2215,7 @@ end
 		end
 		---- Quests
 		REP_AddQuest(1106, 4, 8, 12587, 350) -- Troll Patrol QuestID: 12587
-		REP_AddQuest(1106, 4, 8, 12604, 500) -- Congratulations! QuestID: 12604
+		REP_AddQuest(1106, 4, 8, "Congratulations!", 500) -- Congratulations! QuestID: 12604
 		if (REP.IsAlliance) then
 			REP_AddQuest(1106, 4, 8, 13300, 325) -- Slaves to Saronite QuestID: 13300
 		else
@@ -2012,7 +2245,7 @@ end
 		REP_AddQuest(1090, 4, 8, "Dalaran Jewelcrafting daily", 25, "nil", REP.LIMIT_TYPE_Jewel)
 		REP_AddQuest(1090, 4, 8, "Dalaran Cooking daily", 150, "nil", REP.LIMIT_TYPE_Cook)
 		REP_AddQuest(1090, 4, 8, "Dalaran Fishing daily", 250, "nil", REP.LIMIT_TYPE_Fish)
-		REP_AddQuest(1090, 4, 8, 14203, 250, {[49667] = 1}) -- Waterlogged Recipe QuestID: 14203
+		REP_AddQuest(1090, 4, 8, "Waterlogged Recipe", 250, {[49667] = 1}) -- Waterlogged Recipe QuestID: 14203 (Somehow doesn't give questname from API)
 		REP_AddQuest(1090, 4, 8, 13845, 250, {[46005] = 1}) -- Sealed Vial of Poison QuestID: 13845
 		if (not REP.AfterMoP) then
 			---- Items
@@ -2606,30 +2839,32 @@ end
 		-- Guardians of Hyjal 1158 --
 		---------------------------
 		---- Quests
-		REP_AddQuest(1158, 4, 8, 29177, 250, REP.LIMIT_TYPE_FALSE)
-		REP_AddQuest(1158, 4, 8, 29163, 250, REP.LIMIT_TYPE_TRUE)
-		REP_AddQuest(1158, 4, 8, 29122, 250)
-		REP_AddQuest(1158, 4, 8, 29162, 250)
-		REP_AddQuest(1158, 4, 8, 29246, 250)
-		REP_AddQuest(1158, 4, 8, 29148, 250)
-		REP_AddQuest(1158, 4, 8, 29247, 250)
-		REP_AddQuest(1158, 4, 8, 29165, 250)
-		REP_AddQuest(1158, 4, 8, 29126, 250)
-		REP_AddQuest(1158, 4, 8, 29248, 250)
-		REP_AddQuest(1158, 4, 8, 29128, 350)
-		REP_AddQuest(1158, 4, 8, 29138, 250)
-		REP_AddQuest(1158, 4, 8, 29179, 250)
-		REP_AddQuest(1158, 4, 8, 29141, 250)
-		REP_AddQuest(1158, 4, 8, 29139, 250)
-		REP_AddQuest(1158, 4, 8, 29304, 250)
-		REP_AddQuest(1158, 4, 8, 29137, 250)
-		REP_AddQuest(1158, 4, 8, 29143, 250)
-		REP_AddQuest(1158, 4, 8, 29142, 250)
-		REP_AddQuest(1158, 4, 8, 29101, 150)
-		REP_AddQuest(1158, 4, 8, 29161, 150)
-		REP_AddQuest(1158, 4, 8, 29147, 150)
-		REP_AddQuest(1158, 4, 8, 29164, 150)
-		REP_AddQuest(1158, 4, 8, 29125, 150)
+		REP_AddQuest(1158, 4, 8, 29177, 250)
+    if REP.ShowCataPhaseTwo then
+      REP_AddQuest(1158, 4, 8, 29163, 250)
+      REP_AddQuest(1158, 4, 8, 29122, 250)
+      REP_AddQuest(1158, 4, 8, 29162, 250)
+      REP_AddQuest(1158, 4, 8, 29246, 250)
+      REP_AddQuest(1158, 4, 8, 29148, 250)
+      REP_AddQuest(1158, 4, 8, 29247, 250)
+      REP_AddQuest(1158, 4, 8, 29165, 250)
+      REP_AddQuest(1158, 4, 8, 29126, 250)
+      REP_AddQuest(1158, 4, 8, 29248, 250)
+      REP_AddQuest(1158, 4, 8, 29128, 350)
+      REP_AddQuest(1158, 4, 8, 29138, 250)
+      REP_AddQuest(1158, 4, 8, 29179, 250)
+      REP_AddQuest(1158, 4, 8, 29141, 250)
+      REP_AddQuest(1158, 4, 8, 29139, 250)
+      REP_AddQuest(1158, 4, 8, 29304, 250)
+      REP_AddQuest(1158, 4, 8, 29137, 250)
+      REP_AddQuest(1158, 4, 8, 29143, 250)
+      REP_AddQuest(1158, 4, 8, 29142, 250)
+      REP_AddQuest(1158, 4, 8, 29101, 150)
+      REP_AddQuest(1158, 4, 8, 29161, 150)
+      REP_AddQuest(1158, 4, 8, 29147, 150)
+      REP_AddQuest(1158, 4, 8, 29164, 150)
+      REP_AddQuest(1158, 4, 8, 29125, 150)
+    end
 		---- Mobs
 		REP_AddMob(1158, 1, 8, 1, 10, 5)
 		REP_AddMob(1158, 1, 8, 1, 15, 6)
@@ -2642,8 +2877,6 @@ end
 			-- Timewalking Commendation
 			REP_AddItems(1158, 1, 8, 500, {[133152] = 1})
 		end
-		---- General
-		REP_AddGeneral(1158, 5, 8, "Killing mobs in instances while wearing the Guardians of Hyjal tabard.", 5, "Killing mobs in instances while wearing the Guardians of Hyjal tabard.", "Killing mobs in instances while wearing the Guardians of Hyjal tabard will reward you roughly 5 reputation per kill.")
 
 		---------------------------
 		-- Ramkahen 1173 --
@@ -2663,8 +2896,6 @@ end
 			-- Timewalking Commendation
 			REP_AddItems(1173, 1, 8, 500, {[133154] = 1})
 		end
-		---- General
-		REP_AddGeneral(1173, 5, 8, "Killing mobs in instances while wearing the Ramkahen tabard.", 5, "Killing mobs in instances while wearing the Ramkahenl tabard.", "Killing mobs in instances while wearing the Ramkahen tabard will reward you roughly 5 reputation per kill.")
 
 		---------------------------
 		-- The Earthen Ring 1135 --
@@ -2681,8 +2912,6 @@ end
 			-- Timewalking Commendation
 			REP_AddItems(1135, 1, 8, 500, {[133159] = 1})
 		end
-		---- General
-		REP_AddGeneral(1135, 5, 8, "Killing mobs in instances while wearing The Earthen Ring tabard.", 5, "Killing mobs in instances while wearing The Earthen Ring tabard.", "Killing mobs in instances while wearing The Earthen Ring tabard will reward you roughly 5 reputation per kill.")
 
 		---------------------------
 		-- Therazane 1171 --
@@ -2710,8 +2939,6 @@ end
 			-- Timewalking Commendation
 			REP_AddItems(1171, 1, 8, 500, {[133160] = 1})
 		end
-		---- General
-		REP_AddGeneral(1171, 5, 8, "Killing mobs in instances while wearing the Therazane tabard.", 5, "Killing mobs in instances while wearing the Therazane tabard.", "Killing mobs in instances while wearing the Therazane tabard will reward you roughly 5 reputation per kill.")
 
 		if (REP.IsAlliance) then
 			---------------------------
@@ -2730,8 +2957,6 @@ end
 			REP_AddMob(1174, 1, 8, 4, 250, 6)
 			-- Timewalking Commendation
 			REP_AddItems(1174, 1, 8, 500, {[133151] = 1})
-			---- General
-			REP_AddGeneral(1174, 5, 8, "Killing mobs in instances while wearing the Wildhammer Clan tabard.", 5, "Killing mobs in instances while wearing the Wildhammer Clan tabard.", "Killing mobs in instances while wearing the Wildhammer Clan tabard will reward you roughly 5 reputation per kill.")
 
 			---------------------------
 			-- Baradin's Wardens 1177
@@ -2742,18 +2967,22 @@ end
 		  REP_AddQuest(1177, 4, 8, 28122, 250)
 		  REP_AddQuest(1177, 4, 8, 28658, 250)
 		  REP_AddQuest(1177, 4, 8, 28659, 250)
-			---- 2nd Lieutenant Wansworth (Left Prison)
-		  REP_AddQuest(1177, 4, 8, 28665, 350)
-		  REP_AddQuest(1177, 4, 8, 28663, 350)
-		  REP_AddQuest(1177, 4, 8, 28664, 350)
-			---- Commander Stevens (Right Prison)
-		  REP_AddQuest(1177, 4, 8, 28660, 350)
-		  REP_AddQuest(1177, 4, 8, 28662, 350)
-		  REP_AddQuest(1177, 4, 8, 28661, 250)
-			---- Marshl Fallows (South Prison)
-		  REP_AddQuest(1177, 4, 8, 28670, 250)
-		  REP_AddQuest(1177, 4, 8, 28668, 350)
-		  REP_AddQuest(1177, 4, 8, 28669, 350)
+      if REP.AfterCata then -- Not available in cata atm??
+        ---- 2nd Lieutenant Wansworth (Left Prison)
+        REP_AddQuest(1177, 4, 8, 28186, 350)
+        REP_AddQuest(1177, 4, 8, 28663, 350)
+        REP_AddQuest(1177, 4, 8, 28664, 350)
+        ---- Commander Stevens (Right Prison)
+        REP_AddQuest(1177, 4, 8, 28660, 350)
+        REP_AddQuest(1177, 4, 8, 28662, 350)
+        REP_AddQuest(1177, 4, 8, 28661, 250)
+        ---- Marshl Fallows (South Prison)
+        REP_AddQuest(1177, 4, 8, 28670, 250)
+        REP_AddQuest(1177, 4, 8, 28668, 350)
+        REP_AddQuest(1177, 4, 8, 28669, 350)
+        ---- Commander Marcus Johnson
+        REP_AddQuest(1177, 4, 8, 28721, 250)
+      end
 			---- Tol Barad Main
 			---- Sergeant Gray
 		  REP_AddQuest(1177, 4, 8, 28275, 250)
@@ -2767,7 +2996,6 @@ end
 		  REP_AddQuest(1177, 4, 8, 28685, 250)
 		  REP_AddQuest(1177, 4, 8, 28686, 250)
 		  REP_AddQuest(1177, 4, 8, 28687, 250)
-		  REP_AddQuest(1177, 4, 8, 28721, 250)
 			---- Camp Coordinator Brack
 		  REP_AddQuest(1177, 4, 8, 28684, 250)
 		  REP_AddQuest(1177, 4, 8, 28680, 250)
@@ -2829,8 +3057,6 @@ end
 			  -- Timewalking Commendation
 			  REP_AddItems(1172, 1, 8, 500, {[133150] = 1})
 			end
-			---- General
-			REP_AddGeneral(1172, 5, 8, "Killing mobs in instances while wearing the Dragonmaw Clan tabard.", 5, "Killing mobs in instances while wearing the Dragonmaw Clan tabard.", "Killing mobs in instances while wearing the Dragonmaw Clan tabard will reward you roughly 5 reputation per kill.")
 
 			---------------------------
 			-- Hellscream's Reach 1178
@@ -2839,18 +3065,22 @@ end
 		  REP_AddQuest(1178, 4, 8, 28122, 250)
 		  REP_AddQuest(1178, 4, 8, 28658, 250)
 		  REP_AddQuest(1178, 4, 8, 28659, 250)
-			---- Quests (Drillmaster Razgoth)
-		  REP_AddQuest(1178, 4, 8, 28665, 350)
-		  REP_AddQuest(1178, 4, 8, 28663, 350)
-		  REP_AddQuest(1178, 4, 8, 28664, 350)
-			---- Quests (Private Garnoth)
-		  REP_AddQuest(1178, 4, 8, 28660, 350)
-		  REP_AddQuest(1178, 4, 8, 28662, 350)
-		  REP_AddQuest(1178, 4, 8, 28661, 250)
-			---- Quests (Staff Sergeant Lazgar)
-		  REP_AddQuest(1178, 4, 8, 28670, 250)
-		  REP_AddQuest(1178, 4, 8, 28668, 350)
-		  REP_AddQuest(1178, 4, 8, 28669, 350)
+      if REP.AfterCata then -- Not available in cata atm??
+        ---- Quests (Drillmaster Razgoth)
+        REP_AddQuest(1178, 4, 8, 28665, 350)
+        REP_AddQuest(1178, 4, 8, 28663, 350)
+        REP_AddQuest(1178, 4, 8, 28664, 350)
+        ---- Quests (Private Garnoth)
+        REP_AddQuest(1178, 4, 8, 28660, 350)
+        REP_AddQuest(1178, 4, 8, 28662, 350)
+        REP_AddQuest(1178, 4, 8, 28661, 250)
+        ---- Quests (Staff Sergeant Lazgar)
+        REP_AddQuest(1178, 4, 8, 28670, 250)
+        REP_AddQuest(1178, 4, 8, 28668, 350)
+        REP_AddQuest(1178, 4, 8, 28669, 350)
+        ---- Quests (Commander Larmash)
+        REP_AddQuest(1178, 4, 8, 28721, 250)
+      end
 			---- Quests (Private Sarlosk)
 		  REP_AddQuest(1178, 4, 8, 28275, 250)
 		  REP_AddQuest(1178, 4, 8, 28698, 250)
@@ -2863,7 +3093,6 @@ end
 		  REP_AddQuest(1178, 4, 8, 28685, 250)
 		  REP_AddQuest(1178, 4, 8, 28686, 250)
 		  REP_AddQuest(1178, 4, 8, 28687, 250)
-		  REP_AddQuest(1178, 4, 8, 28721, 250)
 			---- Quests (3rd Officer Kronkar)
 		  REP_AddQuest(1178, 4, 8, 28684, 250)
 		  REP_AddQuest(1178, 4, 8, 28680, 250)
