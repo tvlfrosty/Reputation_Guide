@@ -630,7 +630,6 @@ function REP:Init()
     local locale = GetLocale()
     REP:InitFactor(REP.IsHuman)
     REP:InitFactionMap(locale, REP.GuildName)
-    -- Changed by Bagdad for easy reputation content moderation
     REP_FactionGain = {}
     REP_InitEnFactionGains(REP.GuildName)
     REP:DumpReputationChangesToChat(true)
@@ -1147,6 +1146,10 @@ function REP:InitMapName(fimap, returnMapNameAsString)
       map = REP_TXT.nci
     elseif fimap == 6 then
       map = REP_TXT.hci
+    elseif fimap == 7 then
+      map = REP_TXT.ncit
+    elseif fimap == 8 then
+      map = REP_TXT.hcit
     elseif not fimap then
       map = " "
     else
@@ -1668,11 +1671,12 @@ function REP_AddItems(faction, from, to, rep, itemList, alternativeItemList, isR
   end
 end
 
-function REP_AddGeneral(faction, from, to, name, rep, head, tip, tipList, flag, isRenownFaction)
+function REP_AddGeneral(faction, from, to, name, rep, head, tip, tipList, flag, isRenownFaction, customFactor)
   faction = REP:InitFaction(REP.GuildName, faction)
   if REP:Content(faction, from, to, name, rep, isRenownFaction) ~= 1 then return end
   faction = string.lower(faction)
-  rep = rep * REP:InitFactor(REP.IsHuman,REP_faction)
+  if not customFactor then customFactor = 0 end
+  rep = rep * (REP:InitFactor(REP.IsHuman, REP_faction) + customFactor)
   local tipString = ""
 
   for standing = from, to do
@@ -2351,6 +2355,10 @@ function REP_SupressNone(allFactions)
     if (faction) then
       faction = string.lower(faction)
 
+      if factionID == 1168 then
+        faction = faction.." (guild)"
+      end
+
       if (REP_FactionMapping[faction]) then
         faction = REP_FactionMapping[faction]
       end
@@ -2411,10 +2419,10 @@ function REP_BuildUpdateList()
 
     if (REP_FactionMapping[faction]) then
       faction = REP_FactionMapping[faction]
-    end
 
-    if factionID == 1168 then
-      faction = faction.." (guild)"
+      if factionID == 1168 then
+        faction = faction.." (guild)"
+      end
     end
 
     if(factionID and C_Reputation.IsFactionParagon(factionID)) then
@@ -3432,9 +3440,9 @@ function REP:DumpReputationChangesToChat(initOnly)
                   -- else
                   if (standingID > 1 and friendID == nil) then --  and not isMajorFaction
                     -- Only use the new format (Total: %s%d, Left to %s: %d) if we are above the lowest rank, otherwise use the normal format (Total: %s%d, Left: %d)
-                    REP:Print(REP.NEW_REP_COLOUR..string.format(FACTION_STANDING_DECREASED..REP_TXT.statsNextStanding, name, REP_StoredRep[name].rep-barValue, sign, barValue-REP_StoredRep[name].origRep, _G["FACTION_STANDING_LABEL"..standingID - 1], barMax - barValue))
+                    REP:Print(REP.NEW_REP_COLOUR..string.format(FACTION_STANDING_DECREASED..REP_TXT.statsNextStanding, name, REP_StoredRep[name].rep - barValue, sign, barValue - REP_StoredRep[name].origRep, _G["FACTION_STANDING_LABEL"..standingID + 1], barMax - barValue))
                   else
-                    REP:Print(REP.NEW_REP_COLOUR..string.format(FACTION_STANDING_DECREASED..REP_TXT.stats, name, REP_StoredRep[name].rep-barValue, sign, barValue-REP_StoredRep[name].origRep, barMax - barValue))
+                    REP:Print(REP.NEW_REP_COLOUR..string.format(FACTION_STANDING_DECREASED..REP_TXT.stats, name, REP_StoredRep[name].rep - barValue, sign, barValue - REP_StoredRep[name].origRep, barMax - barValue))
                   end
                 end
               end

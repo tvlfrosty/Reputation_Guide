@@ -123,6 +123,8 @@ REP_TXT.srfd	= "Rep repercussões de dungeons"
 REP_TXT.tbd	= "ToBe Done"
 REP_TXT.nci	= "Casos Cataclysm (normais)"
 REP_TXT.hci	= "Casos Cataclysm (heróico)"
+REP_TXT.ncit	= "Instâncias normais de Cataclismo com tabardo de facção"
+REP_TXT.hcit	= "Instâncias de Cataclismo Heroico com tabardo de facção"
 -- ToBeDone general
 REP_TXT.tfr	= "Os Lavradores agricultura rep"
 REP_TXT.nswts	= "Não tenho certeza quando isso começa"

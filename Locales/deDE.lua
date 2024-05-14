@@ -125,6 +125,8 @@ REP_TXT.srfd	= "Übergreifen von kerker"
 REP_TXT.tbd	= "ToBe Done"
 REP_TXT.nci	= "Cataclysm Instanzen (Normale)"
 REP_TXT.hci	= "Cataclysm Instanzen (Heroische)"
+REP_TXT.ncit	= "Normale Cataclysm-Instanzen mit Fraktionswappenrock"
+REP_TXT.hcit	= "Heroische Cataclysm-Instanzen mit Fraktionswappenrock"
 -- ToBeDone general
 REP_TXT.tfr	= "Tiller Farming rep"
 REP_TXT.nswts	= "Nicht sicher, wenn diese beginnt"

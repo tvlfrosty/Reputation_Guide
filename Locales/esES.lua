@@ -125,15 +125,13 @@ REP_TXT.srfd	= "Spillover representante de mazmorras"
 REP_TXT.tbd	= "ToBe Done"
 REP_TXT.nci	= "Cualquier mob basura (normal)"
 REP_TXT.hci	= "Cualquier mob basura (heroico)"
+REP_TXT.ncit	= "Instancias normales de Cataclysm con tabardo de facción"
+REP_TXT.hcit	= "Instancias de Cataclysm heroico con tabardo de facción"
 -- ToBeDone general
 REP_TXT.tfr	= "Recolectar cualquier cultivo de la granja"
 REP_TXT.nswts	= ""
 REP_TXT.mnd	= "Número máximo de misiones diarias"
 REP_TXT.mnds	= "El número máximo de diarias es"
-
-
-
-
 
 -- ReputationDetails
 REP_TXT.currentRep	= "Reputación actual"

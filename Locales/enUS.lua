@@ -125,6 +125,8 @@ REP_TXT.srfd	= "Spillover rep from dungeons"
 REP_TXT.tbd	= "ToBe Done"
 REP_TXT.nci	= "Normal Cataclysm instances"
 REP_TXT.hci	= "Heroic Cataclysm instances"
+REP_TXT.ncit	= "Normal Cataclysm instances with faction tabard"
+REP_TXT.hcit	= "Heroic Cataclysm instances with faction tabard"
 -- ToBeDone general
 REP_TXT.tfr	= "Tiller Farming rep"
 REP_TXT.nswts	= "Not sure when this starts"

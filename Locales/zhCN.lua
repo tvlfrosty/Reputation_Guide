@@ -120,6 +120,8 @@ REP_TXT.srfd	= "来自地下城的溢出代表"
 REP_TXT.tbd	= "ToBe Done"
 REP_TXT.nci	= "Normal Cataclysm instances"
 REP_TXT.hci	= "Heroic Cataclysm instances"
+REP_TXT.ncit	= "带有派系战袍的普通大灾变实例"
+REP_TXT.hcit	= "带有派系战袍的英雄大灾变实例"
 -- ToBeDone general
 REP_TXT.tfr	= "Tiller Farming rep"
 REP_TXT.nswts	= "Not sure when this starts"
