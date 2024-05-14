@@ -1,0 +1,236 @@
+if (REP.IsAlliance) then
+  ---------------------------
+  -- Alliance 469
+  ---------------------------
+  ---- Quests
+  if (REP.IsClassic) then
+    -- REP_AddQuest(469, 5, 8, "Bellowrage the Elder", 50) -- Bellowrage the Elder QuestID: 8647
+    -- REP_AddQuest(469, 5, 8, "Bladeleaf the Elder", 50) -- Bladeleaf the Elder QuestID: 8715
+    -- REP_AddQuest(469, 5, 8, "Bladesing the Elder", 50) -- Bladesing the Elder QuestID: 8719
+    -- REP_AddQuest(469, 5, 8, "Bladeswift the Elder", 50) -- Bladeswift the Elder QuestID: 8718
+    -- REP_AddQuest(469, 5, 8, "Bloodhoof the Elder", 50) -- Bloodhoof the Elder QuestID: 8673
+    -- REP_AddQuest(469, 5, 8, "Brightspear the Elder", 50) -- Brightspear the Elder QuestID: 8726
+    -- REP_AddQuest(469, 5, 8, "Bronzebeard the Elder", 50) -- Bronzebeard the Elder QuestID: 8866
+    -- REP_AddQuest(469, 5, 8, "Darkcore the Elder", 50) -- Darkcore the Elder QuestID: 8648
+    -- REP_AddQuest(469, 5, 8, "Darkhorn the Elder", 50) -- Darkhorn the Elder QuestID: 8677
+    -- REP_AddQuest(469, 5, 8, "Dawnstrider the Elder", 50) -- Dawnstrider the Elder QuestID: 8683
+    -- REP_AddQuest(469, 5, 8, "Dreamseer the Elder", 50) -- Dreamseer the Elder QuestID: 8684
+    -- REP_AddQuest(469, 5, 8, "Farwhisper the Elder", 50) -- Farwhisper the Elder QuestID: 8727
+    -- REP_AddQuest(469, 5, 8, "Goldwell the Elder", 50) -- Goldwell the Elder QuestID: 8653
+    -- REP_AddQuest(469, 5, 8, "Graveborn the Elder", 50) -- Graveborn the Elder QuestID: 8652
+    -- REP_AddQuest(469, 5, 8, "Grimtotem the Elder", 50) -- Grimtotem the Elder QuestID: 8679
+    -- REP_AddQuest(469, 5, 8, "Hammershout the Elder", 50) -- Hammershout the Elder QuestID: 8646
+    -- REP_AddQuest(469, 5, 8, "High Mountain the Elder", 50) -- High Mountain the Elder QuestID: 8686
+    -- REP_AddQuest(469, 5, 8, "Highpeak the Elder", 50) -- Highpeak the Elder QuestID: 8643
+    -- REP_AddQuest(469, 5, 8, "Ironband the Elder", 50) -- Ironband the Elder QuestID: 8651
+    -- REP_AddQuest(469, 5, 8, "Meadowrun the Elder", 50) -- Meadowrun the Elder QuestID: 8722
+    -- REP_AddQuest(469, 5, 8, "Mistwalker the Elder", 50) -- Mistwalker the Elder QuestID: 8685
+    -- REP_AddQuest(469, 5, 8, "Moonstrike the Elder", 50) -- Moonstrike the Elder QuestID: 8714
+    -- REP_AddQuest(469, 5, 8, "Moonwarden the Elder", 50) -- Moonwarden the Elder QuestID: 8717
+    -- REP_AddQuest(469, 5, 8, "Morndeep the Elder", 50) -- Morndeep the Elder QuestID: 8619
+    -- REP_AddQuest(469, 5, 8, "Morningdew the Elder", 50) -- Morningdew the Elder QuestID: 8724
+    -- REP_AddQuest(469, 5, 8, "Nightwind the Elder", 50) -- Nightwind the Elder QuestID: 8723
+    -- REP_AddQuest(469, 5, 8, "Obsidian the Elder", 50) -- Obsidian the Elder QuestID: 8645
+    -- REP_AddQuest(469, 5, 8, "Primestone the Elder", 50) -- Primestone the Elder QuestID: 8654
+    -- REP_AddQuest(469, 5, 8, "Ragetotem the Elder", 50) -- Ragetotem the Elder QuestID: 8671
+    -- REP_AddQuest(469, 5, 8, "Riversong the Elder", 50) -- Riversong the Elder QuestID: 8725
+    -- REP_AddQuest(469, 5, 8, "Rumblerock the Elder", 50) -- Rumblerock the Elder QuestID: 8636
+    -- REP_AddQuest(469, 5, 8, "Runetotem the Elder", 50) -- Runetotem the Elder QuestID: 8670
+    -- REP_AddQuest(469, 5, 8, "Silvervein the Elder", 50) -- Silvervein the Elder QuestID: 8642
+    -- REP_AddQuest(469, 5, 8, "Skychaser the Elder", 50) -- Skychaser the Elder QuestID: 8675
+    -- REP_AddQuest(469, 5, 8, "Skygleam the Elder", 50) -- Skygleam the Elder QuestID: 8720
+    -- REP_AddQuest(469, 5, 8, "Skyseer the Elder", 50) -- Skyseer the Elder QuestID: 8682
+    -- REP_AddQuest(469, 5, 8, "Snowcrown the Elder", 50) -- Snowcrown the Elder QuestID: 8650
+    -- REP_AddQuest(469, 5, 8, "Splitrock the Elder", 50) -- Splitrock the Elder QuestID: 8635
+    -- REP_AddQuest(469, 5, 8, "Starglade the Elder", 50) -- Starglade the Elder QuestID: 8716
+    -- REP_AddQuest(469, 5, 8, "Starsong the Elder", 50) -- Starsong the Elder QuestID: 8713
+    -- REP_AddQuest(469, 5, 8, "Starweave the Elder", 50) -- Starweave the Elder QuestID: 8721
+    -- REP_AddQuest(469, 5, 8, "Stonefort the Elder", 50) -- Stonefort the Elder QuestID: 8644
+    -- REP_AddQuest(469, 5, 8, "Stonespire the Elder", 50) -- Stonespire the Elder QuestID: 8672
+    -- REP_AddQuest(469, 5, 8, "Stormbrow the Elder", 50) -- Stormbrow the Elder QuestID: 8649
+    -- REP_AddQuest(469, 5, 8, "Thunderhorn the Elder", 50) -- Thunderhorn the Elder QuestID: 8681
+    -- REP_AddQuest(469, 5, 8, "Wheathoof the Elder", 50) -- Wheathoof the Elder QuestID: 8678
+    -- REP_AddQuest(469, 5, 8, "Wildmane the Elder", 50) -- Wildmane the Elder QuestID: 8676
+    -- REP_AddQuest(469, 5, 8, "Windrun the Elder", 50) -- Windrun the Elder QuestID: 8688
+    -- REP_AddQuest(469, 5, 8, "Windtotem the Elder", 50) -- Windtotem the Elder QuestID: 8680
+    -- REP_AddQuest(469, 5, 8, "Winterhoof the Elder", 50) -- Winterhoof the Elder QuestID: 8674
+  else
+    -- REP_AddQuest(469, 5, 8, "Bellowrage the Elder", 75) -- Bellowrage the Elder QuestID: 8647
+    -- REP_AddQuest(469, 5, 8, "Bladeleaf the Elder", 75) -- Bladeleaf the Elder QuestID: 8715
+    -- REP_AddQuest(469, 5, 8, "Bladesing the Elder", 75) -- Bladesing the Elder QuestID: 8719
+    -- REP_AddQuest(469, 5, 8, "Bladeswift the Elder", 75) -- Bladeswift the Elder QuestID: 8718
+    -- REP_AddQuest(469, 5, 8, "Bloodhoof the Elder", 75) -- Bloodhoof the Elder QuestID: 8673
+    -- REP_AddQuest(469, 5, 8, "Brightspear the Elder", 75) -- Brightspear the Elder QuestID: 8726
+    -- REP_AddQuest(469, 5, 8, "Bronzebeard the Elder", 75) -- Bronzebeard the Elder QuestID: 8866
+    -- REP_AddQuest(469, 5, 8, "Darkcore the Elder", 75) -- Darkcore the Elder QuestID: 8648
+    -- REP_AddQuest(469, 5, 8, "Darkhorn the Elder", 75) -- Darkhorn the Elder QuestID: 8677
+    -- REP_AddQuest(469, 5, 8, "Dawnstrider the Elder", 75) -- Dawnstrider the Elder QuestID: 8683
+    -- REP_AddQuest(469, 5, 8, "Dreamseer the Elder", 75) -- Dreamseer the Elder QuestID: 8684
+    -- REP_AddQuest(469, 5, 8, "Farwhisper the Elder", 75) -- Farwhisper the Elder QuestID: 8727
+    -- REP_AddQuest(469, 5, 8, "Goldwell the Elder", 75) -- Goldwell the Elder QuestID: 8653
+    -- REP_AddQuest(469, 5, 8, "Graveborn the Elder", 75) -- Graveborn the Elder QuestID: 8652
+    -- REP_AddQuest(469, 5, 8, "Grimtotem the Elder", 75) -- Grimtotem the Elder QuestID: 8679
+    -- REP_AddQuest(469, 5, 8, "Hammershout the Elder", 75) -- Hammershout the Elder QuestID: 8646
+    -- REP_AddQuest(469, 5, 8, "High Mountain the Elder", 75) -- High Mountain the Elder QuestID: 8686
+    -- REP_AddQuest(469, 5, 8, "Highpeak the Elder", 75) -- Highpeak the Elder QuestID: 8643
+    -- REP_AddQuest(469, 5, 8, "Ironband the Elder", 75) -- Ironband the Elder QuestID: 8651
+    -- REP_AddQuest(469, 5, 8, "Meadowrun the Elder", 75) -- Meadowrun the Elder QuestID: 8722
+    -- REP_AddQuest(469, 5, 8, "Mistwalker the Elder", 75) -- Mistwalker the Elder QuestID: 8685
+    -- REP_AddQuest(469, 5, 8, "Moonstrike the Elder", 75) -- Moonstrike the Elder QuestID: 8714
+    -- REP_AddQuest(469, 5, 8, "Moonwarden the Elder", 75) -- Moonwarden the Elder QuestID: 8717
+    -- REP_AddQuest(469, 5, 8, "Morndeep the Elder", 75) -- Morndeep the Elder QuestID: 8619
+    -- REP_AddQuest(469, 5, 8, "Morningdew the Elder", 75) -- Morningdew the Elder QuestID: 8724
+    -- REP_AddQuest(469, 5, 8, "Nightwind the Elder", 75) -- Nightwind the Elder QuestID: 8723
+    -- REP_AddQuest(469, 5, 8, "Obsidian the Elder", 75) -- Obsidian the Elder QuestID: 8645
+    -- REP_AddQuest(469, 5, 8, "Primestone the Elder", 75) -- Primestone the Elder QuestID: 8654
+    -- REP_AddQuest(469, 5, 8, "Ragetotem the Elder", 75) -- Ragetotem the Elder QuestID: 8671
+    -- REP_AddQuest(469, 5, 8, "Riversong the Elder", 75) -- Riversong the Elder QuestID: 8725
+    -- REP_AddQuest(469, 5, 8, "Rumblerock the Elder", 75) -- Rumblerock the Elder QuestID: 8636
+    -- REP_AddQuest(469, 5, 8, "Runetotem the Elder", 75) -- Runetotem the Elder QuestID: 8670
+    -- REP_AddQuest(469, 5, 8, "Silvervein the Elder", 75) -- Silvervein the Elder QuestID: 8642
+    -- REP_AddQuest(469, 5, 8, "Skychaser the Elder", 75) -- Skychaser the Elder QuestID: 8675
+    -- REP_AddQuest(469, 5, 8, "Skygleam the Elder", 75) -- Skygleam the Elder QuestID: 8720
+    -- REP_AddQuest(469, 5, 8, "Skyseer the Elder", 75) -- Skyseer the Elder QuestID: 8682
+    -- REP_AddQuest(469, 5, 8, "Snowcrown the Elder", 75) -- Snowcrown the Elder QuestID: 8650
+    -- REP_AddQuest(469, 5, 8, "Splitrock the Elder", 75) -- Splitrock the Elder QuestID: 8635
+    -- REP_AddQuest(469, 5, 8, "Starglade the Elder", 75) -- Starglade the Elder QuestID: 8716
+    -- REP_AddQuest(469, 5, 8, "Starsong the Elder", 75) -- Starsong the Elder QuestID: 8713
+    -- REP_AddQuest(469, 5, 8, "Starweave the Elder", 75) -- Starweave the Elder QuestID: 8721
+    -- REP_AddQuest(469, 5, 8, "Stonefort the Elder", 75) -- Stonefort the Elder QuestID: 8644
+    -- REP_AddQuest(469, 5, 8, "Stonespire the Elder", 75) -- Stonespire the Elder QuestID: 8672
+    -- REP_AddQuest(469, 5, 8, "Stormbrow the Elder", 75) -- Stormbrow the Elder QuestID: 8649
+    -- REP_AddQuest(469, 5, 8, "Thunderhorn the Elder", 75) -- Thunderhorn the Elder QuestID: 8681
+    -- REP_AddQuest(469, 5, 8, "Wheathoof the Elder", 75) -- Wheathoof the Elder QuestID: 8678
+    -- REP_AddQuest(469, 5, 8, "Wildmane the Elder", 75) -- Wildmane the Elder QuestID: 8676
+    -- REP_AddQuest(469, 5, 8, "Windrun the Elder", 75) -- Windrun the Elder QuestID: 8688
+    -- REP_AddQuest(469, 5, 8, "Windtotem the Elder", 75) -- Windtotem the Elder QuestID: 8680
+    -- REP_AddQuest(469, 5, 8, "Winterhoof the Elder", 75) -- Winterhoof the Elder QuestID: 8674
+  end
+  -- if (REP.AfterTBC) then
+  -- 	REP_AddQuest(469, 5, 8, "Arp the Elder", 75) -- Arp the Elder QuestID: 13033
+  -- 	REP_AddQuest(469, 5, 8, "Beldak the Elder", 75) -- Beldak the Elder QuestID: 13013
+  --   REP_AddQuest(469, 5, 8, "Bluewolf the Elder", 75) -- Bluewolf the Elder QuestID: 13026
+  --   REP_AddQuest(469, 5, 8, "Chogan'gada the Elder", 75) -- Chogan'gada the Elder QuestID: 13067
+  --   REP_AddQuest(469, 5, 8, "Fargal the Elder", 75) -- Fargal the Elder QuestID: 13015
+  --   REP_AddQuest(469, 5, 8, "Graymane the Elder", 75) -- Graymane the Elder QuestID: 13028
+  --   REP_AddQuest(469, 5, 8, "Igasho the Elder", 75) -- Igasho the Elder QuestID: 13021
+  --   REP_AddQuest(469, 5, 8, "Jarten the Elder", 75) -- Jarten the Elder QuestID: 13017
+  --   REP_AddQuest(469, 5, 8, "Kilias the Elder", 75) -- Kilias the Elder QuestID: 13023
+  --   REP_AddQuest(469, 5, 8, "Lunaro the Elder", 75) -- Lunaro the Elder QuestID: 13025
+  --   REP_AddQuest(469, 5, 8, "Morthie the Elder", 75) -- Morthie the Elder QuestID: 13014
+  --   REP_AddQuest(469, 5, 8, "Muraco the Elder", 75) -- Muraco the Elder QuestID: 13032
+  --   REP_AddQuest(469, 5, 8, "Northal the Elder", 75) -- Northal the Elder QuestID: 13016
+  --   REP_AddQuest(469, 5, 8, "Nurgen the Elder", 75) -- Nurgen the Elder QuestID: 13022
+  --   REP_AddQuest(469, 5, 8, "Ohanzee the Elder", 75) -- Ohanzee the Elder QuestID: 13065
+  --   REP_AddQuest(469, 5, 8, "Pamuya the Elder", 75) -- Pamuya the Elder QuestID: 13029
+  --   REP_AddQuest(469, 5, 8, "Sandrene the Elder", 75) -- Sandrene the Elder QuestID: 13018
+  --   REP_AddQuest(469, 5, 8, "Sardis the Elder", 75) -- Sardis the Elder QuestID: 13012
+  --   REP_AddQuest(469, 5, 8, "Skywarden the Elder", 75) -- Skywarden the Elder QuestID: 13031
+  --   REP_AddQuest(469, 5, 8, "Stonebeard the Elder", 75) -- Stonebeard the Elder QuestID: 13020
+  --   REP_AddQuest(469, 5, 8, "Tauros the Elder", 75) -- Tauros the Elder QuestID: 13027
+  --   REP_AddQuest(469, 5, 8, "Thoim the Elder", 75) -- Thoim the Elder QuestID: 13019
+  --   REP_AddQuest(469, 5, 8, "Wanikaya the Elder", 75) -- Wanikaya the Elder QuestID: 13024
+  --   REP_AddQuest(469, 5, 8, "Whurain the Elder", 75) -- Whurain the Elder QuestID: 13030
+  --   REP_AddQuest(469, 5, 8, "Yurauk the Elder", 75) -- Yurauk the Elder QuestID: 13066
+  -- end
+  -- if (REP.AfterWotlk) then
+  --   REP_AddQuest(469, 5, 8, "Darkfeather the Elder", 75) -- Darkfeather the Elder QuestID: 29736
+  --   REP_AddQuest(469, 5, 8, "Deepforge the Elder", 75) -- Deepforge the Elder QuestID: 29734
+  --   REP_AddQuest(469, 5, 8, "Evershade the Elder", 75) -- Evershade the Elder QuestID: 29740
+  --   REP_AddQuest(469, 5, 8, "Firebeard the Elder", 75) -- Firebeard the Elder QuestID: 29737
+  --   REP_AddQuest(469, 5, 8, "Menkhaf the Elder", 75) -- Menkhaf the Elder QuestID: 29742
+  --   REP_AddQuest(469, 5, 8, "Moonlance the Elder", 75) -- Moonlance the Elder QuestID: 29738
+  --   REP_AddQuest(469, 5, 8, "Sekhemi the Elder", 75) -- Sekhemi the Elder QuestID: 29741
+  --   REP_AddQuest(469, 5, 8, "Stonebrand the Elder", 75) -- Stonebrand the Elder QuestID: 29735
+  --   REP_AddQuest(469, 5, 8, "Windsong the Elder", 75) -- Windsong the Elder QuestID: 29739
+  -- end
+else
+  ---------------------------
+  -- Horde 67
+  ---------------------------
+  ---- Quests
+  -- Arp the Elder,
+  -- Beldak the Elder,
+  -- Bellowrage the Elder,
+  -- Bladeleaf the Elder,
+  -- Bladesing the Elder,
+  -- Bladeswift the Elder,
+  -- Bloodhoof the Elder,
+  -- Bluewolf the Elder,
+  -- Brightspear the Elder,
+  -- Bronzebeard the Elder,
+  -- Chogan'gada the Elder,
+  -- Darkcore the Elder,
+  -- Darkfeather the Elder,
+  -- Darkhorn the Elder,
+  -- Dawnstrider the Elder,
+  -- Deepforge the Elder,
+  -- Dreamseer the Elder,
+  -- Evershade the Elder,
+  -- Fargal the Elder,
+  -- Farwhisper the Elder,
+  -- Firebeard the Elder,
+  -- Goldwell the Elder,
+  -- Graveborn the Elder,
+  -- Graymane the Elder,
+  -- Grimtotem the Elder,
+  -- Hammershout the Elder,
+  -- High Mountain the Elder,
+  -- Highpeak the Elder,
+  -- Igasho the Elder,
+  -- Ironband the Elder,
+  -- Jarten the Elder,
+  -- Kilias the Elder,
+  -- Lunaro the Elder,
+  -- Meadowrun the Elder,
+  -- Menkhaf the Elder,
+  -- Mistwalker the Elder,
+  -- Moonlance the Elder,
+  -- Moonstrike the Elder,
+  -- Moonwarden the Elder,
+  -- Morndeep the Elder,
+  -- Morningdew the Elder,
+  -- Morthie the Elder,
+  -- Muraco the Elder,
+  -- Nightwind the Elder,
+  -- Northal the Elder,
+  -- Nurgen the Elder,
+  -- Obsidian the Elder,
+  -- Ohanzee the Elder,
+  -- Pamuya the Elder,
+  -- Primestone the Elder,
+  -- Ragetotem the Elder,
+  -- Riversong the Elder,
+  -- Rumblerock the Elder,
+  -- Runetotem the Elder,
+  -- Sandrene the Elder,
+  -- Sardis the Elder,
+  -- Sekhemi the Elder,
+  -- Silvervein the Elder,
+  -- Skychaser the Elder,
+  -- Skygleam the Elder,
+  -- Skyseer the Elder,
+  -- Skywarden the Elder,
+  -- Snowcrown the Elder,
+  -- Splitrock the Elder,
+  -- Starglade the Elder,
+  -- Starsong the Elder,
+  -- Starweave the Elder,
+  -- Stonebeard the Elder,
+  -- Stonebrand the Elder,
+  -- Stonefort the Elder,
+  -- Stonespire the Elder,
+  -- Stormbrow the Elder,
+  -- Tauros the Elder,
+  -- Thoim the Elder,
+  -- Thunderhorn the Elder,
+  -- Wanikaya the Elder,
+  -- Wheathoof the Elder,
+  -- Whurain the Elder,
+  -- Wildmane the Elder,
+  -- Windrun the Elder,
+  -- Windsong the Elder,
+  -- Windtotem the Elder,
+  -- Winterhoof the Elder,
+  -- Yurauk the Elder
+end

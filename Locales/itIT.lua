@@ -123,6 +123,8 @@ REP_TXT.srfd	= "Rappresentazione spillover dai dungeon"
 REP_TXT.tbd	= "ToBe Done"
 REP_TXT.nci	= "Normal Cataclysm instances"
 REP_TXT.hci	= "Heroic Cataclysm instances"
+REP_TXT.ncit	= "Istanze di Cataclisma normali con tabardo di fazione"
+REP_TXT.hcit	= "Istanze di Cataclisma Eroico con tabardo di fazione"
 -- ToBeDone general
 REP_TXT.tfr	= "Tiller Farming rep"
 REP_TXT.nswts	= "Non sono sicuro di quando inizierà"

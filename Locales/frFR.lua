@@ -124,6 +124,8 @@ REP_TXT.srfd	= "Retombées de donjons"
 REP_TXT.tbd	= "A faire"
 REP_TXT.nci	= "Instances Cataclysm normales"
 REP_TXT.hci	= "Instances Cataclysm Heroïques"
+REP_TXT.ncit	= "Instances normales de Cataclysm avec tabard de faction"
+REP_TXT.hcit	= "Instances de Cataclysme héroïque avec tabard de faction"
 -- ToBeDone general
 REP_TXT.tfr	= "Tiller agriculture représentant"
 REP_TXT.nswts	= "Ne sais pas quand cela commence"

@@ -120,6 +120,8 @@ REP_TXT.srfd	= "Spillover rep from dungeons"
 REP_TXT.tbd	= "ToBe Done"
 REP_TXT.nci	= "대격변 일반 던전"
 REP_TXT.hci	= "대격변 영웅 던전"
+REP_TXT.ncit	= "세력 휘장이 포함된 일반 대격변 인스턴스"
+REP_TXT.hcit	= "세력 휘장이 포함된 영웅 대격변 인스턴스"
 -- ToBeDone general
 REP_TXT.tfr	= "Tiller Farming rep"
 REP_TXT.nswts	= "Not sure when this starts"
