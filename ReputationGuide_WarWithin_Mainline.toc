@@ -1,0 +1,25 @@
+## Interface: 110000
+## Title: ReputationGuide (The War Within)
+## IconTexture: Interface/Addons/ReputationGuide/assets/factions_logo_256x256
+## Version: 11.0.0-release
+## Author: Tvlfrosty
+## X-Discord: https://discord.gg/3zh4EFptta
+## URL: https://www.curseforge.com/wow/addons/reputation-guide
+## Description: ReputationGuide helps you manage your reputation and factions.
+## Notes: ReputationGuide helps you manage your reputation and factions.
+## SavedVariables: REP_Data
+## SavedVariablesPerCharacter: REP_Suppressed
+
+## X-Curse-Project-ID: 657534
+
+locale.xml
+
+questdb.lua
+variables.lua
+zones.lua
+content.lua
+mapping.lua
+RetailUI\RetailReputationGuide.xml
+ReputationGuideSkin.lua
+
+settings.lua

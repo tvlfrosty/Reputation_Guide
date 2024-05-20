@@ -374,6 +374,10 @@ function REP:GetActivePhase(gameBuildVersion)
     REP.ShowDragonflightPhaseThree = true
   end
 
+  if gameBuildVersion > 10500 then
+    REP.ShowTheWarWithinPhaseOne = true
+  end
+
   ---- Current phase
   if REP.ShowClassicPhaseOne and not REP.ShowClassicPhaseTwo then REP.IsClassicPhaseOne = true end
   if REP.ShowClassicPhaseTwo and not REP.ShowClassicPhaseThree then REP.IsClassicPhaseTwo = true end
