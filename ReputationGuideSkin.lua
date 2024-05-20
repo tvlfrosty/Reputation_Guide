@@ -37,10 +37,10 @@ if IsAddOnLoaded("ElvUI") then
   REP_ReputationDetailFrame:StripTextures()
   REP_ReputationDetailFrame:SetTemplate("Transparent")
 
-  REP_OptionsFrame:StripTextures()
-  REP_OptionsFrame:SetTemplate("Transparent")
-
-  E.Skins:HandleCloseButton(REP_OptionsFrameClose)
+  -- REP_OptionsFrame:StripTextures()
+  -- REP_OptionsFrame:SetTemplate("Transparent")
+  --E.Skins:HandleCloseButton(REP_OptionsFrameClose)
+  
   E.Skins:HandleCloseButton(REP_ReputationDetailCloseButton)
 
   E.Skins:HandleCheckBox(REP_ReputationDetailAtWarCheckBox)

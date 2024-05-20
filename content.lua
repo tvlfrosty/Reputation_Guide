@@ -3562,6 +3562,11 @@ end
 			---- Quests
 			REP_AddQuest(1353, 4, 8, 2, 65, "nil", REP.LIMIT_TYPE_Cook)
 			REP_AddQuest(1353, 4, 8, 4, 65, "nil", REP.LIMIT_TYPE_Fish)
+      ---- General
+      REP_AddGeneral(1353, 4, 8, "Killing (grey level) mobs in instances while wearing the Tushui tabard.", 3, "Killing (grey level) mobs in instances while wearing the Tushui tabard.", "Killing (grey level) mobs in instances while wearing the Tushui tabard will reward you roughly 3 base reputation per kill.")
+			REP_AddGeneral(1353, 4, 8, "Killing (grey level) bosses in instances while wearing the Tushui tabard.", 60, "Killing (grey level) bosses in instances while wearing the Tushui tabard.", "Killing (grey level) bosses in instances while wearing the Tushui tabard will reward you roughly 60 base reputation per kill.")
+      REP_AddGeneral(1353, 4, 8, "Killing (green or higher level) mobs in instances while wearing the Tushui tabard.", 15, "Killing (green or higher level) mobs in instances while wearing the Tushui tabard.", "Killing (green or higher level) mobs in instances while wearing the Tushui tabard will reward you roughly 15 base reputation per kill.")
+      REP_AddGeneral(1353, 4, 8, "Killing (green or higher level) bosses in instances while wearing the Tushui tabard.", 300, "Killing (green or higher level) bosses in instances while wearing the Tushui tabard.", "Killing (green or higher level) bosses in instances while wearing the Tushui tabard will reward you roughly 300 base reputation per kill.")
 		else
       ---------------------------
 			-- Huojin Pandaren 1352
@@ -3569,6 +3574,11 @@ end
 			---- Quests
 		  REP_AddQuest(1352, 4, 8, 2, 65, "nil", REP.LIMIT_TYPE_Cook)
 		  REP_AddQuest(1352, 4, 8, 4, 65, "nil", REP.LIMIT_TYPE_Fish)
+      ---- General
+      REP_AddGeneral(1352, 4, 8, "Killing (grey level) mobs in instances while wearing the Huojin tabard.", 3, "Killing (grey level) mobs in instances while wearing the Huojin tabard.", "Killing (grey level) mobs in instances while wearing the Huojin tabard will reward you roughly 3 base reputation per kill.")
+			REP_AddGeneral(1352, 4, 8, "Killing (grey level) bosses in instances while wearing the Huojin tabard.", 60, "Killing (grey level) bosses in instances while wearing the Huojin tabard.", "Killing (grey level) bosses in instances while wearing the Huojin tabard will reward you roughly 60 base reputation per kill.")
+      REP_AddGeneral(1352, 4, 8, "Killing (green or higher level) mobs in instances while wearing the Huojin tabard.", 15, "Killing (green or higher level) mobs in instances while wearing the Huojin tabard.", "Killing (green or higher level) mobs in instances while wearing the Huojin tabard will reward you roughly 15 base reputation per kill.")
+      REP_AddGeneral(1352, 4, 8, "Killing (green or higher level) bosses in instances while wearing the Huojin tabard.", 300, "Killing (green or higher level) bosses in instances while wearing the Huojin tabard.", "Killing (green or higher level) bosses in instances while wearing the Huojin tabard will reward you roughly 300 base reputation per kill.")
 
 			---------------------------
 			-- Brawl'gar Arena 1374
