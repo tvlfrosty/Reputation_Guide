@@ -646,7 +646,7 @@
 				<Anchors>
 					<Anchor point="TOPLEFT" relativeTo="REP_ReputationDetailDivider3" relativePoint="BOTTOMLEFT">
 						<Offset x="300" y="20"/>
-								</Anchor>
+					</Anchor>
 				</Anchors>
 				<Scripts>
 					<OnClick>
@@ -655,6 +655,7 @@
 						REP_Data.Global.ShowMobs = true
 						REP_Data.Global.ShowInstances = true
 						REP_Data.Global.ShowItems = true
+            REP_Data.Global.ShowGeneral = true
 						if SOUNDKIT then PlaySound(SOUNDKIT.IG_MAINMENU_OPTION_CHECKBOX_ON); end
 						REP_BuildUpdateList()
 						REP_UpdateList_Update()
@@ -672,7 +673,7 @@
 				<Anchors>
 					<Anchor point="TOPLEFT" relativeTo="REP_ReputationDetailDivider3" relativePoint="BOTTOMLEFT">
 						<Offset x="300" y="0"/>
-								</Anchor>
+					</Anchor>
 				</Anchors>
 				<Scripts>
 					<OnClick>
@@ -681,6 +682,7 @@
 						REP_Data.Global.ShowMobs = nil
 						REP_Data.Global.ShowInstances = nil
 						REP_Data.Global.ShowItems = nil
+            REP_Data.Global.ShowGeneral = nil
 						if SOUNDKIT then PlaySound(SOUNDKIT.IG_MAINMENU_OPTION_CHECKBOX_OFF); end
 						REP_BuildUpdateList()
 						REP_UpdateList_Update()
