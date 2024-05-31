@@ -5,14 +5,15 @@ local _, vars = ...
 local REP = vars
 
 function REP_InitEnFactionGains(guildName, guildCapBase)
-REP:SetZoneIdsBasedOnExpansion()
-local zone = REP.zone
+  REP:SetZoneIdsBasedOnExpansion()
+  local zone = REP.zone
 
-if (not REP.IsAlliance) and (not REP.IsHorde) then
-	local locFaction = UnitFactionGroup("player")
-	if (locFaction == FACTION_ALLIANCE) then REP.IsAlliance = true end
-	if (locFaction == FACTION_HORDE) then REP.IsHorde = true end
-end
+  if (not REP.IsAlliance) and (not REP.IsHorde) then
+    local locFaction = UnitFactionGroup("player")
+    if (locFaction == FACTION_ALLIANCE) then REP.IsAlliance = true end
+    if (locFaction == FACTION_HORDE) then REP.IsHorde = true end
+  end
+
 --------------------------------------------------
 -- Factions released 'during' Vanilla/Classic
 --------------------------------------------------
@@ -598,19 +599,17 @@ end
 	REP_AddMob(910, 1, 4, "Vekniss Stinger", 100, zone.Temple_of_AhnQiraj)
 	REP_AddMob(910, 1, 4, "Vekniss Warrior", 100, zone.Temple_of_AhnQiraj)
 	REP_AddMob(910, 1, 4, "Vekniss Wasp", 100, zone.Temple_of_AhnQiraj)
-	REP_AddMob(910, 1, 8, "Most Bosses", 50)
+  REP_AddMob(910, 1, 8, "Most Bosses", 50, zone.Ruins_of_AhnQiraj)
 	REP_AddMob(910, 1, 8, "Ossirian", 100, zone.Ruins_of_AhnQiraj)
-	REP_AddMob(910, 1, 8, "Twin Emperors", 200, zone.Temple_of_AhnQiraj)
+  REP_AddMob(910, 1, 8, "Battleguard Sartura", 500, zone.Temple_of_AhnQiraj)
+  REP_AddMob(910, 1, 8, "Fankriss the Unyielding", 500, zone.Temple_of_AhnQiraj)
+  REP_AddMob(910, 1, 8, "Princess Huhuran", 500, zone.Temple_of_AhnQiraj)
+  REP_AddMob(910, 1, 8, "Twin Emperors", 200, zone.Temple_of_AhnQiraj)
+  REP_AddMob(910, 1, 8, "Ouro", 500, zone.Temple_of_AhnQiraj)  
 	REP_AddMob(910, 1, 8, "Cthun", 2500, zone.Temple_of_AhnQiraj)
 	---- Quests
 	REP_AddQuest(910, 1, 8, "Mortal Champions", 500, {[21229] = 1}) -- Qiraji Lord's Insignia QuestID: 8579
 	REP_AddQuest(910, 1, 8, "Secrets of the Qiraji", 1000, {[21230] = 1}) -- Ancient Qiraji Artifact
-	---- Instances
-	----  TODO: Fix with REP_AddInstance
-	-- REP_AddInstance(609, 1, 4, zone.Ruins_of_AhnQiraj, 1200)
-	-- REP_AddInstance(609, 1, 4, zone.AhnQiraj_The_Fallen_Kingdom, 19000)
-	-- REP_AddInstance(609, 5, 8, zone.Ruins_of_AhnQiraj, 1200)
-	-- REP_AddInstance(609, 5, 8, zone.AhnQiraj_The_Fallen_Kingdom, 3000)
 
 	---------------------------
 	-- Cenarion Circle 609 --
@@ -2719,10 +2718,14 @@ end
 		-- REP_AddSpell(1171, 1, 8, 5, 1000)
 		-- REP_AddSpell(1171, 1, 8, 5, 1800)
 		---- Mobs
-		REP_AddMob(1171, 1, 8, 1, 10, 7)
-		REP_AddMob(1171, 1, 8, 1, 15, 8)
-		REP_AddMob(1171, 1, 8, 4, 150, 7)
-		REP_AddMob(1171, 1, 8, 4, 250, 8)
+    REP_AddMob(1171, 1, 4, "Twilight Duskwarden", 5, zone.Deepholm)
+    REP_AddMob(1171, 1, 4, "Twilight Laborer", 5, zone.Deepholm)
+    REP_AddMob(1171, 1, 4, "Twilight Priestess", 5, zone.Deepholm)
+    REP_AddMob(1171, 1, 4, "Dragul Giantbutcher", 10, zone.Deepholm)
+		REP_AddMob(1171, 4, 8, 1, 10, 7)
+		REP_AddMob(1171, 4, 8, 1, 15, 8)
+		REP_AddMob(1171, 4, 8, 4, 150, 7)
+		REP_AddMob(1171, 4, 8, 4, 250, 8)
 		---- Quests
 		REP_AddQuest(1171, 4, 8, 28488, 250)
 		REP_AddQuest(1171, 4, 8, 27046, 250)
@@ -2738,6 +2741,12 @@ end
 			-- Timewalking Commendation
 			REP_AddItems(1171, 1, 8, 500, {[133160] = 1})
 		end
+    ---- General
+    if (REP.IsHuman) then
+      REP_AddGeneral(1171, 1, 6, "Completing the questline until 'The Stone Throne', will get you past revered.", 55000, "Complete the questline until 'The Stone Throne'.", "Completing the questline until 'The Stone Throne', will get you past revered.")
+    else
+      REP_AddGeneral(1171, 1, 6, "Completing the questline until 'The Stone Throne', will get you close to revered.", 55000, "Complete the questline until 'The Stone Throne'.", "Completing the questline until 'The Stone Throne', will get you close to revered.")
+    end
 
 		if (REP.IsAlliance) then
 			---------------------------
@@ -2764,52 +2773,51 @@ end
 			---------------------------
 			---- Quests
 			---- Tol Barad Peninsula
-			---- Sargeant Parker (Base Quests)
-		  REP_AddQuest(1177, 4, 8, 28122, 250)
-		  REP_AddQuest(1177, 4, 8, 28658, 250)
-		  REP_AddQuest(1177, 4, 8, 28659, 250)
-      if REP.AfterCata then -- Not available in cata atm??
-        ---- 2nd Lieutenant Wansworth (Left Prison)
-        REP_AddQuest(1177, 4, 8, 28186, 350)
-        REP_AddQuest(1177, 4, 8, 28663, 350)
-        REP_AddQuest(1177, 4, 8, 28664, 350)
-        ---- Commander Stevens (Right Prison)
-        REP_AddQuest(1177, 4, 8, 28660, 350)
-        REP_AddQuest(1177, 4, 8, 28662, 350)
-        REP_AddQuest(1177, 4, 8, 28661, 250)
-        ---- Marshl Fallows (South Prison)
-        REP_AddQuest(1177, 4, 8, 28670, 250)
-        REP_AddQuest(1177, 4, 8, 28668, 350)
-        REP_AddQuest(1177, 4, 8, 28669, 350)
-        ---- Commander Marcus Johnson
-        REP_AddQuest(1177, 4, 8, 28721, 250)
-      end
-			---- Tol Barad Main
-			---- Sergeant Gray
-		  REP_AddQuest(1177, 4, 8, 28275, 250)
-		  REP_AddQuest(1177, 4, 8, 28698, 250)
-		  REP_AddQuest(1177, 4, 8, 28697, 250)
-		  REP_AddQuest(1177, 4, 8, 28700, 250)
-		  REP_AddQuest(1177, 4, 8, 28695, 250)
-		  REP_AddQuest(1177, 4, 8, 28694, 250)
-			---- Commander Marcus Johnson
-		  REP_AddQuest(1177, 4, 8, 28682, 250)
-		  REP_AddQuest(1177, 4, 8, 28685, 250)
-		  REP_AddQuest(1177, 4, 8, 28686, 250)
-		  REP_AddQuest(1177, 4, 8, 28687, 250)
-			---- Camp Coordinator Brack
-		  REP_AddQuest(1177, 4, 8, 28684, 250)
-		  REP_AddQuest(1177, 4, 8, 28680, 250)
-		  REP_AddQuest(1177, 4, 8, 28678, 250)
-		  REP_AddQuest(1177, 4, 8, 28679, 250)
-		  REP_AddQuest(1177, 4, 8, 28681, 350)
-		  REP_AddQuest(1177, 4, 8, 28683, 250)
+      ---- Sergeant Gray
+      REP_AddQuest(1177, 4, 8, 27991, 250) -- Taking the Overlook Back QuestID: 27991
+      REP_AddQuest(1177, 4, 8, 27975, 250) -- WANTED: Foreman Wellson QuestID: 27975
+      REP_AddQuest(1177, 4, 8, 28275, 250) -- Bombs Away! QuestID: 28275
+      REP_AddQuest(1177, 4, 8, 27987, 250) -- Cannonball! QuestID: 27987
+      REP_AddQuest(1177, 4, 8, 27978, 250) -- Ghostbuster QuestID: 27978
+      REP_AddQuest(1177, 4, 8, 27973, 250) -- Watch Out For Splinters! QuestID: 27973
+      ---- Commander Marcus Johnson
+      REP_AddQuest(1177, 4, 8, 28063, 250) -- Leave No Weapon Behind QuestID: 28063
+      REP_AddQuest(1177, 4, 8, 28130, 250) -- Not The Friendliest Town QuestID: 28130
+      REP_AddQuest(1177, 4, 8, 28059, 250) -- Claiming The Keep QuestID: 28059
+      REP_AddQuest(1177, 4, 8, 28137, 250) -- Teach A Man To Fish.... Or Steal QuestID: 28137
+      -- REP_AddQuest(1177, 4, 8, 28065, 250) -- Walk A Mile In Their Shoes QuestID: 28065 (Seems to be removed from the game in patch 4.1.0 initially.)
+      ---- Camp Coordinator Brack
+		  REP_AddQuest(1177, 4, 8, 27948, 250) -- A Sticky Task QuestID: 27948
+		  REP_AddQuest(1177, 4, 8, 27972, 250) -- Boosting Morale QuestID: 27972
+		  REP_AddQuest(1177, 4, 8, 27970, 250) -- Captain P. Harris QuestID: 27970
+		  REP_AddQuest(1177, 4, 8, 27971, 250) -- Rattling Their Cages QuestID: 27971
+		  REP_AddQuest(1177, 4, 8, 28050, 350) -- Shark Tank QuestID: 28050
+		  REP_AddQuest(1177, 4, 8, 27944, 250) -- Thinning the Brood QuestID: 27944
 			---- Lieutenant Farnsworth
-		  REP_AddQuest(1177, 4, 8, 28693, 250)
-		  REP_AddQuest(1177, 4, 8, 28691, 250)
-		  REP_AddQuest(1177, 4, 8, 28692, 250)
-		  REP_AddQuest(1177, 4, 8, 28690, 250)
-		  REP_AddQuest(1177, 4, 8, 28689, 250)
+		  REP_AddQuest(1177, 4, 8, 28046, 250) -- Finish The Job QuestID: 28046
+		  REP_AddQuest(1177, 4, 8, 27967, 250) -- First Lieutenant Connor QuestID: 27967
+		  REP_AddQuest(1177, 4, 8, 27992, 250) -- Magnets, How Do They Work? QuestID: 27992
+		  REP_AddQuest(1177, 4, 8, 27966, 250) -- Salvaging the Remains QuestID: 27966
+		  REP_AddQuest(1177, 4, 8, 27949, 250) -- The Forgotten QuestID: 27949
+      ---- Tol Barad Main
+      ---- Sargeant Parker (Base Quests)
+      REP_AddQuest(1177, 4, 8, 28122, 350) -- A Huge Problem QuestID: 28122
+      REP_AddQuest(1177, 4, 8, 28162, 350) -- Swamp Bait QuestID: 28162
+      REP_AddQuest(1177, 4, 8, 28163, 350) -- The Leftovers QuestID: 28163
+      ---- 2nd Lieutenant Wansworth (Left Prison)
+      REP_AddQuest(1177, 4, 8, 28186, 350) -- Cursed Shackles QuestID: 28186
+      REP_AddQuest(1177, 4, 8, 28165, 350) -- D-Block QuestID: 28165
+      REP_AddQuest(1177, 4, 8, 28185, 350) -- Svarnos QuestID: 28185
+      ---- Commander Stevens (Right Prison)
+      REP_AddQuest(1177, 4, 8, 28117, 350) -- Clearing the Depths QuestID: 28117
+      REP_AddQuest(1177, 4, 8, 28120, 350) -- Learning From The Past QuestID: 28120
+      REP_AddQuest(1177, 4, 8, 28118, 350) -- The Imprisoned Archmage QuestID: 28118
+      ---- Marshl Fallows (South Prison)
+      REP_AddQuest(1177, 4, 8, 28232, 350) -- Food From Below QuestID: 28232
+      REP_AddQuest(1177, 4, 8, 28188, 350) -- Prison Revolt QuestID: 28188
+      REP_AddQuest(1177, 4, 8, 28223, 350) -- The Warden QuestID: 28223
+      ---- Items
+      REP_AddItems(1177, 4, 8, 250, {[63517] = 1})
 
 			---------------------------
 			-- Gilneas 1134
@@ -2857,51 +2865,53 @@ end
 			---------------------------
 			-- Hellscream's Reach 1178
 			---------------------------
-			---- Quests (Commander Zanoth)
-		  REP_AddQuest(1178, 4, 8, 28122, 250)
-		  REP_AddQuest(1178, 4, 8, 28658, 250)
-		  REP_AddQuest(1178, 4, 8, 28659, 250)
-      if REP.AfterCata then -- Not available in cata atm??
-        ---- Quests (Drillmaster Razgoth)
-        REP_AddQuest(1178, 4, 8, 28665, 350)
-        REP_AddQuest(1178, 4, 8, 28663, 350)
-        REP_AddQuest(1178, 4, 8, 28664, 350)
-        ---- Quests (Private Garnoth)
-        REP_AddQuest(1178, 4, 8, 28660, 350)
-        REP_AddQuest(1178, 4, 8, 28662, 350)
-        REP_AddQuest(1178, 4, 8, 28661, 250)
-        ---- Quests (Staff Sergeant Lazgar)
-        REP_AddQuest(1178, 4, 8, 28670, 250)
-        REP_AddQuest(1178, 4, 8, 28668, 350)
-        REP_AddQuest(1178, 4, 8, 28669, 350)
-        ---- Quests (Commander Larmash)
-        REP_AddQuest(1178, 4, 8, 28721, 250)
-      end
-			---- Quests (Private Sarlosk)
-		  REP_AddQuest(1178, 4, 8, 28275, 250)
-		  REP_AddQuest(1178, 4, 8, 28698, 250)
-		  REP_AddQuest(1178, 4, 8, 28697, 250)
-		  REP_AddQuest(1178, 4, 8, 28700, 250)
-		  REP_AddQuest(1178, 4, 8, 28695, 250)
-		  REP_AddQuest(1178, 4, 8, 28694, 250)
-			---- Quests (Commander Larmash)
-		  REP_AddQuest(1178, 4, 8, 28682, 250)
-		  REP_AddQuest(1178, 4, 8, 28685, 250)
-		  REP_AddQuest(1178, 4, 8, 28686, 250)
-		  REP_AddQuest(1178, 4, 8, 28687, 250)
-			---- Quests (3rd Officer Kronkar)
-		  REP_AddQuest(1178, 4, 8, 28684, 250)
-		  REP_AddQuest(1178, 4, 8, 28680, 250)
-		  REP_AddQuest(1178, 4, 8, 28678, 250)
-		  REP_AddQuest(1178, 4, 8, 28679, 250)
-		  REP_AddQuest(1178, 4, 8, 28681, 350)
-		  REP_AddQuest(1178, 4, 8, 28683, 250)
-			---- Quests (Captain Prug)
-		  REP_AddQuest(1178, 4, 8, 28693, 250)
-		  REP_AddQuest(1178, 4, 8, 28691, 250)
-		  REP_AddQuest(1178, 4, 8, 28692, 250)
-		  REP_AddQuest(1178, 4, 8, 28690, 250)
-		  REP_AddQuest(1178, 4, 8, 28689, 250)
+      ---- Quests
+			---- Tol Barad Peninsula
+      ---- Private Sarlosk
+      REP_AddQuest(1178, 4, 8, 28700, 250) -- Taking the Overlook Back QuestID: 28700
+      REP_AddQuest(1178, 4, 8, 28695, 250) -- WANTED: Foreman Wellson QuestID: 28695
+      REP_AddQuest(1178, 4, 8, 28696, 250) -- Bombs Away! QuestID: 28696
+      REP_AddQuest(1178, 4, 8, 28698, 250) -- Cannonball! QuestID: 28698
+      REP_AddQuest(1178, 4, 8, 28697, 250) -- Ghostbuster QuestID: 28697
+      REP_AddQuest(1178, 4, 8, 28694, 250) -- Watch Out For Splinters! QuestID: 28694
+      ---- Commander Larmash
+      REP_AddQuest(1178, 4, 8, 28685, 250) -- Leave No Weapon Behind QuestID: 28685
+      REP_AddQuest(1178, 4, 8, 28686, 250) -- Not The Friendliest Town QuestID: 28686
+      REP_AddQuest(1178, 4, 8, 28682, 250) -- Claiming The Keep QuestID: 28682
+      REP_AddQuest(1178, 4, 8, 28687, 250) -- Teach A Man To Fish.... Or Steal QuestID: 28687
+      -- REP_AddQuest(1178, 4, 8, 28721, 250) -- Walk A Mile In Their Shoes QuestID: 28721 (Seems to be removed from the game in patch 4.1.0 initially.)
+      ---- 3rd Officer Kronkar
+		  REP_AddQuest(1178, 4, 8, 28684, 250) -- A Sticky Task QuestID: 28684
+		  REP_AddQuest(1178, 4, 8, 28680, 250) -- Boosting Morale QuestID: 28680
+		  REP_AddQuest(1178, 4, 8, 28678, 250) -- Captain P. Harris QuestID: 28678
+		  REP_AddQuest(1178, 4, 8, 28679, 250) -- Rattling Their Cages QuestID: 28679
+		  REP_AddQuest(1178, 4, 8, 28681, 350) -- Shark Tank QuestID: 28681
+		  REP_AddQuest(1178, 4, 8, 28683, 250) -- Thinning the Brood QuestID: 28683
+			---- Captain Prug
+		  REP_AddQuest(1178, 4, 8, 28693, 250) -- Finish The Job QuestID: 28693
+		  REP_AddQuest(1178, 4, 8, 28691, 250) -- First Lieutenant Connor QuestID: 28691
+		  REP_AddQuest(1178, 4, 8, 28692, 250) -- Magnets, How Do They Work? QuestID: 28692
+		  REP_AddQuest(1178, 4, 8, 28690, 250) -- Salvaging the Remains QuestID: 28690
+		  REP_AddQuest(1178, 4, 8, 28689, 250) -- The Forgotten QuestID: 28689
+      ---- Tol Barad Main
+      ---- Commander Zanoth
+      REP_AddQuest(1178, 4, 8, 28657, 350) -- A Huge Problem QuestID: 28657
+      REP_AddQuest(1178, 4, 8, 28658, 350) -- Swamp Bait QuestID: 28658
+      REP_AddQuest(1178, 4, 8, 28659, 350) -- The Leftovers QuestID: 28659
+      ---- Drillmaster Razgoth
+      REP_AddQuest(1178, 4, 8, 28665, 350) -- Cursed Shackles QuestID: 28665
+      REP_AddQuest(1178, 4, 8, 28663, 350) -- D-Block QuestID: 28663
+      REP_AddQuest(1178, 4, 8, 28664, 350) -- Svarnos QuestID: 28664
+      ---- Private Garnoth
+      REP_AddQuest(1178, 4, 8, 28660, 350) -- Clearing the Depths QuestID: 28660
+      REP_AddQuest(1178, 4, 8, 28662, 350) -- Learning From The Past QuestID: 28662
+      REP_AddQuest(1178, 4, 8, 28661, 350) -- The Imprisoned Archmage QuestID: 28661
+      ---- Staff Sergeant Lazgar
+      REP_AddQuest(1178, 4, 8, 28670, 350) -- Food From Below QuestID: 28670
+      REP_AddQuest(1178, 4, 8, 28668, 350) -- Prison Revolt QuestID: 28668
+      REP_AddQuest(1178, 4, 8, 28669, 350) -- The Warden QuestID: 28669
+      ---- Items
+      REP_AddItems(1178, 4, 8, 250, {[63518] = 1})
 		end
 	end
 
@@ -4788,6 +4798,46 @@ end
 -- Factions released 'after' Dragonflight
 --------------------------------------------------
 	if (REP.AfterDragonflight) then
+    ---------------------------
+		-- Hallowfall Arathi 2570 (Goes to 25 Renown) --
+		---------------------------
+
+    ---------------------------
+		-- Council of Dornogal 2590 (Goes to 25 Renown) --
+		---------------------------
+
+    ---------------------------
+		-- The Assembly of the Deeps 2594 (Goes to 25 Renown) --
+		---------------------------
+
+    ---------------------------
+		-- The Severed Threads 2600 (Goes to 25 Renown) --
+		---------------------------
+
+    ---------------------------
+		-- The Weaver 2601 --
+		---------------------------
+
+    ---------------------------
+		-- The General 2605 --
+		---------------------------
+
+    ---------------------------
+		-- The Vizier 2607 --
+		---------------------------
+
+    ---------------------------
+		-- Brann Bronzebeard 2640 (Goes to level 60) --
+		---------------------------
+
+    ---------------------------
+		-- Delves: Season 1 2644 --
+		---------------------------
+
+    ---------------------------
+		-- Earthen 2645 --
+		---------------------------
+
 		if (REP.IsAlliance) then
 			-- Alliance
 		else
@@ -4796,4 +4846,16 @@ end
 	end
 
   collectgarbage("collect")
+end
+
+function REP_InitFactionForGuildOnly()
+  if(REP.AfterWotlk) then
+		---------------------------
+		-- Guild 1168 --
+		---------------------------
+		---- General
+    REP_AddGeneral(1168, 1, 8, "All (yellow or higher level) quest turn ins", 125, "Gain reputation by doing this quest", "Complete any (yellow or higher level) quests.")
+		REP_AddGeneral(1168, 1, 8, "All (yellow or higher level) quest turn ins while wearing Guild Renown Tabard", 125, "Gain reputation by doing this quest", "Complete any (yellow or higher level) quests while wearing the Guild Renown Tabard.", nil, nil, nil, 0.5)
+    REP_AddGeneral(1168, 1, 8, "All (yellow or higher level) quest turn ins while wearing Renowned Guild Renown Tabard", 125, "Gain reputation by doing this quest", "Complete any (yellow or higher level) quests while wearing the Renowned Guild Renown Tabard.", nil, nil, nil, 1)
+  end
 end

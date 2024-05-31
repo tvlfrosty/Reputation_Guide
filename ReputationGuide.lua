@@ -334,6 +334,7 @@ function REP_OnEvent(self, event, ...)
   elseif (event == "PLAYER_ENTERING_WORLD") then
     REP_InitStages = REP_InitStages + 8
     REP:Init()
+
     REP_Main:UnregisterEvent("PLAYER_ENTERING_WORLD")
     REP_Main:RegisterEvent("UPDATE_FACTION")
     -- to keep item list up to date
@@ -341,7 +342,6 @@ function REP_OnEvent(self, event, ...)
     REP_Main:RegisterEvent("BANKFRAME_OPENED")
     REP_Main:RegisterEvent("BANKFRAME_CLOSED")
 
-    -- REP_Main:RegisterEvent("PLAYER_AURAS_CHANGED")
     REP_Main:RegisterEvent("UNIT_AURA")
 
     -- to keep list of known skills up to date
@@ -2144,6 +2144,12 @@ function REP_UpdateList_Update()
   -- usually called In conjuction with REP_BuildUpdateList
   if (not REP_ReputationDetailFrame:IsVisible()) then return end
 
+  -- Fix for GetGuildInfo() function returning nil upon first login.
+  if (IsInGuild() and REP.GuildName == nil) then
+    REP.GuildName = GetGuildInfo("player")
+    REP_InitFactionForGuildOnly()
+  end
+
   REP_UpdateListScrollFrame:Show()
   REP_ShowNonPvPQuestsButton:SetChecked(REP_Data.Global.ShowQuests)
   REP_ShowPvPQuestsButton:SetChecked(REP_Data.Global.ShowPvPQuests)
@@ -3391,7 +3397,7 @@ function REP:DumpReputationChangesToChat(initOnly)
           barValue = isCapped and majorFactionData.renownLevelThreshold or majorFactionData.renownReputationEarned or 0
           renownLevel = majorFactionData.renownLevel
           barMax = renownLevel * majorFactionData.renownLevelThreshold
-          artificialBarValue = barValue -- tempBarValue
+          artificialBarValue = barValue
           artificialBarMax = majorFactionData.renownLevelThreshold
           barValue = ((renownLevel - 1) * majorFactionData.renownLevelThreshold) + barValue
         end
@@ -3418,26 +3424,29 @@ function REP:DumpReputationChangesToChat(initOnly)
                 end
               end
 
-              if (barValue > REP_StoredRep[name].rep) then
-                -- increased rep
-                if (friendID ~= nil and nextFriendThreshold ~= nil) then
-                  -- If the faction is a friend faction and not at max rank get the next standing text
-                  REP:Print(REP.NEW_REP_COLOUR..string.format(FACTION_STANDING_INCREASED..REP_TXT.statsNextStanding, name, barValue - REP_StoredRep[name].rep, sign, barValue - REP_StoredRep[name].origRep, REP_GetFriendFactionStandingLabel(factionID, nextFriendThreshold), barMax - barValue))
-                elseif (friendID == nil and standingID < 8 and not isMajorFaction) then
-                  -- If not a friend faction and below max rank use the format (Total: %s%d, Left to %s: %d) if not use the normal format (Total: %s%d, Left: %d)
-                  REP:Print(REP.NEW_REP_COLOUR..string.format(FACTION_STANDING_INCREASED..REP_TXT.statsNextStanding, name, barValue - REP_StoredRep[name].rep, sign, barValue - REP_StoredRep[name].origRep, _G["FACTION_STANDING_LABEL"..standingID + 1], barMax - barValue))
-                elseif (isMajorFaction) then
-                  -- If isMajorFaction below max rank use the format (Total: %s%d, Left to %s: %d) if not use the normal format (Total: %s%d, Left: %d)
-                  REP:Print(REP.NEW_REP_COLOUR..string.format(FACTION_STANDING_INCREASED..REP_TXT.statsNextStanding, name, barValue - REP_StoredRep[name].rep, sign, barValue - REP_StoredRep[name].origRep, RENOWN_LEVEL_LABEL..renownLevel + 1, barMax - barValue))
+              if (barValue > REP_StoredRep[name].rep or (isMajorFaction and isCapped)) then
+                if isMajorFaction then
+                  if isCapped then
+                    REP:Print(REP.NEW_REP_COLOUR..string.format(FACTION_STANDING_INCREASED..REP_TXT.stats, name, barValue - REP_StoredRep[name].rep, sign, barValue - REP_StoredRep[name].origRep, barMax - barValue))
+                  else
+                    -- If isMajorFaction below max rank use the format (Total: %s%d, Left to %s: %d) if not use the normal format (Total: %s%d, Left: %d)
+                    REP:Print(REP.NEW_REP_COLOUR..string.format(FACTION_STANDING_INCREASED..REP_TXT.statsNextStanding, name, barValue - REP_StoredRep[name].rep, sign, barValue - REP_StoredRep[name].origRep, RENOWN_LEVEL_LABEL..renownLevel + 1, barMax - barValue))
+                  end
                 else
-                  REP:Print(REP.NEW_REP_COLOUR..string.format(FACTION_STANDING_INCREASED..REP_TXT.stats, name, barValue - REP_StoredRep[name].rep, sign, barValue - REP_StoredRep[name].origRep, barMax - barValue))
+                  -- increased rep
+                  if (friendID ~= nil and nextFriendThreshold ~= nil) then
+                    -- If the faction is a friend faction and not at max rank get the next standing text
+                    REP:Print(REP.NEW_REP_COLOUR..string.format(FACTION_STANDING_INCREASED..REP_TXT.statsNextStanding, name, barValue - REP_StoredRep[name].rep, sign, barValue - REP_StoredRep[name].origRep, REP_GetFriendFactionStandingLabel(factionID, nextFriendThreshold), barMax - barValue))
+                  elseif (friendID == nil and standingID < 8 and not isMajorFaction) then
+                    -- If not a friend faction and below max rank use the format (Total: %s%d, Left to %s: %d) if not use the normal format (Total: %s%d, Left: %d)
+                    REP:Print(REP.NEW_REP_COLOUR..string.format(FACTION_STANDING_INCREASED..REP_TXT.statsNextStanding, name, barValue - REP_StoredRep[name].rep, sign, barValue - REP_StoredRep[name].origRep, _G["FACTION_STANDING_LABEL"..standingID + 1], barMax - barValue))
+                  else
+                    REP:Print(REP.NEW_REP_COLOUR..string.format(FACTION_STANDING_INCREASED..REP_TXT.stats, name, barValue - REP_StoredRep[name].rep, sign, barValue - REP_StoredRep[name].origRep, barMax - barValue))
+                  end
                 end
               elseif (not isMajorFaction) then
                 if(barValue < REP_StoredRep[name].rep) then
                   -- decreased rep
-                  -- if (isMajorFaction and renownLevel > 1) then
-                  --   REP:Print(REP.NEW_REP_COLOUR..string.format(FACTION_STANDING_DECREASED..REP_TXT.statsNextStanding, name, REP_StoredRep[name].rep - barValue, sign, barValue-REP_StoredRep[name].origRep, RENOWN_LEVEL_LABEL..renownLevel - 1, barMax - barValue))
-                  -- else
                   if (standingID > 1 and friendID == nil) then --  and not isMajorFaction
                     -- Only use the new format (Total: %s%d, Left to %s: %d) if we are above the lowest rank, otherwise use the normal format (Total: %s%d, Left: %d)
                     REP:Print(REP.NEW_REP_COLOUR..string.format(FACTION_STANDING_DECREASED..REP_TXT.statsNextStanding, name, REP_StoredRep[name].rep - barValue, sign, barValue - REP_StoredRep[name].origRep, _G["FACTION_STANDING_LABEL"..standingID + 1], barMax - barValue))
@@ -5244,9 +5253,8 @@ function REP:WatchedFactionDetails(watchedFactionID)
     if (ReputationDetailFrame:IsVisible()) then ReputationDetailFrame:Hide() end
 
     if (not CharacterFrame:IsVisible()) then
-      CharacterFrame:Show()
+      CharacterFrame:Show()      
       tinsert(UISpecialFrames, "CharacterFrame")
-
       if (not ReputationFrame:IsVisible()) then ToggleCharacter('ReputationFrame') end
     end
 
