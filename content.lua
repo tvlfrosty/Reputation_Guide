@@ -4716,6 +4716,8 @@ end
     ---- Mobs
 		REP_AddMob(2517, 1, 6, "Shas'ith", 250, zone.The_Waking_Shores, nil, true)
     REP_AddMob(2517, 1, 6, "Morchok", 100, zone.The_Waking_Shores, nil, true)
+    ---- Items
+    REP_AddItems(2517, 1, 6, 50, {[201991] = 1}) -- Sargha's Signet
 
 		---------------------------
 		-- Sabellian 2518 --
@@ -4726,6 +4728,8 @@ end
     ---- Mobs
 		REP_AddMob(2518, 1, 6, "Death's Shadow", 250, zone.The_Waking_Shores, nil, true)
     REP_AddMob(2518, 1, 6, "Morchok", 100, zone.The_Waking_Shores, nil, true)
+    ---- Items
+    REP_AddItems(2518, 1, 6, 50, {[200224] = 1}) -- Mark of Sargha
 
     if (REP.IsAlliance) then
       ---------------------------
@@ -4792,6 +4796,24 @@ end
 		---------------------------
     ---- General
     REP_AddGeneral(2593, 1, 40, "Earn plunder in Plunderstorm", 1, "Earn plunder in Plunderstorm", "Earn plunder in Plunderstorm to gain renown with this faction.", nil, nil, true)
+
+    ---------------------------
+		-- Azerothian Archives 2615 --
+		---------------------------
+    ---- Quests
+    REP_AddQuest(2615, 1, 8, 79226, 3000) -- QuestID: 79226 - The Big Dig: Traitor's Rest
+    ---- Items
+		REP_AddItems(2615, 1, 8, 25, {[213185] = 1}) -- Dusty Centaur Tome
+    REP_AddItems(2615, 1, 8, 25, {[213175] = 1}) -- Dusty Djaradin Tome
+    REP_AddItems(2615, 1, 8, 25, {[213188] = 1}) -- Dusty Dracthyr Tome
+    REP_AddItems(2615, 1, 8, 25, {[213187] = 1}) -- Dusty Drakonid Tome
+    REP_AddItems(2615, 1, 8, 25, {[213186] = 1}) -- Dusty Niffen Tome
+    REP_AddItems(2615, 1, 8, 50, {[213190] = 1}) -- Preserved Djaradin Tome
+    REP_AddItems(2615, 1, 8, 50, {[213189] = 1}) -- Preserved Dragonkin Tome
+    REP_AddItems(2615, 1, 8, 50, {[213176] = 1}) -- Preserved Isles Tome
+    REP_AddItems(2615, 1, 8, 100, {[213177] = 1}) -- Immaculate Tome
+    ---- General
+    REP_AddGeneral(2615, 1, 8, "Archivist World Quests", 300, "Archivist World Quests", "Complete Archivist World Quests with this faction to gain reputation.")
 	end
 
 --------------------------------------------------

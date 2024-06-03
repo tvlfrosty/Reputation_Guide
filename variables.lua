@@ -615,6 +615,7 @@ REP.IsHeroic = false
 REP.GuildName = nil
 ---- Garrison Trading post level 3
 REP.HasTradingPost = false
+
 ---------------------------
 -- Faction labels --
 ---------------------------
@@ -714,3 +715,9 @@ REP.BFFLabels[2553][7000] = "Future Friend"
 REP.BFFLabels[2553][14000] = "Rift-Mender"
 REP.BFFLabels[2553][24000] = "Timewalker"
 REP.BFFLabels[2553][42000] = "Legend"
+---- Azerothian Archives 2615
+REP.BFFLabels[2615] = {} -- Graduate
+REP.BFFLabels[2615][10500] = "Assistant"
+REP.BFFLabels[2615][21000] = "Contract"
+REP.BFFLabels[2615][32500] = "Resident"
+REP.BFFLabels[2615][42000] = "Tenured"

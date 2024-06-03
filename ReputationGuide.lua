@@ -275,7 +275,7 @@ function REP_OnLoad(self)
             REP_ReputationDetailViewRenownButton:Refresh()
           else
             REP_ReputationDetailAtWarCheckBox:SetPoint("TOPLEFT", REP_ReputationDetailDivider, "BOTTOMLEFT", 10, 20)
-            -- REP_ReputationDetailDivider:SetHeight(32)
+            REP_ReputationDetailDivider:SetHeight(32)
             REP_ReputationDetailViewRenownButton:Hide()
             REP_ReputationDetailFrame:SetHeight(520)
           end
@@ -2453,12 +2453,21 @@ function REP_BuildUpdateList()
 
     if isMajorFaction then
       local majorFactionData = C_MajorFactions.GetMajorFactionData(factionID)
-      barMin = 0
       local isCapped = C_MajorFactions.HasMaximumRenown(factionID)
-      barValue = isCapped and majorFactionData.renownLevelThreshold or majorFactionData.renownReputationEarned or 0
+      local hasParagon = C_Reputation.GetFactionParagonInfo(factionID)
+      
       standingId = majorFactionData.renownLevel
-      barMax = standingId * majorFactionData.renownLevelThreshold
-      barValue = ((standingId - 1) * majorFactionData.renownLevelThreshold) + barValue -- artificialBarValue
+      barMin = 0
+
+      if isCapped and hasParagon then
+        -- Set reputation bar to paragon values if user option is activated and faction is at paragon rep
+        local currentValue, threshold, _, _ = C_Reputation.GetFactionParagonInfo(factionID)
+        barMax, barValue = threshold, mod(currentValue, threshold)     
+      else
+        barValue = isCapped and majorFactionData.renownLevelThreshold or majorFactionData.renownReputationEarned or 0
+        barMax = standingId * majorFactionData.renownLevelThreshold
+        barValue = ((standingId - 1) * majorFactionData.renownLevelThreshold) + barValue
+      end
     end
 
     -- Normalize Values
@@ -3392,14 +3401,22 @@ function REP:DumpReputationChangesToChat(initOnly)
 
         if isMajorFaction then
           local majorFactionData = C_MajorFactions.GetMajorFactionData(factionID)
+          local hasParagon = C_Reputation.GetFactionParagonInfo(factionID)
           barMin = 0
           isCapped = C_MajorFactions.HasMaximumRenown(factionID)
-          barValue = isCapped and majorFactionData.renownLevelThreshold or majorFactionData.renownReputationEarned or 0
           renownLevel = majorFactionData.renownLevel
-          barMax = renownLevel * majorFactionData.renownLevelThreshold
-          artificialBarValue = barValue
-          artificialBarMax = majorFactionData.renownLevelThreshold
-          barValue = ((renownLevel - 1) * majorFactionData.renownLevelThreshold) + barValue
+
+          if isCapped and hasParagon then
+            -- Set reputation bar to paragon values if user option is activated and faction is at paragon rep
+            local currentValue, threshold, _, _ = C_Reputation.GetFactionParagonInfo(factionID)
+            barMax, barValue = threshold, mod(currentValue, threshold)
+          else
+            barValue = isCapped and majorFactionData.renownLevelThreshold or majorFactionData.renownReputationEarned or 0
+            barMax = renownLevel * majorFactionData.renownLevelThreshold
+            artificialBarValue = barValue
+            artificialBarMax = majorFactionData.renownLevelThreshold
+            barValue = ((renownLevel - 1) * majorFactionData.renownLevelThreshold) + barValue
+          end
         end
       end
 
@@ -3416,7 +3433,7 @@ function REP:DumpReputationChangesToChat(initOnly)
                 sign = "+"
               end
 
-              if isMajorFaction then
+              if (isMajorFaction and not isCapped) then
                 if (barValue < REP_StoredRep[name].rep) then
                   barValue = REP_StoredRep[name].rep + (artificialBarMax - math.fmod(REP_StoredRep[name].rep, artificialBarMax)) + artificialBarValue
                   renownLevel = renownLevel + 1
@@ -3424,7 +3441,7 @@ function REP:DumpReputationChangesToChat(initOnly)
                 end
               end
 
-              if (barValue > REP_StoredRep[name].rep or (isMajorFaction and isCapped)) then
+              if (barValue > REP_StoredRep[name].rep) then
                 if isMajorFaction then
                   if isCapped then
                     REP:Print(REP.NEW_REP_COLOUR..string.format(FACTION_STANDING_INCREASED..REP_TXT.stats, name, barValue - REP_StoredRep[name].rep, sign, barValue - REP_StoredRep[name].origRep, barMax - barValue))
@@ -4100,13 +4117,21 @@ function REP:Rep_Detail_Frame(faction, colorID, barValue, barMax, origBarValue, 
     barMax = renownLevel * majorFactionData.renownLevelThreshold
     barValue = ((renownLevel - 1) *  majorFactionData.renownLevelThreshold) + barValue -- artificialBarValue
 
+    isCapped = C_MajorFactions.HasMaximumRenown(factionID)
+
     if (REP_StoredRep and REP_StoredRep[name] and REP_StoredRep[name].origRep) then
       REP_ReputationDetailStandingGainedValue:SetText(string.format("%d", barValue - REP_StoredRep[name].origRep))
     else
       REP_ReputationDetailStandingGainedValue:SetText("")
     end
 
-    REP_ReputationDetailStandingNextValue:SetText("(--> "..RENOWN_LEVEL_LABEL..(majorFactionData.renownLevel + 1)..")")
+    if isCapped then
+      REP_ReputationDetailStandingNextValue:SetText("")
+    else
+      REP_ReputationDetailStandingNextValue:SetText("(--> "..RENOWN_LEVEL_LABEL..(majorFactionData.renownLevel + 1)..")")
+    end
+
+    
     REP_ReputationDetailStandingNextValue:SetTextColor(color.r, color.g, color.b)
     REP_ReputationDetailStandingToExaltedHeader:SetText(RENOWN_LEVEL_LABEL.."to max")
     REP_ReputationDetailStandingToExaltedValue:SetText(toExalted)
