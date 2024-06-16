@@ -263,6 +263,15 @@ REP_TXT.STAND_LV_RENOWN[22] = "영예 22"
 REP_TXT.STAND_LV_RENOWN[23] = "영예 23"
 REP_TXT.STAND_LV_RENOWN[24] = "영예 24"
 REP_TXT.STAND_LV_RENOWN[25] = "영예 25"
+---- BFF Labels
+REP_TXT.BFFLabels[2135] = {} -- 새끼용
+REP_TXT.BFFLabels[2135][1] = "시간의 훈련생"
+REP_TXT.BFFLabels[2135][2] = "시간여행자"
+REP_TXT.BFFLabels[2135][3] = "시간의 친구"
+REP_TXT.BFFLabels[2135][4] = "청동 동맹"
+REP_TXT.BFFLabels[2135][5] = "시대의 해결사	"
+REP_TXT.BFFLabels[2135][6] = "시간군주"
+
 ---------------------------
 -- Tooltips
 ---------------------------

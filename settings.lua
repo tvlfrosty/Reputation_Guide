@@ -8,8 +8,8 @@ REPT.Settings = {
   Panel = CreateFrame("Frame")
 }
 
-local Settings = REPT.Settings
-local panel = Settings.Panel
+local REPSettings = REPT.Settings
+local panel = REPSettings.Panel
 
 panel.name = addonName
 panel:Hide()
@@ -98,11 +98,15 @@ local function ToggleDarkmoonFaireBuff(buffOne, buffTwo)
   end
 end
 
-function Settings:Open()
-  InterfaceOptionsFrame_OpenToCategory(panel)
+function REPSettings:Open()
+  if REP.AfterDragonflight then
+    Settings.OpenToCategory(REP.settingsCategory.ID)
+  else
+    InterfaceOptionsFrame_OpenToCategory(panel)
+  end
 end
 
-function Settings:Show()
+function REPSettings:Show()
   ---------------------------
   -- General options --
   ---------------------------
@@ -245,6 +249,12 @@ function Settings:Show()
   self:SetScript("OnShow", initOptions)
 end
 
-panel:SetScript("OnShow", function(self) Settings.Show(self) end)
+panel:SetScript("OnShow", function(self) REPSettings.Show(self) end)
 
-InterfaceOptions_AddCategory(panel)
+if InterfaceOptions_AddCategory then
+	InterfaceOptions_AddCategory(panel)
+else
+	local category, layout = Settings.RegisterCanvasLayoutCategory(panel, panel.name);
+	Settings.RegisterAddOnCategory(category);
+	REP.settingsCategory = category
+end

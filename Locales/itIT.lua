@@ -266,6 +266,15 @@ REP_TXT.STAND_LV_RENOWN[22] = "Fama 22"
 REP_TXT.STAND_LV_RENOWN[23] = "Fama 23"
 REP_TXT.STAND_LV_RENOWN[24] = "Fama 24"
 REP_TXT.STAND_LV_RENOWN[25] = "Fama 25"
+---- BFF Labels
+REP_TXT.BFFLabels[2135] = {} -- Draghetto
+REP_TXT.BFFLabels[2135][1] = "Allievo Temporale"
+REP_TXT.BFFLabels[2135][2] = "Erologo"
+REP_TXT.BFFLabels[2135][3] = "Cronoamico"
+REP_TXT.BFFLabels[2135][4] = "Alleato di Bronzo"
+REP_TXT.BFFLabels[2135][5] = "Guaritore delle Ere"
+REP_TXT.BFFLabels[2135][6] = "Signore delle Ere"
+
 ---------------------------
 -- Tooltips
 ---------------------------

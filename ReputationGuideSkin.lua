@@ -1,4 +1,20 @@
-if IsAddOnLoaded("ElvUI") then
+---------------------------
+-- Initialize Addon vars --
+---------------------------
+local addonName, REP = ...
+
+-----------------------------
+-- Other Addon loaded vars --
+-----------------------------
+local hasElvUILoaded = false
+
+if REP.AfterDragonflight then
+  hasElvUILoaded = C_AddOns.IsAddOnLoaded("ElvUI")
+else
+  hasElvUILoaded = IsAddOnLoaded("ElvUI")
+end
+
+if hasElvUILoaded then
   local E = unpack(_G.ElvUI)
 
   local buttons = {

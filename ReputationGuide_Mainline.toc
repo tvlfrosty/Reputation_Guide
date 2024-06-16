@@ -1,7 +1,7 @@
-## Interface: 100207
-## Title: ReputationGuide (Dragonflight)
+## Interface: 102070, 110000
+## Title: ReputationGuide (The War Within)
 ## IconTexture: Interface/Addons/ReputationGuide/assets/factions_logo_256x256
-## Version: 10.2.7-release
+## Version: 11.0.0-release
 ## Author: Tvlfrosty
 ## X-Discord: https://discord.gg/3zh4EFptta
 ## URL: https://www.curseforge.com/wow/addons/reputation-guide

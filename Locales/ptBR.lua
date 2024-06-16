@@ -265,6 +265,15 @@ REP_TXT.STAND_LV_RENOWN[22] = "Renome 22"
 REP_TXT.STAND_LV_RENOWN[23] = "Renome 23"
 REP_TXT.STAND_LV_RENOWN[24] = "Renome 24"
 REP_TXT.STAND_LV_RENOWN[25] = "Renome 25"
+---- BFF Labels
+REP_TXT.BFFLabels[2135] = {} -- Dragonetinho
+REP_TXT.BFFLabels[2135][1] = "Aprendiz Temporal"
+REP_TXT.BFFLabels[2135][2] = "Andarilho do Tempo"
+REP_TXT.BFFLabels[2135][3] = "Cronófilo"
+REP_TXT.BFFLabels[2135][4] = "Aliado dos Brônzeos"
+REP_TXT.BFFLabels[2135][5] = "Reparador Temporal"
+REP_TXT.BFFLabels[2135][6] = "Senhor do Tempo"
+
 ---------------------------
 -- Tooltips
 ---------------------------

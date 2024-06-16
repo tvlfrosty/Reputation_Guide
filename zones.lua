@@ -664,6 +664,7 @@ function REP:SetZoneIdsBasedOnExpansion()
     ---------------------------
     zone.Emerald_dream = 2200
     zone.The_Waking_Shores = 2022
+    zone.Dawn_Of_The_Infinite = 2198
   end
 
   REP.zone = zone
