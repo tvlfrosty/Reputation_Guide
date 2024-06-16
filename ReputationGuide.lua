@@ -91,21 +91,20 @@ function REP_OnLoad(self)
   ExpandFactionHeader = REP_ExpandFactionHeader
   REP_Orig_CollapseFactionHeader = CollapseFactionHeader
   CollapseFactionHeader = REP_CollapseFactionHeader
-  REP_Orig_StandingText = ReputationFrameStandingLabel:GetText()
 
-  if not REP.AfterShadowLands then
+  if ReputationFrameStandingLabel then
+    REP_Orig_StandingText = ReputationFrameStandingLabel:GetText()
+  end
+
+  if (not REP.AfterShadowLands) then
     ReputationFrame_Update = REP_ReputationFrame_Update
     ReputationBar_OnClick = REP_ReputationBar_OnClick
   end
-
-  -- GetFactionInfo = REP_GetFactionInfo
-  -- REP_Orig_ChatFrame_OnEvent = ChatFrame_OnEvent
-  -- ChatFrame_OnEvent = REP_ChatFrame_OnEvent
   
-  ------------------------
-  -- Attempt to fix 10.0 --
-  ------------------------
-  if REP.AfterShadowLands then
+  -------------------------------
+  -- Fix for 10.0 Dragonflight --
+  -------------------------------
+  if (REP.AfterShadowLands and not REP.AfterDragonflight)  then
     hooksecurefunc("ReputationFrame_InitReputationRow", function(factionRow)
       local factionIndex = factionRow.index
       local factionContainer = factionRow.Container
@@ -114,7 +113,13 @@ function REP_OnLoad(self)
       local _, _, standingID, barMin, barMax, barValue, _, canToggleAtWar, isHeader, _, _, _, _, factionID, hasBonusRepGain, _ = GetFactionInfo(factionIndex) -- name, description, standingID, barMin, barMax, barValue, atWarWith, canToggleAtWar, isHeader, isCollapsed, hasRep, isWatched, isChild, factionID, hasBonusRepGain, canSetInactive
     
       local origBarValue = barValue
-      local colorIndex, isCappedFriendship, factionStandingtext, isFriend = REP_Friend_Detail(factionID, standingID, factionRow)
+
+      local friendReputationInfo = REP_Friend_Detail(factionID, standingID, factionRow)
+      local colorIndex = friendReputationInfo.colorIndex
+      local isCappedFriendship = friendReputationInfo.isCappedFriendship
+      local factionStandingtext = friendReputationInfo.factionStandingtext
+      local isFriend = friendReputationInfo.isFriend
+
       local isCapped
       -- local barColor
     
@@ -267,19 +272,6 @@ function REP_OnLoad(self)
           ReputationDetailFrame:Hide()
           REP_ReputationDetailFrame:Show()
     
-          if isMajorFaction then
-            REP_ReputationDetailFrame:SetHeight(565)
-            REP_ReputationDetailAtWarCheckBox:SetPoint("TOPLEFT", REP_ReputationDetailDivider, "BOTTOMLEFT", 10, 40)
-            REP_ReputationDetailDivider:SetHeight(75)
-            REP_ReputationDetailViewRenownButton:Show()
-            REP_ReputationDetailViewRenownButton:Refresh()
-          else
-            REP_ReputationDetailAtWarCheckBox:SetPoint("TOPLEFT", REP_ReputationDetailDivider, "BOTTOMLEFT", 10, 20)
-            REP_ReputationDetailDivider:SetHeight(32)
-            REP_ReputationDetailViewRenownButton:Hide()
-            REP_ReputationDetailFrame:SetHeight(520)
-          end
-    
           local flag
           if (canToggleAtWar and (not isHeader)) then flag = 1 end
           REP_ReputationDetailFrame_IsShown(factionIndex, flag, 2)
@@ -291,7 +283,7 @@ function REP_OnLoad(self)
         end
     
         if (REP_ReputationDetailFrame:IsVisible()) then
-          REP:Rep_Detail_Frame(factionIndex, standingID, barValue, barMax, origBarValue, standingID, toExalted, factionStandingtext, toBFF, isParagon, isFriend, isCappedFriendship, isMajorFaction)
+          REP:Rep_Detail_Frame()
           factionContainer.ReputationBar.Highlight1:Show()
           factionContainer.ReputationBar.Highlight2:Show()
         end
@@ -299,6 +291,16 @@ function REP_OnLoad(self)
         factionContainer.ReputationBar.Highlight1:Hide()
         factionContainer.ReputationBar.Highlight2:Hide()
       end
+    end)
+  end
+
+  if REP.AfterDragonflight then
+    hooksecurefunc(ReputationEntryMixin, 'OnClick', function(self)
+      REP:Rep_Detail_Frame()
+    end)
+    
+    hooksecurefunc(ReputationSubHeaderMixin, 'OnClick', function(self)
+      REP:Rep_Detail_Frame()
     end)
   end
 end
@@ -398,10 +400,17 @@ function REP_OnEvent(self, event, ...)
       REP_BuildUpdateList()
       REP_UpdateList_Update()
     end
+
     REP:DumpReputationChangesToChat()
 
-    if (GetSelectedFaction() == 0) then
-      ReputationDetailFrame:Hide();
+    if REP.AfterDragonflight then
+      if (C_Reputation.GetSelectedFaction() == 0) then
+        ReputationFrame.ReputationDetailFrame:Hide()
+      end
+    else
+      if (GetSelectedFaction() == 0) then
+        ReputationDetailFrame:Hide();
+      end
     end
   elseif (event == "BAG_UPDATE") then
     if (REP_ReputationDetailFrame:IsVisible()) then
@@ -435,7 +444,14 @@ function REP_OnEvent(self, event, ...)
     REP:CheckActiveReputationBuffs()
   elseif (event == "GARRISON_UPDATE") then
     -- Get garrison buildings to check for trading post
-    local garrisonBuildings = C_Garrison.GetBuildings(Enum.GarrisonType.Type_6_0)
+    local garrisonBuildings
+
+    if REP.AfterDragonflight then
+      garrisonBuildings = C_Garrison.GetBuildings(Enum.GarrisonType.Type_6_0_Garrison)
+    else
+      garrisonBuildings = C_Garrison.GetBuildings(Enum.GarrisonType.Type_6_0)
+    end
+ 
     for i, building in pairs(garrisonBuildings) do
       if building["buildingID"] == 145 then
         REP.HasTradingPost = true
@@ -509,7 +525,13 @@ function REP:Init()
     if (REP_InitStages ~= 15) then return end
   end
 
-  local version = GetAddOnMetadata("ReputationGuide", "Version")
+  local version
+  if REP.AfterDragonflight then
+    version = C_AddOns.GetAddOnMetadata("ReputationGuide", "Version")
+  else
+    version = GetAddOnMetadata("ReputationGuide", "Version")
+  end
+
   if (version == nil) then version = "unknown" end
   REP.Version = version
 
@@ -656,30 +678,44 @@ function REP:MakeUIChanges()
 end
 
 function REP:CheckActiveReputationBuffs()
-  local i = 1;
-  local buff = UnitBuff("player", i);
-  while buff do
-    local _, _, _, _, _, _, _, _, _, spellId = UnitBuff("player", i);
-    
-    if (spellId == 24705 or spellId == 95987) and not REP_Data.Global.WickermanRepBuff then
-      REP_Data.Global.WickermanRepBuff = true
-    end
+  local hasWickermanBuff, hasHarvestBountyBuff, hasDarkmoonFaireHatBuff, hasDarkmoonFaireWeeBuff
 
-    if spellId == 61849 and not REP_Data.Global.HarvestBountyRepBuff then
-      REP_Data.Global.HarvestBountyRepBuff = true
-    end
+  if REP.AfterBfA then
+    hasWickermanBuff = C_UnitAuras.GetPlayerAuraBySpellID(24705) or C_UnitAuras.GetPlayerAuraBySpellID(95987)
+    hasHarvestBountyBuff = C_UnitAuras.GetPlayerAuraBySpellID(61849)
+    hasDarkmoonFaireHatBuff = C_UnitAuras.GetPlayerAuraBySpellID(136583)
+    hasDarkmoonFaireWeeBuff = C_UnitAuras.GetPlayerAuraBySpellID(46668)
+  else
+    local i = 1;
+    local buff = UnitBuff("player", i);
+    while buff do
+      local _, _, _, _, _, _, _, _, _, spellId = UnitBuff("player", i);
 
-    if spellId == 136583 and not REP_Data.Global.DarkmoonfaireHatRepBuff then
-      REP_Data.Global.DarkmoonfaireHatRepBuff = true
+      hasWickermanBuff = spellId == 24705 or spellId == 95987
+      hasHarvestBountyBuff = spellId == 61849
+      hasDarkmoonFaireHatBuff = spellId == 136583
+      hasDarkmoonFaireWeeBuff = spellId == 46668
+  
+      -- Get next buff if there is any.
+      i = i + 1;
+      buff = UnitBuff("player", i);
     end
+  end
 
-    if spellId == 46668 and not REP_Data.Global.DarkmoonfaireWeeRepBuff then
-      REP_Data.Global.DarkmoonfaireWeeRepBuff = true
-    end
+  if hasWickermanBuff and not REP_Data.Global.WickermanRepBuff then
+    REP_Data.Global.WickermanRepBuff = true
+  end
 
-    -- Get next buff if there is any.
-    i = i + 1;
-    buff = UnitBuff("player", i);
+  if hasHarvestBountyBuff and not REP_Data.Global.HarvestBountyRepBuff then
+    REP_Data.Global.HarvestBountyRepBuff = true
+  end
+
+  if hasDarkmoonFaireHatBuff and not REP_Data.Global.DarkmoonfaireHatRepBuff then
+    REP_Data.Global.DarkmoonfaireHatRepBuff = true
+  end
+
+  if hasDarkmoonFaireWeeBuff and not REP_Data.Global.DarkmoonfaireWeeRepBuff then
+    REP_Data.Global.DarkmoonfaireWeeRepBuff = true
   end
 end
 
@@ -949,10 +985,21 @@ end
 function REP:WatchFaction(watchID)
   if not watchID then return end
 
-  local numFactions = GetNumFactions()
+  local numFactions
+  if REP.AfterDragonflight then
+    numFactions = C_Reputation.GetNumFactions()
+  else
+    numFactions = GetNumFactions()
+  end
+ 
   for i = 1, numFactions, 1 do
     local index = i
-    local _, _, _, _, _, _, _, _, _, _, _, _, _, factionID, _, _ = GetFactionInfo(index)
+    local factionID
+    if REP.AfterDragonflight then
+      factionID = C_Reputation.GetFactionDataByIndex(index).factionID
+    else
+      _, _, _, _, _, _, _, _, _, _, _, _, _, factionID, _, _ = GetFactionInfo(index)
+    end
 
     if (factionID) then
       if (tostring(watchID) == tostring(factionID)) then
@@ -1231,7 +1278,11 @@ function REP:InitItemName(fiitem, amt)
   elseif fiitem == 5 then
     item_name = REP_TXT.deleted
   else
-    item_name = GetItemInfo(fiitem)
+    if REP.AfterDragonflight then
+      item_name = C_Item.GetItemInfo(fiitem)
+    else
+      item_name = GetItemInfo(fiitem)
+    end 
   end
 
   if not item_name then
@@ -1380,7 +1431,12 @@ function REP:InitFactor(IsHuman, faction)
   end
 
   -- bonus repgain check
-  local numFactions = GetNumFactions()
+  local numFactions
+  if REP.AfterDragonflight then
+    numFactions = C_Reputation.GetNumFactions()
+  else
+    numFactions = GetNumFactions()
+  end
   local factionOffset = 0
   local factionIndex
   local factor_h = 0
@@ -1388,7 +1444,14 @@ function REP:InitFactor(IsHuman, faction)
   for i = 1, numFactions do
     local factionIndex = factionOffset + i
     if (factionIndex <= numFactions) then
-      local name, _, _, _, _, _, _, _, _, _, _, _, _, factionID, hasBonusRepGain, _ = GetFactionInfo(factionIndex)
+      local name, factionID, hasBonusRepGain
+
+      if REP.AfterDragonflight then
+        name, _, _, _, _, _, _, _, _, _, _, _, _, factionID, hasBonusRepGain, _ = C_Reputation.GetFactionDataByIndex(factionIndex)
+      else
+        name, _, _, _, _, _, _, _, _, _, _, _, _, factionID, hasBonusRepGain, _ = GetFactionInfo(factionIndex)
+      end
+
       if (faction == name) then
         if (hasBonusRepGain) then
           factor = factor + 1
@@ -1401,9 +1464,15 @@ end
 
 function REP:InitFaction(guildName, faction)
   if faction == "guildName" or faction == REP.GuildName or faction == 1168 then
-    REP_faction = tostring(REP.GuildName).." (guild)"
+    if REP.GuildName then
+      REP_faction = tostring(REP.GuildName).." (guild)"
+    end
   else
-    REP_faction = GetFactionInfoByID(faction)
+    if REP.AfterDragonflight then
+      REP_faction = C_Reputation.GetFactionDataByID(faction).name
+    else
+      REP_faction = GetFactionInfoByID(faction)
+    end
   end
 
   return REP_faction
@@ -1425,7 +1494,9 @@ function REP_AddMapping(english, localised)
 
   if (REP:InitFaction(REP.GuildName, localised)) then
     if localised == 1168 then
-      REP_FactionMapping[string.lower(REP_faction)] = tostring(string.lower(english)).." (guild)"
+      if REP.GuildName then
+        REP_FactionMapping[string.lower(REP_faction)] = tostring(string.lower(english)).." (guild)"
+      end
     else
       REP_FactionMapping[string.lower(REP_faction)] = string.lower(english)
     end
@@ -1454,6 +1525,7 @@ end
 
 function REP_AddMob(faction, from, to, name, rep, zone, limit, isRenownFaction)
   faction = REP:InitFaction(REP.GuildName, faction)
+
   if REP:Content(faction, from, to, name, rep, isRenownFaction) ~= 1 then return end
   faction = string.lower(faction)
   rep = rep * REP:InitFactor(REP.IsHuman, REP_faction)
@@ -1758,26 +1830,34 @@ end
 -- REP_RepFrame_Up Start --
 -----------------------------------
 function REP_ReputationFrame_Update()
+  local numFactionsDisplayed = NUM_FACTIONS_DISPLAYED or 14
+
   if (REP_OnLoadingScreen == false) then
     local numFactions
     if REP_Data.Global.SortByStanding then
       REP:StandingSort()
       numFactions = REP_OBS_numFactions
     else
-      numFactions = GetNumFactions()
+      if REP.AfterDragonflight then
+        numFactions = C_Reputation.GetNumFactions()
+      else
+        numFactions = GetNumFactions()
+      end
     end
 
     if not REP.AfterShadowLands then
       -- Update scroll frame
-      if (not FauxScrollFrame_Update(ReputationListScrollFrame, numFactions, NUM_FACTIONS_DISPLAYED, REPUTATIONFRAME_FACTIONHEIGHT)) then
+      if (not FauxScrollFrame_Update(ReputationListScrollFrame, numFactions, numFactionsDisplayed, REPUTATIONFRAME_FACTIONHEIGHT)) then
         ReputationListScrollFrameScrollBar:SetValue(0)
       end
     end
 
-    if (REP_Data.Global.ShowMissing) then
-      ReputationFrameStandingLabel:SetText(REP_Orig_StandingText.." "..REP_TXT.missing)
-    else
-      ReputationFrameStandingLabel:SetText(REP_Orig_StandingText)
+    if ReputationFrameStandingLabel  then
+      if (REP_Data.Global.ShowMissing) then
+        ReputationFrameStandingLabel:SetText(REP_Orig_StandingText.." "..REP_TXT.missing)
+      else
+        ReputationFrameStandingLabel:SetText(REP_Orig_StandingText)
+      end
     end
 
     local i
@@ -1797,13 +1877,13 @@ function REP_ReputationFrame_Update()
       end
 
       if not REP.AfterShadowLands then
-        numberOfFactionsToDisplay = NUM_FACTIONS_DISPLAYED
+        numberOfFactionsToDisplay = numFactionsDisplayed
       end
     else
       numberOfFactionsToDisplay = numFactions
     end
 
-    for i = 1, NUM_FACTIONS_DISPLAYED, 1 do
+    for i = 1, numFactionsDisplayed, 1 do
       local factionBar
       local factionStanding
       local factionHeader
@@ -1816,7 +1896,7 @@ function REP_ReputationFrame_Update()
       local factionRightBarTexture
       local factionIndex
 
-      if REP.AfterShadowLands then
+      if REP.AfterShadowLands and not REP.AfterDragonflight then
         hooksecurefunc("ReputationFrame_InitReputationRow", function(factionRow, elementData)
           factionIndex = elementData.index;
 
@@ -1833,9 +1913,9 @@ function REP_ReputationFrame_Update()
 
           local factionContainer = factionRow.Container;
           factionBar = factionContainer.ReputationBar;
-        	factionTitle = factionContainer.Name;
-        	factionButton = factionContainer.ExpandOrCollapseButton;
-        	factionStanding = factionBar.FactionStanding;
+          factionTitle = factionContainer.Name;
+          factionButton = factionContainer.ExpandOrCollapseButton;
+          factionStanding = factionBar.FactionStanding;
           factionTitle:SetText(name);
 
           if (factionIndex <= numFactions) then
@@ -1851,9 +1931,17 @@ function REP_ReputationFrame_Update()
         end)
       else
         factionIndex = factionOffset + i
+        local name, factionID, inactive
 
-        local name, _, _, _, _, _, _, _, _, _, _, _, _, factionID, _ = GetFactionInfo(factionIndex)
-        local inactive = IsFactionInactive(factionIndex)
+        if REP.AfterDragonflight then
+          local reputationInfo = C_Reputation.GetFactionDataByIndex(factionIndex)
+          name = reputationInfo.name
+          factionID = reputationInfo.factionID
+          inactive = C_Reputation.IsFactionActive(factionIndex) == false
+        else
+          name, _, _, _, _, _, _, _, _, _, _, _, _, factionID, _ = GetFactionInfo(factionIndex)
+          inactive = IsFactionInactive(factionIndex)
+        end
 
         if (REP_ProfileKey) then
           if REP_Data[REP_ProfileKey].InactiveFactions == nil then REP_Data[REP_ProfileKey].InactiveFactions = {} end
@@ -1883,16 +1971,24 @@ function REP_ReputationFrame_Update()
 
         if (factionIndex <= numFactions) then
           if REP_Data.Global.SortByStanding then
-            if REP.AfterTBC then
-              REP:SortByStandingWithoutFactionHeader(i, factionIndex, factionRow, factionBar, factionBarPreview, factionTitle, factionButton, factionStanding, factionAtWarIndicator, factionBackground)
+            if REP.AfterDragonflight then
+              REP:OriginalRepOrderWithUpdatedUI(i, factionIndex)
             else
-              REP:SortByStandingWithFactionHeader(i, factionIndex, factionBar, factionHeader, factionCheck, factionTitle, factionStanding, factionAtWarIndicator, factionRightBarTexture)
+              if REP.AfterTBC then
+                REP:SortByStandingWithoutFactionHeader(i, factionIndex, factionRow, factionBar, factionBarPreview, factionTitle, factionButton, factionStanding, factionAtWarIndicator, factionBackground)
+              else
+                REP:SortByStandingWithFactionHeader(i, factionIndex, factionBar, factionHeader, factionCheck, factionTitle, factionStanding, factionAtWarIndicator, factionRightBarTexture)
+              end
             end
           else
-            if REP.AfterTBC then
-              REP:OriginalRepOrderWithoutFactionHeader(i, factionIndex, factionRow, factionBar, factionBarPreview, factionTitle, factionButton, factionStanding, factionAtWarIndicator, factionBackground)
+            if REP.AfterDragonflight then
+              REP:OriginalRepOrderWithUpdatedUI(i, factionIndex)
             else
-              REP:OriginalRepOrderWithFactionHeader(i, factionIndex, factionBar, factionHeader, factionCheck, factionTitle, factionStanding, factionAtWarIndicator, factionRightBarTexture)
+              if REP.AfterTBC then
+                REP:OriginalRepOrderWithoutFactionHeader(i, factionIndex, factionRow, factionBar, factionBarPreview, factionTitle, factionButton, factionStanding, factionAtWarIndicator, factionBackground)
+              else
+                REP:OriginalRepOrderWithFactionHeader(i, factionIndex, factionBar, factionHeader, factionCheck, factionTitle, factionStanding, factionAtWarIndicator, factionRightBarTexture)
+              end
             end
           end
         else
@@ -1902,9 +1998,16 @@ function REP_ReputationFrame_Update()
       end
     end
 
-    if (GetSelectedFaction() == 0) then
-      ReputationDetailFrame:Hide()
-      REP_ReputationDetailFrame:Hide()
+    if REP.AfterDragonflight then
+      if (C_Reputation.GetSelectedFaction() == 0) then
+        ReputationDetailFrame:Hide()
+        REP_ReputationDetailFrame:Hide()
+      end
+    else
+      if (GetSelectedFaction() == 0) then
+        ReputationDetailFrame:Hide()
+        REP_ReputationDetailFrame:Hide()
+      end
     end
   end
 end
@@ -2151,29 +2254,6 @@ function REP_UpdateList_Update()
   end
 
   REP_UpdateListScrollFrame:Show()
-  REP_ShowNonPvPQuestsButton:SetChecked(REP_Data.Global.ShowQuests)
-  REP_ShowPvPQuestsButton:SetChecked(REP_Data.Global.ShowPvPQuests)
-  REP_ShowItemsButton:SetChecked(REP_Data.Global.ShowItems)
-  REP_ShowMobsButton:SetChecked(REP_Data.Global.ShowMobs)
-  REP_ShowInstancesButton:SetChecked(REP_Data.Global.ShowInstances)
-  REP_ShowGeneralButton:SetChecked(REP_Data.Global.ShowGeneral)
-
-  REP_ShowNonPvPQuestsButtonText:SetText(REP_TXT.showQuests)
-  REP_ShowPvPQuestsButtonText:SetText(REP_TXT.showPvPQuests)
-  REP_ShowItemsButtonText:SetText(REP_TXT.showItems)
-  REP_ShowMobsButtonText:SetText(REP_TXT.showMobs)
-  REP_ShowInstancesButtonText:SetText(REP_TXT.showInstances)
-  REP_ShowGeneralButtonText:SetText(REP_TXT.showGeneral)
-
-  REP_ShowAllButton:SetText(REP_TXT.showAll)
-  REP_ShowNoneButton:SetText(REP_TXT.showNone)
-  REP_ExpandButton:SetText(REP_TXT.expand)
-  REP_CollapseButton:SetText(REP_TXT.collapse)
-
-  REP_SupressNoneFactionButton:SetText(REP_TXT.supressNoneFaction)
-  REP_SupressNoneGlobalButton:SetText(REP_TXT.supressNoneGlobal)
-  REP_ReputationDetailSuppressHint:SetText(REP_TXT.suppressHint)
-  REP_ClearSessionGainButton:SetText(REP_TXT.clearSessionGain)
 
   local numEntries, highestVisible = REP:GetUpdateListSize()
 
@@ -2393,7 +2473,7 @@ function REP:Update_Tooltip(x, l1,r1)
   return ToolTip_ID, x
 end
 
-function REP_BuildUpdateList()
+function REP_BuildUpdateList(selectedIndex)
   if (not REP_ReputationDetailFrame:IsVisible()) then return end
 
   REP_UpdateList = {}
@@ -2402,14 +2482,76 @@ function REP_BuildUpdateList()
   REP_CurrentRepInQuest = 0
 
   local index = 1
-  local factionIndex = GetSelectedFaction()
-  local faction, description, standingId, barMin, barMax, barValue, _, _, _, _, _, _, _, factionID, _, _ = GetFactionInfo(factionIndex)
-  local isMajorFaction
+  local factionIndex
+  if REP.AfterDragonflight then
+    factionIndex = C_Reputation.GetSelectedFaction()
+  else
+    factionIndex = GetSelectedFaction()
+  end
+
+  if (not factionIndex) or (factionIndex == 0) then
+    if selectedIndex then
+      factionIndex = selectedIndex
+    else
+      return
+    end
+  end
+
+  local name, description, standingID, barMin, barMax, barValue, factionID, isMajorFaction
 
   if REP.AfterShadowLands then
     isMajorFaction = factionID and C_Reputation.IsMajorFaction(factionID)
+
+    if REP.AfterDragonflight then
+      local reputationInfo = C_Reputation.GetFactionDataByIndex(factionIndex)
+      name = reputationInfo.name
+      description = reputationInfo.description
+      factionID = reputationInfo.factionID
+
+      if isMajorFaction then
+        local majorFactionData = C_MajorFactions.GetMajorFactionData(factionID)
+        barMin = 0
+        barMax = majorFactionData.renownLevelThreshold
+        barValue = majorFactionData.renownReputationEarned
+        standingID = majorFactionData.renownLevel
+      else
+        standingID = reputationInfo.reaction
+        barMin = reputationInfo.currentReactionThreshold
+        barValue = reputationInfo.currentStanding
+  
+        if standingID == 4 then
+          barMax = reputationInfo.nextReactionThreshold
+        elseif standingID > 4 then
+          barMax = reputationInfo.nextReactionThreshold - reputationInfo.currentReactionThreshold
+        else
+          barMax = reputationInfo.currentReactionThreshold - reputationInfo.nextReactionThreshold
+        end
+  
+        local friendReputationInfo = REP_Friend_Detail(factionID, standingID)
+        isFriend = friendReputationInfo.isFriend
+  
+        if standingID < 4 or (isFriend and standingID < 4) then
+          barMin = barMin * -1
+          barMax = barMax * -1
+          barValue = barValue * -1
+        end
+      end
+    else
+      name, description, standingID, barMin, barMax, barValue, atWarWith, canToggleAtWar, isHeader, isCollapsed, hasRep, isWatched, isChild, factionID, hasBonusRepGain = GetFactionInfo(factionIndex)
+
+      if isMajorFaction then
+        local majorFactionData = C_MajorFactions.GetMajorFactionData(factionID)
+        barMin = 0
+        barMax = majorFactionData.renownLevelThreshold
+        barValue = majorFactionData.renownReputationEarned
+        standingID = majorFactionData.renownLevel
+      end
+    end
+  else
+    name, description, standingID, barMin, barMax, barValue, atWarWith, canToggleAtWar, isHeader, isCollapsed, hasRep, isWatched, isChild, factionID, hasBonusRepGain = GetFactionInfo(factionIndex)
   end
 
+  local faction = name
   if (faction) then
     local origFaction, oFaction
 
@@ -2476,7 +2618,7 @@ function REP_BuildUpdateList()
     local repToNext = barMax - barValue
 
     if (REP_FactionGain[oFaction]) then
-      local fg_sid = REP_FactionGain[oFaction][standingId]
+      local fg_sid = REP_FactionGain[oFaction][standingID]
 
       if (fg_sid) then
         -- instances
@@ -3088,23 +3230,45 @@ function REP:Quest_Items(itemsNeed, currentQuestTimesBag, currentQuestTimesBagBa
     QuestItem.name = "James"
   end
 
-  -- TODO: check if currencyInfo is needed for retail
-  if (GetItemCount(item, true) == 0) then -- and C_CurrencyInfo.GetCurrencyInfo(item) == nil
-    -- not enough of this item for quest -> set to 0
+  local itemCountIncludingBank, itemCountExcludingBank, currencyInfo
+
+  if REP.AfterDragonflight then
+    itemCountIncludingBank = C_Item.GetItemCount(item, true)
+    itemCountExcludingBank = C_Item.GetItemCount(item)
+  else
+    itemCountIncludingBank = GetItemCount(item, true)
+    itemCountExcludingBank = GetItemCount(item)
+  end
+
+  if REP.AfterCata then
+    currencyInfo = C_CurrencyInfo.GetCurrencyInfo(item)
+  else
+    currencyInfo = GetCurrencyInfo(item)
+  end
+
+  local itemBag, itemTotal = 0, 0
+
+  if (itemCountIncludingBank == 0 and not currencyInfo) then -- not enough of this item for quest -> set to 0
     currentQuestTimesBag = 0
   else
-    local itemBag = 0
-    local itemTotal = 0
+    if (itemCountIncludingBank == 0) then -- If GetItemCount is 0 then this is a currency and not a item
+      if REP.AfterCata then
+        itemBag = currencyInfo.quantity
+      else
+        _, itemBag = currencyInfo
+      end
 
-    if (GetItemCount(item, true) == 0) then -- If GetItemCount is 0 then this is a currency and not a item
-      _, itemBag = GetCurrencyInfo(item) -- C_CurrencyInfo.GetCurrencyInfo(item).quantity
       itemTotal = itemBag
     else
-      itemBag = GetItemCount(item)
-      itemTotal = GetItemCount(item, true)
+      itemBag = itemCountExcludingBank
+      itemTotal = itemCountIncludingBank
     end
 
+    ---- Weird bug in classic where it saw 0 as nil in some situations...
+    if not itemTotal then itemTotal = 0 end
+    if not itemBag then itemBag = 0 end
     local itemBank = itemTotal - itemBag
+
     if ((itemBag >= itemsNeed) and (itemsNeed > 0)) then
       QuestItem.currentTimesBag = floor(itemBag / itemsNeed)
       QuestItem.name = QuestItem.name..REP.BAG_COLOUR.." ["..itemBag.."x]|r"
@@ -3348,7 +3512,12 @@ function REP:DumpReputationChangesToChat(initOnly)
   if not REP_StoredRep then REP_StoredRep = {} end
 
   if (REP_OnLoadingScreen == false) then
-    local numFactions = GetNumFactions()
+    local numFactions
+    if REP.AfterDragonflight then
+      numFactions = C_Reputation.GetNumFactions()
+    else
+      numFactions = GetNumFactions()
+    end
     local factionIndex, watchIndex, watchedIndex, watchName
     local name, standingID, barMin, barMax, barValue, isHeader, hasRep
     local factionID
@@ -3358,7 +3527,25 @@ function REP:DumpReputationChangesToChat(initOnly)
     watchName = nil
 
     for factionIndex = 1, numFactions, 1 do
-      name, _, standingID, barMin, barMax, barValue, _, _, isHeader, _, hasRep, isWatched, _, factionID = GetFactionInfo(factionIndex)
+      if REP.AfterDragonflight then
+        local reputationInfo = C_Reputation.GetFactionDataByIndex(factionIndex)
+        name = reputationInfo.name
+        standingID = reputationInfo.reaction
+        barMin = reputationInfo.currentReactionThreshold
+        barMax = reputationInfo.nextReactionThreshold
+        barValue = reputationInfo.currentStanding
+        isHeader = reputationInfo.isHeader
+        hasRep = reputationInfo.isHeaderWithRep
+        isWatched = reputationInfo.isWatched
+        factionID = reputationInfo.factionID
+      else
+        name, _, standingID, barMin, barMax, barValue, _, _, isHeader, _, hasRep, isWatched, _, factionID = GetFactionInfo(factionIndex)
+      end
+
+      if not barValue then
+        barValue = 0
+      end
+
       local friendID, friendTextLevel, nextFriendThreshold, artificialBarValue, artificialBarMax, isFriendRep
       local isCapped = false
       local isMajorFaction
@@ -3381,13 +3568,13 @@ function REP:DumpReputationChangesToChat(initOnly)
         if not REP.AfterShadowLands then
           friendID, _, _, _, _, _, friendTextLevel, _, nextFriendThreshold = GetFriendshipReputation(factionID)
         else
-          local reputationInfo = C_GossipInfo.GetFriendshipReputation(factionID)
-          if reputationInfo and reputationInfo.friendshipFactionID > 0 then
-            friendID = reputationInfo.friendshipFactionID
-            friendTextLevel = reputationInfo.reaction
-            nextFriendThreshold = reputationInfo.nextThreshold
-            if (reputationInfo.nextThreshold) then
-              barMin, barMax, barValue = reputationInfo.reactionThreshold, reputationInfo.nextThreshold, reputationInfo.standing
+          local friendshipReputationInfo = C_GossipInfo.GetFriendshipReputation(factionID)
+          if friendshipReputationInfo and friendshipReputationInfo.friendshipFactionID > 0 then
+            friendID = friendshipReputationInfo.friendshipFactionID
+            friendTextLevel = friendshipReputationInfo.reaction
+            nextFriendThreshold = friendshipReputationInfo.nextThreshold
+            if (friendshipReputationInfo.nextThreshold) then
+              barMin, barMax, barValue = friendshipReputationInfo.reactionThreshold, friendshipReputationInfo.nextThreshold, friendshipReputationInfo.standing
             else
               barMin, barMax, barValue = 0, 1, 1
               isCapped = true
@@ -3529,7 +3716,11 @@ function REP:DumpReputationChangesToChat(initOnly)
       end
 
       -- choose Faction to show
-      SetWatchedFactionIndex(watchIndex)
+      if REP.AfterDragonflight then
+        C_Reputation.SetWatchedFactionByIndex(watchIndex)
+      else
+        SetWatchedFactionIndex(watchIndex)
+      end
     end
   end
 end
@@ -3576,7 +3767,8 @@ end
 -----------------------------------
 -- _13_ chat filtering
 -----------------------------------
-function REP_ChatFilter(chatFrame, event, ...) -- chatFrame = self
+function REP_ChatFilter(chatFrame, event, ...)
+  -- chatFrame = self
   --[[
     CHAT_MSG_COMBAT_FACTION_CHANGE
     Fires when player's faction changes. ie: "Your reputation with Timbermaw Hold has very slightly increased." -- NEW 1.9
@@ -3858,11 +4050,35 @@ end
 -----------------------------------
 function REP:StandingSort()
   local standings = {}
-  local numFactions = GetNumFactions()
+  local numFactions
+  if REP.AfterDragonflight then
+    numFactions = C_Reputation.GetNumFactions()
+  else
+    numFactions = GetNumFactions()
+  end
 
   for i = 1, numFactions do
-    local name, description, standingID, _, barMax, barValue, _, _, isHeader, _, hasRep, isWatched, isChild, factionID, hasBonusRepGain = GetFactionInfo(i)
-    local _, _, _, isFriend = REP_Friend_Detail(factionID, standingID)
+    local name, description, standingID, barMax, barValue, isHeader, hasRep, isWatched, isChild, factionID, hasBonusRepGain
+    
+    if REP.AfterDragonflight then
+      local reputationInfo = C_Reputation.GetFactionDataByIndex(i)
+      name = reputationInfo.name
+      description = reputationInfo.description
+      standingID = reputationInfo.reaction
+      barMax = reputationInfo.nextReactionThreshold
+      barValue = reputationInfo.currentStanding
+      isHeader = reputationInfo.isHeader
+      hasRep = reputationInfo.isHeaderWithRep
+      isWatched = reputationInfo.isWatched
+      isChild = reputationInfo.isChild
+      factionID = reputationInfo.factionID
+      hasBonusRepGain = reputationInfo.hasBonusRepGain
+    else
+      name, description, standingID, _, barMax, barValue, _, _, isHeader, _, hasRep, isWatched, isChild, factionID, hasBonusRepGain = GetFactionInfo(i)
+    end
+
+    local friendReputationInfo = REP_Friend_Detail(factionID, standingID)
+    local isFriend = friendReputationInfo.isFriend
 
     if (REP_ProfileKey) then
       if REP_Data[REP_ProfileKey].InactiveFactions == nil then REP_Data[REP_ProfileKey].InactiveFactions = {} end
@@ -3949,7 +4165,18 @@ function REP:StandingSort()
 end
 
 function REP_ReputationDetailFrame_IsShown(faction, flag, flag2, i)
-  local name, description, _, _, _, _, atWarWith, canToggleAtWar, _, _, _, isWatched, _, _, _, _ = GetFactionInfo(faction)
+  local name, description, atWarWith, canToggleAtWar, isWatched
+
+  if REP.AfterDragonflight then
+    local reputationInfo = C_Reputation.GetFactionDataByIndex(faction)
+    name = reputationInfo.name
+    description = reputationInfo.description
+    atWarWith = reputationInfo.atWarWith
+    canToggleAtWar = reputationInfo.canToggleAtWar
+    isWatched = reputationInfo.isWatched
+  else
+    name, description, _, _, _, _, atWarWith, canToggleAtWar, _, _, _, isWatched, _, _, _, _ = GetFactionInfo(faction)
+  end
 
   ReputationDetailFactionName:SetText(name)
   ReputationDetailFactionDescription:SetText(description)
@@ -3996,84 +4223,223 @@ function REP_ReputationDetailFrame_IsShown(faction, flag, flag2, i)
   end
 end
 
-function REP:Rep_Detail_Frame(faction, colorID, barValue, barMax, origBarValue, standingID, toExalted, factionStandingtext, toBFF, isParagon, isFriend, isCappedFriendship, isMajorFaction)
-  local name, description, _, _, _, _, atWarWith, canToggleAtWar, _, _, _, isWatched, _, factionID, _, _ = GetFactionInfo(faction)
-
-  local friendInfo
-  local friendID, friendRep, friendMaxRep, friendName, friendText, friendTextLevel, nextFriendThreshold
-
-  if isFriend then
-    if (REP.AfterCata and factionID) then
-      if not REP.AfterShadowLands then
-        friendID, friendRep, friendMaxRep, friendName, friendText, _, friendTextLevel, friendThreshold, nextFriendThreshold = GetFriendshipReputation(factionID)
-      else
-        local reputationInfo = C_GossipInfo.GetFriendshipReputation(factionID)
-        if reputationInfo and reputationInfo.friendshipFactionID > 0 then
-          friendID = reputationInfo.friendshipFactionID
-          friendRep = reputationInfo.standing
-          friendMaxRep = reputationInfo.maxRep
-          friendName = reputationInfo.name
-          friendText = reputationInfo.text
-          friendTextLevel = reputationInfo.reaction
-          friendThreshold = reputationInfo.reactionThreshold
-          nextFriendThreshold = reputationInfo.nextThreshold
-        end
-      end
-    end
-  end
-
-  local gender = UnitSex("player")
-  REP_BuildUpdateList()
-
+-----------------------------------
+--      Format name / string     --
+-----------------------------------
+function REP:FormatLongName(name)
   -- Fix for super long names to force name on 2nd line
   local formattedName = name
   if (string.len(name) > 25 and string.find(name, "-")) then
     local tb = {}
     for i in (name .. "-"):gmatch("([^-]*)-") do
-        table.insert(tb, i) -- in case you want to store each separate element in a table
+      table.insert(tb, i)
     end
-
-    REP_ReputationDetailFactionName:SetSize(0, 24)
 
     formattedName = tostring(tb[1]).." -"..string.char(10)..tostring(tb[2])
+  end
+
+  return formattedName
+end
+
+function REP_GetReputationGains(factionID, factionIndex)
+  if not factionID and not factionIndex then return end
+  if factionID and type(factionID) ~= 'number' then return end
+  if factionIndex and type(factionIndex) ~= 'number' then return end
+
+  local name, isMajorFaction, isFriend, isCappedFriendship
+  local reputationGainsInfo = {}
+
+  local reputationGainedSession, reputationGainedTotal = 0, 0 -- Calculated values
+  local reputationCurrent, reputationNeededCurrent, reputationMissingCurrent, reputationNeededToMax = 0, 0, 0, 0 -- Values for detail frame
+
+  if REP.AfterShadowLands then
+    isMajorFaction = factionID and C_Reputation.IsMajorFaction(factionID)
+  end
+
+  if REP.AfterCata then
+    local friendReputationInfo = REP_Friend_Detail(factionID)
+    isFriend = friendReputationInfo.isFriend
+    isCappedFriendship = friendReputationInfo.isCappedFriendship
+  end
+
+  if isFriend then
+    if not isCappedFriendship then
+      local friendRep, friendMaxRep, friendThreshold, nextFriendThreshold
+
+      if not REP.AfterShadowLands then
+        -- friendID, friendRep, friendMaxRep, friendName, friendText, _, friendTextLevel, friendThreshold, nextFriendThreshold = GetFriendshipReputation(factionID)
+        _, friendRep, friendMaxRep, _, friendName, _, _, friendThreshold, nextFriendThreshold = GetFriendshipReputation(factionID)
+      else
+        local friendshipInfo = C_GossipInfo.GetFriendshipReputation(factionID)
+        if friendshipInfo and friendshipInfo.friendshipFactionID > 0 then
+          friendRep = friendshipInfo.standing
+          friendMaxRep = friendshipInfo.maxRep
+          nextFriendThreshold = friendshipInfo.nextThreshold
+          friendThreshold = friendshipInfo.reactionThreshold
+          friendName = friendshipInfo.name
+        end
+      end
+
+      name = friendName
+      reputationGainedTotal = friendRep
+      reputationCurrent = friendRep - friendThreshold
+      reputationNeededCurrent = nextFriendThreshold - friendThreshold
+      reputationMissingCurrent = nextFriendThreshold - friendRep
+      reputationNeededToMax = REP_GetFriendFactionRemaining(factionID)
+    end
+  elseif isMajorFaction then
+    local majorFactionData = C_MajorFactions.GetMajorFactionData(factionID)
+    name = majorFactionData.name
+    isCapped = C_MajorFactions.HasMaximumRenown(factionID)
+
+    if isCapped then
+      local currentValue, threshold, rewardQuestID, hasRewardPending = C_Reputation.GetFactionParagonInfo(factionID) -- TODO CHECK The War Within
+      reputationCurrent = currentValue
+      reputationGainedTotal = (majorFactionData.renownLevelThreshold * majorFactionData.renownLevel) + currentValue
+      reputationNeededCurrent = threshold
+      reputationMissingCurrent = threshold - currentValue
+      reputationNeededToMax = threshold
+    else
+      reputationCurrent = majorFactionData.renownReputationEarned
+      reputationGainedTotal = (majorFactionData.renownLevelThreshold * (majorFactionData.renownLevel - 1)) + majorFactionData.renownReputationEarned
+      reputationNeededCurrent = majorFactionData.renownLevelThreshold
+      reputationMissingCurrent = majorFactionData.renownLevelThreshold - majorFactionData.renownReputationEarned
+      
+      local maxRenownLevel = REP.MaxRenownLevel[factionID]
+      local maxRenown = maxRenownLevel * majorFactionData.renownLevelThreshold
+      reputationNeededToMax = maxRenown - reputationGainedTotal
+    end
   else
-    REP_ReputationDetailFactionName:SetSize(0, 12)
+    local isParagon = false
+    if REP.AfterMoP then
+      if (factionID and C_Reputation.IsFactionParagon(factionID)) then
+        isParagon = true
+      end
+    end
+
+    if REP.AfterDragonflight then
+      local reputationInfo = {}
+      if factionIndex then
+        reputationInfo = C_Reputation.GetFactionDataByIndex(factionIndex)
+      else
+        reputationInfo = C_Reputation.GetFactionDataByID(factionID)
+      end
+
+      if reputationInfo then
+        name = reputationInfo.name
+        reputationCurrent = reputationInfo.currentStanding - reputationInfo.currentReactionThreshold
+        reputationGainedTotal = reputationInfo.currentStanding
+        reputationNeededCurrent = reputationInfo.nextReactionThreshold
+        reputationMissingCurrent = reputationNeededCurrent - reputationCurrent
+        standingID = reputationInfo.reaction
+        barMin = reputationInfo.currentReactionThreshold
+        barValue = reputationInfo.currentStanding
+
+        if standingID == 4 then
+          barMax = reputationInfo.nextReactionThreshold
+        elseif standingID > 4 then
+          barMax = reputationInfo.nextReactionThreshold - reputationInfo.currentReactionThreshold
+        else
+          barMax = reputationInfo.currentReactionThreshold - reputationInfo.nextReactionThreshold
+        end
+
+        barValue = barValue - barMin
+
+        if standingID < 4 then
+          if barMin < 0 then barMin = barMin * -1 end
+          if barValue < 0 then barValue = barValue * -1 end
+          if barMax < 0 then barMax = barMax * -1 end
+        end
+
+        if isParagon then
+          local currentValue, threshold, _, _ = C_Reputation.GetFactionParagonInfo(factionID)
+          reputationNeededCurrent = threshold
+          reputationMissingCurrent = threshold - currentValue
+          reputationNeededToMax = threshold
+          reputationCurrent = currentValue
+          reputationGainedTotal = currentValue
+        else
+          reputationNeededCurrent = barMax
+          reputationMissingCurrent = barMax - barValue
+          reputationCurrent = barValue
+          reputationGainedTotal = barValue
+          reputationNeededToMax = REP.ToExalted[standingID] + barMax - barValue
+        end
+      end
+    else
+      local barValue, barMin
+
+      if factionIndex then
+        name, _, standingID, barMin, barMax, barValue, _, _, _, _, _, _, _, _, _ = GetFactionInfo(factionIndex)
+
+        barMax = barMax - barMin
+        barValue = barValue - barMin
+
+        if standingID < 4 then
+          if barMin < 0 then barMin = barMin * -1 end
+          if barValue < 0 then barValue = barValue * -1 end
+          if barMax < 0 then barMax = barMax * -1 end
+        end
+
+        if isParagon then
+          local currentValue, threshold, _, _ = C_Reputation.GetFactionParagonInfo(factionID)
+          reputationNeededCurrent = threshold
+          reputationMissingCurrent = threshold - currentValue
+          reputationNeededToMax = threshold
+          reputationCurrent = currentValue
+          reputationGainedTotal = currentValue
+        else
+          reputationNeededCurrent = barMax
+          reputationCurrent = barValue
+          reputationGainedTotal = barValue
+          reputationMissingCurrent = barMax - barValue
+          reputationNeededToMax = REP.ToExalted[standingID] + barMax - barValue
+        end
+      else
+
+      end
+    end
   end
-
-  REP_ReputationDetailFactionName:SetText(formattedName)
-
-  if factionID == 1168 then
-    name = name.." (guild)"
-  end
-
-  if description == nil or description == '' then
-    if (name == "Alliance") then
-      description = "In a time when chaos and uncertainty reign, the Alliance remains steadfast in its determination to bring light to the darkest corners of the world."
-    elseif (name == "Horde") then
-      description = "In the Horde, action and strength are valued above diplomacy, and its leaders earn respect by the blade, wasting no time with politics. The brutality of the Horde's champions is focused, giving a voice to those who fight for survival."
+  
+  if name then
+    if (REP_StoredRep and REP_StoredRep[name] and REP_StoredRep[name].origRep and REP_StoredRep[name].rep) then
+      reputationGainedTotal = REP_StoredRep[name].rep or 0
+      local currentStoredOrigRep = REP_StoredRep[name].origRep or 0
+      reputationGainedSession = reputationGainedTotal - currentStoredOrigRep
     end
   end
 
-  REP_ReputationDetailFactionDescription:SetText(description)
+  reputationGainsInfo.factionName = name
+  reputationGainsInfo.reputationGainedSession = reputationGainedSession
+  reputationGainsInfo.reputationGainedTotal = reputationGainedTotal
+  reputationGainsInfo.reputationCurrent = reputationCurrent
+  reputationGainsInfo.reputationNeededCurrent = reputationNeededCurrent
+  reputationGainsInfo.reputationMissingCurrent = reputationMissingCurrent
+  reputationGainsInfo.reputationNeededToMax = reputationNeededToMax
 
-  if isParagon then
-    colorID = 9
-    REP_ReputationDetailStandingName:SetText(tostring(REP_TXT.STAND_LV[9]))
-  elseif isFriend then
-    colorID = 5
-    REP_ReputationDetailStandingName:SetText(friendTextLevel)
+  return reputationGainsInfo
+end
+
+function REP:Rep_Detail_Frame()
+  local factionIndex
+  if REP.AfterDragonflight then
+    factionIndex = C_Reputation.GetSelectedFaction()
   else
-    REP_ReputationDetailStandingName:SetText(factionStandingtext)
+    factionIndex = GetSelectedFaction()
+  end
+  if not factionIndex or factionIndex == 0 then return end
+
+  REP_ReputationDetailFrame:Show()
+
+  if REP.AfterDragonflight then
+    ReputationFrame.ReputationDetailFrame:Hide()
+  else
+    ReputationDetailFrame:Hide()
   end
 
-  local color = REP.FACTION_BAR_COLORS[colorID]
-
-  if isMajorFaction then
-    color = BLUE_FONT_COLOR
-  end
-
-  REP_ReputationDetailStandingName:SetTextColor(color.r, color.g, color.b)
-
+  -----------------------------------
+  --  Default detail frame settings
+  -----------------------------------
   REP_ReputationDetailStandingCurrent:SetText(REP_TXT.currentRep)
   REP_ReputationDetailStandingNeeded:SetText(REP_TXT.neededRep)
   REP_ReputationDetailStandingMissing:SetText(REP_TXT.missingRep)
@@ -4082,59 +4448,240 @@ function REP:Rep_Detail_Frame(faction, colorID, barValue, barMax, origBarValue, 
   REP_ReputationDetailStandingQuests:SetText(REP_TXT.repInQuest)
   REP_ReputationDetailStandingGained:SetText(REP_TXT.factionGained)
 
-  REP_ReputationDetailStandingCurrentValue:SetText(barValue)
-  REP_ReputationDetailStandingNeededValue:SetText(barMax)
-  REP_ReputationDetailStandingMissingValue:SetText(barMax - barValue)
-  REP_ReputationDetailStandingBagValue:SetText(REP_CurrentRepInBag)
-  REP_ReputationDetailStandingBagBankValue:SetText(REP_CurrentRepInBagBank)
-  REP_ReputationDetailStandingQuestsValue:SetText(REP_CurrentRepInQuest)
+  REP_ShowNonPvPQuestsButtonText:SetText(REP_TXT.showQuests)
+  REP_ShowPvPQuestsButtonText:SetText(REP_TXT.showPvPQuests)
+  REP_ShowItemsButtonText:SetText(REP_TXT.showItems)
+  REP_ShowMobsButtonText:SetText(REP_TXT.showMobs)
+  REP_ShowInstancesButtonText:SetText(REP_TXT.showInstances)
+  REP_ShowGeneralButtonText:SetText(REP_TXT.showGeneral)
 
-  if (REP_StoredRep and REP_StoredRep[name] and REP_StoredRep[name].origRep) then
-    if (not isMajorFaction) then
-      REP_ReputationDetailStandingGainedValue:SetText(string.format("%d", origBarValue - REP_StoredRep[name].origRep))
+  REP_ShowAllButton:SetText(REP_TXT.showAll)
+  REP_ShowNoneButton:SetText(REP_TXT.showNone)
+  REP_ExpandButton:SetText(REP_TXT.expand)
+  REP_CollapseButton:SetText(REP_TXT.collapse)
+
+  REP_SupressNoneFactionButton:SetText(REP_TXT.supressNoneFaction)
+  REP_SupressNoneGlobalButton:SetText(REP_TXT.supressNoneGlobal)
+  REP_ReputationDetailSuppressHint:SetText(REP_TXT.suppressHint)
+  REP_ClearSessionGainButton:SetText(REP_TXT.clearSessionGain)
+
+  REP_ShowNonPvPQuestsButton:SetChecked(REP_Data.Global.ShowQuests)
+  REP_ShowPvPQuestsButton:SetChecked(REP_Data.Global.ShowPvPQuests)
+  REP_ShowItemsButton:SetChecked(REP_Data.Global.ShowItems)
+  REP_ShowMobsButton:SetChecked(REP_Data.Global.ShowMobs)
+  REP_ShowInstancesButton:SetChecked(REP_Data.Global.ShowInstances)
+  REP_ShowGeneralButton:SetChecked(REP_Data.Global.ShowGeneral)
+
+  --------------------------------------------
+  --  Faction specific detail frame settings
+  --------------------------------------------
+  local name, description, standingID, barMin, barMax, barValue, atWarWith, canToggleAtWar, isHeader, isCollapsed, hasRep, isWatched, isChild, factionID, hasBonusRepGain, isMajorFaction, isFriend
+
+  if REP.AfterDragonflight then
+    local reputationInfo = C_Reputation.GetFactionDataByIndex(factionIndex)
+    name = reputationInfo.name
+    description = reputationInfo.description
+    factionID = reputationInfo.factionID
+    atWarWith = reputationInfo.atWarWith
+    canToggleAtWar = reputationInfo.canToggleAtWar
+    isHeader = reputationInfo.isHeader
+    isCollapsed = reputationInfo.isCollapsed
+    hasRep = reputationInfo.isHeaderWithRep
+    isWatched = reputationInfo.isWatched
+    isChild = reputationInfo.isChild
+    hasBonusRepGain = reputationInfo.hasBonusRepGain
+    isAccountWide = reputationInfo.isAccountWide
+
+    isMajorFaction = factionID and C_Reputation.IsMajorFaction(factionID)
+
+    if isMajorFaction then
+      local majorFactionData = C_MajorFactions.GetMajorFactionData(factionID)
+      barMin = 0
+      barMax = majorFactionData.renownLevelThreshold
+      barValue = majorFactionData.renownReputationEarned
+      standingID = majorFactionData.renownLevel
+    else
+      standingID = reputationInfo.reaction
+      barMin = reputationInfo.currentReactionThreshold
+      barValue = reputationInfo.currentStanding
+
+      if standingID == 4 then
+        barMax = reputationInfo.nextReactionThreshold
+      elseif standingID > 4 then
+        barMax = reputationInfo.nextReactionThreshold - reputationInfo.currentReactionThreshold
+      else
+        barMax = reputationInfo.currentReactionThreshold - reputationInfo.nextReactionThreshold
+      end
     end
   else
-    REP_ReputationDetailStandingGainedValue:SetText("")
+    name, description, standingID, barMin, barMax, barValue, atWarWith, canToggleAtWar, isHeader, isCollapsed, hasRep, isWatched, isChild, factionID, hasBonusRepGain = GetFactionInfo(factionIndex)
+
+    if REP.AfterShadowLands then
+      isMajorFaction = factionID and C_Reputation.IsMajorFaction(factionID)
+
+      if isMajorFaction then
+        local majorFactionData = C_MajorFactions.GetMajorFactionData(factionID)
+        barMin = 0
+        barMax = majorFactionData.renownLevelThreshold
+        barValue = majorFactionData.renownReputationEarned
+        standingID = majorFactionData.renownLevel
+      end
+    end
+
+    if standingID < 4 then barMax = barMax - barMin end
+    if not isMajorFaction then
+      if standingID < 4 or (isFriend and standingID < 4) then
+        if barMin < 0 then barMin = barMin * -1 end
+        if barValue < 0 then barValue = barValue * -1 end
+        if barMax < 0 then barMax = barMax * -1 end
+      end
+    end
   end
 
+  if REP.AfterCata then
+    local friendReputationInfo = REP_Friend_Detail(factionID, standingID)
+    isFriend = friendReputationInfo.isFriend
+  end
+
+  --------------------------------------------
+  --  Faction name
+  --------------------------------------------
+  local formattedName = REP:FormatLongName(name)
+  if string.len(formattedName) > 25 and string.find(formattedName, "-") then
+    REP_ReputationDetailFactionName:SetSize(0, 24)
+  else
+    REP_ReputationDetailFactionName:SetSize(0, 12)
+  end
+  REP_ReputationDetailFactionName:SetText(formattedName)
+
+  if factionID == 1168 then
+    name = name.." (guild)"
+  end
+
+  --------------------------------------------
+  --  Faction descroption
+  --------------------------------------------
+  if description == nil or description == '' then
+    if (name == "Alliance") then
+      description = "In a time when chaos and uncertainty reign, the Alliance remains steadfast in its determination to bring light to the darkest corners of the world."
+    elseif (name == "Horde") then
+      description = "In the Horde, action and strength are valued above diplomacy, and its leaders earn respect by the blade, wasting no time with politics. The brutality of the Horde's champions is focused, giving a voice to those who fight for survival."
+    end
+  end
+  REP_ReputationDetailFactionDescription:SetText(description)
+
+  --------------------------------------------
+  --  Renown button + detail frame height
+  --------------------------------------------
+  if isMajorFaction then
+    REP_ReputationDetailFrame:SetHeight(565)
+    REP_ReputationDetailAtWarCheckBox:SetPoint("TOPLEFT", REP_ReputationDetailDivider, "BOTTOMLEFT", 10, 40)
+    REP_ReputationDetailDivider:SetHeight(75)
+
+    if REP.AfterShadowLands then
+      REP_ReputationDetailViewRenownButton:Show()
+    end
+  else
+    REP_ReputationDetailFrame:SetHeight(520)
+    REP_ReputationDetailAtWarCheckBox:SetPoint("TOPLEFT", REP_ReputationDetailDivider, "BOTTOMLEFT", 10, 20)
+    REP_ReputationDetailDivider:SetHeight(32)
+
+    if REP.AfterShadowLands then
+      REP_ReputationDetailViewRenownButton:Hide()
+    end
+  end
+
+  ---------------------------------------------------
+  --  CurrentStanding Name + color
+  ---------------------------------------------------
+  local friendReputationInfo = REP_Friend_Detail(factionID, standingID)
+  local factionStandingtext = friendReputationInfo.factionStandingtext
+  local isCappedFriendship = friendReputationInfo.isCappedFriendship
+  local color
+
+  local isParagon = false
+  if REP.AfterMoP then
+    if (factionID and C_Reputation.IsFactionParagon(factionID)) then
+      isParagon = true
+    end
+  end
+
+  if isParagon then
+    colorID = 9
+    color = REP.FACTION_BAR_COLORS[colorID]
+    REP_ReputationDetailStandingName:SetText(REP_TXT.STAND_LV[9])
+  else
+    if isMajorFaction then
+      color = BLUE_FONT_COLOR
+      factionStandingtext = RENOWN_LEVEL_LABEL .. standingID
+    else      
+      if isFriend then
+        colorID = 5
+      else
+        colorID = standingID
+      end  
+      color = REP.FACTION_BAR_COLORS[colorID]
+    end
+
+    REP_ReputationDetailStandingName:SetText(factionStandingtext)
+  end
+  REP_ReputationDetailStandingName:SetTextColor(color.r, color.g, color.b)
+
+  -----------------------------------------------------------------
+  --  Reputation needed/missing for next rank + current reputation
+  --  NextStanding Name + color + reputation till exalted/max
+  -----------------------------------------------------------------
+  local reputationGains = REP_GetReputationGains(factionID, factionIndex)
+  local toExalted, toBFF = 0, 0
+
+  REP_ReputationDetailStandingNeededValue:SetText(reputationGains.reputationNeededCurrent)
+  REP_ReputationDetailStandingCurrentValue:SetText(reputationGains.reputationCurrent)
+  REP_ReputationDetailStandingMissingValue:SetText(reputationGains.reputationMissingCurrent)
+  REP_ReputationDetailStandingToExaltedValue:SetText(reputationGains.reputationNeededToMax)
+
   if isFriend then
-    if isCappedFriendship ~= true then
-      color = REP.FACTION_BAR_COLORS[8]
-      REP_ReputationDetailStandingNextValue:SetText("(--> "..REP_GetFriendFactionStandingLabel(factionID, nextFriendThreshold)..")")
-      REP_ReputationDetailStandingNextValue:SetTextColor(color.r, color.g, color.b)
-      -- TODO: Add to localization file sometime
-      REP_ReputationDetailStandingToExaltedHeader:SetText("Reputation to max")
-      REP_ReputationDetailStandingToExaltedValue:SetText(toBFF)
-    else
+    if isCappedFriendship then
       REP_ReputationDetailStandingNextValue:SetText("")
       REP_ReputationDetailStandingToExaltedHeader:SetText("")
       REP_ReputationDetailStandingToExaltedValue:SetText("")
+    else
+      local friendRep, friendMaxRep, friendThreshold, nextFriendThreshold
+
+      if not REP.AfterShadowLands then
+        _, friendRep, friendMaxRep, _, _, _, _, friendThreshold, nextFriendThreshold = GetFriendshipReputation(factionID)
+      else
+        local friendshipInfo = C_GossipInfo.GetFriendshipReputation(factionID)
+        if friendshipInfo and friendshipInfo.friendshipFactionID > 0 then
+          nextFriendThreshold = friendshipInfo.nextThreshold
+        end
+      end
+
+      color = REP.FACTION_BAR_COLORS[8]
+      REP_ReputationDetailStandingNextValue:SetText("(--> "..REP_GetFriendFactionStandingLabel(factionID, nextFriendThreshold)..")")
+      REP_ReputationDetailStandingToExaltedHeader:SetText("Reputation to max") -- TODO: Add to localization file sometime
     end
   elseif isMajorFaction then
     local majorFactionData = C_MajorFactions.GetMajorFactionData(factionID);
-
     local renownLevel = majorFactionData.renownLevel
-    barMax = renownLevel * majorFactionData.renownLevelThreshold
-    barValue = ((renownLevel - 1) *  majorFactionData.renownLevelThreshold) + barValue -- artificialBarValue
-
+    barMax = majorFactionData.renownLevelThreshold
+    barValue = ((renownLevel - 1) *  majorFactionData.renownLevelThreshold) + barValue
     isCapped = C_MajorFactions.HasMaximumRenown(factionID)
 
-    if (REP_StoredRep and REP_StoredRep[name] and REP_StoredRep[name].origRep) then
-      REP_ReputationDetailStandingGainedValue:SetText(string.format("%d", barValue - REP_StoredRep[name].origRep))
-    else
-      REP_ReputationDetailStandingGainedValue:SetText("")
-    end
+    local maxRenownLevel = REP.MaxRenownLevel[factionID]
+    local maxRenown = maxRenownLevel * barMax
+    toExalted = maxRenown - reputationGains.reputationGainedTotal
 
     if isCapped then
+      local currentValue, threshold, rewardQuestID, hasRewardPending = C_Reputation.GetFactionParagonInfo(factionID)
+      barMax = threshold
+      toExalted = threshold
+
       REP_ReputationDetailStandingNextValue:SetText("")
     else
       REP_ReputationDetailStandingNextValue:SetText("(--> "..RENOWN_LEVEL_LABEL..(majorFactionData.renownLevel + 1)..")")
     end
-
     
-    REP_ReputationDetailStandingNextValue:SetTextColor(color.r, color.g, color.b)
     REP_ReputationDetailStandingToExaltedHeader:SetText(RENOWN_LEVEL_LABEL.."to max")
-    REP_ReputationDetailStandingToExaltedValue:SetText(toExalted)
   else
     if (standingID >= 7) then
       REP_ReputationDetailStandingToExaltedHeader:SetText("")
@@ -4142,22 +4689,39 @@ function REP:Rep_Detail_Frame(faction, colorID, barValue, barMax, origBarValue, 
     end
 
     if (standingID < 8) then
+      toExalted = REP.ToExalted[standingID] + barMax - barValue
       color = REP.FACTION_BAR_COLORS[standingID + 1]
-      --REP_ReputationDetailStandingNext:SetText(REP_TXT.nextLevel)
       REP_ReputationDetailStandingNextValue:SetText("(--> "..GetText("FACTION_STANDING_LABEL"..standingID + 1, gender)..")")
-      REP_ReputationDetailStandingNextValue:SetTextColor(color.r, color.g, color.b)
 
       if (standingID < 7) then
-        -- Add to localization file sometime
         REP_ReputationDetailStandingToExaltedHeader:SetText(REP_TXT.toExalted)
-        REP_ReputationDetailStandingToExaltedValue:SetText(toExalted)
       end
     else
-      --REP_ReputationDetailStandingNext:SetText("")
       REP_ReputationDetailStandingNextValue:SetText("")
     end
   end
 
+  REP_ReputationDetailStandingNextValue:SetTextColor(color.r, color.g, color.b)
+
+  ------------------------------------
+  --  Reputation gained this session 
+  ------------------------------------
+  REP_ReputationDetailStandingGainedValue:SetText(reputationGains.reputationGainedSession)
+
+  ------------------------------
+  --  Reputation in bags/bank
+  ------------------------------
+  if not REP_CurrentRepInBag then REP_CurrentRepInBag = 0 end
+  if not REP_CurrentRepInBagBank then REP_CurrentRepInBagBank = 0 end
+  if not REP_CurrentRepInQuest then REP_CurrentRepInQuest = 0 end
+
+  REP_ReputationDetailStandingBagValue:SetText(REP_CurrentRepInBag)
+  REP_ReputationDetailStandingBagBankValue:SetText(REP_CurrentRepInBagBank)
+  REP_ReputationDetailStandingQuestsValue:SetText(REP_CurrentRepInQuest)
+
+  ------------------------------
+  --  Detail Frame Checkboxes
+  ------------------------------
   if (atWarWith) then
     REP_ReputationDetailAtWarCheckBox:SetChecked(true)
   else
@@ -4172,10 +4736,18 @@ function REP:Rep_Detail_Frame(faction, colorID, barValue, barMax, origBarValue, 
     REP_ReputationDetailAtWarCheckBoxText:SetTextColor(GRAY_FONT_COLOR.r, GRAY_FONT_COLOR.g, GRAY_FONT_COLOR.b)
   end
 
-  if (IsFactionInactive(faction)) then
-    REP_ReputationDetailInactiveCheckBox:SetChecked(true)
+  if REP.AfterDragonflight then
+    if (C_Reputation.IsFactionActive(factionIndex)) then
+      REP_ReputationDetailInactiveCheckBox:SetChecked(false)
+    else
+      REP_ReputationDetailInactiveCheckBox:SetChecked(true)
+    end
   else
-    REP_ReputationDetailInactiveCheckBox:SetChecked(false)
+    if (IsFactionInactive(factionIndex)) then
+      REP_ReputationDetailInactiveCheckBox:SetChecked(true)
+    else
+      REP_ReputationDetailInactiveCheckBox:SetChecked(false)
+    end
   end
 
   if (isWatched) then
@@ -4183,69 +4755,85 @@ function REP:Rep_Detail_Frame(faction, colorID, barValue, barMax, origBarValue, 
   else
     REP_ReputationDetailMainScreenCheckBox:SetChecked(false)
   end
+
+  if (REP_ReputationDetailFrame:IsVisible()) then
+    REP_BuildUpdateList(factionIndex)
+    -- REP_UpdateList_Update()
+  end
 end
 
 function REP_Friend_Detail(factionID, standingID, factionRow)
-  if REP.AfterCata then
-    local colorIndex, factionStandingtext, isCappedFriendship
-    local friendID, friendRep, friendMaxRep, friendName, friendText, friendTexture, friendTextLevel, friendThreshold, nextFriendThreshold
+  local colorIndex, factionStandingtext, isCappedFriendship, isFriend, friendID
+  local friendRep, friendMaxRep, friendName, friendText, friendTexture, friendTextLevel, friendThreshold, nextFriendThreshold
 
+  if REP.AfterCata then
     if (factionID) then
       if not REP.AfterShadowLands then
         friendID, friendRep, friendMaxRep, friendName, friendText, friendTexture, friendTextLevel, friendThreshold, nextFriendThreshold = GetFriendshipReputation(factionID)
       else
-        local reputationInfo = C_GossipInfo.GetFriendshipReputation(factionID)
-        if reputationInfo and reputationInfo.friendshipFactionID > 0 then
-          friendID = reputationInfo.friendshipFactionID
-          friendRep = reputationInfo.standing
-          friendMaxRep = reputationInfo.maxRep
-          friendName = reputationInfo.name
-          friendText = reputationInfo.text
-          friendTexture = reputationInfo.texture
-          friendTextLevel = reputationInfo.reaction
-          friendThreshold = reputationInfo.reactionThreshold
-          nextFriendThreshold = reputationInfo.nextThreshold
+        local friendshipInfo = C_GossipInfo.GetFriendshipReputation(factionID)
+        if friendshipInfo and friendshipInfo.friendshipFactionID > 0 then
+          friendID = friendshipInfo.friendshipFactionID
+          friendRep = friendshipInfo.standing
+          friendMaxRep = friendshipInfo.maxRep
+          friendName = friendshipInfo.name
+          friendText = friendshipInfo.text
+          friendTexture = friendshipInfo.texture
+          friendTextLevel = friendshipInfo.reaction
+          friendThreshold = friendshipInfo.reactionThreshold
+          nextFriendThreshold = friendshipInfo.nextThreshold
         end
       end
     end
+  end
 
-    if (friendID ~= nil) then
-      if (nextFriendThreshold) then
-        barMin, barMax, barValue = friendThreshold, nextFriendThreshold, friendRep
-      else	-- max rank, make it look like a full bar
-        barMin, barMax, barValue = 0, 1, 1
-        isCappedFriendship = true
-      end
+  if (friendID ~= nil) then
+    if (nextFriendThreshold) then
+      barMin, barMax, barValue = friendThreshold, nextFriendThreshold, friendRep
+    else	-- max rank, make it look like a full bar
+      barMin, barMax, barValue = 0, 1, 1
+      isCappedFriendship = true
+    end
 
-      colorIndex = 5	-- always color friendships green
-      factionStandingtext = friendTextLevel
+    colorIndex = 5	-- always color friendships green
+    factionStandingtext = friendTextLevel
+    isFriend = true
+
+    if not REP.AfterDragonflight then
       if factionRow then factionRow.friendshipID = friendID end
-      isFriend = true
-
-      return colorIndex, isCappedFriendship, factionStandingtext, isFriend
-    else
-      factionStandingtext = GetText("FACTION_STANDING_LABEL"..standingID, gender)
-      if factionRow then factionRow.friendshipID = nil end
-      colorIndex = standingID
-      isFriend = false
-
-      return colorIndex, isCappedFriendship, factionStandingtext, isFriend
     end
   else
-    factionStandingtext = GetText("FACTION_STANDING_LABEL"..standingID, gender)
-    if factionRow then factionRow.friendshipID = nil end
-    colorIndex = standingID
     isFriend = false
 
-    return colorIndex, isCappedFriendship, factionStandingtext, isFriend
+    if standingID then
+      factionStandingtext = GetText("FACTION_STANDING_LABEL"..standingID)
+      colorIndex = standingID
+    end
+
+    if not REP.AfterDragonflight then
+      if factionRow then factionRow.friendshipID = nil end
+    end
   end
+
+  local friendReputationInfo = {}
+  friendReputationInfo.colorIndex = colorIndex or nil
+  friendReputationInfo.isCappedFriendship = isCappedFriendship or nil
+  friendReputationInfo.factionStandingtext = factionStandingtext or nil
+  friendReputationInfo.isFriend = isFriend or nil
+
+  return friendReputationInfo
 end
 
 -----------------------------------
 -- _16_ Listing by standing
 -----------------------------------
 function REP:ListByStanding(standing)
-  local numFactions = GetNumFactions()
+  local numFactions
+  if REP.AfterDragonflight then
+    numFactions = C_Reputation.GetNumFactions()
+  else
+    numFactions = GetNumFactions()
+  end
   local name, description, standingID, barMin, barMax, barValue, atWarWith, canToggleAtWar, isHeader, hasRep, isCollapsed, isWatched
   local list = {}
 
@@ -4427,7 +5015,14 @@ function REP_OnLoadOptions(panel)
   panel.cancel = REP_OptionsCancel
   panel.default = REP_OptionsDefault
 
-  InterfaceOptions_AddCategory(panel)
+  if REP.AfterDragonflight then
+    Settings.OpenToCategory(REP.settingsCategory.ID)
+  else
+    InterfaceOptionsFrame_OpenToCategory(panel)
+  end
+
+  -- Settings.OpenToCategory(panel)
+  -- InterfaceOptions_AddCategory(panel)
 
   REP_OptionEnableMissingCBText:SetText(REP_TXT.showMissing)
   REP_OptionExtendDetailsCBText:SetText(REP_TXT.extendDetails)
@@ -4504,7 +5099,7 @@ function REP_OptionsDefault()
   -- nothing to do
 end
 
-function REP_GetFriendFactionRemaining(factionID, factionStandingtext, barMax, barValue)
+function REP_GetFriendFactionRemaining(factionID)
   local friendRep, friendMaxRep
   local bodyguards = {1738, 1740, 1733, 1741, 1737, 1736, 1739}
 
@@ -4512,10 +5107,10 @@ function REP_GetFriendFactionRemaining(factionID, factionStandingtext, barMax, b
     if not REP.AfterShadowLands then
       _, friendRep, friendMaxRep, _, _, _, _, _, _ = GetFriendshipReputation(factionID)
     else
-      local reputationInfo = C_GossipInfo.GetFriendshipReputation(factionID)
-      if reputationInfo and reputationInfo.friendshipFactionID > 0 then
-        friendRep = reputationInfo.standing
-        friendMaxRep = reputationInfo.maxRep
+      local friendshipInfo = C_GossipInfo.GetFriendshipReputation(factionID)
+      if friendshipInfo and friendshipInfo.friendshipFactionID > 0 then
+        friendRep = friendshipInfo.standing
+        friendMaxRep = friendshipInfo.maxRep
       end
     end
   end
@@ -4616,7 +5211,13 @@ function REP:SortByStandingWithoutFactionHeader(i, factionIndex, factionRow, fac
     local isParagon
     local isCapped
     local name, description, standingID, barMin, barMax, barValue, atWarWith, canToggleAtWar, isHeader, isCollapsed, hasRep, isWatched, isChild, factionID, hasBonusRepGain = GetFactionInfo(OBS_fi_i)
-    local colorIndex, isCappedFriendship, factionStandingtext = REP_Friend_Detail(factionID, standingID, factionRow)
+    
+    local friendReputationInfo = REP_Friend_Detail(factionID, standingID, factionRow)
+    local colorIndex = friendReputationInfo.colorIndex
+    local isCappedFriendship = friendReputationInfo.isCappedFriendship
+    local factionStandingtext = friendReputationInfo.factionStandingtext
+    local isFriend = friendReputationInfo.isFriend
+
     -- Normalize Values
     local origBarValue = barValue
 
@@ -4773,7 +5374,7 @@ function REP:SortByStandingWithoutFactionHeader(i, factionIndex, factionRow, fac
       end
 
       if (REP_ReputationDetailFrame:IsVisible()) then
-        REP:Rep_Detail_Frame(OBS_fi_i, standingID, barValue, barMax, origBarValue, standingID, toExalted, factionStandingtext, toBFF, isParagon, isFriend, isCappedFriendship)
+        REP:Rep_Detail_Frame()
 
         _G["ReputationBar"..i.."ReputationBarHighlight1"]:Show()
         _G["ReputationBar"..i.."ReputationBarHighlight2"]:Show()
@@ -4790,8 +5391,30 @@ end
 ----------------------------------------------
 function REP:OriginalRepOrderWithoutFactionHeader(i, factionIndex, factionRow, factionBar, factionBarPreview, factionTitle, factionButton, factionStanding, factionAtWarIndicator, factionBackground)
   -- get the info for this Faction
-  local name, description, standingID, barMin, barMax, barValue, atWarWith, canToggleAtWar, isHeader, isCollapsed, hasRep, isWatched, isChild, factionID, hasBonusRepGain, canBeLFGBonus = GetFactionInfo(factionIndex)
+  local name, description, standingID, barMin, barMax, barValue, atWarWith, canToggleAtWar, isHeader, isCollapsed, hasRep, isWatched, isChild, factionID, hasBonusRepGain, isAccountWide
   local isParagon
+
+  if REP.AfterDragonflight then
+    local reputationInfo = C_Reputation.GetFactionDataByIndex(factionIndex)
+    name = reputationInfo.name
+    description = reputationInfo.description
+    standingID = reputationInfo.reaction
+    barMin = reputationInfo.currentReactionThreshold
+    barMax = reputationInfo.nextReactionThreshold
+    barValue = reputationInfo.currentStanding
+    atWarWith = reputationInfo.atWarWith
+    canToggleAtWar = reputationInfo.canToggleAtWar
+    isHeader = reputationInfo.isHeader
+    isCollapsed = reputationInfo.isCollapsed
+    hasRep = reputationInfo.isHeaderWithRep
+    isWatched = reputationInfo.isWatched
+    isChild = reputationInfo.isChild
+    factionID = reputationInfo.factionID
+    hasBonusRepGain = reputationInfo.hasBonusRepGain
+    isAccountWide = reputationInfo.isAccountWide
+  else
+    name, description, standingID, barMin, barMax, barValue, atWarWith, canToggleAtWar, isHeader, isCollapsed, hasRep, isWatched, isChild, factionID, hasBonusRepGain = GetFactionInfo(factionIndex)
+  end
 
   factionTitle:SetText(name)
 
@@ -4804,7 +5427,12 @@ function REP:OriginalRepOrderWithoutFactionHeader(i, factionIndex, factionRow, f
   factionRow.index = factionIndex
   factionRow.isCollapsed = isCollapsed
 
-  local colorIndex, isCappedFriendship, factionStandingtext, isFriend = REP_Friend_Detail(factionID, standingID, factionRow)
+  local friendReputationInfo = REP_Friend_Detail(factionID, standingID, factionRow)
+  local colorIndex = friendReputationInfo.colorIndex
+  local isCappedFriendship = friendReputationInfo.isCappedFriendship
+  local factionStandingtext = friendReputationInfo.factionStandingtext
+  local isFriend = friendReputationInfo.isFriend
+
   local origBarValue = barValue
 
   if REP.AfterWoD then
@@ -4949,14 +5577,21 @@ function REP:OriginalRepOrderWithoutFactionHeader(i, factionIndex, factionRow, f
     end
   end
 
-  if (factionIndex == GetSelectedFaction()) then
+  local selectedFactionIndex
+  if REP.AfterDragonflight then
+    selectedFactionIndex = C_Reputation.GetSelectedFaction()
+  else
+    selectedFactionIndex = GetSelectedFaction()
+  end
+
+  if (factionIndex == selectedFactionIndex) then
     if (ReputationDetailFrame:IsShown()) then
       if (canToggleAtWar and (not isHeader)) then local flag = 1 end
       REP_ReputationDetailFrame_IsShown(factionIndex, flag, 2)
     end
 
     if (REP_ReputationDetailFrame:IsVisible()) then
-      REP:Rep_Detail_Frame(factionIndex, colorIndex, barValue, barMax, origBarValue, standingID, toExalted, factionStandingtext, toBFF, isParagon, isFriend, isCappedFriendship)
+      REP:Rep_Detail_Frame()
       _G["ReputationBar"..i.."ReputationBarHighlight1"]:Show()
       _G["ReputationBar"..i.."ReputationBarHighlight2"]:Show()
     end
@@ -5086,7 +5721,7 @@ function REP:SortByStandingWithFactionHeader(i, factionIndex, factionBar, factio
       end
 
       if (REP_ReputationDetailFrame:IsVisible()) then
-        REP:Rep_Detail_Frame(OBS_fi_i, standingID, barValue, barMax, origBarValue, standingID, toExalted, factionStandingText)
+        REP:Rep_Detail_Frame()
       end
 
       _G["ReputationBar"..i.."Highlight1"]:Show()
@@ -5213,7 +5848,7 @@ function REP:OriginalRepOrderWithFactionHeader(i, factionIndex, factionBar, fact
       end
 
       if (REP_ReputationDetailFrame:IsVisible()) then
-        REP:Rep_Detail_Frame(factionIndex, standingID, barValue, barMax, origBarValue, standingID, toExalted, factionStandingText)
+        REP:Rep_Detail_Frame()
       end
 
       _G["ReputationBar"..i.."Highlight1"]:Show()
@@ -5235,9 +5870,14 @@ function REP:WatchedFactionDetails(watchedFactionID)
   local watchedFactionName = name
   local factionIndex = nil
   local toExalted, ToBFF = 0, 0
-  local colorID, repValue, repMax, origBarValue, repFactionStandingtext, isRepParagon, isRepFriend, isRepCappedFriendship
+  local repValue, repMax, origBarValue, repFactionStandingtext, isRepParagon, isRepFriend, isRepCappedFriendship
 
-  local numFactions = GetNumFactions()
+  local numFactions
+  if REP.AfterDragonflight then
+    numFactions = C_Reputation.GetNumFactions()
+  else
+    numFactions = GetNumFactions()
+  end
   for i = 1, numFactions, 1 do
     local index = i
     local name, _, standingID, _, barMax, barValue, _, _, _, _, _, _, _, factionID, _, _ = GetFactionInfo(index)
@@ -5256,14 +5896,16 @@ function REP:WatchedFactionDetails(watchedFactionID)
     if (isMatchingFaction) then
       if (standingID < 8) then toExalted = REP.ToExalted[standingID] + barMax - barValue end
 
-      local _, isCappedFriendship, factionStandingtext, isFriend = REP_Friend_Detail(factionID, standingID)
+      local friendReputationInfo = REP_Friend_Detail(factionID, standingID)
+      local isCappedFriendship = friendReputationInfo.isCappedFriendship
+      local factionStandingtext = friendReputationInfo.factionStandingtext
+      local isFriend = friendReputationInfo.isFriend
 
       if (isCappedFriendship ~= true and isFriend) then
         toBFF = REP_GetFriendFactionRemaining(factionID, factionStandingtext, barMax, barValue)
       end
 
       factionIndex = index
-      colorID = standingID
       repValue = barValue
       repMax = barMax
       origBarValue = barValue
@@ -5286,7 +5928,7 @@ function REP:WatchedFactionDetails(watchedFactionID)
     if (not REP_ReputationDetailFrame:IsVisible()) then REP_ReputationDetailFrame:Show() end
 
     SetSelectedFaction(factionIndex)
-    REP:Rep_Detail_Frame(factionIndex, colorID, repValue, repMax, origBarValue, colorID, toExalted, repFactionStandingtext, toBFF, isRepParagon, isRepFriend, isRepCappedFriendship)
+    REP:Rep_Detail_Frame()
 
     if (REP_Data.Global.ExtendDetails) then
       REP_BuildUpdateList()

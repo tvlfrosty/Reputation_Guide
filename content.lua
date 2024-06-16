@@ -778,7 +778,7 @@ function REP_InitEnFactionGains(guildName, guildCapBase)
 	  REP_AddQuest(72, 4, 8, 6781, 2.5, {[17422] = 20}, nil, true, false, true)
 		if (REP.AfterTBC) then
 			---- Items
-			REP_AddItems(72, 4, 8, 250, {["Stormwind Commendation Badge"] = 1}) -- 45718
+			REP_AddItems(72, 4, 8, 250, {[45718] = 1}) -- Stormwind Commendation Badge: 45718
 			REP_AddItems(72, 4, 8, 62.5, {[4] = 1})
       if (REP.AfterWotlk) then
         ---- General
@@ -825,7 +825,7 @@ function REP_InitEnFactionGains(guildName, guildCapBase)
 
 		if (REP.AfterTBC) then
 			---- Items
-			REP_AddItems(47, 4, 8, 250, {["Ironforge Commendation Badge"] = 1}) -- 45717
+			REP_AddItems(47, 4, 8, 250, {[45717] = 1}) -- Ironforge Commendation Badge: 45717
 			REP_AddItems(47, 4, 8, 62.5, {[4] = 1})
       if (REP.AfterWotlk) then
         ---- General
@@ -867,7 +867,7 @@ function REP_InitEnFactionGains(guildName, guildCapBase)
 		REP_AddQuest(69, 4, 8, 6781, 2.5, {[17422] = 20}, nil, true, false, true)
 		if (REP.AfterTBC) then
 			---- Items
-			REP_AddItems(69, 4, 8, 250, {["Darnassus Commendation Badge"] = 1}) -- 45714
+			REP_AddItems(69, 4, 8, 250, {[45714] = 1}) -- Darnassus Commendation Badge: 45714
 			REP_AddItems(69, 4, 8, 62.5, {[4] = 1})
       if (REP.AfterWotlk) then
         ---- General
@@ -907,7 +907,7 @@ function REP_InitEnFactionGains(guildName, guildCapBase)
 	  REP_AddQuest(54, 4, 8, 6781, 2.5, {[17422] = 20}, nil, true, false, true)
 		if (REP.AfterTBC) then
 			---- Items
-			REP_AddItems(54, 4, 8, 250, {["Gnomeregan Commendation Badge"] = 1}) -- 45716
+			REP_AddItems(54, 4, 8, 250, {[45716] = 1}) -- Gnomeregan Commendation Badge: 45716
 			REP_AddItems(54, 4, 8, 62.5, {[4] = 1})
       if (REP.AfterWotlk) then
         ---- General
@@ -1872,7 +1872,7 @@ end
 		  REP_AddQuest(930, 4, 8, 6781, 2.5, {[17422] = 20}, nil, true, false, true)
 			if (REP.AfterTBC) then
 				---- Items
-				REP_AddItems(930, 4, 8, 250, {["Exodar Commendation Badge"] = 1}) -- 45715
+				REP_AddItems(930, 4, 8, 250, {[45715] = 1}) -- Exodar Commendation Badge: 45715
 				REP_AddItems(930, 4, 8, 62.5, {[4] = 1})
         if (REP.AfterWotlk) then
           ---- General
@@ -1941,7 +1941,7 @@ end
 			REP_AddQuest(911, 4, 8, 6741, 2.5, {[17422] = 20}, nil, true, false, true)
 			if (REP.AfterTBC) then
 				---- Items
-				REP_AddItems(911, 4, 8, 250, {[45721] = 1})
+				REP_AddItems(911, 4, 8, 250, {[45721] = 1}) -- Silvermoon commendation badge: 45721
 				REP_AddItems(911, 4, 8, 62.5, {[4] = 1})
         if (REP.AfterWotlk) then
           ---- General
@@ -4218,7 +4218,7 @@ end
 		-- Chromie 2135 --
 		---------------------------
 		---- General
-		REP_AddGeneral(2135, 1, 8, "Run Chromie Scenarios In Dragonblite", 3000, "Complete Chromie Scenarios", "Complete Chromie time scenarios in Dragonblight")
+		REP_AddGeneral(2135, 1, 8, "Run Chromie Scenarios In Dragonblight", 3000, "Complete Chromie Scenarios", "Complete Chromie time scenarios in Dragonblight")
 
 		if (REP.IsAlliance) then
 			---------------------------
@@ -4761,6 +4761,13 @@ end
     ---- General
     REP_AddGeneral(2550, 1, 8, "Uncommon Moderate Arcana from Sundered Flame enemies", 15, "Sundered Flame enemies", "Defeat Sundered Flame enemies near the Cobalt Assembly.")
     REP_AddGeneral(2550, 1, 8, "Rare Major Arcana from Sundered Flame enemies", 45, "Sundered Flame enemies", "Defeat Sundered Flame enemies near the Cobalt Assembly.")
+
+    ---------------------------
+		-- Soridormi 2553 --
+		---------------------------
+    ---- Instances
+    REP_AddInstance(2553, 1, 8, zone.Dawn_Of_The_Infinite, 500)
+    REP_AddInstance(2553, 1, 8, zone.Dawn_Of_The_Infinite, 2000, true)
 
     ---------------------------
 		-- Loamm Niffen 2564 (Goes to 20 Renown) --

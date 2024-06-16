@@ -270,6 +270,15 @@ REP_TXT.STAND_LV_RENOWN[22] = "Renombre 22"
 REP_TXT.STAND_LV_RENOWN[23] = "Renombre 23"
 REP_TXT.STAND_LV_RENOWN[24] = "Renombre 24"
 REP_TXT.STAND_LV_RENOWN[25] = "Renombre 25"
+---- BFF Labels
+REP_TXT.BFFLabels[2135] = {} -- Vástago
+REP_TXT.BFFLabels[2135][1] = "Alumno temporal"
+REP_TXT.BFFLabels[2135][2] = "Trotatiempos"
+REP_TXT.BFFLabels[2135][3] = "Cronoamigo"
+REP_TXT.BFFLabels[2135][4] = "Aliado Bronce"
+REP_TXT.BFFLabels[2135][5] = "Reparador de eras"
+REP_TXT.BFFLabels[2135][6] = "Señor del tiempo"
+
 ---------------------------
 -- Tooltips
 ---------------------------

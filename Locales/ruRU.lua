@@ -266,6 +266,15 @@ REP_TXT.STAND_LV_RENOWN[22] = "Известность 22"
 REP_TXT.STAND_LV_RENOWN[23] = "Известность 23"
 REP_TXT.STAND_LV_RENOWN[24] = "Известность 24"
 REP_TXT.STAND_LV_RENOWN[25] = "Известность 25"
+---- BFF Labels
+REP_TXT.BFFLabels[2135] = {} -- Неофит
+REP_TXT.BFFLabels[2135][1] = "Временной ученик"
+REP_TXT.BFFLabels[2135][2] = "Путешественник во времени"
+REP_TXT.BFFLabels[2135][3] = "Хроно-друг"
+REP_TXT.BFFLabels[2135][4] = "Бронзовый союзник"
+REP_TXT.BFFLabels[2135][5] = "Исцелитель эпохи"
+REP_TXT.BFFLabels[2135][6] = "Повелитель времени"
+
 ---------------------------
 -- Tooltips
 ---------------------------

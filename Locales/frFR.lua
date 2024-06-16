@@ -267,6 +267,15 @@ REP_TXT.STAND_LV_RENOWN[22] = "Renom 22"
 REP_TXT.STAND_LV_RENOWN[23] = "Renom 23"
 REP_TXT.STAND_LV_RENOWN[24] = "Renom 24"
 REP_TXT.STAND_LV_RENOWN[25] = "Renom 25"
+---- BFF Labels
+REP_TXT.BFFLabels[2135] = {} -- Dragonnet
+REP_TXT.BFFLabels[2135][1] = "Recrue temporelle"
+REP_TXT.BFFLabels[2135][2] = "Chrono-trotter"
+REP_TXT.BFFLabels[2135][3] = "Ami de longue date"
+REP_TXT.BFFLabels[2135][4] = "Allié de bronze"
+REP_TXT.BFFLabels[2135][5] = "Restaurateur d’époque"
+REP_TXT.BFFLabels[2135][6] = "Seigneur du temps"
+
 ---------------------------
 -- Tooltips
 ---------------------------

@@ -214,6 +214,7 @@ REP_TXT.STAND_LV	= {}
 REP_TXT.STAND_LV_TIER	= {}
 REP_TXT.STAND_LV_TRUST = {}
 REP_TXT.STAND_LV_RENOWN	= {}
+REP_TXT.BFFLabels = {}
 ---- Normal standings
 REP_TXT.STAND_LV[0]	= "Unknown"
 REP_TXT.STAND_LV[1]	= "Hated"
@@ -268,6 +269,15 @@ REP_TXT.STAND_LV_RENOWN[22] = "Renown 22"
 REP_TXT.STAND_LV_RENOWN[23] = "Renown 23"
 REP_TXT.STAND_LV_RENOWN[24] = "Renown 24"
 REP_TXT.STAND_LV_RENOWN[25] = "Renown 25"
+---- BFF Labels
+REP_TXT.BFFLabels[2135] = {} -- Whelpling
+REP_TXT.BFFLabels[2135][1] = "Temporal Trainee"
+REP_TXT.BFFLabels[2135][2] = "Timehopper"
+REP_TXT.BFFLabels[2135][3] = "Chrono-Friend"
+REP_TXT.BFFLabels[2135][4] = "Bronze Ally"
+REP_TXT.BFFLabels[2135][5] = "Epoch-Mender"
+REP_TXT.BFFLabels[2135][6] = "Timelord"
+
 ---------------------------
 -- Tooltips
 ---------------------------

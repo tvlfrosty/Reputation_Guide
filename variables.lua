@@ -617,6 +617,23 @@ REP.GuildName = nil
 REP.HasTradingPost = false
 
 ---------------------------
+-- Max Renown levels
+---------------------------
+REP.MaxRenownLevel = {}
+REP.MaxRenownLevel[2503] = 25
+REP.MaxRenownLevel[2507] = 25
+REP.MaxRenownLevel[2510] = 30
+REP.MaxRenownLevel[2511] = 30
+REP.MaxRenownLevel[2564] = 20
+REP.MaxRenownLevel[2570] = 25
+REP.MaxRenownLevel[2574] = 20
+REP.MaxRenownLevel[2590] = 25
+REP.MaxRenownLevel[2593] = 40
+REP.MaxRenownLevel[2594] = 25
+REP.MaxRenownLevel[2600] = 25
+REP.MaxRenownLevel[2640] = 60
+
+---------------------------
 -- Faction labels --
 ---------------------------
 -- TODO: Fix all localization
@@ -642,6 +659,14 @@ REP.BFFLabels[2100][16800] = "Non-Threat"
 REP.BFFLabels[2100][25200] = "Friend"
 REP.BFFLabels[2100][33600] = "Helpful Friend"
 REP.BFFLabels[2100][42000] = "Best Friend"
+---- Chromie
+REP.BFFLabels[2135] = {} -- Whelpling
+REP.BFFLabels[2135][1000] = REP_TXT.BFFLabels[2135][1]
+REP.BFFLabels[2135][2500] = REP_TXT.BFFLabels[2135][2]
+REP.BFFLabels[2135][4500] = REP_TXT.BFFLabels[2135][3]
+REP.BFFLabels[2135][7000] = REP_TXT.BFFLabels[2135][4]
+REP.BFFLabels[2135][10000] = REP_TXT.BFFLabels[2135][5]
+REP.BFFLabels[2135][15000] = REP_TXT.BFFLabels[2135][6]
 ---- The Archivists' Codex 2472
 REP.BFFLabels[2472] = {} -- Tier 1
 REP.BFFLabels[2472][3000] = REP_TXT.STAND_LV_TIER[2]

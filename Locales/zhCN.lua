@@ -263,6 +263,15 @@ REP_TXT.STAND_LV_RENOWN[22] = "名望 22"
 REP_TXT.STAND_LV_RENOWN[23] = "名望 23"
 REP_TXT.STAND_LV_RENOWN[24] = "名望 24"
 REP_TXT.STAND_LV_RENOWN[25] = "名望 25"
+---- BFF Labels
+REP_TXT.BFFLabels[2135] = {} -- 雏龙
+REP_TXT.BFFLabels[2135][1] = "时空新兵"
+REP_TXT.BFFLabels[2135][2] = "时空跃迁者"
+REP_TXT.BFFLabels[2135][3] = "时光之友"
+REP_TXT.BFFLabels[2135][4] = "青铜盟友"
+REP_TXT.BFFLabels[2135][5] = "纪元修复者"
+REP_TXT.BFFLabels[2135][6] = "时光领主"
+
 ---------------------------
 -- Tooltips
 ---------------------------

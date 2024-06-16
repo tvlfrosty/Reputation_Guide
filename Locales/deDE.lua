@@ -269,6 +269,15 @@ REP_TXT.STAND_LV_RENOWN[22] = "Ruhm 22"
 REP_TXT.STAND_LV_RENOWN[23] = "Ruhm 23"
 REP_TXT.STAND_LV_RENOWN[24] = "Ruhm 24"
 REP_TXT.STAND_LV_RENOWN[25] = "Ruhm 25"
+---- BFF Labels
+REP_TXT.BFFLabels[2135] = {} -- Welpling
+REP_TXT.BFFLabels[2135][1] = "Temporaler Lehrling"
+REP_TXT.BFFLabels[2135][2] = "Zeitspringer"
+REP_TXT.BFFLabels[2135][3] = "Chronofreund"
+REP_TXT.BFFLabels[2135][4] = "Bronzener Verbündeter"
+REP_TXT.BFFLabels[2135][5] = "Epochenheiler"
+REP_TXT.BFFLabels[2135][6] = "Zeitlord"
+
 ---------------------------
 -- Tooltips
 ---------------------------
