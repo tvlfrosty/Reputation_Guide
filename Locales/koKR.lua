@@ -209,6 +209,7 @@ REP_TXT.STAND_LV	= {}
 REP_TXT.STAND_LV_TIER	= {}
 REP_TXT.STAND_LV_TRUST = {}
 REP_TXT.STAND_LV_RENOWN	= {}
+REP_TXT.BFFLabels = {}
 ---- Normal standings
 REP_TXT.STAND_LV[0]	= "알 수 없는"
 REP_TXT.STAND_LV[1]	= "매우 적대적"

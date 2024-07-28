@@ -393,7 +393,7 @@ function REP_OnEvent(self, event, ...)
       ReputationWatchBar:HookScript("OnMouseDown", function(self) if (not InCombatLockdown()) then REP:WatchedFactionDetails(self.factionID) end end, nil)
     end
   elseif ((not REP.AfterShadowLands and (event == "UPDATE_FACTION" or event == "QUEST_COMPLETE" or event == "QUEST_WATCH_UPDATE")) or (REP.AfterShadowLands and (event == "UPDATE_FACTION"  or event == "QUEST_LOG_UPDATE" or event == "MAJOR_FACTION_RENOWN_LEVEL_CHANGED" or event == "MAJOR_FACTION_UNLOCKED"))) then
-    if (ReputationFrame:IsVisible()) then
+    if (ReputationFrame:IsVisible() and not REP.AfterDragonflight) then
       ReputationFrame_Update()
     end
     if (REP_ReputationDetailFrame:IsVisible()) then
@@ -413,7 +413,7 @@ function REP_OnEvent(self, event, ...)
       end
     end
   elseif (event == "BAG_UPDATE") then
-    if (REP_ReputationDetailFrame:IsVisible()) then
+    if (REP_ReputationDetailFrame:IsVisible() and not REP.AfterDragonflight) then
       -- Update rep frame (implicitely updates detail frame which In turn implicitely reparses bag contents)
       ReputationFrame_Update()
     end
@@ -424,7 +424,7 @@ function REP_OnEvent(self, event, ...)
     if (REP_BankOpen) then
       -- this is the first call
       REP_BankOpen = nil
-      if (REP_ReputationDetailFrame:IsVisible()) then
+      if (REP_ReputationDetailFrame:IsVisible() and not REP.AfterDragonflight) then
         -- Update rep frame (implicitely updates detail frame which In turn implicitely reparses bag contents)
         ReputationFrame_Update()
       end
@@ -433,7 +433,7 @@ function REP_OnEvent(self, event, ...)
     -- REP:Print("PLAYER_DIFFICULTY_CHANGED", nil)
   elseif (event == "CHAT_MSG_SKILL") or (event == "SKILL_LINES_CHANGED") or (event == "UPDATE_TRADESKILL_RECAST") then
     REP:ExtractSkills()
-    if (ReputationFrame:IsVisible()) then
+    if (ReputationFrame:IsVisible() and not REP.AfterDragonflight) then
       ReputationFrame_Update()
     end
     if (REP_ReputationDetailFrame:IsVisible()) then
@@ -781,7 +781,7 @@ function REP_SlashHandler(msg)
             REP:PrintSlash(REP_TXT.command, msgLower)
           end
 
-          if (ReputationFrame:IsVisible()) then
+          if (ReputationFrame:IsVisible() and not REP.AfterDragonflight) then
             ReputationFrame_Update()
           end
 
@@ -840,7 +840,7 @@ function REP_SlashHandler(msg)
             REP:PrintSlash(REP_TXT.command, msgLower)
           end
 
-          if (ReputationFrame:IsVisible()) then
+          if (ReputationFrame:IsVisible() and not REP.AfterDragonflight) then
             ReputationFrame_Update()
           end
 
@@ -899,7 +899,7 @@ function REP_SlashHandler(msg)
             REP:PrintSlash(REP_TXT.command, msgLower)
           end
 
-          if (ReputationFrame:IsVisible()) then
+          if (ReputationFrame:IsVisible() and not REP.AfterDragonflight) then
             ReputationFrame_Update()
           end
 
@@ -970,6 +970,8 @@ function REP_SlashHandler(msg)
         REP:WatchFaction(wordsLower[1])
       -- elseif (wordsLower[0] == "gain") then
       --   REP:TestRepGain(wordsLower[1], wordsLower[2], wordsLower[3])
+      elseif (wordsLower[0] == "watchid" and REP.AfterDragonflight) then
+        REP:WatchFactionById(wordsLower[1])
       else
         REP:PrintSlash(REP_TXT.command, msgLower)
       end
@@ -1012,6 +1014,18 @@ function REP:WatchFaction(watchID)
         return REP:Print("Could not find a faction with either factionID: "..tostring(watchID).." or index #"..tostring(watchID))
       end
     end
+  end
+end
+
+function REP:WatchFactionById(watchID)
+  if not watchID then return end
+
+  factionData = C_Reputation.GetFactionDataByID(watchID)
+
+  if factionData then
+    return C_Reputation.SetWatchedFactionByID(watchID)
+  else
+    return REP:Print("Could not find a faction with either factionID: "..tostring(watchID))
   end
 end
 
@@ -1463,13 +1477,20 @@ function REP:InitFactor(IsHuman, faction)
 end
 
 function REP:InitFaction(guildName, faction)
+  if not faction then return end
+
   if faction == "guildName" or faction == REP.GuildName or faction == 1168 then
     if REP.GuildName then
       REP_faction = tostring(REP.GuildName).." (guild)"
     end
   else
     if REP.AfterDragonflight then
-      REP_faction = C_Reputation.GetFactionDataByID(faction).name
+      if C_Reputation.GetFactionDataByID(faction) then
+        REP_faction = C_Reputation.GetFactionDataByID(faction).name
+      else
+        REP_faction = faction
+      end
+      
     else
       REP_faction = GetFactionInfoByID(faction)
     end
@@ -1673,10 +1694,11 @@ function REP_AddInstance(faction, from, to, name, rep, heroic, isRenownFaction)
 
     local count = add_info.count
     add_info.data[count] = {}
-    local add_count=add_info.data[count]
+    local add_count = add_info.data[count]
     add_count.name = name
     add_count.rep = rep
     add_count.maxStanding = to
+    
     if ((standing == to) and limit) then
       add_count.limit = limit
     end
@@ -2024,7 +2046,9 @@ function REP_ExpandFactionHeader(index) -- replaces ExpandFactionHeader
     if not REP_Entries then return end
     if not REP_Entries[index] then return end
     REP_Collapsed[REP_Entries[index].i] = nil
-    ReputationFrame_Update()
+    if not REP.AfterDragonflight then
+      ReputationFrame_Update()
+    end
   else
     REP_Orig_ExpandFactionHeader(index)
   end
@@ -2210,7 +2234,9 @@ function REP_CollapseFactionHeader(index) -- replaces CollapseFactionHeader
     if not REP_Entries then return end
     if not REP_Entries[index] then return end
     REP_Collapsed[REP_Entries[index].i] = true
-    ReputationFrame_Update()
+    if not REP.AfterDragonflight then
+      ReputationFrame_Update()
+    end
   else
     REP_Orig_CollapseFactionHeader(index)
   end
@@ -2236,7 +2262,9 @@ function REP_ReputationBar_OnClick(self)
         REP_UpdateList_Update()
       end
 
-      ReputationFrame_Update()
+      if not REP.AfterDragonflight then
+        ReputationFrame_Update()
+      end
     end
   end
 end
@@ -3761,7 +3789,9 @@ function REP_ClearSessionGain()
     REP_StoredRep[name].barMax = barMax
   end
 
-  ReputationFrame_Update()
+  if not REP.AfterDragonflight then
+    ReputationFrame_Update()
+  end
 end
 
 -----------------------------------
@@ -3844,8 +3874,9 @@ function REP:ToggleDetailWindow()
         -- detail window not shown -> show it, hide any others
         REP_ReputationDetailFrame:Show()
         ReputationDetailFrame:Hide()
-        --REP_OptionsFrame:Hide()
-        ReputationFrame_Update()
+        if not REP.AfterDragonflight then
+          ReputationFrame_Update()
+        end
       end
     else
       if ReputationDetailFrame:IsVisible() then
@@ -3856,8 +3887,9 @@ function REP:ToggleDetailWindow()
         -- detail window not shown -> show it, hide any others
         REP_ReputationDetailFrame:Hide()
         ReputationDetailFrame:Show()
-        --REP_OptionsFrame:Hide()
-        ReputationFrame_Update()
+        if not REP.AfterDragonflight then
+          ReputationFrame_Update()
+        end
       end
     end
   else
@@ -3869,8 +3901,9 @@ function REP:ToggleDetailWindow()
       ReputationDetailFrame:Show()
     end
 
-    --REP_OptionsFrame:Hide()
-    ReputationFrame_Update()
+    if not REP.AfterDragonflight then
+      ReputationFrame_Update()
+    end
   end
 end
 
@@ -4437,6 +4470,12 @@ function REP:Rep_Detail_Frame()
     ReputationDetailFrame:Hide()
   end
 
+  if REP.AfterDragonflight then
+    REP_ReputationDetailMainScreenCheckBox.factionIndex = factionIndex
+    REP_ReputationDetailInactiveCheckBox.factionIndex = factionIndex
+    REP_ReputationDetailAtWarCheckBox.factionIndex = factionIndex
+  end
+
   -----------------------------------
   --  Default detail frame settings
   -----------------------------------
@@ -4500,6 +4539,8 @@ function REP:Rep_Detail_Frame()
       barMax = majorFactionData.renownLevelThreshold
       barValue = majorFactionData.renownReputationEarned
       standingID = majorFactionData.renownLevel
+
+      REP_ReputationDetailViewRenownButton.factionID = factionID
     else
       standingID = reputationInfo.reaction
       barMin = reputationInfo.currentReactionThreshold
@@ -5082,7 +5123,9 @@ function REP_OptionsOk()
       REP_Data.Global.ShowParagonBar = REP_OptionEnableParagonBarCB:GetChecked()
     end
 
-    ReputationFrame_Update()
+    if not REP.AfterDragonflight then
+      ReputationFrame_Update()
+    end
   end
 
   REP_OptionsShown = nil
@@ -5149,7 +5192,9 @@ function REP_CustomSetFactionInactive(factionIndex)
 
     SetFactionInactive(factionIndex)
     if REP.AfterShadowLands then
-      ReputationFrame_Update()
+      if not REP.AfterDragonflight then
+        ReputationFrame_Update()
+      end
     else
       REP_ReputationFrame_Update()
     end
@@ -5170,7 +5215,9 @@ function REP_CustomSetFactionActive(factionIndex)
 
     SetFactionActive(factionIndex)
     if REP.AfterShadowLands then
-      ReputationFrame_Update()
+      if not REP.AfterDragonflight then
+        ReputationFrame_Update()
+      end
     else
       REP_ReputationFrame_Update()
     end
@@ -5935,7 +5982,9 @@ function REP:WatchedFactionDetails(watchedFactionID)
       REP_UpdateList_Update()
     end
 
-    ReputationFrame_Update()
+    if not REP.AfterDragonflight then
+      ReputationFrame_Update()
+    end
   elseif (watchedFactionName == "Alliance" or watchedFactionName == "Horde") then
     REP:Print(tostring(watchedFactionName)..' can only be shown if a child faction is visible/active in the reputaion list.')
   end

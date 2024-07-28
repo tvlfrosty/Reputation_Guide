@@ -118,6 +118,7 @@ REP.AfterLegion = false
 REP.AfterBfA = false
 REP.AfterShadowLands = false
 REP.AfterDragonflight = false
+REP_AfterDragonflight = false ---- Temp fix for TWW
 REP.AfterTheWarWithin = false
 ---- Phases to show
 -- Classic
@@ -261,14 +262,14 @@ function REP:GetActiveExpansionAndPhase()
   REP.GameBuildVersion = gameBuildVersion
 
   REP:ResetsActiveExpansionAndPhase()
-  REP:GetActiveExpansion(expansionIndex)
+  REP:GetActiveExpansion(expansionIndex, gameBuildVersion)
   REP:GetActivePhase(gameBuildVersion)
 end
 
 --------------------------------------
 -- Get active expansion --
 --------------------------------------
-function REP:GetActiveExpansion(expansionIndex)
+function REP:GetActiveExpansion(expansionIndex, gameBuildVersion)
   if not expansionIndex then return end
   if expansionIndex == 0 then -- Classic
     REP.IsClassic = true
@@ -283,6 +284,7 @@ function REP:GetActiveExpansion(expansionIndex)
     	end
     end
   end
+
   if expansionIndex > 0 then REP.AfterClassic = true end
   if expansionIndex == 1 then REP.IsTBC = true end -- The Burning Crusade
   if expansionIndex > 1 then REP.AfterTBC = true end
@@ -301,8 +303,8 @@ function REP:GetActiveExpansion(expansionIndex)
   if expansionIndex == 8 then REP.IsShadowLands = true end -- Shadowlands
   if expansionIndex > 8 then REP.AfterShadowLands = true end
   if expansionIndex == 9 then REP.IsDragonflight = true end -- Dragonflight
-  if expansionIndex > 9 then REP.AfterDragonflight = true end
-  if expansionIndex == 10 then REP.IsTheWarWithin = true end -- The War Within
+  if expansionIndex > 9 or gameBuildVersion > 109000 then REP.AfterDragonflight, REP_AfterDragonflight = true, true end
+  if expansionIndex == 10 or gameBuildVersion > 109000 then REP.IsTheWarWithin = true end -- The War Within
   if expansionIndex > 10 then REP.AfterTheWarWithin = true end
 end
 
@@ -327,6 +329,7 @@ function REP:GetActivePhase(gameBuildVersion)
   if gameBuildVersion > 11499 and gameBuildVersion < 11599 then REP.ShowClassicSODPhaseOne = true end
   if gameBuildVersion > 11500 and gameBuildVersion < 11599 then REP.ShowClassicSODPhaseTwo = true end
   if gameBuildVersion > 11501 and gameBuildVersion < 11599 then REP.ShowClassicSODPhaseThree = true end
+  if gameBuildVersion > 11502 and gameBuildVersion < 11599 then REP.ShowClassicSODPhaseFour = true end
   -- The Burning Crusade
   if gameBuildVersion > 20000 then REP.ShowTBCPhaseOne = true end
   if gameBuildVersion > 20000 then REP.ShowTBCPhaseTwo = true end
@@ -393,7 +396,8 @@ function REP:GetActivePhase(gameBuildVersion)
   -- Classic SOD
   if REP.ShowClassicSODPhaseOne and not REP.ShowClassicSODPhaseTwo then REP.IsClassicSODPhaseOne = true end
   if REP.ShowClassicSODPhaseTwo and not REP.ShowClassicSODPhaseThree then REP.IsClassicSODPhaseTwo = true end
-  if REP.ShowClassicSODPhaseThree then REP.IsClassicSODPhaseThree = true end
+  if REP.ShowClassicSODPhaseThree and not REP.ShowClassicSODPhaseFour then REP.IsClassicSODPhaseThree = true end
+  if REP.ShowClassicSODPhaseFour then REP.IsClassicSODPhaseFour = true end
   -- The Burning Crusade
   if REP.ShowTBCPhaseOne and not REP.ShowTBCPhaseTwo then REP.IsTBCPhaseOne = true end
   if REP.ShowTBCPhaseTwo and not REP.ShowTBCPhaseThree then REP.IsTBCPhaseTwo = true end
@@ -472,6 +476,7 @@ function REP:ResetsActiveExpansionAndPhase()
   REP.AfterBfA = false
   REP.AfterShadowLands = false
   REP.AfterDragonflight = false
+  REP_AfterDragonflight = false
   REP.AfterTheWarWithin = false
   ---- Phases to show
   -- Classic
@@ -489,6 +494,8 @@ function REP:ResetsActiveExpansionAndPhase()
   -- Classic SOD
   REP.ShowClassicSODPhaseOne = false
   REP.ShowClassicSODPhaseTwo = false
+  REP.ShowClassicSODPhaseThree = false
+  REP.ShowClassicSODPhaseFour = false
   -- The Burning Crusade
   REP.ShowTBCPhaseOne = false
   REP.ShowTBCPhaseTwo = false
@@ -553,6 +560,7 @@ function REP:ResetsActiveExpansionAndPhase()
   REP.IsClassicSODPhaseOne = false
   REP.IsClassicSODPhaseTwo = false
   REP.IsClassicSODPhaseThree = false
+  REP.IsClassicSODPhaseFour = false
   -- The Burning Crusade
   REP.IsTBCPhaseOne = false
   REP.IsTBCPhaseTwo = false
