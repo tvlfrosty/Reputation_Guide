@@ -281,13 +281,17 @@
 						_G[self:GetName().."Text"]:SetVertexColor(RED_FONT_COLOR.r, RED_FONT_COLOR.g, RED_FONT_COLOR.b);
 					</OnLoad>
 					<OnClick>
-						FactionToggleAtWar(GetSelectedFaction());
-						if (self:GetChecked()) then
-							if SOUNDKIT then PlaySound(SOUNDKIT.IG_MAINMENU_OPTION_CHECKBOX_ON); end
-						else
-							if SOUNDKIT then PlaySound(SOUNDKIT.IG_MAINMENU_OPTION_CHECKBOX_OFF); end
-						end
-						ReputationFrame_Update();
+            if REP_AfterDragonflight then
+              C_Reputation.ToggleFactionAtWar(self.factionIndex);
+            else
+              FactionToggleAtWar(GetSelectedFaction());
+              ReputationFrame_Update();
+            end
+
+            if SOUNDKIT then
+              local clickSound = self:GetChecked() and SOUNDKIT.IG_MAINMENU_OPTION_CHECKBOX_ON or SOUNDKIT.IG_MAINMENU_OPTION_CHECKBOX_OFF;
+	            PlaySound(clickSound);
+            end
 					</OnClick>
 					<OnEnter>
 						GameTooltip:SetOwner(self, "ANCHOR_RIGHT");
@@ -337,12 +341,23 @@
 				<Scripts>
 					<OnClick>
 						if (self:GetChecked()) then
-							if SOUNDKIT then PlaySound(SOUNDKIT.IG_MAINMENU_OPTION_CHECKBOX_ON); end
-							REP_CustomSetFactionInactive(GetSelectedFaction());
+              if REP_AfterDragonflight then
+                REP_CustomSetFactionInactive(self.factionIndex);
+              else
+                REP_CustomSetFactionInactive(GetSelectedFaction());
+              end
 						else
-							if SOUNDKIT then PlaySound(SOUNDKIT.IG_MAINMENU_OPTION_CHECKBOX_OFF); end
-							REP_CustomSetFactionActive(GetSelectedFaction());
+              if REP_AfterDragonflight then
+                REP_CustomSetFactionActive(self.factionIndex);
+              else
+                REP_CustomSetFactionActive(GetSelectedFaction());
+              end
 						end
+
+            if SOUNDKIT then
+              local clickSound = self:GetChecked() and SOUNDKIT.IG_MAINMENU_OPTION_CHECKBOX_ON or SOUNDKIT.IG_MAINMENU_OPTION_CHECKBOX_OFF;
+	            PlaySound(clickSound);
+            end
 					</OnClick>
 					<OnEnter>
 						GameTooltip:SetOwner(self, "ANCHOR_RIGHT");
@@ -369,14 +384,17 @@
 				</HitRectInsets>
 				<Scripts>
 					<OnClick>
-						if (self:GetChecked()) then
-							if SOUNDKIT then PlaySound(SOUNDKIT.IG_MAINMENU_OPTION_CHECKBOX_ON); end
-							SetWatchedFactionIndex(GetSelectedFaction());
-						else
-							if SOUNDKIT then PlaySound(SOUNDKIT.IG_MAINMENU_OPTION_CHECKBOX_OFF); end
-							SetWatchedFactionIndex(0);
-						end
-						ReputationFrame_Update();
+            if REP_AfterDragonflight then
+              C_Reputation.SetWatchedFactionByIndex(self:GetChecked() and self.factionIndex or 0);
+            else
+              SetWatchedFactionIndex(self:GetChecked() and GetSelectedFaction() or 0);
+              ReputationFrame_Update();
+            end
+
+            if SOUNDKIT then
+              local clickSound = self:GetChecked() and SOUNDKIT.IG_MAINMENU_OPTION_CHECKBOX_ON or SOUNDKIT.IG_MAINMENU_OPTION_CHECKBOX_OFF;
+	            PlaySound(clickSound);
+            end
 					</OnClick>
 					<OnEnter>
 						GameTooltip:SetOwner(self, "ANCHOR_RIGHT");

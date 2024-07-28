@@ -507,6 +507,17 @@ function REP_InitEnFactionGains(guildName, guildCapBase)
 	REP_AddQuest(59, 4, 4, "Restoring Fiery Flux Supplies via Iron", 25, {[18944] = 2, [3575] = 4, [3857] = 1}) -- Restoring Fiery Flux Supplies via Iron QuestID: 8241
 	REP_AddQuest(59, 4, 4, "Restoring Fiery Flux Supplies via Kingsblood", 25, {[18944] = 2, [3356] = 4, [3857] = 1}) -- Restoring Fiery Flux Supplies via Kingsblood QuestID: 7736	
   if (not REP.AfterWotlk) then
+    if REP.ShowClassicSODPhaseFour then
+      REP_AddQuest(59, 4, 8, 84355, 200) -- More Like Lame-bringers! QuestID: 84355
+      REP_AddQuest(59, 4, 8, 84356, 150) -- Oh, Shiny! QuestID: 84356
+      REP_AddQuest(59, 4, 8, 84349, 200) -- Priority Target: Duke Searbrand QuestID: 84349
+      REP_AddQuest(59, 4, 8, 84348, 200) -- Priority Target: Duke Tectonis QuestID: 84348
+      REP_AddQuest(59, 4, 8, 84359, 200) -- Sleepless Nights QuestID: 84359
+      REP_AddQuest(59, 4, 8, 84351, 300) -- Work Smarter, Not Harder QuestID: 84351
+      REP_AddQuest(59, 4, 8, 84350, 200) -- Grinding Them Down QuestID: 84350
+      REP_AddQuest(59, 4, 8, 84360, 200) -- Firefighting QuestID: 84360
+      REP_AddQuest(59, 4, 8, 84372, 200) -- Lava Diving QuestID: 84372
+    end
     REP_AddQuest(59, 5, 5, "Gaining Acceptance", 25, {[18945] = 4}) -- Gaining Acceptance QuestID 13662
     REP_AddQuest(59, 5, 5, 7737, 625, {[18945] = 100}) -- Gaining Even More Acceptance QuestID: 7737
     if (REP.IsClassic) then
@@ -634,13 +645,34 @@ function REP_InitEnFactionGains(guildName, guildCapBase)
 	-- Hydraxian Waterlords 749 --
 	---------------------------
 	---- Mobs
-	REP_AddMob(749, 4, 5, "Desert Rumbler, Dust Stormer", 5, zone.Silithus)
-	REP_AddMob(749, 4, 5, "Greater Obsidian Elemental", 5, zone.Burning_Steppes)
-	REP_AddMob(749, 4, 6, "Lord Incendius", 15, zone.Blackrock_Depths)
+	REP_AddMob(749, 4, 5, "Desert Rumbler", 5, zone.Silithus)
+  REP_AddMob(749, 4, 5, "Dust Stormer", 5, zone.Silithus)
+  REP_AddMob(749, 4, 5, "Cyclone Warrior", 5, zone.Silithus)
+  REP_AddMob(749, 4, 5, "Sand Skitterer", 5, zone.Silithus)
 	REP_AddMob(749, 4, 6, "Huricanian (Rare)", 25, zone.Silithus)
+  REP_AddMob(749, 4, 5, "Greater Obsidian Elemental", 5, zone.Burning_Steppes)
+	REP_AddMob(749, 4, 6, "Lord Incendius", 15, zone.Blackrock_Depths)
 	REP_AddMob(749, 4, 6, "Pyroguard Emberseer", 50, zone.Blackrock_Spire)
 	REP_AddMob(749, 4, 6, "Molten Core Trash", 20, zone.Molten_Core)
 	REP_AddMob(749, 4, 6, "Molten Destroyer & Lava Pack", 40, zone.Molten_Core)
+  if REP.ShowClassicSODPhaseFour then
+    REP_AddMob(749, 4, 6, "Duke Searbrand", 100, zone.Searing_Gorge)
+    REP_AddMob(749, 4, 5, "Duke Tectonis", 5, zone.Searing_Gorge)
+    REP_AddMob(749, 4, 5, "Obsidian Surger", 5, zone.Searing_Gorge)
+    REP_AddMob(749, 4, 5, "Obsidian Reaver", 5, zone.Searing_Gorge)
+    REP_AddMob(749, 4, 5, "Greater Lava Spider", 5, zone.Searing_Gorge)
+    REP_AddMob(749, 4, 5, "Infernus Siege Giant", 20, zone.Searing_Gorge)
+    REP_AddMob(749, 4, 8, "Firesworn (Elite)", 50, zone.Burning_Steppes)
+    ---- Quests
+    REP_AddQuest(749, 4, 8, 84355, 200) -- More Like Lame-bringers! QuestID: 84355
+    REP_AddQuest(749, 4, 8, 84349, 200) -- Priority Target: Duke Searbrand QuestID: 84349
+    REP_AddQuest(749, 4, 8, 84348, 200) -- Priority Target: Duke Tectonis QuestID: 84348
+    REP_AddQuest(749, 4, 8, 84359, 150) -- Sleepless Nights QuestID: 84359
+    REP_AddQuest(749, 4, 8, 84351, 150) -- Work Smarter, Not Harder QuestID: 84351
+    REP_AddQuest(749, 4, 8, 84350, 150) -- Grinding Them Down QuestID: 84350
+    REP_AddQuest(749, 4, 8, 84360, 150) -- Firefighting QuestID: 84360
+    REP_AddQuest(749, 4, 8, 84372, 150) -- Lava Diving QuestID: 84372
+  end
 	---- Instances
 	REP_AddInstance(749, 4, 7, zone.Molten_Core, 1050)
 	REP_AddInstance(749, 8, 8, zone.Molten_Core, 350)

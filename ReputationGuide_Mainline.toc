@@ -1,5 +1,5 @@
-## Interface: 102070, 110000
-## Title: ReputationGuide (The War Within)
+## Interface: 110000, 100207
+## Title: ReputationGuide |cfd9b9b9b(The War Within)|r
 ## IconTexture: Interface/Addons/ReputationGuide/assets/factions_logo_256x256
 ## Version: 11.0.0-release
 ## Author: Tvlfrosty
