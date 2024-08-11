@@ -56,6 +56,8 @@ REP_TXT.supressNoneFaction	= "Annuler exclusions faction"
 REP_TXT.supressNoneGlobal	= "Annuler toutes exclusions"
 REP_TXT.suppressHint	= "Faites un clic droit sur une quête pour l'exclure du résumé"
 REP_TXT.clearSessionGain	= "Zéro du compteur de gain séance"
+REP_TXT.moveToInactive = "Déplacer vers inactif"
+REP_TXT.showFactionOnMainscreen = "Afficher la faction à côté \nde la barre d'xp"
 -- options dialog
 REP_TXT.showMissing	= "Afficher la réputation manquante dans le cadre réputation"
 REP_TXT.extendDetails	= "Afficher la fenêtree de réputation détaillée"
