@@ -56,6 +56,8 @@ REP_TXT.supressNoneFaction	= "Ausschluss löschen: Fraktion"
 REP_TXT.supressNoneGlobal	= "Ausschluss löschen: Alle"
 REP_TXT.suppressHint	= "Rechtsklick auf eine Quest, um sie von der Summe auszuschliessen."
 REP_TXT.clearSessionGain	= "Zähler für diesmal zurücksetzen"
+REP_TXT.moveToInactive = "Move to inactive"
+REP_TXT.showFactionOnMainscreen = "Show faction as exp bar"
 -- options dialog
 REP_TXT.showMissing	= "Fehlenden Ruf im Ruffenster anzeigen"
 REP_TXT.extendDetails	= "Erweitertes Detailfenster anzeigen"

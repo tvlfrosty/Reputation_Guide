@@ -1,4 +1,4 @@
-## Interface: 110000, 100207
+## Interface: 110002, 100207
 ## Title: ReputationGuide |cfd9b9b9b(The War Within)|r
 ## IconTexture: Interface/Addons/ReputationGuide/assets/factions_logo_256x256
 ## Version: 11.0.0-release
@@ -19,7 +19,7 @@ variables.lua
 zones.lua
 content.lua
 mapping.lua
-RetailUI\RetailReputationGuide.xml
+ReputationGuide.xml
 ReputationGuideSkin.lua
 
 settings.lua

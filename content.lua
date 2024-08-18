@@ -4906,6 +4906,39 @@ end
 		end
 	end
 
+--------------------------------------------------
+-- Factions released 'after' The War Within
+--------------------------------------------------
+	if (REP.AfterTheWarWithin) then
+		if (REP.IsAlliance) then
+			-- Alliance
+		else
+			-- Horde
+		end
+	end
+
+--------------------------------------------------
+-- Factions released 'after' Midnight
+--------------------------------------------------
+  if (REP.AfterTheWarWithin) then
+    if (REP.IsAlliance) then
+      -- Alliance
+    else
+      -- Horde
+    end
+  end
+
+--------------------------------------------------
+-- Factions released 'after' The Last Titan
+--------------------------------------------------
+  if (REP.AfterTheWarWithin) then
+    if (REP.IsAlliance) then
+      -- Alliance
+    else
+      -- Horde
+    end
+  end
+
   collectgarbage("collect")
 end
 

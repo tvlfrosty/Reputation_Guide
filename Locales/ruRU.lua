@@ -55,6 +55,8 @@ REP_TXT.supressNoneFaction	= "Убрать исключения фракции"
 REP_TXT.supressNoneGlobal	= "Убрать все исключения"
 REP_TXT.suppressHint	= "Кликните правой кнопкой, чтобы исключить квест из списка"
 REP_TXT.clearSessionGain	= "Очистить счетчик увеличений за сессию"
+REP_TXT.moveToInactive = "Move to inactive"
+REP_TXT.showFactionOnMainscreen = "Show faction as exp bar"
 -- options dialog
 REP_TXT.showMissing	= "Показывать недостающую репутацию во фрейме репутации"
 REP_TXT.extendDetails	= "Показывать окно детальной информации о репутации"
