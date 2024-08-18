@@ -56,6 +56,8 @@ REP_TXT.supressNoneFaction	= "Restablecer excluidos de esta facción"
 REP_TXT.supressNoneGlobal	= "Restablecer todos los excluidos"
 REP_TXT.suppressHint	= "Click derecho para excluir un elemento"
 REP_TXT.clearSessionGain	= "Reiniciar contador de sesión"
+REP_TXT.moveToInactive = "Move to inactive"
+REP_TXT.showFactionOnMainscreen = "Show faction as exp bar"
 -- options dialog
 REP_TXT.showMissing	= "Mostrar reputación faltante en el marco de reputación"
 REP_TXT.extendDetails	= "Mostrar reputación detallada en la ventana"

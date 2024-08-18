@@ -55,6 +55,8 @@ REP_TXT.supressNoneFaction	= "Esclusione chiaro per fazione"
 REP_TXT.supressNoneGlobal	= "Esclusione chiaro per tutti"
 REP_TXT.suppressHint	= "Fai clic destro su una ricerca per escluderla dalla sintesi"
 REP_TXT.clearSessionGain	= "Azzera contatore guadagno sessione"
+REP_TXT.moveToInactive = "Move to inactive"
+REP_TXT.showFactionOnMainscreen = "Show faction as exp bar"
 -- options dialog
 REP_TXT.showMissing	= "Mostra reputazione mancante nella cornice reputazione"
 REP_TXT.extendDetails	= "Mostra estesa reputazione telaio dettaglio"

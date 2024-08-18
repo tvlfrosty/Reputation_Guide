@@ -95,6 +95,8 @@ REP.Expansions[7] = "Battle for Azeroth"
 REP.Expansions[8] = "Shadowlands"
 REP.Expansions[9] = "Dragonflight"
 REP.Expansions[10] = "The War Within"
+REP.Expansions[11] = "Midnight"
+REP.Expansions[12] = "The Last Titan"
 ---- Current Expansion
 REP.IsClassic = false
 REP.IsTBC = false
@@ -107,6 +109,8 @@ REP.IsBfA = false
 REP.IsShadowLands = false
 REP.IsDragonflight = false
 REP.IsTheWarWithin = false
+REP.IsMidnight = false
+REP.IsTheLastTitan = false
 ---- After Expansion
 REP.AfterClassic = false
 REP.AfterTBC = false
@@ -118,8 +122,9 @@ REP.AfterLegion = false
 REP.AfterBfA = false
 REP.AfterShadowLands = false
 REP.AfterDragonflight = false
-REP_AfterDragonflight = false ---- Temp fix for TWW
 REP.AfterTheWarWithin = false
+REP.AfterMidnight = false
+REP.AfterTheLastTitan = false
 ---- Phases to show
 -- Classic
 REP.ShowClassicPhaseOne = false
@@ -137,6 +142,8 @@ REP.ShowClassicSOMPhaseFour = false
 REP.ShowClassicSODPhaseOne = false
 REP.ShowClassicSODPhaseTwo = false
 REP.ShowClassicSODPhaseThree = false
+REP.ShowClassicSODPhaseFour = false
+REP.ShowClassicSODPhaseFive = false
 -- The Burning Crusade
 REP.ShowTBCPhaseOne = false
 REP.ShowTBCPhaseTwo = false
@@ -184,6 +191,10 @@ REP.ShowDragonflightPhaseTwo = false
 REP.ShowDragonflightPhaseThree = false
 -- The War Within
 REP.ShowTheWarWithinPhaseOne = false
+-- Midnight
+REP.ShowMidnightPhaseOne = false
+-- The Last Titan
+REP.ShowTheLastTitanPhaseOne = false
 ----  Current phase
 -- Classic
 REP.IsClassicPhaseOne = false
@@ -201,6 +212,8 @@ REP.IsClassicSOMPhaseFour = false
 REP.IsClassicSODPhaseOne = false
 REP.IsClassicSODPhaseTwo = false
 REP.IsClassicSODPhaseThree = false
+REP.IsClassicSODPhaseFour = false
+REP.IsClassicSODPhaseFive = false
 -- The Burning Crusade
 REP.IsTBCPhaseOne = false
 REP.IsTBCPhaseTwo = false
@@ -248,6 +261,15 @@ REP.IsDragonflightPhaseTwo = false
 REP.IsDragonflightPhaseThree = false
 -- The War Within
 REP.IsTheWarWithinPhaseOne = false
+-- Midnight
+REP.IsMidnightPhaseOne = false
+-- The Last Titan
+REP.IsTheLastTitanPhaseOne = false
+
+---------------------------
+-- Faction count --
+---------------------------
+REP.totalFactions = 0
 
 -------------------------------
 -- GetActiveExpansionAndPhase --
@@ -303,9 +325,13 @@ function REP:GetActiveExpansion(expansionIndex, gameBuildVersion)
   if expansionIndex == 8 then REP.IsShadowLands = true end -- Shadowlands
   if expansionIndex > 8 then REP.AfterShadowLands = true end
   if expansionIndex == 9 then REP.IsDragonflight = true end -- Dragonflight
-  if expansionIndex > 9 or gameBuildVersion > 109000 then REP.AfterDragonflight, REP_AfterDragonflight = true, true end
+  if expansionIndex > 9 or gameBuildVersion > 109000 then REP.AfterDragonflight = true end
   if expansionIndex == 10 or gameBuildVersion > 109000 then REP.IsTheWarWithin = true end -- The War Within
   if expansionIndex > 10 then REP.AfterTheWarWithin = true end
+  if expansionIndex == 11 or gameBuildVersion > 119000 then REP.IsMidnight = true end -- Midnight
+  if expansionIndex > 11 then REP.AfterMidnight = true end
+  if expansionIndex == 12 or gameBuildVersion > 129000 then REP.IsTheLastTitan = true end -- The Last Titan
+  if expansionIndex > 12 then REP.AfterTheLastTitan = true end
 end
 
 --------------------------------------
@@ -330,6 +356,7 @@ function REP:GetActivePhase(gameBuildVersion)
   if gameBuildVersion > 11500 and gameBuildVersion < 11599 then REP.ShowClassicSODPhaseTwo = true end
   if gameBuildVersion > 11501 and gameBuildVersion < 11599 then REP.ShowClassicSODPhaseThree = true end
   if gameBuildVersion > 11502 and gameBuildVersion < 11599 then REP.ShowClassicSODPhaseFour = true end
+  if gameBuildVersion > 11503 and gameBuildVersion < 11599 then REP.ShowClassicSODPhaseFive = true end
   -- The Burning Crusade
   if gameBuildVersion > 20000 then REP.ShowTBCPhaseOne = true end
   if gameBuildVersion > 20000 then REP.ShowTBCPhaseTwo = true end
@@ -345,42 +372,41 @@ function REP:GetActivePhase(gameBuildVersion)
   -- Cataclysm
   if gameBuildVersion > 40000 then REP.ShowCataPhaseOne = true end
   if gameBuildVersion > 40400 then REP.ShowCataPhaseTwo = true end
-
-  -- TEMP Retail fix
-  if gameBuildVersion > 50000 then
-    REP.ShowMoPPhaseOne = true
-    REP.ShowMoPPhaseTwo = true
-    REP.ShowMoPPhaseThree = true
-    REP.ShowMoPPhaseFour = true
-    REP.ShowMoPPhaseFive = true
-
-    REP.ShowWoDPhaseOne = true
-    REP.ShowWoDPhaseTwo = true
-    REP.ShowWoDPhaseThree = true
-    REP.ShowWoDPhaseFour = true
-
-    REP.ShowLegionPhaseOne = true
-    REP.ShowLegionPhaseTwo = true
-    REP.ShowLegionPhaseThree = true
-
-    REP.ShowBfAPhaseOne = true
-    REP.ShowBfAPhaseTwo = true
-    REP.ShowBfAPhaseThree = true
-    REP.ShowBfAPhaseFour = true
-
-    REP.ShowShadowLandsPhaseOne = true
-    REP.ShowShadowLandsPhaseTwo = true
-    REP.ShowShadowLandsPhaseThree = true
-
-    REP.ShowDragonflightPhaseOne = true
-    REP.ShowDragonflightPhaseTwo = true
-    REP.ShowDragonflightPhaseThree = true
-  end
-
-  if gameBuildVersion > 10500 then
-    REP.ShowTheWarWithinPhaseOne = true
-  end
-
+  if gameBuildVersion > 40400 then REP.ShowCataPhaseTwo = true end
+  -- Mists of Pandaria
+  if gameBuildVersion > 50000 then REP.ShowMoPPhaseOne = true end
+  if gameBuildVersion > 50000 then REP.ShowMoPPhaseTwo = true end
+  if gameBuildVersion > 50000 then REP.ShowMoPPhaseThree = true end
+  if gameBuildVersion > 50000 then REP.ShowMoPPhaseFour = true end
+  if gameBuildVersion > 50000 then REP.ShowMoPPhaseFive = true end
+  -- Warlords of Draenor
+  if gameBuildVersion > 60000 then REP.ShowWoDPhaseOne = true end
+  if gameBuildVersion > 60000 then REP.ShowWoDPhaseTwo = true end
+  if gameBuildVersion > 60000 then REP.ShowWoDPhaseThree = true end
+  if gameBuildVersion > 60000 then REP.ShowWoDPhaseFour = true end
+  -- Legion
+  if gameBuildVersion > 70000 then REP.ShowLegionPhaseOne = true end
+  if gameBuildVersion > 70000 then REP.ShowLegionPhaseTwo = true end
+  if gameBuildVersion > 70000 then REP.ShowLegionPhaseThree = true end
+  -- Battle for Azeroth
+  if gameBuildVersion > 80000 then REP.ShowBfAPhaseOne = true end
+  if gameBuildVersion > 80000 then REP.ShowBfAPhaseTwo = true end
+  if gameBuildVersion > 80000 then REP.ShowBfAPhaseThree = true end
+  if gameBuildVersion > 80000 then REP.ShowBfAPhaseFour = true end
+  -- Shadowlands
+  if gameBuildVersion > 90000 then REP.ShowShadowLandsPhaseOne = true end
+  if gameBuildVersion > 90000 then REP.ShowShadowLandsPhaseTwo = true end
+  if gameBuildVersion > 90000 then REP.ShowShadowLandsPhaseThree = true end
+  -- Dragonflight
+  if gameBuildVersion > 100000 then REP.ShowDragonflightPhaseOne = true end
+  if gameBuildVersion > 100000 then REP.ShowDragonflightPhaseTwo = true end
+  if gameBuildVersion > 100000 then REP.ShowDragonflightPhaseThree = true end
+  -- The War Within
+  if gameBuildVersion > 109000 then REP.ShowTheWarWithinPhaseOne = true end
+  -- Midnight 
+  if gameBuildVersion > 119000 then REP.ShowMidnightPhaseOne = true end
+  -- The Last Titan
+  if gameBuildVersion > 129000 then REP.ShowTheLastTitenPhaseOne = true end
   ---- Current phase
   if REP.ShowClassicPhaseOne and not REP.ShowClassicPhaseTwo then REP.IsClassicPhaseOne = true end
   if REP.ShowClassicPhaseTwo and not REP.ShowClassicPhaseThree then REP.IsClassicPhaseTwo = true end
@@ -397,7 +423,8 @@ function REP:GetActivePhase(gameBuildVersion)
   if REP.ShowClassicSODPhaseOne and not REP.ShowClassicSODPhaseTwo then REP.IsClassicSODPhaseOne = true end
   if REP.ShowClassicSODPhaseTwo and not REP.ShowClassicSODPhaseThree then REP.IsClassicSODPhaseTwo = true end
   if REP.ShowClassicSODPhaseThree and not REP.ShowClassicSODPhaseFour then REP.IsClassicSODPhaseThree = true end
-  if REP.ShowClassicSODPhaseFour then REP.IsClassicSODPhaseFour = true end
+  if REP.ShowClassicSODPhaseFour and not REP.ShowClassicSODPhaseFive then REP.IsClassicSODPhaseFour = true end
+  if REP.ShowClassicSODPhaseFive then REP.IsClassicSODPhaseFive = true end
   -- The Burning Crusade
   if REP.ShowTBCPhaseOne and not REP.ShowTBCPhaseTwo then REP.IsTBCPhaseOne = true end
   if REP.ShowTBCPhaseTwo and not REP.ShowTBCPhaseThree then REP.IsTBCPhaseTwo = true end
@@ -444,7 +471,11 @@ function REP:GetActivePhase(gameBuildVersion)
   if REP.ShowDragonflightPhaseTwo and not REP.ShowDragonflightPhaseThree then REP.IsDragonflightPhaseTwo = true end
   if REP.ShowDragonflightPhaseThree and not REP.ShowTheWarWithinPhaseOne then REP.IsDragonflightPhaseThree = true end
   -- The War Within
-  if REP.ShowTheWarWithinPhaseOne then REP.IsTheWarWithinPhaseOne = true end
+  if REP.ShowTheWarWithinPhaseOne and not REP.ShowMidnightPhaseOne then REP.IsTheWarWithinPhaseOne = true end
+  -- Midnight
+  if REP.ShowMidnightPhaseOne and not REP.ShowTheLastTitanPhaseOne then REP.IsMidnightPhaseOne = true end
+  -- The Last Titan
+  if REP.ShowTheLastTitanPhaseOne then REP.IsTheLastTitanPhaseOne = true end
 end
 
 --------------------------------------
@@ -465,6 +496,8 @@ function REP:ResetsActiveExpansionAndPhase()
   REP.IsShadowLands = false
   REP.IsDragonflight = false
   REP.IsTheWarWithin = false
+  REP.IsMidnight = false
+  REP.IsTheLastTitan = false
   ---- After Expansion
   REP.AfterClassic = false
   REP.AfterTBC = false
@@ -476,8 +509,9 @@ function REP:ResetsActiveExpansionAndPhase()
   REP.AfterBfA = false
   REP.AfterShadowLands = false
   REP.AfterDragonflight = false
-  REP_AfterDragonflight = false
   REP.AfterTheWarWithin = false
+  REP.AfterMidnight = false
+  REP.AfterTheLastTitan = false
   ---- Phases to show
   -- Classic
   REP.ShowClassicPhaseOne = false
@@ -496,6 +530,7 @@ function REP:ResetsActiveExpansionAndPhase()
   REP.ShowClassicSODPhaseTwo = false
   REP.ShowClassicSODPhaseThree = false
   REP.ShowClassicSODPhaseFour = false
+  REP.ShowClassicSODPhaseFive = false
   -- The Burning Crusade
   REP.ShowTBCPhaseOne = false
   REP.ShowTBCPhaseTwo = false
@@ -543,6 +578,10 @@ function REP:ResetsActiveExpansionAndPhase()
   REP.ShowDragonflightPhaseThree = false
   -- The War Within
   REP.ShowTheWarWithinPhaseOne = false
+  -- Midnight
+  REP.ShowMidnightPhaseOne = false
+  -- The Last Titan
+  REP.ShowTheLastTitanPhaseOne = false
   ----  Current phase
   -- Classic
   REP.IsClassicPhaseOne = false
@@ -561,6 +600,7 @@ function REP:ResetsActiveExpansionAndPhase()
   REP.IsClassicSODPhaseTwo = false
   REP.IsClassicSODPhaseThree = false
   REP.IsClassicSODPhaseFour = false
+  REP.IsClassicSODPhaseFive = false
   -- The Burning Crusade
   REP.IsTBCPhaseOne = false
   REP.IsTBCPhaseTwo = false
@@ -608,6 +648,10 @@ function REP:ResetsActiveExpansionAndPhase()
   REP.IsDragonflightPhaseThree = false
   -- The War Within
   REP.IsTheWarWithinPhaseOne = false
+  -- Midnight
+  REP.IsMidnightPhaseOne = false
+  -- The Last Titan
+  REP.IsTheLastTitanPhaseOne = false
 end
 
 ---------------------------

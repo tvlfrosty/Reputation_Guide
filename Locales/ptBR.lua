@@ -55,6 +55,8 @@ REP_TXT.supressNoneFaction	= "Limpar excl. para facção"
 REP_TXT.supressNoneGlobal	= "Limpar excl. para todas"
 REP_TXT.suppressHint	= "Clique com o direito em uma missão para excluí-la do resumo"
 REP_TXT.clearSessionGain	= "Limpar contador de ganho da sessão"
+REP_TXT.moveToInactive = "Move to inactive"
+REP_TXT.showFactionOnMainscreen = "Show faction as exp bar"
 -- options dialog
 REP_TXT.showMissing	= "Mostrar reputação restante no quadro de reputações"
 REP_TXT.extendDetails	= "Mostrar quadro de detalhes de reputação estendido"

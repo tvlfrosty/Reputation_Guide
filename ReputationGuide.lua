@@ -293,16 +293,6 @@ function REP_OnLoad(self)
       end
     end)
   end
-
-  if REP.AfterDragonflight then
-    hooksecurefunc(ReputationEntryMixin, 'OnClick', function(self)
-      REP:Rep_Detail_Frame()
-    end)
-    
-    hooksecurefunc(ReputationSubHeaderMixin, 'OnClick', function(self)
-      REP:Rep_Detail_Frame()
-    end)
-  end
 end
 
 ------------------------
@@ -396,6 +386,7 @@ function REP_OnEvent(self, event, ...)
     if (ReputationFrame:IsVisible() and not REP.AfterDragonflight) then
       ReputationFrame_Update()
     end
+
     if (REP_ReputationDetailFrame:IsVisible()) then
       REP_BuildUpdateList()
       REP_UpdateList_Update()
@@ -592,11 +583,30 @@ function REP:Init()
 
   if not REP.AfterShadowLands then
     REP_OrderByStandingCheckBoxText:SetText(REP_TXT.orderByStanding)
+  else
+    if REP_OrderByStandingCheckBox then REP_OrderByStandingCheckBox:Hide() end
   end
 
   if REP.AfterShadowLands then
     REP_ReputationDetailInactiveCheckBoxText:SetText(REP_TXT.moveToInactive)
     REP_ReputationDetailMainScreenCheckBoxText:SetText(REP_TXT.showFactionOnMainscreen)
+  end
+
+  if REP.AfterDragonflight then
+    hooksecurefunc(ReputationEntryMixin, 'OnClick', function(self)
+      C_Reputation.SetSelectedFaction(self.factionIndex)
+      REP:Rep_Detail_Frame()
+    end)
+    
+    hooksecurefunc(ReputationSubHeaderMixin, 'OnClick', function(self)
+      REP:Rep_Detail_Frame()
+    end)
+
+    if not REP.totalFactions or REP.totalFactions == 0 then
+      while C_Reputation.GetFactionDataByIndex(REP.totalFactions + 1) do
+        REP.totalFactions = REP.totalFactions + 1
+      end
+    end
   end
 
   local _, race = UnitRace("player")
@@ -669,7 +679,12 @@ end
 function REP:MakeUIChanges()
   if REP.AfterWotlk then
     REP_ReputationDetailFrame:SetPoint("TOPLEFT", ReputationFrame, "TOPRIGHT", 0, 0)
-    REP_OptionsButton:SetPoint("TOPRIGHT", ReputationFrame, "TOPRIGHT", -2, -22)
+
+    if REP.AfterDragonflight then
+      REP_OptionsButton:SetPoint("TOPRIGHT", ReputationFrame, "TOPRIGHT", -320, -22)
+    else
+      REP_OptionsButton:SetPoint("TOPRIGHT", ReputationFrame, "TOPRIGHT", -2, -22)
+    end
 
     if not REP.AfterShadowLands then
       REP_OrderByStandingCheckBox:SetPoint("TOPLEFT", ReputationFrame, "TOPLEFT", 55, -20)
@@ -990,6 +1005,11 @@ function REP:WatchFaction(watchID)
   local numFactions
   if REP.AfterDragonflight then
     numFactions = C_Reputation.GetNumFactions()
+    if numFactions >= REP.totalFactions then
+      numFactions = numFactions
+    else
+      numFactions = REP.totalFactions
+    end
   else
     numFactions = GetNumFactions()
   end
@@ -1448,6 +1468,11 @@ function REP:InitFactor(IsHuman, faction)
   local numFactions
   if REP.AfterDragonflight then
     numFactions = C_Reputation.GetNumFactions()
+    if numFactions >= REP.totalFactions then
+      numFactions = numFactions
+    else
+      numFactions = REP.totalFactions
+    end
   else
     numFactions = GetNumFactions()
   end
@@ -1862,6 +1887,11 @@ function REP_ReputationFrame_Update()
     else
       if REP.AfterDragonflight then
         numFactions = C_Reputation.GetNumFactions()
+        if numFactions >= REP.totalFactions then
+          numFactions = numFactions
+        else
+          numFactions = REP.totalFactions
+        end
       else
         numFactions = GetNumFactions()
       end
@@ -2557,7 +2587,13 @@ function REP_BuildUpdateList(selectedIndex)
   
         local friendReputationInfo = REP_Friend_Detail(factionID, standingID)
         isFriend = friendReputationInfo.isFriend
-  
+
+        if isFriend then
+          barMax = friendReputationInfo.barMax
+          barValue = friendReputationInfo.barValue
+          barMin = friendReputationInfo.barMin
+        end
+
         if standingID < 4 or (isFriend and standingID < 4) then
           barMin = barMin * -1
           barMax = barMax * -1
@@ -3543,9 +3579,16 @@ function REP:DumpReputationChangesToChat(initOnly)
     local numFactions
     if REP.AfterDragonflight then
       numFactions = C_Reputation.GetNumFactions()
+
+      if numFactions >= REP.totalFactions then
+        numFactions = numFactions
+      else
+        numFactions = REP.totalFactions
+      end
     else
       numFactions = GetNumFactions()
     end
+
     local factionIndex, watchIndex, watchedIndex, watchName
     local name, standingID, barMin, barMax, barValue, isHeader, hasRep
     local factionID
@@ -4086,6 +4129,11 @@ function REP:StandingSort()
   local numFactions
   if REP.AfterDragonflight then
     numFactions = C_Reputation.GetNumFactions()
+    if numFactions >= REP.totalFactions then
+      numFactions = numFactions
+    else
+      numFactions = REP.totalFactions
+    end
   else
     numFactions = GetNumFactions()
   end
@@ -4540,6 +4588,12 @@ function REP:Rep_Detail_Frame()
       barValue = majorFactionData.renownReputationEarned
       standingID = majorFactionData.renownLevel
 
+      if not REP_ReputationDetailViewRenownButton then
+        REP:CreateReputationDetailViewRenownButton()
+      else
+        REP_ReputationDetailViewRenownButton:Show()
+      end
+
       REP_ReputationDetailViewRenownButton.factionID = factionID
     else
       standingID = reputationInfo.reaction
@@ -4552,6 +4606,10 @@ function REP:Rep_Detail_Frame()
         barMax = reputationInfo.nextReactionThreshold - reputationInfo.currentReactionThreshold
       else
         barMax = reputationInfo.currentReactionThreshold - reputationInfo.nextReactionThreshold
+      end
+
+      if REP_ReputationDetailViewRenownButton then
+        REP_ReputationDetailViewRenownButton:Hide()
       end
     end
   else
@@ -4619,17 +4677,17 @@ function REP:Rep_Detail_Frame()
     REP_ReputationDetailAtWarCheckBox:SetPoint("TOPLEFT", REP_ReputationDetailDivider, "BOTTOMLEFT", 10, 40)
     REP_ReputationDetailDivider:SetHeight(75)
 
-    if REP.AfterShadowLands then
-      REP_ReputationDetailViewRenownButton:Show()
-    end
+    -- if REP.AfterShadowLands then
+    --   REP_ReputationDetailViewRenownButton:Show()
+    -- end
   else
     REP_ReputationDetailFrame:SetHeight(520)
     REP_ReputationDetailAtWarCheckBox:SetPoint("TOPLEFT", REP_ReputationDetailDivider, "BOTTOMLEFT", 10, 20)
     REP_ReputationDetailDivider:SetHeight(32)
 
-    if REP.AfterShadowLands then
-      REP_ReputationDetailViewRenownButton:Hide()
-    end
+    -- if REP.AfterShadowLands then
+    --   REP_ReputationDetailViewRenownButton:Hide()
+    -- end
   end
 
   ---------------------------------------------------
@@ -4803,6 +4861,38 @@ function REP:Rep_Detail_Frame()
   end
 end
 
+function REP:CreateReputationDetailViewRenownButton()
+  -- Create the button
+  local button = CreateFrame("Button", "REP_ReputationDetailViewRenownButton", REP_ReputationDetailFrame, "SharedGoldRedButtonSmallTemplate, DisabledTooltipButtonTemplate")
+
+  -- Apply the mixin to the button
+  Mixin(button, ReputationDetailViewRenownButtonMixin)
+
+  -- Set the size
+  button:SetSize(120, 16)
+
+  -- Set the position relative to the checkbox
+  button:SetPoint("TOPLEFT", REP_ReputationDetailAtWarCheckBox, "BOTTOMLEFT")
+
+  -- Set the text
+  button:SetText(VIEW_RENOWN_BUTTON_LABEL)
+
+  -- Set the fonts
+  button:GetFontString():SetFontObject("GameFontNormalSmall")
+  button:SetHighlightFontObject("GameFontWhiteSmall")
+  button:SetDisabledFontObject("GameFontDisableSmall")
+
+  -- Set the disabled tooltip anchor
+  button.disabledTooltipAnchor = "ANCHOR_RIGHT"
+
+  -- Set the OnClick script
+  button:SetScript("OnClick", button.OnClick)
+
+  if button.OnLoad then
+    button:OnLoad()  -- If the mixin has an OnLoad method
+  end
+end
+
 function REP_Friend_Detail(factionID, standingID, factionRow)
   local colorIndex, factionStandingtext, isCappedFriendship, isFriend, friendID
   local friendRep, friendMaxRep, friendName, friendText, friendTexture, friendTextLevel, friendThreshold, nextFriendThreshold
@@ -4861,6 +4951,9 @@ function REP_Friend_Detail(factionID, standingID, factionRow)
   friendReputationInfo.isCappedFriendship = isCappedFriendship or nil
   friendReputationInfo.factionStandingtext = factionStandingtext or nil
   friendReputationInfo.isFriend = isFriend or nil
+  friendReputationInfo.barMax = nextFriendThreshold or nil
+  friendReputationInfo.barValue = friendRep or nil
+  friendReputationInfo.barMin = friendThreshold or nil
 
   return friendReputationInfo
 end
@@ -4872,6 +4965,11 @@ function REP:ListByStanding(standing)
   local numFactions
   if REP.AfterDragonflight then
     numFactions = C_Reputation.GetNumFactions()
+    if numFactions >= REP.totalFactions then
+      numFactions = numFactions
+    else
+      numFactions = REP.totalFactions
+    end
   else
     numFactions = GetNumFactions()
   end
@@ -5181,48 +5279,130 @@ function REP_GetFriendFactionStandingLabel(factionID, nextFriendThreshold)
 end
 
 ----------------------------------------------
+-- ToggleFactionAtWar
+----------------------------------------------
+function REP_CustomToggleFactionAtWar(isChecked, factionIndex)
+  if REP.AfterDragonflight then
+    if not factionIndex then return end
+    C_Reputation.ToggleFactionAtWar(factionIndex)
+  else
+    FactionToggleAtWar(GetSelectedFaction())
+    ReputationFrame_Update()
+  end
+
+  REP_PlayCheckBoxSound(isChecked)
+end
+
+----------------------------------------------
 -- SetFactionInactive
 ----------------------------------------------
-function REP_CustomSetFactionInactive(factionIndex)
-  local name, _, _, _, _, _, _, _, isHeader, _, _, _, _, factionID = GetFactionInfo(factionIndex)
+function REP_CustomSetFactionInactive(isChecked, factionIndex)
+  local name, isHeader, factionID
+  local shouldBeActive = not isChecked
 
-  if (name) then
-    if REP_Data[REP_ProfileKey].InactiveFactions == nil then REP_Data[REP_ProfileKey].InactiveFactions = {} end
-    REP_Data[REP_ProfileKey].InactiveFactions[factionID] = true
+  if REP.AfterDragonflight then
+    if not factionIndex then return end
+    local reputationInfo = C_Reputation.GetFactionDataByIndex(factionIndex)
+
+    name = reputationInfo.name
+    isHeader = reputationInfo.isHeader
+    factionID = reputationInfo.factionID
+    
+    C_Reputation.SetFactionActive(factionIndex, shouldBeActive)
+
+    if (REP_ReputationDetailFrame:IsShown()) then
+      REP_ReputationDetailFrame:Hide()
+    end
+  else
+    factionIndex = GetSelectedFaction()
+    name, _, _, _, _, _, _, _, isHeader, _, _, _, _, factionID = GetFactionInfo(factionIndex)
 
     SetFactionInactive(factionIndex)
+
     if REP.AfterShadowLands then
-      if not REP.AfterDragonflight then
-        ReputationFrame_Update()
-      end
+      ReputationFrame_Update()
     else
       REP_ReputationFrame_Update()
     end
-  else
-    SetFactionInactive(factionIndex)
   end
+
+  if (factionID) then
+    if REP_Data[REP_ProfileKey].InactiveFactions == nil then REP_Data[REP_ProfileKey].InactiveFactions = {} end
+    REP_Data[REP_ProfileKey].InactiveFactions[factionID] = true
+  end
+
+  REP_PlayCheckBoxSound(isChecked)
 end
 
 ----------------------------------------------
 -- SetFactionActive
 ----------------------------------------------
-function REP_CustomSetFactionActive(factionIndex)
-  local name, _, _, _, _, _, _, _, isHeader, _, _, _, _, factionID = GetFactionInfo(factionIndex)
+function REP_CustomSetFactionActive(isChecked, factionIndex)
+  local name, isHeader, factionID
+  local shouldBeActive = not isChecked
 
-  if (name) then
-    if REP_Data[REP_ProfileKey].InactiveFactions == nil then REP_Data[REP_ProfileKey].InactiveFactions = {} end
-    REP_Data[REP_ProfileKey].InactiveFactions[factionID] = nil
+  if REP.AfterDragonflight then
+    if not factionIndex then return end
+
+    local reputationInfo = C_Reputation.GetFactionDataByIndex(factionIndex)
+
+    name = reputationInfo.name
+    isHeader = reputationInfo.isHeader
+    factionID = reputationInfo.factionID
+
+    C_Reputation.SetFactionActive(factionIndex, shouldBeActive)
+
+    if (REP_ReputationDetailFrame:IsShown()) then
+      REP_ReputationDetailFrame:Hide()
+    end
+  else
+    factionIndex = GetSelectedFaction()
+    name, _, _, _, _, _, _, _, isHeader, _, _, _, _, factionID = GetFactionInfo(factionIndex)
 
     SetFactionActive(factionIndex)
+
     if REP.AfterShadowLands then
-      if not REP.AfterDragonflight then
-        ReputationFrame_Update()
-      end
+      ReputationFrame_Update()
     else
       REP_ReputationFrame_Update()
     end
+  end
+
+  if (factionID) then
+    if REP_Data[REP_ProfileKey].InactiveFactions == nil then REP_Data[REP_ProfileKey].InactiveFactions = {} end
+    REP_Data[REP_ProfileKey].InactiveFactions[factionID] = nil
+  end
+
+  REP_PlayCheckBoxSound(isChecked)
+end
+
+----------------------------------------------
+-- SetWatchedFaction
+----------------------------------------------
+function REP_CustomSetWatchedFaction(isChecked, factionIndex)
+  if REP.AfterDragonflight then
+    if not factionIndex then return end
+    C_Reputation.SetWatchedFactionByIndex(isChecked and factionIndex or 0);
   else
-    SetFactionActive(factionIndex)
+    SetWatchedFactionIndex(isChecked and GetSelectedFaction() or 0);
+
+    if REP.AfterShadowLands then
+      ReputationFrame_Update()
+    else
+      REP_ReputationFrame_Update()
+    end
+  end
+
+  REP_PlayCheckBoxSound(isChecked)
+end
+
+----------------------------------------------
+-- REP_PlayCheckBoxSound
+----------------------------------------------
+function REP_PlayCheckBoxSound(isChecked)
+  if SOUNDKIT then
+    local clickSound = isChecked and SOUNDKIT.IG_MAINMENU_OPTION_CHECKBOX_ON or SOUNDKIT.IG_MAINMENU_OPTION_CHECKBOX_OFF
+    PlaySound(clickSound)
   end
 end
 
@@ -5922,6 +6102,11 @@ function REP:WatchedFactionDetails(watchedFactionID)
   local numFactions
   if REP.AfterDragonflight then
     numFactions = C_Reputation.GetNumFactions()
+    if numFactions >= REP.totalFactions then
+      numFactions = numFactions
+    else
+      numFactions = REP.totalFactions
+    end
   else
     numFactions = GetNumFactions()
   end

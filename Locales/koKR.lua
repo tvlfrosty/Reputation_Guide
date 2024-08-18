@@ -54,6 +54,8 @@ REP_TXT.supressNoneFaction	= "이 진영 제외 초기화"
 REP_TXT.supressNoneGlobal	= "모든 진영 제외 초기화"
 REP_TXT.suppressHint	= "퀘스트를 우클릭하면 요약에서 제외할 수 있습니다."
 REP_TXT.clearSessionGain	= "이번 세션에 획득한 카운터 초기화"
+REP_TXT.moveToInactive = "Move to inactive"
+REP_TXT.showFactionOnMainscreen = "Show faction as exp bar"
 -- options dialog
 REP_TXT.showMissing	= "평판 탭에서 다음 평판까지 남은 수치 표시"
 REP_TXT.extendDetails	= "확장 명성 세부 프레임을 표시"
