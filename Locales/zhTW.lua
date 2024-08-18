@@ -1,5 +1,6 @@
--- Traditional Chinese (正體中文)
---------------------	--------------------
+------------------------------------
+-- 正體中文 (Traditional Chinese) --
+------------------------------------
 if (GetLocale() =="zhTW") then
   -- Binding names
   BINDING_HEADER_REPUTATIONS	= "Reputation Guide"
@@ -409,4 +410,4 @@ if (GetLocale() =="zhTW") then
   REP_TXT.settings.info.DarkmoonFaireWeeRepBuff = "Rode the Darkmoon carousel or roller coaster. Experience and Reputation gains increased by 10%."
   REP_TXT.settings.DarkmoonFaireHatRep = "Darkmoon Top Hat (Darkmoon Faire)"
   REP_TXT.settings.info.DarkmoonFaireHatRep = "Increase experience and reputation gains by 10% for 1 hour. Hat is consumed on use."
-  end
+end
