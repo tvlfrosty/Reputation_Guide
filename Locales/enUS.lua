@@ -1,5 +1,6 @@
--- Default (English)
---------------------	--------------------
+------------------------
+-- Default (English) --
+------------------------
 -- Binding names
 BINDING_HEADER_REPUTATIONS	= "Reputation Guide"
 BINDING_NAME_SHOWCONFIG	= "Show options window"

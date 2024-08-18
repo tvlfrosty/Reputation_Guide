@@ -1,5 +1,6 @@
--- Simplified Chinese (简体中文)
---------------------	--------------------
+------------------------------------
+-- 简体中文 (Simplified Chinese) --
+------------------------------------
 if (GetLocale() =="zhCN") then
   -- Binding names
   BINDING_HEADER_REPUTATIONS	= "Reputation Guide"
@@ -409,4 +410,4 @@ if (GetLocale() =="zhCN") then
   REP_TXT.settings.info.DarkmoonFaireWeeRepBuff = "乘坐暗月旋转木马或过山车。经验值和声望值获取速度提高10%。"
   REP_TXT.settings.DarkmoonFaireHatRep = "暗月大礼帽 (暗月马戏团)"
   REP_TXT.settings.info.DarkmoonFaireHatRep = "经验值和声望值获取速度提高10%，持续 1 小时。礼帽为一次性使用。"
-  end
+end
