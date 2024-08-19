@@ -266,11 +266,6 @@ REP.IsMidnightPhaseOne = false
 -- The Last Titan
 REP.IsTheLastTitanPhaseOne = false
 
----------------------------
--- Faction count --
----------------------------
-REP.totalFactions = 0
-
 -------------------------------
 -- GetActiveExpansionAndPhase --
 -------------------------------
