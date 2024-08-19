@@ -382,7 +382,7 @@ function REP_OnEvent(self, event, ...)
     if (ReputationWatchBar ~= nil) then
       ReputationWatchBar:HookScript("OnMouseDown", function(self) if (not InCombatLockdown()) then REP:WatchedFactionDetails(self.factionID) end end, nil)
     end
-  elseif ((not REP.AfterShadowLands and (event == "UPDATE_FACTION" or event == "QUEST_COMPLETE" or event == "QUEST_WATCH_UPDATE")) or (REP.AfterShadowLands and (event == "UPDATE_FACTION"  or event == "QUEST_LOG_UPDATE" or event == "MAJOR_FACTION_RENOWN_LEVEL_CHANGED" or event == "MAJOR_FACTION_UNLOCKED"))) then
+  elseif ((not REP.AfterShadowLands and (event == "UPDATE_FACTION" or event == "QUEST_COMPLETE" or event == "QUEST_WATCH_UPDATE")) or (REP.AfterShadowLands and (event == "UPDATE_FACTION"  or event == "QUEST_LOG_UPDATE" or event == "MAJOR_FACTION_RENOWN_LEVEL_CHANGED" or event == "MAJOR_FACTION_UNLOCKED"))) then 
     if (ReputationFrame:IsVisible() and not REP.AfterDragonflight) then
       ReputationFrame_Update()
     end
@@ -601,12 +601,6 @@ function REP:Init()
     hooksecurefunc(ReputationSubHeaderMixin, 'OnClick', function(self)
       REP:Rep_Detail_Frame()
     end)
-
-    if not REP.totalFactions or REP.totalFactions == 0 then
-      while C_Reputation.GetFactionDataByIndex(REP.totalFactions + 1) do
-        REP.totalFactions = REP.totalFactions + 1
-      end
-    end
   end
 
   local _, race = UnitRace("player")
@@ -1005,11 +999,6 @@ function REP:WatchFaction(watchID)
   local numFactions
   if REP.AfterDragonflight then
     numFactions = C_Reputation.GetNumFactions()
-    if numFactions >= REP.totalFactions then
-      numFactions = numFactions
-    else
-      numFactions = REP.totalFactions
-    end
   else
     numFactions = GetNumFactions()
   end
@@ -1468,11 +1457,6 @@ function REP:InitFactor(IsHuman, faction)
   local numFactions
   if REP.AfterDragonflight then
     numFactions = C_Reputation.GetNumFactions()
-    if numFactions >= REP.totalFactions then
-      numFactions = numFactions
-    else
-      numFactions = REP.totalFactions
-    end
   else
     numFactions = GetNumFactions()
   end
@@ -1887,11 +1871,6 @@ function REP_ReputationFrame_Update()
     else
       if REP.AfterDragonflight then
         numFactions = C_Reputation.GetNumFactions()
-        if numFactions >= REP.totalFactions then
-          numFactions = numFactions
-        else
-          numFactions = REP.totalFactions
-        end
       else
         numFactions = GetNumFactions()
       end
@@ -3579,12 +3558,6 @@ function REP:DumpReputationChangesToChat(initOnly)
     local numFactions
     if REP.AfterDragonflight then
       numFactions = C_Reputation.GetNumFactions()
-
-      if numFactions >= REP.totalFactions then
-        numFactions = numFactions
-      else
-        numFactions = REP.totalFactions
-      end
     else
       numFactions = GetNumFactions()
     end
@@ -3597,9 +3570,11 @@ function REP:DumpReputationChangesToChat(initOnly)
     watchedIndex = 0
     watchName = nil
 
-    for factionIndex = 1, numFactions, 1 do
+    for factionIndex = 1, numFactions do
       if REP.AfterDragonflight then
         local reputationInfo = C_Reputation.GetFactionDataByIndex(factionIndex)
+        if not reputationInfo then return end
+
         name = reputationInfo.name
         standingID = reputationInfo.reaction
         barMin = reputationInfo.currentReactionThreshold
@@ -4129,11 +4104,6 @@ function REP:StandingSort()
   local numFactions
   if REP.AfterDragonflight then
     numFactions = C_Reputation.GetNumFactions()
-    if numFactions >= REP.totalFactions then
-      numFactions = numFactions
-    else
-      numFactions = REP.totalFactions
-    end
   else
     numFactions = GetNumFactions()
   end
@@ -4965,11 +4935,6 @@ function REP:ListByStanding(standing)
   local numFactions
   if REP.AfterDragonflight then
     numFactions = C_Reputation.GetNumFactions()
-    if numFactions >= REP.totalFactions then
-      numFactions = numFactions
-    else
-      numFactions = REP.totalFactions
-    end
   else
     numFactions = GetNumFactions()
   end
@@ -6102,11 +6067,6 @@ function REP:WatchedFactionDetails(watchedFactionID)
   local numFactions
   if REP.AfterDragonflight then
     numFactions = C_Reputation.GetNumFactions()
-    if numFactions >= REP.totalFactions then
-      numFactions = numFactions
-    else
-      numFactions = REP.totalFactions
-    end
   else
     numFactions = GetNumFactions()
   end
