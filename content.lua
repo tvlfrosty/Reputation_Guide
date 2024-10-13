@@ -370,10 +370,10 @@ function REP_InitEnFactionGains(guildName, guildCapBase)
       REP_AddQuest(909, 4, 8, 82056, 150, {[221299] = 1}) -- Darkmoon Nightmares Deck QuestID: 82056
     end
 
-		REP_AddQuest(909, 4, 8, "Your Fortune Awaits You...", 50, {["Sayge's Fortune #23"] = 1}) -- Quest ID: 7937, Item ID: 19423 (not added to questdb.lua)
-		REP_AddQuest(909, 4, 8, "Your Fortune Awaits You...", 50, {["Sayge's Fortune #24"] = 1}) -- Quest ID: 7938, Item ID: 19424 (not added to questdb.lua)
-		REP_AddQuest(909, 4, 8, "Your Fortune Awaits You...", 50, {["Sayge's Fortune #25"] = 1}) -- Quest ID: 7944, Item ID: 19443 (not added to questdb.lua)
-		REP_AddQuest(909, 4, 8, "Your Fortune Awaits You...", 50, {["Sayge's Fortune #27"] = 1}) -- Quest ID: 7945, Item ID: 19452 (not added to questdb.lua)
+		REP_AddQuest(909, 4, 8, "Your Fortune Awaits You...", 50, {[19423] = 1}) -- Quest ID: 7937, Item ID: 19423 "Sayge's Fortune #23" (not added to questdb.lua)
+    REP_AddQuest(909, 4, 8, "Your Fortune Awaits You...", 50, {[19424] = 1}) -- Quest ID: 7938, Item ID: 19424 "Sayge's Fortune #24" (not added to questdb.lua)
+		REP_AddQuest(909, 4, 8, "Your Fortune Awaits You...", 50, {[19443] = 1}) -- Quest ID: 7944, Item ID: 19443 "Sayge's Fortune #25" (not added to questdb.lua)
+		REP_AddQuest(909, 4, 8, "Your Fortune Awaits You...", 50, {[19452] = 1}) -- Quest ID: 7945, Item ID: 19452 "Sayge's Fortune #27" (not added to questdb.lua)
 	else
 		if (not REP.AfterWotlk) then
 			---- Quests
@@ -409,10 +409,16 @@ function REP_InitEnFactionGains(guildName, guildCapBase)
 		REP_AddQuest(909, 4, 8, "Darkmoon Storms Deck", 350, {[31891] = 1}) -- Darkmoon Storms Deck QuestID: 10939
 		REP_AddQuest(909, 4, 8, "Darkmoon Blessings Deck", 350, {[31890] = 1}) -- Darkmoon Blessings Deck QuestID: 10938
 
-		REP_AddQuest(909, 4, 8, "Your Fortune Awaits You...", 75, {["Sayge's Fortune #23"] = 1}) -- Quest ID: 7937, Item ID: 19423 (not added to questdb.lua)
-		REP_AddQuest(909, 4, 8, "Your Fortune Awaits You...", 75, {["Sayge's Fortune #24"] = 1}) -- Quest ID: 7938, Item ID: 19424 (not added to questdb.lua)
-		REP_AddQuest(909, 4, 8, "Your Fortune Awaits You...", 75, {["Sayge's Fortune #25"] = 1}) -- Quest ID: 7944, Item ID: 19443 (not added to questdb.lua)
-		REP_AddQuest(909, 4, 8, "Your Fortune Awaits You...", 75, {["Sayge's Fortune #27"] = 1}) -- Quest ID: 7945, Item ID: 19452 (not added to questdb.lua)
+    REP_AddQuest(909, 4, 8, "Your Fortune Awaits You...", 75, {[19423] = 1}) -- Quest ID: 7937, Item ID: 19423 "Sayge's Fortune #23" (not added to questdb.lua)
+    if not REP.AfterWotlk then
+      REP_AddQuest(909, 4, 8, "Your Fortune Awaits You...", 75, {[19424] = 1}) -- Quest ID: 7938, Item ID: 19424 "Sayge's Fortune #24" (not added to questdb.lua)
+    end
+		REP_AddQuest(909, 4, 8, "Your Fortune Awaits You...", 75, {[19443] = 1}) -- Quest ID: 7944, Item ID: 19443 "Sayge's Fortune #25" (not added to questdb.lua)
+		REP_AddQuest(909, 4, 8, "Your Fortune Awaits You...", 75, {[19452] = 1}) -- Quest ID: 7945, Item ID: 19452 "Sayge's Fortune #27" (not added to questdb.lua)
+		-- REP_AddQuest(909, 4, 8, "Your Fortune Awaits You...", 75, {["Sayge's Fortune #23"] = 1}) -- Quest ID: 7937, Item ID: 19423 (not added to questdb.lua)
+		-- REP_AddQuest(909, 4, 8, "Your Fortune Awaits You...", 75, {["Sayge's Fortune #24"] = 1}) -- Quest ID: 7938, Item ID: 19424 (not added to questdb.lua)
+		-- REP_AddQuest(909, 4, 8, "Your Fortune Awaits You...", 75, {["Sayge's Fortune #25"] = 1}) -- Quest ID: 7944, Item ID: 19443 (not added to questdb.lua)
+		-- REP_AddQuest(909, 4, 8, "Your Fortune Awaits You...", 75, {["Sayge's Fortune #27"] = 1}) -- Quest ID: 7945, Item ID: 19452 (not added to questdb.lua)
 
 		if(REP.AfterTBC) then
 			---- Quests (Minor decks)
@@ -4704,6 +4710,8 @@ end
 		---- Items
 		REP_AddItems(2507, 1, 25, 15, {[192055] = 1}, nil, true) -- Dragon Isles Artifact
     REP_AddItems(2507, 1, 25, 50, {[200285] = 1}, nil, true) -- Dragonscale Expedition Insignia
+    ---- General
+    REP_AddGeneral(2507, 1, 25, "Planting flags on high peaks", 250, "Planting flags on high peaks", "Planting flags on high peaks on the Dragon Isles will reward reputation with this faction.", nil, nil, true)
 
 		---------------------------
 		-- Valdrakken Accord 2510 (Goes to 30 Renown) --
@@ -4852,7 +4860,7 @@ end
     REP_AddItems(2615, 1, 8, 50, {[213176] = 1}) -- Preserved Isles Tome
     REP_AddItems(2615, 1, 8, 100, {[213177] = 1}) -- Immaculate Tome
     ---- General
-    REP_AddGeneral(2615, 1, 8, "Archivist World Quests", 300, "Archivist World Quests", "Complete Archivist World Quests with this faction to gain reputation.")
+    REP_AddGeneral(2615, 1, 8, "World Quests", 300, "World Quests", "Complete world quests with this faction to gain reputation.")
 	end
 
 --------------------------------------------------
@@ -4862,34 +4870,75 @@ end
     ---------------------------
 		-- Hallowfall Arathi 2570 (Goes to 25 Renown) --
 		---------------------------
-
+    ---- Quests
+    REP_AddQuest(2570, 1, 25, 83458, 1500, nil, nil, true, true) -- QuestID: 83458 - Priory of the Sacred Flame (weekly)
+    ---- Mobs
+    REP_AddMob(2570, 1, 8, "All rare mobs", 150, zone.Hallowfall, nil, true)
+    ---- General
+    REP_AddGeneral(2570, 1, 8, "World Quests", 50, "World Quests", "Complete world quests with this faction to gain reputation.", nil, nil, true)
     ---------------------------
 		-- Council of Dornogal 2590 (Goes to 25 Renown) --
 		---------------------------
-
+    ---- Quests
+    REP_AddQuest(2590, 3, 25, 83240, 1000, nil, nil, true, true) -- QuestID: 83240 - The Theater Troupe
+    REP_AddQuest(2590, 3, 25, 83458, 1500, nil, nil, true, true) -- QuestID: 83458 - Priory of the Sacred Flame (weekly)
+    ---- General
+    REP_AddGeneral(2590, 1, 8, "World Quests", 50, "World Quests", "Complete world quests with this faction to gain reputation.", nil, nil, true)
     ---------------------------
 		-- The Assembly of the Deeps 2594 (Goes to 25 Renown) --
 		---------------------------
+    ---- Mobs
+    REP_AddMob(2594, 1, 8, "All rare mobs", 150, zone.The_Ringing_Deeps, nil, true)
+    ---- Quests
+    REP_AddQuest(2594, 1, 25, 83458, 1500, nil, nil, true, true) -- QuestID: 83458 - Priory of the Sacred Flame (weekly)
 
     ---------------------------
 		-- The Severed Threads 2600 (Goes to 25 Renown) --
 		---------------------------
-
+    ---- General
+    REP_AddGeneral(2600, 1, 8, "Gain a new rank with one of the sub-factions.", 2500, "Gain a new rank with the sub-factions.", "Gaining a new reputation rank with one of the 3 sub-factions increases a renown rank with this faction.", nil, nil, true)
     ---------------------------
 		-- The Weaver 2601 --
 		---------------------------
+    ---- Quests
+    REP_AddQuest(2601, 1, 8, 80670, 1500) -- QuestID: 80670 - Eyes of the Weaver
+    REP_AddQuest(2601, 1, 25, 83458, 1500, nil, nil, true, true) -- QuestID: 83458 - Priory of the Sacred Flame (weekly)
+    ---- Mobs
+    REP_AddMob(2601, 1, 8, "All rare mobs", 50, zone.Azj_Kahet, nil, true)
+    ---- General
+    REP_AddGeneral(2601, 1, 8, "Nerubian Offerings", 50, "Nerubian Offerings", "Opening Nerubian Offerings around Azj-Kahet will reward reputation with this faction.", nil, nil, true)
 
     ---------------------------
 		-- The General 2605 --
 		---------------------------
+    ---- Quests
+    REP_AddQuest(2605, 1, 8, 80671, 1500) -- QuestID: 80671 - Blade of the General
+    REP_AddQuest(2605, 1, 25, 83458, 1500, nil, nil, true, true) -- QuestID: 83458 - Priory of the Sacred Flame (weekly)
+    ---- Mobs
+    REP_AddMob(2605, 1, 8, "All rare mobs", 50, zone.Azj_Kahet, nil, true)
+    ---- General
+    REP_AddGeneral(2605, 1, 8, "Nerubian Offerings", 50, "Nerubian Offerings", "Opening Nerubian Offerings around Azj-Kahet will reward reputation with this faction.", nil, nil, true)
 
     ---------------------------
 		-- The Vizier 2607 --
 		---------------------------
+    ---- Quests
+    REP_AddQuest(2607, 1, 8, 80672, 1500) -- QuestID: 80672 - Hand of the Vizier
+    REP_AddQuest(2607, 1, 25, 83458, 1500, nil, nil, true, true) -- QuestID: 83458 - Priory of the Sacred Flame (weekly)
+    ---- Mobs
+    REP_AddMob(2607, 1, 8, "All rare mobs", 50, zone.Azj_Kahet, nil, true)
+    ---- General
+    REP_AddGeneral(2607, 1, 8, "Nerubian Offerings", 50, "Nerubian Offerings", "Opening Nerubian Offerings around Azj-Kahet will reward reputation with this faction.", nil, nil, true)
 
     ---------------------------
 		-- Brann Bronzebeard 2640 (Goes to level 60) --
 		---------------------------
+    ---- Items
+    REP_AddItems(2640, 1, 60, 100, {[228071] = 1}, nil, true) -- Chunk of Companion Experience (Uncommon)
+    REP_AddItems(2640, 1, 60, 250, {[228072] = 1}, nil, true) -- Chunk of Companion Experience (Rare)
+    REP_AddItems(2640, 1, 60, 525, {[228073] = 1}, nil, true) -- Chunk of Companion Experience (Epic)
+    ---- General
+    REP_AddGeneral(2640, 1, 60, "First Delve of the day", 5600, "First Delve of the day", "Complete the first Delve of the day to gain reputation with this companion.", nil, nil, true)
 
     ---------------------------
 		-- Delves: Season 1 2644 --

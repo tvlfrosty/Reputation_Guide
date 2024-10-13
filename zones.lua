@@ -5,6 +5,7 @@ local _, vars = ...
 local REP = vars
 --------------------------------------------------
 -- /run local mapID = <mapID>; print(C_Map.GetMapInfo(mapID).name)
+-- /dump C_Map.GetBestMapForUnit("player")
 --------------------------------------------------
 --------------------------------------------------
 -- Set Zone IDs
@@ -665,6 +666,13 @@ function REP:SetZoneIdsBasedOnExpansion()
     zone.Emerald_dream = 2200
     zone.The_Waking_Shores = 2022
     zone.Dawn_Of_The_Infinite = 2198
+
+    ---------------------------
+    -- The War Within zones --
+    ---------------------------
+    zone.Hallowfall = 2215
+    zone.The_Ringing_Deeps = 2214
+    zone.Azj_Kahet = 2255
   end
 
   REP.zone = zone

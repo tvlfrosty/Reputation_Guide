@@ -215,6 +215,8 @@ if (GetLocale() =="ruRU") then
   REP_TXT.STAND_LV_TIER	= {}
   REP_TXT.STAND_LV_TRUST = {}
   REP_TXT.STAND_LV_RENOWN	= {}
+  REP_TXT.STAND_LV_RANK = {}
+  REP_TXT.STAND_LV_LEVEL = {}
   REP_TXT.BFFLabels = {}
   ---- Normal standings
   REP_TXT.STAND_LV[0]	= "Неизвестно"
@@ -270,7 +272,137 @@ if (GetLocale() =="ruRU") then
   REP_TXT.STAND_LV_RENOWN[23] = "Известность 23"
   REP_TXT.STAND_LV_RENOWN[24] = "Известность 24"
   REP_TXT.STAND_LV_RENOWN[25] = "Известность 25"
-  ---- BFF Labels
+  ---- Rank standings
+  REP_TXT.STAND_LV_MAX_RANK = "Макс. ранг"
+  REP_TXT.STAND_LV_RANK[0] = "Неизвестно"
+  REP_TXT.STAND_LV_RANK[1] = "Боец 1-го ранга"
+  REP_TXT.STAND_LV_RANK[2] = "Боец 2-го ранга"
+  REP_TXT.STAND_LV_RANK[3] = "Боец 3-го ранга"
+  REP_TXT.STAND_LV_RANK[4] = "Боец 4-го ранга"
+  REP_TXT.STAND_LV_RANK[5] = "Боец 5-го ранга"
+  REP_TXT.STAND_LV_RANK[6] = "Боец 6-го ранга"
+  REP_TXT.STAND_LV_RANK[7] = "Боец 7-го ранга"
+  REP_TXT.STAND_LV_RANK[8] = "Боец 8-го ранга"
+  REP_TXT.STAND_LV_RANK[9] = "Боец 9-го ранга"
+  REP_TXT.STAND_LV_RANK[10] = "Боец 10-го ранга"
+  REP_TXT.STAND_LV_RANK[11] = "Боец 11-го ранга"
+  REP_TXT.STAND_LV_RANK[12] = "Боец 12-го ранга"
+  REP_TXT.STAND_LV_RANK[13] = "Боец 13-го ранга"
+  REP_TXT.STAND_LV_RANK[14] = "Боец 14-го ранга"
+  REP_TXT.STAND_LV_RANK[15] = "Боец 15-го ранга"
+  REP_TXT.STAND_LV_RANK[16] = "Боец 16-го ранга"
+  REP_TXT.STAND_LV_RANK[17] = "Боец 17-го ранга"
+  REP_TXT.STAND_LV_RANK[18] = "Боец 18-го ранга"
+  REP_TXT.STAND_LV_RANK[19] = "Боец 19-го ранга"
+  REP_TXT.STAND_LV_RANK[20] = "Боец 20-го ранга"
+  REP_TXT.STAND_LV_RANK[21] = "Боец 21-го ранга"
+  REP_TXT.STAND_LV_RANK[22] = "Боец 22-го ранга"
+  REP_TXT.STAND_LV_RANK[23] = "Боец 23-го ранга"
+  REP_TXT.STAND_LV_RANK[24] = "Боец 24-го ранга"
+  REP_TXT.STAND_LV_RANK[25] = "Боец 25-го ранга"
+  REP_TXT.STAND_LV_RANK[26] = "Боец 26-го ранга"
+  REP_TXT.STAND_LV_RANK[27] = "Боец 27-го ранга"
+  REP_TXT.STAND_LV_RANK[28] = "Боец 28-го ранга"
+  REP_TXT.STAND_LV_RANK[29] = "Боец 29-го ранга"
+  REP_TXT.STAND_LV_RANK[30] = "Боец 30-го ранга"
+  ---- Level standings
+  REP_TXT.STAND_LV_LEVEL[0] = "Неизвестно"
+  REP_TXT.STAND_LV_LEVEL[1] = "1-й уровень"
+  REP_TXT.STAND_LV_LEVEL[2] = "2-й уровень"
+  REP_TXT.STAND_LV_LEVEL[3] = "3-й уровень"
+  REP_TXT.STAND_LV_LEVEL[4] = "4-й уровень"
+  REP_TXT.STAND_LV_LEVEL[5] = "5-й уровень"
+  REP_TXT.STAND_LV_LEVEL[6] = "6-й уровень"
+  REP_TXT.STAND_LV_LEVEL[7] = "7-й уровень"
+  REP_TXT.STAND_LV_LEVEL[8] = "8-й уровень"
+  REP_TXT.STAND_LV_LEVEL[9] = "9-й уровень"
+  REP_TXT.STAND_LV_LEVEL[10] = "10-й уровень"
+  REP_TXT.STAND_LV_LEVEL[11] = "11-й уровень"
+  REP_TXT.STAND_LV_LEVEL[12] = "12-й уровень"
+  REP_TXT.STAND_LV_LEVEL[13] = "13-й уровень"
+  REP_TXT.STAND_LV_LEVEL[14] = "14-й уровень"
+  REP_TXT.STAND_LV_LEVEL[15] = "15-й уровень"
+  REP_TXT.STAND_LV_LEVEL[16] = "16-й уровень"
+  REP_TXT.STAND_LV_LEVEL[17] = "17-й уровень"
+  REP_TXT.STAND_LV_LEVEL[18] = "18-й уровень"
+  REP_TXT.STAND_LV_LEVEL[19] = "19-й уровень"
+  REP_TXT.STAND_LV_LEVEL[20] = "20-й уровень"
+  REP_TXT.STAND_LV_LEVEL[21] = "21-й уровень"
+  REP_TXT.STAND_LV_LEVEL[22] = "22-й уровень"
+  REP_TXT.STAND_LV_LEVEL[23] = "23-й уровень"
+  REP_TXT.STAND_LV_LEVEL[24] = "24-й уровень"
+  REP_TXT.STAND_LV_LEVEL[25] = "25-й уровень"
+  REP_TXT.STAND_LV_LEVEL[26] = "26-й уровень"
+  REP_TXT.STAND_LV_LEVEL[27] = "27-й уровень"
+  REP_TXT.STAND_LV_LEVEL[28] = "28-й уровень"
+  REP_TXT.STAND_LV_LEVEL[29] = "29-й уровень"
+  REP_TXT.STAND_LV_LEVEL[30] = "30-й уровень"
+  REP_TXT.STAND_LV_LEVEL[31] = "31-й уровень"
+  REP_TXT.STAND_LV_LEVEL[32] = "32-й уровень"
+  REP_TXT.STAND_LV_LEVEL[33] = "33-й уровень"
+  REP_TXT.STAND_LV_LEVEL[34] = "34-й уровень"
+  REP_TXT.STAND_LV_LEVEL[35] = "35-й уровень"
+  REP_TXT.STAND_LV_LEVEL[36] = "36-й уровень"
+  REP_TXT.STAND_LV_LEVEL[37] = "37-й уровень"
+  REP_TXT.STAND_LV_LEVEL[38] = "38-й уровень"
+  REP_TXT.STAND_LV_LEVEL[39] = "39-й уровень"
+  REP_TXT.STAND_LV_LEVEL[40] = "40-й уровень"
+  REP_TXT.STAND_LV_LEVEL[41] = "41-й уровень"
+  REP_TXT.STAND_LV_LEVEL[42] = "42-й уровень"
+  REP_TXT.STAND_LV_LEVEL[43] = "43-й уровень"
+  REP_TXT.STAND_LV_LEVEL[44] = "44-й уровень"
+  REP_TXT.STAND_LV_LEVEL[45] = "45-й уровень"
+  REP_TXT.STAND_LV_LEVEL[46] = "46-й уровень"
+  REP_TXT.STAND_LV_LEVEL[47] = "47-й уровень"
+  REP_TXT.STAND_LV_LEVEL[48] = "48-й уровень"
+  REP_TXT.STAND_LV_LEVEL[49] = "49-й уровень"
+  REP_TXT.STAND_LV_LEVEL[50] = "50-й уровень"
+  REP_TXT.STAND_LV_LEVEL[51] = "51-й уровень"
+  REP_TXT.STAND_LV_LEVEL[52] = "52-й уровень"
+  REP_TXT.STAND_LV_LEVEL[53] = "53-й уровень"
+  REP_TXT.STAND_LV_LEVEL[54] = "54-й уровень"
+  REP_TXT.STAND_LV_LEVEL[55] = "55-й уровень"
+  REP_TXT.STAND_LV_LEVEL[56] = "56-й уровень"
+  REP_TXT.STAND_LV_LEVEL[57] = "57-й уровень"
+  REP_TXT.STAND_LV_LEVEL[58] = "58-й уровень"
+  REP_TXT.STAND_LV_LEVEL[59] = "59-й уровень"
+  REP_TXT.STAND_LV_LEVEL[60] = "60-й уровень"
+  -------------------------------------
+  -- BFFLabels / Friendship factions --
+  -------------------------------------
+  -- BFF Labels placeholder
+  REP_TXT.BFFLabels[0] = {} -- Незнакомец
+  REP_TXT.BFFLabels[0][1] = "Знакомый"
+  REP_TXT.BFFLabels[0][2] = "Приятель"
+  REP_TXT.BFFLabels[0][3] = "Друг"
+  REP_TXT.BFFLabels[0][4] = "Хороший друг"
+  REP_TXT.BFFLabels[0][5] = "Лучший друг"
+  ---- Fishing Masters placeholder
+  REP_TXT.BFFFishingMastersLabels = {}
+  REP_TXT.BFFFishingMastersLabels[1] = "Незнакомец"
+  REP_TXT.BFFFishingMastersLabels[2] = "Знакомый"
+  REP_TXT.BFFFishingMastersLabels[3] = "Приятель"
+  REP_TXT.BFFFishingMastersLabels[4] = "Друг"
+  REP_TXT.BFFFishingMastersLabels[5] = "Хороший друг"
+  REP_TXT.BFFFishingMastersLabels[6] = "Лучший друг"
+  ---- Barracks Bodyguards placeholder
+  REP_TXT.BFFBarracksBodyguardsLabels = {}
+  REP_TXT.BFFBarracksBodyguardsLabels[1] = "Телохранитель"
+  REP_TXT.BFFBarracksBodyguardsLabels[2] = "Доверенный боец"
+  REP_TXT.BFFBarracksBodyguardsLabels[3] = "Боевой товарищ"
+  ---- The First Responders 1984
+  REP_TXT.BFFLabels[1984] = {} -- Стажер
+  REP_TXT.BFFLabels[1984][1] = "Невысокое положение"
+  REP_TXT.BFFLabels[1984][2] = "Высокое положение"
+  REP_TXT.BFFLabels[1984][3] = "Спасатель"
+  ---- Corbyn 2100
+  REP_TXT.BFFLabels[2100] = {} -- Незнакомец
+  REP_TXT.BFFLabels[2100][1] = "Диковинка"
+  REP_TXT.BFFLabels[2100][2] = "Нейтральные"
+  REP_TXT.BFFLabels[2100][3] = REP_TXT.BFFFishingMastersLabels[4]
+  REP_TXT.BFFLabels[2100][4] = "Отзывчивый друг"
+  REP_TXT.BFFLabels[2100][5] = REP_TXT.BFFFishingMastersLabels[6]
+  -- Chromie 2135
   REP_TXT.BFFLabels[2135] = {} -- Неофит
   REP_TXT.BFFLabels[2135][1] = "Временной ученик"
   REP_TXT.BFFLabels[2135][2] = "Путешественник во времени"
@@ -278,6 +410,74 @@ if (GetLocale() =="ruRU") then
   REP_TXT.BFFLabels[2135][4] = "Бронзовый союзник"
   REP_TXT.BFFLabels[2135][5] = "Исцелитель эпохи"
   REP_TXT.BFFLabels[2135][6] = "Повелитель времени"
+  ---- Wrathion 2517
+  REP_TXT.BFFLabels[2517] = {} -- Знакомый
+  REP_TXT.BFFLabels[2517][1] = "Соратник"
+  REP_TXT.BFFLabels[2517][2] = "Союзник"
+  REP_TXT.BFFLabels[2517][3] = "Клык"
+  REP_TXT.BFFLabels[2517][4] = "Друг"
+  REP_TXT.BFFLabels[2517][5] = "Настоящий друг"
+  ---- Sabellian 2518
+  REP_TXT.BFFLabels[2518] = {} -- Знакомый
+  REP_TXT.BFFLabels[2518][1] = "Соратник"
+  REP_TXT.BFFLabels[2518][2] = "Союзник"
+  REP_TXT.BFFLabels[2518][3] = "Клык"
+  REP_TXT.BFFLabels[2518][4] = "Друг"
+  REP_TXT.BFFLabels[2518][5] = "Настоящий друг"
+  ---- Artisan's Consortium - Dragon Isles Branch 2544
+  REP_TXT.BFFLabels[2544] = {} -- Равнодушие
+  REP_TXT.BFFLabels[2544][1] = "Симпатия"
+  REP_TXT.BFFLabels[2544][2] = "Расположение"
+  REP_TXT.BFFLabels[2544][3] = "Признание"
+  REP_TXT.BFFLabels[2544][4] = "Почитание"
+  ---- Cobalt Assembly 2550
+  REP_TXT.BFFLabels[2550] = {} -- Пусто
+  REP_TXT.BFFLabels[2550][1] = "Низкий"
+  REP_TXT.BFFLabels[2550][2] = "Средний"
+  REP_TXT.BFFLabels[2550][3] = "Высокий"
+  REP_TXT.BFFLabels[2550][4] = "Максимальный"
+  ---- Soridormi 2553
+  REP_TXT.BFFLabels[2553] = {} -- Аномалия
+  REP_TXT.BFFLabels[2553][1] = "Будущий друг"
+  REP_TXT.BFFLabels[2553][2] = "Устранитель порталов"
+  REP_TXT.BFFLabels[2553][3] = "Путешественник во времени"
+  REP_TXT.BFFLabels[2553][4] = "Легенда"
+  ---- The Weaver 2601
+  REP_TXT.BFFLabels[2601] = {} -- Незнакомец
+  REP_TXT.BFFLabels[2601][1] = "Знакомый"
+  REP_TXT.BFFLabels[2601][2] = "Помощник"
+  REP_TXT.BFFLabels[2601][3] = "Подельник"
+  REP_TXT.BFFLabels[2601][4] = "Компаньон"
+  REP_TXT.BFFLabels[2601][5] = "Соратник"
+  REP_TXT.BFFLabels[2601][6] = "Партнер"
+  REP_TXT.BFFLabels[2601][7] = "Заговорщик"
+  REP_TXT.BFFLabels[2601][8] = "Криминальный гений"
+  ---- The General 2605
+  REP_TXT.BFFLabels[2605] = {} -- Незнакомец
+  REP_TXT.BFFLabels[2605][1] = "Знакомый"
+  REP_TXT.BFFLabels[2605][2] = "Помощник"
+  REP_TXT.BFFLabels[2605][3] = "Подельник"
+  REP_TXT.BFFLabels[2605][4] = "Компаньон"
+  REP_TXT.BFFLabels[2605][5] = "Соратник"
+  REP_TXT.BFFLabels[2605][6] = "Партнер"
+  REP_TXT.BFFLabels[2605][7] = "Заговорщик"
+  REP_TXT.BFFLabels[2605][8] = "Криминальный гений"
+  ---- The Vizier 2607
+  REP_TXT.BFFLabels[2607] = {} -- Незнакомец
+  REP_TXT.BFFLabels[2607][1] = "Знакомый"
+  REP_TXT.BFFLabels[2607][2] = "Помощник"
+  REP_TXT.BFFLabels[2607][3] = "Подельник"
+  REP_TXT.BFFLabels[2607][4] = "Компаньон"
+  REP_TXT.BFFLabels[2607][5] = "Соратник"
+  REP_TXT.BFFLabels[2607][6] = "Партнер"
+  REP_TXT.BFFLabels[2607][7] = "Заговорщик"
+  REP_TXT.BFFLabels[2607][8] = "Криминальный гений"
+  ---- Azerothian Archives 2615
+  REP_TXT.BFFLabels[2615] = {} -- Академик
+  REP_TXT.BFFLabels[2615][1] = "Ассистент"
+  REP_TXT.BFFLabels[2615][2] = "Наемник"
+  REP_TXT.BFFLabels[2615][3] = "Постоянный"
+  REP_TXT.BFFLabels[2615][4] = "Штатный"
 
   ---------------------------
   -- Tooltips
@@ -303,20 +503,20 @@ if (GetLocale() =="ruRU") then
   REP_TXT.elements.tip.REP_ShowInstancesButton	= "Нажмите кнопку, чтобы видеть подземелья, за зачистку которых растет репутация."
   REP_TXT.elements.name.REP_ShowGeneralButton	= REP_TXT.showGeneral
   REP_TXT.elements.tip.REP_ShowGeneralButton	= "Отметьте это поле, чтобы увидеть общую информацию об увеличении репутации."
-  REP_TXT.elements.name.REP_ShowAllButton	= REP_TXT.showAll
-  REP_TXT.elements.tip.REP_ShowAllButton	= "Нажмите эту кнопку чтобы выбрать все 4 элемента.\r\nБудут показаны мобы, квесты, вещи и подземелья для выбранной фракции."
-  REP_TXT.elements.name.REP_ShowNoneButton	= REP_TXT.showNone
-  REP_TXT.elements.tip.REP_ShowNoneButton	= "Нажмите эту кнопку чтобы снять выделение с 4 элементов.\r\nВ результате ничего не будет показано. Неожиданно, да? ;-)."
-  REP_TXT.elements.name.REP_ExpandButton	= REP_TXT.expand
-  REP_TXT.elements.tip.REP_ExpandButton	= "Нажмите тут, чтобы развернуть все квесты. Будут показаны необходимые для квеста вещи."
-  REP_TXT.elements.name.REP_CollapseButton	= REP_TXT.collapse
-  REP_TXT.elements.tip.REP_CollapseButton	= "Нажмите тут, чтобы свернуть все квесты. Угадайте что произойдет. :-)"
-  REP_TXT.elements.name.REP_SupressNoneFactionButton	= REP_TXT.supressNoneFaction
-  REP_TXT.elements.tip.REP_SupressNoneFactionButton	= "Нажмите эту кнопку, чтобы вернуть все квесты этой фракции, которые Вы исключили из списка."
-  REP_TXT.elements.name.REP_SupressNoneGlobalButton	= REP_TXT.supressNoneGlobal
-  REP_TXT.elements.tip.REP_SupressNoneGlobalButton	= "Нажмите эту кнопку, чтобы вернуть все квесты для всех фракций, которые Вы исключили из списка."
-  REP_TXT.elements.name.REP_ClearSessionGainButton	= REP_TXT.clearSessionGain
-  REP_TXT.elements.tip.REP_ClearSessionGainButton	= "Нажмите эту кнопку, чтобы сбросить счетчик полученной репутации за эту сессию."
+  REP_TXT.elements.name.REP_DetailShowAllButton	= REP_TXT.showAll
+  REP_TXT.elements.tip.REP_DetailShowAllButton	= "Нажмите эту кнопку чтобы выбрать все 4 элемента.\r\nБудут показаны мобы, квесты, вещи и подземелья для выбранной фракции."
+  REP_TXT.elements.name.REP_DetailShowNoneButton	= REP_TXT.showNone
+  REP_TXT.elements.tip.REP_DetailShowNoneButton	= "Нажмите эту кнопку чтобы снять выделение с 4 элементов.\r\nВ результате ничего не будет показано. Неожиданно, да? ;-)."
+  REP_TXT.elements.name.REP_DetailExpandButton	= REP_TXT.expand
+  REP_TXT.elements.tip.REP_DetailExpandButton	= "Нажмите тут, чтобы развернуть все квесты. Будут показаны необходимые для квеста вещи."
+  REP_TXT.elements.name.REP_DetailCollapseButton	= REP_TXT.collapse
+  REP_TXT.elements.tip.REP_DetailCollapseButton	= "Нажмите тут, чтобы свернуть все квесты. Угадайте что произойдет. :-)"
+  REP_TXT.elements.name.REP_DetailSupressNoneFactionButton	= REP_TXT.supressNoneFaction
+  REP_TXT.elements.tip.REP_DetailSupressNoneFactionButton	= "Нажмите эту кнопку, чтобы вернуть все квесты этой фракции, которые Вы исключили из списка."
+  REP_TXT.elements.name.REP_DetailSupressNoneGlobalButton	= REP_TXT.supressNoneGlobal
+  REP_TXT.elements.tip.REP_DetailSupressNoneGlobalButton	= "Нажмите эту кнопку, чтобы вернуть все квесты для всех фракций, которые Вы исключили из списка."
+  REP_TXT.elements.name.REP_DetailClearSessionGainButton	= REP_TXT.clearSessionGain
+  REP_TXT.elements.tip.REP_DetailClearSessionGainButton	= "Нажмите эту кнопку, чтобы сбросить счетчик полученной репутации за эту сессию."
   REP_TXT.elements.name.REP_EnableMissingBox	= REP_TXT.showMissing
   REP_TXT.elements.tip.REP_EnableMissingBox	= "Включение этого параметра позволит смотреть недостающую репутацию в окне репутации"
   REP_TXT.elements.name.REP_ExtendDetailsBox	= REP_TXT.extendDetails
@@ -412,4 +612,8 @@ if (GetLocale() =="ruRU") then
   REP_TXT.settings.info.DarkmoonFaireWeeRepBuff = "Вы прокатились на карусели ярмарки Новолуния или на горках. Количество получаемых очков опыта и репутации увеличено на 10%."
   REP_TXT.settings.DarkmoonFaireHatRep = "Цилиндр Новолуния (Ярмарка Новолуния)"
   REP_TXT.settings.info.DarkmoonFaireHatRep = "Количество получаемых очков опыта и репутации увеличено на 10% на 1 hour. Расходуемый предмет."
+  ---------------------------
+  -- Characters tab settings
+  ---------------------------
+  REP_TXT.settings.characterTabSubTitle = "You can either reset or delete one of your character's addon settings from the list below."
 end

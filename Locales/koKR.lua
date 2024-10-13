@@ -212,6 +212,8 @@ if (GetLocale() =="koKR") then
   REP_TXT.STAND_LV_TIER	= {}
   REP_TXT.STAND_LV_TRUST = {}
   REP_TXT.STAND_LV_RENOWN	= {}
+  REP_TXT.STAND_LV_RANK = {}
+  REP_TXT.STAND_LV_LEVEL = {}
   REP_TXT.BFFLabels = {}
   ---- Normal standings
   REP_TXT.STAND_LV[0]	= "알 수 없는"
@@ -267,7 +269,137 @@ if (GetLocale() =="koKR") then
   REP_TXT.STAND_LV_RENOWN[23] = "영예 23"
   REP_TXT.STAND_LV_RENOWN[24] = "영예 24"
   REP_TXT.STAND_LV_RENOWN[25] = "영예 25"
-  ---- BFF Labels
+  ---- Rank standings
+  REP_TXT.STAND_LV_MAX_RANK = "최고 계급"
+  REP_TXT.STAND_LV_RANK[0] = "알 수 없는"
+  REP_TXT.STAND_LV_RANK[1] = "1계급"
+  REP_TXT.STAND_LV_RANK[2] = "2계급"
+  REP_TXT.STAND_LV_RANK[3] = "3계급"
+  REP_TXT.STAND_LV_RANK[4] = "4계급"
+  REP_TXT.STAND_LV_RANK[5] = "5계급"
+  REP_TXT.STAND_LV_RANK[6] = "6계급"
+  REP_TXT.STAND_LV_RANK[7] = "7계급"
+  REP_TXT.STAND_LV_RANK[8] = "8계급"
+  REP_TXT.STAND_LV_RANK[9] = "9계급"
+  REP_TXT.STAND_LV_RANK[10] = "10계급"
+  REP_TXT.STAND_LV_RANK[11] = "11계급"
+  REP_TXT.STAND_LV_RANK[12] = "12계급"
+  REP_TXT.STAND_LV_RANK[13] = "13계급"
+  REP_TXT.STAND_LV_RANK[14] = "14계급"
+  REP_TXT.STAND_LV_RANK[15] = "15계급"
+  REP_TXT.STAND_LV_RANK[16] = "16계급"
+  REP_TXT.STAND_LV_RANK[17] = "17계급"
+  REP_TXT.STAND_LV_RANK[18] = "18계급"
+  REP_TXT.STAND_LV_RANK[19] = "19계급"
+  REP_TXT.STAND_LV_RANK[20] = "20계급"
+  REP_TXT.STAND_LV_RANK[21] = "21계급"
+  REP_TXT.STAND_LV_RANK[22] = "22계급"
+  REP_TXT.STAND_LV_RANK[23] = "23계급"
+  REP_TXT.STAND_LV_RANK[24] = "24계급"
+  REP_TXT.STAND_LV_RANK[25] = "25계급"
+  REP_TXT.STAND_LV_RANK[26] = "26계급"
+  REP_TXT.STAND_LV_RANK[27] = "27계급"
+  REP_TXT.STAND_LV_RANK[28] = "28계급"
+  REP_TXT.STAND_LV_RANK[29] = "29계급"
+  REP_TXT.STAND_LV_RANK[30] = "30계급"
+  ---- Level standings
+  REP_TXT.STAND_LV_LEVEL[0] = "알 수 없는"
+  REP_TXT.STAND_LV_LEVEL[1] = "1 레벨"
+  REP_TXT.STAND_LV_LEVEL[2] = "2 레벨"
+  REP_TXT.STAND_LV_LEVEL[3] = "3 레벨"
+  REP_TXT.STAND_LV_LEVEL[4] = "4 레벨"
+  REP_TXT.STAND_LV_LEVEL[5] = "5 레벨"
+  REP_TXT.STAND_LV_LEVEL[6] = "6 레벨"
+  REP_TXT.STAND_LV_LEVEL[7] = "7 레벨"
+  REP_TXT.STAND_LV_LEVEL[8] = "8 레벨"
+  REP_TXT.STAND_LV_LEVEL[9] = "9 레벨"
+  REP_TXT.STAND_LV_LEVEL[10] = "10 레벨"
+  REP_TXT.STAND_LV_LEVEL[11] = "11 레벨"
+  REP_TXT.STAND_LV_LEVEL[12] = "12 레벨"
+  REP_TXT.STAND_LV_LEVEL[13] = "13 레벨"
+  REP_TXT.STAND_LV_LEVEL[14] = "14 레벨"
+  REP_TXT.STAND_LV_LEVEL[15] = "15 레벨"
+  REP_TXT.STAND_LV_LEVEL[16] = "16 레벨"
+  REP_TXT.STAND_LV_LEVEL[17] = "17 레벨"
+  REP_TXT.STAND_LV_LEVEL[18] = "18 레벨"
+  REP_TXT.STAND_LV_LEVEL[19] = "19 레벨"
+  REP_TXT.STAND_LV_LEVEL[20] = "20 레벨"
+  REP_TXT.STAND_LV_LEVEL[21] = "21 레벨"
+  REP_TXT.STAND_LV_LEVEL[22] = "22 레벨"
+  REP_TXT.STAND_LV_LEVEL[23] = "23 레벨"
+  REP_TXT.STAND_LV_LEVEL[24] = "24 레벨"
+  REP_TXT.STAND_LV_LEVEL[25] = "25 레벨"
+  REP_TXT.STAND_LV_LEVEL[26] = "26 레벨"
+  REP_TXT.STAND_LV_LEVEL[27] = "27 레벨"
+  REP_TXT.STAND_LV_LEVEL[28] = "28 레벨"
+  REP_TXT.STAND_LV_LEVEL[29] = "29 레벨"
+  REP_TXT.STAND_LV_LEVEL[30] = "30 레벨"
+  REP_TXT.STAND_LV_LEVEL[31] = "31 레벨"
+  REP_TXT.STAND_LV_LEVEL[32] = "32 레벨"
+  REP_TXT.STAND_LV_LEVEL[33] = "33 레벨"
+  REP_TXT.STAND_LV_LEVEL[34] = "34 레벨"
+  REP_TXT.STAND_LV_LEVEL[35] = "35 레벨"
+  REP_TXT.STAND_LV_LEVEL[36] = "36 레벨"
+  REP_TXT.STAND_LV_LEVEL[37] = "37 레벨"
+  REP_TXT.STAND_LV_LEVEL[38] = "38 레벨"
+  REP_TXT.STAND_LV_LEVEL[39] = "39 레벨"
+  REP_TXT.STAND_LV_LEVEL[40] = "40 레벨"
+  REP_TXT.STAND_LV_LEVEL[41] = "41 레벨"
+  REP_TXT.STAND_LV_LEVEL[42] = "42 레벨"
+  REP_TXT.STAND_LV_LEVEL[43] = "43 레벨"
+  REP_TXT.STAND_LV_LEVEL[44] = "44 레벨"
+  REP_TXT.STAND_LV_LEVEL[45] = "45 레벨"
+  REP_TXT.STAND_LV_LEVEL[46] = "46 레벨"
+  REP_TXT.STAND_LV_LEVEL[47] = "47 레벨"
+  REP_TXT.STAND_LV_LEVEL[48] = "48 레벨"
+  REP_TXT.STAND_LV_LEVEL[49] = "49 레벨"
+  REP_TXT.STAND_LV_LEVEL[50] = "50 레벨"
+  REP_TXT.STAND_LV_LEVEL[51] = "51 레벨"
+  REP_TXT.STAND_LV_LEVEL[52] = "52 레벨"
+  REP_TXT.STAND_LV_LEVEL[53] = "53 레벨"
+  REP_TXT.STAND_LV_LEVEL[54] = "54 레벨"
+  REP_TXT.STAND_LV_LEVEL[55] = "55 레벨"
+  REP_TXT.STAND_LV_LEVEL[56] = "56 레벨"
+  REP_TXT.STAND_LV_LEVEL[57] = "57 레벨"
+  REP_TXT.STAND_LV_LEVEL[58] = "58 레벨"
+  REP_TXT.STAND_LV_LEVEL[59] = "59 레벨"
+  REP_TXT.STAND_LV_LEVEL[60] = "60 레벨"
+  -------------------------------------
+  -- BFFLabels / Friendship factions --
+  -------------------------------------
+  -- BFF Labels placeholder
+  REP_TXT.BFFLabels[0] = {} -- 이방인
+  REP_TXT.BFFLabels[0][1] = "지인"
+  REP_TXT.BFFLabels[0][2] = "동료"
+  REP_TXT.BFFLabels[0][3] = "친구"
+  REP_TXT.BFFLabels[0][4] = "좋은 친구"
+  REP_TXT.BFFLabels[0][5] = "가장 친한 친구"
+  ---- Fishing Masters placeholder
+  REP_TXT.BFFFishingMastersLabels = {}
+  REP_TXT.BFFFishingMastersLabels[1] = "이방인"
+  REP_TXT.BFFFishingMastersLabels[2] = "아는 사람"
+  REP_TXT.BFFFishingMastersLabels[3] = "동료"
+  REP_TXT.BFFFishingMastersLabels[4] = "친구"
+  REP_TXT.BFFFishingMastersLabels[5] = "좋은 친구"
+  REP_TXT.BFFFishingMastersLabels[6] = "가장 친한 친구"
+  ---- Barracks Bodyguards placeholder
+  REP_TXT.BFFBarracksBodyguardsLabels = {}
+  REP_TXT.BFFBarracksBodyguardsLabels[1] = "경호원"
+  REP_TXT.BFFBarracksBodyguardsLabels[2] = "믿음직스러운 경호원"
+  REP_TXT.BFFBarracksBodyguardsLabels[3] = "개인 호위무사"
+  ---- The First Responders 1984
+  REP_TXT.BFFLabels[1984] = {} -- 수습생
+  REP_TXT.BFFLabels[1984][1] = "하급 수련의"
+  REP_TXT.BFFLabels[1984][2] = "상급 수련의"
+  REP_TXT.BFFLabels[1984][3] = "긴급구조원"
+  ---- Corbyn 2100
+  REP_TXT.BFFLabels[2100] = {} -- 이방인
+  REP_TXT.BFFLabels[2100][1] = "호기심의 대상"
+  REP_TXT.BFFLabels[2100][2] = "적대적이지 않은 사람"
+  REP_TXT.BFFLabels[2100][3] = REP_TXT.BFFFishingMastersLabels[4]
+  REP_TXT.BFFLabels[2100][4] = "도움을 주는 친구"
+  REP_TXT.BFFLabels[2100][5] = REP_TXT.BFFFishingMastersLabels[6]
+  -- Chromie 2135
   REP_TXT.BFFLabels[2135] = {} -- 새끼용
   REP_TXT.BFFLabels[2135][1] = "시간의 훈련생"
   REP_TXT.BFFLabels[2135][2] = "시간여행자"
@@ -275,6 +407,74 @@ if (GetLocale() =="koKR") then
   REP_TXT.BFFLabels[2135][4] = "청동 동맹"
   REP_TXT.BFFLabels[2135][5] = "시대의 해결사	"
   REP_TXT.BFFLabels[2135][6] = "시간군주"
+  ---- Wrathion 2517
+  REP_TXT.BFFLabels[2517] = {} -- 지인
+  REP_TXT.BFFLabels[2517][1] = "일원"
+  REP_TXT.BFFLabels[2517][2] = "동맹"
+  REP_TXT.BFFLabels[2517][3] = "송곳니"
+  REP_TXT.BFFLabels[2517][4] = "친구"
+  REP_TXT.BFFLabels[2517][5] = "진정한 친구"
+  ---- Sabellian 2518
+  REP_TXT.BFFLabels[2518] = {} -- 지인
+  REP_TXT.BFFLabels[2518][1] = "일원"
+  REP_TXT.BFFLabels[2518][2] = "동맹"
+  REP_TXT.BFFLabels[2518][3] = "송곳니"
+  REP_TXT.BFFLabels[2518][4] = "친구"
+  REP_TXT.BFFLabels[2518][5] = "진정한 친구"
+  ---- Artisan's Consortium - Dragon Isles Branch 2544
+  REP_TXT.BFFLabels[2544] = {} -- 중립
+  REP_TXT.BFFLabels[2544][1] = "선호함"
+  REP_TXT.BFFLabels[2544][2] = "존중"
+  REP_TXT.BFFLabels[2544][3] = "소중함"
+  REP_TXT.BFFLabels[2544][4] = "존경함"
+  ---- Cobalt Assembly 2550
+  REP_TXT.BFFLabels[2550] = {} -- 없음
+  REP_TXT.BFFLabels[2550][1] = "낮음"
+  REP_TXT.BFFLabels[2550][2] = "보통"
+  REP_TXT.BFFLabels[2550][3] = "높음"
+  REP_TXT.BFFLabels[2550][4] = "최대"
+  ---- Soridormi 2553
+  REP_TXT.BFFLabels[2553] = {} -- 변형물
+  REP_TXT.BFFLabels[2553][1] = "미래의 친구"
+  REP_TXT.BFFLabels[2553][2] = "균열 봉합사"
+  REP_TXT.BFFLabels[2553][3] = "시간나그네"
+  REP_TXT.BFFLabels[2553][4] = "전설"
+  ---- The Weaver 2601
+  REP_TXT.BFFLabels[2601] = {} -- 이방인
+  REP_TXT.BFFLabels[2601][1] = "지인"
+  REP_TXT.BFFLabels[2601][2] = "친우"
+  REP_TXT.BFFLabels[2601][3] = "공모자"
+  REP_TXT.BFFLabels[2601][4] = "협조자"
+  REP_TXT.BFFLabels[2601][5] = "군식구"
+  REP_TXT.BFFLabels[2601][6] = "사주자"
+  REP_TXT.BFFLabels[2601][7] = "모략가"
+  REP_TXT.BFFLabels[2601][8] = "주모자"
+  ---- The General 2605
+  REP_TXT.BFFLabels[2605] = {} -- 이방인
+  REP_TXT.BFFLabels[2605][1] = "지인"
+  REP_TXT.BFFLabels[2605][2] = "친우"
+  REP_TXT.BFFLabels[2605][3] = "공모자"
+  REP_TXT.BFFLabels[2605][4] = "협조자"
+  REP_TXT.BFFLabels[2605][5] = "군식구"
+  REP_TXT.BFFLabels[2605][6] = "사주자"
+  REP_TXT.BFFLabels[2605][7] = "모략가"
+  REP_TXT.BFFLabels[2605][8] = "주모자"
+  ---- The Vizier 2607
+  REP_TXT.BFFLabels[2607] = {} -- 이방인
+  REP_TXT.BFFLabels[2607][1] = "지인"
+  REP_TXT.BFFLabels[2607][2] = "친우"
+  REP_TXT.BFFLabels[2607][3] = "공모자"
+  REP_TXT.BFFLabels[2607][4] = "협조자"
+  REP_TXT.BFFLabels[2607][5] = "군식구"
+  REP_TXT.BFFLabels[2607][6] = "사주자"
+  REP_TXT.BFFLabels[2607][7] = "모략가"
+  REP_TXT.BFFLabels[2607][8] = "주모자"
+  ---- Azerothian Archives 2615
+  REP_TXT.BFFLabels[2615] = {} -- 졸업생
+  REP_TXT.BFFLabels[2615][1] = "조수"
+  REP_TXT.BFFLabels[2615][2] = "계약자"
+  REP_TXT.BFFLabels[2615][3] = "대학원생"
+  REP_TXT.BFFLabels[2615][4] = "종신 교수"
 
   ---------------------------
   -- Tooltips
@@ -300,20 +500,20 @@ if (GetLocale() =="koKR") then
   REP_TXT.elements.tip.REP_ShowInstancesButton	= "평판을 얻기 위해 실행할 수있는 인스턴스를 참조하려면\r\n이 단추를 선택하십시오."
   REP_TXT.elements.name.REP_ShowGeneralButton	= REP_TXT.showGeneral
   REP_TXT.elements.tip.REP_ShowGeneralButton	= "평판 획득에 대한 일반적인 정보를 보려면\r\n이 단추를 선택하십시오."
-  REP_TXT.elements.name.REP_ShowAllButton	= REP_TXT.showAll
-  REP_TXT.elements.tip.REP_ShowAllButton	= "왼쪽에 있는 모든 체크 박스를 선택하려면 이 버튼을 누릅니다.\r\n현재 선택한 진영 평판을 얻을 수 있는 몹, 퀘스트, 아이템과 인스턴스를 표시합니다."
-  REP_TXT.elements.name.REP_ShowNoneButton	= REP_TXT.showNone
-  REP_TXT.elements.tip.REP_ShowNoneButton	= "왼쪽에 있는 모든 체크 박스 선택을 해제하려면 이 버튼을 누릅니다. \r\n현재 선택한 진영 평판을 얻을 수 있는 방법을 모두 표시하지 않습니다."
-  REP_TXT.elements.name.REP_ExpandButton	= REP_TXT.expand
-  REP_TXT.elements.tip.REP_ExpandButton	= "목록에 있는 모든 항목을 펼치려면 이 버튼을 누릅니다. 이것은 어떤 아이템 수집 퀘스트의 완료에 필요한 항목을 표시합니다."
-  REP_TXT.elements.name.REP_CollapseButton	= REP_TXT.collapse
-  REP_TXT.elements.tip.REP_CollapseButton	= "목록에서 모든 항목을 줄이려면 이 버튼을 누릅니다. 퀘스트 세부항목 또는 반납하는 아이템 상세 항목을 숨깁니다."
-  REP_TXT.elements.name.REP_SupressNoneFactionButton	= REP_TXT.supressNoneFaction
-  REP_TXT.elements.tip.REP_SupressNoneFactionButton	= "맞 클릭하여 제외한 이 진영의 모든 퀘스트를 다시 사용하려면 이 버튼을 누릅니다."
-  REP_TXT.elements.name.REP_SupressNoneGlobalButton	= REP_TXT.supressNoneGlobal
-  REP_TXT.elements.tip.REP_SupressNoneGlobalButton	= "마우스 우클릭으로 제외한 모든 세력에 대한 모든 퀘스트를 다시 사용하려면 이 버튼을 누릅니다."
-  REP_TXT.elements.name.REP_ClearSessionGainButton	= REP_TXT.clearSessionGain
-  REP_TXT.elements.tip.REP_ClearSessionGainButton	= "이 세션에서 얻은 평판 카운터를 초기화하려면 이 버튼을 누르십시오."
+  REP_TXT.elements.name.REP_DetailShowAllButton	= REP_TXT.showAll
+  REP_TXT.elements.tip.REP_DetailShowAllButton	= "왼쪽에 있는 모든 체크 박스를 선택하려면 이 버튼을 누릅니다.\r\n현재 선택한 진영 평판을 얻을 수 있는 몹, 퀘스트, 아이템과 인스턴스를 표시합니다."
+  REP_TXT.elements.name.REP_DetailShowNoneButton	= REP_TXT.showNone
+  REP_TXT.elements.tip.REP_DetailShowNoneButton	= "왼쪽에 있는 모든 체크 박스 선택을 해제하려면 이 버튼을 누릅니다. \r\n현재 선택한 진영 평판을 얻을 수 있는 방법을 모두 표시하지 않습니다."
+  REP_TXT.elements.name.REP_DetailExpandButton	= REP_TXT.expand
+  REP_TXT.elements.tip.REP_DetailExpandButton	= "목록에 있는 모든 항목을 펼치려면 이 버튼을 누릅니다. 이것은 어떤 아이템 수집 퀘스트의 완료에 필요한 항목을 표시합니다."
+  REP_TXT.elements.name.REP_DetailCollapseButton	= REP_TXT.collapse
+  REP_TXT.elements.tip.REP_DetailCollapseButton	= "목록에서 모든 항목을 줄이려면 이 버튼을 누릅니다. 퀘스트 세부항목 또는 반납하는 아이템 상세 항목을 숨깁니다."
+  REP_TXT.elements.name.REP_DetailSupressNoneFactionButton	= REP_TXT.supressNoneFaction
+  REP_TXT.elements.tip.REP_DetailSupressNoneFactionButton	= "맞 클릭하여 제외한 이 진영의 모든 퀘스트를 다시 사용하려면 이 버튼을 누릅니다."
+  REP_TXT.elements.name.REP_DetailSupressNoneGlobalButton	= REP_TXT.supressNoneGlobal
+  REP_TXT.elements.tip.REP_DetailSupressNoneGlobalButton	= "마우스 우클릭으로 제외한 모든 세력에 대한 모든 퀘스트를 다시 사용하려면 이 버튼을 누릅니다."
+  REP_TXT.elements.name.REP_DetailClearSessionGainButton	= REP_TXT.clearSessionGain
+  REP_TXT.elements.tip.REP_DetailClearSessionGainButton	= "이 세션에서 얻은 평판 카운터를 초기화하려면 이 버튼을 누르십시오."
   REP_TXT.elements.name.REP_EnableMissingBox	= REP_TXT.showMissing
   REP_TXT.elements.tip.REP_EnableMissingBox	= "평판 프레임에 있는 각 진영의 현재 서 뒤에 다음 신뢰도 수준에 필요한 누락 명성 포인트를 추가하려면이 설정을 사용합니다."
   REP_TXT.elements.name.REP_ExtendDetailsBox	= REP_TXT.extendDetails
@@ -409,4 +609,8 @@ if (GetLocale() =="koKR") then
   REP_TXT.settings.info.DarkmoonFaireWeeRepBuff = "다크문 흔들 기구 또는 롤러코스터를 탐 획득하는 경험치와 평판 10%만큼 증가"
   REP_TXT.settings.DarkmoonFaireHatRep = "다크문 중산모 (다크문 유랑단)"
   REP_TXT.settings.info.DarkmoonFaireHatRep = "획득하는 경험치와 평판이 1 hour 동안 10%만큼 증가합니다. 사용하면 모자가 사라집니다."
+  ---------------------------
+  -- Characters tab settings
+  ---------------------------
+  REP_TXT.settings.characterTabSubTitle = "You can either reset or delete one of your character's addon settings from the list below."
 end

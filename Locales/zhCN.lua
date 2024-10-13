@@ -213,6 +213,8 @@ if (GetLocale() =="zhCN") then
   REP_TXT.STAND_LV_TIER	= {}
   REP_TXT.STAND_LV_TRUST = {}
   REP_TXT.STAND_LV_RENOWN	= {}
+  REP_TXT.STAND_LV_RANK = {}
+  REP_TXT.STAND_LV_LEVEL = {}
   REP_TXT.BFFLabels = {}
   ---- Normal standings
   REP_TXT.STAND_LV[0]	= "未知"
@@ -268,7 +270,137 @@ if (GetLocale() =="zhCN") then
   REP_TXT.STAND_LV_RENOWN[23] = "名望 23"
   REP_TXT.STAND_LV_RENOWN[24] = "名望 24"
   REP_TXT.STAND_LV_RENOWN[25] = "名望 25"
-  ---- BFF Labels
+  ---- Rank standings
+  REP_TXT.STAND_LV_MAX_RANK = "Max Rank"
+  REP_TXT.STAND_LV_RANK[0] = "Unknown"
+  REP_TXT.STAND_LV_RANK[1] = "Rank 1"
+  REP_TXT.STAND_LV_RANK[2] = "Rank 2"
+  REP_TXT.STAND_LV_RANK[3] = "Rank 3"
+  REP_TXT.STAND_LV_RANK[4] = "Rank 4"
+  REP_TXT.STAND_LV_RANK[5] = "Rank 5"
+  REP_TXT.STAND_LV_RANK[6] = "Rank 6"
+  REP_TXT.STAND_LV_RANK[7] = "Rank 7"
+  REP_TXT.STAND_LV_RANK[8] = "Rank 8"
+  REP_TXT.STAND_LV_RANK[9] = "Rank 9"
+  REP_TXT.STAND_LV_RANK[10] = "Rank 10"
+  REP_TXT.STAND_LV_RANK[11] = "Rank 11"
+  REP_TXT.STAND_LV_RANK[12] = "Rank 12"
+  REP_TXT.STAND_LV_RANK[13] = "Rank 13"
+  REP_TXT.STAND_LV_RANK[14] = "Rank 14"
+  REP_TXT.STAND_LV_RANK[15] = "Rank 15"
+  REP_TXT.STAND_LV_RANK[16] = "Rank 16"
+  REP_TXT.STAND_LV_RANK[17] = "Rank 17"
+  REP_TXT.STAND_LV_RANK[18] = "Rank 18"
+  REP_TXT.STAND_LV_RANK[19] = "Rank 19"
+  REP_TXT.STAND_LV_RANK[20] = "Rank 20"
+  REP_TXT.STAND_LV_RANK[21] = "Rank 21"
+  REP_TXT.STAND_LV_RANK[22] = "Rank 22"
+  REP_TXT.STAND_LV_RANK[23] = "Rank 23"
+  REP_TXT.STAND_LV_RANK[24] = "Rank 24"
+  REP_TXT.STAND_LV_RANK[25] = "Rank 25"
+  REP_TXT.STAND_LV_RANK[26] = "Rank 26"
+  REP_TXT.STAND_LV_RANK[27] = "Rank 27"
+  REP_TXT.STAND_LV_RANK[28] = "Rank 28"
+  REP_TXT.STAND_LV_RANK[29] = "Rank 29"
+  REP_TXT.STAND_LV_RANK[30] = "Rank 30"
+  ---- Level standings
+  REP_TXT.STAND_LV_LEVEL[0] = "Unknown"
+  REP_TXT.STAND_LV_LEVEL[1] = "Level 1"
+  REP_TXT.STAND_LV_LEVEL[2] = "Level 2"
+  REP_TXT.STAND_LV_LEVEL[3] = "Level 3"
+  REP_TXT.STAND_LV_LEVEL[4] = "Level 4"
+  REP_TXT.STAND_LV_LEVEL[5] = "Level 5"
+  REP_TXT.STAND_LV_LEVEL[6] = "Level 6"
+  REP_TXT.STAND_LV_LEVEL[7] = "Level 7"
+  REP_TXT.STAND_LV_LEVEL[8] = "Level 8"
+  REP_TXT.STAND_LV_LEVEL[9] = "Level 9"
+  REP_TXT.STAND_LV_LEVEL[10] = "Level 10"
+  REP_TXT.STAND_LV_LEVEL[11] = "Level 11"
+  REP_TXT.STAND_LV_LEVEL[12] = "Level 12"
+  REP_TXT.STAND_LV_LEVEL[13] = "Level 13"
+  REP_TXT.STAND_LV_LEVEL[14] = "Level 14"
+  REP_TXT.STAND_LV_LEVEL[15] = "Level 15"
+  REP_TXT.STAND_LV_LEVEL[16] = "Level 16"
+  REP_TXT.STAND_LV_LEVEL[17] = "Level 17"
+  REP_TXT.STAND_LV_LEVEL[18] = "Level 18"
+  REP_TXT.STAND_LV_LEVEL[19] = "Level 19"
+  REP_TXT.STAND_LV_LEVEL[20] = "Level 20"
+  REP_TXT.STAND_LV_LEVEL[21] = "Level 21"
+  REP_TXT.STAND_LV_LEVEL[22] = "Level 22"
+  REP_TXT.STAND_LV_LEVEL[23] = "Level 23"
+  REP_TXT.STAND_LV_LEVEL[24] = "Level 24"
+  REP_TXT.STAND_LV_LEVEL[25] = "Level 25"
+  REP_TXT.STAND_LV_LEVEL[26] = "Level 26"
+  REP_TXT.STAND_LV_LEVEL[27] = "Level 27"
+  REP_TXT.STAND_LV_LEVEL[28] = "Level 28"
+  REP_TXT.STAND_LV_LEVEL[29] = "Level 29"
+  REP_TXT.STAND_LV_LEVEL[30] = "Level 30"
+  REP_TXT.STAND_LV_LEVEL[31] = "Level 31"
+  REP_TXT.STAND_LV_LEVEL[32] = "Level 32"
+  REP_TXT.STAND_LV_LEVEL[33] = "Level 33"
+  REP_TXT.STAND_LV_LEVEL[34] = "Level 34"
+  REP_TXT.STAND_LV_LEVEL[35] = "Level 35"
+  REP_TXT.STAND_LV_LEVEL[36] = "Level 36"
+  REP_TXT.STAND_LV_LEVEL[37] = "Level 37"
+  REP_TXT.STAND_LV_LEVEL[38] = "Level 38"
+  REP_TXT.STAND_LV_LEVEL[39] = "Level 39"
+  REP_TXT.STAND_LV_LEVEL[40] = "Level 40"
+  REP_TXT.STAND_LV_LEVEL[41] = "Level 41"
+  REP_TXT.STAND_LV_LEVEL[42] = "Level 42"
+  REP_TXT.STAND_LV_LEVEL[43] = "Level 43"
+  REP_TXT.STAND_LV_LEVEL[44] = "Level 44"
+  REP_TXT.STAND_LV_LEVEL[45] = "Level 45"
+  REP_TXT.STAND_LV_LEVEL[46] = "Level 46"
+  REP_TXT.STAND_LV_LEVEL[47] = "Level 47"
+  REP_TXT.STAND_LV_LEVEL[48] = "Level 48"
+  REP_TXT.STAND_LV_LEVEL[49] = "Level 49"
+  REP_TXT.STAND_LV_LEVEL[50] = "Level 50"
+  REP_TXT.STAND_LV_LEVEL[51] = "Level 51"
+  REP_TXT.STAND_LV_LEVEL[52] = "Level 52"
+  REP_TXT.STAND_LV_LEVEL[53] = "Level 53"
+  REP_TXT.STAND_LV_LEVEL[54] = "Level 54"
+  REP_TXT.STAND_LV_LEVEL[55] = "Level 55"
+  REP_TXT.STAND_LV_LEVEL[56] = "Level 56"
+  REP_TXT.STAND_LV_LEVEL[57] = "Level 57"
+  REP_TXT.STAND_LV_LEVEL[58] = "Level 58"
+  REP_TXT.STAND_LV_LEVEL[59] = "Level 59"
+  REP_TXT.STAND_LV_LEVEL[60] = "Level 60"
+  -------------------------------------
+  -- BFFLabels / Friendship factions --
+  -------------------------------------
+  -- BFF Labels placeholder
+  REP_TXT.BFFLabels[0] = {} -- Unknown
+  REP_TXT.BFFLabels[0][1] = "Acquaintance"
+  REP_TXT.BFFLabels[0][2] = "Buddy"
+  REP_TXT.BFFLabels[0][3] = "Friend"
+  REP_TXT.BFFLabels[0][4] = "Good Friend"
+  REP_TXT.BFFLabels[0][5] = "Best Friend"
+  ---- Fishing Masters placeholder
+  REP_TXT.BFFFishingMastersLabels = {}
+  REP_TXT.BFFFishingMastersLabels[1] = "Stranger"
+  REP_TXT.BFFFishingMastersLabels[2] = "Pal"
+  REP_TXT.BFFFishingMastersLabels[3] = "Buddy"
+  REP_TXT.BFFFishingMastersLabels[4] = "Friend"
+  REP_TXT.BFFFishingMastersLabels[5] = "Good Friend"
+  REP_TXT.BFFFishingMastersLabels[6] = "Best Friend"
+  ---- Barracks Bodyguards placeholder
+  REP_TXT.BFFBarracksBodyguardsLabels = {}
+  REP_TXT.BFFBarracksBodyguardsLabels[1] = "Bodyguard"
+  REP_TXT.BFFBarracksBodyguardsLabels[2] = "Trusted Bodyguard"
+  REP_TXT.BFFBarracksBodyguardsLabels[3] = "Personal Wingman"
+  ---- The First Responders 1984
+  REP_TXT.BFFLabels[1984] = {} -- Intern
+  REP_TXT.BFFLabels[1984][1] = "Junior Resident"
+  REP_TXT.BFFLabels[1984][2] = "Senior Resident"
+  REP_TXT.BFFLabels[1984][3] = "First Responder"
+  ---- Corbyn 2100
+  REP_TXT.BFFLabels[2100] = {} -- Stranger
+  REP_TXT.BFFLabels[2100][1] = "Curiosity"
+  REP_TXT.BFFLabels[2100][2] = "Non-Threat"
+  REP_TXT.BFFLabels[2100][3] = REP_TXT.BFFFishingMastersLabels[4]
+  REP_TXT.BFFLabels[2100][4] = "Helpful Friend"
+  REP_TXT.BFFLabels[2100][5] = REP_TXT.BFFFishingMastersLabels[6]
+  -- Chromie 2135
   REP_TXT.BFFLabels[2135] = {} -- 雏龙
   REP_TXT.BFFLabels[2135][1] = "时空新兵"
   REP_TXT.BFFLabels[2135][2] = "时空跃迁者"
@@ -276,6 +408,74 @@ if (GetLocale() =="zhCN") then
   REP_TXT.BFFLabels[2135][4] = "青铜盟友"
   REP_TXT.BFFLabels[2135][5] = "纪元修复者"
   REP_TXT.BFFLabels[2135][6] = "时光领主"
+  ---- Wrathion 2517
+  REP_TXT.BFFLabels[2517] = {} -- Acquaintance
+  REP_TXT.BFFLabels[2517][1] = "Cohort"
+  REP_TXT.BFFLabels[2517][2] = "Ally"
+  REP_TXT.BFFLabels[2517][3] = "Fang"
+  REP_TXT.BFFLabels[2517][4] = "Friend"
+  REP_TXT.BFFLabels[2517][5] = "True Friend"
+  ---- Sabellian 2518
+  REP_TXT.BFFLabels[2518] = {} -- Acquaintance
+  REP_TXT.BFFLabels[2518][1] = "Cohort"
+  REP_TXT.BFFLabels[2518][2] = "Ally"
+  REP_TXT.BFFLabels[2518][3] = "Fang"
+  REP_TXT.BFFLabels[2518][4] = "Friend"
+  REP_TXT.BFFLabels[2518][5] = "True Friend"
+  ---- Artisan's Consortium - Dragon Isles Branch 2544
+  REP_TXT.BFFLabels[2544] = {} -- Neutral
+  REP_TXT.BFFLabels[2544][1] = "Preferred"
+  REP_TXT.BFFLabels[2544][2] = "Respected"
+  REP_TXT.BFFLabels[2544][3] = "Valued"
+  REP_TXT.BFFLabels[2544][4] = "Esteemed"
+  ---- Cobalt Assembly 2550
+  REP_TXT.BFFLabels[2550] = {} -- Empty
+  REP_TXT.BFFLabels[2550][1] = "Low"
+  REP_TXT.BFFLabels[2550][2] = "Medium"
+  REP_TXT.BFFLabels[2550][3] = "High"
+  REP_TXT.BFFLabels[2550][4] = "Maximum"
+  ---- Soridormi 2553
+  REP_TXT.BFFLabels[2553] = {} -- Anomaly
+  REP_TXT.BFFLabels[2553][1] = "Future Friend"
+  REP_TXT.BFFLabels[2553][2] = "Rift-Mender"
+  REP_TXT.BFFLabels[2553][3] = "Timewalker"
+  REP_TXT.BFFLabels[2553][4] = "Legend"
+  ---- The Weaver 2601
+  REP_TXT.BFFLabels[2601] = {} -- Stranger
+  REP_TXT.BFFLabels[2601][1] = "Acquaintance"
+  REP_TXT.BFFLabels[2601][2] = "Crony"
+  REP_TXT.BFFLabels[2601][3] = "Accomplice"
+  REP_TXT.BFFLabels[2601][4] = "Collaborator"
+  REP_TXT.BFFLabels[2601][5] = "Accessory"
+  REP_TXT.BFFLabels[2601][6] = "Abettor"
+  REP_TXT.BFFLabels[2601][7] = "Conspirator"
+  REP_TXT.BFFLabels[2601][8] = "Mastermind"
+  ---- The General 2605
+  REP_TXT.BFFLabels[2605] = {} -- Stranger
+  REP_TXT.BFFLabels[2605][1] = "Acquaintance"
+  REP_TXT.BFFLabels[2605][2] = "Crony"
+  REP_TXT.BFFLabels[2605][3] = "Accomplice"
+  REP_TXT.BFFLabels[2605][4] = "Collaborator"
+  REP_TXT.BFFLabels[2605][5] = "Accessory"
+  REP_TXT.BFFLabels[2605][6] = "Abettor"
+  REP_TXT.BFFLabels[2605][7] = "Conspirator"
+  REP_TXT.BFFLabels[2605][8] = "Mastermind"
+  ---- The Vizier 2607
+  REP_TXT.BFFLabels[2607] = {} -- Stranger
+  REP_TXT.BFFLabels[2607][1] = "Acquaintance"
+  REP_TXT.BFFLabels[2607][2] = "Crony"
+  REP_TXT.BFFLabels[2607][3] = "Accomplice"
+  REP_TXT.BFFLabels[2607][4] = "Collaborator"
+  REP_TXT.BFFLabels[2607][5] = "Accessory"
+  REP_TXT.BFFLabels[2607][6] = "Abettor"
+  REP_TXT.BFFLabels[2607][7] = "Conspirator"
+  REP_TXT.BFFLabels[2607][8] = "Mastermind"
+  ---- Azerothian Archives 2615
+  REP_TXT.BFFLabels[2615] = {} -- Graduate
+  REP_TXT.BFFLabels[2615][1] = "Assistant"
+  REP_TXT.BFFLabels[2615][2] = "Contract"
+  REP_TXT.BFFLabels[2615][3] = "Resident"
+  REP_TXT.BFFLabels[2615][4] = "Tenured"
   
   ---------------------------
   -- Tooltips
@@ -301,20 +501,20 @@ if (GetLocale() =="zhCN") then
   REP_TXT.elements.tip.REP_ShowInstancesButton	= "显示可以提供声望的副本。"
   REP_TXT.elements.name.REP_ShowGeneralButton	= REP_TXT.showGeneral
   REP_TXT.elements.tip.REP_ShowGeneralButton	= "显示可以获得声望的其他方法，通常指除了任务、物品、副本、特定怪物以外的方式。"
-  REP_TXT.elements.name.REP_ShowAllButton	= REP_TXT.showAll
-  REP_TXT.elements.tip.REP_ShowAllButton	= "显示从任务、物品、副本、特定小怪四种方式获得声望的方法。"
-  REP_TXT.elements.name.REP_ShowNoneButton	= REP_TXT.showNone
-  REP_TXT.elements.tip.REP_ShowNoneButton	= "隐藏从任务、物品、副本、特定小怪四种方式获得声望的方法。"
-  REP_TXT.elements.name.REP_ExpandButton	= REP_TXT.expand
-  REP_TXT.elements.tip.REP_ExpandButton	= "展开列表中的所有条目，显示详细资料，例如任务内容或需要的物品。"
-  REP_TXT.elements.name.REP_CollapseButton	= REP_TXT.collapse
-  REP_TXT.elements.tip.REP_CollapseButton	= "折叠列表中的所有条目，隐藏详细资料。"
-  REP_TXT.elements.name.REP_SupressNoneFactionButton	= REP_TXT.supressNoneFaction
-  REP_TXT.elements.tip.REP_SupressNoneFactionButton	= "重新启用此阵营声望列表中，被右键点击排除的项目。"
-  REP_TXT.elements.name.REP_SupressNoneGlobalButton	= REP_TXT.supressNoneGlobal
-  REP_TXT.elements.tip.REP_SupressNoneGlobalButton	= "重新启用所有阵营声望列表中，被右键点击排除的项目。"
-  REP_TXT.elements.name.REP_ClearSessionGainButton	= REP_TXT.clearSessionGain
-  REP_TXT.elements.tip.REP_ClearSessionGainButton	= "Press this button to reset the counter for reputation gained this session."
+  REP_TXT.elements.name.REP_DetailShowAllButton	= REP_TXT.showAll
+  REP_TXT.elements.tip.REP_DetailShowAllButton	= "显示从任务、物品、副本、特定小怪四种方式获得声望的方法。"
+  REP_TXT.elements.name.REP_DetailShowNoneButton	= REP_TXT.showNone
+  REP_TXT.elements.tip.REP_DetailShowNoneButton	= "隐藏从任务、物品、副本、特定小怪四种方式获得声望的方法。"
+  REP_TXT.elements.name.REP_DetailExpandButton	= REP_TXT.expand
+  REP_TXT.elements.tip.REP_DetailExpandButton	= "展开列表中的所有条目，显示详细资料，例如任务内容或需要的物品。"
+  REP_TXT.elements.name.REP_DetailCollapseButton	= REP_TXT.collapse
+  REP_TXT.elements.tip.REP_DetailCollapseButton	= "折叠列表中的所有条目，隐藏详细资料。"
+  REP_TXT.elements.name.REP_DetailSupressNoneFactionButton	= REP_TXT.supressNoneFaction
+  REP_TXT.elements.tip.REP_DetailSupressNoneFactionButton	= "重新启用此阵营声望列表中，被右键点击排除的项目。"
+  REP_TXT.elements.name.REP_DetailSupressNoneGlobalButton	= REP_TXT.supressNoneGlobal
+  REP_TXT.elements.tip.REP_DetailSupressNoneGlobalButton	= "重新启用所有阵营声望列表中，被右键点击排除的项目。"
+  REP_TXT.elements.name.REP_DetailClearSessionGainButton	= REP_TXT.clearSessionGain
+  REP_TXT.elements.tip.REP_DetailClearSessionGainButton	= "Press this button to reset the counter for reputation gained this session."
   REP_TXT.elements.name.REP_EnableMissingBox	= REP_TXT.showMissing
   REP_TXT.elements.tip.REP_EnableMissingBox	= "在声望列表显示声望到达下一阶段所需要的声望值。"
   REP_TXT.elements.name.REP_ExtendDetailsBox	= REP_TXT.extendDetails
@@ -410,4 +610,8 @@ if (GetLocale() =="zhCN") then
   REP_TXT.settings.info.DarkmoonFaireWeeRepBuff = "乘坐暗月旋转木马或过山车。经验值和声望值获取速度提高10%。"
   REP_TXT.settings.DarkmoonFaireHatRep = "暗月大礼帽 (暗月马戏团)"
   REP_TXT.settings.info.DarkmoonFaireHatRep = "经验值和声望值获取速度提高10%，持续 1 小时。礼帽为一次性使用。"
+  ---------------------------
+  -- Characters tab settings
+  ---------------------------
+  REP_TXT.settings.characterTabSubTitle = "You can either reset or delete one of your character's addon settings from the list below."
 end

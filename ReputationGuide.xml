@@ -4,7 +4,9 @@
 
 	<Script file="ReputationGuide.lua"/>
 
-<!--> ============================================================================================================== <-->
+  <!-- ==========================================================================================
+    Initialize addon
+  ========================================================================================== -->
 	<Frame name="ReputationGuide">
 		<Scripts>
 			<OnLoad>REP_OnLoad(self)</OnLoad>
@@ -13,13 +15,26 @@
 		</Scripts>
 	</Frame>
 
-<!--> ============================================================================================================== <-->
-	<Font name="DetailFontWhite" inherits="GameFontNormalSmall" virtual="true">
+  <!-- =========================================
+    General Templates
+  ========================================== -->
+	<Button name="SmallFontButton" inherits="UIPanelButtonTemplate" virtual="true">
+		<NormalFont inherits="GameFontNormalSmall"/>
+		<HighlightFont inherits="GameFontHighlightSmall"/>
+		<DisabledFont inherits="GameFontDisableSmall"/>
+	</Button>
+
+  <Font name="DetailFontWhite" inherits="GameFontNormalSmall" virtual="true">
 		<Color r="1.0" g="1.0" b="1.0"/>
 	</Font>
+
 	<Font name="DetailFontGrey" inherits="GameFontNormalSmall" virtual="true">
 		<Color r="0.5" g="0.5" b="0.5"/>
 	</Font>
+
+  <!-- =========================================
+    Personal addon Templates
+  ========================================== -->
 	<Button name="REP_UpdateEntryTemplate" hidden="true" virtual="true">
 		<Size x="430" y="16"/>
 		<Layers>
@@ -69,7 +84,8 @@
 			<OnMouseUp>REP_MouseButtonUp(self, button)</OnMouseUp>
 		</Scripts>
 	</Button>
-	<!-- Hidden tooltip to get quest information instead of using GameTooltip, prevents tooltip closing when rep frame updates -->
+
+  <!-- Hidden tooltip to get quest information instead of using GameTooltip, prevents tooltip closing when rep frame updates -->
 	<GameTooltip name="REP_HiddenQuestTooltip" inherits="GameTooltipTemplate">
 		<Scripts>
 			<OnLoad>
@@ -77,730 +93,7 @@
 			</OnLoad>
 		</Scripts>
 	</GameTooltip>
-
-<!--> ============================================================================================================== <-->
-	<Button name="SmallFontButton" inherits="UIPanelButtonTemplate" virtual="true">
-		<NormalFont inherits="GameFontNormalSmall"/>
-		<HighlightFont inherits="GameFontHighlightSmall"/>
-		<DisabledFont inherits="GameFontDisableSmall"/>
-	</Button>
-
-<!--v set 1-->
-	<Frame name="REP_ReputationDetailFrame" parent="ReputationFrame" enableMouse="true" hidden="true" inherits="BackdropTemplate">
-		<Size x="482" y="520"/>
-		<Anchors><Anchor point="TOPLEFT" relativeTo="ReputationFrame" relativePoint="TOPRIGHT"><Offset x="-25" y="0"/></Anchor></Anchors>
-		<KeyValues>
-			<KeyValue key="backdropInfo" value="BACKDROP_DIALOG_32_32" type="global" />
-		</KeyValues>
-		<Layers>
-			<Layer level="ARTWORK">
-				<FontString name="REP_ReputationDetailFactionName" inherits="GameFontNormal" justifyH="LEFT">
-					<Size x="0" y="12"/>
-					<Anchors><Anchor point="TOPLEFT"><Offset x="20" y="-21"/></Anchor></Anchors>
-				</FontString>
-				<FontString name="REP_ReputationDetailFactionDescription" inherits="GameFontHighlightSmall" justifyH="LEFT">
-					<Size x="170" y="0"/><Anchors>
-					<Anchor point="TOPLEFT" relativeTo="REP_ReputationDetailFactionName" relativePoint="BOTTOMLEFT">
-					<Offset x="0" y="-2"/></Anchor></Anchors>
-				</FontString>
-				<Texture name="REP_DetailBg" file="Interface\PaperDollInfoFrame\UI-Character-Reputation-DetailBackground">
-					<Size x="256" y="128"/>
-					<Anchors><Anchor point="TOPLEFT"><Offset x="11" y="-12"/></Anchor></Anchors>
-				</Texture>
-        <!--^ set 1-->
-				<Texture name="REP_DetailBg2" file="Interface\PaperDollInfoFrame\UI-Character-Reputation-DetailBackground">
-					<Size x="375" y="128"/>
-					<Anchors><Anchor point="TOPLEFT" relativeTo="REP_DetailBg" relativePoint="TOPRIGHT"><Offset x="-70" y="0"/></Anchor></Anchors>
-				</Texture>
-				<FontString name="REP_ReputationDetailStandingName" inherits="GameFontNormalSmall" justifyH="LEFT">
-					<Size x="0" y="10"/>
-					<Anchors><Anchor point="TOPLEFT" relativeTo="REP_DetailBg2" relativePoint="TOPLEFT"><Offset x="10" y="-10"/></Anchor></Anchors>
-				</FontString>
-				<FontString name="REP_ReputationDetailStandingNeeded" inherits="GameFontHighlightSmall" justifyH="LEFT">
-					<Size x="0" y="10"/><Anchors>
-						<Anchor point="TOPLEFT" relativeTo="REP_ReputationDetailStandingName" relativePoint="BOTTOMLEFT">
-					<Offset x="0" y="-2"/></Anchor></Anchors>
-				</FontString>
-				<FontString name="REP_ReputationDetailStandingCurrent" inherits="GameFontHighlightSmall" justifyH="LEFT">
-					<Size x="0" y="10"/><Anchors>
-						<Anchor point="TOPLEFT" relativeTo="REP_ReputationDetailStandingNeeded" relativePoint="BOTTOMLEFT">
-					<Offset x="0" y="-2"/></Anchor></Anchors>
-				</FontString>
-				<FontString name="REP_ReputationDetailStandingMissing" inherits="GameFontHighlightSmall" justifyH="LEFT">
-					<Size x="0" y="10"/><Anchors>
-						<Anchor point="TOPLEFT" relativeTo="REP_ReputationDetailStandingCurrent" relativePoint="BOTTOMLEFT">
-					<Offset x="0" y="-7"/></Anchor></Anchors>
-				</FontString>
-				<FontString name="REP_ReputationDetailStandingBag" inherits="GameFontHighlightSmall" justifyH="LEFT">
-					<Size x="0" y="10"/><Anchors>
-						<Anchor point="TOPLEFT" relativeTo="REP_ReputationDetailStandingMissing" relativePoint="BOTTOMLEFT">
-					<Offset x="0" y="-2"/></Anchor></Anchors>
-				</FontString>
-				<FontString name="REP_ReputationDetailStandingBagBank" inherits="GameFontHighlightSmall" justifyH="LEFT">
-					<Size x="0" y="10"/><Anchors>
-						<Anchor point="TOPLEFT" relativeTo="REP_ReputationDetailStandingBag" relativePoint="BOTTOMLEFT">
-					<Offset x="0" y="-2"/></Anchor></Anchors>
-				</FontString>
-				<FontString name="REP_ReputationDetailStandingQuests" inherits="GameFontHighlightSmall" justifyH="LEFT">
-					<Size x="0" y="10"/><Anchors>
-						<Anchor point="TOPLEFT" relativeTo="REP_ReputationDetailStandingBagBank" relativePoint="BOTTOMLEFT">
-					<Offset x="0" y="-2"/></Anchor></Anchors>
-				</FontString>
-				<FontString name="REP_ReputationDetailStandingGained" inherits="GameFontHighlightSmall" justifyH="LEFT">
-					<Size x="0" y="10"/><Anchors>
-						<Anchor point="TOPLEFT" relativeTo="REP_ReputationDetailStandingQuests" relativePoint="BOTTOMLEFT">
-					<Offset x="0" y="-5"/></Anchor></Anchors>
-				</FontString>
-				<FontString name="REP_ReputationDetailStandingToExaltedHeader" inherits="GameFontHighlightSmall" justifyH="LEFT">
-					<Size x="0" y="10"/><Anchors>
-						<Anchor point="TOPLEFT" relativeTo="REP_ReputationDetailStandingGained" relativePoint="BOTTOMLEFT">
-					<Offset x="0" y="-2"/></Anchor></Anchors>
-				</FontString>
-				<FontString name="REP_ReputationDetailStandingNextValue" inherits="GameFontHighlightSmall" justifyH="RIGHT">
-					<Size x="0" y="10"/><Anchors>
-						<Anchor point="TOP" relativeTo="REP_ReputationDetailStandingName" relativePoint="TOP"><Offset x="0" y="0"/></Anchor>
-						<Anchor point="RIGHT" relativeTo="REP_ReputationDetailFrame" relativePoint="RIGHT"><Offset x="-40" y="0"/></Anchor>
-					</Anchors>
-				</FontString>
-				<FontString name="REP_ReputationDetailStandingNeededValue" inherits="GameFontHighlightSmall" justifyH="RIGHT">
-					<Size x="0" y="10"/><Anchors>
-						<Anchor point="TOP" relativeTo="REP_ReputationDetailStandingNeeded" relativePoint="TOP"><Offset x="0" y="0"/></Anchor>
-						<Anchor point="RIGHT" relativeTo="REP_ReputationDetailFrame" relativePoint="RIGHT"><Offset x="-15" y="0"/></Anchor>
-					</Anchors>
-				</FontString>
-				<FontString name="REP_ReputationDetailStandingCurrentValue" inherits="GameFontHighlightSmall" justifyH="RIGHT">
-					<Size x="0" y="10"/><Anchors>
-						<Anchor point="TOPRIGHT" relativeTo="REP_ReputationDetailStandingNeededValue" relativePoint="BOTTOMRIGHT">
-					<Offset x="0" y="-2"/></Anchor></Anchors>
-				</FontString>
-				<FontString name="REP_ReputationDetailStandingMissingValue" inherits="GameFontHighlightSmall" justifyH="RIGHT">
-					<Size x="0" y="10"/><Anchors>
-						<Anchor point="TOPRIGHT" relativeTo="REP_ReputationDetailStandingCurrentValue" relativePoint="BOTTOMRIGHT">
-					<Offset x="0" y="-7"/></Anchor></Anchors>
-				</FontString>
-				<FontString name="REP_ReputationDetailStandingBagValue" inherits="GameFontHighlightSmall" justifyH="RIGHT">
-					<Size x="0" y="10"/><Anchors>
-						<Anchor point="TOPRIGHT" relativeTo="REP_ReputationDetailStandingMissingValue" relativePoint="BOTTOMRIGHT">
-					<Offset x="0" y="-2"/></Anchor></Anchors>
-				</FontString>
-				<FontString name="REP_ReputationDetailStandingBagBankValue" inherits="GameFontHighlightSmall" justifyH="RIGHT">
-					<Size x="0" y="10"/><Anchors>
-							<Anchor point="TOPRIGHT" relativeTo="REP_ReputationDetailStandingBagValue" relativePoint="BOTTOMRIGHT">
-					<Offset x="0" y="-2"/></Anchor></Anchors>
-				</FontString>
-				<FontString name="REP_ReputationDetailStandingQuestsValue" inherits="GameFontHighlightSmall" justifyH="RIGHT">
-					<Size x="0" y="10"/><Anchors>
-						<Anchor point="TOPRIGHT" relativeTo="REP_ReputationDetailStandingBagBankValue" relativePoint="BOTTOMRIGHT">
-					<Offset x="0" y="-2"/></Anchor></Anchors>
-				</FontString>
-				<FontString name="REP_ReputationDetailStandingGainedValue" inherits="GameFontHighlightSmall" justifyH="RIGHT">
-					<Size x="0" y="10"/><Anchors>
-						<Anchor point="TOPRIGHT" relativeTo="REP_ReputationDetailStandingQuestsValue" relativePoint="BOTTOMRIGHT">
-					<Offset x="0" y="-5"/></Anchor></Anchors>
-				</FontString>
-				<FontString name="REP_ReputationDetailStandingToExaltedValue" inherits="GameFontHighlightSmall" justifyH="RIGHT">
-					<Size x="0" y="10"/><Anchors>
-						<Anchor point="TOPRIGHT" relativeTo="REP_ReputationDetailStandingGainedValue" relativePoint="BOTTOMRIGHT">
-					<Offset x="0" y="-2"/></Anchor></Anchors>
-				</FontString>
-				<FontString name="REP_ReputationDetailFactionName" inherits="GameFontNormal" justifyH="LEFT">
-					<Size x="0" y="12"/><Anchors><Anchor point="TOPLEFT"><Offset x="20" y="-21"/></Anchor></Anchors>
-				</FontString>
-      <!--v set 2-->
-			</Layer>
-			<Layer level="OVERLAY">
-				<Texture name="REP_ReputationDetailCorner" file="Interface\DialogFrame\UI-DialogBox-Corner">
-					<Size x="32" y="32"/><Anchors><Anchor point="TOPRIGHT"><Offset x="-6" y="-7"/></Anchor></Anchors>
-				</Texture>
-				<Texture name="REP_ReputationDetailDivider" file="Interface\DialogFrame\UI-DialogBox-Divider">
-					<Size x="615" y="32"/><Anchors><Anchor point="TOPLEFT"><Offset x="9" y="-131"/></Anchor></Anchors>
-				</Texture>
-        <!--^ set 2-->
-				<Texture name="REP_ReputationDetailDivider2" file="Interface\DialogFrame\UI-DialogBox-Divider">
-					<Size x="615" y="32"/><Anchors>
-						<Anchor point="TOPLEFT" relativeTo="REP_ReputationDetailDivider" relativePoint="BOTTOMLEFT">
-					<Offset x="0" y="0"/></Anchor></Anchors>
-				</Texture>
-				<Texture name="REP_ReputationDetailDivider3" file="Interface\DialogFrame\UI-DialogBox-Divider">
-					<Size x="615" y="32"/><Anchors>
-						<Anchor point="TOPLEFT" relativeTo="REP_ReputationDetailDivider2" relativePoint="BOTTOMLEFT">
-					<Offset x="0" y="-193"/></Anchor></Anchors>
-				</Texture>
-
-				<FontString name="REP_NoInformationText" inherits="GameFontHighlight" justifyH="LEFT">
-					<Size x="360" y="20"/><Anchors>
-						<Anchor point="TOPLEFT" relativeTo="REP_ReputationDetailDivider2" relativePoint="BOTTOMLEFT">
-					<Offset x="15" y="15"/></Anchor></Anchors>
-				</FontString>
-
-				<!--
-				<Texture name="REP_ReputationDetailVDivider" file="Interface\DialogFrame\UI-DialogBox-Divider">
-					<Size x="16" y="128"/><Anchors>
-						<Anchor point="BOTTOMLEFT" relativeTo="REP_ReputationDetailDivider" relativePoint="BOTTOMRIGHT">
-					<Offset x="-75" y="0"/></Anchor></Anchors>
-				</Texture>
-				-->
-				<FontString name="REP_ReputationDetailSuppressHint" inherits="GameFontHighlightSmall" justifyH="LEFT">
-					<Size x="210" y="0"/><Anchors>
-						<Anchor point="TOPLEFT" relativeTo="REP_ReputationDetailDivider3" relativePoint="BOTTOMLEFT">
-					<Offset x="10" y="-40"/></Anchor></Anchors>
-				</FontString>
-        <!--v set 3-->
-			</Layer>
-		</Layers>
-		<Frames>
-			<Button name="REP_ReputationDetailCloseButton" inherits="UIPanelCloseButton">
-				<Anchors><Anchor point="TOPRIGHT"><Offset x="-3" y="-3"/></Anchor></Anchors>
-        <!--^ set 3-->
-				<Scripts>
-					<OnClick>
-						if SOUNDKIT then PlaySound(SOUNDKIT.IG_MAINMENU_OPTION_CHECKBOX_ON); end
-						HideParentPanel(self);
-					</OnClick>
-				</Scripts>
-        <!--v set 4-->
-			</Button>
-			<CheckButton name="REP_ReputationDetailAtWarCheckBox">
-				<Size x="26" y="26"/>
-        <Anchors>
-					<Anchor point="TOPLEFT" relativeTo="REP_ReputationDetailDivider" relativePoint="BOTTOMLEFT">
-					  <Offset x="10" y="20"/>
-          </Anchor>
-        </Anchors>
-				<Layers>
-					<Layer level="ARTWORK">
-						<FontString name="$parentText" inherits="GameFontNormalSmall">
-							<Anchors><Anchor point="LEFT" relativePoint="RIGHT"><Offset x="-2" y="0"/></Anchor></Anchors>
-						</FontString>
-					</Layer>
-				</Layers>
-				<Scripts>
-					<OnLoad>
-						_G[self:GetName().."Text"]:SetText(AT_WAR);
-						_G[self:GetName().."Text"]:SetVertexColor(RED_FONT_COLOR.r, RED_FONT_COLOR.g, RED_FONT_COLOR.b);
-					</OnLoad>
-					<OnClick>
-            REP_CustomToggleFactionAtWar(self:GetChecked(), self.factionIndex)
-					</OnClick>
-					<OnEnter>
-						GameTooltip:SetOwner(self, "ANCHOR_RIGHT");
-						GameTooltip:SetText(REPUTATION_AT_WAR_DESCRIPTION, nil, nil, nil, nil, 1);
-					</OnEnter>
-							<OnLeave function="GameTooltip_Hide"/>
-				</Scripts>
-				<NormalTexture file="Interface\Buttons\UI-CheckBox-Up"/>
-				<PushedTexture file="Interface\Buttons\UI-CheckBox-Down"/>
-				<HighlightTexture file="Interface\Buttons\UI-CheckBox-Highlight" alphaMode="ADD"/>
-				<CheckedTexture file="Interface\Buttons\UI-CheckBox-SwordCheck">
-					<Size x="32" y="32"/><Anchors><Anchor point="TOPLEFT"><Offset x="3" y="-5"/></Anchor></Anchors>
-				</CheckedTexture>
-				<DisabledCheckedTexture file="Interface\Buttons\UI-CheckBox-Check-Disabled"/>
-			</CheckButton>
-			<CheckButton name="REP_ReputationDetailInactiveCheckBox" inherits="ChatConfigCheckButtonTemplate">
-        <Size x="26" y="26"/>
-        <Anchors>
-          <Anchor point="LEFT" relativeTo="REP_ReputationDetailAtWarCheckBoxText" relativePoint="RIGHT">
-            <Offset x="3" y="0"/>
-          </Anchor>
-        </Anchors>
-        <Layers>
-          <Layer level="ARTWORK">
-            <FontString name="$parentText" inherits="GameFontNormalSmall">
-              <Anchors><Anchor point="LEFT" relativePoint="RIGHT"><Offset x="-2" y="0"/></Anchor></Anchors>
-            </FontString>
-          </Layer>
-        </Layers>
-				<HitRectInsets>
-					<AbsInset left="0" right="0" top="0" bottom="0"/>
-				</HitRectInsets>
-				<Scripts>
-					<OnLoad>
-						_G[self:GetName().."Text"]:SetText(MOVE_TO_INACTIVE);
-					</OnLoad>
-					<OnClick>
-            if (self:GetChecked()) then
-              REP_CustomSetFactionInactive(self:GetChecked(), self.factionIndex);
-						else
-              REP_CustomSetFactionActive(self:GetChecked(), self.factionIndex);
-						end
-					</OnClick>
-					<OnEnter>
-						GameTooltip:SetOwner(self, "ANCHOR_RIGHT");
-						GameTooltip:SetOwner(self, "ANCHOR_RIGHT");
-					</OnEnter>
-					<OnLeave function="GameTooltip_Hide"/>
-				</Scripts>
-			</CheckButton>
-			<CheckButton name="REP_ReputationDetailMainScreenCheckBox" inherits="ChatConfigCheckButtonTemplate">
-				<Size x="26" y="26"/>
-				<Anchors>
-					<Anchor point="LEFT" relativeTo="REP_ReputationDetailInactiveCheckBoxText" relativePoint="RIGHT">
-					  <Offset x="3" y="0"/>
-          </Anchor>
-				</Anchors>
-				<Layers>
-					<Layer level="ARTWORK">
-						<FontString name="$parentText" inherits="GameFontNormalSmall">
-							<Anchors><Anchor point="LEFT" relativePoint="RIGHT"><Offset x="-2" y="0"/></Anchor></Anchors>
-						</FontString>
-					</Layer>
-				</Layers>
-				<HitRectInsets>
-					<AbsInset left="0" right="0" top="0" bottom="0"/>
-				</HitRectInsets>
-				<Scripts>
-					<OnLoad>
-						_G[self:GetName().."Text"]:SetText(SHOW_FACTION_ON_MAINSCREEN);
-					</OnLoad>
-					<OnClick>
-						REP_CustomSetWatchedFaction(self:GetChecked(), self.factionIndex)
-					</OnClick>
-					<OnEnter>
-						GameTooltip:SetOwner(self, "ANCHOR_RIGHT");
-						GameTooltip:SetText(REPUTATION_SHOW_AS_XP, nil, nil, nil, nil, 1);
-					</OnEnter>
-					<OnLeave function="GameTooltip_Hide"/>
-				</Scripts>
-			</CheckButton>
-      <!--^ set 4-->
-      <!--v set 5-->
-			<ScrollFrame name="REP_UpdateListScrollFrame" inherits="FauxScrollFrameTemplate">
-				<Size x="430" y="208"/><Anchors>
-					<Anchor point="TOPLEFT" relativeTo="REP_ReputationDetailDivider2" relativePoint="BOTTOMLEFT">
-					<Offset x="5" y="15"/></Anchor></Anchors>
-				<Scripts>
-					<OnVerticalScroll>
-						FauxScrollFrame_OnVerticalScroll(self, offset, 16, REP_UpdateList_Update);
-					</OnVerticalScroll>
-				</Scripts>
-			</ScrollFrame>
-			<Button name="REP_UpdateEntry1" inherits="REP_UpdateEntryTemplate">
-				<Anchors><Anchor point="TOPLEFT" relativeTo="REP_UpdateListScrollFrame" relativePoint="TOPLEFT"><Offset x="0" y="0"/></Anchor></Anchors>
-			</Button>
-			<Button name="REP_UpdateEntry2" inherits="REP_UpdateEntryTemplate">
-				<Anchors><Anchor point="TOPLEFT" relativeTo="REP_UpdateEntry1" relativePoint="BOTTOMLEFT"/></Anchors>
-			</Button>
-			<Button name="REP_UpdateEntry3" inherits="REP_UpdateEntryTemplate">
-				<Anchors><Anchor point="TOPLEFT" relativeTo="REP_UpdateEntry2" relativePoint="BOTTOMLEFT"/></Anchors>
-			</Button>
-			<Button name="REP_UpdateEntry4" inherits="REP_UpdateEntryTemplate">
-				<Anchors><Anchor point="TOPLEFT" relativeTo="REP_UpdateEntry3" relativePoint="BOTTOMLEFT"/></Anchors>
-			</Button>
-			<Button name="REP_UpdateEntry5" inherits="REP_UpdateEntryTemplate">
-				<Anchors><Anchor point="TOPLEFT" relativeTo="REP_UpdateEntry4" relativePoint="BOTTOMLEFT"/></Anchors>
-			</Button>
-			<Button name="REP_UpdateEntry6" inherits="REP_UpdateEntryTemplate">
-				<Anchors><Anchor point="TOPLEFT" relativeTo="REP_UpdateEntry5" relativePoint="BOTTOMLEFT"/></Anchors>
-			</Button>
-			<Button name="REP_UpdateEntry7" inherits="REP_UpdateEntryTemplate">
-				<Anchors>
-				<Anchor point="TOPLEFT" relativeTo="REP_UpdateEntry6" relativePoint="BOTTOMLEFT"/>
-				</Anchors>
-			</Button>
-			<Button name="REP_UpdateEntry8" inherits="REP_UpdateEntryTemplate">
-				<Anchors>
-				<Anchor point="TOPLEFT" relativeTo="REP_UpdateEntry7" relativePoint="BOTTOMLEFT"/>
-				</Anchors>
-			</Button>
-			<Button name="REP_UpdateEntry9" inherits="REP_UpdateEntryTemplate">
-				<Anchors>
-				<Anchor point="TOPLEFT" relativeTo="REP_UpdateEntry8" relativePoint="BOTTOMLEFT"/>
-				</Anchors>
-			</Button>
-			<Button name="REP_UpdateEntry10" inherits="REP_UpdateEntryTemplate">
-				<Anchors>
-				<Anchor point="TOPLEFT" relativeTo="REP_UpdateEntry9" relativePoint="BOTTOMLEFT"/>
-				</Anchors>
-			</Button>
-			<Button name="REP_UpdateEntry11" inherits="REP_UpdateEntryTemplate">
-				<Anchors>
-				<Anchor point="TOPLEFT" relativeTo="REP_UpdateEntry10" relativePoint="BOTTOMLEFT"/>
-				</Anchors>
-			</Button>
-			<Button name="REP_UpdateEntry12" inherits="REP_UpdateEntryTemplate">
-				<Anchors>
-				<Anchor point="TOPLEFT" relativeTo="REP_UpdateEntry11" relativePoint="BOTTOMLEFT"/>
-				</Anchors>
-			</Button>
-			<Button name="REP_UpdateEntry13" inherits="REP_UpdateEntryTemplate">
-				<Anchors>
-				<Anchor point="TOPLEFT" relativeTo="REP_UpdateEntry12" relativePoint="BOTTOMLEFT"/>
-				</Anchors>
-			</Button>
-			<CheckButton name="REP_ShowNonPvPQuestsButton" inherits="ChatConfigCheckButtonTemplate">
-				<Size x="20" y="20"/>
-        <Anchors>
-					<Anchor point="TOPLEFT" relativeTo="REP_ReputationDetailDivider3" relativePoint="BOTTOMLEFT">
-					  <Offset x="10" y="20"/>
-          </Anchor>
-        </Anchors>
-				<HitRectInsets>
-					<AbsInset left="0" right="-80" top="0" bottom="0"/>
-				</HitRectInsets>
-				<Layers>
-					<Layer level="ARTWORK">
-						<FontString name="$parentText" inherits="GameFontNormalSmall">
-							<Anchors><Anchor point="LEFT" relativePoint="RIGHT"><Offset x="-2" y="0"/></Anchor></Anchors>
-						</FontString>
-					</Layer>
-				</Layers>
-				<Scripts>
-					<OnClick>
-						REP_Data.Global.ShowQuests = self:GetChecked()
-						if (REP_Data.Global.ShowQuests) then
-							if SOUNDKIT then PlaySound(SOUNDKIT.IG_MAINMENU_OPTION_CHECKBOX_ON); end
-						else
-							if SOUNDKIT then PlaySound(SOUNDKIT.IG_MAINMENU_OPTION_CHECKBOX_OFF); end
-						end
-						REP_BuildUpdateList()
-						REP_UpdateList_Update()
-					</OnClick>
-					<OnEnter>
-						REP_ShowHelpToolTip(self, self:GetName())
-					</OnEnter>
-					<OnLeave>
-						GameTooltip:Hide();
-					</OnLeave>
-				</Scripts>
-			</CheckButton>
-      <CheckButton name="REP_ShowPvPQuestsButton" inherits="ChatConfigCheckButtonTemplate"><!-- OptionsCheckButtonTemplate -->
-				<Size x="20" y="20"/>
-						<Anchors>
-					<Anchor point="TOPLEFT" relativeTo="REP_ReputationDetailDivider3" relativePoint="BOTTOMLEFT">
-						<Offset x="115" y="20"/>
-								</Anchor>
-				</Anchors>
-				<HitRectInsets>
-					<AbsInset left="0" right="-80" top="0" bottom="0"/>
-				</HitRectInsets>
-				<Layers>
-					<Layer level="ARTWORK">
-						<FontString name="$parentText" inherits="GameFontNormalSmall">
-							<Anchors><Anchor point="LEFT" relativePoint="RIGHT"><Offset x="-2" y="0"/></Anchor></Anchors>
-						</FontString>
-					</Layer>
-				</Layers>
-				<Scripts>
-					<OnClick>
-						REP_Data.Global.ShowPvPQuests = self:GetChecked()
-						if (REP_Data.Global.ShowPvPQuests) then
-							if SOUNDKIT then PlaySound(SOUNDKIT.IG_MAINMENU_OPTION_CHECKBOX_ON); end
-						else
-							if SOUNDKIT then PlaySound(SOUNDKIT.IG_MAINMENU_OPTION_CHECKBOX_OFF); end
-						end
-						REP_BuildUpdateList()
-						REP_UpdateList_Update()
-					</OnClick>
-					<OnEnter>
-						REP_ShowHelpToolTip(self, self:GetName())
-					</OnEnter>
-					<OnLeave>
-						GameTooltip:Hide();
-					</OnLeave>
-				</Scripts>
-			</CheckButton>
-			<CheckButton name="REP_ShowInstancesButton" inherits="ChatConfigCheckButtonTemplate">
-				<Size x="20" y="20"/>
-						<Anchors>
-					<Anchor point="TOPLEFT" relativeTo="REP_ReputationDetailDivider3" relativePoint="BOTTOMLEFT">
-						<Offset x="115" y="0"/>
-								</Anchor>
-				</Anchors>
-				<HitRectInsets>
-					<AbsInset left="0" right="-80" top="0" bottom="0"/>
-				</HitRectInsets>
-				<Layers>
-					<Layer level="ARTWORK">
-						<FontString name="$parentText" inherits="GameFontNormalSmall">
-							<Anchors><Anchor point="LEFT" relativePoint="RIGHT"><Offset x="-2" y="0"/></Anchor></Anchors>
-						</FontString>
-					</Layer>
-				</Layers>
-				<Scripts>
-					<OnClick>
-						REP_Data.Global.ShowInstances = self:GetChecked()
-						if (REP_Data.Global.ShowInstances) then
-							if SOUNDKIT then PlaySound(SOUNDKIT.IG_MAINMENU_OPTION_CHECKBOX_ON); end
-						else
-							if SOUNDKIT then PlaySound(SOUNDKIT.IG_MAINMENU_OPTION_CHECKBOX_OFF); end
-						end
-						REP_BuildUpdateList()
-						REP_UpdateList_Update()
-					</OnClick>
-					<OnEnter>
-						REP_ShowHelpToolTip(self, self:GetName())
-					</OnEnter>
-					<OnLeave>
-						GameTooltip:Hide();
-					</OnLeave>
-				</Scripts>
-			</CheckButton>
-			<CheckButton name="REP_ShowMobsButton" inherits="ChatConfigCheckButtonTemplate">
-				<Size x="20" y="20"/>
-						<Anchors>
-					<Anchor point="TOPLEFT" relativeTo="REP_ReputationDetailDivider3" relativePoint="BOTTOMLEFT">
-						<Offset x="10" y="0"/>
-								</Anchor>
-				</Anchors>
-				<HitRectInsets>
-					<AbsInset left="0" right="-80" top="0" bottom="0"/>
-				</HitRectInsets>
-				<Layers>
-					<Layer level="ARTWORK">
-						<FontString name="$parentText" inherits="GameFontNormalSmall">
-							<Anchors><Anchor point="LEFT" relativePoint="RIGHT"><Offset x="-2" y="0"/></Anchor></Anchors>
-						</FontString>
-					</Layer>
-				</Layers>
-				<Scripts>
-					<OnClick>
-						REP_Data.Global.ShowMobs = self:GetChecked()
-						if (REP_Data.Global.ShowMobs) then
-							if SOUNDKIT then PlaySound(SOUNDKIT.IG_MAINMENU_OPTION_CHECKBOX_ON); end
-						else
-							if SOUNDKIT then PlaySound(SOUNDKIT.IG_MAINMENU_OPTION_CHECKBOX_OFF); end
-						end
-						REP_BuildUpdateList()
-						REP_UpdateList_Update()
-					</OnClick>
-					<OnEnter>
-						REP_ShowHelpToolTip(self, self:GetName())
-					</OnEnter>
-					<OnLeave>
-						GameTooltip:Hide();
-					</OnLeave>
-				</Scripts>
-			</CheckButton>
-			<CheckButton name="REP_ShowItemsButton" inherits="ChatConfigCheckButtonTemplate">
-				<Size x="20" y="20"/>
-						<Anchors>
-					<Anchor point="TOPLEFT" relativeTo="REP_ReputationDetailDivider3" relativePoint="BOTTOMLEFT">
-						<Offset x="115" y="-20"/>
-          </Anchor>
-				</Anchors>
-				<HitRectInsets>
-					<AbsInset left="0" right="-80" top="0" bottom="0"/>
-				</HitRectInsets>
-				<Layers>
-					<Layer level="ARTWORK">
-						<FontString name="$parentText" inherits="GameFontNormalSmall">
-							<Anchors><Anchor point="LEFT" relativePoint="RIGHT"><Offset x="-2" y="0"/></Anchor></Anchors>
-						</FontString>
-					</Layer>
-				</Layers>
-				<Scripts>
-					<OnClick>
-						REP_Data.Global.ShowItems = self:GetChecked()
-						if (REP_Data.Global.ShowItems) then
-							if SOUNDKIT then PlaySound(SOUNDKIT.IG_MAINMENU_OPTION_CHECKBOX_ON); end
-						else
-							if SOUNDKIT then PlaySound(SOUNDKIT.IG_MAINMENU_OPTION_CHECKBOX_OFF); end
-						end
-						REP_BuildUpdateList()
-						REP_UpdateList_Update()
-					</OnClick>
-					<OnEnter>
-						REP_ShowHelpToolTip(self, self:GetName())
-					</OnEnter>
-					<OnLeave>
-						GameTooltip:Hide();
-					</OnLeave>
-				</Scripts>
-			</CheckButton>
-			<CheckButton name="REP_ShowGeneralButton" inherits="ChatConfigCheckButtonTemplate">
-				<Size x="20" y="20"/>
-						<Anchors>
-					<Anchor point="TOPLEFT" relativeTo="REP_ReputationDetailDivider3" relativePoint="BOTTOMLEFT">
-						<Offset x="10" y="-20"/>
-								</Anchor>
-				</Anchors>
-				<HitRectInsets>
-					<AbsInset left="0" right="-80" top="0" bottom="0"/>
-				</HitRectInsets>
-				<Layers>
-					<Layer level="ARTWORK">
-						<FontString name="$parentText" inherits="GameFontNormalSmall">
-							<Anchors><Anchor point="LEFT" relativePoint="RIGHT"><Offset x="-2" y="0"/></Anchor></Anchors>
-						</FontString>
-					</Layer>
-				</Layers>
-				<Scripts>
-					<OnClick>
-						REP_Data.Global.ShowGeneral = self:GetChecked()
-						if (REP_Data.Global.ShowGeneral) then
-							if SOUNDKIT then PlaySound(SOUNDKIT.IG_MAINMENU_OPTION_CHECKBOX_ON); end
-						else
-							if SOUNDKIT then PlaySound(SOUNDKIT.IG_MAINMENU_OPTION_CHECKBOX_OFF); end
-						end
-						REP_BuildUpdateList()
-						REP_UpdateList_Update()
-					</OnClick>
-					<OnEnter>
-						REP_ShowHelpToolTip(self, self:GetName())
-					</OnEnter>
-					<OnLeave>
-						GameTooltip:Hide();
-					</OnLeave>
-				</Scripts>
-			</CheckButton>
-			<Button name="REP_ShowAllButton" inherits="SmallFontButton">
-				<Size x="80" y="20" />
-				<Anchors>
-					<Anchor point="TOPLEFT" relativeTo="REP_ReputationDetailDivider3" relativePoint="BOTTOMLEFT">
-						<Offset x="300" y="20"/>
-					</Anchor>
-				</Anchors>
-				<Scripts>
-					<OnClick>
-						REP_Data.Global.ShowQuests = true
-            REP_Data.Global.ShowPvPQuests = true
-						REP_Data.Global.ShowMobs = true
-						REP_Data.Global.ShowInstances = true
-						REP_Data.Global.ShowItems = true
-            REP_Data.Global.ShowGeneral = true
-						if SOUNDKIT then PlaySound(SOUNDKIT.IG_MAINMENU_OPTION_CHECKBOX_ON); end
-						REP_BuildUpdateList()
-						REP_UpdateList_Update()
-					</OnClick>
-					<OnEnter>
-						REP_ShowHelpToolTip(self, self:GetName())
-					</OnEnter>
-					<OnLeave>
-						GameTooltip:Hide();
-					</OnLeave>
-				</Scripts>
-			</Button>
-			<Button name="REP_ShowNoneButton" inherits="SmallFontButton">
-				<Size x="80" y="20" />
-				<Anchors>
-					<Anchor point="TOPLEFT" relativeTo="REP_ReputationDetailDivider3" relativePoint="BOTTOMLEFT">
-						<Offset x="300" y="0"/>
-					</Anchor>
-				</Anchors>
-				<Scripts>
-					<OnClick>
-						REP_Data.Global.ShowQuests = nil
-            REP_Data.Global.ShowPvPQuests = nil
-						REP_Data.Global.ShowMobs = nil
-						REP_Data.Global.ShowInstances = nil
-						REP_Data.Global.ShowItems = nil
-            REP_Data.Global.ShowGeneral = nil
-						if SOUNDKIT then PlaySound(SOUNDKIT.IG_MAINMENU_OPTION_CHECKBOX_OFF); end
-						REP_BuildUpdateList()
-						REP_UpdateList_Update()
-					</OnClick>
-					<OnEnter>
-						REP_ShowHelpToolTip(self, self:GetName())
-					</OnEnter>
-					<OnLeave>
-						GameTooltip:Hide();
-					</OnLeave>
-				</Scripts>
-			</Button>
-			<Button name="REP_ExpandButton" inherits="SmallFontButton">
-				<Size x="80" y="20" />
-				<Anchors>
-					<Anchor point="TOPLEFT" relativeTo="REP_ShowAllButton" relativePoint="TOPRIGHT">
-						<Offset x="5" y="0"/>
-								</Anchor>
-				</Anchors>
-				<Scripts>
-					<OnClick>
-						if SOUNDKIT then PlaySound(SOUNDKIT.IG_MAINMENU_OPTION_CHECKBOX_ON); end
-						REP_ShowUpdateEntries(true)
-					</OnClick>
-					<OnEnter>
-						REP_ShowHelpToolTip(self, self:GetName())
-					</OnEnter>
-					<OnLeave>
-						GameTooltip:Hide();
-					</OnLeave>
-				</Scripts>
-			</Button>
-			<Button name="REP_CollapseButton" inherits="SmallFontButton">
-				<Size x="80" y="20" />
-				<Anchors>
-					<Anchor point="TOPLEFT" relativeTo="REP_ShowNoneButton" relativePoint="TOPRIGHT">
-						<Offset x="5" y="0"/>
-								</Anchor>
-				</Anchors>
-				<Scripts>
-					<OnClick>
-						if SOUNDKIT then PlaySound(SOUNDKIT.IG_MAINMENU_OPTION_CHECKBOX_OFF); end
-						REP_ShowUpdateEntries(false)
-					</OnClick>
-					<OnEnter>
-						REP_ShowHelpToolTip(self, self:GetName())
-					</OnEnter>
-					<OnLeave>
-						GameTooltip:Hide();
-					</OnLeave>
-				</Scripts>
-			</Button>
-			<Button name="REP_SupressNoneFactionButton" inherits="SmallFontButton">
-				<Size x="165" y="20" />
-				<Anchors>
-					<Anchor point="TOPLEFT" relativeTo="REP_ShowNoneButton" relativePoint="BOTTOMLEFT">
-						<Offset x="0" y="-5"/>
-								</Anchor>
-				</Anchors>
-				<Scripts>
-					<OnClick>
-						if SOUNDKIT then PlaySound(SOUNDKIT.IG_MAINMENU_OPTION_CHECKBOX_OFF); end
-						REP_SupressNone(false)
-					</OnClick>
-					<OnEnter>
-						REP_ShowHelpToolTip(self, self:GetName())
-					</OnEnter>
-					<OnLeave>
-						GameTooltip:Hide();
-					</OnLeave>
-				</Scripts>
-			</Button>
-			<Button name="REP_SupressNoneGlobalButton" inherits="SmallFontButton">
-				<Size x="165" y="20" />
-				<Anchors>
-					<Anchor point="TOPLEFT" relativeTo="REP_SupressNoneFactionButton" relativePoint="BOTTOMLEFT">
-						<Offset x="0" y="0"/>
-								</Anchor>
-				</Anchors>
-				<Scripts>
-					<OnClick>
-						if SOUNDKIT then PlaySound(SOUNDKIT.IG_MAINMENU_OPTION_CHECKBOX_OFF); end
-						REP_SupressNone(true)
-					</OnClick>
-					<OnEnter>
-						REP_ShowHelpToolTip(self, self:GetName())
-					</OnEnter>
-					<OnLeave>
-						GameTooltip:Hide();
-					</OnLeave>
-				</Scripts>
-			</Button>
-			<Button name="REP_ClearSessionGainButton" inherits="SmallFontButton">
-				<Size x="220" y="20" />
-				<Anchors>
-					<Anchor point="TOPRIGHT" relativeTo="REP_SupressNoneGlobalButton" relativePoint="BOTTOMLEFT">
-						<Offset x="-72" y="0"/>
-								</Anchor>
-				</Anchors>
-				<Scripts>
-					<OnClick>
-						if SOUNDKIT then PlaySound(SOUNDKIT.IG_MAINMENU_OPTION_CHECKBOX_OFF); end
-						REP_ClearSessionGain()
-					</OnClick>
-					<OnEnter>
-						REP_ShowHelpToolTip(self, self:GetName())
-					</OnEnter>
-					<OnLeave>
-						GameTooltip:Hide();
-					</OnLeave>
-				</Scripts>
-			</Button>
-		</Frames>
-	</Frame>
-
-<!--> ============================================================================================================== <-->
+	
 	<Button name="REP_OptionsButton" parent="ReputationFrame">
 		<Size x="26" y="26" />
 		<HighlightTexture file="Interface\Buttons\UI-Panel-MinimizeButton-Highlight" alphaMode="ADD"/>
@@ -847,8 +140,41 @@
 		</Scripts>
 	</Button>
 
-<!--> ============================================================================================================== <-->
-	<CheckButton name="REP_OrderByStandingCheckBox" parent="ReputationFrame" inherits="ChatConfigCheckButtonTemplate">
+  <!-- Template for a single option "box" containing a checkbox (lifted off Auctionator) -->
+	<Frame name="REP_SingleOptionTemplate" virtual="true">
+		<Size y="40" />
+		<Anchors>
+			<Anchor point="LEFT" ><Offset x="20"/></Anchor>
+			<Anchor point="RIGHT"><Offset x="-20"/></Anchor>
+		</Anchors>
+
+		<Scripts>
+			<OnEnter>REP_ShowHelpToolTip(self, self:GetName())</OnEnter>
+			<OnLeave>GameTooltip:Hide()</OnLeave>
+		</Scripts>
+
+		<Frames>
+			<CheckButton name="$parentCB" inherits="UICheckButtonTemplate">
+				<Anchors><Anchor point="TOPLEFT"><Offset x="0" y="0"/></Anchor></Anchors>
+				<Layers>
+					<Layer level="BACKGROUND">
+						<FontString name="$parentText" inherits="GameFontHighlight">
+							<Anchors><Anchor point="LEFT" relativePoint="RIGHT" relativeTo="$parent"><Offset x="8" y="1"/></Anchor></Anchors>
+						</FontString>
+					</Layer>
+				</Layers>
+				<Scripts>
+					<OnEnter>REP_ShowHelpToolTip(self, self:GetName())</OnEnter>
+					<OnLeave>GameTooltip:Hide()</OnLeave>
+				</Scripts>
+			</CheckButton>
+		</Frames>
+	</Frame>
+
+  <!-- =========================================
+    Remaining UI elements
+  ========================================== -->
+  <CheckButton name="REP_OrderByStandingCheckBox" parent="ReputationFrame" inherits="ChatConfigCheckButtonTemplate">
 		<Size x="26" y="26"/>
 		<Anchors>
 			<Anchor point="TOPLEFT" relativePoint="TOPLEFT">
@@ -884,8 +210,7 @@
 		</Scripts>
 	</CheckButton>
 
-<!--> ============================================================================================================== <-->
-	<FontString name="REP_OptionText" inherits="GameFontNormal" justifyH="RIGHT" virtual="true">
+  <FontString name="REP_OptionText" inherits="GameFontNormal" justifyH="RIGHT" virtual="true">
 		<Color r="0.68" g="0.80" b="1"/>
 		<Size x="250" y="25"/>
 		<Scripts>
@@ -893,37 +218,4 @@
 			<OnLeave>GameTooltip:Hide()</OnLeave>
 		</Scripts>
 	</FontString>
-
-<!--> ============================================================================================================== <-->
-
-	<!-- Template for a single option "box" containing a checkbox (lifted off Auctionator) -->
-	<Frame name="REP_SingleOptionTemplate" virtual="true">
-		<Size y="40" />
-		<Anchors>
-			<Anchor point="LEFT" ><Offset x="20"/></Anchor>
-			<Anchor point="RIGHT"><Offset x="-20"/></Anchor>
-		</Anchors>
-
-		<Scripts>
-			<OnEnter>REP_ShowHelpToolTip(self, self:GetName())</OnEnter>
-			<OnLeave>GameTooltip:Hide()</OnLeave>
-		</Scripts>
-
-		<Frames>
-			<CheckButton name="$parentCB" inherits="UICheckButtonTemplate">
-				<Anchors><Anchor point="TOPLEFT"><Offset x="0" y="0"/></Anchor></Anchors>
-				<Layers>
-					<Layer level="BACKGROUND">
-						<FontString name="$parentText" inherits="GameFontHighlight">
-							<Anchors><Anchor point="LEFT" relativePoint="RIGHT" relativeTo="$parent"><Offset x="8" y="1"/></Anchor></Anchors>
-						</FontString>
-					</Layer>
-				</Layers>
-				<Scripts>
-					<OnEnter>REP_ShowHelpToolTip(self, self:GetName())</OnEnter>
-					<OnLeave>GameTooltip:Hide()</OnLeave>
-				</Scripts>
-			</CheckButton>
-		</Frames>
-	</Frame>
 </Ui>

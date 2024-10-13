@@ -14,11 +14,13 @@
 locale.xml
 
 questdb.lua
+functions.lua
 variables.lua
 zones.lua
 content.lua
 mapping.lua
 ReputationGuide.xml
+ReputationGuideDetailFrame.lua
 ReputationGuideSkin.lua
 
 settings.lua
