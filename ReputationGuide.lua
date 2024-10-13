@@ -1590,11 +1590,19 @@ function REP_ReputationFrame_Update()
       end
     end
 
-    if ReputationFrameStandingLabel  then
+    if ReputationFrameStandingLabel then
       if (REP_Data.Global.ShowMissing) then
-        ReputationFrameStandingLabel:SetText(REP_Orig_StandingText.." "..REP_TXT.missing)
+        if string.find(REP_Orig_StandingText, REP_TXT.missing) then
+          ReputationFrameStandingLabel:SetText(REP_Orig_StandingText)
+        else
+          ReputationFrameStandingLabel:SetText(REP_Orig_StandingText.." "..REP_TXT.missing)
+        end
       else
-        ReputationFrameStandingLabel:SetText(REP_Orig_StandingText)
+        if string.find(REP_Orig_StandingText, REP_TXT.missing) then
+          ReputationFrameStandingLabel:SetText(string.gsub(REP_Orig_StandingText, REP_TXT.missing, ""))
+        else
+          ReputationFrameStandingLabel:SetText(REP_Orig_StandingText)
+        end
       end
     end
 
