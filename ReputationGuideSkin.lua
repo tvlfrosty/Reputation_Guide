@@ -19,51 +19,50 @@ if hasElvUILoaded then
 
   local buttons = {
 		REP_OptionsButton,
-		REP_ShowAllButton,
-		REP_ExpandButton,
-		REP_ShowNoneButton,
-		REP_CollapseButton,
-		REP_SupressNoneFactionButton,
-		REP_SupressNoneGlobalButton,
-		REP_ClearSessionGainButton,
+		REP_DetailShowAllButton,
+		REP_DetailExpandButton,
+		REP_DetailShowNoneButton,
+		REP_DetailCollapseButton,
+		REP_DetailSupressNoneFactionButton,
+		REP_DetailSupressNoneGlobalButton,
+		REP_DetailClearSessionGainButton,
 	}
 
 	local checkboxes = {
-		REP_OrderByStandingCheckBox,
-		REP_EnableMissingBox,
-		REP_ExtendDetailsBox,
-		REP_GainToChatBox,
-		REP_NoGuildGainBox,
-		REP_SupressOriginalGainBox,
-		REP_ShowPreviewRepBox,
-		REP_SwitchFactionBarBox,
-		REP_SilentSwitchBox,
-		REP_NoGuildSwitchBox,
-		REP_ReputationDetailInactiveCheckBox,
-		REP_ReputationDetailMainScreenCheckBox,
-		REP_ShowNonPvPQuestsButton,
-    REP_ShowPvPQuestButton,
-		REP_ShowInstancesButton,
-		REP_ShowMobsButton,
-		REP_ShowItemsButton,
-		REP_ShowGeneralButton,
-		REP_EnableParagonBarBox,
+    -- Custom stand-alone checkboxes
+    REP_OrderByStandingCheckBox,
+    -- Settings checkboxes
+		REPCheck_EnableMissingBox,
+		REPCheck_ExtendDetailsBox,
+		REPCheck_GainToChatBox,
+		REPCheck_NoGuildGainBox,
+		REPCheck_SupressOriginalGainBox,
+		REPCheck_ShowPreviewRepBox,
+		REPCheck_SwitchFactionBarBox,
+		REPCheck_SilentSwitchBox,
+		REPCheck_NoGuildSwitchBox,
+    REPCheck_EnableParagonBarBox,
+    -- DetailFrame checkboxes
+		REP_DetailShowNonPvPQuestsButton,
+    REP_DetailShowPvPQuestButton,
+		REP_DetailShowInstancesButton,
+		REP_DetailShowMobsButton,
+		REP_DetailShowItemsButton,
+		REP_DetailShowGeneralButton,
+		-- Default UI checkboxes
+    ReputationDetailInactiveCheckBox,
+		ReputationDetailMainScreenCheckBox,
 	}
 
   REP_ReputationDetailFrame:StripTextures()
   REP_ReputationDetailFrame:SetTemplate("Transparent")
-
-  -- REP_OptionsFrame:StripTextures()
-  -- REP_OptionsFrame:SetTemplate("Transparent")
-  --E.Skins:HandleCloseButton(REP_OptionsFrameClose)
   
+  E.Skins:HandleScrollBar(REP_DetailListScrollFrameScrollBar)
   E.Skins:HandleCloseButton(REP_ReputationDetailCloseButton)
+  E.Skins:HandleCheckBox(ReputationDetailAtWarCheckBox)
 
-  E.Skins:HandleCheckBox(REP_ReputationDetailAtWarCheckBox)
-  REP_ReputationDetailAtWarCheckBox:SetCheckedTexture('Interface\\Buttons\\UI-CheckBox-SwordCheck')
-  REP_ReputationDetailAtWarCheckBox:SetDisabledCheckedTexture('Interface\\Buttons\\UI-CheckBox-Check-Disabled')
-
-  E.Skins:HandleScrollBar(REP_UpdateListScrollFrameScrollBar)
+  ReputationDetailAtWarCheckBox:SetCheckedTexture('Interface\\Buttons\\UI-CheckBox-SwordCheck')
+  ReputationDetailAtWarCheckBox:SetDisabledCheckedTexture('Interface\\Buttons\\UI-CheckBox-Check-Disabled')  
 
   for _, button in pairs(buttons) do
     E.Skins:HandleButton(button)

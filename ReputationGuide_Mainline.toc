@@ -1,7 +1,7 @@
 ## Interface: 110002, 100207
 ## Title: ReputationGuide |cfd9b9b9b(The War Within)|r
 ## IconTexture: Interface/Addons/ReputationGuide/assets/factions_logo_256x256
-## Version: 11.0.0-release
+## Version: 11.0.2-release
 ## Author: Tvlfrosty
 ## X-Discord: https://discord.gg/3zh4EFptta
 ## URL: https://www.curseforge.com/wow/addons/reputation-guide
@@ -15,11 +15,13 @@
 locale.xml
 
 questdb.lua
+functions.lua
 variables.lua
 zones.lua
 content.lua
 mapping.lua
 ReputationGuide.xml
+ReputationGuideDetailFrame.lua
 ReputationGuideSkin.lua
 
 settings.lua

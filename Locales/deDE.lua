@@ -216,8 +216,10 @@ if (GetLocale() == "deDE") then
   ---- Initialize
   REP_TXT.STAND_LV	= {}
   REP_TXT.STAND_LV_TIER	= {}
-  REP_TXT.STAND_LV_TRUST	= {}
+  REP_TXT.STAND_LV_TRUST = {}
   REP_TXT.STAND_LV_RENOWN	= {}
+  REP_TXT.STAND_LV_RANK = {}
+  REP_TXT.STAND_LV_LEVEL = {}
   REP_TXT.BFFLabels = {}
   ---- Normal standings
   REP_TXT.STAND_LV[0]	= "Unbekannt"
@@ -273,7 +275,137 @@ if (GetLocale() == "deDE") then
   REP_TXT.STAND_LV_RENOWN[23] = "Ruhm 23"
   REP_TXT.STAND_LV_RENOWN[24] = "Ruhm 24"
   REP_TXT.STAND_LV_RENOWN[25] = "Ruhm 25"
-  ---- BFF Labels
+  ---- Rank standings
+  REP_TXT.STAND_LV_MAX_RANK = "Maximalrang"
+  REP_TXT.STAND_LV_RANK[0] = "Unknown"
+  REP_TXT.STAND_LV_RANK[1] = "Rang 1"
+  REP_TXT.STAND_LV_RANK[2] = "Rang 2"
+  REP_TXT.STAND_LV_RANK[3] = "Rang 3"
+  REP_TXT.STAND_LV_RANK[4] = "Rang 4"
+  REP_TXT.STAND_LV_RANK[5] = "Rang 5"
+  REP_TXT.STAND_LV_RANK[6] = "Rang 6"
+  REP_TXT.STAND_LV_RANK[7] = "Rang 7"
+  REP_TXT.STAND_LV_RANK[8] = "Rang 8"
+  REP_TXT.STAND_LV_RANK[9] = "Rang 9"
+  REP_TXT.STAND_LV_RANK[10] = "Rang 10"
+  REP_TXT.STAND_LV_RANK[11] = "Rang 11"
+  REP_TXT.STAND_LV_RANK[12] = "Rang 12"
+  REP_TXT.STAND_LV_RANK[13] = "Rang 13"
+  REP_TXT.STAND_LV_RANK[14] = "Rang 14"
+  REP_TXT.STAND_LV_RANK[15] = "Rang 15"
+  REP_TXT.STAND_LV_RANK[16] = "Rang 16"
+  REP_TXT.STAND_LV_RANK[17] = "Rang 17"
+  REP_TXT.STAND_LV_RANK[18] = "Rang 18"
+  REP_TXT.STAND_LV_RANK[19] = "Rang 19"
+  REP_TXT.STAND_LV_RANK[20] = "Rang 20"
+  REP_TXT.STAND_LV_RANK[21] = "Rang 21"
+  REP_TXT.STAND_LV_RANK[22] = "Rang 22"
+  REP_TXT.STAND_LV_RANK[23] = "Rang 23"
+  REP_TXT.STAND_LV_RANK[24] = "Rang 24"
+  REP_TXT.STAND_LV_RANK[25] = "Rang 25"
+  REP_TXT.STAND_LV_RANK[26] = "Rang 26"
+  REP_TXT.STAND_LV_RANK[27] = "Rang 27"
+  REP_TXT.STAND_LV_RANK[28] = "Rang 28"
+  REP_TXT.STAND_LV_RANK[29] = "Rang 29"
+  REP_TXT.STAND_LV_RANK[30] = "Rang 30"
+  ---- Level standings
+  REP_TXT.STAND_LV_LEVEL[0] = "Unknown"
+  REP_TXT.STAND_LV_LEVEL[1] = "Stufe 1"
+  REP_TXT.STAND_LV_LEVEL[2] = "Stufe 2"
+  REP_TXT.STAND_LV_LEVEL[3] = "Stufe 3"
+  REP_TXT.STAND_LV_LEVEL[4] = "Stufe 4"
+  REP_TXT.STAND_LV_LEVEL[5] = "Stufe 5"
+  REP_TXT.STAND_LV_LEVEL[6] = "Stufe 6"
+  REP_TXT.STAND_LV_LEVEL[7] = "Stufe 7"
+  REP_TXT.STAND_LV_LEVEL[8] = "Stufe 8"
+  REP_TXT.STAND_LV_LEVEL[9] = "Stufe 9"
+  REP_TXT.STAND_LV_LEVEL[10] = "Stufe 10"
+  REP_TXT.STAND_LV_LEVEL[11] = "Stufe 11"
+  REP_TXT.STAND_LV_LEVEL[12] = "Stufe 12"
+  REP_TXT.STAND_LV_LEVEL[13] = "Stufe 13"
+  REP_TXT.STAND_LV_LEVEL[14] = "Stufe 14"
+  REP_TXT.STAND_LV_LEVEL[15] = "Stufe 15"
+  REP_TXT.STAND_LV_LEVEL[16] = "Stufe 16"
+  REP_TXT.STAND_LV_LEVEL[17] = "Stufe 17"
+  REP_TXT.STAND_LV_LEVEL[18] = "Stufe 18"
+  REP_TXT.STAND_LV_LEVEL[19] = "Stufe 19"
+  REP_TXT.STAND_LV_LEVEL[20] = "Stufe 20"
+  REP_TXT.STAND_LV_LEVEL[21] = "Stufe 21"
+  REP_TXT.STAND_LV_LEVEL[22] = "Stufe 22"
+  REP_TXT.STAND_LV_LEVEL[23] = "Stufe 23"
+  REP_TXT.STAND_LV_LEVEL[24] = "Stufe 24"
+  REP_TXT.STAND_LV_LEVEL[25] = "Stufe 25"
+  REP_TXT.STAND_LV_LEVEL[26] = "Stufe 26"
+  REP_TXT.STAND_LV_LEVEL[27] = "Stufe 27"
+  REP_TXT.STAND_LV_LEVEL[28] = "Stufe 28"
+  REP_TXT.STAND_LV_LEVEL[29] = "Stufe 29"
+  REP_TXT.STAND_LV_LEVEL[30] = "Stufe 30"
+  REP_TXT.STAND_LV_LEVEL[31] = "Stufe 31"
+  REP_TXT.STAND_LV_LEVEL[32] = "Stufe 32"
+  REP_TXT.STAND_LV_LEVEL[33] = "Stufe 33"
+  REP_TXT.STAND_LV_LEVEL[34] = "Stufe 34"
+  REP_TXT.STAND_LV_LEVEL[35] = "Stufe 35"
+  REP_TXT.STAND_LV_LEVEL[36] = "Stufe 36"
+  REP_TXT.STAND_LV_LEVEL[37] = "Stufe 37"
+  REP_TXT.STAND_LV_LEVEL[38] = "Stufe 38"
+  REP_TXT.STAND_LV_LEVEL[39] = "Stufe 39"
+  REP_TXT.STAND_LV_LEVEL[40] = "Stufe 40"
+  REP_TXT.STAND_LV_LEVEL[41] = "Stufe 41"
+  REP_TXT.STAND_LV_LEVEL[42] = "Stufe 42"
+  REP_TXT.STAND_LV_LEVEL[43] = "Stufe 43"
+  REP_TXT.STAND_LV_LEVEL[44] = "Stufe 44"
+  REP_TXT.STAND_LV_LEVEL[45] = "Stufe 45"
+  REP_TXT.STAND_LV_LEVEL[46] = "Stufe 46"
+  REP_TXT.STAND_LV_LEVEL[47] = "Stufe 47"
+  REP_TXT.STAND_LV_LEVEL[48] = "Stufe 48"
+  REP_TXT.STAND_LV_LEVEL[49] = "Stufe 49"
+  REP_TXT.STAND_LV_LEVEL[50] = "Stufe 50"
+  REP_TXT.STAND_LV_LEVEL[51] = "Stufe 51"
+  REP_TXT.STAND_LV_LEVEL[52] = "Stufe 52"
+  REP_TXT.STAND_LV_LEVEL[53] = "Stufe 53"
+  REP_TXT.STAND_LV_LEVEL[54] = "Stufe 54"
+  REP_TXT.STAND_LV_LEVEL[55] = "Stufe 55"
+  REP_TXT.STAND_LV_LEVEL[56] = "Stufe 56"
+  REP_TXT.STAND_LV_LEVEL[57] = "Stufe 57"
+  REP_TXT.STAND_LV_LEVEL[58] = "Stufe 58"
+  REP_TXT.STAND_LV_LEVEL[59] = "Stufe 59"
+  REP_TXT.STAND_LV_LEVEL[60] = "Stufe 60"
+  -------------------------------------
+  -- BFFLabels / Friendship factions --
+  -------------------------------------
+  -- BFF Labels placeholder
+  REP_TXT.BFFLabels[0] = {} -- Fremder
+  REP_TXT.BFFLabels[0][1] = "Bekannter"
+  REP_TXT.BFFLabels[0][2] = "Kumpel"
+  REP_TXT.BFFLabels[0][3] = "Freund"
+  REP_TXT.BFFLabels[0][4] = "Guter Freund"
+  REP_TXT.BFFLabels[0][5] = "Bester Freund"
+  ---- Fishing Masters placeholder
+  REP_TXT.BFFFishingMastersLabels = {}
+  REP_TXT.BFFFishingMastersLabels[1] = "Fremder"
+  REP_TXT.BFFFishingMastersLabels[2] = "Kumpan"
+  REP_TXT.BFFFishingMastersLabels[3] = "Kumpel"
+  REP_TXT.BFFFishingMastersLabels[4] = "Freund"
+  REP_TXT.BFFFishingMastersLabels[5] = "Guter Freund"
+  REP_TXT.BFFFishingMastersLabels[6] = "Bester Freund"
+  ---- Barracks Bodyguards placeholder
+  REP_TXT.BFFBarracksBodyguardsLabels = {}
+  REP_TXT.BFFBarracksBodyguardsLabels[1] = "Leibwächter"
+  REP_TXT.BFFBarracksBodyguardsLabels[2] = "Treuer Leibwächter"
+  REP_TXT.BFFBarracksBodyguardsLabels[3] = "Flügelmann"
+  ---- The First Responders 1984
+  REP_TXT.BFFLabels[1984] = {} -- Praktikant
+  REP_TXT.BFFLabels[1984][1] = "Juniorassistent"
+  REP_TXT.BFFLabels[1984][2] = "Assistent"
+  REP_TXT.BFFLabels[1984][3] = "Ersthelfer"
+  ---- Corbyn 2100
+  REP_TXT.BFFLabels[2100] = {} -- Fremder
+  REP_TXT.BFFLabels[2100][1] = "Kurioses Wesen"
+  REP_TXT.BFFLabels[2100][2] = "unbedrohlicher Kontakt"
+  REP_TXT.BFFLabels[2100][3] = REP_TXT.BFFFishingMastersLabels[4]
+  REP_TXT.BFFLabels[2100][4] = "hilfreicher Freund"
+  REP_TXT.BFFLabels[2100][5] = REP_TXT.BFFFishingMastersLabels[6]
+  -- Chromie 2135
   REP_TXT.BFFLabels[2135] = {} -- Welpling
   REP_TXT.BFFLabels[2135][1] = "Temporaler Lehrling"
   REP_TXT.BFFLabels[2135][2] = "Zeitspringer"
@@ -281,6 +413,74 @@ if (GetLocale() == "deDE") then
   REP_TXT.BFFLabels[2135][4] = "Bronzener Verbündeter"
   REP_TXT.BFFLabels[2135][5] = "Epochenheiler"
   REP_TXT.BFFLabels[2135][6] = "Zeitlord"
+  ---- Wrathion 2517
+  REP_TXT.BFFLabels[2517] = {} -- Bekannter
+  REP_TXT.BFFLabels[2517][1] = "Vasall"
+  REP_TXT.BFFLabels[2517][2] = "Verbündeter"
+  REP_TXT.BFFLabels[2517][3] = "Reißzahn"
+  REP_TXT.BFFLabels[2517][4] = "Freund"
+  REP_TXT.BFFLabels[2517][5] = "Wahrer Freund"
+  ---- Sabellian 2518
+  REP_TXT.BFFLabels[2518] = {} -- Bekannter
+  REP_TXT.BFFLabels[2518][1] = "Vasall"
+  REP_TXT.BFFLabels[2518][2] = "Verbündeter"
+  REP_TXT.BFFLabels[2518][3] = "Reißzahn"
+  REP_TXT.BFFLabels[2518][4] = "Freund"
+  REP_TXT.BFFLabels[2518][5] = "Wahrer Freund"
+  ---- Artisan's Consortium - Dragon Isles Branch 2544
+  REP_TXT.BFFLabels[2544] = {} -- Neutral
+  REP_TXT.BFFLabels[2544][1] = "Bevorzugt"
+  REP_TXT.BFFLabels[2544][2] = "Respektiert"
+  REP_TXT.BFFLabels[2544][3] = "Geschätzt"
+  REP_TXT.BFFLabels[2544][4] = "Hochverehrt"
+  ---- Cobalt Assembly 2550
+  REP_TXT.BFFLabels[2550] = {} -- Leer
+  REP_TXT.BFFLabels[2550][1] = "Niedrig"
+  REP_TXT.BFFLabels[2550][2] = "Mittel"
+  REP_TXT.BFFLabels[2550][3] = "Hoch"
+  REP_TXT.BFFLabels[2550][4] = "Maximum"
+  ---- Soridormi 2553
+  REP_TXT.BFFLabels[2553] = {} -- Anomalie
+  REP_TXT.BFFLabels[2553][1] = "Zukunftsfreund"
+  REP_TXT.BFFLabels[2553][2] = "Rissheiler"
+  REP_TXT.BFFLabels[2553][3] = "Zeitwanderer"
+  REP_TXT.BFFLabels[2553][4] = "Legende"
+  ---- The Weaver 2601
+  REP_TXT.BFFLabels[2601] = {} -- Fremder
+  REP_TXT.BFFLabels[2601][1] = "Bekannter"
+  REP_TXT.BFFLabels[2601][2] = "Kumpane"
+  REP_TXT.BFFLabels[2601][3] = "Komplize"
+  REP_TXT.BFFLabels[2601][4] = "Kollaborateur"
+  REP_TXT.BFFLabels[2601][5] = "Mittäter"
+  REP_TXT.BFFLabels[2601][6] = "Helfershelfer"
+  REP_TXT.BFFLabels[2601][7] = "Verschwörer"
+  REP_TXT.BFFLabels[2601][8] = "Strippenzieher"
+  ---- The General 2605
+  REP_TXT.BFFLabels[2605] = {} -- Fremder
+  REP_TXT.BFFLabels[2605][1] = "Bekannter"
+  REP_TXT.BFFLabels[2605][2] = "Kumpane"
+  REP_TXT.BFFLabels[2605][3] = "Komplize"
+  REP_TXT.BFFLabels[2605][4] = "Kollaborateur"
+  REP_TXT.BFFLabels[2605][5] = "Mittäter"
+  REP_TXT.BFFLabels[2605][6] = "Helfershelfer"
+  REP_TXT.BFFLabels[2605][7] = "Verschwörer"
+  REP_TXT.BFFLabels[2605][8] = "Strippenzieher"
+  ---- The Vizier 2607
+  REP_TXT.BFFLabels[2607] = {} -- Fremder
+  REP_TXT.BFFLabels[2607][1] = "Bekannter"
+  REP_TXT.BFFLabels[2607][2] = "Kumpane"
+  REP_TXT.BFFLabels[2607][3] = "Komplize"
+  REP_TXT.BFFLabels[2607][4] = "Kollaborateur"
+  REP_TXT.BFFLabels[2607][5] = "Mittäter"
+  REP_TXT.BFFLabels[2607][6] = "Helfershelfer"
+  REP_TXT.BFFLabels[2607][7] = "Verschwörer"
+  REP_TXT.BFFLabels[2607][8] = "Strippenzieher"
+  ---- Azerothian Archives 2615
+  REP_TXT.BFFLabels[2615] = {} -- Absolvent
+  REP_TXT.BFFLabels[2615][1] = "Assistent"
+  REP_TXT.BFFLabels[2615][2] = "Kontraktor"
+  REP_TXT.BFFLabels[2615][3] = "Respektierter"
+  REP_TXT.BFFLabels[2615][4] = "Etablierter"
 
   ---------------------------
   -- Tooltips
@@ -306,20 +506,20 @@ if (GetLocale() == "deDE") then
   REP_TXT.elements.tip.REP_ShowInstancesButton	= "Diese Option aktivieren, um Instanzen anzuzeigen, mit denen Du Deinen Ruf steigern kannst."
   REP_TXT.elements.name.REP_ShowGeneralButton	= REP_TXT.showGeneral
   REP_TXT.elements.tip.REP_ShowGeneralButton	= "Diese Option aktivieren, um allgemeine Informationen zur Rufsteigerung anzuzeigen."
-  REP_TXT.elements.name.REP_ShowAllButton	= REP_TXT.showAll
-  REP_TXT.elements.tip.REP_ShowAllButton	= "Auf diesen Knopf klicken, um alle vier links stehenden Optionen zu aktivieren. Es werden Mobs, Quests, Gegenstände und Instanzen angezeigt, die Deinen Ruf der ausgewählten Fraktion verbessern."
-  REP_TXT.elements.name.REP_ShowNoneButton	= REP_TXT.showNone
-  REP_TXT.elements.tip.REP_ShowNoneButton	= "Auf diesen Knopf klicken, um alle vier links stehenden Optionen zu deaktivieren. \r\nEs werden dadurch keine Methoden mehr angezeigt, die Ruf mit der ausgewählten Fraktion verbessern."
-  REP_TXT.elements.name.REP_ExpandButton	= REP_TXT.expand
-  REP_TXT.elements.tip.REP_ExpandButton	= "Auf diesen Knopf klicken, um alle Einträge aufzuklappen. Dies zeigt die Gegenstände an, die für die jeweiligen Sammelquests benötigt werden."
-  REP_TXT.elements.name.REP_CollapseButton	= REP_TXT.collapse
-  REP_TXT.elements.tip.REP_CollapseButton	= "Auf diesen Knopf klicken, um alle Einträge zuzuklappen. Dies zeigt keine Gegenstände mehr an, die für die jeweiligen Sammelquests benötigt werden."
-  REP_TXT.elements.name.REP_SupressNoneFactionButton	= REP_TXT.supressNoneFaction
-  REP_TXT.elements.tip.REP_SupressNoneFactionButton	= "Auf diesen Knopf klicken, um die Quests für diese Fraktion wieder zu aktivieren, die durch Rechtsklicken deaktiviert wurden."
-  REP_TXT.elements.name.REP_SupressNoneGlobalButton	= REP_TXT.supressNoneGlobal
-  REP_TXT.elements.tip.REP_SupressNoneGlobalButton	= "Auf diesen Knopf klicken, um die Quests für alle Fraktionen wieder zu aktivieren, die durch Rechtsklicken deaktiviert wurden."
-  REP_TXT.elements.name.REP_ClearSessionGainButton	= REP_TXT.clearSessionGain
-  REP_TXT.elements.tip.REP_ClearSessionGainButton	= "Auf diesen Knopf klicken, um den Zähler für die Rufsteigerung seit Spielstart zurückzusetzen."
+  REP_TXT.elements.name.REP_DetailShowAllButton	= REP_TXT.showAll
+  REP_TXT.elements.tip.REP_DetailShowAllButton	= "Auf diesen Knopf klicken, um alle vier links stehenden Optionen zu aktivieren. Es werden Mobs, Quests, Gegenstände und Instanzen angezeigt, die Deinen Ruf der ausgewählten Fraktion verbessern."
+  REP_TXT.elements.name.REP_DetailShowNoneButton	= REP_TXT.showNone
+  REP_TXT.elements.tip.REP_DetailShowNoneButton	= "Auf diesen Knopf klicken, um alle vier links stehenden Optionen zu deaktivieren. \r\nEs werden dadurch keine Methoden mehr angezeigt, die Ruf mit der ausgewählten Fraktion verbessern."
+  REP_TXT.elements.name.REP_DetailExpandButton	= REP_TXT.expand
+  REP_TXT.elements.tip.REP_DetailExpandButton	= "Auf diesen Knopf klicken, um alle Einträge aufzuklappen. Dies zeigt die Gegenstände an, die für die jeweiligen Sammelquests benötigt werden."
+  REP_TXT.elements.name.REP_DetailCollapseButton	= REP_TXT.collapse
+  REP_TXT.elements.tip.REP_DetailCollapseButton	= "Auf diesen Knopf klicken, um alle Einträge zuzuklappen. Dies zeigt keine Gegenstände mehr an, die für die jeweiligen Sammelquests benötigt werden."
+  REP_TXT.elements.name.REP_DetailSupressNoneFactionButton	= REP_TXT.supressNoneFaction
+  REP_TXT.elements.tip.REP_DetailSupressNoneFactionButton	= "Auf diesen Knopf klicken, um die Quests für diese Fraktion wieder zu aktivieren, die durch Rechtsklicken deaktiviert wurden."
+  REP_TXT.elements.name.REP_DetailSupressNoneGlobalButton	= REP_TXT.supressNoneGlobal
+  REP_TXT.elements.tip.REP_DetailSupressNoneGlobalButton	= "Auf diesen Knopf klicken, um die Quests für alle Fraktionen wieder zu aktivieren, die durch Rechtsklicken deaktiviert wurden."
+  REP_TXT.elements.name.REP_DetailClearSessionGainButton	= REP_TXT.clearSessionGain
+  REP_TXT.elements.tip.REP_DetailClearSessionGainButton	= "Auf diesen Knopf klicken, um den Zähler für die Rufsteigerung seit Spielstart zurückzusetzen."
   REP_TXT.elements.name.REP_EnableMissingBox	= REP_TXT.showMissing
   REP_TXT.elements.tip.REP_EnableMissingBox	= "Diese Option aktivieren, um im Ruffenster hinter der Rufstufe die fehlenden Rufpunkte anzuzeigen, die nötig sind, um die nächste Stufe zu erreichen."
   REP_TXT.elements.name.REP_ExtendDetailsBox	= REP_TXT.extendDetails
@@ -415,4 +615,8 @@ if (GetLocale() == "deDE") then
   REP_TXT.settings.info.DarkmoonFaireWeeRepBuff = "Ist mit dem Dunkelmond-Karussel oder der Achterbahn gefahren. Erfahrungs- und Rufzuwachs um 10% erhöht."
   REP_TXT.settings.DarkmoonFaireHatRep = "Dunkelmond-Zylinder (Dunkelmond-Jahrmarkt)"
   REP_TXT.settings.info.DarkmoonFaireHatRep = "Erhöht gewonnene Erfahrung und Ruf 1 hour lang um 10%. Der Hut wird dabei verbraucht."
+  ---------------------------
+  -- Characters tab settings
+  ---------------------------
+  REP_TXT.settings.characterTabSubTitle = "You can either reset or delete one of your character's addon settings from the list below."
 end
