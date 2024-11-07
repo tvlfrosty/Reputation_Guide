@@ -216,6 +216,7 @@ function REP:getRepInfo(info)
     info["bottom"] = factionData.currentReactionThreshold
     info["top"] = factionData.nextReactionThreshold
     info["isHeader"] = factionData.isHeader
+    info["isWatched"] = factionData.isWatched
 
     info["paragon"] = ""
     info["renown"] = ""

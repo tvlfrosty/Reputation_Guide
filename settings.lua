@@ -262,20 +262,9 @@ function REP:RenderAddonSettingsFrame()
       enableParagonBar = checkbox("EnableParagonBarBox", REP_TXT.EnableParagonBar, REP_TXT.elements.tip.REP_EnableParagonBarBox, REP_OptionsGeneralTab, function(_, checked) REP_Data.Global.ShowParagonBar = checked end)
       enableParagonBar:SetPoint("TOPLEFT", noGuildSwitch, "BOTTOMLEFT", -20, 0)
       showAllFactionsGains:SetPoint("TOPLEFT", enableParagonBar, "BOTTOMLEFT", 0, 0)
-
-      -- if REP.AfterDragonflight then
-        
-      -- else
-      --   buffsDivider:SetStartPoint("BOTTOMLEFT", enableParagonBar, 0, -16)
-      --   buffsDivider:SetEndPoint("BOTTOMRIGHT", enableParagonBar, 400, -16)   
-      -- end
     else
       showAllFactionsGains:SetPoint("TOPLEFT", noGuildSwitch, "BOTTOMLEFT", -20, 0)
-      -- buffsDivider:SetStartPoint("BOTTOMLEFT", noGuildSwitch, -15, -16)
-      -- buffsDivider:SetEndPoint("BOTTOMRIGHT", noGuildSwitch, 400, -16)
     end
-
-    
   else
     wickermanRepBuff = checkbox("WickermanRepBuffBox", REP_TXT.settings.wickermanRepBuff, REP_TXT.settings.info.wickermanRepBuff, REP_OptionsGeneralTab, function(_, checked) REP_Data.Global.WickermanRepBuff = checked REP_ToggleReputationBuff() end)
 
@@ -403,7 +392,7 @@ function REP:CreateProfileFrame(index, profileKey, yOffset)
   frame.text:SetPoint("TOPLEFT", frame, "TOPLEFT", 0, 0)
   frame.text:SetText(profileKey)
 
-  frame.resetButton = CreateFrame("Button", nil, REP_OptionsCharactersTabContent, "UIPanelButtonTemplate")
+  frame.resetButton = CreateFrame("Button", "REP_OptionsResetCharacterVariablesButton"..index, REP_OptionsCharactersTabContent, "UIPanelButtonTemplate")
   frame.resetButton:SetSize(80, 20)
   frame.resetButton:SetPoint("LEFT", frame.text, "RIGHT", 10, 0)
   frame.resetButton:SetText("Reset")
@@ -412,7 +401,7 @@ function REP:CreateProfileFrame(index, profileKey, yOffset)
     REP:Print("The saved variables for "..tostring(profileKey).." has been reset.")
   end)
 
-  frame.deleteButton = CreateFrame("Button", nil, REP_OptionsCharactersTabContent, "UIPanelButtonTemplate")
+  frame.deleteButton = CreateFrame("Button", "REP_OptionsDeleteCharacterVariablesButton"..index, REP_OptionsCharactersTabContent, "UIPanelButtonTemplate")
   frame.deleteButton:SetSize(80, 20)
   frame.deleteButton:SetPoint("LEFT", frame.resetButton, "RIGHT", 10, 0)
   frame.deleteButton:SetText("Delete")

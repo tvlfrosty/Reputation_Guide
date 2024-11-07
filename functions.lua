@@ -34,16 +34,28 @@ end
 function REP:Help()
   REP:Print(" ", true)
   REP:Print(REP.HELP_COLOUR..addonName..":|r "..REP_TXT.help, true)
-  REP:Print(REP.HELP_COLOUR..REP_TXT.usage..":|r /REP help "..REP.HELP_COLOUR..REP_TXT.helphelp, true)
-  REP:Print(REP.HELP_COLOUR..REP_TXT.usage..":|r /REP about "..REP.HELP_COLOUR..REP_TXT.helpabout, true)
-  REP:Print(REP.HELP_COLOUR..REP_TXT.usage..":|r /REP status "..REP.HELP_COLOUR..REP_TXT.helpstatus, true)
-  REP:Print(REP.HELP_COLOUR..REP_TXT.usage..":|r /REP watch <factionID> set faction as watched", true) -- TODO: Add as localised text
-  REP:Print(REP.HELP_COLOUR..REP_TXT.usage..":|r /REP enable { mobs | quests | pvpquests | instances | items | all }", true)
-  REP:Print(REP.HELP_COLOUR..REP_TXT.usage..":|r /REP disable { mobs | quests | pvpquests | instances | items | all }", true)
-  REP:Print(REP.HELP_COLOUR..REP_TXT.usage..":|r /REP toggle { mobs | quests | pvpquests | instances | items | all }", true)
-  REP:Print(REP.HELP_COLOUR..REP_TXT.usage..":|r /REP enable { missing | details | chat | paragon }", true)
-  REP:Print(REP.HELP_COLOUR..REP_TXT.usage..":|r /REP disable { missing | details | chat | paragon }", true)
-  REP:Print(REP.HELP_COLOUR..REP_TXT.usage..":|r /REP toggle { missing | details | chat | paragon }" , true)
+  REP:Print(REP.HELP_COLOUR..REP_TXT.usage..":|r /rep help "..REP.HELP_COLOUR..REP_TXT.helphelp, true)
+  REP:Print(REP.HELP_COLOUR..REP_TXT.usage..":|r /rep about "..REP.HELP_COLOUR..REP_TXT.helpabout, true)
+  REP:Print(REP.HELP_COLOUR..REP_TXT.usage..":|r /rep status "..REP.HELP_COLOUR..REP_TXT.helpstatus, true)
+  
+  if REP.AfterClassic then
+    REP:Print(REP.HELP_COLOUR..REP_TXT.usage..":|r /rep watch <factionID> "..REP.HELP_COLOUR.."Set faction as watched", true) -- TODO: Add as localised text
+  end
+
+  REP:Print(REP.HELP_COLOUR..REP_TXT.usage..":|r /rep watchindex <factionIndex> "..REP.HELP_COLOUR.."Set faction as watched", true) -- TODO: Add as localised text
+  REP:Print(REP.HELP_COLOUR..REP_TXT.usage..":|r /rep enable { mobs | quests | pvpquests | instances | items | all }", true)
+  REP:Print(REP.HELP_COLOUR..REP_TXT.usage..":|r /rep disable { mobs | quests | pvpquests | instances | items | all }", true)
+  REP:Print(REP.HELP_COLOUR..REP_TXT.usage..":|r /rep toggle { mobs | quests | pvpquests | instances | items | all }", true)
+
+  if REP.AfterWod then
+    REP:Print(REP.HELP_COLOUR..REP_TXT.usage..":|r /rep enable { missing | details | chat | paragon }", true)
+    REP:Print(REP.HELP_COLOUR..REP_TXT.usage..":|r /rep disable { missing | details | chat | paragon }", true)
+    REP:Print(REP.HELP_COLOUR..REP_TXT.usage..":|r /rep toggle { missing | details | chat | paragon }" , true)
+  else
+    REP:Print(REP.HELP_COLOUR..REP_TXT.usage..":|r /rep enable { missing | details | chat }", true)
+    REP:Print(REP.HELP_COLOUR..REP_TXT.usage..":|r /rep disable { missing | details | chat }", true)
+    REP:Print(REP.HELP_COLOUR..REP_TXT.usage..":|r /rep toggle { missing | details | chat }" , true)
+  end
 end
 ---------------------------------------------------
 function REP:Status()
@@ -207,47 +219,53 @@ function REP:PlayCheckBoxSound(isChecked)
   end
 end
 
------------------------------------
--- Testing
------------------------------------
-function REP:Test()
-  if REP_GuildFactionBar then
-    if (REP_GuildFactionBar:GetParent()) then
-      REP:Print("REP_GuildFactionBar parent: "..tostring(REP_GuildFactionBar:GetParent():GetName()))
-    else
-      REP:Print("REP_GuildFactionBar has no parent")
+------------------------------
+-- Reputation Functions --
+------------------------------
+function REP:WatchFactionByIndex(watchIndex)
+  if not watchIndex then return end
+ 
+  local factionData = REP:GetFactionDataByIndex(watchIndex)
+
+  if factionData then
+    REP_Orig_SetWatchedFaction(watchIndex)
+    local name = factionData.name
+    REP:PrintNewWatchedFaction(name)
+  else
+    REP:Print("Could not find an active faction with index #"..tostring(watchIndex))
+  end
+end
+---------------------------------------------------
+function REP:WatchFactionById(watchID)
+  if not watchID then return end
+
+  local factionData = REP:GetFactionDataByID(watchID)
+
+  if factionData then
+    REP_Orig_SetWatchedFaction(watchID)
+    local name = factionData.name
+    REP:PrintNewWatchedFaction(name)
+  else
+    REP:Print("Could not find a faction with factionID: "..tostring(watchID))
+  end
+end
+---------------------------------------------------
+function REP:PrintNewWatchedFaction(name)
+  if not name or REP_Data.Global.SilentSwitch then return end
+  REP:Print(REP.HELP_COLOUR..addonName..":|r "..REP_TXT.switchBar.." ["..tostring(name).."|r]")
+end
+---------------------------------------------------
+function REP:GetFactionIndexBasedOnFactionID(factionIdForIndex)
+  local factionIndexByID
+
+  for i = 1, REP_Orig_GetNumFactions(), 1 do
+    local index = i
+    local factionID = REP:GetFactionDataByIndex(index).factionID
+
+    if factionID and factionID == factionIdForIndex then
+      factionIndexByID = index
     end
   end
 
-  if REP_GuildFactionBarCapHeader then
-    if (REP_GuildFactionBarCapHeader:GetParent()) then
-      REP:Print("REP_GuildFactionBarCapHeader parent: "..tostring(REP_GuildFactionBarCapHeader:GetParent():GetName()))
-    else
-      REP:Print("REP_GuildFactionBarCapHeader has no parent")
-    end
-  end
-
-  if REP_GuildFactionBarCapText then
-    if (REP_GuildFactionBarCapText:GetParent()) then
-      REP:Print("REP_GuildFactionBarCapText parent: "..tostring(REP_GuildFactionBarCapText:GetParent():GetName()))
-    else
-      REP:Print("REP_GuildFactionBarCapText has no parent")
-    end
-  end
-
-  if REP_GuildFactionBarCapMarker then
-    if (REP_GuildFactionBarCapMarker:GetParent()) then
-      REP:Print("REP_GuildFactionBarCapMarker parent: "..tostring(REP_GuildFactionBarCapMarker:GetParent():GetName()))
-    else
-      REP:Print("REP_GuildFactionBarCapMarker has no parent")
-    end
-  end
-
-  if REP_GuildFactionBarBaseMarker then
-    if (REP_GuildFactionBarBaseMarker:GetParent()) then
-      REP:Print("REP_GuildFactionBarBaseMarker parent: "..tostring(REP_GuildFactionBarBaseMarker:GetParent():GetName()))
-    else
-      REP:Print("REP_GuildFactionBarBaseMarker has no parent")
-    end
-  end
+  return factionIndexByID
 end
