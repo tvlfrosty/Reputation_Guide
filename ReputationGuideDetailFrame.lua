@@ -16,20 +16,37 @@ function REP:ChangeReputationDetailFrameUI()
 
   REP_Orig_ReputationDetailFrame:SetPoint("TOPLEFT", ReputationFrame, "TOPRIGHT", 0, 0)
 
-  REP_DetailFactionInfoBackground = select(3, REP_Orig_ReputationDetailFrame:GetRegions())
-  if REP_DetailFactionInfoBackground and REP_DetailFactionInfoBackground:IsObjectType("Texture") then
-    REP_DetailFactionInfoBackground:SetTexture("Interface\\PaperDollInfoFrame\\UI-Character-Reputation-DetailBackground")
-    REP_DetailFactionInfoBackground:SetSize(256, 128)
+  if REP.AfterDragonflight then
+    REP_DetailFactionInfoBackground = select(2, REP_Orig_ReputationDetailFrame:GetRegions())
+  else
+    REP_DetailFactionInfoBackground = select(3, REP_Orig_ReputationDetailFrame:GetRegions())
   end
 
-  if REP.AfterShadowLands then
+  if REP_DetailFactionInfoBackground and REP_DetailFactionInfoBackground:IsObjectType("Texture") then
+    REP_DetailFactionInfoBackground:SetTexture("Interface\\PaperDollInfoFrame\\UI-Character-Reputation-DetailBackground")
+    
+    if REP.AfterDragonflight then
+      REP_DetailFactionInfoBackground:SetSize(260, 128)
+    else
+      REP_DetailFactionInfoBackground:SetSize(256, 128)
+    end
+  end
+
+  if REP.AfterShadowLands and not REP.AfterDragonflight then
     REP_DetailFirstDivider = select(4, REP_Orig_ReputationDetailFrame:GetRegions())
+  elseif REP.AfterDragonflight then
+    REP_DetailFirstDivider = select(3, REP_Orig_ReputationDetailFrame:GetRegions())
   else
     REP_DetailFirstDivider = select(5, REP_Orig_ReputationDetailFrame:GetRegions())
   end
 
   REP_DetailFirstDivider:SetWidth(615)
 
+  if REP_Orig_ReputationDetailFrame.ScrollingDescription then
+    REP_Orig_ReputationDetailFrame.ScrollingDescription:SetWidth(260)
+    REP_Orig_ReputationDetailFrame.ScrollingDescription:SetPoint("BOTTOMRIGHT", REP_DetailFirstDivider, "TOPRIGHT", -455, 2)
+  end
+  
   if REP.AfterDragonflight then
     REP_Orig_ReputationDetailFrame.MakeInactiveCheckbox.Label:SetTextColor(1, 1, 1, 1)
     REP_Orig_ReputationDetailFrame.MakeInactiveCheckbox:SetScript("OnClick", function(self) REP:CustomSetFactionActiveOrInactive(self:GetChecked(), REP_Orig_GetSelectedFaction()) end)
@@ -37,14 +54,28 @@ function REP:ChangeReputationDetailFrameUI()
     REP_Orig_ReputationDetailFrame.WatchFactionCheckbox:SetPoint("LEFT", REP_Orig_ReputationDetailFrame.MakeInactiveCheckbox.Label, "RIGHT", 3, 0)
     REP_Orig_ReputationDetailFrame.WatchFactionCheckbox.Label:SetTextColor(1, 1, 1, 1)
   else
-    ReputationDetailAtWarCheckBox:ClearAllPoints()
-    ReputationDetailAtWarCheckBox:SetPoint("TOPLEFT", REP_DetailFirstDivider, "BOTTOMLEFT", 5, 20)
-    ReputationDetailAtWarCheckBox:HookScript("OnClick", function(self) REP:CustomTriggerReputationFrameUpdate() end)
+    REP_Orig_DetailAtWarCheckBox:ClearAllPoints()
+    REP_Orig_DetailAtWarCheckBox:SetPoint("TOPLEFT", REP_DetailFirstDivider, "BOTTOMLEFT", 5, 20)
+    REP_Orig_DetailAtWarCheckBox:HookScript("OnClick", function(self) REP:CustomTriggerReputationFrameUpdate() end)
 
-    ReputationDetailInactiveCheckBox:SetScript("OnClick", function(self) REP:CustomSetFactionActiveOrInactive(self:GetChecked(), REP_Orig_GetSelectedFaction()) end)
-    ReputationDetailMainScreenCheckBox:ClearAllPoints()
-    ReputationDetailMainScreenCheckBox:SetPoint("LEFT", ReputationDetailInactiveCheckBoxText, "RIGHT", 3, 0)
-    ReputationDetailMainScreenCheckBox:HookScript("OnClick", function(self) REP:CustomTriggerReputationFrameUpdate() end)
+    REP_Orig_DetailInactiveCheckBox:SetScript("OnClick", function(self) REP:CustomSetFactionActiveOrInactive(self:GetChecked(), REP_Orig_GetSelectedFaction()) end)
+    REP_Orig_DetailMainScreenCheckBox:ClearAllPoints()
+    REP_Orig_DetailMainScreenCheckBox:SetPoint("LEFT", REP_Orig_DetailInactiveCheckBoxText, "RIGHT", 3, 0)
+    REP_Orig_DetailMainScreenCheckBox:HookScript("OnClick", function(self) REP:CustomTriggerReputationFrameUpdate() end)
+
+    -- For some reason they keep changing these names....
+    -- if ReputationDetailAtWarCheckBox then
+      
+    -- else
+    --   ReputationDetailAtWarCheckbox:ClearAllPoints()
+    --   ReputationDetailAtWarCheckbox:SetPoint("TOPLEFT", REP_DetailFirstDivider, "BOTTOMLEFT", 5, 20)
+    --   ReputationDetailAtWarCheckbox:HookScript("OnClick", function(self) REP:CustomTriggerReputationFrameUpdate() end)
+
+    --   ReputationDetailInactiveCheckbox:SetScript("OnClick", function(self) REP:CustomSetFactionActiveOrInactive(self:GetChecked(), REP_Orig_GetSelectedFaction()) end)
+    --   ReputationDetailMainScreenCheckbox:ClearAllPoints()
+    --   ReputationDetailMainScreenCheckbox:SetPoint("LEFT", ReputationDetailInactiveCheckBoxText, "RIGHT", 3, 0)
+    --   ReputationDetailMainScreenCheckbox:HookScript("OnClick", function(self) REP:CustomTriggerReputationFrameUpdate() end)
+    -- end
   end
 
   REP_DetailSecondDivider = REP_Orig_ReputationDetailFrame:CreateTexture(nil, "ARTWORK")
@@ -261,6 +292,8 @@ function REP:ChangeReputationDetailFrameUI()
       entries[i]:SetPoint("TOPLEFT", entries[i - 1], "BOTTOMLEFT")
     end
   end
+
+  REP:SetReputationDetailFrameAndOptionsSkins()
 end
 
 function REP:CreateDetailFrameCheckbox(name, label, description, onclick, parent)
