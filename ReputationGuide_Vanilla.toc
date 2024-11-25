@@ -1,4 +1,4 @@
-## Interface: 11504, 11404, 11307
+## Interface: 11505
 ## Title: ReputationGuide |cfd9b9b9b(Classic)|r
 ## Version: 1.15.4-release
 ## Author: Tvlfrosty
