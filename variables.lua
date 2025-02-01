@@ -148,6 +148,8 @@ REP.ShowClassicSODPhaseTwo = false
 REP.ShowClassicSODPhaseThree = false
 REP.ShowClassicSODPhaseFour = false
 REP.ShowClassicSODPhaseFive = false
+REP.ShowClassicSODPhaseSix = false
+REP.ShowClassicSODPhaseSeven = false
 -- The Burning Crusade
 REP.ShowTBCPhaseOne = false
 REP.ShowTBCPhaseTwo = false
@@ -218,6 +220,8 @@ REP.IsClassicSODPhaseTwo = false
 REP.IsClassicSODPhaseThree = false
 REP.IsClassicSODPhaseFour = false
 REP.IsClassicSODPhaseFive = false
+REP.IsClassicSODPhaseSix = false
+REP.IsClassicSODPhaseSeven = false
 -- The Burning Crusade
 REP.IsTBCPhaseOne = false
 REP.IsTBCPhaseTwo = false
@@ -294,6 +298,9 @@ function REP:GetActiveExpansion(expansionIndex, gameBuildVersion)
   if not expansionIndex then return end
   if expansionIndex == 0 then -- Classic
     REP.IsClassic = true
+    REP.IsClassicSOM = false
+    REP.IsClassicSOD = false
+
     -- Check for active Season in Classic
     local season = C_Seasons and C_Seasons.GetActiveSeason() or 0;
     if season > 0 then
@@ -303,6 +310,15 @@ function REP:GetActiveExpansion(expansionIndex, gameBuildVersion)
     	if season == 2 then	-- SOD
     		REP.IsClassicSOD = true
     	end
+      -- if season == 3 then	-- Hardcore
+    		
+    	-- end
+      -- if season == 11 then	-- Fresh
+    		
+    	-- end
+      -- if season == 12 then	-- FreshHardcore
+    		
+    	-- end
     end
   end
 
@@ -339,6 +355,7 @@ end
 function REP:GetActivePhase(gameBuildVersion)
   if not gameBuildVersion then return end
   ---- Show phases
+  -- Classic
   if gameBuildVersion > 10000 then REP.ShowClassicPhaseOne = true end
   if gameBuildVersion > 11302 then REP.ShowClassicPhaseTwo = true end
   if gameBuildVersion > 11303 then REP.ShowClassicPhaseThree = true end
@@ -346,16 +363,22 @@ function REP:GetActivePhase(gameBuildVersion)
   if gameBuildVersion > 11305 then REP.ShowClassicPhaseFive = true end
   if gameBuildVersion > 11306 then REP.ShowClassicPhaseSix = true end
   -- Classic SOM
-  if gameBuildVersion > 11400 and gameBuildVersion < 11499 then REP.ShowClassicSOMPhaseOne = true end
-  if gameBuildVersion > 11401 and gameBuildVersion < 11499 then REP.ShowClassicSOMPhaseTwo = true end
-  if gameBuildVersion > 11402 and gameBuildVersion < 11499 then REP.ShowClassicSOMPhaseThree = true end
-  if gameBuildVersion > 11403 and gameBuildVersion < 11499 then REP.ShowClassicSOMPhaseFour = true end
+  if REP.IsClassicSOM then
+    if gameBuildVersion > 11400 and gameBuildVersion < 11499 then REP.ShowClassicSOMPhaseOne = true end
+    if gameBuildVersion > 11401 and gameBuildVersion < 11499 then REP.ShowClassicSOMPhaseTwo = true end
+    if gameBuildVersion > 11402 and gameBuildVersion < 11499 then REP.ShowClassicSOMPhaseThree = true end
+    if gameBuildVersion > 11403 and gameBuildVersion < 11499 then REP.ShowClassicSOMPhaseFour = true end
+  end
   -- Classic SOD
-  if gameBuildVersion > 11499 and gameBuildVersion < 11599 then REP.ShowClassicSODPhaseOne = true end
-  if gameBuildVersion > 11500 and gameBuildVersion < 11599 then REP.ShowClassicSODPhaseTwo = true end
-  if gameBuildVersion > 11501 and gameBuildVersion < 11599 then REP.ShowClassicSODPhaseThree = true end
-  if gameBuildVersion > 11502 and gameBuildVersion < 11599 then REP.ShowClassicSODPhaseFour = true end
-  if gameBuildVersion > 11503 and gameBuildVersion < 11599 then REP.ShowClassicSODPhaseFive = true end
+  if REP.IsClassicSOD then
+    if gameBuildVersion > 11499 and gameBuildVersion < 11599 then REP.ShowClassicSODPhaseOne = true end
+    if gameBuildVersion > 11500 and gameBuildVersion < 11599 then REP.ShowClassicSODPhaseTwo = true end
+    if gameBuildVersion > 11501 and gameBuildVersion < 11599 then REP.ShowClassicSODPhaseThree = true end
+    if gameBuildVersion > 11502 and gameBuildVersion < 11599 then REP.ShowClassicSODPhaseFour = true end
+    if gameBuildVersion > 11503 and gameBuildVersion < 11599 then REP.ShowClassicSODPhaseFive = true end
+    if gameBuildVersion > 11504 and gameBuildVersion < 11599 then REP.ShowClassicSODPhaseSix = true end
+    if gameBuildVersion > 11505 and gameBuildVersion < 11599 then REP.ShowClassicSODPhaseSeven = true end
+  end
   -- The Burning Crusade
   if gameBuildVersion > 20000 then REP.ShowTBCPhaseOne = true end
   if gameBuildVersion > 20000 then REP.ShowTBCPhaseTwo = true end
@@ -414,16 +437,22 @@ function REP:GetActivePhase(gameBuildVersion)
   if REP.ShowClassicPhaseFive and not REP.ShowClassicPhaseSix then REP.IsClassicPhaseFive = true end
   if REP.ShowClassicPhaseSix and not REP.ShowTBCPhaseOne then REP.IsClassicPhaseSix = true end
   -- Classic SOM
-  if REP.ShowClassicSOMPhaseOne and not REP.ShowClassicSOMPhaseTwo then REP.IsClassicSOMPhaseOne = true end
-  if REP.ShowClassicSOMPhaseTwo and not REP.ShowClassicSOMPhaseThree then REP.IsClassicSOMPhaseTwo = true end
-  if REP.ShowClassicSOMPhaseThree and not REP.ShowClassicSOMPhaseFour then REP.IsClassicSOMPhaseThree = true end
-  if REP.ShowClassicSOMPhaseFour then REP.IsClassicSOMPhaseFour = true end
-  -- Classic SOD
-  if REP.ShowClassicSODPhaseOne and not REP.ShowClassicSODPhaseTwo then REP.IsClassicSODPhaseOne = true end
-  if REP.ShowClassicSODPhaseTwo and not REP.ShowClassicSODPhaseThree then REP.IsClassicSODPhaseTwo = true end
-  if REP.ShowClassicSODPhaseThree and not REP.ShowClassicSODPhaseFour then REP.IsClassicSODPhaseThree = true end
-  if REP.ShowClassicSODPhaseFour and not REP.ShowClassicSODPhaseFive then REP.IsClassicSODPhaseFour = true end
-  if REP.ShowClassicSODPhaseFive then REP.IsClassicSODPhaseFive = true end
+  if REP.IsClassicSOM then
+    if REP.ShowClassicSOMPhaseOne and not REP.ShowClassicSOMPhaseTwo then REP.IsClassicSOMPhaseOne = true end
+    if REP.ShowClassicSOMPhaseTwo and not REP.ShowClassicSOMPhaseThree then REP.IsClassicSOMPhaseTwo = true end
+    if REP.ShowClassicSOMPhaseThree and not REP.ShowClassicSOMPhaseFour then REP.IsClassicSOMPhaseThree = true end
+    if REP.ShowClassicSOMPhaseFour then REP.IsClassicSOMPhaseFour = true end
+  end
+ -- Classic SOD
+  if REP.IsClassicSOD then
+    if REP.ShowClassicSODPhaseOne and not REP.ShowClassicSODPhaseTwo then REP.IsClassicSODPhaseOne = true end
+    if REP.ShowClassicSODPhaseTwo and not REP.ShowClassicSODPhaseThree then REP.IsClassicSODPhaseTwo = true end
+    if REP.ShowClassicSODPhaseThree and not REP.ShowClassicSODPhaseFour then REP.IsClassicSODPhaseThree = true end
+    if REP.ShowClassicSODPhaseFour and not REP.ShowClassicSODPhaseFive then REP.IsClassicSODPhaseFour = true end
+    if REP.ShowClassicSODPhaseFive and not REP.ShowClassicSODPhaseFive then REP.IsClassicSODPhaseFive = true end
+    if REP.ShowClassicSODPhaseSix and not REP.ShowClassicSODPhaseSeven then REP.IsClassicSODPhaseSix = true end
+    if REP.ShowClassicSODPhaseSeven then REP.IsClassicSODPhaseSeven = true end
+  end
   -- The Burning Crusade
   if REP.ShowTBCPhaseOne and not REP.ShowTBCPhaseTwo then REP.IsTBCPhaseOne = true end
   if REP.ShowTBCPhaseTwo and not REP.ShowTBCPhaseThree then REP.IsTBCPhaseTwo = true end
@@ -530,6 +559,8 @@ function REP:ResetsActiveExpansionAndPhase()
   REP.ShowClassicSODPhaseThree = false
   REP.ShowClassicSODPhaseFour = false
   REP.ShowClassicSODPhaseFive = false
+  REP.ShowClassicSODPhaseSix = false
+  REP.ShowClassicSODPhaseSeven = false
   -- The Burning Crusade
   REP.ShowTBCPhaseOne = false
   REP.ShowTBCPhaseTwo = false
@@ -600,6 +631,8 @@ function REP:ResetsActiveExpansionAndPhase()
   REP.IsClassicSODPhaseThree = false
   REP.IsClassicSODPhaseFour = false
   REP.IsClassicSODPhaseFive = false
+  REP.IsClassicSODPhaseSix = false
+  REP.IsClassicSODPhaseSeven = false
   -- The Burning Crusade
   REP.IsTBCPhaseOne = false
   REP.IsTBCPhaseTwo = false
