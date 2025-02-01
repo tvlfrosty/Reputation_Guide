@@ -17,6 +17,7 @@ end
 function REP:SetReputationDetailFrameAndOptionsSkins()
   if hasElvUILoaded and REP_Orig_ReputationDetailFrame then
     local E = unpack(_G.ElvUI)
+    local S = E:GetModule('Skins')
 
     local buttons = {
       REP_OptionsButton,
@@ -69,24 +70,24 @@ function REP:SetReputationDetailFrameAndOptionsSkins()
     REP_Orig_ReputationDetailFrame:StripTextures()
     REP_Orig_ReputationDetailFrame:SetTemplate("Transparent")
 
-    E.Skins:HandleScrollBar(REP_DetailListScrollFrameScrollBar)
+    S:HandleScrollBar(REP_DetailListScrollFrameScrollBar)
 
     if not REP.AfterDragonflight then
       -- Default UI checkboxes
-      table.insert(checkboxes, ReputationDetailInactiveCheckBox)
-      table.insert(checkboxes, ReputationDetailMainScreenCheckBox)
+      table.insert(checkboxes, REP_Orig_DetailInactiveCheckBox)
+      table.insert(checkboxes, REP_Orig_DetailMainScreenCheckBox)
 
-      E.Skins:HandleCheckBox(ReputationDetailAtWarCheckBox)
-      ReputationDetailAtWarCheckBox:SetCheckedTexture('Interface\\Buttons\\UI-CheckBox-SwordCheck')
-      ReputationDetailAtWarCheckBox:SetDisabledCheckedTexture('Interface\\Buttons\\UI-CheckBox-Check-Disabled')
+      S:HandleCheckBox(REP_Orig_DetailAtWarCheckBox)
+      REP_Orig_DetailAtWarCheckBox:SetCheckedTexture('Interface\\Buttons\\UI-CheckBox-SwordCheck')
+      REP_Orig_DetailAtWarCheckBox:SetDisabledCheckedTexture('Interface\\Buttons\\UI-CheckBox-Check-Disabled')
     end
 
     for _, button in pairs(buttons) do
-      E.Skins:HandleButton(button)
+      S:HandleButton(button)
     end
 
     for _, checkbox in pairs(checkboxes) do
-      E.Skins:HandleCheckBox(checkbox)
+      S:HandleCheckBox(checkbox)
     end
   end
 end
