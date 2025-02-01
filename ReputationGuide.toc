@@ -1,4 +1,4 @@
-## Interface: 110007, 100207, 40401, 30403, 20504, 11505, 11404, 11307
+## Interface: 110007, 100207, 40401, 30403, 20504, 11506, 11404, 11307
 ## Title: ReputationGuide |cfd9b9b9b(Classic)|r
 ## Version: 1.1.0-release
 ## Author: Tvlfrosty
