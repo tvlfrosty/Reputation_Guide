@@ -235,9 +235,9 @@ function REP:getRepInfo(info)
           info["top"] = data.renownLevel * data.renownLevelThreshold
           info["current"] = isCapped and data.renownLevelThreshold or data.renownReputationEarned or 0
           info["maximum"] = data.renownLevelThreshold
-          info["standingText"] = (RENOWN_LEVEL_LABEL .. data.renownLevel)
+          info["standingText"] = (REP_TXT.renown.." "..data.renownLevel)
           info["renown"] = data.renownLevel
-          info["standingTextNext"] = RENOWN_LEVEL_LABEL .. (data.renownLevel + 1)
+          info["standingTextNext"] = REP_TXT.renown.." "..(data.renownLevel + 1)
           info["standingId"] = 10
           info["standingIdNext"] = 10
           
@@ -273,7 +273,7 @@ function REP:getRepInfo(info)
         else
           info["current"] = 0
           info["maximum"] = 0
-          info["standingText"] = RENOWN_LEVEL_LABEL
+          info["standingText"] = REP_TXT.renown
           return info
         end
       end

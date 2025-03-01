@@ -188,6 +188,7 @@ if (GetLocale() =="koKR") then
   REP_TXT.itemsRequired	= "필요한 아이템"
   REP_TXT.general2	= "General:"
   REP_TXT.maxStanding	= "어느 평판단계까지 가능한지"
+  REP_TXT.renown = "Renown"
   -- skills
   REP_TXT.skillHerb	= "약초 채집"
   REP_TXT.skillMine	= "채광"

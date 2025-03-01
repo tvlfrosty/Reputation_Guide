@@ -472,7 +472,7 @@ function REP:FillReputationDetailFrameWithData()
   else
     if isMajorFaction then
       color = BLUE_FONT_COLOR
-      factionStandingtext = RENOWN_LEVEL_LABEL .. standingID
+      factionStandingtext = REP_TXT.renown.." "..standingID
     else      
       if isFriend then
         colorID = 5
@@ -526,7 +526,12 @@ function REP:FillReputationDetailFrameWithData()
     barValue = ((renownLevel - 1) *  majorFactionData.renownLevelThreshold) + barValue
     isCapped = REP_Orig_HasMaximumRenown(factionID)
 
-    local maxFactionLevel = REP.MaxFactionLevel[factionID]
+    local maxFactionLevel = 25
+
+    if(REP.MaxFactionLevel[factionID]) then
+      maxFactionLevel = REP.MaxFactionLevel[factionID]
+    end
+
     local maxRenown = maxFactionLevel * barMax
     toExalted = maxRenown - reputationGains.reputationGainedTotal
 
@@ -537,10 +542,10 @@ function REP:FillReputationDetailFrameWithData()
 
       REP_DetailStandingNextValue:SetText("")
     else
-      REP_DetailStandingNextValue:SetText("(--> "..RENOWN_LEVEL_LABEL..(majorFactionData.renownLevel + 1)..")")
+      REP_DetailStandingNextValue:SetText("(--> "..REP_TXT.renown.." "..(majorFactionData.renownLevel + 1)..")")
     end
-    
-    REP_DetailStandingToExaltedHeader:SetText(RENOWN_LEVEL_LABEL.."to max")
+
+    REP_DetailStandingToExaltedHeader:SetText(REP_TXT.renown.." to max")
   else
     if (standingID >= 7) then
       REP_DetailStandingToExaltedHeader:SetText("")

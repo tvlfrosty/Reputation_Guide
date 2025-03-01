@@ -3344,9 +3344,9 @@ function REP:DumpReputationChangesToChatForSingleFaction(info)
       else
         if info.isRenown then
           if info.change >= (info.maximum - info.current) then
-            REP:Print(REP.NEW_REP_COLOUR..string.format(FACTION_STANDING_INCREASED..REP_TXT.statsNextStanding, info.name, info.change, "+", info.session, RENOWN_LEVEL_LABEL..(info.renown + 1) + 1, info.maximum - info.current))
+            REP:Print(REP.NEW_REP_COLOUR..string.format(FACTION_STANDING_INCREASED..REP_TXT.statsNextStanding, info.name, info.change, "+", info.session, REP_TXT.renown.." "..(info.renown + 1) + 1, info.maximum - info.current))
           else
-            REP:Print(REP.NEW_REP_COLOUR..string.format(FACTION_STANDING_INCREASED..REP_TXT.statsNextStanding, info.name, info.change, "+", info.session, RENOWN_LEVEL_LABEL..info.renown + 1, info.maximum - info.current))
+            REP:Print(REP.NEW_REP_COLOUR..string.format(FACTION_STANDING_INCREASED..REP_TXT.statsNextStanding, info.name, info.change, "+", info.session, REP_TXT.renown.." "..info.renown + 1, info.maximum - info.current))
           end
         elseif info.isFriend then
           REP:Print(REP.NEW_REP_COLOUR..string.format(FACTION_STANDING_INCREASED..REP_TXT.statsNextStanding, info.name, info.change, "+", info.session, REP:GetFriendshipStandingLabelAsBackup(info), info.maximum - info.current))
@@ -3746,7 +3746,12 @@ function REP_GetReputationGains(factionIndex, factionID)
       reputationNeededCurrent = majorFactionData.renownLevelThreshold
       reputationMissingCurrent = majorFactionData.renownLevelThreshold - majorFactionData.renownReputationEarned
       
-      local maxFactionLevel = REP.MaxFactionLevel[factionID]
+      local maxFactionLevel = 25
+
+      if(REP.MaxFactionLevel[factionID]) then
+        maxFactionLevel = REP.MaxFactionLevel[factionID]
+      end
+      
       local maxRenown = maxFactionLevel * majorFactionData.renownLevelThreshold
       reputationNeededToMax = maxRenown - reputationGainedTotal
     end

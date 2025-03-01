@@ -191,6 +191,7 @@ REP_TXT.quest2	= "Quest:"
 REP_TXT.itemsRequired	= "Items required"
 REP_TXT.general2	= "General:"
 REP_TXT.maxStanding	= "Yields reputation until"
+REP_TXT.renown = "Renown"
 -- skills
 REP_TXT.skillHerb	= "Herbalism"
 REP_TXT.skillMine	= "Mining"

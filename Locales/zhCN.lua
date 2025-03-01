@@ -189,6 +189,7 @@ if (GetLocale() =="zhCN") then
   REP_TXT.itemsRequired	= "需要物品"
   REP_TXT.general2	= "General:"
   REP_TXT.maxStanding	= "产生声望直到"
+  REP_TXT.renown = "Renown"
   -- skills
   REP_TXT.skillHerb	= "草药"
   REP_TXT.skillMine	= "采矿"

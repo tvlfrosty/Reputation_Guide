@@ -194,6 +194,7 @@ if (GetLocale() == "deDE") then
   REP_TXT.itemsRequired	= "Benötigte Gegenstände"
   REP_TXT.general2	= "Allgemein:"
   REP_TXT.maxStanding	= "Gibt ruf bis"
+  REP_TXT.renown = "Renown"
   -- skills
   REP_TXT.skillHerb	= "Kräuterkunde"
   REP_TXT.skillMine	= "Bergbau"

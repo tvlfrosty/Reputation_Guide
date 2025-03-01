@@ -673,6 +673,7 @@ function REP:SetZoneIdsBasedOnExpansion()
     zone.Hallowfall = 2215
     zone.The_Ringing_Deeps = 2214
     zone.Azj_Kahet = 2255
+    zone.Undermine = 2346
   end
 
   REP.zone = zone

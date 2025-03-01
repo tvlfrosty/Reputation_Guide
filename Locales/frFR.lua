@@ -191,6 +191,7 @@ if (GetLocale() =="frFR") then
   REP_TXT.itemsRequired	= "Objets nécessaires"
   REP_TXT.general2	= "Géneral:"
   REP_TXT.maxStanding	= "Donne de la réputation jusqu'à "
+  REP_TXT.renown = "Renown"
   -- skills
   REP_TXT.skillHerb	= "Herborisme"
   REP_TXT.skillMine	= "Minage"

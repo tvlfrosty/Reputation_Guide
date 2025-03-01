@@ -50,15 +50,17 @@ function REP_InitEnFactionGains(guildName, guildCapBase)
 		REP_AddMob(169, 1, 7, "Southsea Privateer", 2.5, zone.The_Barrens)
 		REP_AddMob(169, 1, 7, "Baron Longshore", 12.5, zone.The_Barrens)
 	else
-    ---- Mobs
-    REP_AddMob(169, 1, 7, 11, 5, zone.The_Cape_of_Stranglethorn)
-		REP_AddMob(169, 1, 7, 12, 2.5, zone.The_Cape_of_Stranglethorn)
-		REP_AddMob(169, 1, 7, 13, 2.5, zone.The_Cape_of_Stranglethorn)
-    REP_AddMob(169, 1, 7, 17, 7.5, zone.The_Cape_of_Stranglethorn)
-    REP_AddMob(169, 1, 7, 14, 5, zone.Northern_Stranglethorn)
-    REP_AddMob(169, 1, 7, 15, 12.5, zone.Northern_Stranglethorn)
-    REP_AddMob(169, 1, 7, 15, 7.5, zone.Northern_Stranglethorn)
-    REP_AddMob(169, 1, 7, "Cap'n Garvey & Alicia Cuthbert", 5, zone.Northern_Barrens)
+    if not REP.ShowTheWarWithinPhaseTwo then
+      ---- Mobs
+      REP_AddMob(169, 1, 7, 11, 5, zone.The_Cape_of_Stranglethorn)
+      REP_AddMob(169, 1, 7, 12, 2.5, zone.The_Cape_of_Stranglethorn)
+      REP_AddMob(169, 1, 7, 13, 2.5, zone.The_Cape_of_Stranglethorn)
+      REP_AddMob(169, 1, 7, 17, 7.5, zone.The_Cape_of_Stranglethorn)
+      REP_AddMob(169, 1, 7, 14, 5, zone.Northern_Stranglethorn)
+      REP_AddMob(169, 1, 7, 15, 12.5, zone.Northern_Stranglethorn)
+      REP_AddMob(169, 1, 7, 15, 7.5, zone.Northern_Stranglethorn)
+      REP_AddMob(169, 1, 7, "Cap'n Garvey & Alicia Cuthbert", 5, zone.Northern_Barrens)
+    end
 	end
 
 	---------------------------
@@ -4967,6 +4969,56 @@ end
     ---------------------------
 		-- Earthen 2645 --
 		---------------------------
+
+    -----------------------------------
+		-- The Cartels of Undermine 2653 --
+		-----------------------------------
+    ---- Mobs
+    REP_AddMob(2653, 1, 20, "All rare mobs", 50, zone.Undermine, nil, true)
+    ---- General (Weekly Quests)
+		REP_AddGeneral(2653, 1, 20, "Many Jobs, Handle It!", 1000, "Weekly Quest", "Complete the Many Jobs, Handle It! weekly quest to gain reputation.", nil, nil, true) -- QuestID: 85869
+    REP_AddGeneral(2653, 1, 20, "Urge to Surge", 1000, "Weekly Quest", "Complete the Urge to Surge weekly quest to gain reputation.", nil, nil, true) -- QuestID: 86775
+    REP_AddGeneral(2653, 1, 8, "Reduce, Reuse, Resell", 1000, "Weekly Quest", "Complete the Reduce, Reuse, Resell weekly quest to gain reputation.", nil, nil, true) -- QuestID: 85879
+
+    ------------------------------
+		-- Darkfuse Solutions 2669 --
+		------------------------------    
+
+    ------------------------------
+		-- Venture Company 2671 --
+		------------------------------
+    ---- General (Weekly Quests)
+		REP_AddGeneral(2671, 1, 8, "Many Jobs, Handle It!", 1000, "Weekly Quest", "Complete the Many Jobs, Handle It! weekly quest to gain reputation.") -- QuestID: 85869
+    REP_AddGeneral(2671, 1, 8, "Urge to Surge", 1000, "Weekly Quest", "Complete the Urge to Surge weekly quest to gain reputation.") -- QuestID: 86775
+    REP_AddGeneral(2671, 1, 8, "Reduce, Reuse, Resell", 1000, "Weekly Quest", "Complete the Reduce, Reuse, Resell weekly quest to gain reputation.") -- QuestID: 85879
+
+    ------------------------------
+		-- The Bilgewater Cartel 2673 --
+		------------------------------
+    ---- General (Weekly Quests)
+		REP_AddGeneral(2673, 1, 8, "Many Jobs, Handle It!", 1000, "Weekly Quest", "Complete the Many Jobs, Handle It! weekly quest to gain reputation.") -- QuestID: 85869
+    REP_AddGeneral(2673, 1, 8, "Urge to Surge", 1000, "Weekly Quest", "Complete the Urge to Surge weekly quest to gain reputation.") -- QuestID: 86775
+    REP_AddGeneral(2673, 1, 8, "Reduce, Reuse, Resell", 1000, "Weekly Quest", "Complete the Reduce, Reuse, Resell weekly quest to gain reputation.") -- QuestID: 85879
+
+    ------------------------------
+		-- The Blackwater Cartel 2675 --
+		------------------------------
+    ---- General (Weekly Quests)
+		REP_AddGeneral(2675, 1, 8, "Many Jobs, Handle It!", 1000, "Weekly Quest", "Complete the Many Jobs, Handle It! weekly quest to gain reputation.") -- QuestID: 85869
+    REP_AddGeneral(2675, 1, 8, "Urge to Surge", 1000, "Weekly Quest", "Complete the Urge to Surge weekly quest to gain reputation.") -- QuestID: 86775
+    REP_AddGeneral(2675, 1, 8, "Reduce, Reuse, Resell", 1000, "Weekly Quest", "Complete the Reduce, Reuse, Resell weekly quest to gain reputation.") -- QuestID: 85879
+
+    ------------------------------
+		-- Steamwheedle Cartel 2677 --
+		------------------------------
+    ---- General (Weekly Quests)
+		REP_AddGeneral(2677, 1, 8, "Many Jobs, Handle It!", 1000, "Weekly Quest", "Complete the Many Jobs, Handle It! weekly quest to gain reputation.") -- QuestID: 85869
+    REP_AddGeneral(2677, 1, 8, "Urge to Surge", 1000, "Weekly Quest", "Complete the Urge to Surge weekly quest to gain reputation.") -- QuestID: 86775
+    REP_AddGeneral(2677, 1, 8, "Reduce, Reuse, Resell", 1000, "Weekly Quest", "Complete the Reduce, Reuse, Resell weekly quest to gain reputation.") -- QuestID: 85879
+
+    ----------------------------------------
+		-- Gallagio Loyalty Rewards Club 2685 --
+		----------------------------------------
 
 		if (REP.IsAlliance) then
 			-- Alliance

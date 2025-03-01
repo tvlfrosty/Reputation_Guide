@@ -191,6 +191,7 @@ if (GetLocale() =="ruRU") then
   REP_TXT.itemsRequired	= "Вещей необходимо"
   REP_TXT.general2	= "Общий:"
   REP_TXT.maxStanding	= "Дает репутацию, пока не достигнуто"
+  REP_TXT.renown = "Renown"
   -- skills
   REP_TXT.skillHerb	= "Травничество"
   REP_TXT.skillMine	= "Горное дело"

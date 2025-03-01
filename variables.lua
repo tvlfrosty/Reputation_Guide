@@ -197,6 +197,7 @@ REP.ShowDragonflightPhaseTwo = false
 REP.ShowDragonflightPhaseThree = false
 -- The War Within
 REP.ShowTheWarWithinPhaseOne = false
+REP.ShowTheWarWithinPhaseTwo = false
 -- Midnight
 REP.ShowMidnightPhaseOne = false
 -- The Last Titan
@@ -269,6 +270,7 @@ REP.IsDragonflightPhaseTwo = false
 REP.IsDragonflightPhaseThree = false
 -- The War Within
 REP.IsTheWarWithinPhaseOne = false
+REP.IsTheWarWithinPhaseTwo = false
 -- Midnight
 REP.IsMidnightPhaseOne = false
 -- The Last Titan
@@ -425,6 +427,7 @@ function REP:GetActivePhase(gameBuildVersion)
   if gameBuildVersion > 100000 then REP.ShowDragonflightPhaseThree = true end
   -- The War Within
   if gameBuildVersion > 109000 then REP.ShowTheWarWithinPhaseOne = true end
+  if gameBuildVersion > 110000 then REP.ShowTheWarWithinPhaseTwo = true end
   -- Midnight 
   if gameBuildVersion > 119000 then REP.ShowMidnightPhaseOne = true end
   -- The Last Titan
@@ -499,7 +502,8 @@ function REP:GetActivePhase(gameBuildVersion)
   if REP.ShowDragonflightPhaseTwo and not REP.ShowDragonflightPhaseThree then REP.IsDragonflightPhaseTwo = true end
   if REP.ShowDragonflightPhaseThree and not REP.ShowTheWarWithinPhaseOne then REP.IsDragonflightPhaseThree = true end
   -- The War Within
-  if REP.ShowTheWarWithinPhaseOne and not REP.ShowMidnightPhaseOne then REP.IsTheWarWithinPhaseOne = true end
+  if REP.ShowTheWarWithinPhaseOne and not REP.ShowTheWarWithinPhaseTwo then REP.IsTheWarWithinPhaseOne = true end
+  if REP.ShowTheWarWithinPhaseOne and not REP.ShowMidnightPhaseOne then REP.IsTheWarWithinPhaseTwo = true end  
   -- Midnight
   if REP.ShowMidnightPhaseOne and not REP.ShowTheLastTitanPhaseOne then REP.IsMidnightPhaseOne = true end
   -- The Last Titan
@@ -608,6 +612,7 @@ function REP:ResetsActiveExpansionAndPhase()
   REP.ShowDragonflightPhaseThree = false
   -- The War Within
   REP.ShowTheWarWithinPhaseOne = false
+  REP.ShowTheWarWithinPhaseTwo = false
   -- Midnight
   REP.ShowMidnightPhaseOne = false
   -- The Last Titan
@@ -680,6 +685,7 @@ function REP:ResetsActiveExpansionAndPhase()
   REP.IsDragonflightPhaseThree = false
   -- The War Within
   REP.IsTheWarWithinPhaseOne = false
+  REP.IsTheWarWithinPhaseTwo = false
   -- Midnight
   REP.IsMidnightPhaseOne = false
   -- The Last Titan
@@ -718,6 +724,7 @@ REP.MaxFactionLevel[2593] = 40 -- Keg Leg's Crew
 REP.MaxFactionLevel[2594] = 25 -- The Assembly of the Deeps
 REP.MaxFactionLevel[2600] = 25 -- The Severed Threads
 REP.MaxFactionLevel[2640] = 60 -- Brann Bronzebeard
+REP.MaxFactionLevel[2653] = 20 -- The Cartels of Undermine
 
 ---------------------------
 -- Max Friendship values
