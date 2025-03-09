@@ -2894,14 +2894,16 @@ end
 			---------------------------
 			-- Bilgewater Cartel 1133
 			---------------------------
-			---- General quests
-			REP_AddQuest(1133, 4, 8, 2, 65, "nil", REP.LIMIT_TYPE_Cook)
-			REP_AddQuest(1133, 4, 8, 4, 65, "nil", REP.LIMIT_TYPE_Fish)
-			---- General
-			REP_AddGeneral(1133, 4, 8, "Killing (grey level) mobs in instances while wearing the Bilgewater Cartel tabard.", 3, "Killing (grey level) mobs in instances while wearing the Bilgewater Cartel tabard.", "Killing (grey level) mobs in instances while wearing the Bilgewater Cartel tabard will reward you roughly 3 reputation per kill.")
-      REP_AddGeneral(1133, 4, 8, "Killing (grey level) bosses in instances while wearing the Bilgewater Cartel tabard.", 60, "Killing (grey level) bosses in instances while wearing the Bilgewater Cartel tabard.", "Killing (grey level) bosses in instances while wearing the Bilgewater Cartel tabard will reward you roughly 60 reputation per kill.")
-      REP_AddGeneral(1133, 4, 8, "Killing (green or higher level) mobs in instances while wearing the Bilgewater Cartel tabard.", 15, "Killing (green or higher level) mobs in instances while wearing the Bilgewater Cartel tabard.", "Killing (green or higher level) mobs in instances while wearing the Bilgewater Cartel tabard will reward you roughly 15 reputation per kill.")
-      REP_AddGeneral(1133, 4, 8, "Killing (green or higher level) bosses in instances while wearing the Bilgewater Cartel tabard.", 300, "Killing (green or higher level) bosses in instances while wearing the Bilgewater Cartel tabard.", "Killing (green or higher level) bosses in instances while wearing the Bilgewater Cartel tabard will reward you roughly 300 base reputation per kill.")
+      if not REP.ShowTheWarWithinPhaseTwo then
+        ---- General quests
+        REP_AddQuest(1133, 4, 8, 2, 65, "nil", REP.LIMIT_TYPE_Cook)
+        REP_AddQuest(1133, 4, 8, 4, 65, "nil", REP.LIMIT_TYPE_Fish)
+        ---- General
+        REP_AddGeneral(1133, 4, 8, "Killing (grey level) mobs in instances while wearing the Bilgewater Cartel tabard.", 3, "Killing (grey level) mobs in instances while wearing the Bilgewater Cartel tabard.", "Killing (grey level) mobs in instances while wearing the Bilgewater Cartel tabard will reward you roughly 3 reputation per kill.")
+        REP_AddGeneral(1133, 4, 8, "Killing (grey level) bosses in instances while wearing the Bilgewater Cartel tabard.", 60, "Killing (grey level) bosses in instances while wearing the Bilgewater Cartel tabard.", "Killing (grey level) bosses in instances while wearing the Bilgewater Cartel tabard will reward you roughly 60 reputation per kill.")
+        REP_AddGeneral(1133, 4, 8, "Killing (green or higher level) mobs in instances while wearing the Bilgewater Cartel tabard.", 15, "Killing (green or higher level) mobs in instances while wearing the Bilgewater Cartel tabard.", "Killing (green or higher level) mobs in instances while wearing the Bilgewater Cartel tabard will reward you roughly 15 reputation per kill.")
+        REP_AddGeneral(1133, 4, 8, "Killing (green or higher level) bosses in instances while wearing the Bilgewater Cartel tabard.", 300, "Killing (green or higher level) bosses in instances while wearing the Bilgewater Cartel tabard.", "Killing (green or higher level) bosses in instances while wearing the Bilgewater Cartel tabard will reward you roughly 300 base reputation per kill.")
+      end
 
 			---------------------------
 			-- Dragonmaw Clan 1172
