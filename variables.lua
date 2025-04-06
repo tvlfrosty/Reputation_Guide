@@ -150,6 +150,7 @@ REP.ShowClassicSODPhaseFour = false
 REP.ShowClassicSODPhaseFive = false
 REP.ShowClassicSODPhaseSix = false
 REP.ShowClassicSODPhaseSeven = false
+REP.ShowClassicSODPhaseEight = false
 -- The Burning Crusade
 REP.ShowTBCPhaseOne = false
 REP.ShowTBCPhaseTwo = false
@@ -223,6 +224,7 @@ REP.IsClassicSODPhaseFour = false
 REP.IsClassicSODPhaseFive = false
 REP.IsClassicSODPhaseSix = false
 REP.IsClassicSODPhaseSeven = false
+REP.IsClassicSODPhaseEight = false
 -- The Burning Crusade
 REP.IsTBCPhaseOne = false
 REP.IsTBCPhaseTwo = false
@@ -359,11 +361,11 @@ function REP:GetActivePhase(gameBuildVersion)
   ---- Show phases
   -- Classic
   if gameBuildVersion > 10000 then REP.ShowClassicPhaseOne = true end
-  if gameBuildVersion > 11302 then REP.ShowClassicPhaseTwo = true end
-  if gameBuildVersion > 11303 then REP.ShowClassicPhaseThree = true end
-  if gameBuildVersion > 11304 then REP.ShowClassicPhaseFour = true end
-  if gameBuildVersion > 11305 then REP.ShowClassicPhaseFive = true end
-  if gameBuildVersion > 11306 then REP.ShowClassicPhaseSix = true end
+  if gameBuildVersion >= 11302 then REP.ShowClassicPhaseTwo = true end
+  if gameBuildVersion >= 11303 then REP.ShowClassicPhaseThree = true end
+  if gameBuildVersion >= 11304 then REP.ShowClassicPhaseFour = true end
+  if gameBuildVersion >= 11305 then REP.ShowClassicPhaseFive = true end
+  if gameBuildVersion >= 11306 then REP.ShowClassicPhaseSix = true end
   -- Classic SOM
   if REP.IsClassicSOM then
     if gameBuildVersion > 11400 and gameBuildVersion < 11499 then REP.ShowClassicSOMPhaseOne = true end
@@ -380,6 +382,7 @@ function REP:GetActivePhase(gameBuildVersion)
     if gameBuildVersion > 11503 and gameBuildVersion < 11599 then REP.ShowClassicSODPhaseFive = true end
     if gameBuildVersion > 11504 and gameBuildVersion < 11599 then REP.ShowClassicSODPhaseSix = true end
     if gameBuildVersion > 11505 and gameBuildVersion < 11599 then REP.ShowClassicSODPhaseSeven = true end
+    if gameBuildVersion > 11506 and gameBuildVersion < 11599 then REP.ShowClassicSODPhaseEight = true end
   end
   -- The Burning Crusade
   if gameBuildVersion > 20000 then REP.ShowTBCPhaseOne = true end
@@ -454,7 +457,8 @@ function REP:GetActivePhase(gameBuildVersion)
     if REP.ShowClassicSODPhaseFour and not REP.ShowClassicSODPhaseFive then REP.IsClassicSODPhaseFour = true end
     if REP.ShowClassicSODPhaseFive and not REP.ShowClassicSODPhaseFive then REP.IsClassicSODPhaseFive = true end
     if REP.ShowClassicSODPhaseSix and not REP.ShowClassicSODPhaseSeven then REP.IsClassicSODPhaseSix = true end
-    if REP.ShowClassicSODPhaseSeven then REP.IsClassicSODPhaseSeven = true end
+    if REP.ShowClassicSODPhaseSeven and not REP.ShowClassicSODPhaseEight then REP.IsClassicSODPhaseSeven = true end
+    if REP.ShowClassicSODPhaseEight then REP.IsClassicSODPhaseEight = true end
   end
   -- The Burning Crusade
   if REP.ShowTBCPhaseOne and not REP.ShowTBCPhaseTwo then REP.IsTBCPhaseOne = true end
@@ -565,6 +569,7 @@ function REP:ResetsActiveExpansionAndPhase()
   REP.ShowClassicSODPhaseFive = false
   REP.ShowClassicSODPhaseSix = false
   REP.ShowClassicSODPhaseSeven = false
+  REP.ShowClassicSODPhaseEight = false
   -- The Burning Crusade
   REP.ShowTBCPhaseOne = false
   REP.ShowTBCPhaseTwo = false
@@ -638,6 +643,7 @@ function REP:ResetsActiveExpansionAndPhase()
   REP.IsClassicSODPhaseFive = false
   REP.IsClassicSODPhaseSix = false
   REP.IsClassicSODPhaseSeven = false
+  REP.IsClassicSODPhaseEight = false
   -- The Burning Crusade
   REP.IsTBCPhaseOne = false
   REP.IsTBCPhaseTwo = false
@@ -696,11 +702,12 @@ end
 -- Character variables --
 ---------------------------
 ---- Race/Side/Difficulty
-REP.IsHuman = false
-REP.IsDeathKnight = false
+REP.IsHeroic = false
 REP.IsAlliance = false
 REP.IsHorde = false
-REP.IsHeroic = false
+REP.IsHuman = false
+REP.IsDeathKnight = false
+REP.IsRogue = false
 ---- Guild Tracking
 REP.GuildName = nil
 ---- Garrison Trading post level 3

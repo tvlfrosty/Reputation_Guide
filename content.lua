@@ -286,10 +286,11 @@ function REP_InitEnFactionGains(guildName, guildCapBase)
 		end
 	else
 		---- Mobs
-		REP_AddMob(87, 1, 7, "Booty Bay Bruiser & Elite", 25, zone.The_Cape_of_Stranglethorn)
+		REP_AddMob(87, 1, 8, "Booty Bay Bruiser & Elite", 25, zone.The_Cape_of_Stranglethorn)
 		REP_AddMob(87, 1, 7, "Some Booty Bay Named", 5, zone.The_Cape_of_Stranglethorn)
 		REP_AddMob(87, 1, 7, "Most Booty Bay Named", 1, zone.The_Cape_of_Stranglethorn)
-		REP_AddMob(87, 1, 7, "Baron Revilgaz, Grizzlowe, & Wharfmaster Lozgil", 25, zone.The_Cape_of_Stranglethorn)
+		REP_AddMob(87, 1, 7, "Baron Revilgaz & Grizzlowe", 25, zone.The_Cape_of_Stranglethorn)
+		REP_AddMob(87, 1, 7, "Wharfmaster Lozgil", 15, zone.The_Cape_of_Stranglethorn)
 		REP_AddMob(87, 1, 7, "Viznik & Rickle Goldgrubber (bankers)", 25, zone.The_Cape_of_Stranglethorn)
     REP_AddMob(87, 1, 7, "Most Faldir's Cove Named", 5, zone.Arathi_Highlands)
 	end
@@ -324,7 +325,7 @@ function REP_InitEnFactionGains(guildName, guildCapBase)
 		REP_AddMob(529, 4, 8, "Bosses in Stratholme and Scholomance", 25)
 	else
 		---- Quests
-	  REP_AddQuest(529, 7, 8, "Aberrations of Bone", 1000) -- Aberrations of Bone QuestID: 28756
+	  REP_AddQuest(529, 7, 8, "Aberrations of Bone", 2000) -- Aberrations of Bone QuestID: 28756
 		if (REP.AfterLegion) then
 			REP_AddQuest(529, 7, 8, "Annals of the Silver Hand", 2000) -- Annals of the Silver Hand QuestID: 28755
 		end
@@ -336,30 +337,32 @@ function REP_InitEnFactionGains(guildName, guildCapBase)
 	-- Darkmoon Faire 909
 	---------------------------
 	-- TODO: Find a way to work around the weird rep cut off of 2500/6000.
+	---- Quests
 	if (REP.IsClassic) then
 		---- Quests
-		REP_AddQuest(909, 4, 4, "Small Furry Paws", 100, {[5134] = 5}) -- Small Furry Paws QuestID: 7899
-		REP_AddQuest(909, 4, 4, "Torn Bear Pelts", 100, {[11407] = 5}) -- Torn Bear Pelts QuestID: 7900
-		REP_AddQuest(909, 4, 4, "Soft Bushy Tails", 100, {[4582] = 5}) -- Soft Bushy Tails QuestID: 7901
-		REP_AddQuest(909, 4, 4, "Vibrant Plumes", 100, {[5117] = 5}) -- Vibrant Plumes QuestID: 7902
-		REP_AddQuest(909, 4, 4, "Evil Bat Eyes", 100, {[11404] = 10}) -- Evil Bat Eyes QuestID: 7903
-		REP_AddQuest(909, 4, 4, "Glowing Scorpid Blood", 100, {[19933] = 10}) -- Glowing Scorpid Blood QuestID: 8222
-		REP_AddQuest(909, 4, 4, "Coarse Weightstone", 100, {[3240] = 10}) -- Coarse Weightstone QuestID: 7889
-		REP_AddQuest(909, 4, 4, "Heavy Grinding Stone", 100, {[3486] = 7}) -- Heavy Grinding Stone QuestID: 7890
-		REP_AddQuest(909, 4, 4, "Green Iron Bracers", 100, {[3835] = 3}) -- Green Iron Bracers QuestID: 7891
-		REP_AddQuest(909, 4, 4, "Big Black Mace", 100, {[7945] = 1}) -- Big Black Mace QuestID: 7892
-		REP_AddQuest(909, 4, 4, "Rituals of Strength", 100, {[12644] = 8}) -- Rituals of Strength QuestID: 7893
-		REP_AddQuest(909, 4, 4, "Copper Modulator", 100, {[4363] = 5}, 500) -- Copper Modulator QuestID: 7894
-		REP_AddQuest(909, 4, 4, "Whirring Bronze Gizmo", 100, {[4375] = 7}) -- Whirring Bronze Gizmo QuestID: 7895
-		REP_AddQuest(909, 4, 4, "Green Fireworks", 100, {[9313] = 36}) -- Green Fireworks QuestID: 7896
-		REP_AddQuest(909, 4, 4, "Mechanical Repair Kits", 100, {[11590] = 6}) -- Mechanical Repair Kits QuestID: 7897
-		REP_AddQuest(909, 4, 4, "Thorium Widget", 100, {[15994] = 6}) -- Thorium Widget QuestID: 7898
-		REP_AddQuest(909, 4, 4, "Carnival Boots", 100, {[2309] = 3}) -- Carnival Boots QuestID: 7881
-		REP_AddQuest(909, 4, 4, "Carnival Jerkins", 100, {[2314] = 3}) -- Carnival Jerkins QuestID: 7882
-		REP_AddQuest(909, 4, 4, "The World's Largest Gnome!", 100, {[5739] = 3}) -- The World's Largest Gnome! QuestID: 7883
-		REP_AddQuest(909, 4, 4, "Crocolisk Boy and the Bearded Murloc", 100, {[8185] = 1}) -- Crocolisk Boy and the Bearded Murloc QuestID: 7884
-		REP_AddQuest(909, 4, 4, "Armor Kits", 100, {[15564] = 8}) -- Armor Kits QuestID: 7885
-		---- Quests (Decks)
+		REP_AddQuest(909, 4, 4, 7881, 100, {[2309] = 3}) -- Carnival Boots QuestID: 7881
+		REP_AddQuest(909, 4, 4, 7882, 100, {[2314] = 3}) -- Carnival Jerkins QuestID: 7882
+		REP_AddQuest(909, 4, 4, 7883, 100, {[5739] = 3}) -- The World's Largest Gnome! QuestID: 7883
+		REP_AddQuest(909, 4, 4, 7884, 100, {[8185] = 1}) -- Crocolisk Boy and the Bearded Murloc QuestID: 7884
+		REP_AddQuest(909, 4, 4, 7885, 100, {[15564] = 8}) -- Armor Kits QuestID: 7885
+		REP_AddQuest(909, 4, 4, 7889, 100, {[3240] = 10}) -- Coarse Weightstone QuestID: 7889
+		REP_AddQuest(909, 4, 4, 7890, 100, {[3486] = 7}) -- Heavy Grinding Stone QuestID: 7890
+		REP_AddQuest(909, 4, 4, 7891, 100, {[3835] = 3}) -- Green Iron Bracers QuestID: 7891
+		REP_AddQuest(909, 4, 4, 7892, 100, {[7945] = 1}) -- Big Black Mace QuestID: 7892
+		REP_AddQuest(909, 4, 4, 7893, 100, {[12644] = 8}) -- Rituals of Strength QuestID: 7893
+		REP_AddQuest(909, 4, 4, 7894, 100, {[4363] = 5}) -- Copper Modulator QuestID: 7894
+		REP_AddQuest(909, 4, 4, 7895, 100, {[4375] = 7}) -- Whirring Bronze Gizmo QuestID: 7895
+		REP_AddQuest(909, 4, 4, 7896, 100, {[9313] = 36}) -- Green Fireworks QuestID: 7896
+		REP_AddQuest(909, 4, 4, 7897, 100, {[11590] = 6}) -- Mechanical Repair Kits QuestID: 7897
+		REP_AddQuest(909, 4, 4, 7898, 100, {[15994] = 6}) -- Thorium Widget QuestID: 7898
+		REP_AddQuest(909, 4, 4, 7899, 100, {[5134] = 5}) -- Small Furry Paws QuestID: 7899
+		REP_AddQuest(909, 4, 4, 7900, 100, {[11407] = 5}) -- Torn Bear Pelts QuestID: 7900
+		REP_AddQuest(909, 4, 4, 7901, 100, {[4582] = 5}) -- Soft Bushy Tails QuestID: 7901
+		REP_AddQuest(909, 4, 4, 7902, 100, {[5117] = 5}) -- Vibrant Plumes QuestID: 7902
+		REP_AddQuest(909, 4, 4, 7903, 100, {[11404] = 10}) -- Evil Bat Eyes QuestID: 7903
+		REP_AddQuest(909, 4, 4, 8222, 100, {[19933] = 10}) -- Glowing Scorpid Blood QuestID: 8222
+    
+		------ Darkmoon Faire Card decks
 		REP_AddQuest(909, 4, 8, 7929, 150, {[19267] = 1}) -- Darkmoon Elementals Deck QuestID: 7929
 		REP_AddQuest(909, 4, 8, 7907, 150, {[19228] = 1}) -- Darkmoon Beast Deck QuestID: 7907
 		REP_AddQuest(909, 4, 8, 7928, 150, {[19257] = 1}) -- Darkmoon Warlords Deck QuestID: 7928
@@ -372,122 +375,136 @@ function REP_InitEnFactionGains(guildName, guildCapBase)
       REP_AddQuest(909, 4, 8, 82056, 150, {[221299] = 1}) -- Darkmoon Nightmares Deck QuestID: 82056
     end
 
-		REP_AddQuest(909, 4, 8, "Your Fortune Awaits You...", 50, {[19423] = 1}) -- Quest ID: 7937, Item ID: 19423 "Sayge's Fortune #23" (not added to questdb.lua)
-    REP_AddQuest(909, 4, 8, "Your Fortune Awaits You...", 50, {[19424] = 1}) -- Quest ID: 7938, Item ID: 19424 "Sayge's Fortune #24" (not added to questdb.lua)
-		REP_AddQuest(909, 4, 8, "Your Fortune Awaits You...", 50, {[19443] = 1}) -- Quest ID: 7944, Item ID: 19443 "Sayge's Fortune #25" (not added to questdb.lua)
-		REP_AddQuest(909, 4, 8, "Your Fortune Awaits You...", 50, {[19452] = 1}) -- Quest ID: 7945, Item ID: 19452 "Sayge's Fortune #27" (not added to questdb.lua)
+		------ Darkmoon Faire Fortunes
+		REP_AddQuest(909, 4, 8, 7937, 50, {[19423] = 1}) -- Your Fortune Awaits You... Quest ID: 7937
+    REP_AddQuest(909, 4, 8, 7938, 50, {[19424] = 1}) -- Your Fortune Awaits You... Quest ID: 7938
+		REP_AddQuest(909, 4, 8, 7944, 50, {[19443] = 1}) -- Your Fortune Awaits You... Quest ID: 7944
+		REP_AddQuest(909, 4, 8, 7945, 50, {[19452] = 1}) -- Your Fortune Awaits You... Quest ID: 7945
 	else
 		if (not REP.AfterWotlk) then
-			---- Quests
-			REP_AddQuest(909, 4, 4, "Small Furry Paws", 250, {[5134] = 5}) -- Small Furry Paws QuestID: 7899
-			REP_AddQuest(909, 4, 4, "Torn Bear Pelts", 250, {[11407] = 5}) -- Torn Bear Pelts QuestID: 7900
-	 		REP_AddQuest(909, 4, 4, "Soft Bushy Tails", 250, {[4582] = 5}) -- Soft Bushy Tails QuestID: 7901
-			REP_AddQuest(909, 4, 4, "Vibrant Plumes", 250, {[5117] = 5}) -- Vibrant Plumes QuestID: 7902
-			REP_AddQuest(909, 4, 4, "Evil Bat Eyes", 250, {[11404] = 10}) -- Evil Bat Eyes QuestID: 7903
-			REP_AddQuest(909, 4, 4, "Glowing Scorpid Blood", 250, {[19933] = 10}) -- Glowing Scorpid Blood QuestID: 8222
-			REP_AddQuest(909, 4, 4, "Coarse Weightstone", 250, {[3240] = 10}) -- Coarse Weightstone QuestID: 7889
-			REP_AddQuest(909, 4, 4, "Heavy Grinding Stone", 250, {[3486] = 7}) -- Heavy Grinding Stone QuestID: 7890
-			REP_AddQuest(909, 4, 4, "Green Iron Bracers", 250, {[3835] = 3}) -- Green Iron Bracers QuestID: 7891
-			REP_AddQuest(909, 4, 4, "Big Black Mace", 250, {[7945] = 1}) -- Big Black Mace QuestID: 7892
-			REP_AddQuest(909, 4, 4, "Rituals of Strength", 100, {[12644] = 8}) -- Rituals of Strength QuestID: 7893
-			REP_AddQuest(909, 4, 4, "Copper Modulator", 250, {[4363] = 5}, 500) -- Copper Modulator QuestID: 7894
-			REP_AddQuest(909, 4, 4, "Whirring Bronze Gizmo", 250, {[4375] = 7}) -- Whirring Bronze Gizmo QuestID: 7895
-			REP_AddQuest(909, 4, 4, "Green Fireworks", 250, {[9313] = 36}) -- Green Fireworks QuestID: 7896
-			REP_AddQuest(909, 4, 4, "Mechanical Repair Kits", 250, {[11590] = 6}) -- Mechanical Repair Kits QuestID: 7897
-			REP_AddQuest(909, 4, 4, "Thorium Widget", 250, {[15994] = 6}) -- Thorium Widget QuestID: 7898
-			REP_AddQuest(909, 4, 4, "Carnival Boots", 250, {[2309] = 3}) -- Carnival Boots QuestID: 7881
-			REP_AddQuest(909, 4, 4, "Carnival Jerkins", 250, {[2314] = 3}) -- Carnival Jerkins QuestID: 7882
-			REP_AddQuest(909, 4, 4, "The World's Largest Gnome!", 250, {[5739] = 3}) -- The World's Largest Gnome! QuestID: 7883
-			REP_AddQuest(909, 4, 4, "Crocolisk Boy and the Bearded Murloc", 250, {[8185] = 1}) -- Crocolisk Boy and the Bearded Murloc QuestID: 7884
-			REP_AddQuest(909, 4, 4, "Armor Kits", 250, {[15564] = 8}) -- Armor Kits QuestID: 7885
+			REP_AddQuest(909, 4, 4, 7881, 250, {[2309] = 3}) -- Carnival Boots QuestID: 7881
+			REP_AddQuest(909, 4, 4, 7882, 250, {[2314] = 3}) -- Carnival Jerkins QuestID: 7882
+			REP_AddQuest(909, 4, 4, 7883, 250, {[5739] = 3}) -- The World's Largest Gnome! QuestID: 7883
+			REP_AddQuest(909, 4, 4, 7884, 250, {[8185] = 1}) -- Crocolisk Boy and the Bearded Murloc QuestID: 7884
+			REP_AddQuest(909, 4, 4, 7885, 250, {[15564] = 8}) -- Armor Kits QuestID: 7885
+			REP_AddQuest(909, 4, 4, 7889, 250, {[3240] = 10}) -- Coarse Weightstone QuestID: 7889
+			REP_AddQuest(909, 4, 4, 7890, 250, {[3486] = 7}) -- Heavy Grinding Stone QuestID: 7890
+			REP_AddQuest(909, 4, 4, 7891, 250, {[3835] = 3}) -- Green Iron Bracers QuestID: 7891
+			REP_AddQuest(909, 4, 4, 7892, 250, {[7945] = 1}) -- Big Black Mace QuestID: 7892
+			REP_AddQuest(909, 4, 4, 7893, 250, {[12644] = 8}) -- Rituals of Strength QuestID: 7893
+			REP_AddQuest(909, 4, 4, 7894, 250, {[4363] = 5}) -- Copper Modulator QuestID: 7894
+			REP_AddQuest(909, 4, 4, 7895, 250, {[4375] = 7}) -- Whirring Bronze Gizmo QuestID: 7895
+			REP_AddQuest(909, 4, 4, 7896, 250, {[9313] = 36}) -- Green Fireworks QuestID: 7896
+			REP_AddQuest(909, 4, 4, 7897, 250, {[11590] = 6}) -- Mechanical Repair Kits QuestID: 7897
+			REP_AddQuest(909, 4, 4, 7898, 250, {[15994] = 6}) -- Thorium Widget QuestID: 7898
+			REP_AddQuest(909, 4, 4, 7899, 250, {[5134] = 5}) -- Small Furry Paws QuestID: 7899
+			REP_AddQuest(909, 4, 4, 7900, 250, {[11407] = 5}) -- Torn Bear Pelts QuestID: 7900
+			REP_AddQuest(909, 4, 4, 7901, 250, {[4582] = 5}) -- Soft Bushy Tails QuestID: 7901
+			REP_AddQuest(909, 4, 4, 7902, 250, {[5117] = 5}) -- Vibrant Plumes QuestID: 7902
+			REP_AddQuest(909, 4, 4, 7903, 250, {[11404] = 10}) -- Evil Bat Eyes QuestID: 7903
+			REP_AddQuest(909, 4, 4, 8222, 250, {[19933] = 10}) -- Glowing Scorpid Blood QuestID: 8222
+		else
+			REP_AddQuest(909, 1, 8, 29443, 250, {[71635] = 1}) -- A Curious Crystal QuestID: 29443
+			REP_AddQuest(909, 1, 8, 29446, 250, {[71638] = 1}) -- A Wondrous Weapon QuestID: 29446
+			REP_AddQuest(909, 1, 8, 29456, 250, {[71951] = 1}) -- A Captured Banner QuestID: 29456
+			REP_AddQuest(909, 1, 8, 29444, 250, {[71636] = 1}) -- An Exotic Egg QuestID: 29444
+			REP_AddQuest(909, 1, 8, 29445, 250, {[71637] = 1}) -- An Intriguing Grimoire QuestID: 29445
+			REP_AddQuest(909, 1, 8, 29458, 250, {[71953] = 1}) -- The Captured Journal QuestID: 29458
+			REP_AddQuest(909, 1, 8, 29457, 250, {[71952] = 1}) -- The Enemy's Insignia QuestID: 29457
+			REP_AddQuest(909, 1, 8, 29451, 250, {[71715] = 1}) -- The Master Strategist QuestID: 29451
+			REP_AddQuest(909, 1, 8, 29464, 250, {[71716] = 1}) -- Tools of Divination QuestID: 29464
+			------ Darkmoon Faire Games
+			REP_AddQuest(909, 1, 8, 29463, 250) -- It's Hammer Time QuestID: 29463
+			REP_AddQuest(909, 1, 8, 29438, 250) -- He Shoots, He Scores! QuestID: 29438
+			REP_AddQuest(909, 1, 8, 29455, 250) -- Target: Turtle QuestID: 29455
+			REP_AddQuest(909, 1, 8, 29436, 250) -- The Humanoid Cannonball QuestID: 29436
+			REP_AddQuest(909, 1, 8, 29434, 250) -- Tonk Commander QuestID: 29434
+			REP_AddQuest(909, 1, 8, 29433, 250) -- Test Your Strength QuestID: 29433
+			-- REP_AddQuest(909, 1, 8, 29761, 250) -- Master Pit Fighter QuestID: 29761 (TODO: check if quest gives rep, all sources atm say it doesn't.)
+			------ Main profesion
+			REP_AddQuest(909, 1, 8, 29514, 250, nil, REP.LIMIT_TYPE_Herb) -- Herbs for Healing QuestID: 29514
+			REP_AddQuest(909, 1, 8, 29519, 250, nil, REP.LIMIT_TYPE_Skin) -- Tan My Hide QuestID: 29519
+			REP_AddQuest(909, 1, 8, 29518, 250, nil, REP.LIMIT_TYPE_Mine) -- Rearm, Reuse, Recycle QuestID: 29518
+			REP_AddQuest(909, 1, 8, 29511, 250, nil, REP.LIMIT_TYPE_Engi) -- Talkin' Tonks QuestID: 29511
+			REP_AddQuest(909, 1, 8, 29506, 250, nil, REP.LIMIT_TYPE_Alch) -- A Fizzy Fusion QuestID: 29506
+			REP_AddQuest(909, 1, 8, 29508, 250, nil, REP.LIMIT_TYPE_Blac) -- Baby Needs Two Pair of Shoes QuestID: 29508
+			REP_AddQuest(909, 1, 8, 29520, 250, nil, REP.LIMIT_TYPE_Tail) -- Banners, Banners Everywhere! QuestID: 29520
+			REP_AddQuest(909, 1, 8, 29517, 250, nil, REP.LIMIT_TYPE_Leat) -- Eyes on the Prizes QuestID: 29517
+			REP_AddQuest(909, 1, 8, 29510, 250, nil, REP.LIMIT_TYPE_Ench) -- Putting Trash to Good Use QuestID: 29510
+			REP_AddQuest(909, 1, 8, 29516, 250, nil, REP.LIMIT_TYPE_Jewel) -- Keeping the Faire Sparkling QuestID: 29516
+			REP_AddQuest(909, 1, 8, 29515, 250, nil, REP.LIMIT_TYPE_Incr) -- Writing the Future QuestID: 29515
+			------ Secondary profesion
+			REP_AddQuest(909, 1, 8, 29507, 250, nil, REP.LIMIT_TYPE_Arch) -- Fun for the Little Ones QuestID: 29507
+			REP_AddQuest(909, 1, 8, 29509, 250, nil, REP.LIMIT_TYPE_Cook) -- Putting the Crunch in the Frog QuestID: 29509
+			REP_AddQuest(909, 1, 8, 29513, 250, nil, REP.LIMIT_TYPE_Fish) -- Spoilin' for Salty Sea Dogs QuestID: 29513
+			if not REP.ShowBfAPhaseOne then
+				REP_AddQuest(909, 1, 8, 29512, 250, nil, REP.LIMIT_TYPE_Aid) -- Putting the Carnies Back Together Again QuestID: 29512
+			end
 		end
-		---- Quests (Major decks)
+
+		------ Darkmoon Faire Card decks
 		REP_AddQuest(909, 4, 8, 7929, 350, {[19267] = 1}) -- Darkmoon Elementals Deck QuestID: 7929
 		REP_AddQuest(909, 4, 8, 7907, 350, {[19228] = 1}) -- Darkmoon Beast Deck QuestID: 7907
 		REP_AddQuest(909, 4, 8, 7928, 350, {[19257] = 1}) -- Darkmoon Warlords Deck QuestID: 7928
 		REP_AddQuest(909, 4, 8, 7927, 350, {[19277] = 1}) -- Darkmoon Portals Deck QuestID: 7927
-		REP_AddQuest(909, 4, 8, "Darkmoon Furies Deck", 350, {[31907] = 1}) -- Darkmoon Furies Deck QuestID: 10940
-		REP_AddQuest(909, 4, 8, "Darkmoon Lunacy Deck", 350, {[31914] = 1}) -- Darkmoon Lunacy Deck QuestID: 10941
-		REP_AddQuest(909, 4, 8, "Darkmoon Storms Deck", 350, {[31891] = 1}) -- Darkmoon Storms Deck QuestID: 10939
-		REP_AddQuest(909, 4, 8, "Darkmoon Blessings Deck", 350, {[31890] = 1}) -- Darkmoon Blessings Deck QuestID: 10938
-
-    REP_AddQuest(909, 4, 8, "Your Fortune Awaits You...", 75, {[19423] = 1}) -- Quest ID: 7937, Item ID: 19423 "Sayge's Fortune #23" (not added to questdb.lua)
-    if not REP.AfterWotlk then
-      REP_AddQuest(909, 4, 8, "Your Fortune Awaits You...", 75, {[19424] = 1}) -- Quest ID: 7938, Item ID: 19424 "Sayge's Fortune #24" (not added to questdb.lua)
-    end
-		REP_AddQuest(909, 4, 8, "Your Fortune Awaits You...", 75, {[19443] = 1}) -- Quest ID: 7944, Item ID: 19443 "Sayge's Fortune #25" (not added to questdb.lua)
-		REP_AddQuest(909, 4, 8, "Your Fortune Awaits You...", 75, {[19452] = 1}) -- Quest ID: 7945, Item ID: 19452 "Sayge's Fortune #27" (not added to questdb.lua)
-		-- REP_AddQuest(909, 4, 8, "Your Fortune Awaits You...", 75, {["Sayge's Fortune #23"] = 1}) -- Quest ID: 7937, Item ID: 19423 (not added to questdb.lua)
-		-- REP_AddQuest(909, 4, 8, "Your Fortune Awaits You...", 75, {["Sayge's Fortune #24"] = 1}) -- Quest ID: 7938, Item ID: 19424 (not added to questdb.lua)
-		-- REP_AddQuest(909, 4, 8, "Your Fortune Awaits You...", 75, {["Sayge's Fortune #25"] = 1}) -- Quest ID: 7944, Item ID: 19443 (not added to questdb.lua)
-		-- REP_AddQuest(909, 4, 8, "Your Fortune Awaits You...", 75, {["Sayge's Fortune #27"] = 1}) -- Quest ID: 7945, Item ID: 19452 (not added to questdb.lua)
-
-		if(REP.AfterTBC) then
-			---- Quests (Minor decks)
-			REP_AddQuest(909, 4, 8, 12517, 25, {[43039] = 1}) -- rogues-deck
-			REP_AddQuest(909, 4, 8, 12798, 25, {[42922] = 1}) -- swords-deck
-			REP_AddQuest(909, 4, 8, 12518, 25, {[44184] = 1}) -- mages-deck
-			REP_AddQuest(909, 4, 8, 13311, 25, {[44185] = 1}) -- demons-deck
-			---- Quests (Major decks)
-			REP_AddQuest(909, 4, 8, 13325, 350, {[44276] = 1}) -- darkmoon-chaos-deck
-			REP_AddQuest(909, 4, 8, 13326, 350, {[44326] = 1}) -- darkmoon-nobles-deck
-			REP_AddQuest(909, 4, 8, 13324, 350, {[44259] = 1}) -- darkmoon-prisms-deck
-			REP_AddQuest(909, 4, 8, 13327, 350, {[44294] = 1}) -- darkmoon-undeath-deck
-
-			if (REP.AfterWotlk) then
-				---- Quests (Major decks)
-				REP_AddQuest(909, 4, 8, 27667, 350, {[62046] = 1}) -- darkmoon-earthquake-deck
-				REP_AddQuest(909, 4, 8, 27665, 350, {[62045] = 1}) -- darkmoon-hurricane-deck
-				REP_AddQuest(909, 4, 8, 27666, 350, {[62044] = 1}) -- darkmoon-tsunami-deck
-				REP_AddQuest(909, 4, 8, 27664, 350, {[62021] = 1}) -- darkmoon-volcanic-deck
-				---- Dungons Arch
-				REP_AddQuest(909, 1, 8, 29443, 250, {[71635] = 1})
-				REP_AddQuest(909, 1, 8, 29446, 250, {[71638] = 1})
-				REP_AddQuest(909, 1, 8, 29456, 250, {[71951] = 1})
-				REP_AddQuest(909, 1, 8, 29444, 250, {[71636] = 1})
-				REP_AddQuest(909, 1, 8, 29445, 250, {[71637] = 1})
-				REP_AddQuest(909, 1, 8, 29458, 250, {[71953] = 1})
-				REP_AddQuest(909, 1, 8, 29457, 250, {[71952] = 1})
-				REP_AddQuest(909, 1, 8, 29451, 250, {[71715] = 1})
-				REP_AddQuest(909, 1, 8, 29464, 250, {[71716] = 1})
-				---- Darkmoon Game Token
-				------ Base Games
-				REP_AddQuest(909, 1, 8, 29463, 250)
-				REP_AddQuest(909, 1, 8, 29438, 250)
-				REP_AddQuest(909, 1, 8, 29455, 250)
-				REP_AddQuest(909, 1, 8, 29436, 250)
-				REP_AddQuest(909, 1, 8, 29434, 250)
-				REP_AddQuest(909, 1, 8, 29761, 250)
-				REP_AddQuest(909, 1, 8, 29433, 250)
-				------ Main profesion
-				REP_AddQuest(909, 1, 8, 29514, 250, "nil", REP.LIMIT_TYPE_Herb)
-				REP_AddQuest(909, 1, 8, 29519, 250, "nil", REP.LIMIT_TYPE_Skin)
-				REP_AddQuest(909, 1, 8, 29518, 250, "nil", REP.LIMIT_TYPE_Mine)
-				REP_AddQuest(909, 1, 8, 29511, 250, "nil", REP.LIMIT_TYPE_Engi)
-				REP_AddQuest(909, 1, 8, 29506, 250, "nil", REP.LIMIT_TYPE_Alch)
-				REP_AddQuest(909, 1, 8, 29508, 250, "nil", REP.LIMIT_TYPE_Blac)
-				REP_AddQuest(909, 1, 8, 29520, 250, "nil", REP.LIMIT_TYPE_Tail)
-				REP_AddQuest(909, 1, 8, 29517, 250, "nil", REP.LIMIT_TYPE_Leat)
-				REP_AddQuest(909, 1, 8, 29510, 250, "nil", REP.LIMIT_TYPE_Ench)
-				REP_AddQuest(909, 1, 8, 29516, 250, "nil", REP.LIMIT_TYPE_Jewel)
-				REP_AddQuest(909, 1, 8, 29515, 250, "nil", REP.LIMIT_TYPE_Incr)
-				------ Secondary profesion
-				REP_AddQuest(909, 1, 8, 29512, 250, "nil", REP.LIMIT_TYPE_Aid)
-				REP_AddQuest(909, 1, 8, 29507, 250, "nil", REP.LIMIT_TYPE_Arch)
-				REP_AddQuest(909, 1, 8, 29509, 250, "nil", REP.LIMIT_TYPE_Cook)
-				REP_AddQuest(909, 1, 8, 29513, 250, "nil", REP.LIMIT_TYPE_Fish)
-			end
+		
+		if REP.ShowTBCPhaseOne then
+			REP_AddQuest(909, 4, 8, 10940, 350, {[31907] = 1}) -- Darkmoon Furies Deck QuestID: 10940
+			REP_AddQuest(909, 4, 8, 10941, 350, {[31914] = 1}) -- Darkmoon Lunacy Deck QuestID: 10941
+			REP_AddQuest(909, 4, 8, 10939, 350, {[31891] = 1}) -- Darkmoon Storms Deck QuestID: 10939
+			REP_AddQuest(909, 4, 8, 10938, 350, {[31890] = 1}) -- Darkmoon Blessings Deck QuestID: 10938
 		end
+		
+		if REP.ShowWotlkPhaseOne then
+			REP_AddQuest(909, 4, 8, 12517, 25, {[43039] = 1}) -- Rogues Deck QuestID: 12517
+			REP_AddQuest(909, 4, 8, 12518, 25, {[44184] = 1}) -- Mages Deck QuestID: 12518
+			REP_AddQuest(909, 4, 8, 12798, 25, {[42922] = 1}) -- Swords Deck QuestID: 12798
+			REP_AddQuest(909, 4, 8, 13311, 25, {[44185] = 1}) -- Demons Deck QuestID: 13311
+			REP_AddQuest(909, 4, 8, 13324, 350, {[44259] = 1}) -- Darkmoon Prisms Deck QuestID: 13324
+			REP_AddQuest(909, 4, 8, 13325, 350, {[44276] = 1}) -- Darkmoon Chaos Deck QuestID: 13325
+			REP_AddQuest(909, 4, 8, 13326, 350, {[44326] = 1}) -- Darkmoon Nobles Deck QuestID: 13326
+			REP_AddQuest(909, 4, 8, 13327, 350, {[44294] = 1}) -- Darkmoon Undeath Deck QuestID: 13327
+		end
+		
+		if REP.ShowCataPhaseOne then
+			REP_AddQuest(909, 4, 8, 27664, 350, {[62021] = 1}) -- Darkmoon Volcanic Deck QuestID: 27664
+			REP_AddQuest(909, 4, 8, 27665, 350, {[62045] = 1}) -- Darkmoon Hurricane Deck QuestID: 27665
+			REP_AddQuest(909, 4, 8, 27666, 350, {[62044] = 1}) -- Darkmoon Tsunami Deck QuestID: 27666
+			REP_AddQuest(909, 4, 8, 27667, 350, {[62046] = 1}) -- Darkmoon Earthquake Deck QuestID: 27667
+		end
+		
+		if REP.ShowMoPPhaseOne then
+			REP_AddQuest(909, 4, 8, 30449, 350, {[79325] = 1}) -- Darkmoon Crane Deck QuestID: 30449
+			REP_AddQuest(909, 4, 8, 30450, 350, {[79324] = 1}) -- Darkmoon Ox Deck QuestID: 30450
+			REP_AddQuest(909, 4, 8, 30451, 350, {[79326] = 1}) -- Darkmoon Serpent Deck QuestID: 30451
+			REP_AddQuest(909, 4, 8, 30452, 350, {[79323] = 1}) -- Darkmoon Tiger Deck QuestID: 30452
+		end
+
+		------ Darkmoon Faire Fortunes
+		REP_AddQuest(909, 4, 8, 7937, 75, {[19423] = 1}) -- Your Fortune Awaits You... Quest ID: 7937
+    if not REP.AfterWotlk then
+      REP_AddQuest(909, 4, 8, 7938, 75, {[19424] = 1}) -- Your Fortune Awaits You... Quest ID: 7938
+    end
+		REP_AddQuest(909, 4, 8, 7944, 75, {[19443] = 1}) -- Your Fortune Awaits You... Quest ID: 7944
+		REP_AddQuest(909, 4, 8, 7945, 75, {[19452] = 1}) -- Your Fortune Awaits You... Quest ID: 7945
 	end
 
 	---------------------------
 	-- Ravenholdt 349 --
 	---------------------------
 	---- Mobs
-	REP_AddMob(349, 4, 6, "All Syndicate members", 5, zone.Hillsbrad_Foothills)
+	if (not REP.AfterWotlk) then
+		REP_AddMob(349, 4, 6, REP_TXT.syndicateMobs, 5, zone.Hillsbrad_Foothills)
+	else
+		REP_AddMob(349, 4, 6, REP_TXT.syndicateMobs, 5, zone.Arathi_Highlands)
+	end
 	---- Quests
-	if(REP_Class == 'Rogue') then
-		REP_AddQuest(349, 4, 4, 6701, 250, {[17124] = 1})
+	if(REP.IsRogue and not REP.AfterWotlk) then
+		if REP.IsClassic then
+			REP_AddQuest(349, 4, 4, 6701, 100, {[17124] = 1})
+		else
+			REP_AddQuest(349, 4, 4, 6701, 250, {[17124] = 1})
+		end
 	end
 	REP_AddQuest(349, 4, 8, 8249, 75, {[16885] = 5})
 
@@ -510,11 +527,8 @@ function REP_InitEnFactionGains(guildName, guildCapBase)
 	---------------------------
 	-- Thorium Brotherhood 59 --
 	---------------------------
-	---- Quests
-	REP_AddQuest(59, 4, 4, "Restoring Fiery Flux Supplies via Heavy Leather", 25, {[18944] = 2, [4234] = 10, [3857] = 1}) -- Restoring Fiery Flux Supplies via Heavy Leather QuestID: 8242
-	REP_AddQuest(59, 4, 4, "Restoring Fiery Flux Supplies via Iron", 25, {[18944] = 2, [3575] = 4, [3857] = 1}) -- Restoring Fiery Flux Supplies via Iron QuestID: 8241
-	REP_AddQuest(59, 4, 4, "Restoring Fiery Flux Supplies via Kingsblood", 25, {[18944] = 2, [3356] = 4, [3857] = 1}) -- Restoring Fiery Flux Supplies via Kingsblood QuestID: 7736	
-  if (not REP.AfterWotlk) then
+  ---- Quests
+  if (REP.IsClassic) then
     if REP.ShowClassicSODPhaseFour then
       REP_AddQuest(59, 4, 8, 84355, 200) -- More Like Lame-bringers! QuestID: 84355
       REP_AddQuest(59, 4, 8, 84356, 150) -- Oh, Shiny! QuestID: 84356
@@ -526,36 +540,45 @@ function REP_InitEnFactionGains(guildName, guildCapBase)
       REP_AddQuest(59, 4, 8, 84360, 200) -- Firefighting QuestID: 84360
       REP_AddQuest(59, 4, 8, 84372, 200) -- Lava Diving QuestID: 84372
     end
-    REP_AddQuest(59, 5, 5, "Gaining Acceptance", 25, {[18945] = 4}) -- Gaining Acceptance QuestID 13662
-    REP_AddQuest(59, 5, 5, 7737, 625, {[18945] = 100}) -- Gaining Even More Acceptance QuestID: 7737
-    if (REP.IsClassic) then
-      REP_AddQuest(59, 6, 8, 6642, 50, {[11370] = 10}) -- Favor Amongst the Brotherhood, Dark Iron Ore QuestID: 6642
-      REP_AddQuest(59, 6, 8, 6645, 150, {[17012] = 2}) -- Favor Amongst the Brotherhood, Core Leather QuestID: 6645
-      REP_AddQuest(59, 6, 8, 6646, 200, {[11382] = 1}) -- Favor Amongst the Brotherhood, Blood of the Mountain QuestID: 6646
-      REP_AddQuest(59, 6, 8, 6643, 200, {[17010] = 1}) -- Favor Amongst the Brotherhood, Fiery Core QuestID: 6643
-      REP_AddQuest(59, 6, 8, 6644, 200, {[17011] = 1}) -- Favor Amongst the Brotherhood, Lava Core QuestID: 6644
-    else
+    REP_AddQuest(59, 6, 8, 6642, 50, {[11370] = 10}) -- Favor Amongst the Brotherhood, Dark Iron Ore QuestID: 6642
+    REP_AddQuest(59, 6, 8, 6645, 150, {[17012] = 2}) -- Favor Amongst the Brotherhood, Core Leather QuestID: 6645
+    REP_AddQuest(59, 6, 8, 6646, 200, {[11382] = 1}) -- Favor Amongst the Brotherhood, Blood of the Mountain QuestID: 6646
+    REP_AddQuest(59, 6, 8, 6643, 200, {[17010] = 1}) -- Favor Amongst the Brotherhood, Fiery Core QuestID: 6643
+    REP_AddQuest(59, 6, 8, 6644, 200, {[17011] = 1}) -- Favor Amongst the Brotherhood, Lava Core QuestID: 6644
+  else
+    if (not REP.AfterWotlk) then
       REP_AddQuest(59, 6, 8, 6642, 75, {[11370] = 10}) -- Favor Amongst the Brotherhood, Dark Iron Ore QuestID: 6642
 			REP_AddQuest(59, 6, 8, 6645, 350, {[17012] = 2}) -- Favor Amongst the Brotherhood, Core Leather QuestID: 6645
 			REP_AddQuest(59, 6, 8, 6646, 500, {[11382] = 1}) -- Favor Amongst the Brotherhood, Blood of the Mountain QuestID: 6646
 			REP_AddQuest(59, 6, 8, 6643, 500, {[17010] = 1}) -- Favor Amongst the Brotherhood, Fiery Core QuestID: 6643
 			REP_AddQuest(59, 6, 8, 6644, 500, {[17011] = 1}) -- Favor Amongst the Brotherhood, Lava Core QuestID: 6644
+    else
+      REP_AddQuest(59, 6, 8, 6642, 1200, {[11370] = 10}) -- Favor Amongst the Brotherhood, Dark Iron Ore QuestID: 6642
+      REP_AddQuest(59, 6, 8, 6645, 1400, {[17012] = 2}) -- Favor Amongst the Brotherhood, Core Leather QuestID: 6645
+      REP_AddQuest(59, 6, 8, 6646, 2000, {[11382] = 1}) -- Favor Amongst the Brotherhood, Blood of the Mountain QuestID: 6646
+      REP_AddQuest(59, 6, 8, 6643, 2000, {[17010] = 1}) -- Favor Amongst the Brotherhood, Fiery Core QuestID: 6643
+      REP_AddQuest(59, 6, 8, 6644, 2000, {[17011] = 1}) -- Favor Amongst the Brotherhood, Lava Core QuestID: 6644
     end
+  end
+  if (not REP.AfterTBC) then
+    REP_AddQuest(59, 5, 5, 7737, 25, {[18945] = 4}) -- Gaining Acceptance QuestID 7737
   else
-    REP_AddQuest(59, 5, 7, "Gaining Acceptance", 60, {[18945] = 4}) -- Gaining Acceptance QuestID 13662
-    REP_AddQuest(59, 5, 7, 7737, 1500, {[18945] = 100}) -- Gaining Even More Acceptance QuestID: 7737
-    -- TODO: Check when rep values were changed
-    REP_AddQuest(59, 6, 8, 6642, 75, {[11370] = 10}) -- Favor Amongst the Brotherhood, Dark Iron Ore QuestID: 6642
-    REP_AddQuest(59, 6, 8, 6645, 1400, {[17012] = 2}) -- Favor Amongst the Brotherhood, Core Leather QuestID: 6645
-    REP_AddQuest(59, 6, 8, 6646, 2000, {[11382] = 1}) -- Favor Amongst the Brotherhood, Blood of the Mountain QuestID: 6646
-    REP_AddQuest(59, 6, 8, 6643, 2000, {[17010] = 1}) -- Favor Amongst the Brotherhood, Fiery Core QuestID: 6643
-    REP_AddQuest(59, 6, 8, 6644, 2000, {[17011] = 1}) -- Favor Amongst the Brotherhood, Lava Core QuestID: 6644
+    if (not REP.AfterWotlk) then
+      REP_AddQuest(59, 4, 4, 7736, 25, {[18944] = 2, [3356] = 4, [3857] = 1}) -- Restoring Fiery Flux Supplies via Kingsblood QuestID: 7736
+      REP_AddQuest(59, 4, 4, 8241, 25, {[18944] = 2, [3575] = 4, [3857] = 1}) -- Restoring Fiery Flux Supplies via Iron QuestID: 8241
+      REP_AddQuest(59, 4, 4, 8242, 25, {[18944] = 2, [4234] = 10, [3857] = 1}) -- Restoring Fiery Flux Supplies via Heavy Leather QuestID: 8242
+      REP_AddQuest(59, 5, 5, 13662, 25, {[18945] = 4}) -- Gaining Acceptance QuestID 13662
+      REP_AddQuest(59, 5, 5, 7737, 625, {[18945] = 100}) -- Gaining Even More Acceptance QuestID: 7737
+    else
+      REP_AddQuest(59, 7, 7, 13662, 60, {[18945] = 4}) -- Gaining Acceptance QuestID 13662
+      REP_AddQuest(59, 7, 7, 7737, 1500, {[18945] = 100}) -- Gaining Even More Acceptance QuestID: 7737
+    end
   end
 
 	---------------------------
 	-- Timbermaw Hold 576 --
 	---------------------------
-	if(REP.IsClassic) then
+	if (REP.IsClassic) then
 		---- Quests
 		REP_AddQuest(576, 2, 8, 8467, 50, {[21377] = 5})
 		REP_AddQuest(576, 2, 8, 8466, 50, {[21377] = 5})
@@ -568,42 +591,42 @@ function REP_InitEnFactionGains(guildName, guildCapBase)
 		REP_AddMob(576, 2, 8, "Ragepaw (Rare)", 50, zone.Felwood)
 		REP_AddMob(576, 2, 8, "High Chief Winterfall", 20, zone.Winterspring)
 		REP_AddMob(576, 2, 8, "Grizzle Snowpaw (Rare)", 50, zone.Winterspring)
-	else
-		if (REP.IsTBC) then
-			---- Quests
-			REP_AddQuest(576, 2, 8, 8467, 75, {[21377] = 5})
-			REP_AddQuest(576, 2, 8, 8466, 75, {[21377] = 5})
-			REP_AddQuest(576, 2, 8, 8469, 75, {[21383] = 5})
-			---- Mobs
-			REP_AddMob(576, 2, 6, "Deadwood Avenger, Den Watcher, Shaman, Gardener, Pathfinder & Warrior", 10, zone.Felwood)
-			REP_AddMob(576, 2, 6, "Winterfell Runner, Den Watcher, Shaman, Pathfinder, Totemic,  & Ursa", 10, zone.Winterspring)
-			REP_AddMob(576, 2, 8, "Chieftain Bloodmaw", 30, zone.Felwood)
-			REP_AddMob(576, 2, 8, "Overlord Ror", 30, zone.Felwood)
-			REP_AddMob(576, 2, 8, "Ragepaw (Rare)", 50, zone.Felwood)
-			REP_AddMob(576, 2, 8, "High Chief Winterfall", 20, zone.Winterspring)
-			REP_AddMob(576, 2, 8, "Grizzle Snowpaw (Rare)", 50, zone.Winterspring)
-		else
-			if (not REP.AfterWotlk) then
-				---- Quests
-				REP_AddQuest(576, 2, 8, 8467, 300, {[21377] = 5})
-				REP_AddQuest(576, 2, 8, 8466, 300, {[21377] = 5})
-				REP_AddQuest(576, 2, 8, 8469, 300, {[21383] = 5})
-			else
-				---- Quests
-				REP_AddQuest(576, 2, 8, 28395, 2000, {[21377] = 5})
-				REP_AddQuest(576, 2, 8, 28396, 2000, {[21377] = 5})
-				REP_AddQuest(576, 2, 8, 28523, 2000, {[21383] = 5})
-			end
-			---- Mobs
-			REP_AddMob(576, 2, 6, "Deadwood Avenger, Den Watcher, Shaman, Gardener, Pathfinder & Warrior", 20, zone.Felwood)
-			REP_AddMob(576, 2, 6, "Winterfell Runner, Den Watcher, Shaman, Pathfinder, Totemic,  & Ursa", 20, zone.Winterspring)
-			REP_AddMob(576, 2, 8, "Chieftain Bloodmaw", 60, zone.Felwood)
-			REP_AddMob(576, 2, 8, "Overlord Ror", 60, zone.Felwood)
-			REP_AddMob(576, 2, 8, "Ragepaw (Rare)", 100, zone.Felwood)
-			REP_AddMob(576, 2, 8, "High Chief Winterfall", 40, zone.Winterspring)
-			REP_AddMob(576, 2, 8, "Grizzle Snowpaw (Rare)", 100, zone.Winterspring)
-		end
-	end
+  end
+  if (REP.IsTBC) then
+    ---- Quests
+    REP_AddQuest(576, 2, 8, 8467, 75, {[21377] = 5})
+    REP_AddQuest(576, 2, 8, 8466, 75, {[21377] = 5})
+    REP_AddQuest(576, 2, 8, 8469, 75, {[21383] = 5})
+    ---- Mobs
+    REP_AddMob(576, 2, 6, "Deadwood Avenger, Den Watcher, Shaman, Gardener, Pathfinder & Warrior", 10, zone.Felwood)
+    REP_AddMob(576, 2, 6, "Winterfell Runner, Den Watcher, Shaman, Pathfinder, Totemic,  & Ursa", 10, zone.Winterspring)
+    REP_AddMob(576, 2, 8, "Chieftain Bloodmaw", 30, zone.Felwood)
+    REP_AddMob(576, 2, 8, "Overlord Ror", 30, zone.Felwood)
+    REP_AddMob(576, 2, 8, "Ragepaw (Rare)", 50, zone.Felwood)
+    REP_AddMob(576, 2, 8, "High Chief Winterfall", 20, zone.Winterspring)
+    REP_AddMob(576, 2, 8, "Grizzle Snowpaw (Rare)", 50, zone.Winterspring)
+  end
+  if (REP.AfterTBC) then
+    if (not REP.AfterWotlk) then
+      ---- Quests
+      REP_AddQuest(576, 2, 8, 8467, 300, {[21377] = 5})
+      REP_AddQuest(576, 2, 8, 8466, 300, {[21377] = 5})
+      REP_AddQuest(576, 2, 8, 8469, 300, {[21383] = 5})
+    else
+      ---- Quests
+      REP_AddQuest(576, 2, 8, 28395, 2000, {[21377] = 5})
+      REP_AddQuest(576, 2, 8, 28396, 2000, {[21377] = 5})
+      REP_AddQuest(576, 2, 8, 28523, 2000, {[21383] = 5})
+    end
+    ---- Mobs
+    REP_AddMob(576, 2, 6, "Deadwood Avenger, Den Watcher, Shaman, Gardener, Pathfinder & Warrior", 20, zone.Felwood)
+    REP_AddMob(576, 2, 6, "Winterfell Runner, Den Watcher, Shaman, Pathfinder, Totemic,  & Ursa", 20, zone.Winterspring)
+    REP_AddMob(576, 2, 8, "Chieftain Bloodmaw", 60, zone.Felwood)
+    REP_AddMob(576, 2, 8, "Overlord Ror", 60, zone.Felwood)
+    REP_AddMob(576, 2, 8, "Ragepaw (Rare)", 100, zone.Felwood)
+    REP_AddMob(576, 2, 8, "High Chief Winterfall", 40, zone.Winterspring)
+    REP_AddMob(576, 2, 8, "Grizzle Snowpaw (Rare)", 100, zone.Winterspring)
+  end
 
 	---------------------------
 	-- Brood of Nozdormu 910 --
@@ -633,25 +656,63 @@ function REP_InitEnFactionGains(guildName, guildCapBase)
 	---------------------------
 	-- Cenarion Circle 609 --
 	---------------------------
+  if (REP.ShowClassicPhaseFive) then
+    ---- Instances
+    REP_AddInstance(609, 4, 8, zone.Ruins_of_AhnQiraj, 3000)
+    REP_AddInstance(609, 4, 8, zone.Temple_of_AhnQiraj, 1200)
+  end
 	---- General
-	REP_AddGeneral(609, 4, 8, "Silithyst Geyser", 10, "Silithyst Geyser", "Turn in the Silithyst Geyser at your faction's camp.")
-	---- Quests
-	if (REP.IsClassic) then
+	REP_AddGeneral(609, 4, 8, "Silithyst Geyser", 10, "Silithyst Geyser", "Turn in the Silithyst Geyser at your faction's camp.")  
+  if (REP.IsClassic) then
+    ---- Quests
 		REP_AddQuest(609, 4, 8, 8319, 100, {[20404] = 10}) -- Encrypted Twilight Texts QuestID: 8319
 		REP_AddQuest(609, 4, 8, "Mortal Champions", 100, {[21229] = 1}) -- Mortal Champions QuestID: 8579
+    ---- Mobs
+	  REP_AddMob(609, 4, 5, "Any Twilight cultist mobs", 1)
+    REP_AddMob(609, 4, 6, "Twilight Flamereaver", 1)
+    REP_AddMob(609, 4, 6, "Twilight Keeper", 1)
+    REP_AddMob(609, 4, 6, "Twilight Lord Everun", 5)
+    REP_AddMob(609, 4, 6, "Twilight Prophet", 5)
 	else
+    ---- Quests
 		REP_AddQuest(609, 4, 8, 8319, 500, {[20404] = 10}) -- Encrypted Twilight Texts QuestID: 8319
 		REP_AddQuest(609, 4, 8, "Mortal Champions", 250, {[21229] = 1}) -- Mortal Champions QuestID: 8579
+    ---- Mobs
+    REP_AddMob(609, 4, 5, "Any Twilight cultist mobs", 10)
+    REP_AddMob(609, 4, 6, "Twilight Flamereaver", 10)
+    REP_AddMob(609, 4, 6, "Twilight Keeper", 10)
+    REP_AddMob(609, 4, 6, "Twilight Lord Everun", 10)
+    REP_AddMob(609, 4, 6, "Twilight Prophet", 30)
 	end
-	---- Mobs
-	REP_AddMob(609, 4, 5, "Any Twilight's Hammer mobs", 10)
-	---- Instances
-	REP_AddInstance(609, 4, 8, zone.Ruins_of_AhnQiraj, 3000)
-	REP_AddInstance(609, 4, 8, zone.AhnQiraj_The_Fallen_Kingdom, 1200)
+  if (not REP.AfterWotlk) then
+    ---- Quests
+    if REP.IsClassic then
+      REP_AddQuest(609, 4, 8, 8362, 50, {[20513] = 3}) -- Abyssal Crests QuestID: 8362
+      REP_AddQuest(609, 5, 8, 8363, 100, {[20514] = 3}) -- Abyssal Signets QuestID: 8363
+      REP_AddQuest(609, 7, 8, 8364, 150, {[20515] = 3}) -- Abyssal Scepters QuestID: 8364
+    else
+      REP_AddQuest(609, 4, 8, 8362, 150, {[20513] = 3}) -- Abyssal Crests QuestID: 8362
+      if REP.IsTBC then
+        REP_AddQuest(609, 5, 8, 8363, 250, {[20514] = 3}) -- Abyssal Signets QuestID: 8363
+        REP_AddQuest(609, 7, 8, 8364, 350, {[20515] = 3}) -- Abyssal Scepters QuestID: 8364
+      end
+      if REP.IsWotlk then
+        REP_AddQuest(609, 5, 8, 8363, 500, {[20514] = 3}) -- Abyssal Signets QuestID: 8363
+        REP_AddQuest(609, 7, 8, 8364, 700, {[20515] = 3}) -- Abyssal Scepters QuestID: 8364
+      end
+    end
+    ---- Mobs
+    REP_AddMob(609, 4, 8, "Abyssal Templars (lesser windstones)", 5)
+    REP_AddMob(609, 4, 8, "Abyssal Dukes (windstones)", 25)
+    REP_AddMob(609, 4, 8, "Abyssal Lords (greater windstones)", 50)
+  end
 
 	---------------------------
 	-- Hydraxian Waterlords 749 --
 	---------------------------
+  ---- Instances
+	REP_AddInstance(749, 4, 7, zone.Molten_Core, 1050)
+	REP_AddInstance(749, 8, 8, zone.Molten_Core, 350)
 	---- Mobs
 	REP_AddMob(749, 4, 5, "Desert Rumbler", 5, zone.Silithus)
   REP_AddMob(749, 4, 5, "Dust Stormer", 5, zone.Silithus)
@@ -681,9 +742,6 @@ function REP_InitEnFactionGains(guildName, guildCapBase)
     REP_AddQuest(749, 4, 8, 84360, 150) -- Firefighting QuestID: 84360
     REP_AddQuest(749, 4, 8, 84372, 150) -- Lava Diving QuestID: 84372
   end
-	---- Instances
-	REP_AddInstance(749, 4, 7, zone.Molten_Core, 1050)
-	REP_AddInstance(749, 8, 8, zone.Molten_Core, 350)
 
 	if (not REP.AfterWotlk) then
 		---------------------------
@@ -699,10 +757,12 @@ function REP_InitEnFactionGains(guildName, guildCapBase)
 			REP_AddQuest(809, 4, 8, 7484, 500, {[18333] = 1, [18335] = 1, [14344] = 4, [12753] = 2}) -- Libram of Focus QuestID: 7484
 			REP_AddQuest(809, 4, 8, 7485, 500, {[18334] = 1, [18335] = 1, [14344] = 2, [12735] = 1}) -- Libram of Protection QuestID: 7485
 		end
+  end
 
-		---------------------------
-		-- Zandalar Tribe 270 --
-		---------------------------
+  ---------------------------
+  -- Zandalar Tribe 270 --
+  ---------------------------
+  if (not REP.AfterWotlk) then
 		---- Quests
 		if (REP.IsClassic) then
 			REP_AddQuest(270, 4, 8, 9210, 200, {[18330] = 1})
@@ -726,28 +786,14 @@ function REP_InitEnFactionGains(guildName, guildCapBase)
 		REP_AddGeneral(270, 4, 8, "Destoy a Bijou at the Altar of Zanza", 75)
 		---- Instances
 		REP_AddInstance(270, 4, 8, "Zul'Gurub", 2750)
-	end
-
-	---------------------------
-	-- Magram Clan Centaur 93 --
-	---------------------------
-	if (REP.AfterWotlk) then
-		---- Quests (1 quest rewards exalted with both)
-		REP_AddQuest(93, 1, 8, 14394, 100000) -- Death to Agogridon QuestID: 14394
 	else
-		---- Mobs
-		REP_AddMob(93, 1, 5, "Khan Shaka", 25)
-		REP_AddMob(93, 1, 6, "Gelkis Mauler", 20)
-		REP_AddMob(93, 1, 6, "Gelkis Marauder", 20)
-		REP_AddMob(93, 1, 6, "Gelkis Rumbler", 20)
-		REP_AddMob(93, 1, 6, "Gelkis Outrunner", 20)
-		REP_AddMob(93, 1, 6, "Gelkis Stamper", 20)
-		REP_AddMob(93, 1, 6, "Gelkis Windchaser", 20)
-		REP_AddMob(93, 1, 6, "Gelkis Scout", 20)
-		REP_AddMob(93, 1, 6, "Gelkis Earthcaller", 20)
-	end
+    if REP.ShowTheWarWithinPhaseOne then
+      ---- Items
+      -- REP_AddItems(270, 4, 8, 500, {[224570] = 1}) -- Double check if still available
+    end
+  end
 
-	---------------------------
+  ---------------------------
 	-- Gelkis Clan Centaur 92 --
 	---------------------------
 	if (REP.AfterWotlk) then
@@ -766,6 +812,25 @@ function REP_InitEnFactionGains(guildName, guildCapBase)
 		REP_AddMob(92, 1, 6, "Magram Mauler", 20)
 		REP_AddMob(92, 1, 6, "Magram Outrunner", 20)
 		REP_AddMob(92, 1, 6, "Magram Pack Runner", 20)
+	end
+
+  ---------------------------
+	-- Magram Clan Centaur 93 --
+	---------------------------
+	if (REP.AfterWotlk) then
+		---- Quests (1 quest rewards exalted with both)
+		REP_AddQuest(93, 1, 8, 14394, 100000) -- Death to Agogridon QuestID: 14394
+	else
+		---- Mobs
+		REP_AddMob(93, 1, 5, "Khan Shaka", 25)
+		REP_AddMob(93, 1, 6, "Gelkis Mauler", 20)
+		REP_AddMob(93, 1, 6, "Gelkis Marauder", 20)
+		REP_AddMob(93, 1, 6, "Gelkis Rumbler", 20)
+		REP_AddMob(93, 1, 6, "Gelkis Outrunner", 20)
+		REP_AddMob(93, 1, 6, "Gelkis Stamper", 20)
+		REP_AddMob(93, 1, 6, "Gelkis Windchaser", 20)
+		REP_AddMob(93, 1, 6, "Gelkis Scout", 20)
+		REP_AddMob(93, 1, 6, "Gelkis Earthcaller", 20)
 	end
 
 	if (REP.IsAlliance) then
@@ -802,10 +867,10 @@ function REP_InitEnFactionGains(guildName, guildCapBase)
       end
       REP_AddQuest(72, 4, 8, 1423, 25, {[6172] = 1})
     else
-      REP_AddQuest(72, 4, 8, 1, 250, "nil", REP.LIMIT_TYPE_Cook)
-      REP_AddQuest(72, 4, 8, 2, 65, "nil", REP.LIMIT_TYPE_Cook)
-      REP_AddQuest(72, 4, 8, 3, 250, "nil", REP.LIMIT_TYPE_Fish)
-      REP_AddQuest(72, 4, 8, 4, 65, "nil", REP.LIMIT_TYPE_Fish)
+      REP_AddQuest(72, 4, 8, 1, 250, nil, REP.LIMIT_TYPE_Cook)
+      REP_AddQuest(72, 4, 8, 2, 65, nil, REP.LIMIT_TYPE_Cook)
+      REP_AddQuest(72, 4, 8, 3, 250, nil, REP.LIMIT_TYPE_Fish)
+      REP_AddQuest(72, 4, 8, 4, 65, nil, REP.LIMIT_TYPE_Fish)
     end  
 		---- Quests (Spillover from Alterac Valley) TODO: Double check rep values
 		REP_AddQuest(72, 4, 8, "Crystal Cluster", 18.75, {[17423] = 5}, nil, true, false, true) -- Crystal Cluster QuestID: 7386
@@ -844,10 +909,10 @@ function REP_InitEnFactionGains(guildName, guildCapBase)
 				REP_AddQuest(47, 4, 8, 7806, 75, {[14047] = 20})
 			end
 		else
-			REP_AddQuest(47, 4, 8, 1, 250, "nil", REP.LIMIT_TYPE_Cook)
-			REP_AddQuest(47, 4, 8, 2, 65, "nil", REP.LIMIT_TYPE_Cook)
-			REP_AddQuest(47, 4, 8, 3, 250, "nil", REP.LIMIT_TYPE_Fish)
-			REP_AddQuest(47, 4, 8, 4, 65, "nil", REP.LIMIT_TYPE_Fish)
+			REP_AddQuest(47, 4, 8, 1, 250, nil, REP.LIMIT_TYPE_Cook)
+			REP_AddQuest(47, 4, 8, 2, 65, nil, REP.LIMIT_TYPE_Cook)
+			REP_AddQuest(47, 4, 8, 3, 250, nil, REP.LIMIT_TYPE_Fish)
+			REP_AddQuest(47, 4, 8, 4, 65, nil, REP.LIMIT_TYPE_Fish)
 		end
 		---- Quests (Spillover from Alterac Valley)
 		if (REP.IsClassic) then
@@ -891,10 +956,10 @@ function REP_InitEnFactionGains(guildName, guildCapBase)
 				REP_AddQuest(69, 4, 8, 7801, 75, {[14047] = 20})
 			end
 		else
-			REP_AddQuest(69, 4, 8, 1, 250, "nil", REP.LIMIT_TYPE_Cook)
-			REP_AddQuest(69, 4, 8, 2, 65, "nil", REP.LIMIT_TYPE_Cook)
-			REP_AddQuest(69, 4, 8, 3, 250, "nil", REP.LIMIT_TYPE_Fish)
-			REP_AddQuest(69, 4, 8, 4, 65, "nil", REP.LIMIT_TYPE_Fish)
+			REP_AddQuest(69, 4, 8, 1, 250, nil, REP.LIMIT_TYPE_Cook)
+			REP_AddQuest(69, 4, 8, 2, 65, nil, REP.LIMIT_TYPE_Cook)
+			REP_AddQuest(69, 4, 8, 3, 250, nil, REP.LIMIT_TYPE_Fish)
+			REP_AddQuest(69, 4, 8, 4, 65, nil, REP.LIMIT_TYPE_Fish)
 		end
 		---- Spillover from Alterac Valley
 		REP_AddQuest(69, 4, 8, "Crystal Cluster", 18.75, {[17423] = 5}, nil, true, false, true) -- Crystal Cluster QuestID: 7386
@@ -933,8 +998,8 @@ function REP_InitEnFactionGains(guildName, guildCapBase)
 				REP_AddQuest(54, 4, 8, 7812, 75, {[14047] = 20})
 			end
 		else
-			REP_AddQuest(54,4, 8, 2, 65, "nil", REP.LIMIT_TYPE_Cook)
-			REP_AddQuest(54,4, 8, 4, 65, "nil", REP.LIMIT_TYPE_Fish)
+			REP_AddQuest(54,4, 8, 2, 65, nil, REP.LIMIT_TYPE_Cook)
+			REP_AddQuest(54,4, 8, 4, 65, nil, REP.LIMIT_TYPE_Fish)
 		end
 		---- Spillover from Alterac Valley
 	  REP_AddQuest(54, 4, 8, "Crystal Cluster", 18.75, {[17423] = 5}, nil, true, false, true) -- Crystal Cluster QuestID: 7386
@@ -1049,12 +1114,12 @@ function REP_InitEnFactionGains(guildName, guildCapBase)
 				REP_AddQuest(589, 6, 8, 5981, 350)
 			end
 		else
-			REP_AddQuest(589, 1, 4, 29032, 3000) -- Get Them While They're Young
-      REP_AddQuest(589, 4, 6, "A Cub's Cravings", 1500) -- A Cub's Cravings QuestID: 29035
-			REP_AddQuest(589, 4, 6, "'Borrowing' From the Winterfall", 1500) -- 'Borrowing' From the Winterfall QuestID: 29037
-			REP_AddQuest(589, 4, 6, 29038, 1500) -- Hunting Practice
-			REP_AddQuest(589, 4, 6, 29040, 1500) -- Cub's First Toy
-			REP_AddQuest(589, 5, 8, 29034, 42999)
+			REP_AddQuest(589, 1, 4, 29032, 3000) -- Get Them While They're Young QuestID: 29032
+      REP_AddQuest(589, 4, 6, 29035, 1500) -- A Cub's Cravings QuestID: 29035
+			REP_AddQuest(589, 4, 6, 29037, 1500) -- 'Borrowing' From the Winterfall QuestID: 29037
+			REP_AddQuest(589, 4, 6, 29038, 1500) -- Hunting Practice QuestID: 29038
+			REP_AddQuest(589, 4, 6, 29040, 1500) -- Cub's First Toy QuestID: 29040
+			REP_AddQuest(589, 5, 8, 29034, 42999) -- They Grow Up So Fast QuestID: 29034
 		end
 
     if REP.ShowClassicSODPhaseOne then
@@ -1193,10 +1258,10 @@ function REP_InitEnFactionGains(guildName, guildCapBase)
 				REP_AddQuest(76, 4, 8, 7832, 75, {[14047] = 20}) -- Additional Runecloth QuestID: 7832
 			end
 		else
-			REP_AddQuest(76, 4, 8, 1, 250, "nil", REP.LIMIT_TYPE_Cook)
-			REP_AddQuest(76, 4, 8, 2, 65, "nil", REP.LIMIT_TYPE_Cook)
-			REP_AddQuest(76, 4, 8, 3, 250, "nil", REP.LIMIT_TYPE_Fish)
-			REP_AddQuest(76, 4, 8, 4, 65, "nil", REP.LIMIT_TYPE_Fish)
+			REP_AddQuest(76, 4, 8, 1, 250, nil, REP.LIMIT_TYPE_Cook)
+			REP_AddQuest(76, 4, 8, 2, 65, nil, REP.LIMIT_TYPE_Cook)
+			REP_AddQuest(76, 4, 8, 3, 250, nil, REP.LIMIT_TYPE_Fish)
+			REP_AddQuest(76, 4, 8, 4, 65, nil, REP.LIMIT_TYPE_Fish)
 		end
     ---- Spillover from Alterac Valley
 	  REP_AddQuest(76, 4, 8, 7385, 18.75, {[17306] = 5}, nil, true, false, true)
@@ -1234,10 +1299,10 @@ function REP_InitEnFactionGains(guildName, guildCapBase)
 				REP_AddQuest(81, 4, 8, 7825, 75, {[14047] = 20}) -- Additional Runecloth QuestID: 7825
 			end
 		else
-			REP_AddQuest(81, 4, 8, 1, 250, "nil", REP.LIMIT_TYPE_Cook)
-			REP_AddQuest(81, 4, 8, 2, 65, "nil", REP.LIMIT_TYPE_Cook)
-			REP_AddQuest(81, 4, 8, 3, 250, "nil", REP.LIMIT_TYPE_Fish)
-			REP_AddQuest(81, 4, 8, 4, 65, "nil", REP.LIMIT_TYPE_Fish)
+			REP_AddQuest(81, 4, 8, 1, 250, nil, REP.LIMIT_TYPE_Cook)
+			REP_AddQuest(81, 4, 8, 2, 65, nil, REP.LIMIT_TYPE_Cook)
+			REP_AddQuest(81, 4, 8, 3, 250, nil, REP.LIMIT_TYPE_Fish)
+			REP_AddQuest(81, 4, 8, 4, 65, nil, REP.LIMIT_TYPE_Fish)
 		end
     ---- Spillover from Alterac Valley
 	  REP_AddQuest(81, 4, 8, 7385, 18.75, {[17306] = 5}, nil, true, false, true)
@@ -1275,10 +1340,10 @@ function REP_InitEnFactionGains(guildName, guildCapBase)
 				REP_AddQuest(68, 4, 8, 7819, 75, {[14047] = 20}) -- Additional Runecloth QuestID: 7819
 			end
 		else
-			REP_AddQuest(68, 4, 8, 1, 250, "nil", REP.LIMIT_TYPE_Cook)
-		  REP_AddQuest(68, 4, 8, 2, 65, "nil", REP.LIMIT_TYPE_Cook)
-		  REP_AddQuest(68, 4, 8, 3, 250, "nil", REP.LIMIT_TYPE_Fish)
-		  REP_AddQuest(68, 4, 8, 4, 65, "nil", REP.LIMIT_TYPE_Fish)
+			REP_AddQuest(68, 4, 8, 1, 250, nil, REP.LIMIT_TYPE_Cook)
+		  REP_AddQuest(68, 4, 8, 2, 65, nil, REP.LIMIT_TYPE_Cook)
+		  REP_AddQuest(68, 4, 8, 3, 250, nil, REP.LIMIT_TYPE_Fish)
+		  REP_AddQuest(68, 4, 8, 4, 65, nil, REP.LIMIT_TYPE_Fish)
 		end
     ---- Spillover from Alterac Valley
 		REP_AddQuest(68, 4, 8, 7385, 18.75, {[17306] = 5}, nil, true, false, true)
@@ -1316,8 +1381,8 @@ function REP_InitEnFactionGains(guildName, guildCapBase)
 				REP_AddQuest(530, 4, 8, 7837, 75, {[14047] = 20}) -- Additional Runecloth QuestID: 7837
 			end
 		else
-			REP_AddQuest(530, 4, 8, 2, 65, "nil", REP.LIMIT_TYPE_Cook)
-			REP_AddQuest(530, 4, 8, 4, 65, "nil", REP.LIMIT_TYPE_Fish)
+			REP_AddQuest(530, 4, 8, 2, 65, nil, REP.LIMIT_TYPE_Cook)
+			REP_AddQuest(530, 4, 8, 4, 65, nil, REP.LIMIT_TYPE_Fish)
 		end
 		---- Spillover from Alterac Valley
 		REP_AddQuest(530, 4, 8, 7385, 18.75, {[17306] = 5}, nil, true, false, true)
@@ -1665,7 +1730,6 @@ end
       REP_AddInstance(942, 6, 8, zone.The_Underbog, 1000, true)
       REP_AddInstance(942, 4, 8, zone.The_Steamvault, 2319, true)
     end
-
     ---- General
     REP_AddGeneral(942, 4, 8, "Freeing Cenarion Expedition Ethereum prisoners", 500, "Freeing Cenarion Expedition Ethereum prisoners", "Freeing Cenarion Expedition Ethereum prisoners (these are not guaranteed and can be very rare spawns from the prisons).")
 		if (REP.AfterMoP) then
@@ -1715,6 +1779,9 @@ end
 		REP_AddQuest(1038, 4, 8, "Wrangle More Aether Rays!", 350) -- Wrangle More Aether Rays! QuestID: 11066
 		REP_AddQuest(1038, 4, 8, "Bomb Them Again!", 500) -- Bomb Them Again! QuestID: 11023
 		REP_AddQuest(1038, 6, 8, "Banish More Demons", 350) -- Banish More Demons QuestID: 11051
+    -- if (not REP.AfterWotlk) then
+    --   REP_AddQuest(1038, 6, 8, "Banish More Demons", 350) -- Banish More Demons QuestID: 11051
+    -- end
 
 		---------------------------
 		-- Sha'tari Skyguard 1031 --
@@ -1773,13 +1840,11 @@ end
 		REP_AddQuest(933, 7, 8, "Purging the Chambers of Bash'ir", 500, {[29460] = 5}) -- Purging the Chambers of Bash'ir QuestID: 10975
 		---- Instances
 		REP_AddInstance(933, 4, 5, zone.Mana_Tombs, 1200, false)
-    
     if REP.ShowCataPhaseOne then
       REP_AddInstance(933, 4, 8, zone.Mana_Tombs, 2400, true)
     else
       REP_AddInstance(933, 6, 8, zone.Mana_Tombs, 2400, true)
     end
-		
 		if(REP.AfterMoP) then
 			-- Timewalking Commendation
 			REP_AddItems(933, 1, 8, 500, {[129945] = 1})
@@ -1898,8 +1963,8 @@ end
 				---- Quests
 				REP_AddQuest(930, 4, 8, 10358, 75, {[14047] = 20}) -- Additional Runecloth QuestID: 10358
 			else
-				REP_AddQuest(930, 4, 8, 2, 65, "nil", REP.LIMIT_TYPE_Cook)
-				REP_AddQuest(930, 4, 8, 4, 65, "nil", REP.LIMIT_TYPE_Fish)
+				REP_AddQuest(930, 4, 8, 2, 65, nil, REP.LIMIT_TYPE_Cook)
+				REP_AddQuest(930, 4, 8, 4, 65, nil, REP.LIMIT_TYPE_Fish)
 			end
 			---- Spillover from Alterac Valley
 		  REP_AddQuest(930, 4, 8, "Crystal Cluster", 18.75, {[17423] = 5}, nil, true, false, true) -- Crystal Cluster QuestID: 7386
@@ -1967,8 +2032,8 @@ end
 				---- Quests
 				REP_AddQuest(911, 4, 8, 10363, 75, {[14047] = 20}) -- Additional Runecloth QuestID: 10363
 			else
-				REP_AddQuest(911, 4, 8, 2, 65, "nil", REP.LIMIT_TYPE_Cook)
-				REP_AddQuest(911, 4, 8, 4, 65, "nil", REP.LIMIT_TYPE_Fish)
+				REP_AddQuest(911, 4, 8, 2, 65, nil, REP.LIMIT_TYPE_Cook)
+				REP_AddQuest(911, 4, 8, 4, 65, nil, REP.LIMIT_TYPE_Fish)
 			end
 			---- Spillover from Alterac Valley
 			REP_AddQuest(911, 4, 8, "A Gallon of Blood", 18.75, {[17306] = 5}, nil, true, false, true) -- A Gallon of Blood QuestID: 7385
@@ -2082,9 +2147,9 @@ end
 		-- Kirin Tor 1090 --
 		---------------------------
 		---- Quests
-		REP_AddQuest(1090, 4, 8, "Dalaran Jewelcrafting daily", 25, "nil", REP.LIMIT_TYPE_Jewel)
-		REP_AddQuest(1090, 4, 8, "Dalaran Cooking daily", 150, "nil", REP.LIMIT_TYPE_Cook)
-		REP_AddQuest(1090, 4, 8, "Dalaran Fishing daily", 250, "nil", REP.LIMIT_TYPE_Fish)
+		REP_AddQuest(1090, 4, 8, "Dalaran Jewelcrafting daily", 25, nil, REP.LIMIT_TYPE_Jewel)
+		REP_AddQuest(1090, 4, 8, "Dalaran Cooking daily", 150, nil, REP.LIMIT_TYPE_Cook)
+		REP_AddQuest(1090, 4, 8, "Dalaran Fishing daily", 250, nil, REP.LIMIT_TYPE_Fish)
 		REP_AddQuest(1090, 4, 8, "Waterlogged Recipe", 250, {[49667] = 1}) -- Waterlogged Recipe QuestID: 14203 (Somehow doesn't give questname from API)
 		REP_AddQuest(1090, 4, 8, 13845, 250, {[46005] = 1}) -- Sealed Vial of Poison QuestID: 13845
 		if (not REP.AfterMoP) then
@@ -2165,6 +2230,9 @@ end
 			-- Timewalking Commendation
 			REP_AddItems(1119, 1, 8, 501, {[129943] = 1})
 		end
+    ---- General
+    --- TODO: Find a fix for the tabard only being released in Classic wotlk version.
+		-- REP_AddGeneral(1119, 5, 8, "Killing mobs in instances while wearing the Sons of Hodir tabard.", 5, "Killing mobs in instances while wearing the Sons of Hodir tabard.", "Killing mobs in instances while wearing the Sons of Hodir tabard will reward you roughly 5 reputation per kill.")
 
 		---------------------------
 		-- The Wyrmrest Accord 1091 --
@@ -2739,9 +2807,6 @@ end
 		---------------------------
 		-- Ramkahen 1173 --
 		---------------------------
-		---- Spells
-		-- REP_AddSpell(1173, 1, 8, 5, 1000)
-		-- REP_AddSpell(1173, 1, 8, 5, 1800)
 		---- Mobs
 		REP_AddMob(1173, 1, 8, 1, 10, 7)
 		REP_AddMob(1173, 1, 8, 1, 15, 8)
@@ -2758,9 +2823,6 @@ end
 		---------------------------
 		-- The Earthen Ring 1135 --
 		---------------------------
-		---- Spells
-		-- REP_AddSpell(1135, 1, 8, 5, 1000)
-		-- REP_AddSpell(1135, 1, 8, 5, 1800)
 		---- Mobs
 		REP_AddMob(1135, 1, 8, 1, 10, 7)
 		REP_AddMob(1135, 1, 8, 1, 15, 8)
@@ -2774,9 +2836,6 @@ end
 		---------------------------
 		-- Therazane 1171 --
 		---------------------------
-		---- Spells
-		-- REP_AddSpell(1171, 1, 8, 5, 1000)
-		-- REP_AddSpell(1171, 1, 8, 5, 1800)
 		---- Mobs
     REP_AddMob(1171, 1, 4, "Twilight Duskwarden", 5, zone.Deepholm)
     REP_AddMob(1171, 1, 4, "Twilight Laborer", 5, zone.Deepholm)
@@ -2883,8 +2942,8 @@ end
 			-- Gilneas 1134
 			---------------------------
 			---- Quests
-			REP_AddQuest(1134,4, 8, 2, 65, "nil", REP.LIMIT_TYPE_Cook)
-			REP_AddQuest(1134,4, 8, 4, 65, "nil", REP.LIMIT_TYPE_Fish)
+			REP_AddQuest(1134,4, 8, 2, 65, nil, REP.LIMIT_TYPE_Cook)
+			REP_AddQuest(1134,4, 8, 4, 65, nil, REP.LIMIT_TYPE_Fish)
 			---- General
       REP_AddGeneral(1134, 4, 8, "Killing (grey level) mobs in instances while wearing the Gilneas tabard.", 3, "Killing (grey level) mobs in instances while wearing the Gilneas tabard.", "Killing (grey level) mobs in instances while wearing the Gilneas tabard will reward you roughly 3 base reputation per kill.")
 			REP_AddGeneral(1134, 4, 8, "Killing (grey level) bosses in instances while wearing the Gilneas tabard.", 60, "Killing (grey level) bosses in instances while wearing the Gilneas tabard.", "Killing (grey level) bosses in instances while wearing the Gilneas tabard will reward you roughly 60 base reputation per kill.")
@@ -2894,14 +2953,16 @@ end
 			---------------------------
 			-- Bilgewater Cartel 1133
 			---------------------------
-			---- General quests
-			REP_AddQuest(1133, 4, 8, 2, 65, "nil", REP.LIMIT_TYPE_Cook)
-			REP_AddQuest(1133, 4, 8, 4, 65, "nil", REP.LIMIT_TYPE_Fish)
-			---- General
-			REP_AddGeneral(1133, 4, 8, "Killing (grey level) mobs in instances while wearing the Bilgewater Cartel tabard.", 3, "Killing (grey level) mobs in instances while wearing the Bilgewater Cartel tabard.", "Killing (grey level) mobs in instances while wearing the Bilgewater Cartel tabard will reward you roughly 3 reputation per kill.")
-      REP_AddGeneral(1133, 4, 8, "Killing (grey level) bosses in instances while wearing the Bilgewater Cartel tabard.", 60, "Killing (grey level) bosses in instances while wearing the Bilgewater Cartel tabard.", "Killing (grey level) bosses in instances while wearing the Bilgewater Cartel tabard will reward you roughly 60 reputation per kill.")
-      REP_AddGeneral(1133, 4, 8, "Killing (green or higher level) mobs in instances while wearing the Bilgewater Cartel tabard.", 15, "Killing (green or higher level) mobs in instances while wearing the Bilgewater Cartel tabard.", "Killing (green or higher level) mobs in instances while wearing the Bilgewater Cartel tabard will reward you roughly 15 reputation per kill.")
-      REP_AddGeneral(1133, 4, 8, "Killing (green or higher level) bosses in instances while wearing the Bilgewater Cartel tabard.", 300, "Killing (green or higher level) bosses in instances while wearing the Bilgewater Cartel tabard.", "Killing (green or higher level) bosses in instances while wearing the Bilgewater Cartel tabard will reward you roughly 300 base reputation per kill.")
+      if not REP.ShowTheWarWithinPhaseTwo then
+        ---- General quests
+        REP_AddQuest(1133, 4, 8, 2, 65, nil, REP.LIMIT_TYPE_Cook)
+        REP_AddQuest(1133, 4, 8, 4, 65, nil, REP.LIMIT_TYPE_Fish)
+        ---- General
+        REP_AddGeneral(1133, 4, 8, "Killing (grey level) mobs in instances while wearing the Bilgewater Cartel tabard.", 3, "Killing (grey level) mobs in instances while wearing the Bilgewater Cartel tabard.", "Killing (grey level) mobs in instances while wearing the Bilgewater Cartel tabard will reward you roughly 3 reputation per kill.")
+        REP_AddGeneral(1133, 4, 8, "Killing (grey level) bosses in instances while wearing the Bilgewater Cartel tabard.", 60, "Killing (grey level) bosses in instances while wearing the Bilgewater Cartel tabard.", "Killing (grey level) bosses in instances while wearing the Bilgewater Cartel tabard will reward you roughly 60 reputation per kill.")
+        REP_AddGeneral(1133, 4, 8, "Killing (green or higher level) mobs in instances while wearing the Bilgewater Cartel tabard.", 15, "Killing (green or higher level) mobs in instances while wearing the Bilgewater Cartel tabard.", "Killing (green or higher level) mobs in instances while wearing the Bilgewater Cartel tabard will reward you roughly 15 reputation per kill.")
+        REP_AddGeneral(1133, 4, 8, "Killing (green or higher level) bosses in instances while wearing the Bilgewater Cartel tabard.", 300, "Killing (green or higher level) bosses in instances while wearing the Bilgewater Cartel tabard.", "Killing (green or higher level) bosses in instances while wearing the Bilgewater Cartel tabard will reward you roughly 300 base reputation per kill.")
+      end
 
 			---------------------------
 			-- Dragonmaw Clan 1172
@@ -2988,15 +3049,15 @@ end
 		REP_AddMob(1269, 1, 8, "Jade Colossus", 100, zone.Vale_of_Eternal_Blossoms)
 		REP_AddMob(1269, 1, 8, "Milau", 60, zone.Vale_of_Eternal_Blossoms)
 		---- Quests
-		REP_AddQuest(1269, 1, 8, 30261, 350)
-		REP_AddQuest(1269, 1, 8, 30242, 250)
-		REP_AddQuest(1269, 1, 8, 30240, 250)
-		REP_AddQuest(1269, 1, 8, 30306, 250)
-		REP_AddQuest(1269, 1, 8, 30280, 250)
-		REP_AddQuest(1269, 1, 8, 30277, 250)
-		REP_AddQuest(1269, 1, 8, 30243, 250)
-		REP_AddQuest(1269, 1, 8, 30266, 250)
-		REP_AddQuest(1269, 1, 8, 32648, 300)
+		REP_AddQuest(1269, 1, 8, 30240, 250) -- Survival Ring: Flame QuestID: 30240
+		REP_AddQuest(1269, 1, 8, 30242, 250) -- Survival Ring: Blades QuestID: 30242
+		REP_AddQuest(1269, 1, 8, 30243, 250) -- Mantid Under Fire QuestID: 30243
+    REP_AddQuest(1269, 1, 8, 30261, 350) -- Roll Club: Serpent's Spine QuestID: 30261
+		REP_AddQuest(1269, 1, 8, 30266, 250) -- Bloodied Skies QuestID: 30266
+		REP_AddQuest(1269, 1, 8, 30277, 250) -- The Crumbling Hall QuestID: 30277
+    REP_AddQuest(1269, 1, 8, 30280, 250) -- The Thunder Below QuestID: 30280
+    REP_AddQuest(1269, 1, 8, 30306, 250) -- The Battle Ring QuestID: 30306
+    REP_AddQuest(1269, 1, 8, 32648, 300) -- Work Order: Golden Lotus II QuestID: 32648
 		if (REP.AfterMoP) then
 			-- Timewalking Commendation
 			REP_AddItems(1269, 1, 8, 300, {[143937] = 1})

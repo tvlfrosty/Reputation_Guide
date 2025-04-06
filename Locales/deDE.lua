@@ -212,6 +212,11 @@ if (GetLocale() == "deDE") then
   REP_TXT.skillCook	= "Kochkunst"
   REP_TXT.skillFish	= "Angeln"
   ---------------------------
+  -- Random Reputation stuff
+  ---------------------------
+  REP_TXT.syndicateMobs	= "All Syndicate members"
+
+  ---------------------------
   -- Reputation Standing
   ---------------------------
   ---- Initialize

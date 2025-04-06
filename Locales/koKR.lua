@@ -206,6 +206,11 @@ if (GetLocale() =="koKR") then
   REP_TXT.skillCook	= "요리"
   REP_TXT.skillFish	= "낚시"
   ---------------------------
+  -- Random Reputation stuff
+  ---------------------------
+  REP_TXT.syndicateMobs	= "All Syndicate members"
+
+  ---------------------------
   -- Reputation Standing
   ---------------------------
   ---- Initialize

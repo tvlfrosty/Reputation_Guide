@@ -208,6 +208,11 @@ if (GetLocale() =="ptBR") then
   REP_TXT.skillCook	= "Culinária"
   REP_TXT.skillFish	= "Pesca"
   ---------------------------
+  -- Random Reputation stuff
+  ---------------------------
+  REP_TXT.syndicateMobs	= "All Syndicate members"
+
+  ---------------------------
   -- Reputation Standing
   ---------------------------
   ---- Initialize

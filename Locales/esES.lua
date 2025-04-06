@@ -212,6 +212,11 @@ if (GetLocale() =="esES" or GetLocale() =="esMX") then
   REP_TXT.skillCook	= "Cocina"
   REP_TXT.skillFish	= "Pesca"
   ---------------------------
+  -- Random Reputation stuff
+  ---------------------------
+  REP_TXT.syndicateMobs	= "All Syndicate members"
+
+  ---------------------------
   -- Reputation Standing
   ---------------------------
   ---- Initialize
