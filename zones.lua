@@ -10,9 +10,11 @@ local REP = vars
 --------------------------------------------------
 -- Set Zone IDs
 --------------------------------------------------
+--- TODO: Check when the zoneIDs actually changed or if they are really tied to game version (Retail/Classic)
+--- https://warcraft.wiki.gg/wiki/UiMapID
 function REP:SetZoneIdsBasedOnExpansion()
   local zone = {}
-  if (not REP.AfterWotlk) then
+  if (not REP.AfterMoP) then
     --------------------------------------------------
     -- Zone ID's till after Wrath of the Lich King
     --------------------------------------------------
@@ -240,7 +242,7 @@ function REP:SetZoneIdsBasedOnExpansion()
     zone.The_Obsidian_Sanctum = 155
   else
     --------------------------------------------------
-    -- Zone ID's after Wrath of the Lich King
+    -- Zone ID's after Undefined expansion
     --------------------------------------------------
     ---------------------------
     -- Kalimdor --

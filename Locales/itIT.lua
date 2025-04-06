@@ -209,6 +209,11 @@ if (GetLocale() == "itIT") then
   REP_TXT.skillCook	= "Cottura"
   REP_TXT.skillFish	= "peschereccio"
   ---------------------------
+  -- Random Reputation stuff
+  ---------------------------
+  REP_TXT.syndicateMobs	= "All Syndicate members"
+
+  ---------------------------
   -- Reputation Standing
   ---------------------------
   ---- Initialize

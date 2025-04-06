@@ -368,6 +368,11 @@ if (GetLocale() =="ruRU") then
   REP_TXT.STAND_LV_LEVEL[58] = "58-й уровень"
   REP_TXT.STAND_LV_LEVEL[59] = "59-й уровень"
   REP_TXT.STAND_LV_LEVEL[60] = "60-й уровень"
+  ---------------------------
+  -- Random Reputation stuff
+  ---------------------------
+  REP_TXT.syndicateMobs	= "All Syndicate members"
+
   -------------------------------------
   -- BFFLabels / Friendship factions --
   -------------------------------------

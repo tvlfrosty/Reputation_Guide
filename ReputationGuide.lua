@@ -79,8 +79,6 @@ function REP_OnLoad(self)
     REP:ResetsActiveExpansionAndPhase()
     REP.IsClassic = true
   end
-
-  REP:SetOriginalFunctionsBasedOnExpansion()
 end
 
 function REP:SetOriginalFunctionsBasedOnExpansion()
@@ -119,8 +117,15 @@ function REP:SetOriginalFunctionsBasedOnExpansion()
     REP_Orig_GetNumFactions = GetNumFactions
     REP_Orig_GetFactionDataByIndex = GetFactionInfo
 
-    REP_Orig_CollapseFactionHeader = CollapseFactionHeader
-    CollapseFactionHeader = REP_CollapseFactionHeader
+    if REP.IsClassic then
+      if not REP_Orig_CollapseFactionHeader and type(CollapseFactionHeader) == "function" then
+        REP_Orig_CollapseFactionHeader = CollapseFactionHeader
+        CollapseFactionHeader = REP_CollapseFactionHeader
+      end
+    else
+      REP_Orig_CollapseFactionHeader = CollapseFactionHeader
+      CollapseFactionHeader = REP_CollapseFactionHeader
+    end
 
     REP_Orig_GetWatchedFactionData = GetWatchedFactionData
     REP_Orig_GetSelectedFaction = GetSelectedFaction
@@ -138,7 +143,14 @@ function REP:SetOriginalFunctionsBasedOnExpansion()
     if REP.AfterWotlk then
       REP_Orig_GetFactionDataByID = GetFactionInfoByID
       REP_Orig_ExpandAllFactionHeaders = ExpandAllFactionHeaders
+    end
 
+    if REP.IsClassic then
+      if not REP_Orig_ExpandFactionHeader and type(ExpandFactionHeader) == "function" then
+        REP_Orig_ExpandFactionHeader = ExpandFactionHeader
+        ExpandFactionHeader = REP_ExpandFactionHeader
+      end
+    else
       REP_Orig_ExpandFactionHeader = ExpandFactionHeader
       ExpandFactionHeader = REP_ExpandFactionHeader
     end
@@ -187,6 +199,7 @@ function REP_OnEvent(self, event, ...)
   local arg1, arg2, arg3, arg4, arg5, arg6, arg7, arg8, arg9, arg10, arg11, arg12, arg13 = ...
 
   if (event == "ADDON_LOADED") and (arg1 == addonName) then
+    REP:SetOriginalFunctionsBasedOnExpansion();
     REP_Main:UnregisterEvent("ADDON_LOADED")
     REP_InitStages = REP_InitStages + 1
     REP:Init()

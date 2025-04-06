@@ -209,6 +209,11 @@ REP_TXT.skillArch	= "Archaeology"
 REP_TXT.skillCook	= "Cooking"
 REP_TXT.skillFish	= "Fishing"
 ---------------------------
+-- Random Reputation stuff
+---------------------------
+REP_TXT.syndicateMobs	= "All Syndicate members"
+
+---------------------------
 -- Reputation Standing
 ---------------------------
 ---- Initialize

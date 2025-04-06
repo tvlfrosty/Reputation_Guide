@@ -207,6 +207,11 @@ if (GetLocale() =="zhCN") then
   REP_TXT.skillCook	= "烹饪"
   REP_TXT.skillFish	= "钓鱼"
   ---------------------------
+  -- Random Reputation stuff
+  ---------------------------
+  REP_TXT.syndicateMobs	= "All Syndicate members"
+
+  ---------------------------
   -- Reputation Standing
   ---------------------------
   ---- Initialize
