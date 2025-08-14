@@ -1,26 +1,32 @@
-## Interface: 11507, 11404, 11307
-## Title: ReputationGuide |cfd9b9b9b(Classic)|r
-## Version: 1.15.7-release
+## Title: ReputationGuide |cffff7d0a(Classic)|r
+## IconTexture: Interface/Addons/ReputationGuide/assets/factions_logo_256x256
+## Name: ReputationGuide
 ## Author: Tvlfrosty
-## X-Discord: https://discord.gg/3zh4EFptta
-## URL: https://www.curseforge.com/wow/addons/reputation-guide
-## Description: ReputationGuide helps you manage your reputation and Factions.
-## Notes: ReputationGuide helps you manage your reputation and Factions.
+## Description: ReputationGuide helps you manage your reputations by showing a more detailed reputation screen per faction.
+## Notes: ReputationGuide helps you manage your reputations.
+## Version: 1.15.7-release
+## Interface: 11507, 11404, 11307
+## X-Curse-Project-ID: 657534
 ## SavedVariables: REP_Data
 ## SavedVariablesPerCharacter: REP_Suppressed
+## X-Discord: https://discord.gg/3zh4EFptta
+## URL: https://www.curseforge.com/wow/addons/reputation-guide
 
-## X-Curse-Project-ID: 657534
+# Locales
+locales/locale.xml
 
-locale.xml
+# Data
+data/questdb.lua
+data/zones.lua
+data/mapping.lua
+data/content.lua
 
-questdb.lua
-functions.lua
-variables.lua
-zones.lua
-content.lua
-mapping.lua
-ReputationGuide.xml
-ReputationGuideDetailFrame.lua
-ReputationGuideSkin.lua
+# Core
+core/functions.lua
+core/variables.lua
+core/settings.lua
 
-settings.lua
+# UI
+UI/ReputationGuide.xml
+UI/ReputationGuideSkin.lua
+UI/ReputationGuideDetailFrame.lua

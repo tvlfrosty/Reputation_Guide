@@ -8,7 +8,7 @@ local addonName, REP = ...
 -----------------------------
 local hasElvUILoaded = false
 
-if REP.AfterDragonflight then
+if REP.AfterCata then
   hasElvUILoaded = C_AddOns.IsAddOnLoaded("ElvUI")
 else
   hasElvUILoaded = IsAddOnLoaded("ElvUI")

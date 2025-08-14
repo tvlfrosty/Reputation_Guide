@@ -11,7 +11,7 @@ REPT.Settings = {}
 
 local REPSettings = REPT.Settings
 
-REPSettings.Objects = {};
+REPSettings.Objects = {}
 
 local function Mixin(o, mixin)
 	for k,v in pairs(mixin) do
@@ -37,36 +37,68 @@ REPSettingsPanelMixin = {}
 Mixin(REPSettingsPanelMixin, REPSettingsObjectMixin);
 Mixin(REPSettings, REPSettingsPanelMixin);
 
-local Categories, AddOnCategoryID, RootCategoryID = {}, addonName, nil;
+-- Utility: get container width depending on API
+local function GetOptionsContainerWidth()
+  if InterfaceOptionsFramePanelContainer then
+    return InterfaceOptionsFramePanelContainer:GetWidth()
+  elseif SettingsPanel then
+    return SettingsPanel:GetWidth()
+  else
+    return 750 -- fallback until shown
+  end
+end
+
+-- Utility: create a scrollable content area
+local function CreateScrollablePanel(name, parent)
+  local scrollFrame = CreateFrame("ScrollFrame", name .. "ScrollFrame", parent, "UIPanelScrollFrameTemplate")
+  scrollFrame:SetAllPoints()
+
+  local content = CreateFrame("Frame", name .. "Content", scrollFrame)
+  content:SetSize(GetOptionsContainerWidth() - 30, 1) -- start small, grow with content
+  scrollFrame:SetScrollChild(content)
+
+  return scrollFrame, content
+end
+
+local Categories, AddOnCategoryID, RootCategoryID = {}, addonName, nil
 REPSettings.CreateOptionsPage = function(self, text, parentCategory, isRootCategory)
-	local subcategory = CreateFrame("Frame", addonName .. "-" .. text, InterfaceOptionsFramePanelContainer);
-  Mixin(subcategory, REPSettingsPanelMixin);
-	self:RegisterObject(subcategory);
-	subcategory:SetAllPoints();
-	
-	if Settings and Settings.RegisterCanvasLayoutCategory then
-		local category;
-		if text == addonName then
-			category = Settings.RegisterCanvasLayoutCategory(subcategory, text)
-			Settings.RegisterAddOnCategory(category);
-			AddOnCategoryID = category.ID;
+  local scrollParent
+  local subcategory
+
+  if Settings and Settings.RegisterCanvasLayoutCategory then
+    -- Dragonflight API path
+    local outerFrame = CreateFrame("Frame", addonName .. "-" .. text, UIParent)
+    outerFrame:SetSize(GetOptionsContainerWidth(), 600)
+
+    -- Wrap it in scrollable content
+    scrollParent, subcategory = CreateScrollablePanel(addonName .. "-" .. text, outerFrame)
+
+    local category
+    if text == addonName then
+      category = Settings.RegisterCanvasLayoutCategory(outerFrame, text)
+      Settings.RegisterAddOnCategory(category)
+      AddOnCategoryID = category.ID
       REP.settingsCategory = AddOnCategoryID
-		else
-			parentCategory = Categories[parentCategory or addonName];
-			category = Settings.RegisterCanvasLayoutSubcategory(parentCategory.category, subcategory, text)
-			if isRootCategory then RootCategoryID = category.ID; end
-		end
-		subcategory:Hide();
-		subcategory.category = category;
-	else
-		subcategory.name = text;
-		if text ~= addonName then subcategory.parent = parentCategory or addonName; end
-		InterfaceOptions_AddCategory(subcategory);
-	end
-	Categories[text] = subcategory;
-	
-  -- subcategory:SetScript("OnShow", function(self) REPSettings.Show(self) end)
-	return subcategory;
+    else
+      parentCategory = Categories[parentCategory or addonName]
+      category = Settings.RegisterCanvasLayoutSubcategory(parentCategory.category, outerFrame, text)
+      if isRootCategory then RootCategoryID = category.ID end
+    end
+
+    subcategory.category = category
+    Categories[text] = subcategory
+    return subcategory
+  else
+    -- Old InterfaceOptions path
+    local outerFrame = CreateFrame("Frame", addonName .. "-" .. text, InterfaceOptionsFramePanelContainer)
+    scrollParent, subcategory = CreateScrollablePanel(addonName .. "-" .. text, outerFrame)
+
+    subcategory.name = text
+    if text ~= addonName then subcategory.parent = parentCategory or addonName end
+    InterfaceOptions_AddCategory(outerFrame)
+    Categories[text] = subcategory
+    return subcategory
+  end
 end
 
 ---- Fix for removed standard tooltips from the InterfaceOptionsCheckButtonTemplate
@@ -96,7 +128,7 @@ local function checkbox(name, label, description, parent, onclick)
   check.tooltipText = label
   check.tooltipRequirement = description
 
-  if REP.AfterShadowLands then
+  if REP.AfterCata then
     SetCustomTooltip(check, description)
   end
 
@@ -186,7 +218,10 @@ function REP:RenderAddonSettingsFrame()
   local showPreviewRep = checkbox("ShowPreviewRepBox", REP_TXT.showPreviewRep, REP_TXT.elements.tip.REP_ShowPreviewRepBox, REP_OptionsGeneralTab, function(_, checked) REP_Data.Global.ShowPreviewRep = checked end)
   local switchFactionBar = checkbox("SwitchFactionBarBox", REP_TXT.switchFactionBar, REP_TXT.elements.tip.REP_SwitchFactionBarBox, REP_OptionsGeneralTab, function(_, checked) REP_Data.Global.SwitchFactionBar = checked end)
   local silentSwitch = checkbox("SilentSwitchBox", REP_TXT.silentSwitch, REP_TXT.elements.tip.REP_SilentSwitchBox, REP_OptionsGeneralTab, function(_, checked) REP_Data.Global.SilentSwitch = checked end)
+  
+  -- TODO: Add translations
   local showAllFactionsGains = checkbox("ShowAllFactionsGainsBox", "Show all factions gains", "Show all hidden factions that have reputation changes in chat.", REP_OptionsGeneralTab, function(_, checked) REP_Data.Global.ShowAllFactionsGains = checked end)
+  
   ---- General options positioning
   title:SetPoint("TOPLEFT", 16, -16)
   showMissing:SetPoint("TOPLEFT", title, "BOTTOMLEFT", -2, -16)
@@ -199,7 +234,7 @@ function REP:RenderAddonSettingsFrame()
   -- Reputation Buffs options --
   ------------------------------
   ---- Reputation Buffs options init
-  local noGuildGain, noGuildSwitch, enableParagonBar, wickermanRepBuff, harvestBountyRepBuff, guildRepBuffRankOne, guildRepBuffRankTwo, darkmoonfaireWeeRepBuff, darkmoonfaireHatRepBuff
+  local noGuildGain, noGuildSwitch, enableParagonBar, showBonusGainsInChat, wickermanRepBuff, harvestBountyRepBuff, guildRepBuffRankOne, guildRepBuffRankTwo, darkmoonfaireWeeRepBuff, darkmoonfaireHatRepBuff
   local buffsDivider = REP_OptionsGeneralTab:CreateLine()
   local buffTitle = REP_OptionsGeneralTab:CreateFontString(nil, "ARTWORK", "GameFontNormalLarge")
   local buffSubTitle = REP_OptionsGeneralTab:CreateFontString(nil, "ARTWORK", "GameFontNormalSmall")
@@ -249,6 +284,8 @@ function REP:RenderAddonSettingsFrame()
       darkmoonfaireHatRepBuff = checkbox("DarkmoonFaireHatRepBuffBox", REP_TXT.settings.DarkmoonFaireHatRep, REP_TXT.settings.info.DarkmoonFaireHatRep, REP_OptionsGeneralTab, function(_, checked) REP_Data.Global.DarkmoonfaireHatRepBuff = checked REP_ToggleReputationBuff() ToggleDarkmoonFaireBuff(darkmoonfaireWeeRepBuff, darkmoonfaireHatRepBuff) end)
       ToggleDarkmoonFaireBuff(darkmoonfaireWeeRepBuff, darkmoonfaireHatRepBuff)
 
+      showBonusGainsInChat = checkbox("ShowBonusGainsInChatBox", REP_TXT.settings.ShowBonusGainsInChat, REP_TXT.settings.info.ShowBonusGainsInChat, REP_OptionsGeneralTab, function(_, checked) REP_Data.Global.ShowBonusGainsInChat = checked end)
+
       if REP.AfterMoP then
         darkmoonfaireWeeRepBuff:SetPoint("TOPLEFT", harvestBountyRepBuff, "BOTTOMLEFT", 0, 0)
       else
@@ -272,12 +309,86 @@ function REP:RenderAddonSettingsFrame()
     showAllFactionsGains:SetPoint("TOPLEFT", silentSwitch, "BOTTOMLEFT", -20, 0)
   end
 
-  buffsDivider:SetStartPoint("BOTTOMLEFT", showAllFactionsGains, 0, -16)
-  buffsDivider:SetEndPoint("BOTTOMRIGHT", showAllFactionsGains, 400, -16)
+  if REP.AfterCata then
+    showBonusGainsInChat:SetPoint("TOPLEFT", showAllFactionsGains, "BOTTOMLEFT", 0, 0)
+    buffsDivider:SetStartPoint("BOTTOMLEFT", showBonusGainsInChat, 0, -16)
+    buffsDivider:SetEndPoint("BOTTOMRIGHT", showBonusGainsInChat, 400, -16)
+  else
+    buffsDivider:SetStartPoint("BOTTOMLEFT", showAllFactionsGains, 0, -16)
+    buffsDivider:SetEndPoint("BOTTOMRIGHT", showAllFactionsGains, 400, -16)
+  end
 
   wickermanRepBuff:SetPoint("TOPLEFT", buffSubTitle, "BOTTOMLEFT", -5, -16)
   if REP.AfterTBC then
     harvestBountyRepBuff:SetPoint("TOPLEFT", wickermanRepBuff, "BOTTOMLEFT", 0, 0)
+  end
+
+  --------------------------------------
+  -- Characters for tooltip --
+  --------------------------------------
+  if REP_Data.ProfileKeys and REP:TableSize(REP_Data.ProfileKeys) > 0 then
+    local tooltipDivider = REP_OptionsGeneralTab:CreateLine()
+    local tooltipTitle = REP_OptionsGeneralTab:CreateFontString(nil, "ARTWORK", "GameFontNormalLarge")
+    local tooltipSubTitle = REP_OptionsGeneralTab:CreateFontString(nil, "ARTWORK", "GameFontNormalSmall")
+    ---- Buff divider
+    tooltipDivider:SetColorTexture(0.82, 0.82, 0.82, 0.2)
+    tooltipDivider:SetThickness(1)
+  
+    if not REP.realm then REP.realm = GetRealmName() end
+
+    ---- Buff title
+    tooltipTitle:SetText("Show these " .. REP.realm .. " characters on tooltips:")
+    tooltipTitle:SetPoint("TOPLEFT", tooltipDivider, "BOTTOMLEFT", 0, -16)
+    ---- Buff subtitle
+    -- tooltipSubTitle:SetJustifyH("LEFT")
+    -- tooltipSubTitle:SetText("")
+    -- tooltipSubTitle:SetWidth(640)
+    -- tooltipSubTitle:SetTextColor(1, 1, 1, 0.8)
+    -- tooltipSubTitle:SetPoint("TOPLEFT", tooltipTitle, "BOTTOMLEFT", 0, -10)
+    -- tooltipSubTitle:SetWordWrap(true)
+
+    if REP.AfterCata then
+      tooltipDivider:SetStartPoint("BOTTOMLEFT", darkmoonfaireHatRepBuff, 0, -16)
+      tooltipDivider:SetEndPoint("BOTTOMRIGHT", darkmoonfaireHatRepBuff, 400, -16)
+    else
+      if REP.AfterWotlk then
+        tooltipDivider:SetStartPoint("BOTTOMLEFT", guildRepBuffRankTwo, 0, -16)
+        tooltipDivider:SetEndPoint("BOTTOMRIGHT", guildRepBuffRankTwo, 400, -16)
+      else
+        if REP.AfterTBC then
+          tooltipDivider:SetStartPoint("BOTTOMLEFT", harvestBountyRepBuff, 0, -16)
+          tooltipDivider:SetEndPoint("BOTTOMRIGHT", harvestBountyRepBuff, 400, -16)
+        else
+          tooltipDivider:SetStartPoint("BOTTOMLEFT", wickermanRepBuff, 0, -16)
+          tooltipDivider:SetEndPoint("BOTTOMRIGHT", wickermanRepBuff, 400, -16)
+        end
+      end
+    end
+
+    local lastCheckbox
+
+    for profileKey, profileData in pairs(REP_Data.ProfileKeys) do
+      local k = REP_Data.ProfileKeys[profileKey]
+      if k and k.profile and REP.realm == k.profile.realm and k.profile.class then
+        local color = "|c" .. REP:GetClassColor(k.profile.class)
+        local cb = checkbox("Show"..profileKey.."InTooltipBox", color .. k.profile.name .. " |r(Level " .. k.profile.level .. ")", "", REP_OptionsGeneralTab, function(_, checked) k.profile.ShowChar = checked end)
+        cb:SetChecked(k.profile.ShowChar)
+
+        if not lastCheckbox then
+          cb:SetPoint("TOPLEFT", tooltipTitle, "BOTTOMLEFT", -2, -10)
+        else
+          cb:SetPoint("TOPLEFT", lastCheckbox, "BOTTOMLEFT", 0, -4)
+        end
+
+        lastCheckbox = cb
+      end
+    end
+
+    if lastCheckbox then
+      local spacer = CreateFrame("Frame", nil, REP_OptionsGeneralTab)
+      spacer:SetSize(1, 30) -- width doesn't matter, height = extra space
+      spacer:SetPoint("TOPLEFT", lastCheckbox, "BOTTOMLEFT", 0, -10)
+    end
   end
 
   --------------------------------------
@@ -334,6 +445,7 @@ function REP:RenderAddonSettingsFrame()
     end
 
     if REP.AfterCata then
+      showBonusGainsInChat:SetChecked(REP_Data.Global.ShowBonusGainsInChat)
       darkmoonfaireWeeRepBuff:SetChecked(REP_Data.Global.DarkmoonfaireWeeRepBuff)
       darkmoonfaireHatRepBuff:SetChecked(REP_Data.Global.DarkmoonfaireHatRepBuff)
     end
@@ -357,48 +469,47 @@ function REP:DisplayProfileFrames(initOnly)
   end
   
   local index = 0
-  for profileKey, profileData in pairs(REP_Data) do
-    if profileKey ~= "Global" then
-      index = index + 1
-      profileFrame = REP.renderedProfileFrames[index]
-      
-      if profileFrame then
-        if not initOnly then
-          profileFrame:SetPoint("TOPLEFT", REP_OptionsCharactersTabContent, "TOPLEFT", 0, (-10 - ((index - 1) * 30)))
-        end
-  
-        profileFrame.resetButton:Show()
-        profileFrame.deleteButton:Show()
+  for profileKey, profileData in pairs(REP_Data.ProfileKeys) do
+    index = index + 1
+    profileFrame = REP.renderedProfileFrames[index]
+    
+    if profileFrame then
+      if not initOnly then
+        profileFrame:SetPoint("TOPLEFT", REP_OptionsCharactersTabContent, "TOPLEFT", 0, (-10 - ((index - 1) * 30)))
       end
+
+      profileFrame.resetButton:Show()
+      profileFrame.deleteButton:Show()
     end
   end
 end
 
 function REP:RenderProfileFrames()  
-  for profileKey, profileData in pairs(REP_Data) do
-    if profileKey ~= "Global" then
-      local profileFrame = REP:CreateProfileFrame(#renderedProfileFrames + 1, profileKey)
-      table.insert(renderedProfileFrames, profileFrame)
-    end
+  for profileKey, profileData in pairs(REP_Data.ProfileKeys) do
+    local profileFrame = REP:CreateProfileFrame(#renderedProfileFrames + 1, profileKey)
+    table.insert(renderedProfileFrames, profileFrame)
   end
 end
 
 function REP:CreateProfileFrame(index, profileKey, yOffset)
+  local characterProfile = REP_Data.ProfileKeys[profileKey]
+  local profileName = format("%s-%s", characterProfile.profile.name, characterProfile.profile.realm)
+
   local frame = CreateFrame("Frame", nil, REP_OptionsCharactersTabContent)
   frame:SetSize(300, 50)
   frame:SetPoint("TOPLEFT", REP_OptionsCharactersTabContent, "TOPLEFT", 0, (-10 - ((index - 1) * 30)))
 
   frame.text = REP_OptionsCharactersTabContent:CreateFontString(nil, "OVERLAY", "GameFontNormal")
   frame.text:SetPoint("TOPLEFT", frame, "TOPLEFT", 0, 0)
-  frame.text:SetText(profileKey)
-
+  frame.text:SetText(profileName)
+  
   frame.resetButton = CreateFrame("Button", "REP_OptionsResetCharacterVariablesButton"..index, REP_OptionsCharactersTabContent, "UIPanelButtonTemplate")
   frame.resetButton:SetSize(80, 20)
   frame.resetButton:SetPoint("LEFT", frame.text, "RIGHT", 10, 0)
   frame.resetButton:SetText("Reset")
   frame.resetButton:SetScript("OnClick", function()
-    REP_Data[profileKey] = {}
-    REP:Print("The saved variables for "..tostring(profileKey).." has been reset.")
+    REP_Data.ProfileKeys[profileKey] = {}
+    REP:Print("The saved variables for "..tostring(profileName).." has been reset.")
   end)
 
   frame.deleteButton = CreateFrame("Button", "REP_OptionsDeleteCharacterVariablesButton"..index, REP_OptionsCharactersTabContent, "UIPanelButtonTemplate")
@@ -407,9 +518,8 @@ function REP:CreateProfileFrame(index, profileKey, yOffset)
   frame.deleteButton:SetText("Delete")
   frame.deleteButton:SetScript("OnClick", function()
     REP:RemoveProfileFrame(index)
-    REP_Data[profileKey] = nil
-    REP_Data["Global"]["ProfileKeys"][profileKey] = nil
-    REP:Print(tostring(profileKey).." has been removed from the saved variables.")
+    REP_Data.ProfileKeys[profileKey] = nil
+    REP:Print(tostring(profileName).." has been removed from the saved variables.")
     frame = nil
   end)
 

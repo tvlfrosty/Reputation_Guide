@@ -2,7 +2,7 @@
 -- Initialize Addon vars --
 ---------------------------
 local _, vars = ...
-local REP = vars
+local ReputationGuide = vars
 --------------------------------------------------
 -- /run local mapID = <mapID>; print(C_Map.GetMapInfo(mapID).name)
 -- /dump C_Map.GetBestMapForUnit("player")
@@ -12,9 +12,9 @@ local REP = vars
 --------------------------------------------------
 --- TODO: Check when the zoneIDs actually changed or if they are really tied to game version (Retail/Classic)
 --- https://warcraft.wiki.gg/wiki/UiMapID
-function REP:SetZoneIdsBasedOnExpansion()
+function ReputationGuide:SetZoneIdsBasedOnExpansion()
   local zone = {}
-  if (not REP.AfterMoP) then
+  if (not ReputationGuide.AfterMoP) then
     --------------------------------------------------
     -- Zone ID's till after Wrath of the Lich King
     --------------------------------------------------
@@ -678,5 +678,5 @@ function REP:SetZoneIdsBasedOnExpansion()
     zone.Undermine = 2346
   end
 
-  REP.zone = zone
+  ReputationGuide.zone = zone
 end

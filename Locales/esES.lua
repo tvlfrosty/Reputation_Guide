@@ -149,7 +149,6 @@ if (GetLocale() =="esES" or GetLocale() =="esMX") then
   -- to chat
   REP_TXT.stats	= " (Total: %s%d, Falta: %d)"
   REP_TXT.statsNextStanding = " (Total: %s%d, Left to %s: %d)"
-
   -- config changed
   REP_TXT.configQuestion	= "Por favor compruebe los ajustes de Reputations."
   REP_TXT.showConfig	= "Ir a Ajustes"
@@ -376,6 +375,46 @@ if (GetLocale() =="esES" or GetLocale() =="esMX") then
   REP_TXT.STAND_LV_LEVEL[58] = "Nivel 58"
   REP_TXT.STAND_LV_LEVEL[59] = "Nivel 59"
   REP_TXT.STAND_LV_LEVEL[60] = "Nivel 60"
+  REP_TXT.STAND_LV_LEVEL[61] = "Nivel 61"
+  REP_TXT.STAND_LV_LEVEL[62] = "Nivel 62"
+  REP_TXT.STAND_LV_LEVEL[63] = "Nivel 63"
+  REP_TXT.STAND_LV_LEVEL[64] = "Nivel 64"
+  REP_TXT.STAND_LV_LEVEL[65] = "Nivel 65"
+  REP_TXT.STAND_LV_LEVEL[66] = "Nivel 66"
+  REP_TXT.STAND_LV_LEVEL[67] = "Nivel 67"
+  REP_TXT.STAND_LV_LEVEL[68] = "Nivel 68"
+  REP_TXT.STAND_LV_LEVEL[69] = "Nivel 69"
+  REP_TXT.STAND_LV_LEVEL[70] = "Nivel 70"
+  REP_TXT.STAND_LV_LEVEL[71] = "Nivel 71"
+  REP_TXT.STAND_LV_LEVEL[72] = "Nivel 72"
+  REP_TXT.STAND_LV_LEVEL[73] = "Nivel 73"
+  REP_TXT.STAND_LV_LEVEL[74] = "Nivel 74"
+  REP_TXT.STAND_LV_LEVEL[75] = "Nivel 75"
+  REP_TXT.STAND_LV_LEVEL[76] = "Nivel 76"
+  REP_TXT.STAND_LV_LEVEL[77] = "Nivel 77"
+  REP_TXT.STAND_LV_LEVEL[78] = "Nivel 78"
+  REP_TXT.STAND_LV_LEVEL[79] = "Nivel 79"
+  REP_TXT.STAND_LV_LEVEL[80] = "Nivel 80"
+  REP_TXT.STAND_LV_LEVEL[81] = "Nivel 81"
+  REP_TXT.STAND_LV_LEVEL[82] = "Nivel 82"
+  REP_TXT.STAND_LV_LEVEL[83] = "Nivel 83"
+  REP_TXT.STAND_LV_LEVEL[84] = "Nivel 84"
+  REP_TXT.STAND_LV_LEVEL[85] = "Nivel 85"
+  REP_TXT.STAND_LV_LEVEL[86] = "Nivel 86"
+  REP_TXT.STAND_LV_LEVEL[87] = "Nivel 87"
+  REP_TXT.STAND_LV_LEVEL[88] = "Nivel 88"
+  REP_TXT.STAND_LV_LEVEL[89] = "Nivel 89"
+  REP_TXT.STAND_LV_LEVEL[90] = "Nivel 90"
+  REP_TXT.STAND_LV_LEVEL[91] = "Nivel 91"
+  REP_TXT.STAND_LV_LEVEL[92] = "Nivel 92"
+  REP_TXT.STAND_LV_LEVEL[93] = "Nivel 93"
+  REP_TXT.STAND_LV_LEVEL[94] = "Nivel 94"
+  REP_TXT.STAND_LV_LEVEL[95] = "Nivel 95"
+  REP_TXT.STAND_LV_LEVEL[96] = "Nivel 96"
+  REP_TXT.STAND_LV_LEVEL[97] = "Nivel 97"
+  REP_TXT.STAND_LV_LEVEL[98] = "Nivel 98"
+  REP_TXT.STAND_LV_LEVEL[99] = "Nivel 99"
+  REP_TXT.STAND_LV_LEVEL[100] = "Nivel 100"
   -------------------------------------
   -- BFFLabels / Friendship factions --
   -------------------------------------
@@ -621,6 +660,8 @@ if (GetLocale() =="esES" or GetLocale() =="esMX") then
   REP_TXT.settings.info.DarkmoonFaireWeeRepBuff = "Has montado en el carrusel o en la montaña rusa de la Luna Negra. La ganancia de experiencia y reputación aumenta un 10%."
   REP_TXT.settings.DarkmoonFaireHatRep = "Chistera de la Luna Negra (Feria de la Luna Negra)"
   REP_TXT.settings.info.DarkmoonFaireHatRep = "Aumenta las ganancias de experiencia y reputación un 10% durante 1 hour. El sombrero se consume con el uso."
+  REP_TXT.settings.ShowBonusGainsInChat = "Show bonus reputation in chat"
+  REP_TXT.settings.info.ShowBonusGainsInChat = "Show bonus reputation from commendations in chat when reputation is gained."
   ---------------------------
   -- Characters tab settings
   ---------------------------
