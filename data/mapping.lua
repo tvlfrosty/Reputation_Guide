@@ -1,119 +1,44 @@
 local addonName, vars = ...
-local REP = vars
+local ReputationGuide = vars
+
+local factions = ReputationGuide.factions or {}
+ReputationGuide.factions = factions
 
 local factionPanelFix = true
 local showParagonCount = false
 
-local factions = {}
-REP.Factions = factions
-
-function REP:GetFactionDataByIndex(index)
-  if not index then return end
-
-  local factionDataObj
-
-  if REP.AfterDragonflight then
-    factionDataObj = REP_Orig_GetFactionDataByIndex(index)
-  else  
-    -- name, description, standingID, barMin, barMax, barValue, atWarWith, canToggleAtWar, isHeader, isCollapsed, hasRep, isWatched, isChild, factionID, hasBonusRepGain, canBeLFGBonus = REP_Orig_GetFactionDataByIndex(i)
-    local factionData = {REP_Orig_GetFactionDataByIndex(index)}
-    factionDataObj = {
-      name = factionData[1],
-      description = factionData[2],
-      reaction = factionData[3], -- standingID
-      currentReactionThreshold = factionData[4], -- barMin
-      nextReactionThreshold = factionData[5], -- barMax
-      currentStanding = factionData[6], -- barValue
-      atWarWith = factionData[7],
-      canToggleAtWar = factionData[8],
-      isHeader = factionData[9],
-      isCollapsed = factionData[10],
-      isHeaderWithRep = factionData[11], -- hasRep
-      isWatched = factionData[12],
-      isChild = factionData[13],
-      factionID = factionData[14],
-      hasBonusRepGain = factionData[15],
-      canBeLFGBonus = factionData[16],
-      canSetInactive = not factionData[9] or factionData[11],
-      isAccountWide = false
-    }
-  end
-
-  return factionDataObj or {}
-end
-
-function REP:GetFactionDataByID(factionID)
-  if not factionID then return end
-
-  local factionDataObj
-
-  if REP.AfterDragonflight then
-    factionDataObj = REP_Orig_GetFactionDataByID(factionID)
-  else
-    local factionData
-    if REP_Orig_GetFactionDataByID then
-      factionData = {REP_Orig_GetFactionDataByID(factionID)}
-    else
-      factionData = {GetFactionInfoByID(factionID)}
-    end
-
-    factionDataObj = {
-      name = factionData[1],
-      description = factionData[2],
-      reaction = factionData[3], -- standingID
-      currentReactionThreshold = factionData[4], -- barMin
-      nextReactionThreshold = factionData[5], -- barMax
-      currentStanding = factionData[6], -- barValue
-      atWarWith = factionData[7],
-      canToggleAtWar = factionData[8],
-      isHeader = factionData[9],
-      isCollapsed = factionData[10],
-      isHeaderWithRep = factionData[11], -- hasRep
-      isWatched = factionData[12],
-      isChild = factionData[13],
-      factionID = factionData[14],
-      hasBonusRepGain = factionData[15],
-      canBeLFGBonus = factionData[16],
-      canSetInactive = not factionData[9] or factionData[11],
-      isAccountWide = false
-    }
-  end
-
-  return factionDataObj or {}
-end
-
 -- Thanks to the Pretty Reputation Addon (https://www.curseforge.com/wow/addons/pretty-reputation) for the factionPanelFix fix.
-function REP:IndexFactions(isInitialLogin, isReloadingUi, forceFactionPanelFix)
-  if (isInitialLogin or isReloadingUi or forceFactionPanelFix) then
-    showParagonCount = REP_Data.Global.ShowParagonBar
+function ReputationGuide:IndexFactions(isInitialLogin, isReloadingUi, forceFactionPanelFix)
+  if not (isInitialLogin or isReloadingUi or forceFactionPanelFix) then return end
+  
+  showParagonCount = REP_Data.Global.ShowParagonBar
 
-    if REP.AfterShadowLands then
-      do
-        for _, factionId in ipairs(REP_Orig_GetMajorFactionIDs()) do
-          REP:IndexFaction(REP_Orig_GetMajorFactionData(factionId))
-        end
-      end
-    end
-
+  if ReputationGuide.AfterShadowLands then
     do
-      local collapsedHeaders = REP:saveRepHeaders()
-      for i = 1, REP_Orig_GetNumFactions() do
-        REP:IndexFaction(REP:GetFactionDataByIndex(i))
+      for _, factionId in ipairs(REP_Orig_GetMajorFactionIDs()) do
+        ReputationGuide:IndexFaction(REP_Orig_GetMajorFactionData(factionId))
       end
-      REP:restoreRepHeaders(collapsedHeaders)
     end
+  end
 
-    if REP.AfterDragonflight or forceFactionPanelFix then
-      do
-        if factionPanelFix or forceFactionPanelFix then
-          factionPanelFix = false
-          for factionID = 1, 5000 do
-            local factionData = REP:GetFactionDataByID(factionID)
-            if factionData and factionData.factionID and not factions[factionData.factionID] then
-              REP:IndexFaction(factionData)
-              if factions[factionData.factionID] then
-                factions[factionData.factionID].blizzFix = true
-              end
+  do
+    local collapsedHeaders = ReputationGuide:saveRepHeaders()
+    for i = 1, REP_Orig_GetNumFactions() do
+      ReputationGuide:IndexFaction(ReputationGuide:GetFactionDataByIndex(i))
+    end
+    ReputationGuide:restoreRepHeaders(collapsedHeaders)
+  end
+
+  if ReputationGuide.AfterDragonflight or forceFactionPanelFix then
+    do
+      if factionPanelFix or forceFactionPanelFix then
+        factionPanelFix = false
+        for factionID = 1, 5000 do
+          local factionData = ReputationGuide:GetFactionDataByID(factionID)
+          if factionData and factionData.factionID and not factions[factionData.factionID] then
+            ReputationGuide:IndexFaction(factionData)
+            if factions[factionData.factionID] then
+              factions[factionData.factionID].blizzFix = true
             end
           end
         end
@@ -122,7 +47,7 @@ function REP:IndexFactions(isInitialLogin, isReloadingUi, forceFactionPanelFix)
   end
 end
 
-function REP:IndexFaction(factionData)
+function ReputationGuide:IndexFaction(factionData)
   if factionData and factionData.name and factionData.factionID and factionData.factionID ~= 0 then
 
     if not factions[factionData.factionID] then
@@ -144,12 +69,36 @@ function REP:IndexFaction(factionData)
       info["change"] = 0
       info["session"] = factions[factionData.factionID].session
       info["expansionID"] = factionData.expansionID
-      factions[factionData.factionID].info = REP:getRepInfo(info)
+      factions[factionData.factionID].info = ReputationGuide:getRepInfo(info)
+    end
+
+    if factions[factionData.factionID].info then
+      local guid = UnitGUID("player")
+
+      if not REP_Data.ProfileKeys then REP_Data.ProfileKeys = {} end
+      
+      -- If you want to recache all factions on login, temp remove "and not REP_Data.ProfileKeys[guid].factions[factionData.factionID]".
+      if guid and REP_Data.ProfileKeys and REP_Data.ProfileKeys[guid] and REP_Data.ProfileKeys[guid].factions and not REP_Data.ProfileKeys[guid].factions[factionData.factionID] then 
+        local currentStandingID
+
+        if factions[factionData.factionID].info.isFriend then
+          currentStandingID = 5
+        else
+          currentStandingID = factions[factionData.factionID].info.standingID
+        end
+        
+        REP_Data.ProfileKeys[guid].factions[factionData.factionID] = {
+          standing = factions[factionData.factionID].info.standingText or "",
+          standingID = currentStandingID or 0,
+          current = factions[factionData.factionID].info.current or 0,
+          max = factions[factionData.factionID].info.maximum or 0
+        }
+      end
     end
   end
 end
 
-function REP:saveRepHeaders()
+function ReputationGuide:saveRepHeaders()
   local parse = true
   local collapsed = {}
   if not parse then
@@ -166,7 +115,7 @@ function REP:saveRepHeaders()
   local i = 1
 
   while true do
-    local factionData = REP:GetFactionDataByIndex(i)
+    local factionData = ReputationGuide:GetFactionDataByIndex(i)
     if not factionData or not factionData.name or (factionData.name == previousName and factionData.name ~= GUILD) then break end
     if (factionData.factionID == nil) then factionData.factionID = factionData.name	end
     if factionData.isHeader and factionData.isCollapsed then
@@ -192,10 +141,10 @@ function REP:saveRepHeaders()
   return collapsed
 end
 
-function REP:restoreRepHeaders(collapsed)
+function ReputationGuide:restoreRepHeaders(collapsed)
   if next(collapsed) == nil then return end
   for i = REP_Orig_GetNumFactions(), 1, -1 do
-    local factionData = REP:GetFactionDataByIndex(i)
+    local factionData = ReputationGuide:GetFactionDataByIndex(i)
     if (factionData.factionID == nil) then factionData.factionID = factionData.name	end
 
     if factionData.isHeader and collapsed[factionData.factionID] then
@@ -208,22 +157,23 @@ function REP:restoreRepHeaders(collapsed)
   end
 end
 
-function REP:getRepInfo(info)
+function ReputationGuide:getRepInfo(info)
   if (info.factionID and info.factionID ~= 0) then
-    local factionData = REP:GetFactionDataByID(info.factionID)
-    info["standingId"] = factionData.reaction
+    local factionData = ReputationGuide:GetFactionDataByID(info.factionID)
+    info["standingID"] = factionData.reaction
     info["name"] = factionData.name
     info["bottom"] = factionData.currentReactionThreshold
     info["top"] = factionData.nextReactionThreshold
     info["isHeader"] = factionData.isHeader
     info["isWatched"] = factionData.isWatched
+    info["hasBonusRepGain"] = factionData.hasBonusRepGain
 
     info["paragon"] = ""
     info["renown"] = ""
     info["standingTextNext"] = ""
     info["reward"] = ""
 
-    if REP.AfterShadowLands then
+    if ReputationGuide.AfterShadowLands then
       if (REP_Orig_IsMajorFaction(info.factionID)) then
         info["isRenown"] = true
         local data = REP_Orig_GetMajorFactionData(info.factionID)
@@ -238,8 +188,8 @@ function REP:getRepInfo(info)
           info["standingText"] = (REP_TXT.renown.." "..data.renownLevel)
           info["renown"] = data.renownLevel
           info["standingTextNext"] = REP_TXT.renown.." "..(data.renownLevel + 1)
-          info["standingId"] = 10
-          info["standingIdNext"] = 10
+          info["standingID"] = 10
+          info["standingIDNext"] = 10
           
           if not isCapped or not isParagon then return info end
           if isCapped then info["isCapped"] = true end
@@ -251,9 +201,9 @@ function REP:getRepInfo(info)
             info["paragon"] = info["paragon"] .. paragonLevel
           end
   
-          info["standingTextNext"] = REP:getFactionLabel("paragon") .. " " .. (paragonLevel + 1)
-          info["standingId"] = 9
-          info["standingIdNext"] = 9
+          info["standingTextNext"] = ReputationGuide:getFactionLabel("paragon") .. " " .. (paragonLevel + 1)
+          info["standingID"] = 9
+          info["standingIDNext"] = 9
           
           if hasRewardPending then
             local reward = "|A:ParagonReputation_Bag:0:0|a"
@@ -291,19 +241,19 @@ function REP:getRepInfo(info)
       return info
     end
 
-    if REP.AfterCata then
+    if ReputationGuide.AfterWoD then
       if (REP_Orig_IsFactionParagon(info.factionID)) then
         local currentValue, threshold, _, hasRewardPending = REP_Orig_GetFactionParagonInfo(info.factionID);
         local paragonLevel = (currentValue - (currentValue % threshold))/threshold
-        info["standingText"] = REP:getFactionLabel("paragon")
+        info["standingText"] = ReputationGuide:getFactionLabel("paragon")
         
         if showParagonCount and paragonLevel > 0 then
           info["paragon"] =  info["paragon"] .. paragonLevel
         end
   
-        info["standingTextNext"] = REP:getFactionLabel("paragon") .. " " .. (paragonLevel + 1)
-        info["standingId"] = 9
-        info["standingIdNext"] = 9
+        info["standingTextNext"] = ReputationGuide:getFactionLabel("paragon") .. " " .. (paragonLevel + 1)
+        info["standingID"] = 9
+        info["standingIDNext"] = 9
   
         if hasRewardPending then
           local reward = "|A:ParagonReputation_Bag:0:0|a"
@@ -336,7 +286,7 @@ function REP:getRepInfo(info)
         info["current"] = friendInfo.standing - friendInfo.reactionThreshold
         info["maximum"] = friendInfo.nextThreshold - friendInfo.reactionThreshold
         info["top"] = friendInfo.nextThreshold
-        info["standingTextNext"] = REP_GetFriendFactionStandingLabel(info.factionID, friendInfo.nextThreshold)
+        info["standingTextNext"] = ReputationGuide:GetFriendFactionStandingLabel(info.factionID, friendInfo.nextThreshold)
       else
         info["isCapped"] = true
       end
@@ -347,81 +297,51 @@ function REP:getRepInfo(info)
 
     info["current"] = factionData.currentStanding - info.bottom
     info["maximum"] = info.top - info.bottom
-    info["standingText"] = REP:getFactionLabel(factionData.reaction)
+    info["standingText"] = ReputationGuide:getFactionLabel(factionData.reaction)
     info["standingTextNext"] = (info.negative and factionData.reaction > 1 and _G["FACTION_STANDING_LABEL".. factionData.reaction - 1]) or (not info.negative and factionData.reaction < 8 and _G["FACTION_STANDING_LABEL".. factionData.reaction + 1]) or ""
-    info["standingIdNext"] = (info.negative and factionData.reaction > 1 and (factionData.reaction - 1)) or (not info.negative and factionData.reaction < 8 and (factionData.reaction + 1))
+    info["standingIDNext"] = (info.negative and factionData.reaction > 1 and (factionData.reaction - 1)) or (not info.negative and factionData.reaction < 8 and (factionData.reaction + 1))
     return info
   end
 
   return info
 end
 
-function REP:getFactionInfo(info)
-  if REP.Factions[info.factionID] then
-    local session = REP:getFactionSession(info)
-    REP.Factions[info.factionID].session = session
+function ReputationGuide:getFactionInfo(info)
+  if ReputationGuide.Factions[info.factionID] then
+    local session = ReputationGuide:getFactionSession(info)
+    ReputationGuide.Factions[info.factionID].session = session
     info["lastUpdated"] = time()
     info["session"] = session
-    REP.Factions[info.factionID].info = REP:getRepInfo(info)
+    ReputationGuide.Factions[info.factionID].info = ReputationGuide:getRepInfo(info)
   end
   return info
 end
 
-function REP:getFactionInfoForNewFaction(info)
+function ReputationGuide:getFactionInfoForNewFaction(info)
   if info and info.factionID then
-    local factionData = REP:GetFactionDataByID(info.factionID)
+    local factionData = ReputationGuide:GetFactionDataByID(info.factionID)
     if factionData and factionData.factionID and not factions[factionData.factionID] then
-      REP:IndexFaction(factionData)
-      REP.Factions = factions
+      ReputationGuide:IndexFaction(factionData)
+      ReputationGuide.Factions = factions
     end
 
-    info = REP:getFactionInfo(info)
+    info = ReputationGuide:getFactionInfo(info)
   else
-    REP:IndexFactions(false, false, true)
-    REP.Factions = factions
+    ReputationGuide:IndexFactions(false, false, true)
+    ReputationGuide.Factions = factions
 
-    for i, factionData in pairs(REP.Factions) do
+    for i, factionData in pairs(ReputationGuide.Factions) do
       if factionData.info and factionData.info.faction and factionData.info.faction == info.faction then
         info = factionData.info
         break
       end
     end
-    info = REP:getFactionInfo(info)
+    info = ReputationGuide:getFactionInfo(info)
   end
 
   return info
 end
 
-function REP:getFactionSession(info)
+function ReputationGuide:getFactionSession(info)
   return factions[info.factionID] and (factions[info.factionID].session + (info.change * ((info.negative and -1 or 1)))) or 0
-end
-
-function REP:getFactionLabel(standingId)
-	if standingId == "paragon" then
-		return "Paragon"
-	end
-
-	if (standingId == "renown") then
-		return "Renown"
-	end
-
-  if (standingId == "friendship") then
-		return "Renown"
-	end
-
-	return GetText("FACTION_STANDING_LABEL" .. standingId, UnitSex("player"))
-end
-
-function REP_GetFriendFactionStandingLabel(factionID, nextFriendThreshold)
-  local REP_BFFLabels = REP.BFFLabels
-
-  if REP_BFFLabels[factionID] ~= nil then
-    return REP_BFFLabels[factionID][nextFriendThreshold]
-  else
-    if REP_BFFLabels[0][nextFriendThreshold] ~= nil then
-      return REP_BFFLabels[0][nextFriendThreshold]
-    else
-      return ""
-    end
-  end
 end

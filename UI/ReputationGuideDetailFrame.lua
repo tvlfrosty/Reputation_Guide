@@ -62,20 +62,6 @@ function REP:ChangeReputationDetailFrameUI()
     REP_Orig_DetailMainScreenCheckBox:ClearAllPoints()
     REP_Orig_DetailMainScreenCheckBox:SetPoint("LEFT", REP_Orig_DetailInactiveCheckBoxText, "RIGHT", 3, 0)
     REP_Orig_DetailMainScreenCheckBox:HookScript("OnClick", function(self) REP:CustomTriggerReputationFrameUpdate() end)
-
-    -- For some reason they keep changing these names....
-    -- if ReputationDetailAtWarCheckBox then
-      
-    -- else
-    --   ReputationDetailAtWarCheckbox:ClearAllPoints()
-    --   ReputationDetailAtWarCheckbox:SetPoint("TOPLEFT", REP_DetailFirstDivider, "BOTTOMLEFT", 5, 20)
-    --   ReputationDetailAtWarCheckbox:HookScript("OnClick", function(self) REP:CustomTriggerReputationFrameUpdate() end)
-
-    --   ReputationDetailInactiveCheckbox:SetScript("OnClick", function(self) REP:CustomSetFactionActiveOrInactive(self:GetChecked(), REP_Orig_GetSelectedFaction()) end)
-    --   ReputationDetailMainScreenCheckbox:ClearAllPoints()
-    --   ReputationDetailMainScreenCheckbox:SetPoint("LEFT", ReputationDetailInactiveCheckBoxText, "RIGHT", 3, 0)
-    --   ReputationDetailMainScreenCheckbox:HookScript("OnClick", function(self) REP:CustomTriggerReputationFrameUpdate() end)
-    -- end
   end
 
   REP_DetailSecondDivider = REP_Orig_ReputationDetailFrame:CreateTexture(nil, "ARTWORK")
@@ -506,7 +492,7 @@ function REP:FillReputationDetailFrameWithData()
     else
       local friendRep, friendMaxRep, friendThreshold, nextFriendThreshold
 
-      if not REP.AfterShadowLands then
+      if not REP.AfterShadowLands and GetFriendshipReputation then
         _, friendRep, friendMaxRep, _, _, _, _, friendThreshold, nextFriendThreshold = GetFriendshipReputation(factionID)
       else
         local friendshipInfo = REP_Orig_GetFriendshipReputation(factionID)
@@ -516,7 +502,7 @@ function REP:FillReputationDetailFrameWithData()
       end
 
       color = REP.FACTION_BAR_COLORS[8]
-      REP_DetailStandingNextValue:SetText("(--> "..REP_GetFriendFactionStandingLabel(factionID, nextFriendThreshold)..")")
+      REP_DetailStandingNextValue:SetText("(--> "..REP:GetFriendFactionStandingLabel(factionID, nextFriendThreshold)..")")
       REP_DetailStandingToExaltedHeader:SetText("Reputation to max") -- TODO: Add to localization file sometime
     end
   elseif isMajorFaction then

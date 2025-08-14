@@ -44,7 +44,6 @@ function REP_OnLoad(self)
   SlashCmdList.REP =  REP_SlashHandler
 
   local defaultData = {
-    ProfileKeys = {},
     ShowInstances = true,
     ShowQuests = true,
     ShowPvPQuests = true,
@@ -60,6 +59,7 @@ function REP_OnLoad(self)
     ShowPreviewRep = true,
     ShowGeneral = true,
     SortByStanding = false,
+    ShowBonusGainsInChat = false,
   }
 
   if not REP_Data then REP_Data = {} end
@@ -70,6 +70,7 @@ function REP_OnLoad(self)
   end
 
   local expansionIndex = GetExpansionLevel();
+
   if not REP_Data.Global.ExpansionIndex then REP_Data.Global.ExpansionIndex = expansionIndex end
   if (REP_Data.Global.ExpansionIndex ~= expansionIndex) then REP_Data.Global.ExpansionIndex = expansionIndex end
 
@@ -247,7 +248,7 @@ function REP_OnEvent(self, event, ...)
     -- to keep dungeon Difficulty up to date
     if REP.AfterClassic then REP_Main:RegisterEvent("PLAYER_DIFFICULTY_CHANGED") end
     -- Recast for tradeskill
-    if(not REP.AfterCata) then REP_Main:RegisterEvent("UPDATE_TRADESKILL_RECAST") end
+    if(not REP.AfterBfA) then REP_Main:RegisterEvent("UPDATE_TRADESKILL_RECAST") end
     -- to keep the Garrison up to date
     if REP.AfterMoP then REP_Main:RegisterEvent("GARRISON_UPDATE") end
 
@@ -395,7 +396,7 @@ function REP:Init()
   end
 
   local version
-  if REP.AfterDragonflight then
+  if REP.AfterCata then
     version = C_AddOns.GetAddOnMetadata("ReputationGuide", "Version")
   else
     version = GetAddOnMetadata("ReputationGuide", "Version")
@@ -421,18 +422,19 @@ function REP:Init()
   changed = changed + REP:InitVariable("ShowPreviewRep", true)
   changed = changed + REP:InitVariable("SwitchFactionBar", true)
   changed = changed + REP:InitVariable("SilentSwitch", true)
+  changed = changed + REP:InitVariable("ShowAllFactionsGains", true)
 
   if REP.AfterWotlk then
     changed = changed + REP:InitVariable("NoGuildGain", true)
     changed = changed + REP:InitVariable("NoGuildSwitch", true)
   end
 
-  if REP.AfterWoD then
-    changed = changed + REP:InitVariable("ShowParagonBar", true)
+  if REP.AfterCata then
+    changed = changed + REP:InitVariable("ShowBonusGainsInChat", true)
   end
 
-  if REP.AfterDragonflight then
-    changed = changed + REP:InitVariable("ShowAllFactionsGains", true)
+  if REP.AfterWoD then
+    changed = changed + REP:InitVariable("ShowParagonBar", true)
   end
 
   if (changed > 0) then
@@ -475,58 +477,87 @@ function REP:Init()
     end)
   end
 
+  -- Dubble check expansion index here since it seems to fire before onLoad...
+  local currentExpansionIndex = GetExpansionLevel();
+  if not REP_Data.Global.ExpansionIndex then REP_Data.Global.ExpansionIndex = currentExpansionIndex end
+  if (REP_Data.Global.ExpansionIndex ~= currentExpansionIndex) then REP_Data.Global.ExpansionIndex = currentExpansionIndex end
+
+  local guid = UnitGUID("player")
   local _, race = UnitRace("player")
-  local faction, locFaction = UnitFactionGroup("player")
-  local class, enClass = UnitClass("player")
+  local _, faction = UnitFactionGroup("player")
+  local _, class = UnitClass("player")
+  local level = UnitLevel("player")
+  local gender = UnitSex("player")
+  local playerName = UnitName("player")
+  local realm = GetRealmName()
+
   local expansionIndex = REP_Data.Global.ExpansionIndex
+  local expansion = REP.Expansions[expansionIndex]
+  REP.realm = realm
+ 
+  if not REP_Data.ProfileKeys then REP_Data.ProfileKeys = {} end
+  if not REP_Data.ProfileKeys[guid] then REP_Data.ProfileKeys[guid] = {} end
 
-  REP_Expansion = REP.Expansions[expansionIndex]
-  REP_Player = UnitName("player")
-  REP_Gender = UnitSex("player")
-  REP_Realm = GetRealmName()
-  REP_Class = class
-  REP_ProfileKey = format("%s-%s", REP_Player, REP_Realm)
+  local showChar = (REP_Data.ProfileKeys[guid].profile and REP_Data.ProfileKeys[guid].profile.ShowChar) or false
 
-  if REP_Data.Global.ProfileKeys[REP_ProfileKey] == nil then REP_Data.Global.ProfileKeys[REP_ProfileKey] = true end
-  if REP_Data[REP_ProfileKey] == nil then REP_Data[REP_ProfileKey] = {} end
-
-  REP_Data[REP_ProfileKey].profile = {
-    name	= REP_Player,
-    realm	= REP_Realm,
-    gender	= REP_Gender,
-    level	= REP_Level,
-    class	= REP_Class,
-    faction	= locFaction,
+  REP_Data.ProfileKeys[guid].profile = {
+    name	= playerName,
+    gender	= gender,
+    class	= class,
     race = race,
-    expansion = REP_Expansion
+    realm	= realm,
+    level	= level,
+    faction	= faction,
+    expansion = expansion,
+    ShowChar = showChar
   }
 
-  if REP_Data[REP_ProfileKey].quests == nil then REP_Data[REP_ProfileKey].quests = {} end
+  if not REP_Data.ProfileKeys[guid].quests then REP_Data.ProfileKeys[guid].quests = {} end
+  if not REP_Data.ProfileKeys[guid].factions then REP_Data.ProfileKeys[guid].factions = {} end
+  if not REP_Data.ProfileKeys[guid].inactiveFactions then REP_Data.ProfileKeys[guid].inactiveFactions = {} end
+
+  local profileKey = format("%s-%s", playerName, realm)
+  local matchingOldProfileKey = REP_Data[profileKey]
+  
+  if matchingOldProfileKey and matchingOldProfileKey.InactiveFactions then
+    REP_Data.ProfileKeys[guid].inactiveFactions = matchingOldProfileKey.InactiveFactions
+    REP_Data[profileKey] = nil
+  end
+
+  for profileKey, profileData in pairs(REP_Data) do
+    if profileKey ~= "Global" and profileKey ~= "ProfileKeys" then
+      local k = REP_Data[profileKey]
+      if not k.InactiveFactions or REP:TableSize(k.InactiveFactions) == 0 then REP_Data[profileKey] = nil end
+    end
+  end
 
   if (IsInGuild()) then
     if (REP.GuildName == nil or REP.GuildName == "") then REP.GuildName = GetGuildInfo("player") end
   end
 
-  if (race and faction and locFaction and REP_Player and REP_Realm) then
+  if (race and faction and playerName and realm) then
     if race == "Human" then
       REP.IsHuman = true
     end
 
-    if (enClass and enClass == "DEATHKNIGHT") then
+    if (class == "DEATHKNIGHT") then
       REP.IsDeathKnight = true
     end
 
-    if (faction == FACTION_ALLIANCE) or (locFaction == FACTION_ALLIANCE) then
+    if (faction == FACTION_ALLIANCE) then
       REP.IsAlliance = true
     end
 
-    if (faction == FACTION_HORDE) or (locFaction == FACTION_HORDE) then
+    if (faction == FACTION_HORDE) then
       REP.IsHorde = true
     end
 
-    -- Initialize Faction information
-    REP:InitFactor(REP.IsHuman)
     REP_InitEnFactionGains(REP.GuildName)
+    REP:HookWatchedFactionBar()
+
+    if REP.AfterDragonflight then
+      REP:HookFactionFrameMixinBar()
+    end
 
     REP_InitComplete = true
     if (REP_InitCount <= 5) then
@@ -547,7 +578,7 @@ function REP_SlashHandler(msg)
     local wordsLower = REP:GetWords(msgLower)
     local size = REP:TableSize(wordsLower)
     local FD_SH = REP_Data.Global
-
+    
     if (size > 0) then
       if (wordsLower[0]=="enable") then
         if (size > 1) then
@@ -1059,11 +1090,11 @@ function REP:InitItemName(fiitem, amt)
   elseif fiitem == 5 then
     item_name = REP_TXT.deleted
   else
-    if REP.AfterDragonflight then
+    if C_Item and C_Item.GetItemInfo then
       item_name = C_Item.GetItemInfo(fiitem)
-    else
+    elseif GetItemInfo then
       item_name = GetItemInfo(fiitem)
-    end 
+    end
   end
 
   if not item_name then
@@ -1163,86 +1194,6 @@ function REP:GetTabardFaction()
   if DEBUG then self:Debug("GetChampionedFaction: none") end
 end
 
-function REP:InitFactor(IsHuman, faction)
-  local factor = 1.0
-
-  -- Race check (Human racial removed in 11.0.0)
-  if IsHuman and not REP.AfterDragonflight then factor = factor + 0.1 end
-
-  -- Wickerman (Hallow's end) reputation buff setting
-  if REP_Data.Global.WickermanRepBuff then
-    factor = factor + 0.1
-  end
-
-  -- Pilgrim's Bounty festival reputation buff setting
-  if REP_Data.Global.HarvestBountyRepBuff then
-    factor = factor + 0.1
-  end
-
-  -- Guild reputation buff rank setting, rank 2 overrides rank 1 and should always be leading.
-  if REP_Data.Global.GuildRepBuffRankTwo then
-    factor = factor + 0.1
-  elseif REP_Data.Global.GuildRepBuffRankOne then
-    factor = factor + 0.05
-  end
-
-  -- Darkmoon Faire reputation buff setting
-  if REP_Data.Global.DarkmoonfaireWeeRepBuff or REP_Data.Global.DarkmoonfaireHatRepBuff then
-    factor = factor + 0.1
-  end
-
-  if faction then
-    local draenorFactions = {
-      "Council of Exarchs",
-      "Frostwolf Orcs",
-      "Wrynn's Vanguard",
-      "Vol'jin's Spear",
-      "Sha'tari Defense",
-      "Laughing Skull Orcs",
-      "Hand of the Prophet",
-      "Vol'jin's Headhunters",
-      "Arakkoa Outcasts",
-      "Order of the Awakened",
-      "The Saberstalkers",
-      "Steamwheedle Preservation Society"
-    }
-
-    -- WoD Faction trading post bonus
-    if REP:has_value(draenorFactions, faction) and REP.HasTradingPost then
-      factor = factor + 0.2
-    end
-
-    -- bonus repgain check
-    local factionOffset = 0
-    local factionIndex
-    local factor_h = 0
-    local numFactions = REP_Orig_GetNumFactions()
-
-    for i = 1, numFactions do
-      local factionIndex = factionOffset + i
-      if (factionIndex <= numFactions) then
-        local factionData = REP:GetFactionDataByIndex(factionIndex)
-
-        if factionData then
-          name = factionData.name
-          factionID = factionData.factionID
-          hasBonusRepGain = factionData.hasBonusRepGain
-
-          if factionID == 1168 then
-            name = tostring(name).." (guild)"
-          end
-        end
-
-        if (faction == name) and hasBonusRepGain then
-          factor = factor + 1
-        end
-      end
-    end    
-  end
-
-  return factor
-end
-
 function REP:InitFaction(guildName, faction)
   if not faction then return end
 
@@ -1288,7 +1239,7 @@ function REP_AddMob(faction, from, to, name, rep, zone, limit, isRenownFaction)
   faction = REP:InitFaction(REP.GuildName, faction)
 
   if REP:Content(faction, from, to, name, rep, isRenownFaction) ~= 1 then return end
-  rep = rep * REP:InitFactor(REP.IsHuman, faction)
+  rep = rep * REP:GetReputationFactor(REP.IsHuman, faction)
   faction = string.lower(faction)
 
   for standing = from, to do
@@ -1334,7 +1285,7 @@ function REP_AddQuest(faction, from, to, name, rep, itemList, limitType, isRepea
   if REP:Content(faction, from, to, name, rep, isRenownFaction) ~= 1 then return end
   
   if not key then key = REP_ProfileKey end
-  rep = rep * REP:InitFactor(REP.IsHuman, faction)
+  rep = rep * REP:GetReputationFactor(REP.IsHuman, faction)
   faction = string.lower(faction)
 
   for standing = from, to do
@@ -1407,7 +1358,7 @@ function REP_AddInstance(faction, from, to, name, rep, heroic, isRenownFaction)
   faction = REP:InitFaction(REP.GuildName, faction)
   if REP:Content(faction, from, to, name, rep, isRenownFaction) ~= 1 then return end
   
-  rep = rep * REP:InitFactor(REP.IsHuman, faction)
+  rep = rep * REP:GetReputationFactor(REP.IsHuman, faction)
   faction = string.lower(faction)
 
   for standing = from, to do
@@ -1452,7 +1403,7 @@ end
 function REP_AddItems(faction, from, to, rep, itemList, alternativeItemList, isRenownFaction)
   faction = REP:InitFaction(REP.GuildName, faction)
   if REP:Content(faction, from, to, itemList, rep, isRenownFaction) ~=1 then return end
-  rep = rep * REP:InitFactor(REP.IsHuman, faction)
+  rep = rep * REP:GetReputationFactor(REP.IsHuman, faction)
   faction = string.lower(faction)
   local itemString = ""
 
@@ -1510,7 +1461,7 @@ function REP_AddGeneral(faction, from, to, name, rep, head, tip, tipList, flag, 
   faction = REP:InitFaction(REP.GuildName, faction)
   if REP:Content(faction, from, to, name, rep, isRenownFaction) ~= 1 then return end
   if not customFactor then customFactor = 0 end
-  rep = rep * (REP:InitFactor(REP.IsHuman, faction) + customFactor)
+  rep = rep * (REP:GetReputationFactor(REP.IsHuman, faction) + customFactor)
   faction = string.lower(faction)
   local tipString = ""
 
@@ -1609,6 +1560,7 @@ function REP_ReputationFrame_Update()
 
     local i
     local gender = UnitSex("player")
+    local guid = UnitGUID("player")
     local factionOffset
     local numberOfFactionsToDisplay
 
@@ -1654,11 +1606,10 @@ function REP_ReputationFrame_Update()
           -- local name, _, _, _, _, _, _, _, _, _, _, _, _, factionID, _ = REP_Orig_GetFactionDataByIndex(factionIndex)
           local inactive = IsFactionInactive(factionIndex)
 
-          if (REP_ProfileKey) then
-            if REP_Data[REP_ProfileKey].InactiveFactions == nil then REP_Data[REP_ProfileKey].InactiveFactions = {} end
-
-            if (inactive and not REP_Data[REP_ProfileKey].InactiveFactions[factionID]) then
-              REP_Data[REP_ProfileKey].InactiveFactions[factionID] = true
+          if (guid) then
+            if not REP_Data.ProfileKeys[guid].inactiveFactions then REP_Data.ProfileKeys[guid].inactiveFactions = {} end
+            if (inactive and not REP_Data.ProfileKeys[guid].inactiveFactions[factionID]) then
+              REP_Data.ProfileKeys[guid].inactiveFactions[factionID] = true
             end
           end
 
@@ -1700,11 +1651,10 @@ function REP_ReputationFrame_Update()
           inactive = IsFactionInactive(factionIndex)
         end
 
-        if (REP_ProfileKey) then
-          if REP_Data[REP_ProfileKey].InactiveFactions == nil then REP_Data[REP_ProfileKey].InactiveFactions = {} end
-
-          if (inactive and not REP_Data[REP_ProfileKey].InactiveFactions[factionID]) then
-            REP_Data[REP_ProfileKey].InactiveFactions[factionID] = true
+        if (guid and REP_Data.ProfileKeys[guid]) then
+          if not REP_Data.ProfileKeys[guid].inactiveFactions then REP_Data.ProfileKeys[guid].inactiveFactions = {} end
+          if (inactive and not REP_Data.ProfileKeys[guid].inactiveFactions[factionID]) then
+            REP_Data.ProfileKeys[guid].inactiveFactions[factionID] = true
           end
         end
 
@@ -1724,6 +1674,18 @@ function REP_ReputationFrame_Update()
         else
           factionBar = _G["ReputationBar"..i]
           factionStanding = _G["ReputationBar"..i.."FactionStanding"]
+        end
+
+        if not REP.AfterDragonflight and factionRow and not factionRow._repTooltipHooked then
+          factionRow:HookScript("OnEnter", function(self)
+            local factionData = REP:GetFactionDataByIndex(self.index)
+
+            if factionData and factionTitle and not string.find(factionTitle:GetText(), "->", 1, true) then
+              REP:ShowReputationTooltip(self, factionData.factionID)
+            end
+          end)
+          factionRow:HookScript("OnLeave", function() GameTooltip:Hide() end)
+          factionRow._repTooltipHooked = true
         end
 
         if (factionIndex <= numFactions) then
@@ -2192,8 +2154,8 @@ function REP_SupressNone(allFactions)
     local factionID = factionData.factionID
 
     if (faction) then
-      if REP.Factions[factionID] and REP.Factions[factionID].faction then
-        faction = REP.Factions[factionID].faction
+      if REP.factions[factionID] and REP.factions[factionID].faction then
+        faction = REP.factions[factionID].faction
       end
 
       faction = string.lower(faction)
@@ -2237,568 +2199,284 @@ function REP_BuildUpdateList()
 
   local index = 1
   local factionIndex = REP_Orig_GetSelectedFaction()
-  local standingID, barMin, barMax, barValue, isMajorFaction
+  local factionData = REP:GetFactionDataByIndexToBuildReputationlist(factionIndex)
 
-  local factionData = REP:GetFactionDataByIndex(factionIndex)
-  local name = factionData.name
-  local description = factionData.description
+  if not factionData then return end
+
   local factionID = factionData.factionID
-  -- atWarWith, canToggleAtWar, isHeader, isCollapsed, hasRep, isWatched, isChild, factionID, hasBonusRepGain
+  local factionName = factionData.factionNameLowercase
+  local standingID = factionData.currentStandingID
+  local repToNext = factionData.repToNext
+  local normCurrent = factionData.normCurrent
 
+  if (REP_FactionGain[factionName]) then
+    local fg_sid = REP_FactionGain[factionName][standingID]
 
-  if isMajorFaction then
-    local majorFactionData = REP_Orig_GetMajorFactionData(factionID)
-    barMin = 0
-    barMax = majorFactionData.renownLevelThreshold
-    barValue = majorFactionData.renownReputationEarned
-    standingID = majorFactionData.renownLevel
-  else
-    standingID = factionData.reaction
-    barMin = factionData.currentReactionThreshold
-    barValue = factionData.currentStanding
+    if (fg_sid) then
+      -- instances
+      if (fg_sid.instance and REP_Data.Global.ShowInstances) then
+        local fg_sid_x = fg_sid.instance
 
-    if standingID == 4 then
-      barMax = factionData.nextReactionThreshold
-    elseif standingID > 4 then
-      barMax = factionData.nextReactionThreshold
-      -- barMax = reputationInfo.nextReactionThreshold - reputationInfo.currentReactionThreshold
-    else
-      barMax = factionData.currentReactionThreshold - factionData.nextReactionThreshold
-    end
+        for i = 0, fg_sid.instance.count do
+          local fg_sid_x_d = fg_sid_x.data[i]
+          if (not fg_sid_x_d.limit or (normCurrent < fg_sid_x_d.limit)) then
+            local toDo = string.format("%.2f", repToNext / fg_sid_x_d.rep)
+            if (fg_sid_x_d.limit) then
+              toDo = string.format("%.2f", (fg_sid_x_d.limit - normCurrent) / fg_sid_x_d.rep)
+            end
 
-    local friendReputationInfo = REP_Friend_Detail(factionID, standingID)
-    local isFriend = friendReputationInfo.isFriend
-
-    if isFriend then
-      barMax = friendReputationInfo.barMax
-      barValue = friendReputationInfo.barValue
-      barMin = friendReputationInfo.barMin
-    end
-
-    if standingID < 4 or (isFriend and standingID < 4) then
-      barMin = barMin * -1
-      barMax = barMax * -1
-      barValue = barValue * -1
-    end
-  end
-
-  local faction = name
-  if (faction) then
-    local origFaction, oFaction
-
-    if REP.Factions[factionID] and REP.Factions[factionID].faction then
-      faction = REP.Factions[factionID].faction
-    end
-
-    if factionID == 1168 then
-      origFaction = faction.." (guild)"
-      oFaction = string.lower(faction).." (guild)"
-      faction = string.lower(faction).." (guild)"
-    else
-      origFaction = faction
-      oFaction = string.lower(faction)
-      faction = string.lower(faction)
-    end
-
-    if REP.AfterWoD then
-      if(factionID and REP_Orig_IsFactionParagon(factionID)) then
-        local currentValue, threshold, rewardQuestID, hasRewardPending = REP_Orig_GetFactionParagonInfo(factionID)
-        barMin, barMax, barValue = 0, threshold, mod(currentValue, threshold)
+            REP_UpdateList[index] = {}
+            local FUL_I = REP_UpdateList[index]
+            local bul_name = REP:InitMapName(fg_sid_x_d.name, true)
+            FUL_I.type = REP_TXT.instanceShort
+            FUL_I.times = math.ceil(toDo).."x"
+            FUL_I.rep = string.format("%d", fg_sid_x_d.rep)
+            FUL_I.hasList = false
+            FUL_I.listShown = nil
+            FUL_I.index = index
+            FUL_I.belongsTo = nil
+            FUL_I.isShown = true
+            FUL_I.name = bul_name.." ("..fg_sid_x_d.level..")"
+            FUL_I.tooltipHead = REP_TXT.instanceHead
+            FUL_I.tooltipTip = REP_TXT.instanceTip
+            FUL_I.tooltipDetails = {}
+            local FUL_I_TD = FUL_I.tooltipDetails
+            local x = 0
+            FUL_I_TD[x], x = REP:Update_Tooltip(x, REP_TXT.instance2, bul_name)
+            FUL_I_TD[x], x = REP:Update_Tooltip(x, REP_TXT.mode, fg_sid_x_d.level)
+            FUL_I_TD[x], x = REP:Update_Tooltip(x, REP_TXT.reputation, FUL_I.rep)
+            FUL_I_TD[x], x = REP:Update_Tooltip(x, REP_TXT.timesToRun, FUL_I.times)
+            FUL_I_TD[x], x = REP:Update_Tooltip(x, " ", " ")
+            FUL_I_TD[x] = REP:Update_Tooltip(x, REP_TXT.maxStanding, _G["FACTION_STANDING_LABEL"..fg_sid_x_d.maxStanding])
+            FUL_I_TD.count = x
+            FUL_I.tooltipDetails = FUL_I_TD
+            REP_UpdateList[index] = FUL_I
+            index = index + 1
+          end
+        end
       end
-    end
 
-    local friendID
+      -- mobs
+      if (fg_sid.mobs and REP_Data.Global.ShowMobs) then
+        local fg_sid_x = fg_sid.mobs
 
-    if (REP.AfterCata and factionID) then
-      if not REP.AfterShadowLands then
-        friendID, _, _, _, _, _, _, _, _ = GetFriendshipReputation(factionID)
-      else
-        local reputationInfo = REP_Orig_GetFriendshipReputation(factionID)
-        if reputationInfo and reputationInfo.friendshipFactionID > 0 then friendID = reputationInfo.friendshipFactionID end
-      end
-    end
+        for i = 0, fg_sid_x.count do
+          local fg_sid_x_d = fg_sid_x.data[i]
+          if (not fg_sid_x_d.limit or (normCurrent < fg_sid_x_d.limit)) then
+            local toDo = ceil(repToNext / fg_sid_x_d.rep)
+            if (fg_sid_x_d.limit) then
+              toDo = ceil((fg_sid_x_d.limit - normCurrent) / fg_sid_x_d.rep)
+            end              
 
-    if friendID ~= nil and barMax == 43000 then
-      barMax = 42000
-    end
+            REP_UpdateList[index] = {}
+            local FUL_I = REP_UpdateList[index]
+            FUL_I.type = REP_TXT.mobShort
+            FUL_I.times = math.ceil(toDo).."x"
+            FUL_I.rep = string.format("%d", fg_sid_x_d.rep)
+            FUL_I.hasList = false
+            FUL_I.listShown = nil
+            FUL_I.index = index
+            FUL_I.belongsTo = nil
+            FUL_I.isShown = true
+            FUL_I.tooltipHead = REP_TXT.mobHead
+            FUL_I.tooltipTip = REP_TXT.mobTip
+            local bul_name = REP:InitMobName(fg_sid_x_d.name)
 
-    if isMajorFaction then
-      local majorFactionData = REP_Orig_GetMajorFactionData(factionID)
-      local isCapped = REP_Orig_HasMaximumRenown(factionID)
-      local hasParagon = REP_Orig_GetFactionParagonInfo(factionID)
-      
-      standingId = majorFactionData.renownLevel
-      barMin = 0
+            if (fg_sid_x_d.zone) then
+              local bul_zone = REP:InitMapName(fg_sid_x_d.zone, false)
 
-      if isCapped and hasParagon then
-        -- Set reputation bar to paragon values if user option is activated and faction is at paragon rep
-        local currentValue, threshold, _, _ = REP_Orig_GetFactionParagonInfo(factionID)
-        barMax, barValue = threshold, mod(currentValue, threshold)     
-      else
-        barValue = isCapped and majorFactionData.renownLevelThreshold or majorFactionData.renownReputationEarned or 0
-        barMax = standingId * majorFactionData.renownLevelThreshold
-        barValue = ((standingId - 1) * majorFactionData.renownLevelThreshold) + barValue
-      end
-    end
-
-    -- Normalize Values
-    local normMax, normCurrent, repToNext
-    if standingID < 4 then
-      normMax = barMax
-      normCurrent = barValue - barMin
-      repToNext = normMax - normCurrent
-    else
-      normMax = barMax - barMin
-      normCurrent = barValue - barMin
-      repToNext = barMax - barValue
-    end
-
-    if (REP_FactionGain[oFaction]) then
-      local fg_sid = REP_FactionGain[oFaction][standingID]
-
-      if (fg_sid) then
-        -- instances
-        if (fg_sid.instance and REP_Data.Global.ShowInstances) then
-          local fg_sid_x = fg_sid.instance
-
-          for i = 0, fg_sid.instance.count do
-            local fg_sid_x_d = fg_sid_x.data[i]
-            if (not fg_sid_x_d.limit or (normCurrent < fg_sid_x_d.limit)) then
-              local toDo = string.format("%.2f", repToNext / fg_sid_x_d.rep)
-              if (fg_sid_x_d.limit) then
-                toDo = string.format("%.2f", (fg_sid_x_d.limit - normCurrent) / fg_sid_x_d.rep)
+              if bul_zone then
+                FUL_I.name = bul_name.." ("..bul_zone..")"
+              else
+                FUL_I.name = bul_name
               end
 
-              REP_UpdateList[index] = {}
-              local FUL_I = REP_UpdateList[index]
-              local bul_name = REP:InitMapName(fg_sid_x_d.name, true)
-              FUL_I.type = REP_TXT.instanceShort
-              FUL_I.times = math.ceil(toDo).."x"
-              FUL_I.rep = string.format("%d", fg_sid_x_d.rep)
-              FUL_I.hasList = false
-              FUL_I.listShown = nil
-              FUL_I.index = index
-              FUL_I.belongsTo = nil
-              FUL_I.isShown = true
-              FUL_I.name = bul_name.." ("..fg_sid_x_d.level..")"
-              FUL_I.tooltipHead = REP_TXT.instanceHead
-              FUL_I.tooltipTip = REP_TXT.instanceTip
               FUL_I.tooltipDetails = {}
               local FUL_I_TD = FUL_I.tooltipDetails
               local x = 0
-              FUL_I_TD[x], x = REP:Update_Tooltip(x, REP_TXT.instance2, bul_name)
-              FUL_I_TD[x], x = REP:Update_Tooltip(x, REP_TXT.mode, fg_sid_x_d.level)
+              FUL_I_TD[x], x = REP:Update_Tooltip(x, REP_TXT.mob2, bul_name)
+              FUL_I_TD[x], x = REP:Update_Tooltip(x, REP_TXT.location, bul_zone)
               FUL_I_TD[x], x = REP:Update_Tooltip(x, REP_TXT.reputation, FUL_I.rep)
-              FUL_I_TD[x], x = REP:Update_Tooltip(x, REP_TXT.timesToRun, FUL_I.times)
+              FUL_I_TD[x], x = REP:Update_Tooltip(x, REP_TXT.toDo, FUL_I.times)
+              FUL_I_TD[x], x = REP:Update_Tooltip(x, " ", " ")
+              FUL_I_TD[x] = REP:Update_Tooltip(x, REP_TXT.maxStanding, _G["FACTION_STANDING_LABEL"..fg_sid_x_d.maxStanding])
+              FUL_I_TD.count = x
+            else
+              FUL_I.name = bul_name
+              FUL_I_TD = {}
+              local x = 0
+              FUL_I_TD[x], x = REP:Update_Tooltip(x, REP_TXT.mob2, bul_name)
+              FUL_I_TD[x], x = REP:Update_Tooltip(x, REP_TXT.reputation, FUL_I.rep)
+              FUL_I_TD[x], x = REP:Update_Tooltip(x, REP_TXT.toDo, FUL_I.times)
               FUL_I_TD[x], x = REP:Update_Tooltip(x, " ", " ")
               FUL_I_TD[x] = REP:Update_Tooltip(x, REP_TXT.maxStanding, _G["FACTION_STANDING_LABEL"..fg_sid_x_d.maxStanding])
               FUL_I_TD.count = x
               FUL_I.tooltipDetails = FUL_I_TD
-              REP_UpdateList[index] = FUL_I
-              index = index + 1
             end
+
+            REP_UpdateList[index] = FUL_I
+            index = index + 1
           end
         end
+      end
 
-        -- mobs
-        if (fg_sid.mobs and REP_Data.Global.ShowMobs) then
-          local fg_sid_x = fg_sid.mobs
-
-          for i = 0, fg_sid_x.count do
-            local fg_sid_x_d = fg_sid_x.data[i]
-            if (not fg_sid_x_d.limit or (normCurrent < fg_sid_x_d.limit)) then
-              local toDo = ceil(repToNext / fg_sid_x_d.rep)
-              if (fg_sid_x_d.limit) then
-                toDo = ceil((fg_sid_x_d.limit - normCurrent) / fg_sid_x_d.rep)
-              end              
-
-              REP_UpdateList[index] = {}
-              local FUL_I = REP_UpdateList[index]
-              FUL_I.type = REP_TXT.mobShort
-              FUL_I.times = math.ceil(toDo).."x"
-              FUL_I.rep = string.format("%d", fg_sid_x_d.rep)
-              FUL_I.hasList = false
-              FUL_I.listShown = nil
-              FUL_I.index = index
-              FUL_I.belongsTo = nil
-              FUL_I.isShown = true
-              FUL_I.tooltipHead = REP_TXT.mobHead
-              FUL_I.tooltipTip = REP_TXT.mobTip
-              local bul_name = REP:InitMobName(fg_sid_x_d.name)
-
-              if (fg_sid_x_d.zone) then
-                local bul_zone = REP:InitMapName(fg_sid_x_d.zone, false)
-
-                if bul_zone then
-                  FUL_I.name = bul_name.." ("..bul_zone..")"
-                else
-                  FUL_I.name = bul_name
-                end
-
-                FUL_I.tooltipDetails = {}
-                local FUL_I_TD = FUL_I.tooltipDetails
-                local x = 0
-                FUL_I_TD[x], x = REP:Update_Tooltip(x, REP_TXT.mob2, bul_name)
-                FUL_I_TD[x], x = REP:Update_Tooltip(x, REP_TXT.location, bul_zone)
-                FUL_I_TD[x], x = REP:Update_Tooltip(x, REP_TXT.reputation, FUL_I.rep)
-                FUL_I_TD[x], x = REP:Update_Tooltip(x, REP_TXT.toDo, FUL_I.times)
-                FUL_I_TD[x], x = REP:Update_Tooltip(x, " ", " ")
-                FUL_I_TD[x] = REP:Update_Tooltip(x, REP_TXT.maxStanding, _G["FACTION_STANDING_LABEL"..fg_sid_x_d.maxStanding])
-                FUL_I_TD.count = x
-              else
-                FUL_I.name = bul_name
-                FUL_I_TD = {}
-                local x = 0
-                FUL_I_TD[x], x = REP:Update_Tooltip(x, REP_TXT.mob2, bul_name)
-                FUL_I_TD[x], x = REP:Update_Tooltip(x, REP_TXT.reputation, FUL_I.rep)
-                FUL_I_TD[x], x = REP:Update_Tooltip(x, REP_TXT.toDo, FUL_I.times)
-                FUL_I_TD[x], x = REP:Update_Tooltip(x, " ", " ")
-                FUL_I_TD[x] = REP:Update_Tooltip(x, REP_TXT.maxStanding, _G["FACTION_STANDING_LABEL"..fg_sid_x_d.maxStanding])
-                FUL_I_TD.count = x
-                FUL_I.tooltipDetails = FUL_I_TD
-              end
-
-              REP_UpdateList[index] = FUL_I
-              index = index + 1
-            end
-          end
-        end
-
-        -- quests (may have items)
+      -- quests (may have items)
+      if (fg_sid.quests and (REP_Data.Global.ShowQuests or REP_Data.Global.ShowPvPQuests)) then
         local sum = 0
         local count = 0
+        local fg_sid_x = fg_sid.quests
 
-        if fg_sid.quests then
-          if (REP_Data.Global.ShowQuests or REP_Data.Global.ShowPvPQuests) then
-            local fg_sid_x = fg_sid.quests
+        for i = 0, fg_sid_x.count do
+          local fg_sid_x_d = fg_sid_x.data[i]
+          local showQuest = true
 
-            for i = 0, fg_sid_x.count do
-              local fg_sid_x_d = fg_sid_x.data[i]
-              local showQuest = true
-  
-              if (not REP_Data.Global.ShowPvPQuests and fg_sid_x_d.isPvp) then
-                showQuest = false
-              end
+          if (not REP_Data.Global.ShowPvPQuests and fg_sid_x_d.isPvp) then
+            showQuest = false
+          end
 
-              if (not REP_Data.Global.ShowQuests and not fg_sid_x_d.isPvp) then
-                showQuest = false
-              end
+          if (not REP_Data.Global.ShowQuests and not fg_sid_x_d.isPvp) then
+            showQuest = false
+          end
 
-              if (fg_sid_x_d.profession) then
-                -- REP:Print("Quest: "..tostring(fg_sid_x_d.name).." Is PvP: "..tostring(fg_sid_x_d.isPvp))
-  
-                local fg_sid_x_d_p = fg_sid_x_d.profession
-                if ((fg_sid_x_d_p == REP.LIMIT_TYPE_Herb) and not REP.Herb) then
-                  -- if list of known professions does not contain Herbology
-                  showQuest = false
-                elseif ((fg_sid_x_d_p == REP.LIMIT_TYPE_Skin) and not REP.Skin) then
-                  -- if list of known professions does not contain Herbology
-                  showQuest = false
-                elseif ((fg_sid_x_d_p == REP.LIMIT_TYPE_Mine) and not REP.Mine) then
-                  -- if list of known professions does not contain Herbology
-                  showQuest = false
-                elseif ((fg_sid_x_d_p == REP.LIMIT_TYPE_Gather) and not (REP.Herb or REP.Skin or REP.Mine)) then
-                  -- no gathering profession
-                  showQuest = false
-                elseif ((fg_sid_x_d_p == REP.LIMIT_TYPE_Jewel) and not REP.Jewel) then
-                  -- if list of known professions does not contain jewelcrafting
-                  showQuest = false
-                elseif ((fg_sid_x_d_p == REP.LIMIT_TYPE_Cook) and not REP.Cook) then
-                  -- if list of known professions does not contain jewelcrafting
-                  showQuest = false
-                elseif ((fg_sid_x_d_p == REP.LIMIT_TYPE_Arch) and not REP.Arch) then
-                  -- if list of known professions does not contain jewelcrafting
-                  showQuest = false
-                elseif ((fg_sid_x_d_p == REP.LIMIT_TYPE_Fish) and not REP.Fish) then
-                  -- if list of known professions does not contain jewelcrafting
-                  showQuest = false
-                elseif ((fg_sid_x_d_p == REP.LIMIT_TYPE_Aid) and not REP.Aid) then
-                  -- if list of known professions does not contain jewelcrafting
-                  showQuest = false
-                elseif ((fg_sid_x_d_p == REP.LIMIT_TYPE_Blac) and not REP.Black) then
-                  -- if list of known professions does not contain BLACKsmith
-                  showQuest = false
-                elseif ((fg_sid_x_d_p == REP.LIMIT_TYPE_Tail) and not REP.Tailor) then
-                  -- if list of known professions does not contain tailor
-                  showQuest = false
-                elseif ((fg_sid_x_d_p == REP.LIMIT_TYPE_Leat) and not REP.Leath) then
-                  -- if list of known professions does not contain leather
-                  showQuest = false
-                elseif ((fg_sid_x_d_p == REP.LIMIT_TYPE_Ench) and not REP.Enchan) then
-                  -- if list of known professions does not contain enchanter
-                  showQuest = false
-                elseif ((fg_sid_x_d_p == REP.LIMIT_TYPE_Engi) and not REP.Engin) then
-                  -- if list of known professions does not contain BLACKsmith
-                  showQuest = false
-                elseif ((fg_sid_x_d_p == REP.LIMIT_TYPE_Incr) and not REP.Incrip) then
-                  -- if list of known professions does not contain leather
-                  showQuest = false
-                elseif ((fg_sid_x_d_p == REP.LIMIT_TYPE_Alch) and not REP.Alche) then
-                  -- if list of known professions does not contain enchanter
-                  showQuest = false
-                else
-                  -- unexpected limit -> ignore this and still show quest ggg
-                end
-              end
-  
-              if (showQuest) then
-                if (not fg_sid_x_d.limit or (normCurrent < fg_sid_x_d.limit)) then
-                  local toDo = ceil(repToNext / fg_sid_x_d.rep)
-                  if (fg_sid_x_d.limit) then
-                    toDo = ceil((fg_sid_x_d.limit - normCurrent) / fg_sid_x_d.rep)
-                  end
-  
-                  REP_UpdateList[index] = {}
-                  local FUL_I = REP_UpdateList[index]
-                  FUL_I.type = REP_TXT.questShort
-                  FUL_I.rep = string.format("%d", fg_sid_x_d.rep)
-                  FUL_I.index = index
-                  FUL_I.belongsTo = nil
-                  FUL_I.isShown = true
-                  local bul_name = REP:Quest_Names(fg_sid_x_d.name)
-                  FUL_I.name = bul_name
-                  FUL_I.originalName = FUL_I.name
-                  FUL_I.tooltipHead = REP_TXT.questHead
-  
-                  if (fg_sid_x_d.repeatable) then
-                    FUL_I.times = math.ceil(toDo).."x"
-                    FUL_I.tooltipTip = REP_TXT.questTip
-                  else
-                    FUL_I.times = math.ceil(1).."x"
-                    FUL_I.tooltipTip = REP_TXT.questTipNonRepeatable
-                  end
-  
-                  FUL_I.faction = faction
-                  FUL_I.canSuppress = true
-                  FUL_I.suppress = nil
-                  if (REP_Suppressed and REP_Suppressed[oFaction] and REP_Suppressed[oFaction][FUL_I.originalName]) then
-                    FUL_I.suppress = true
-                  end
-  
-                  FUL_I.tooltipDetails = {}
-                  local FUL_I_TD = FUL_I.tooltipDetails
-                  local x = 0
-                  FUL_I_TD[x], x = REP:Update_Tooltip(x, REP_TXT.quest2, FUL_I.name)
-                  FUL_I_TD[x], x = REP:Update_Tooltip(x, REP_TXT.reputation, FUL_I.rep)
-                  FUL_I_TD[x], x = REP:Update_Tooltip(x, REP_TXT.toDo, FUL_I.times)
-  
-                  if (not FUL_I.suppress) then
-                    if (fg_sid_x_d.repeatable) then
-                      sum = sum + fg_sid_x_d.rep
-                      count = count + 1
-                    end
-                  end
-  
-                  if (fg_sid_x_d.items) then
-                    FUL_I.hasList = true
-                    FUL_I.listShown = false
-                    FUL_I_TD[x], x = REP:Update_Tooltip(x, " ", " ")
-                    FUL_I_TD[x], x = REP:Update_Tooltip(x, REP_TXT.itemsRequired, " ")
-                    -- quest In log?
-                    FUL_I.lowlight = nil
-  
-                    -- check if this quest is known
-                    local entries, quests
-  
-                    if REP.AfterBfA then
-                      entries, quests = C_QuestLog.GetNumQuestLogEntries()
-                    else
-                      entries, quests = GetNumQuestLogEntries()
-                    end
-  
-                    for z = 1, entries do
-                      local title, level, tag, group, header, collapsed, complete, daily
-  
-                      if REP.AfterBfA then
-                        title, level, tag, group, header, collapsed, complete, daily = C_QuestLog.GetTitleForLogIndex(z)
-                      else
-                        title, level, tag, group, header, collapsed, complete, daily = GetQuestLogTitle(z)
-                      end
-  
-                      if (title and not header) then
-                        if string.find(string.lower(bul_name), string.lower(title)) then
-                          -- this quest matches
-                          FUL_I.lowlight = true
-                          FUL_I.name = FUL_I.name..REP.QUEST_ACTIVE_COLOUR.." ("..REP_TXT.active..")|r"
-                        end
-                      end
-                    end
-  
-                    -- add items
-                    local itemIndex = index + 1
-                    local currentQuestTimesBag = -1
-                    local currentQuestTimesBagBank = -1
-  
-                    for item in pairs(fg_sid_x_d.items) do
-                      REP_UpdateList[itemIndex] = {}
-                      local FUL_II = REP_UpdateList[itemIndex]
-                      FUL_II.type = ""
-                      FUL_II.times = math.ceil((fg_sid_x_d.items[item] * toDo)).."x"
-                      FUL_II.rep = nil
-                      FUL_II.index = itemIndex
-                      FUL_II.belongsTo = index
-                      FUL_II.hasList = nil
-                      FUL_II.listShown = nil
-                      FUL_II.isShown = FUL_I.listShown
-                      FUL_II.name = REP:InitItemName(item).." ("..fg_sid_x_d.items[item].."x)"
-                      FUL_I_TD[x], x = REP:Update_Tooltip(x, fg_sid_x_d.items[item].."x", REP:InitItemName(item))
-                      FUL_II, currentQuestTimesBag, currentQuestTimesBagBank = REP:Quest_Items(fg_sid_x_d.items[item], currentQuestTimesBag, currentQuestTimesBagBank, FUL_II, item)
-                      REP_UpdateList[itemIndex] = FUL_II
-                      itemIndex = itemIndex + 1
-                    end
-  
-                    if (currentQuestTimesBag > 0) then
-                      FUL_I.highlight = true
-                      FUL_I.lowlight = nil
-                      FUL_I.name = FUL_I.name..REP.BAG_COLOUR.." ["..currentQuestTimesBag.."x]|r"
-                      FUL_I.currentTimesBag = currentQuestTimesBag
-                      FUL_I.currentRepBag = currentQuestTimesBag * FUL_I.rep
-                      REP_CurrentRepInBag = REP_CurrentRepInBag + FUL_I.currentRepBag
-                      --FUL_I.name = FUL_I.originalName
-                      FUL_I_TD[x], x = REP:Update_Tooltip(x, " ", " ")
-                      FUL_I_TD[x], x = REP:Update_Tooltip(x, REP_TXT.inBag, " ")
-                      FUL_I_TD[x], x = REP:Update_Tooltip(x, REP_TXT.turnIns, string.format("%d", FUL_I.currentTimesBag))
-                      FUL_I_TD[x], x = REP:Update_Tooltip(x, REP_TXT.reputation, string.format("%d", FUL_I.currentRepBag))
-                    else
-                      FUL_I.currentTimesBag = nil
-                      FUL_I.currentRepBag = nil
-                    end
-  
-                    if (currentQuestTimesBagBank > 0) then
-                      FUL_I.name = FUL_I.name..REP.BAG_BANK_COLOUR.." ["..currentQuestTimesBagBank.."x]|r"
-                      FUL_I.currentTimesBagBank = currentQuestTimesBagBank
-                      FUL_I.currentRepBagBank = currentQuestTimesBagBank * FUL_I.rep
-                      FUL_I.highlight = true
-                      FUL_I.name = FUL_I.originalName
-                      FUL_I.lowlight = nil
-                      REP_CurrentRepInBagBank = REP_CurrentRepInBagBank + FUL_I.currentRepBagBank
-                      FUL_I_TD[x], x = REP:Update_Tooltip(x, " ", " ")
-                      FUL_I_TD[x], x = REP:Update_Tooltip(x, REP_TXT.inBagBank, " ")
-                      FUL_I_TD[x], x = REP:Update_Tooltip(x, REP_TXT.turnIns, string.format("%d", FUL_I.currentTimesBagBank))
-                      FUL_I_TD[x], x = REP:Update_Tooltip(x, REP_TXT.reputation, string.format("%d", FUL_I.currentRepBagBank))
-                    else
-                      FUL_I.currentTimesBagBank = nil
-                      FUL_I.currentRepBagBank = nil
-                    end
-  
-                    if ((currentQuestTimesBag == 0) and (currentQuestTimesBagBank)) then
-                      FUL_I.highlight = nil
-                    end
-  
-                    index = itemIndex
-                  else
-                    -- no items to add
-                    FUL_I.hasList = false
-                    FUL_I.listShown = nil
-                    FUL_I.highlight = nil	-- will be Changed below if needed
-                    FUL_I.lowlight = nil
-  
-                    -- check if this quest is known and/or completed
-                    local entries, quests
-  
-                    if REP.AfterBfA then
-                      entries, quests = C_QuestLog.GetNumQuestLogEntries()
-                    else
-                      entries, quests = GetNumQuestLogEntries()
-                    end
-  
-                    for z = 1, entries do
-                      local title, level, tag, group, header, collapsed, complete, daily
-  
-                      if REP.AfterBfA then
-                        title, level, tag, group, header, collapsed, complete, daily = C_QuestLog.GetTitleForLogIndex(z)
-                      else
-                        title, level, tag, group, header, collapsed, complete, daily = GetQuestLogTitle(z)
-                      end
-  
-                      if (title) then
-                        if string.find(string.lower(bul_name), string.lower(title)) then
-                          -- this quest matches
-                          if (complete) then
-                            FUL_I.highlight = true
-                            FUL_I.name = FUL_I.name..REP.QUEST_COLOUR.." ("..REP_TXT.complete..")|r"
-                            FUL_I.currentTimesQuest = 1
-                            FUL_I.currentRepQuest = FUL_I.rep
-                            REP_CurrentRepInQuest = REP_CurrentRepInQuest + fg_sid_x_d.rep
-                            FUL_I_TD[x], x = REP:Update_Tooltip(x, " ", " ")
-                            FUL_I_TD[x], x = REP:Update_Tooltip(x, REP_TXT.questCompleted, " ")
-                            FUL_I_TD[x], x = REP:Update_Tooltip(x, REP_TXT.reputation, string.format("%d", FUL_I.currentRepQuest))
-                          else
-                            FUL_I.lowlight = true
-                            FUL_I.name = FUL_I.name..REP.QUEST_ACTIVE_COLOUR.." ("..REP_TXT.active..")|r"
-                          end
-                        end
-                      end
-                    end
-  
-                    index = index + 1
-                  end
-  
-                  FUL_I_TD[x], x = REP:Update_Tooltip(x, " ", " ")
-                  FUL_I_TD[x] = REP:Update_Tooltip(x, REP_TXT.maxStanding, _G["FACTION_STANDING_LABEL"..fg_sid_x_d.maxStanding])
-                  FUL_I_TD.count = x
-                end
-              end
+          if (fg_sid_x_d.profession) then
+            local fg_sid_x_d_p = fg_sid_x_d.profession
+
+            if ((fg_sid_x_d_p == REP.LIMIT_TYPE_Herb) and not REP.Herb) then
+              -- if list of known professions does not contain Herbology
+              showQuest = false
+            elseif ((fg_sid_x_d_p == REP.LIMIT_TYPE_Skin) and not REP.Skin) then
+              -- if list of known professions does not contain Herbology
+              showQuest = false
+            elseif ((fg_sid_x_d_p == REP.LIMIT_TYPE_Mine) and not REP.Mine) then
+              -- if list of known professions does not contain Herbology
+              showQuest = false
+            elseif ((fg_sid_x_d_p == REP.LIMIT_TYPE_Gather) and not (REP.Herb or REP.Skin or REP.Mine)) then
+              -- no gathering profession
+              showQuest = false
+            elseif ((fg_sid_x_d_p == REP.LIMIT_TYPE_Jewel) and not REP.Jewel) then
+              -- if list of known professions does not contain jewelcrafting
+              showQuest = false
+            elseif ((fg_sid_x_d_p == REP.LIMIT_TYPE_Cook) and not REP.Cook) then
+              -- if list of known professions does not contain jewelcrafting
+              showQuest = false
+            elseif ((fg_sid_x_d_p == REP.LIMIT_TYPE_Arch) and not REP.Arch) then
+              -- if list of known professions does not contain jewelcrafting
+              showQuest = false
+            elseif ((fg_sid_x_d_p == REP.LIMIT_TYPE_Fish) and not REP.Fish) then
+              -- if list of known professions does not contain jewelcrafting
+              showQuest = false
+            elseif ((fg_sid_x_d_p == REP.LIMIT_TYPE_Aid) and not REP.Aid) then
+              -- if list of known professions does not contain jewelcrafting
+              showQuest = false
+            elseif ((fg_sid_x_d_p == REP.LIMIT_TYPE_Blac) and not REP.Black) then
+              -- if list of known professions does not contain BLACKsmith
+              showQuest = false
+            elseif ((fg_sid_x_d_p == REP.LIMIT_TYPE_Tail) and not REP.Tailor) then
+              -- if list of known professions does not contain tailor
+              showQuest = false
+            elseif ((fg_sid_x_d_p == REP.LIMIT_TYPE_Leat) and not REP.Leath) then
+              -- if list of known professions does not contain leather
+              showQuest = false
+            elseif ((fg_sid_x_d_p == REP.LIMIT_TYPE_Ench) and not REP.Enchan) then
+              -- if list of known professions does not contain enchanter
+              showQuest = false
+            elseif ((fg_sid_x_d_p == REP.LIMIT_TYPE_Engi) and not REP.Engin) then
+              -- if list of known professions does not contain BLACKsmith
+              showQuest = false
+            elseif ((fg_sid_x_d_p == REP.LIMIT_TYPE_Incr) and not REP.Incrip) then
+              -- if list of known professions does not contain leather
+              showQuest = false
+            elseif ((fg_sid_x_d_p == REP.LIMIT_TYPE_Alch) and not REP.Alche) then
+              -- if list of known professions does not contain enchanter
+              showQuest = false
+            else
+              -- unexpected limit -> ignore this and still show quest ggg
             end
-  
-            if ((sum > 0) and (count > 1)) then
-              -- add virtual quest to show summary of all quests:
-              local toDo = ceil(repToNext / sum)
+          end
+
+          if (showQuest) then
+            if (not fg_sid_x_d.limit or (normCurrent < fg_sid_x_d.limit)) then               
+              local toDo = ceil(repToNext / fg_sid_x_d.rep)
+
+              if (fg_sid_x_d.limit) then
+                toDo = ceil((fg_sid_x_d.limit - normCurrent) / fg_sid_x_d.rep)
+              end
+
               REP_UpdateList[index] = {}
               local FUL_I = REP_UpdateList[index]
               FUL_I.type = REP_TXT.questShort
-              FUL_I.times = math.ceil(toDo).."x"
-              FUL_I.rep = string.format("%d", sum)
+              FUL_I.rep = string.format("%d", fg_sid_x_d.rep)
               FUL_I.index = index
               FUL_I.belongsTo = nil
               FUL_I.isShown = true
-              FUL_I.name = string.format(REP_TXT.allOfTheAbove, count)
-              FUL_I.tooltipHead = string.format(REP_TXT.questSummaryHead, count)
-              FUL_I.tooltipTip = REP_TXT.questSummaryTip
-              FUL_I_TD = {}
-              local x = 0
-              FUL_I_TD[x], x = REP:Update_Tooltip(x, REP_TXT.reputation, FUL_I.rep)
-              FUL_I_TD[x], x  = REP:Update_Tooltip(x, REP_TXT.timesToDo, FUL_I.times)
-              FUL_I_TD.count = x-1
-              FUL_I.tooltipDetails = FUL_I_TD
-              REP_UpdateList[index] = FUL_I
-              index = index + 1
-            end  
-          end
-        end
+              local bul_name = REP:Quest_Names(fg_sid_x_d.name)
+              FUL_I.name = bul_name
+              FUL_I.originalName = FUL_I.name
+              FUL_I.tooltipHead = REP_TXT.questHead
 
-        -- items
-        if (fg_sid.items and REP_Data.Global.ShowItems) then
-          local fg_sid_x = fg_sid.items
-          for i = 0, fg_sid_x.count do
-            local fg_sid_x_d = fg_sid_x.data[i]
-            if (not fg_sid_x_d.limit or (normCurrent < fg_sid_x_d.limit)) then
-              local toDo = ceil(repToNext / fg_sid_x_d.rep)
-              if (fg_sid_x_d.limit) then
-                toDo = ceil((fg_sid_x_d.limit - normCurrent) / fg_sid_x_d.rep)
+              if (fg_sid_x_d.repeatable) then
+                FUL_I.times = math.ceil(toDo).."x"
+                FUL_I.tooltipTip = REP_TXT.questTip
+              else
+                FUL_I.times = math.ceil(1).."x"
+                FUL_I.tooltipTip = REP_TXT.questTipNonRepeatable
+              end
+
+              FUL_I.faction = faction
+              FUL_I.canSuppress = true
+              FUL_I.suppress = nil
+              if (REP_Suppressed and REP_Suppressed[factionName] and REP_Suppressed[factionName][FUL_I.originalName]) then
+                FUL_I.suppress = true
+              end
+
+              FUL_I.tooltipDetails = {}
+              local FUL_I_TD = FUL_I.tooltipDetails
+              local x = 0
+              FUL_I_TD[x], x = REP:Update_Tooltip(x, REP_TXT.quest2, FUL_I.name)
+              FUL_I_TD[x], x = REP:Update_Tooltip(x, REP_TXT.reputation, FUL_I.rep)
+              FUL_I_TD[x], x = REP:Update_Tooltip(x, REP_TXT.toDo, FUL_I.times)
+
+              if (not FUL_I.suppress) then
+                if (fg_sid_x_d.repeatable) then
+                  sum = sum + fg_sid_x_d.rep
+                  count = count + 1
+                end
               end
 
               if (fg_sid_x_d.items) then
-                REP_UpdateList[index] = {}
-                local FUL_I = REP_UpdateList[index]
-                FUL_I.type = REP_TXT.itemsShort
-                FUL_I.times = math.ceil(toDo).."x"
-                FUL_I.rep = string.format("%d", fg_sid_x_d.rep)
-                FUL_I.index = index
-                FUL_I.belongsTo = nil
-                FUL_I.isShown = true
-                FUL_I.name = REP_TXT.itemsName
                 FUL_I.hasList = true
                 FUL_I.listShown = false
-                FUL_I.tooltipHead = REP_TXT.itemsHead
-                FUL_I.tooltipTip = REP_TXT.itemsTip
-                FUL_I.tooltipDetails = {}
-                local FUL_I_TD = FUL_I.tooltipDetails
-
-                local x = 0
-                FUL_I_TD[x], x = REP:Update_Tooltip(x, FUL_I.name, " ")
                 FUL_I_TD[x], x = REP:Update_Tooltip(x, " ", " ")
                 FUL_I_TD[x], x = REP:Update_Tooltip(x, REP_TXT.itemsRequired, " ")
+                -- quest In log?
+                FUL_I.lowlight = nil
+
+                -- check if this quest is known
+                local entries, quests
+
+                if REP.AfterBfA then
+                  entries, quests = C_QuestLog.GetNumQuestLogEntries()
+                else
+                  entries, quests = GetNumQuestLogEntries()
+                end
+
+                for z = 1, entries do
+                  local title, level, tag, group, header, collapsed, complete, daily
+
+                  if REP.AfterBfA then
+                    title, level, tag, group, header, collapsed, complete, daily = C_QuestLog.GetTitleForLogIndex(z)
+                  else
+                    title, level, tag, group, header, collapsed, complete, daily = GetQuestLogTitle(z)
+                  end
+
+                  if (title and not header) then
+                    if string.find(string.lower(bul_name), string.lower(title)) then
+                      -- this quest matches
+                      FUL_I.lowlight = true
+                      FUL_I.name = FUL_I.name..REP.QUEST_ACTIVE_COLOUR.." ("..REP_TXT.active..")|r"
+                    end
+                  end
+                end
 
                 -- add items
                 local itemIndex = index + 1
@@ -2816,34 +2494,9 @@ function REP_BuildUpdateList()
                   FUL_II.hasList = nil
                   FUL_II.listShown = nil
                   FUL_II.isShown = FUL_I.listShown
-                  local tempItemName = REP:InitItemName(item)
-                  FUL_II.name = tempItemName.." ("..fg_sid_x_d.items[item].."x)"
-                  FUL_I.name = tempItemName
+                  FUL_II.name = REP:InitItemName(item).." ("..fg_sid_x_d.items[item].."x)"
                   FUL_I_TD[x], x = REP:Update_Tooltip(x, fg_sid_x_d.items[item].."x", REP:InitItemName(item))
                   FUL_II, currentQuestTimesBag, currentQuestTimesBagBank = REP:Quest_Items(fg_sid_x_d.items[item], currentQuestTimesBag, currentQuestTimesBagBank, FUL_II, item)
-
-                  if fg_sid_x_d.alternativeItems ~= nil then
-                    for altItem in pairs(fg_sid_x_d.alternativeItems) do
-                      local temp_FUL_II, temp_currentQuestTimesBag, temp_currentQuestTimesBagBank = REP:Quest_Items(fg_sid_x_d.alternativeItems[altItem], -1, -1, FUL_II, altItem)
-
-                      if temp_FUL_II then
-                        -- Do something
-                      end
-
-                      if temp_currentQuestTimesBagBank > 0 then
-                        if currentQuestTimesBagBank < 0 then
-                          currentQuestTimesBagBank = temp_currentQuestTimesBagBank
-                        else
-                          currentQuestTimesBagBank = currentQuestTimesBagBank + temp_currentQuestTimesBagBank
-                        end
-                      end
-
-                      if temp_currentQuestTimesBag > 0 then
-                        currentQuestTimesBag = currentQuestTimesBag + temp_currentQuestTimesBag
-                      end
-                    end
-                  end
-
                   REP_UpdateList[itemIndex] = FUL_II
                   itemIndex = itemIndex + 1
                 end
@@ -2855,102 +2508,301 @@ function REP_BuildUpdateList()
                   FUL_I.currentTimesBag = currentQuestTimesBag
                   FUL_I.currentRepBag = currentQuestTimesBag * FUL_I.rep
                   REP_CurrentRepInBag = REP_CurrentRepInBag + FUL_I.currentRepBag
+                  --FUL_I.name = FUL_I.originalName
                   FUL_I_TD[x], x = REP:Update_Tooltip(x, " ", " ")
                   FUL_I_TD[x], x = REP:Update_Tooltip(x, REP_TXT.inBag, " ")
                   FUL_I_TD[x], x = REP:Update_Tooltip(x, REP_TXT.turnIns, string.format("%d", FUL_I.currentTimesBag))
                   FUL_I_TD[x], x = REP:Update_Tooltip(x, REP_TXT.reputation, string.format("%d", FUL_I.currentRepBag))
+                else
+                  FUL_I.currentTimesBag = nil
+                  FUL_I.currentRepBag = nil
                 end
 
                 if (currentQuestTimesBagBank > 0) then
-                  FUL_I.highlight = true
-                  FUL_I.lowlight = nil
-                  FUL_I.name = FUL_I.name..REP.BAG_BANK_COLOUR.." ["..currentQuestTimesBagBank.."]|r"
+                  FUL_I.name = FUL_I.name..REP.BAG_BANK_COLOUR.." ["..currentQuestTimesBagBank.."x]|r"
                   FUL_I.currentTimesBagBank = currentQuestTimesBagBank
                   FUL_I.currentRepBagBank = currentQuestTimesBagBank * FUL_I.rep
+                  FUL_I.highlight = true
+                  FUL_I.name = FUL_I.originalName
+                  FUL_I.lowlight = nil
                   REP_CurrentRepInBagBank = REP_CurrentRepInBagBank + FUL_I.currentRepBagBank
-                  FUL_I_TD[x] = {}
-
-                  if (not REP_UpdateList[index].hasList) then return end	-- not a list Header entry
-
                   FUL_I_TD[x], x = REP:Update_Tooltip(x, " ", " ")
                   FUL_I_TD[x], x = REP:Update_Tooltip(x, REP_TXT.inBagBank, " ")
                   FUL_I_TD[x], x = REP:Update_Tooltip(x, REP_TXT.turnIns, string.format("%d", FUL_I.currentTimesBagBank))
                   FUL_I_TD[x], x = REP:Update_Tooltip(x, REP_TXT.reputation, string.format("%d", FUL_I.currentRepBagBank))
+                else
+                  FUL_I.currentTimesBagBank = nil
+                  FUL_I.currentRepBagBank = nil
                 end
 
-                if ((currentQuestTimesBag == 0) and (currentQuestTimesBagBank > 0 == false)) then
+                if ((currentQuestTimesBag == 0) and (currentQuestTimesBagBank)) then
                   FUL_I.highlight = nil
                 end
 
-                FUL_I_TD[x], x = REP:Update_Tooltip(x, " ", " ")
-                FUL_I_TD[x] = REP:Update_Tooltip(x, REP_TXT.maxStanding, _G["FACTION_STANDING_LABEL"..fg_sid_x_d.maxStanding])
-                FUL_I_TD.count = x
-                FUL_I.tooltipDetails = FUL_I_TD
-                REP_UpdateList[index] = FUL_I
                 index = itemIndex
+              else
+                -- no items to add
+                FUL_I.hasList = false
+                FUL_I.listShown = nil
+                FUL_I.highlight = nil	-- will be Changed below if needed
+                FUL_I.lowlight = nil
+
+                -- check if this quest is known and/or completed
+                local entries, quests
+
+                if REP.AfterBfA then
+                  entries, quests = C_QuestLog.GetNumQuestLogEntries()
+                else
+                  entries, quests = GetNumQuestLogEntries()
+                end
+
+                for z = 1, entries do
+                  local title, level, tag, group, header, collapsed, complete, daily
+
+                  if REP.AfterBfA then
+                    title, level, tag, group, header, collapsed, complete, daily = C_QuestLog.GetTitleForLogIndex(z)
+                  else
+                    title, level, tag, group, header, collapsed, complete, daily = GetQuestLogTitle(z)
+                  end
+
+                  if (title) then
+                    if string.find(string.lower(bul_name), string.lower(title)) then
+                      -- this quest matches
+                      if (complete) then
+                        FUL_I.highlight = true
+                        FUL_I.name = FUL_I.name..REP.QUEST_COLOUR.." ("..REP_TXT.complete..")|r"
+                        FUL_I.currentTimesQuest = 1
+                        FUL_I.currentRepQuest = FUL_I.rep
+                        REP_CurrentRepInQuest = REP_CurrentRepInQuest + fg_sid_x_d.rep
+                        FUL_I_TD[x], x = REP:Update_Tooltip(x, " ", " ")
+                        FUL_I_TD[x], x = REP:Update_Tooltip(x, REP_TXT.questCompleted, " ")
+                        FUL_I_TD[x], x = REP:Update_Tooltip(x, REP_TXT.reputation, string.format("%d", FUL_I.currentRepQuest))
+                      else
+                        FUL_I.lowlight = true
+                        FUL_I.name = FUL_I.name..REP.QUEST_ACTIVE_COLOUR.." ("..REP_TXT.active..")|r"
+                      end
+                    end
+                  end
+                end
+
+                index = index + 1
               end
+
+              FUL_I_TD[x], x = REP:Update_Tooltip(x, " ", " ")
+              FUL_I_TD[x] = REP:Update_Tooltip(x, REP_TXT.maxStanding, _G["FACTION_STANDING_LABEL"..fg_sid_x_d.maxStanding])
+              FUL_I_TD.count = x
             end
           end
         end
 
-        -- General
-        if (fg_sid.general and REP_Data.Global.ShowGeneral) then
-          local fg_sid_x = fg_sid.general
-          for i = 0, fg_sid_x.count do
-            local fg_sid_x_d = fg_sid_x.data[i]
-            if (not fg_sid_x_d.limit or (normCurrent < fg_sid_x_d.limit)) then
-              local toDo = string.format("%.2f", repToNext / fg_sid_x_d.rep)
-              if (fg_sid_x_d.limit) then
-                toDo = string.format("%.2f", (fg_sid_x_d.limit - normCurrent) / fg_sid_x_d.rep)
-              end
+        if ((sum > 0) and (count > 1)) then
+          -- add virtual quest to show summary of all quests:
+          local toDo = ceil(repToNext / sum)
+          REP_UpdateList[index] = {}
+          local FUL_I = REP_UpdateList[index]
+          FUL_I.type = REP_TXT.questShort
+          FUL_I.times = math.ceil(toDo).."x"
+          FUL_I.rep = string.format("%d", sum)
+          FUL_I.index = index
+          FUL_I.belongsTo = nil
+          FUL_I.isShown = true
+          FUL_I.name = string.format(REP_TXT.allOfTheAbove, count)
+          FUL_I.tooltipHead = string.format(REP_TXT.questSummaryHead, count)
+          FUL_I.tooltipTip = REP_TXT.questSummaryTip
+          FUL_I_TD = {}
+          local x = 0
+          FUL_I_TD[x], x = REP:Update_Tooltip(x, REP_TXT.reputation, FUL_I.rep)
+          FUL_I_TD[x], x  = REP:Update_Tooltip(x, REP_TXT.timesToDo, FUL_I.times)
+          FUL_I_TD.count = x-1
+          FUL_I.tooltipDetails = FUL_I_TD
+          REP_UpdateList[index] = FUL_I
+          index = index + 1
+        end
+      end
 
-              -- calculate Number of times to do differently for Guild cap
+      -- items
+      if (fg_sid.items and REP_Data.Global.ShowItems) then
+        local fg_sid_x = fg_sid.items
+        for i = 0, fg_sid_x.count do
+          local fg_sid_x_d = fg_sid_x.data[i]
+          if (not fg_sid_x_d.limit or (normCurrent < fg_sid_x_d.limit)) then
+            local toDo = ceil(repToNext / fg_sid_x_d.rep)
+            if (fg_sid_x_d.limit) then
+              toDo = ceil((fg_sid_x_d.limit - normCurrent) / fg_sid_x_d.rep)
+            end
+
+            if (fg_sid_x_d.items) then
               REP_UpdateList[index] = {}
               local FUL_I = REP_UpdateList[index]
-              FUL_I.type = REP_TXT.generalShort
+              FUL_I.type = REP_TXT.itemsShort
               FUL_I.times = math.ceil(toDo).."x"
               FUL_I.rep = string.format("%d", fg_sid_x_d.rep)
               FUL_I.index = index
               FUL_I.belongsTo = nil
               FUL_I.isShown = true
-              FUL_I.hasList = false
-              FUL_I.listShown = nil
-              local bul_name = fg_sid_x_d.name
-              FUL_I.name = bul_name
-
-              if (fg_sid_x_d.head and fg_sid_x_d.head ~= "") then
-                FUL_I.tooltipHead = fg_sid_x_d.head
-              else
-                FUL_I.tooltipHead = REP_TXT.generalHead
-              end
-
-              if (fg_sid_x_d.tip and fg_sid_x_d.tip ~= "") then
-                FUL_I.tooltipTip = fg_sid_x_d.tip
-              else
-                FUL_I.tooltipTip = REP_TXT.generalTip
-              end
-
+              FUL_I.name = REP_TXT.itemsName
+              FUL_I.hasList = true
+              FUL_I.listShown = false
+              FUL_I.tooltipHead = REP_TXT.itemsHead
+              FUL_I.tooltipTip = REP_TXT.itemsTip
               FUL_I.tooltipDetails = {}
               local FUL_I_TD = FUL_I.tooltipDetails
+
               local x = 0
-              FUL_I_TD[x], x = REP:Update_Tooltip(x, REP_TXT.general2, bul_name)
-              FUL_I_TD[x], x = REP:Update_Tooltip(x, REP_TXT.reputation, FUL_I.rep)
-              FUL_I_TD[x], x = REP:Update_Tooltip(x, REP_TXT.timesToRun, FUL_I.times)
+              FUL_I_TD[x], x = REP:Update_Tooltip(x, FUL_I.name, " ")
               FUL_I_TD[x], x = REP:Update_Tooltip(x, " ", " ")
-              if (fg_sid_x_d.tipList) then
-                for tip in pairs(fg_sid_x_d.tipList) do
-                  FUL_I_TD[x], x = REP:Update_Tooltip(x, tip, fg_sid_x_d.tipList[tip])
+              FUL_I_TD[x], x = REP:Update_Tooltip(x, REP_TXT.itemsRequired, " ")
+
+              -- add items
+              local itemIndex = index + 1
+              local currentQuestTimesBag = -1
+              local currentQuestTimesBagBank = -1
+
+              for item in pairs(fg_sid_x_d.items) do
+                REP_UpdateList[itemIndex] = {}
+                local FUL_II = REP_UpdateList[itemIndex]
+                FUL_II.type = ""
+                FUL_II.times = math.ceil((fg_sid_x_d.items[item] * toDo)).."x"
+                FUL_II.rep = nil
+                FUL_II.index = itemIndex
+                FUL_II.belongsTo = index
+                FUL_II.hasList = nil
+                FUL_II.listShown = nil
+                FUL_II.isShown = FUL_I.listShown
+                local tempItemName = REP:InitItemName(item)
+                FUL_II.name = tempItemName.." ("..fg_sid_x_d.items[item].."x)"
+                FUL_I.name = tempItemName
+                FUL_I_TD[x], x = REP:Update_Tooltip(x, fg_sid_x_d.items[item].."x", REP:InitItemName(item))
+                FUL_II, currentQuestTimesBag, currentQuestTimesBagBank = REP:Quest_Items(fg_sid_x_d.items[item], currentQuestTimesBag, currentQuestTimesBagBank, FUL_II, item)
+
+                if fg_sid_x_d.alternativeItems ~= nil then
+                  for altItem in pairs(fg_sid_x_d.alternativeItems) do
+                    local temp_FUL_II, temp_currentQuestTimesBag, temp_currentQuestTimesBagBank = REP:Quest_Items(fg_sid_x_d.alternativeItems[altItem], -1, -1, FUL_II, altItem)
+
+                    if temp_FUL_II then
+                      -- Do something
+                    end
+
+                    if temp_currentQuestTimesBagBank > 0 then
+                      if currentQuestTimesBagBank < 0 then
+                        currentQuestTimesBagBank = temp_currentQuestTimesBagBank
+                      else
+                        currentQuestTimesBagBank = currentQuestTimesBagBank + temp_currentQuestTimesBagBank
+                      end
+                    end
+
+                    if temp_currentQuestTimesBag > 0 then
+                      currentQuestTimesBag = currentQuestTimesBag + temp_currentQuestTimesBag
+                    end
+                  end
                 end
 
-                FUL_I_TD[x], x = REP:Update_Tooltip(x, " ", " ")
+                REP_UpdateList[itemIndex] = FUL_II
+                itemIndex = itemIndex + 1
               end
 
+              if (currentQuestTimesBag > 0) then
+                FUL_I.highlight = true
+                FUL_I.lowlight = nil
+                FUL_I.name = FUL_I.name..REP.BAG_COLOUR.." ["..currentQuestTimesBag.."x]|r"
+                FUL_I.currentTimesBag = currentQuestTimesBag
+                FUL_I.currentRepBag = currentQuestTimesBag * FUL_I.rep
+                REP_CurrentRepInBag = REP_CurrentRepInBag + FUL_I.currentRepBag
+                FUL_I_TD[x], x = REP:Update_Tooltip(x, " ", " ")
+                FUL_I_TD[x], x = REP:Update_Tooltip(x, REP_TXT.inBag, " ")
+                FUL_I_TD[x], x = REP:Update_Tooltip(x, REP_TXT.turnIns, string.format("%d", FUL_I.currentTimesBag))
+                FUL_I_TD[x], x = REP:Update_Tooltip(x, REP_TXT.reputation, string.format("%d", FUL_I.currentRepBag))
+              end
+
+              if (currentQuestTimesBagBank > 0) then
+                FUL_I.highlight = true
+                FUL_I.lowlight = nil
+                FUL_I.name = FUL_I.name..REP.BAG_BANK_COLOUR.." ["..currentQuestTimesBagBank.."]|r"
+                FUL_I.currentTimesBagBank = currentQuestTimesBagBank
+                FUL_I.currentRepBagBank = currentQuestTimesBagBank * FUL_I.rep
+                REP_CurrentRepInBagBank = REP_CurrentRepInBagBank + FUL_I.currentRepBagBank
+                FUL_I_TD[x] = {}
+
+                if (not REP_UpdateList[index].hasList) then return end	-- not a list Header entry
+
+                FUL_I_TD[x], x = REP:Update_Tooltip(x, " ", " ")
+                FUL_I_TD[x], x = REP:Update_Tooltip(x, REP_TXT.inBagBank, " ")
+                FUL_I_TD[x], x = REP:Update_Tooltip(x, REP_TXT.turnIns, string.format("%d", FUL_I.currentTimesBagBank))
+                FUL_I_TD[x], x = REP:Update_Tooltip(x, REP_TXT.reputation, string.format("%d", FUL_I.currentRepBagBank))
+              end
+
+              if ((currentQuestTimesBag == 0) and (currentQuestTimesBagBank > 0 == false)) then
+                FUL_I.highlight = nil
+              end
+
+              FUL_I_TD[x], x = REP:Update_Tooltip(x, " ", " ")
               FUL_I_TD[x] = REP:Update_Tooltip(x, REP_TXT.maxStanding, _G["FACTION_STANDING_LABEL"..fg_sid_x_d.maxStanding])
               FUL_I_TD.count = x
-              local FUL_I_TD = FUL_I.tooltipDetails
+              FUL_I.tooltipDetails = FUL_I_TD
               REP_UpdateList[index] = FUL_I
-              index = index + 1
+              index = itemIndex
             end
+          end
+        end
+      end
+
+      -- General
+      if (fg_sid.general and REP_Data.Global.ShowGeneral) then
+        local fg_sid_x = fg_sid.general
+        for i = 0, fg_sid_x.count do
+          local fg_sid_x_d = fg_sid_x.data[i]
+          if (not fg_sid_x_d.limit or (normCurrent < fg_sid_x_d.limit)) then
+            local toDo = string.format("%.2f", repToNext / fg_sid_x_d.rep)
+            if (fg_sid_x_d.limit) then
+              toDo = string.format("%.2f", (fg_sid_x_d.limit - normCurrent) / fg_sid_x_d.rep)
+            end
+
+            -- calculate Number of times to do differently for Guild cap
+            REP_UpdateList[index] = {}
+            local FUL_I = REP_UpdateList[index]
+            FUL_I.type = REP_TXT.generalShort
+            FUL_I.times = math.ceil(toDo).."x"
+            FUL_I.rep = string.format("%d", fg_sid_x_d.rep)
+            FUL_I.index = index
+            FUL_I.belongsTo = nil
+            FUL_I.isShown = true
+            FUL_I.hasList = false
+            FUL_I.listShown = nil
+            local bul_name = fg_sid_x_d.name
+            FUL_I.name = bul_name
+
+            if (fg_sid_x_d.head and fg_sid_x_d.head ~= "") then
+              FUL_I.tooltipHead = fg_sid_x_d.head
+            else
+              FUL_I.tooltipHead = REP_TXT.generalHead
+            end
+
+            if (fg_sid_x_d.tip and fg_sid_x_d.tip ~= "") then
+              FUL_I.tooltipTip = fg_sid_x_d.tip
+            else
+              FUL_I.tooltipTip = REP_TXT.generalTip
+            end
+
+            FUL_I.tooltipDetails = {}
+            local FUL_I_TD = FUL_I.tooltipDetails
+            local x = 0
+            FUL_I_TD[x], x = REP:Update_Tooltip(x, REP_TXT.general2, bul_name)
+            FUL_I_TD[x], x = REP:Update_Tooltip(x, REP_TXT.reputation, FUL_I.rep)
+            FUL_I_TD[x], x = REP:Update_Tooltip(x, REP_TXT.timesToRun, FUL_I.times)
+            FUL_I_TD[x], x = REP:Update_Tooltip(x, " ", " ")
+            if (fg_sid_x_d.tipList) then
+              for tip in pairs(fg_sid_x_d.tipList) do
+                FUL_I_TD[x], x = REP:Update_Tooltip(x, tip, fg_sid_x_d.tipList[tip])
+              end
+
+              FUL_I_TD[x], x = REP:Update_Tooltip(x, " ", " ")
+            end
+
+            FUL_I_TD[x] = REP:Update_Tooltip(x, REP_TXT.maxStanding, _G["FACTION_STANDING_LABEL"..fg_sid_x_d.maxStanding])
+            FUL_I_TD.count = x
+            local FUL_I_TD = FUL_I.tooltipDetails
+            REP_UpdateList[index] = FUL_I
+            index = index + 1
           end
         end
       end
@@ -2960,6 +2812,103 @@ function REP_BuildUpdateList()
   REP_UpdateList_Update()
 end
 
+-- function REP_BuildUpdateList()
+--   local index = 1
+--   local factionIndex = REP_Orig_GetSelectedFaction()
+--   local factionData = REP:GetFactionDataByIndexToBuildReputationlist(factionIndex)
+
+--   local standingID, barMin, barMax, barValue, isCapped
+--   local faction = factionData.name
+--   local description = factionData.description
+--   local factionID = factionData.factionID
+
+--   if not factionID or not faction then return end
+
+--   local isMajorFaction = REP_Orig_IsMajorFaction and REP_Orig_IsMajorFaction(factionID)
+
+--   if isMajorFaction then
+--     local majorFactionData = REP_Orig_GetMajorFactionData(factionID)
+--     local hasParagon = REP_Orig_GetFactionParagonInfo(factionID)
+
+--     barMin = 0
+--     standingID = majorFactionData.renownLevel
+--     isCapped = REP_Orig_HasMaximumRenown(factionID)
+
+--     -- barValue = majorFactionData.renownReputationEarned
+--     -- barMax = majorFactionData.renownLevelThreshold
+
+--     if isCapped and hasParagon then
+--       -- Set reputation bar to paragon values if user option is activated and faction is at paragon rep
+--       local currentValue, threshold, _, _ = REP_Orig_GetFactionParagonInfo(factionID)
+--       barMax, barValue = threshold, mod(currentValue, threshold)     
+--     else
+--       barValue = isCapped and majorFactionData.renownLevelThreshold or majorFactionData.renownReputationEarned or 0
+--       barMax = standingID * majorFactionData.renownLevelThreshold
+--       barValue = ((standingID - 1) * majorFactionData.renownLevelThreshold) + barValue
+--     end
+--   else
+--     local friendReputationInfo = REP:GetFriendFactionDataByID(factionID)
+--     standingID = factionData.reaction
+
+--     if friendReputationInfo then
+--       barMin = friendReputationInfo.barMin
+--       barValue = friendReputationInfo.barValue
+--       barMax = friendReputationInfo.barMax
+--       isCapped = friendReputationInfo.isCappedFriendship
+--     else
+--       barMin = factionData.currentReactionThreshold
+--       barValue = factionData.currentStanding
+--       isCapped = standingID == 8 and (factionData.nextReactionThreshold - factionData.currentStanding) == 1
+
+--       if standingID >= 4 then
+--         barMax = factionData.nextReactionThreshold or 0
+--       else
+--         barMin = barMin * -1
+--         barValue = barValue * -1
+--         barMax = (factionData.currentReactionThreshold - factionData.nextReactionThreshold) * -1
+--       end
+--     end 
+--   end
+
+--   if REP_Orig_IsFactionParagon and REP_Orig_IsFactionParagon(factionID) then
+--     local currentValue, threshold, rewardQuestID, hasRewardPending = REP_Orig_GetFactionParagonInfo(factionID)
+--     barMin, barMax, barValue = 0, threshold, mod(currentValue, threshold)
+--   end
+  
+--   local origFaction, faction
+
+--   if REP.factions[factionID] and REP.factions[factionID].faction then
+--     faction = REP.factions[factionID].faction
+--   end
+
+--   if factionID == 1168 then
+--     origFaction = faction.." (guild)"
+--     faction = string.lower(faction).." (guild)"
+--     faction = string.lower(faction).." (guild)"
+--   else
+--     origFaction = faction
+--     faction = string.lower(faction)
+--     faction = string.lower(faction)
+--   end
+  
+--   -- Normalize Values
+--   local normMax, repToNext
+--   local normCurrent = barValue - barMin
+
+--   if standingID < 4 then
+--     normMax = barMax
+--     repToNext = normMax - normCurrent
+--   else
+--     normMax = barMax - barMin
+
+--     if isCapped then
+--       repToNext = 0
+--     else
+--       repToNext = barMax - barValue
+--     end
+--   end
+-- end
+
 function REP:Quest_Items(itemsNeed, currentQuestTimesBag, currentQuestTimesBagBank, QuestItem, item)
   if not QuestItem.times then
     QuestItem = {}
@@ -2968,10 +2917,10 @@ function REP:Quest_Items(itemsNeed, currentQuestTimesBag, currentQuestTimesBagBa
 
   local itemCountIncludingBank, itemCountExcludingBank, currencyInfo
 
-  if REP.AfterDragonflight then
+  if C_Item and C_Item.GetItemCount then
     itemCountIncludingBank = C_Item.GetItemCount(item, true)
     itemCountExcludingBank = C_Item.GetItemCount(item)
-  else
+  elseif GetItemCount then
     itemCountIncludingBank = GetItemCount(item, true)
     itemCountExcludingBank = GetItemCount(item)
   end
@@ -3005,6 +2954,7 @@ function REP:Quest_Items(itemsNeed, currentQuestTimesBag, currentQuestTimesBagBa
     ---- Weird bug in classic where it saw 0 as nil in some situations...
     if not itemTotal then itemTotal = 0 end
     if not itemBag then itemBag = 0 end
+    
     local itemBank = itemTotal - itemBag
 
     if ((itemBag >= itemsNeed) and (itemsNeed > 0)) then
@@ -3234,7 +3184,7 @@ function REP:DumpReputationChangesToChatOnUpdate(faction, change)
 
   info["faction"] = faction
 
-  for i, factionData in pairs(REP.Factions) do
+  for i, factionData in pairs(REP.factions) do
     if factionData.info and ((factionData.info.faction and factionData.info.faction == faction) or (factionData.info.factionID and factionData.info.factionID == factionID)) then
       found = true
       info = factionData.info
@@ -3282,9 +3232,9 @@ function REP:DumpReputationChangesToChatForAllFactions(initOnly)
     local name, standingID, barMin, barMax, barValue, isHeader, hasRep
     local factionID
 
-    if not REP.Factions or REP:GetTableCount(REP.Factions) == 0 then return end
+    if not REP.factions or REP:GetTableCount(REP.factions) == 0 then return end
 
-    for k, v in pairs(REP.Factions) do
+    for k, v in pairs(REP.factions) do
       local currentOld = v.info.current + v.info.bottom
       local info = REP:getRepInfo(v.info)
       local change = (info.current + info.bottom) - currentOld
@@ -3305,7 +3255,7 @@ function REP:DumpReputationChangesToChatForAllFactions(initOnly)
         info.change = math.abs(change)
         info.negative = change < 0
         local session = REP:getFactionSession(info)
-        REP.Factions[info.factionID].session = session
+        REP.factions[info.factionID].session = session
         info.session = session
         info.lastUpdated = time()
         REP:DumpReputationChangesToChatForSingleFaction(info)
@@ -3322,7 +3272,7 @@ function REP:DumpReputationChangesToChatForAllFactions(initOnly)
 
     if REP_Data.Global.SwitchFactionBar then
       if(not REP.AfterTBC and REP:TableSize(factionsChanged) > 1) then
-        table.sort(factionsChanged, TableSort)
+        table.sort(factionsChanged, REP:TableSort())
         watchIndex = factionsChanged[1].watchIndex
       end
 
@@ -3345,8 +3295,8 @@ function REP:DumpReputationChangesToChatForSingleFaction(info)
   if (REP_Data.Global.WriteChatMessage and (not REP_Data.Global.NoGuildGain or info.factionID ~= 1168)) then
     if info.negative then -- Decreased reputation
       if not info.isRenown then
-        if (info.standingId >= 1 and not info.isFriend) then
-          REP:Print(REP.NEW_REP_COLOUR..string.format(FACTION_STANDING_DECREASED..REP_TXT.statsNextStanding, info.name, info.change, "", info.session, _G["FACTION_STANDING_LABEL"..info.standingId + 1], info.maximum - info.current))
+        if (info.standingID >= 1 and not info.isFriend) then
+          REP:Print(REP.NEW_REP_COLOUR..string.format(FACTION_STANDING_DECREASED..REP_TXT.statsNextStanding, info.name, info.change, "", info.session, _G["FACTION_STANDING_LABEL"..info.standingID + 1], info.maximum - info.current))
         else
           REP:Print(REP.NEW_REP_COLOUR..string.format(FACTION_STANDING_DECREASED..REP_TXT.stats, info.name, info.change, "", info.session, info.maximum - info.current))
         end
@@ -3364,14 +3314,45 @@ function REP:DumpReputationChangesToChatForSingleFaction(info)
         elseif info.isFriend then
           REP:Print(REP.NEW_REP_COLOUR..string.format(FACTION_STANDING_INCREASED..REP_TXT.statsNextStanding, info.name, info.change, "+", info.session, REP:GetFriendshipStandingLabelAsBackup(info), info.maximum - info.current))
         else
-          if info.standingId < 8 then
-            REP:Print(REP.NEW_REP_COLOUR..string.format(FACTION_STANDING_INCREASED..REP_TXT.statsNextStanding, info.name, info.change, "+", info.session, _G["FACTION_STANDING_LABEL"..info.standingId + 1], info.maximum - info.current))
+          if REP_Data.Global.ShowBonusGainsInChat and info.hasBonusRepGain then
+            local baseReputation = info.change / 2 -- Commendations are added last after other bonuses, so it's always 100% bonus, so half of total.
+            local bonusReputation = REP:RoundToOneDecimal(baseReputation)
+            local changeMessage = tostring(info.change)..". (+"..tostring(bonusReputation).." bonus)"
+            local factionStringWithBonus = FACTION_STANDING_INCREASED:gsub("%%d", "%%s")
+
+            if info.standingID < 8 then
+              REP:Print(REP.NEW_REP_COLOUR..string.format(factionStringWithBonus..REP_TXT.statsNextStanding, info.name, changeMessage, "+", info.session, _G["FACTION_STANDING_LABEL"..info.standingID + 1], info.maximum - info.current))
+            else
+              REP:Print(REP.NEW_REP_COLOUR..string.format(factionStringWithBonus..REP_TXT.stats, info.name, changeMessage, "+", info.session, info.maximum - info.current))
+            end
           else
-            REP:Print(REP.NEW_REP_COLOUR..string.format(FACTION_STANDING_INCREASED..REP_TXT.stats, info.name, info.change, "+", info.session, info.maximum - info.current))
+            if info.standingID < 8 then
+              REP:Print(REP.NEW_REP_COLOUR..string.format(FACTION_STANDING_INCREASED..REP_TXT.statsNextStanding, info.name, info.change, "+", info.session, _G["FACTION_STANDING_LABEL"..info.standingID + 1], info.maximum - info.current))
+            else
+              REP:Print(REP.NEW_REP_COLOUR..string.format(FACTION_STANDING_INCREASED..REP_TXT.stats, info.name, info.change, "+", info.session, info.maximum - info.current))
+            end
           end
         end
       end
     end
+  end
+
+  local guid = UnitGUID("player")
+  if guid and REP_Data.ProfileKeys[guid] and REP_Data.ProfileKeys[guid].factions then
+    local currentStandingID
+
+    if info.isFriend then
+      currentStandingID = 5
+    else
+      currentStandingID = info.standingID
+    end
+
+    REP_Data.ProfileKeys[guid].factions[info.factionID] = {
+      standing = info.standingText or "",
+      standingID = currentStandingID or 0,
+      current = info.current or 0,
+      max = info.maximum or 0
+    }
   end
 end
 
@@ -3379,7 +3360,7 @@ function REP:GetFriendshipStandingLabelAsBackup(info)
   if info.standingTextNext then
     return info.standingTextNext
   else
-    info["standingTextNext"] = REP_GetFriendFactionStandingLabel(info.factionID, info.top)
+    info["standingTextNext"] = REP:GetFriendFactionStandingLabel(info.factionID, info.top)
     
     if info.standingTextNext then
       return info.standingTextNext
@@ -3395,8 +3376,8 @@ function REP_ClearSessionGain()
   local factionIndex = REP_Orig_GetSelectedFaction()
   local factionID = REP:GetFactionDataByIndex(factionIndex).factionID
 
-  if (factionID and REP.Factions and REP.Factions[factionID]) then
-    REP.Factions[factionID].session = 0
+  if (factionID and REP.factions and REP.factions[factionID]) then
+    REP.factions[factionID].session = 0
   end
 
   if not REP.AfterDragonflight then
@@ -3418,7 +3399,7 @@ function REP:GetReadyReputation(factionIndex)
   local maxFactionIndex = REP_Orig_GetNumFactions()
   if (factionIndex > maxFactionIndex) then return result end
 
-  local faction, description, standingId, barMin, barMax, barValue, atWarWith, canToggleAtWar, isHeader, isCollapsed, hasRep, isWatched, isChild = REP_Orig_GetFactionDataByIndex(factionIndex)
+  local faction, description, standingID, barMin, barMax, barValue, atWarWith, canToggleAtWar, isHeader, isCollapsed, hasRep, isWatched, isChild = REP_Orig_GetFactionDataByIndex(factionIndex)
   if (isHeader) then return result end
 
   if (faction) then
@@ -3432,7 +3413,7 @@ function REP:GetReadyReputation(factionIndex)
 
     local REP_FG_f=REP_FactionGain[faction]
     if (REP_FG_f) then
-      local REP_FG_fs=REP_FG_f[standingId]
+      local REP_FG_fs=REP_FG_f[standingID]
       if (REP_FG_fs) then
         -- quests (may have items)
         local REP_FG_fs_h=REP_FG_fs.quests
@@ -3532,48 +3513,36 @@ end
 -----------------------------------
 function REP:StandingSort()
   local standings = {}
+  local guid = UnitGUID("player")
 
   for i = 1, REP_Orig_GetNumFactions() do
-    local name, description, standingID, barMax, barValue, isHeader, hasRep, isWatched, isChild, factionID, hasBonusRepGain
+    local reputationInfo = REP:GetFactionDataByIndex(i)
+
+    if not reputationInfo then return end
+
+    local name = reputationInfo.name
+    local description = reputationInfo.description
+    local standingID = reputationInfo.reaction
+    local barMax = reputationInfo.nextReactionThreshold
+    local barValue = reputationInfo.currentStanding
+    local isHeader = reputationInfo.isHeader
+    local hasRep = reputationInfo.isHeaderWithRep
+    local isWatched = reputationInfo.isWatched
+    local isChild = reputationInfo.isChild
+    local factionID = reputationInfo.factionID
+    local hasBonusRepGain = reputationInfo.hasBonusRepGain
     
-    if REP.AfterDragonflight then
-      local reputationInfo = REP_Orig_GetFactionDataByIndex(i)
-      name = reputationInfo.name
-      description = reputationInfo.description
-      standingID = reputationInfo.reaction
-      barMax = reputationInfo.nextReactionThreshold
-      barValue = reputationInfo.currentStanding
-      isHeader = reputationInfo.isHeader
-      hasRep = reputationInfo.isHeaderWithRep
-      isWatched = reputationInfo.isWatched
-      isChild = reputationInfo.isChild
-      factionID = reputationInfo.factionID
-      hasBonusRepGain = reputationInfo.hasBonusRepGain
-    else
-      name, description, standingID, _, barMax, barValue, _, _, isHeader, _, hasRep, isWatched, isChild, factionID, hasBonusRepGain = REP_Orig_GetFactionDataByIndex(i)
+    local friendReputationInfo = REP:GetFriendFactionDataByID(factionID)
+    local isFrend = (friendReputationInfo and friendReputationInfo.isFriend) or false
+
+    if isFrend then
+      standingID = standingID + 2
     end
 
-    local friendReputationInfo = REP_Friend_Detail(factionID, standingID)
-    local isFriend = friendReputationInfo.isFriend
-
-    if (REP_ProfileKey) then
-      if REP_Data[REP_ProfileKey].InactiveFactions == nil then REP_Data[REP_ProfileKey].InactiveFactions = {} end
-    end
-
-    if (not REP_ProfileKey or not REP_Data[REP_ProfileKey].InactiveFactions[factionID]) then
-      if (REP.AfterWoD) then
-        if(factionID and REP_Orig_IsFactionParagon(factionID) and REP_Data.Global.ShowParagonBar) then
-          local currentValue, threshold, _, _ = REP_Orig_GetFactionParagonInfo(factionID)
-          barMax, barValue, standingID = threshold, mod(currentValue, threshold), 9
-        end
-
-        -- if isFriend then -- Fix reputations with only 6 reputation levels
-        --   if (standingID == 6) and (not REP_Orig_IsFactionParagon(factionID)) then
-        --     standingID = standingID + 2
-        --   else
-        --     standingID = standingID + 3
-        --   end
-        -- end
+    if (guid and REP_Data.ProfileKeys[guid] and not REP_Data.ProfileKeys[guid].inactiveFactions[factionID]) then
+      if (REP.AfterWoD and REP_Orig_IsFactionParagon and REP_Orig_IsFactionParagon(factionID) and REP_Data.Global.ShowParagonBar) then
+        local currentValue, threshold, _, _ = REP_Orig_GetFactionParagonInfo(factionID)
+        barMax, barValue, standingID = threshold, mod(currentValue, threshold), 9
       end
 
       if (not isHeader or hasRep) then
@@ -3720,7 +3689,7 @@ function REP_GetReputationGains(factionIndex, factionID)
     if not isCappedFriendship then
       local friendRep, friendMaxRep, friendThreshold, nextFriendThreshold
 
-      if not REP.AfterShadowLands then
+      if REP.AfterMoP and GetFriendshipReputation and not REP.AfterShadowLands then
         -- friendID, friendRep, friendMaxRep, friendName, friendText, _, friendTextLevel, friendThreshold, nextFriendThreshold = GetFriendshipReputation(factionID)
         _, friendRep, friendMaxRep, _, friendName, _, _, friendThreshold, nextFriendThreshold = GetFriendshipReputation(factionID)
       else
@@ -3827,11 +3796,8 @@ function REP_GetReputationGains(factionIndex, factionID)
     end
   end
 
-  -- REP:Print("Old session: "..tostring(reputationGainedSession))
-
-  if factionID and REP.Factions and REP.Factions[factionID] then
-    reputationGainedSession = REP.Factions[factionID].session
-    -- REP:Print("New session: "..tostring(reputationGainedSession))
+  if factionID and REP.factions and REP.factions[factionID] then
+    reputationGainedSession = REP.factions[factionID].session
   end  
 
   reputationGainsInfo.factionName = name
@@ -3857,8 +3823,8 @@ function REP_Friend_Detail(factionID, standingID, factionRow)
 
   if REP.AfterCata then
     if (factionID) then
-      if not REP.AfterShadowLands then
-        friendID, friendRep, friendMaxRep, friendName, friendText, friendTexture, friendTextLevel, friendThreshold, nextFriendThreshold = GetFriendshipReputation(factionID)
+      if REP.AfterMoP and not REP.AfterShadowLands then
+        friendID, friendRep, friendMaxRep, friendName, friendText, friendTexture, friendTextLevel, friendThreshold, nextFriendThreshold = REP_Orig_GetFriendshipReputation(factionID)
       else
         local friendshipInfo = REP_Orig_GetFriendshipReputation(factionID)
         if friendshipInfo and friendshipInfo.friendshipFactionID > 0 then
@@ -4097,7 +4063,7 @@ function REP_GetFriendFactionRemaining(factionID)
   local bodyguards = {1738, 1740, 1733, 1741, 1737, 1736, 1739}
 
   if (REP.AfterCata and factionID) then
-    if not REP.AfterShadowLands then
+    if REP.AfterMoP and GetFriendshipReputation and not REP.AfterShadowLands then
       _, friendRep, friendMaxRep, _, _, _, _, _, _ = GetFriendshipReputation(factionID)
     else
       local friendshipInfo = REP_Orig_GetFriendshipReputation(factionID)
@@ -4167,12 +4133,14 @@ function REP:CustomSetFactionActiveOrInactive(isChecked, factionIndex)
   end
 
   if (factionID) then
-    if REP_Data[REP_ProfileKey].InactiveFactions == nil then REP_Data[REP_ProfileKey].InactiveFactions = {} end
+    local guid = UnitGUID("player")
+    
+    if not REP_Data.ProfileKeys[guid].inactiveFactions then REP_Data.ProfileKeys[guid].inactiveFactions = {} end
 
     if shouldBeActive then
-      REP_Data[REP_ProfileKey].InactiveFactions[factionID] = nil
+      REP_Data.ProfileKeys[guid].inactiveFactions[factionID] = nil
     else
-      REP_Data[REP_ProfileKey].InactiveFactions[factionID] = true
+      REP_Data.ProfileKeys[guid].inactiveFactions[factionID] = true
     end
   end
 
@@ -4323,7 +4291,7 @@ function REP:SortByStandingWithoutFactionHeader(i, factionIndex, factionRow, fac
 
     factionBar:SetStatusBarColor(color.r, color.g, color.b)
 
-    if(REP.AfterCata) then
+    if(REP.AfterMoP) then
       factionBar.BonusIcon:SetShown(hasBonusRepGain)
     end
 
@@ -4536,7 +4504,7 @@ function REP:OriginalRepOrderWithoutFactionHeader(i, factionIndex, factionRow, f
 
   factionBar:SetStatusBarColor(color.r, color.g, color.b)
 
-  if(REP.AfterCata) then
+  if(REP.AfterMoP) then
     factionBar.BonusIcon:SetShown(hasBonusRepGain)
   end
 
@@ -4580,7 +4548,7 @@ function REP:OriginalRepOrderWithoutFactionHeader(i, factionIndex, factionRow, f
       REP_ReputationDetailFrame_IsShown(flag, 2)
     end
 
-    if (REP_Orig_ReputationDetailFrame:IsVisible()) then
+    if (REP_Orig_ReputationDetailFrame and REP_Orig_ReputationDetailFrame:IsVisible()) then
       REP:Rep_Detail_Frame()
       _G["ReputationBar"..i.."ReputationBarHighlight1"]:Show()
       _G["ReputationBar"..i.."ReputationBarHighlight2"]:Show()

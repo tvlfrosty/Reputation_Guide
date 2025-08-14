@@ -1,12 +1,7 @@
 <Bindings>
-	<Binding name="SHOWCONFIG" header="REPUTATIONGUIDE" runOnUp="true">
-		if ( keystate == "down" ) then
+	<Binding name="SHOWCONFIG" category="ReputationGuide">
+		if (keystate == "down") then
 			REP_OpenSettings()
-		end
-	</Binding>
-	<Binding name="SHOWDETAILS" runOnUp="true">
-		if ( keystate == "down" ) then
-			REP_ToggleDetailWindow()
 		end
 	</Binding>
 </Bindings>
