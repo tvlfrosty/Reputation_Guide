@@ -9,7 +9,7 @@ local showParagonCount = false
 
 -- Thanks to the Pretty Reputation Addon (https://www.curseforge.com/wow/addons/pretty-reputation) for the factionPanelFix fix.
 function ReputationGuide:IndexFactions(isInitialLogin, isReloadingUi, forceFactionPanelFix)
-  if not (isInitialLogin or isReloadingUi or forceReload) then return end
+  if not (isInitialLogin or isReloadingUi or forceFactionPanelFix) then return end
   
   showParagonCount = REP_Data.Global.ShowParagonBar
 
@@ -78,13 +78,13 @@ function ReputationGuide:IndexFaction(factionData)
       if not REP_Data.ProfileKeys then REP_Data.ProfileKeys = {} end
       
       -- If you want to recache all factions on login, temp remove "and not REP_Data.ProfileKeys[guid].factions[factionData.factionID]".
-      if guid and REP_Data.ProfileKeys and REP_Data.ProfileKeys[guid] and REP_Data.ProfileKeys[guid].factions and not REP_Data.ProfileKeys[guid].factions[factionData.factionID] then
+      if guid and REP_Data.ProfileKeys and REP_Data.ProfileKeys[guid] and REP_Data.ProfileKeys[guid].factions and not REP_Data.ProfileKeys[guid].factions[factionData.factionID] then 
         local currentStandingID
 
         if factions[factionData.factionID].info.isFriend then
           currentStandingID = 5
         else
-          currentStandingID = factions[factionData.factionID].info.standingId
+          currentStandingID = factions[factionData.factionID].info.standingID
         end
         
         REP_Data.ProfileKeys[guid].factions[factionData.factionID] = {
@@ -160,7 +160,7 @@ end
 function ReputationGuide:getRepInfo(info)
   if (info.factionID and info.factionID ~= 0) then
     local factionData = ReputationGuide:GetFactionDataByID(info.factionID)
-    info["StandingID"] = factionData.reaction
+    info["standingID"] = factionData.reaction
     info["name"] = factionData.name
     info["bottom"] = factionData.currentReactionThreshold
     info["top"] = factionData.nextReactionThreshold
@@ -188,8 +188,8 @@ function ReputationGuide:getRepInfo(info)
           info["standingText"] = (REP_TXT.renown.." "..data.renownLevel)
           info["renown"] = data.renownLevel
           info["standingTextNext"] = REP_TXT.renown.." "..(data.renownLevel + 1)
-          info["StandingID"] = 10
-          info["StandingIDNext"] = 10
+          info["standingID"] = 10
+          info["standingIDNext"] = 10
           
           if not isCapped or not isParagon then return info end
           if isCapped then info["isCapped"] = true end
@@ -202,8 +202,8 @@ function ReputationGuide:getRepInfo(info)
           end
   
           info["standingTextNext"] = ReputationGuide:getFactionLabel("paragon") .. " " .. (paragonLevel + 1)
-          info["StandingID"] = 9
-          info["StandingIDNext"] = 9
+          info["standingID"] = 9
+          info["standingIDNext"] = 9
           
           if hasRewardPending then
             local reward = "|A:ParagonReputation_Bag:0:0|a"
@@ -252,8 +252,8 @@ function ReputationGuide:getRepInfo(info)
         end
   
         info["standingTextNext"] = ReputationGuide:getFactionLabel("paragon") .. " " .. (paragonLevel + 1)
-        info["StandingID"] = 9
-        info["StandingIDNext"] = 9
+        info["standingID"] = 9
+        info["standingIDNext"] = 9
   
         if hasRewardPending then
           local reward = "|A:ParagonReputation_Bag:0:0|a"
@@ -299,7 +299,7 @@ function ReputationGuide:getRepInfo(info)
     info["maximum"] = info.top - info.bottom
     info["standingText"] = ReputationGuide:getFactionLabel(factionData.reaction)
     info["standingTextNext"] = (info.negative and factionData.reaction > 1 and _G["FACTION_STANDING_LABEL".. factionData.reaction - 1]) or (not info.negative and factionData.reaction < 8 and _G["FACTION_STANDING_LABEL".. factionData.reaction + 1]) or ""
-    info["StandingIDNext"] = (info.negative and factionData.reaction > 1 and (factionData.reaction - 1)) or (not info.negative and factionData.reaction < 8 and (factionData.reaction + 1))
+    info["standingIDNext"] = (info.negative and factionData.reaction > 1 and (factionData.reaction - 1)) or (not info.negative and factionData.reaction < 8 and (factionData.reaction + 1))
     return info
   end
 

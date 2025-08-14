@@ -47,7 +47,7 @@ function ReputationGuide:Help()
   ReputationGuide:Print(ReputationGuide.HELP_COLOUR..REP_TXT.usage..":|r /rep disable { mobs | quests | pvpquests | instances | items | all }", true)
   ReputationGuide:Print(ReputationGuide.HELP_COLOUR..REP_TXT.usage..":|r /rep toggle { mobs | quests | pvpquests | instances | items | all }", true)
 
-  if ReputationGuide.AfterWod then
+  if ReputationGuide.AfterWoD then
     ReputationGuide:Print(ReputationGuide.HELP_COLOUR..REP_TXT.usage..":|r /rep enable { missing | details | chat | paragon }", true)
     ReputationGuide:Print(ReputationGuide.HELP_COLOUR..REP_TXT.usage..":|r /rep disable { missing | details | chat | paragon }", true)
     ReputationGuide:Print(ReputationGuide.HELP_COLOUR..REP_TXT.usage..":|r /rep toggle { missing | details | chat | paragon }" , true)
@@ -315,9 +315,11 @@ end
 function ReputationGuide:GetCharacterDataForToolTip(factionID)
   local charactersForToolTip = {}
 
+  if not ReputationGuide.realm then ReputationGuide.realm = GetRealmName() end
+
   for profileKey, profileData in pairs(REP_Data.ProfileKeys) do
     local k = REP_Data.ProfileKeys[profileKey]
-    local showCharacter = k.profile.ShowChar or false
+    local showCharacter = (k.profile.ShowChar and ReputationGuide.realm == k.profile.realm) or false
 
     if showCharacter then
       local currentCharacter = {}
@@ -345,6 +347,14 @@ function ReputationGuide:GetCharacterDataForToolTip(factionID)
       table.insert(charactersForToolTip, currentCharacter)
     end
   end
+
+  table.sort(charactersForToolTip, function(a, b)
+    if (a.standingID or 0) ~= (b.standingID or 0) then
+      return (a.standingID or 0) > (b.standingID or 0)
+    else
+      return (a.current or 0) > (b.current or 0)
+    end
+  end)
   
   return charactersForToolTip
 end
@@ -356,43 +366,34 @@ function ReputationGuide:ShowReputationTooltip(frame, factionID)
   GameTooltip:SetOwner(frame, "ANCHOR_CURSOR", 0, 40)
   GameTooltip:ClearLines()
   GameTooltip:AddLine(factionData.name)
-  GameTooltip:AddLine(factionData.description .. "\n\n", 1, 1, 1, 1 )
-
-  local charData = ReputationGuide:GetCharacterDataForToolTip(factionID)
-  table.sort(charData, function(a, b)
-    if (a.standingID or 0) ~= (b.standingID or 0) then
-      return (a.standingID or 0) > (b.standingID or 0)
-    else
-      return (a.current or 0) > (b.current or 0)
-    end
-  end)
-
-  for _, data in ipairs(charData) do
-    local classColor = RAID_CLASS_COLORS[data.class] or { r = 1, g = 1, b = 1 }
-    local standingColor = ReputationGuide.FACTION_BAR_COLORS[data.standingID] or {r = 0, g = 0.6, b = 0.1}
-
-    GameTooltip:AddDoubleLine(
-      data.name,
-      string.format("%s (%d/%d)", data.standing, data.current, data.max),
-      classColor.r, classColor.g, classColor.b,
-      standingColor.r, standingColor.g, standingColor.b
-    )
-  end
-
+  GameTooltip:AddLine(factionData.description .. "\n\n", 1, 1, 1, 1)
+  GameTooltip:AddLine(" ")
+  ReputationGuide:AppendLinesForAnyToolTip(factionID, GameTooltip)
   GameTooltip:Show()
 end
 ---------------------------------------------------
 function ReputationGuide:HookWatchedFactionBar()
   if ReputationGuide.AfterDragonflight then
-    if MainStatusTrackingBarContainer then
-      MainStatusTrackingBarContainer:HookScript("OnEnter", function(self)
-        self:ShowText()
-        local factionInfo = C_Reputation.GetWatchedFactionData()
-        if factionInfo then
-          ReputationGuide:ShowReputationTooltip(self, factionInfo.factionID)
-        end
-      end)
-      MainStatusTrackingBarContainer:HookScript("OnLeave", function(self) self:HideText() GameTooltip:Hide() end)
+    if SecondaryStatusTrackingBarContainer then
+      SecondaryStatusTrackingBarContainer:HookScript("OnEnter", function(self)
+          self:ShowText()
+          local factionInfo = C_Reputation.GetWatchedFactionData()
+          if factionInfo then
+            ReputationGuide:ShowReputationTooltip(self, factionInfo.factionID)
+          end
+        end)
+        SecondaryStatusTrackingBarContainer:HookScript("OnLeave", function(self) self:HideText() GameTooltip:Hide() end)
+    else
+      if MainStatusTrackingBarContainer then
+        MainStatusTrackingBarContainer:HookScript("OnEnter", function(self)
+          self:ShowText()
+          local factionInfo = C_Reputation.GetWatchedFactionData()
+          if factionInfo then
+            ReputationGuide:ShowReputationTooltip(self, factionInfo.factionID)
+          end
+        end)
+        MainStatusTrackingBarContainer:HookScript("OnLeave", function(self) self:HideText() GameTooltip:Hide() end)
+      end
     end
   else
     if ReputationWatchBar then
@@ -402,26 +403,15 @@ function ReputationGuide:HookWatchedFactionBar()
   end
 end
 ---------------------------------------------------
-function ReputationGuide:AppendLinesForModernToolTip(row)    
-  if not row then return end
-
-  local factionID = row.factionID
-  if not factionID and row.factionIndex then
-    local data = ReputationGuide.GetFactionDataByIndex(row.factionIndex)
-    factionID = data and data.factionID
-  end
-  if not factionID then return end
-
-  local tip = (EmbeddedItemTooltip:GetOwner() == row) and EmbeddedItemTooltip or GameTooltip
-
-  tip:AddLine(" ")
+function ReputationGuide:AppendLinesForAnyToolTip(factionID, tooltip)
+  if not tooltip or not factionID then return end
 
   local charData = ReputationGuide:GetCharacterDataForToolTip(factionID)
   for _, data in ipairs(charData) do
     local classColor = RAID_CLASS_COLORS[data.class] or { r = 1, g = 1, b = 1 }
-    local standingColor = FACTION_BAR_COLORS[data.standingID] or { r = 1, g = 1, b = 1 }
+    local standingColor = ReputationGuide.FACTION_BAR_COLORS[data.standingID] or {r = 0, g = 0.6, b = 0.1}
 
-    tip:AddDoubleLine(
+    tooltip:AddDoubleLine(
       data.name,
       string.format("%s (%d/%d)", data.standing, data.current, data.max),
       classColor.r, classColor.g, classColor.b,
@@ -429,12 +419,90 @@ function ReputationGuide:AppendLinesForModernToolTip(row)
     )
   end
 
-  tip:Show()
+  tooltip:Show()
+end
+
+function ReputationGuide:AppendLinesForModernToolTip(row)
+  if not row then return end
+
+  local factionID = row.factionID
+  if not factionID and row.factionIndex then
+    local data = ReputationGuide.GetFactionDataByIndex(row.factionIndex)
+    factionID = data and data.factionID
+  end
+
+  if not factionID then return end
+
+  if C_Reputation.IsFactionParagon(factionID) then
+    local anchorTip = ReputationGuide:GetActiveAnchorTooltip(row)
+    if not anchorTip then return end
+    ReputationGuide:ShowExtraTooltip(anchorTip, factionID)
+  else
+    -- Non-paragon → just append into Blizzard's tooltip
+    local modernTooltip = (EmbeddedItemTooltip and EmbeddedItemTooltip:GetOwner() == row) and EmbeddedItemTooltip or GameTooltip
+    modernTooltip:AddLine(" ")
+    ReputationGuide:AppendLinesForAnyToolTip(factionID, modernTooltip)
+    modernTooltip:Show()
+  end
 end
 ---------------------------------------------------
-function ReputationGuide:HookFactionFrameMixinBar()    
-  if ReputationEntryMixin then hooksecurefunc(ReputationEntryMixin, "OnEnter", function(row) ReputationGuide:AppendLinesForModernToolTip(row) end) end
-  if ReputationSubHeaderMixin then hooksecurefunc(ReputationSubHeaderMixin, "OnEnter", function(row) ReputationGuide:AppendLinesForModernToolTip(row) end) end
+function ReputationGuide:ShowExtraTooltip(anchorTip, factionID)
+  if not anchorTip or not factionID then return end
+  local tip = ReputationGuide:EnsureExtraTooltip()
+
+  -- Rebuild our tooltip each time
+  tip:Hide()
+  tip:ClearLines()
+  tip:SetOwner(UIParent, "ANCHOR_NONE")
+
+  -- Same width as anchor, directly below it
+  tip:ClearAllPoints()
+  tip:SetPoint("TOPLEFT", anchorTip, "BOTTOMLEFT", 0, -6)
+
+  ReputationGuide:AppendLinesForAnyToolTip(factionID, tip)
+  tip:Show()
+  tip:SetMinimumWidth(0)
+
+  -- Ensure we follow resizing/closing of the anchor (paragon rewards can resize after data arrives)
+  if not anchorTip._rgDockHooked then
+    anchorTip:HookScript("OnHide", function() if tip:IsShown() then tip:Hide() end end)
+    anchorTip._rgDockHooked = true
+  end
+end
+---------------------------------------------------
+function ReputationGuide:HookFactionFrameMixinBar()
+  if ReputationEntryMixin then
+    hooksecurefunc(ReputationEntryMixin, "OnEnter", function(row) ReputationGuide:AppendLinesForModernToolTip(row) end)
+    hooksecurefunc(ReputationEntryMixin, "OnLeave", function() ReputationGuide:HideExtraTooltip() end)
+  end
+  if ReputationSubHeaderMixin then
+    hooksecurefunc(ReputationSubHeaderMixin, "OnEnter", function(row) ReputationGuide:AppendLinesForModernToolTip(row) end)
+    hooksecurefunc(ReputationSubHeaderMixin, "OnLeave", function() ReputationGuide:HideExtraTooltip() end)
+  end
+end
+---------------------------------------------------
+function ReputationGuide:HideExtraTooltip()
+  local tip = ReputationGuide and ReputationGuide.ExtraTooltip
+  if tip then tip:Hide() end
+end
+---------------------------------------------------
+function ReputationGuide:GetActiveAnchorTooltip(row)
+  if EmbeddedItemTooltip and EmbeddedItemTooltip:GetOwner() == row then return EmbeddedItemTooltip end
+  if GameTooltip and GameTooltip:GetOwner() == row then return GameTooltip end
+  if EmbeddedItemTooltip and EmbeddedItemTooltip:IsShown() then return EmbeddedItemTooltip end
+  return GameTooltip
+end
+---------------------------------------------------
+function ReputationGuide:EnsureExtraTooltip()
+  if self.ExtraTooltip then return self.ExtraTooltip end
+
+  local tip = CreateFrame("GameTooltip", "ReputationGuideExtraTooltip", UIParent, "GameTooltipTemplate")
+  tip:SetFrameStrata("TOOLTIP")
+  tip:SetClampedToScreen(true)
+  tip:Hide()
+
+  self.ExtraTooltip = tip
+  return tip
 end
 ------------------------------
 -- Reputation Functions --

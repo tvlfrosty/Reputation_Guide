@@ -59,7 +59,7 @@ function REP_OnLoad(self)
     ShowPreviewRep = true,
     ShowGeneral = true,
     SortByStanding = false,
-    ShowBonusGainsInChat = false
+    ShowBonusGainsInChat = false,
   }
 
   if not REP_Data then REP_Data = {} end
