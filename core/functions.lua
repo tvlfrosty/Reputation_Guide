@@ -372,37 +372,6 @@ function ReputationGuide:ShowReputationTooltip(frame, factionID)
   GameTooltip:Show()
 end
 ---------------------------------------------------
-function ReputationGuide:HookWatchedFactionBar()
-  if ReputationGuide.AfterDragonflight then
-    if SecondaryStatusTrackingBarContainer then
-      SecondaryStatusTrackingBarContainer:HookScript("OnEnter", function(self)
-          self:ShowText()
-          local factionInfo = C_Reputation.GetWatchedFactionData()
-          if factionInfo then
-            ReputationGuide:ShowReputationTooltip(self, factionInfo.factionID)
-          end
-        end)
-        SecondaryStatusTrackingBarContainer:HookScript("OnLeave", function(self) self:HideText() GameTooltip:Hide() end)
-    else
-      if MainStatusTrackingBarContainer then
-        MainStatusTrackingBarContainer:HookScript("OnEnter", function(self)
-          self:ShowText()
-          local factionInfo = C_Reputation.GetWatchedFactionData()
-          if factionInfo then
-            ReputationGuide:ShowReputationTooltip(self, factionInfo.factionID)
-          end
-        end)
-        MainStatusTrackingBarContainer:HookScript("OnLeave", function(self) self:HideText() GameTooltip:Hide() end)
-      end
-    end
-  else
-    if ReputationWatchBar then
-      ReputationWatchBar:HookScript("OnEnter", function(self) ReputationGuide:ShowReputationTooltip(self, self.factionID) end)
-      ReputationWatchBar:HookScript("OnLeave", function() GameTooltip:Hide() end)
-    end
-  end
-end
----------------------------------------------------
 function ReputationGuide:AppendLinesForAnyToolTip(factionID, tooltip)
   if not tooltip or not factionID then return end
 
@@ -470,17 +439,6 @@ function ReputationGuide:ShowExtraTooltip(anchorTip, factionID)
   end
 end
 ---------------------------------------------------
-function ReputationGuide:HookFactionFrameMixinBar()
-  if ReputationEntryMixin then
-    hooksecurefunc(ReputationEntryMixin, "OnEnter", function(row) ReputationGuide:AppendLinesForModernToolTip(row) end)
-    hooksecurefunc(ReputationEntryMixin, "OnLeave", function() ReputationGuide:HideExtraTooltip() end)
-  end
-  if ReputationSubHeaderMixin then
-    hooksecurefunc(ReputationSubHeaderMixin, "OnEnter", function(row) ReputationGuide:AppendLinesForModernToolTip(row) end)
-    hooksecurefunc(ReputationSubHeaderMixin, "OnLeave", function() ReputationGuide:HideExtraTooltip() end)
-  end
-end
----------------------------------------------------
 function ReputationGuide:HideExtraTooltip()
   local tip = ReputationGuide and ReputationGuide.ExtraTooltip
   if tip then tip:Hide() end
@@ -503,6 +461,48 @@ function ReputationGuide:EnsureExtraTooltip()
 
   self.ExtraTooltip = tip
   return tip
+end
+---------------------------------------------------
+function ReputationGuide:HookFactionFrameMixinBar()
+  if ReputationEntryMixin then
+    hooksecurefunc(ReputationEntryMixin, "OnEnter", function(row) ReputationGuide:AppendLinesForModernToolTip(row) end)
+    hooksecurefunc(ReputationEntryMixin, "OnLeave", function() ReputationGuide:HideExtraTooltip() end)
+  end
+  if ReputationSubHeaderMixin then
+    hooksecurefunc(ReputationSubHeaderMixin, "OnEnter", function(row) ReputationGuide:AppendLinesForModernToolTip(row) end)
+    hooksecurefunc(ReputationSubHeaderMixin, "OnLeave", function() ReputationGuide:HideExtraTooltip() end)
+  end
+end
+---------------------------------------------------
+function ReputationGuide:HookWatchedFactionBar()
+  if ReputationGuide.AfterDragonflight then
+    if SecondaryStatusTrackingBarContainer and SecondaryStatusTrackingBarContainer:IsShown() then
+      SecondaryStatusTrackingBarContainer:HookScript("OnEnter", function(self)
+          self:ShowText()
+          local factionInfo = C_Reputation.GetWatchedFactionData()
+          if factionInfo then
+            ReputationGuide:ShowReputationTooltip(self, factionInfo.factionID)
+          end
+        end)
+        SecondaryStatusTrackingBarContainer:HookScript("OnLeave", function(self) self:HideText() GameTooltip:Hide() end)
+    else
+      if MainStatusTrackingBarContainer then
+        MainStatusTrackingBarContainer:HookScript("OnEnter", function(self)
+          self:ShowText()
+          local factionInfo = C_Reputation.GetWatchedFactionData()
+          if factionInfo then
+            ReputationGuide:ShowReputationTooltip(self, factionInfo.factionID)
+          end
+        end)
+        MainStatusTrackingBarContainer:HookScript("OnLeave", function(self) self:HideText() GameTooltip:Hide() end)
+      end
+    end
+  else
+    if ReputationWatchBar then
+      ReputationWatchBar:HookScript("OnEnter", function(self) ReputationGuide:ShowReputationTooltip(self, self.factionID) end)
+      ReputationWatchBar:HookScript("OnLeave", function() GameTooltip:Hide() end)
+    end
+  end
 end
 ------------------------------
 -- Reputation Functions --
