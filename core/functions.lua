@@ -464,13 +464,55 @@ function ReputationGuide:EnsureExtraTooltip()
 end
 ---------------------------------------------------
 function ReputationGuide:HookFactionFrameMixinBar()
-  if ReputationEntryMixin then
-    hooksecurefunc(ReputationEntryMixin, "OnEnter", function(row) ReputationGuide:AppendLinesForModernToolTip(row) end)
-    hooksecurefunc(ReputationEntryMixin, "OnLeave", function() ReputationGuide:HideExtraTooltip() end)
-  end
-  if ReputationSubHeaderMixin then
-    hooksecurefunc(ReputationSubHeaderMixin, "OnEnter", function(row) ReputationGuide:AppendLinesForModernToolTip(row) end)
-    hooksecurefunc(ReputationSubHeaderMixin, "OnLeave", function() ReputationGuide:HideExtraTooltip() end)
+  if ReputationGuide.hasPrettyRepsLoaded then
+    if PrettyRepsReputationEntryMixin then
+      hooksecurefunc(PrettyRepsReputationEntryMixin, "OnEnter", function(row) ReputationGuide:AppendLinesForModernToolTip(row) end)
+      hooksecurefunc(PrettyRepsReputationEntryMixin, "OnLeave", function() ReputationGuide:HideExtraTooltip() end)
+      hooksecurefunc(PrettyRepsReputationEntryMixin, "OnClick", function(self)
+        ReputationGuide.PrettyRepsFactonID = nil
+        local isSelected = self:IsSelected();  
+        
+        if isSelected and self.factionID ~= 0 then -- Due to hook, the IsSelected is fired late, so isntead of isAlreadySelected, we check if isSelected.
+          ReputationGuide.PrettyRepsFactonID = self.factionID
+        else
+          ReputationGuide.PrettyRepsFactonID = nil
+        end
+
+        ReputationGuide:FillReputationDetailFrameWithData()
+      end)
+    end
+    if PrettyRepsReputationSubHeaderMixin then
+      hooksecurefunc(PrettyRepsReputationSubHeaderMixin, "OnEnter", function(row) ReputationGuide:AppendLinesForModernToolTip(row) end)
+      hooksecurefunc(PrettyRepsReputationSubHeaderMixin, "OnLeave", function() ReputationGuide:HideExtraTooltip() end)
+      hooksecurefunc(PrettyRepsReputationSubHeaderMixin, "OnClick", function(self)
+        ReputationGuide.PrettyRepsFactonID = nil
+        local isSelected = self:IsSelected();  
+        
+        if isSelected and self.factionID ~= 0 then -- Due to hook, the IsSelected is fired late, so isntead of isAlreadySelected, we check if isSelected.
+          ReputationGuide.PrettyRepsFactonID = self.factionID
+        else
+          ReputationGuide.PrettyRepsFactonID = nil
+        end
+
+        ReputationGuide:FillReputationDetailFrameWithData()
+      end)
+    end
+    if PrettyRepsReputationHeaderMixin then
+      hooksecurefunc(PrettyRepsReputationHeaderMixin, "OnClick", function(self)
+        if REP_Orig_ReputationDetailFrame and REP_Orig_ReputationDetailFrame:IsShown() then
+          REP_Orig_ReputationDetailFrame:Hide();
+        end
+      end)
+    end
+  else
+    if ReputationEntryMixin then
+      hooksecurefunc(ReputationEntryMixin, "OnEnter", function(row) ReputationGuide:AppendLinesForModernToolTip(row) end)
+      hooksecurefunc(ReputationEntryMixin, "OnLeave", function() ReputationGuide:HideExtraTooltip() end)
+    end
+    if ReputationSubHeaderMixin then
+      hooksecurefunc(ReputationSubHeaderMixin, "OnEnter", function(row) ReputationGuide:AppendLinesForModernToolTip(row) end)
+      hooksecurefunc(ReputationSubHeaderMixin, "OnLeave", function() ReputationGuide:HideExtraTooltip() end)
+    end
   end
 end
 ---------------------------------------------------
@@ -646,17 +688,15 @@ function ReputationGuide:getFactionLabel(standingID)
 end
 ---------------------------------------------------
 function ReputationGuide:GetFriendFactionStandingLabel(factionID, nextFriendThreshold)
-  local REP_BFFLabels = ReputationGuide.BFFLabels
-
-  if REP_BFFLabels[factionID] ~= nil then
-    if REP_BFFLabels[factionID][nextFriendThreshold] then
-      return REP_BFFLabels[factionID][nextFriendThreshold]
+  if ReputationGuide.BFFLabels[factionID] ~= nil then
+    if ReputationGuide.BFFLabels[factionID][nextFriendThreshold] then
+      return ReputationGuide.BFFLabels[factionID][nextFriendThreshold]
     else
       return ""
     end
   else
-    if REP_BFFLabels[0][nextFriendThreshold] ~= nil then
-      return REP_BFFLabels[0][nextFriendThreshold]
+    if ReputationGuide.BFFLabels[0][nextFriendThreshold] ~= nil then
+      return ReputationGuide.BFFLabels[0][nextFriendThreshold]
     else
       return ""
     end
@@ -707,35 +747,14 @@ function ReputationGuide:GetFriendFactionDataByID(factionID)
   return friendReputationInfo
 end
 ---------------------------------------------------
-function ReputationGuide:GetFactionDataByIndexToBuildReputationlist(factionIndex)
-  if not factionIndex then return end
-
+function ReputationGuide:GetFactionDataToBuildReputationlist()
   local factionDataObj
 
-  if ReputationGuide.AfterDragonflight then
-    factionDataObj = REP_Orig_GetFactionDataByIndex(factionIndex)
+  if ReputationGuide.hasPrettyRepsLoaded and ReputationGuide.PrettyRepsFactonID and ReputationGuide.PrettyRepsFactonID ~= 0 then
+    factionDataObj = ReputationGuide:GetFactionDataByID(ReputationGuide.PrettyRepsFactonID)
   else
-    local factionData = {REP_Orig_GetFactionDataByIndex(factionIndex)}
-    factionDataObj = {
-      name = factionData[1],
-      description = factionData[2],
-      reaction = factionData[3], -- standingID
-      currentReactionThreshold = factionData[4], -- barMin
-      nextReactionThreshold = factionData[5], -- barMax
-      currentStanding = factionData[6], -- barValue
-      atWarWith = factionData[7],
-      canToggleAtWar = factionData[8],
-      isHeader = factionData[9],
-      isCollapsed = factionData[10],
-      isHeaderWithRep = factionData[11], -- hasRep
-      isWatched = factionData[12],
-      isChild = factionData[13],
-      factionID = factionData[14],
-      hasBonusRepGain = factionData[15],
-      canBeLFGBonus = factionData[16],
-      canSetInactive = not factionData[9] or factionData[11],
-      isAccountWide = false
-    }
+    local factionIndex = REP_Orig_GetSelectedFaction()
+    factionDataObj = ReputationGuide:GetFactionDataByIndex(factionIndex)
   end
 
   if not factionDataObj or not factionDataObj.factionID then return end

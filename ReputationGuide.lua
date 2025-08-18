@@ -80,6 +80,14 @@ function REP_OnLoad(self)
     REP:ResetsActiveExpansionAndPhase()
     REP.IsClassic = true
   end
+
+  REP:GetExternalAddonsStatus()
+
+  if REP.AfterDragonflight and not REP.hasPrettyRepsLoaded then
+    hooksecurefunc(ReputationFrame.ReputationDetailFrame, 'Show', function(self)
+      REP:FillReputationDetailFrameWithData()
+    end)
+  end
 end
 
 function REP:SetOriginalFunctionsBasedOnExpansion()
@@ -114,6 +122,7 @@ function REP:SetOriginalFunctionsBasedOnExpansion()
     REP_Orig_GetWatchedFactionData = C_Reputation.GetWatchedFactionData
     REP_Orig_SetWatchedFaction = C_Reputation.SetWatchedFactionByID -- Uses FactionID since 11.0.0
     REP_Orig_GetSelectedFaction = C_Reputation.GetSelectedFaction
+    REP_Orig_SetSelectedFaction = C_Reputation.SetSelectedFaction
   else
     REP_Orig_GetNumFactions = GetNumFactions
     REP_Orig_GetFactionDataByIndex = GetFactionInfo
@@ -130,6 +139,7 @@ function REP:SetOriginalFunctionsBasedOnExpansion()
 
     REP_Orig_GetWatchedFactionData = GetWatchedFactionData
     REP_Orig_GetSelectedFaction = GetSelectedFaction
+    REP_Orig_SetSelectedFaction = SetSelectedFaction
 
     if REP.AfterClassic then
       if C_Reputation.SetWatchedFaction then
@@ -469,12 +479,6 @@ function REP:Init()
     REP_OrderByStandingCheckBoxText:SetText(REP_TXT.orderByStanding)
   else
     if REP_OrderByStandingCheckBox then REP_OrderByStandingCheckBox:Hide() end
-  end
-
-  if REP.AfterDragonflight then
-    hooksecurefunc(ReputationFrame.ReputationDetailFrame, 'Show', function(self)
-      REP:Rep_Detail_Frame()
-    end)
   end
 
   -- Dubble check expansion index here since it seems to fire before onLoad...
@@ -1938,7 +1942,7 @@ function REP_ReputationBar_OnClick(self)
 
       REP:PlayCheckBoxSound(true)
       REP_Orig_ReputationDetailFrame:Show()
-      REP:Rep_Detail_Frame()
+      REP:FillReputationDetailFrameWithData()
 
       if (REP_Data.Global.ExtendDetails) then
         REP_BuildUpdateList()
@@ -2198,8 +2202,7 @@ function REP_BuildUpdateList()
   REP_CurrentRepInQuest = 0
 
   local index = 1
-  local factionIndex = REP_Orig_GetSelectedFaction()
-  local factionData = REP:GetFactionDataByIndexToBuildReputationlist(factionIndex)
+  local factionData = REP:GetFactionDataToBuildReputationlist()
 
   if not factionData then return end
 
@@ -2812,103 +2815,6 @@ function REP_BuildUpdateList()
   REP_UpdateList_Update()
 end
 
--- function REP_BuildUpdateList()
---   local index = 1
---   local factionIndex = REP_Orig_GetSelectedFaction()
---   local factionData = REP:GetFactionDataByIndexToBuildReputationlist(factionIndex)
-
---   local standingID, barMin, barMax, barValue, isCapped
---   local faction = factionData.name
---   local description = factionData.description
---   local factionID = factionData.factionID
-
---   if not factionID or not faction then return end
-
---   local isMajorFaction = REP_Orig_IsMajorFaction and REP_Orig_IsMajorFaction(factionID)
-
---   if isMajorFaction then
---     local majorFactionData = REP_Orig_GetMajorFactionData(factionID)
---     local hasParagon = REP_Orig_GetFactionParagonInfo(factionID)
-
---     barMin = 0
---     standingID = majorFactionData.renownLevel
---     isCapped = REP_Orig_HasMaximumRenown(factionID)
-
---     -- barValue = majorFactionData.renownReputationEarned
---     -- barMax = majorFactionData.renownLevelThreshold
-
---     if isCapped and hasParagon then
---       -- Set reputation bar to paragon values if user option is activated and faction is at paragon rep
---       local currentValue, threshold, _, _ = REP_Orig_GetFactionParagonInfo(factionID)
---       barMax, barValue = threshold, mod(currentValue, threshold)     
---     else
---       barValue = isCapped and majorFactionData.renownLevelThreshold or majorFactionData.renownReputationEarned or 0
---       barMax = standingID * majorFactionData.renownLevelThreshold
---       barValue = ((standingID - 1) * majorFactionData.renownLevelThreshold) + barValue
---     end
---   else
---     local friendReputationInfo = REP:GetFriendFactionDataByID(factionID)
---     standingID = factionData.reaction
-
---     if friendReputationInfo then
---       barMin = friendReputationInfo.barMin
---       barValue = friendReputationInfo.barValue
---       barMax = friendReputationInfo.barMax
---       isCapped = friendReputationInfo.isCappedFriendship
---     else
---       barMin = factionData.currentReactionThreshold
---       barValue = factionData.currentStanding
---       isCapped = standingID == 8 and (factionData.nextReactionThreshold - factionData.currentStanding) == 1
-
---       if standingID >= 4 then
---         barMax = factionData.nextReactionThreshold or 0
---       else
---         barMin = barMin * -1
---         barValue = barValue * -1
---         barMax = (factionData.currentReactionThreshold - factionData.nextReactionThreshold) * -1
---       end
---     end 
---   end
-
---   if REP_Orig_IsFactionParagon and REP_Orig_IsFactionParagon(factionID) then
---     local currentValue, threshold, rewardQuestID, hasRewardPending = REP_Orig_GetFactionParagonInfo(factionID)
---     barMin, barMax, barValue = 0, threshold, mod(currentValue, threshold)
---   end
-  
---   local origFaction, faction
-
---   if REP.factions[factionID] and REP.factions[factionID].faction then
---     faction = REP.factions[factionID].faction
---   end
-
---   if factionID == 1168 then
---     origFaction = faction.." (guild)"
---     faction = string.lower(faction).." (guild)"
---     faction = string.lower(faction).." (guild)"
---   else
---     origFaction = faction
---     faction = string.lower(faction)
---     faction = string.lower(faction)
---   end
-  
---   -- Normalize Values
---   local normMax, repToNext
---   local normCurrent = barValue - barMin
-
---   if standingID < 4 then
---     normMax = barMax
---     repToNext = normMax - normCurrent
---   else
---     normMax = barMax - barMin
-
---     if isCapped then
---       repToNext = 0
---     else
---       repToNext = barMax - barValue
---     end
---   end
--- end
-
 function REP:Quest_Items(itemsNeed, currentQuestTimesBag, currentQuestTimesBagBank, QuestItem, item)
   if not QuestItem.times then
     QuestItem = {}
@@ -3065,7 +2971,7 @@ function REP_ToggleAllTypesToShow(toggled)
   REP_BuildUpdateList()
   REP_UpdateList_Update()
   REP:PlayCheckBoxSound(toggled)
-  REP:Rep_Detail_Frame()
+  REP:FillReputationDetailFrameWithData()
 end
 
 function REP_ShowLineToolTip(self)
@@ -3811,12 +3717,6 @@ function REP_GetReputationGains(factionIndex, factionID)
   return reputationGainsInfo
 end
 
-function REP:Rep_Detail_Frame()
-  local selectedFactionIndex = REP_Orig_GetSelectedFaction()
-  if not selectedFactionIndex or selectedFactionIndex == 0 then return end
-  REP:FillReputationDetailFrameWithData()
-end
-
 function REP_Friend_Detail(factionID, standingID, factionRow)
   local colorIndex, factionStandingtext, isCappedFriendship, isFriend, friendID
   local friendRep, friendMaxRep, friendName, friendText, friendTexture, friendTextLevel, friendThreshold, nextFriendThreshold
@@ -4339,7 +4239,7 @@ function REP:SortByStandingWithoutFactionHeader(i, factionIndex, factionRow, fac
         local flag = canToggleAtWar and 1 or nil
         REP_ReputationDetailFrame_IsShown(flag, 1)
 
-        REP:Rep_Detail_Frame()
+        REP:FillReputationDetailFrameWithData()
 
         _G["ReputationBar"..i.."ReputationBarHighlight1"]:Show()
         _G["ReputationBar"..i.."ReputationBarHighlight2"]:Show()
@@ -4549,7 +4449,7 @@ function REP:OriginalRepOrderWithoutFactionHeader(i, factionIndex, factionRow, f
     end
 
     if (REP_Orig_ReputationDetailFrame and REP_Orig_ReputationDetailFrame:IsVisible()) then
-      REP:Rep_Detail_Frame()
+      REP:FillReputationDetailFrameWithData()
       _G["ReputationBar"..i.."ReputationBarHighlight1"]:Show()
       _G["ReputationBar"..i.."ReputationBarHighlight2"]:Show()
     end
@@ -4650,7 +4550,7 @@ function REP:SortByStandingWithFactionHeader(i, factionIndex, factionBar, factio
         local flag = canToggleAtWar and 1 or nil
         REP_ReputationDetailFrame_IsShown(flag, 1)
 
-        REP:Rep_Detail_Frame()
+        REP:FillReputationDetailFrameWithData()
 
         _G["ReputationBar"..i.."Highlight1"]:Show()
         _G["ReputationBar"..i.."Highlight2"]:Show()
@@ -4747,7 +4647,7 @@ function REP:OriginalRepOrderWithFactionHeader(i, factionIndex, factionBar, fact
       if (REP_Orig_ReputationDetailFrame and REP_Orig_ReputationDetailFrame:IsVisible()) then
         REP_ReputationDetailFrame_IsShown(1, 2)
 
-        REP:Rep_Detail_Frame()
+        REP:FillReputationDetailFrameWithData()
 
         _G["ReputationBar"..i.."Highlight1"]:Show()
         _G["ReputationBar"..i.."Highlight2"]:Show()
@@ -4819,7 +4719,7 @@ function REP:WatchedFactionDetails(watchedFactionID)
     if (not REP_Orig_ReputationDetailFrame:IsVisible()) then REP_Orig_ReputationDetailFrame:Show() end
 
     SetSelectedFaction(factionIndex)
-    REP:Rep_Detail_Frame()
+    REP:FillReputationDetailFrameWithData()
 
     if (REP_Data.Global.ExtendDetails) then
       REP_BuildUpdateList()

@@ -3,19 +3,8 @@
 ---------------------------
 local addonName, REP = ...
 
------------------------------
--- Other Addon loaded vars --
------------------------------
-local hasElvUILoaded = false
-
-if REP.AfterCata then
-  hasElvUILoaded = C_AddOns.IsAddOnLoaded("ElvUI")
-else
-  hasElvUILoaded = IsAddOnLoaded("ElvUI")
-end
-
 function REP:SetReputationDetailFrameAndOptionsSkins()
-  if hasElvUILoaded and REP_Orig_ReputationDetailFrame then
+  if REP.hasElvUILoaded and REP_Orig_ReputationDetailFrame then
     local E = unpack(_G.ElvUI)
     local S = E:GetModule('Skins')
 

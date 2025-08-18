@@ -8,15 +8,19 @@ function REP:ChangeReputationDetailFrameUI()
   -----------------------------------
   --  Detail frame UI
   -----------------------------------
-  if REP.AfterDragonflight then
-    REP_Orig_ReputationDetailFrame = ReputationFrame.ReputationDetailFrame
+  if REP.hasPrettyRepsLoaded then
+    REP_Orig_ReputationDetailFrame = PrettyRepsReputationFrame.ReputationDetailFrame
   else
-    REP_Orig_ReputationDetailFrame = ReputationDetailFrame
-  end
+    if REP.AfterDragonflight then
+      REP_Orig_ReputationDetailFrame = ReputationFrame.ReputationDetailFrame
+    else
+      REP_Orig_ReputationDetailFrame = ReputationDetailFrame
+    end
+  end  
 
   REP_Orig_ReputationDetailFrame:SetPoint("TOPLEFT", ReputationFrame, "TOPRIGHT", 0, 0)
 
-  if REP.AfterDragonflight then
+  if REP.AfterDragonflight and not REP.hasPrettyRepsLoaded then
     REP_DetailFactionInfoBackground = select(2, REP_Orig_ReputationDetailFrame:GetRegions())
   else
     REP_DetailFactionInfoBackground = select(3, REP_Orig_ReputationDetailFrame:GetRegions())
@@ -32,7 +36,7 @@ function REP:ChangeReputationDetailFrameUI()
     end
   end
 
-  if REP.AfterShadowLands and not REP.AfterDragonflight then
+  if REP.AfterShadowLands and (not REP.AfterDragonflight or REP.hasPrettyRepsLoaded) then
     REP_DetailFirstDivider = select(4, REP_Orig_ReputationDetailFrame:GetRegions())
   elseif REP.AfterDragonflight then
     REP_DetailFirstDivider = select(3, REP_Orig_ReputationDetailFrame:GetRegions())
@@ -47,21 +51,41 @@ function REP:ChangeReputationDetailFrameUI()
     REP_Orig_ReputationDetailFrame.ScrollingDescription:SetPoint("BOTTOMRIGHT", REP_DetailFirstDivider, "TOPRIGHT", -455, 2)
   end
   
-  if REP.AfterDragonflight then
-    REP_Orig_ReputationDetailFrame.MakeInactiveCheckbox.Label:SetTextColor(1, 1, 1, 1)
-    REP_Orig_ReputationDetailFrame.MakeInactiveCheckbox:SetScript("OnClick", function(self) REP:CustomSetFactionActiveOrInactive(self:GetChecked(), REP_Orig_GetSelectedFaction()) end)
-    REP_Orig_ReputationDetailFrame.WatchFactionCheckbox:ClearAllPoints()
-    REP_Orig_ReputationDetailFrame.WatchFactionCheckbox:SetPoint("LEFT", REP_Orig_ReputationDetailFrame.MakeInactiveCheckbox.Label, "RIGHT", 3, 0)
-    REP_Orig_ReputationDetailFrame.WatchFactionCheckbox.Label:SetTextColor(1, 1, 1, 1)
+  if REP.hasPrettyRepsLoaded then
+    REP_Orig_ReputationDetailFrame.StateContainer.CheckboxState.MakeInactiveCheckbox.Label:SetTextColor(1, 1, 1, 1)
+    REP_Orig_ReputationDetailFrame.StateContainer.CheckboxState.MakeInactiveCheckbox:SetScript("OnClick", function(self) REP:CustomSetFactionActiveOrInactive(self:GetChecked(), REP_Orig_GetSelectedFaction()) end)
+    REP_Orig_ReputationDetailFrame.StateContainer.CheckboxState.WatchFactionCheckbox:ClearAllPoints()
+    REP_Orig_ReputationDetailFrame.StateContainer.CheckboxState.WatchFactionCheckbox:SetPoint("LEFT", REP_Orig_ReputationDetailFrame.StateContainer.CheckboxState.MakeInactiveCheckbox.Label, "RIGHT", 3, 0)
+    REP_Orig_ReputationDetailFrame.StateContainer.CheckboxState.WatchFactionCheckbox.Label:SetTextColor(1, 1, 1, 1)
+    REP_Orig_ReputationDetailFrame.StateContainer.CheckboxState.FavoriteCheckbox:ClearAllPoints()
+    REP_Orig_ReputationDetailFrame.StateContainer.CheckboxState.FavoriteCheckbox:SetPoint("LEFT", REP_Orig_ReputationDetailFrame.StateContainer.CheckboxState.WatchFactionCheckbox.Label, "RIGHT", 3, 0)
+  
+    if REP.AfterShadowLands then
+      REP_Orig_ReputationDetailFrame.ViewRenownButton:ClearAllPoints()
+      REP_Orig_ReputationDetailFrame.ViewRenownButton:SetPoint("TOPLEFT", REP_Orig_ReputationDetailFrame.StateContainer.CheckboxState.AtWarCheckbox, "BOTTOMLEFT", 0, 0)
+    end
   else
-    REP_Orig_DetailAtWarCheckBox:ClearAllPoints()
-    REP_Orig_DetailAtWarCheckBox:SetPoint("TOPLEFT", REP_DetailFirstDivider, "BOTTOMLEFT", 5, 20)
-    REP_Orig_DetailAtWarCheckBox:HookScript("OnClick", function(self) REP:CustomTriggerReputationFrameUpdate() end)
+    if REP.AfterDragonflight then
+      REP_Orig_ReputationDetailFrame.MakeInactiveCheckbox.Label:SetTextColor(1, 1, 1, 1)
+      REP_Orig_ReputationDetailFrame.MakeInactiveCheckbox:SetScript("OnClick", function(self) REP:CustomSetFactionActiveOrInactive(self:GetChecked(), REP_Orig_GetSelectedFaction()) end)
+      REP_Orig_ReputationDetailFrame.WatchFactionCheckbox:ClearAllPoints()
+      REP_Orig_ReputationDetailFrame.WatchFactionCheckbox:SetPoint("LEFT", REP_Orig_ReputationDetailFrame.MakeInactiveCheckbox.Label, "RIGHT", 3, 0)
+      REP_Orig_ReputationDetailFrame.WatchFactionCheckbox.Label:SetTextColor(1, 1, 1, 1)
+    else
+      REP_Orig_DetailAtWarCheckBox:ClearAllPoints()
+      REP_Orig_DetailAtWarCheckBox:SetPoint("TOPLEFT", REP_DetailFirstDivider, "BOTTOMLEFT", 5, 20)
+      REP_Orig_DetailAtWarCheckBox:HookScript("OnClick", function(self) REP:CustomTriggerReputationFrameUpdate() end)
 
-    REP_Orig_DetailInactiveCheckBox:SetScript("OnClick", function(self) REP:CustomSetFactionActiveOrInactive(self:GetChecked(), REP_Orig_GetSelectedFaction()) end)
-    REP_Orig_DetailMainScreenCheckBox:ClearAllPoints()
-    REP_Orig_DetailMainScreenCheckBox:SetPoint("LEFT", REP_Orig_DetailInactiveCheckBoxText, "RIGHT", 3, 0)
-    REP_Orig_DetailMainScreenCheckBox:HookScript("OnClick", function(self) REP:CustomTriggerReputationFrameUpdate() end)
+      REP_Orig_DetailInactiveCheckBox:SetScript("OnClick", function(self) REP:CustomSetFactionActiveOrInactive(self:GetChecked(), REP_Orig_GetSelectedFaction()) end)
+      REP_Orig_DetailMainScreenCheckBox:ClearAllPoints()
+      REP_Orig_DetailMainScreenCheckBox:SetPoint("LEFT", REP_Orig_DetailInactiveCheckBoxText, "RIGHT", 3, 0)
+      REP_Orig_DetailMainScreenCheckBox:HookScript("OnClick", function(self) REP:CustomTriggerReputationFrameUpdate() end)
+    end
+
+    if REP.AfterShadowLands then
+      REP_Orig_ReputationDetailFrame.ViewRenownButton:ClearAllPoints()
+      REP_Orig_ReputationDetailFrame.ViewRenownButton:SetPoint("TOPLEFT", REP_Orig_ReputationDetailFrame.AtWarCheckbox, "BOTTOMLEFT", 0, 0)
+    end
   end
 
   REP_DetailSecondDivider = REP_Orig_ReputationDetailFrame:CreateTexture(nil, "ARTWORK")
@@ -76,11 +100,6 @@ function REP:ChangeReputationDetailFrameUI()
   REP_DetailNoInformationText = REP_Orig_ReputationDetailFrame:CreateFontString(nil, "OVERLAY", "GameFontHighlight")
   REP_DetailNoInformationText:SetPoint("TOPLEFT", REP_DetailSecondDivider, "BOTTOMLEFT", 15, 15)
   REP_DetailNoInformationText:SetHeight(20)
-
-  if REP.AfterShadowLands then
-    REP_Orig_ReputationDetailFrame.ViewRenownButton:ClearAllPoints()
-    REP_Orig_ReputationDetailFrame.ViewRenownButton:SetPoint("TOPLEFT", REP_Orig_ReputationDetailFrame.AtWarCheckbox, "BOTTOMLEFT", 0, 0)
-  end
 
   -----------------------------------
   --  Detail frame Info
@@ -325,11 +344,10 @@ function REP:CreateDetailFrameButton(name, label, onclick, parent)
 end
 
 function REP:FillReputationDetailFrameWithData()
-  local selectedFactionIndex = REP_Orig_GetSelectedFaction()
-  if not selectedFactionIndex or selectedFactionIndex == 0 then return end
+  local factionData = REP:GetFactionDataToBuildReputationlist();
 
-  local factionData = REP:GetFactionDataByIndex(selectedFactionIndex);
-  
+  if not factionData then return end
+
   if REP.AfterShadowLands then
     local isMajorFaction = C_Reputation.IsMajorFaction(factionData.factionID);
 
@@ -345,76 +363,60 @@ function REP:FillReputationDetailFrameWithData()
     REP_DetailSecondDivider:SetPoint("TOPLEFT", REP_DetailFirstDivider, "BOTTOMLEFT", 0, 0)
   end
 
-  local factionIndex = selectedFactionIndex
   --------------------------------------------
   --  Faction specific detail frame settings
   --------------------------------------------
-  local name, description, standingID, barMin, barMax, barValue, atWarWith, canToggleAtWar, isHeader, isCollapsed, hasRep, isWatched, isChild, factionID, hasBonusRepGain, isMajorFaction, isFriend
+  local name = factionData.name
+  local description = factionData.description
+  local factionID = factionData.factionID
+  local atWarWith = factionData.atWarWith
+  local canToggleAtWar = factionData.canToggleAtWar
+  local isHeader = factionData.isHeader
+  local isCollapsed = factionData.isCollapsed
+  local hasRep = factionData.isHeaderWithRep
+  local isWatched = factionData.isWatched
+  local isChild = factionData.isChild
+  local hasBonusRepGain = factionData.hasBonusRepGain
+  local isAccountWide = factionData.isAccountWide
+  
+  local standingID, barMin, barValue, barMax, isFriend, isMajorFaction
 
-  if REP.AfterDragonflight then
-    local reputationInfo = REP:GetFactionDataByIndex(factionIndex)
-    name = reputationInfo.name
-    description = reputationInfo.description
-    factionID = reputationInfo.factionID
-    atWarWith = reputationInfo.atWarWith
-    canToggleAtWar = reputationInfo.canToggleAtWar
-    isHeader = reputationInfo.isHeader
-    isCollapsed = reputationInfo.isCollapsed
-    hasRep = reputationInfo.isHeaderWithRep
-    isWatched = reputationInfo.isWatched
-    isChild = reputationInfo.isChild
-    hasBonusRepGain = reputationInfo.hasBonusRepGain
-    isAccountWide = reputationInfo.isAccountWide
-
+  if REP.AfterShadowLands then
     isMajorFaction = factionID and REP_Orig_IsMajorFaction(factionID)
-
-    if isMajorFaction then
-      local majorFactionData = REP_Orig_GetMajorFactionData(factionID)
-      barMin = 0
-      barMax = majorFactionData.renownLevelThreshold
-      barValue = majorFactionData.renownReputationEarned
-      standingID = majorFactionData.renownLevel
-    else
-      standingID = reputationInfo.reaction
-      barMin = reputationInfo.currentReactionThreshold
-      barValue = reputationInfo.currentStanding
-
-      if standingID == 4 then
-        barMax = reputationInfo.nextReactionThreshold
-      elseif standingID > 4 then
-        barMax = reputationInfo.nextReactionThreshold - reputationInfo.currentReactionThreshold
-      else
-        barMax = reputationInfo.currentReactionThreshold - reputationInfo.nextReactionThreshold
-      end
-    end
-  else
-    name, description, standingID, barMin, barMax, barValue, atWarWith, canToggleAtWar, isHeader, isCollapsed, hasRep, isWatched, isChild, factionID, hasBonusRepGain = REP_Orig_GetFactionDataByIndex(factionIndex)
-
-    if REP.AfterShadowLands then
-      isMajorFaction = factionID and REP_Orig_IsMajorFaction(factionID)
-
-      if isMajorFaction then
-        local majorFactionData = REP_Orig_GetMajorFactionData(factionID)
-        barMin = 0
-        barMax = majorFactionData.renownLevelThreshold
-        barValue = majorFactionData.renownReputationEarned
-        standingID = majorFactionData.renownLevel
-      end
-    end
-
-    if standingID < 4 then barMax = barMax - barMin end
-    if not isMajorFaction then
-      if standingID < 4 or (isFriend and standingID < 4) then
-        if barMin < 0 then barMin = barMin * -1 end
-        if barValue < 0 then barValue = barValue * -1 end
-        if barMax < 0 then barMax = barMax * -1 end
-      end
-    end
   end
 
-  if REP.AfterCata then
-    local friendReputationInfo = REP_Friend_Detail(factionID, standingID)
-    isFriend = friendReputationInfo.isFriend
+  if isMajorFaction then
+    local majorFactionData = REP_Orig_GetMajorFactionData(factionID)
+    barMin = 0
+    barMax = majorFactionData.renownLevelThreshold
+    barValue = majorFactionData.renownReputationEarned
+    standingID = majorFactionData.renownLevel
+  else
+    standingID = factionData.reaction
+    barMin = factionData.currentReactionThreshold
+    barValue = factionData.currentStanding
+
+    if standingID == 4 then
+      barMax = factionData.nextReactionThreshold
+    elseif standingID > 4 then
+      barMax = factionData.nextReactionThreshold - factionData.currentReactionThreshold
+    else
+      barMax = factionData.currentReactionThreshold - factionData.nextReactionThreshold
+    end
+
+    if REP.AfterCata then
+      local friendReputationInfo = REP_Friend_Detail(factionID, standingID)
+      isFriend = friendReputationInfo.isFriend
+    end
+
+    -- if standingID < 4 then barMax = barMax - barMin end
+    -- if not isMajorFaction then
+    if standingID < 4 or (isFriend and standingID < 4) then
+      if barMin < 0 then barMin = barMin * -1 end
+      if barValue < 0 then barValue = barValue * -1 end
+      if barMax < 0 then barMax = barMax * -1 end
+    end
+    -- end
   end
 
   --------------------------------------------
