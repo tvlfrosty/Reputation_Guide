@@ -3309,19 +3309,21 @@ end
 		-- The Black Prince 1359 --
 		---------------------------
 		---- Mobs
-    REP_AddMob(1359, 1, 7, "Twister terminator", 5)
-    REP_AddMob(1359, 1, 7, "Granite Quilen, Stonebound Quilen", 10)
-		REP_AddMob(1359, 1, 7, "Mogu Effigy, Ancient Mogu Spirit", 10)
-		REP_AddMob(1359, 1, 7, "Shao-Tien Marauder, Shao-Tien Fist, Shao-Tien Antiquator", 10)
-    REP_AddMob(1359, 1, 7, "Shao-Tien Soul-Render, Shao-Tien Pillager, Shao-Tien Subjugator", 10)
-    REP_AddMob(1359, 1, 7, "Vor'thik Fear-Shaper, Vor'thik Dreadsworn", 10)
-    REP_AddMob(1359, 1, 7, "Qi'tar the Deathcaller, Kz'Kzik, Ilikkax", 15)
-    REP_AddMob(1359, 1, 7, "Ik'thik Harvester", 10)
-		REP_AddMob(1359, 1, 7, "Shek'zeer Bladesworn, Shek'zeer Clutch-Keeper, Shek'zeer Manipulator", 10)
-    REP_AddMob(1359, 1, 7, "Shek'zeer Swarmborn", 2)
-    REP_AddMob(1359, 1, 7, "Kor'thik Havoc, Kor'thik Chitinel, Kor'thik Battlesinger", 10)
-    REP_AddMob(1359, 1, 7, "Kor'thik Warcaller", 100)
-		REP_AddMob(1359, 1, 7, "Rare Mobs", 400, "928")
+    if not ReputationGuide.AfterWoD then
+      REP_AddMob(1359, 1, 7, "Twister terminator", 5)
+      REP_AddMob(1359, 1, 7, "Granite Quilen, Stonebound Quilen", 10)
+      REP_AddMob(1359, 1, 7, "Mogu Effigy, Ancient Mogu Spirit", 10)
+      REP_AddMob(1359, 1, 7, "Shao-Tien Marauder, Shao-Tien Fist, Shao-Tien Antiquator", 10)
+      REP_AddMob(1359, 1, 7, "Shao-Tien Soul-Render, Shao-Tien Pillager, Shao-Tien Subjugator", 10)
+      REP_AddMob(1359, 1, 7, "Vor'thik Fear-Shaper, Vor'thik Dreadsworn", 10)
+      REP_AddMob(1359, 1, 7, "Qi'tar the Deathcaller, Kz'Kzik, Ilikkax", 15)
+      REP_AddMob(1359, 1, 7, "Ik'thik Harvester", 10)
+      REP_AddMob(1359, 1, 7, "Shek'zeer Bladesworn, Shek'zeer Clutch-Keeper, Shek'zeer Manipulator", 10)
+      REP_AddMob(1359, 1, 7, "Shek'zeer Swarmborn", 2)
+      REP_AddMob(1359, 1, 7, "Kor'thik Havoc, Kor'thik Chitinel, Kor'thik Battlesinger", 10)
+      REP_AddMob(1359, 1, 7, "Kor'thik Warcaller", 100)
+      REP_AddMob(1359, 1, 7, "Rare Mobs", 400, "928")
+    end
 		---- General
 		REP_AddGeneral(1359, 1, 8, "Timeless Isle Celestial World Boss", 500, "Timeless Isle Celestial World Boss", "Complete Timless Isle Celestial world boss once a week")
 
