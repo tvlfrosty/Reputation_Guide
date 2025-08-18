@@ -25,6 +25,7 @@ data/content.lua
 core/functions.lua
 core/variables.lua
 core/settings.lua
+core/addons.lua
 
 # UI
 UI/ReputationGuide.xml
