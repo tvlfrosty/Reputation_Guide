@@ -363,9 +363,16 @@ function ReputationGuide:ShowReputationTooltip(frame, factionID)
   local factionData = ReputationGuide:GetFactionDataByID(factionID)
   if not factionData then return end
 
+  local factionName
+  if factionData.factionID == 1168 then
+    factionName = REP_TXT.guildReputation
+  else
+    factionName = factionData.name
+  end
+
   GameTooltip:SetOwner(frame, "ANCHOR_CURSOR", 0, 40)
   GameTooltip:ClearLines()
-  GameTooltip:AddLine(factionData.name)
+  GameTooltip:AddLine(factionName)
   GameTooltip:AddLine(factionData.description .. "\n\n", 1, 1, 1, 1)
   GameTooltip:AddLine(" ")
   ReputationGuide:AppendLinesForAnyToolTip(factionID, GameTooltip)

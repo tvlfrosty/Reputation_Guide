@@ -96,6 +96,7 @@ if (GetLocale() =="ruRU") then
   REP_TXT.instance	= "[Подземелье]"
   REP_TXT.items	= "[Вещь]"
   REP_TXT.unknown	= "Не известно этому игроку"
+  REP_TXT.guildReputation	= "Guild reputation"
   -- mob Details
   REP_TXT.tmob	= "Обычные мобы (треш)"
   REP_TXT.oboss	= "другим боссом"

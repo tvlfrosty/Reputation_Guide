@@ -499,8 +499,7 @@ function REP:Init()
   local expansion = REP.Expansions[expansionIndex]
   REP.realm = realm
  
-  if not REP_Data.ProfileKeys then REP_Data.ProfileKeys = {} end
-  if not REP_Data.ProfileKeys[guid] then REP_Data.ProfileKeys[guid] = {} end
+  REP:InitOrCheckSavedVariables()
 
   local showChar = (REP_Data.ProfileKeys[guid].profile and REP_Data.ProfileKeys[guid].profile.ShowChar) or false
 
@@ -515,10 +514,6 @@ function REP:Init()
     expansion = expansion,
     ShowChar = showChar
   }
-
-  if not REP_Data.ProfileKeys[guid].quests then REP_Data.ProfileKeys[guid].quests = {} end
-  if not REP_Data.ProfileKeys[guid].factions then REP_Data.ProfileKeys[guid].factions = {} end
-  if not REP_Data.ProfileKeys[guid].inactiveFactions then REP_Data.ProfileKeys[guid].inactiveFactions = {} end
 
   local profileKey = format("%s-%s", playerName, realm)
   local matchingOldProfileKey = REP_Data[profileKey]
@@ -570,6 +565,15 @@ function REP:Init()
   end
 end
 
+function REP:InitOrCheckSavedVariables()
+  local guid = UnitGUID("player")
+
+  if not REP_Data.ProfileKeys then REP_Data.ProfileKeys = {} end
+  if not REP_Data.ProfileKeys[guid] then REP_Data.ProfileKeys[guid] = {} end
+  if not REP_Data.ProfileKeys[guid].quests then REP_Data.ProfileKeys[guid].quests = {} end
+  if not REP_Data.ProfileKeys[guid].factions then REP_Data.ProfileKeys[guid].factions = {} end
+  if not REP_Data.ProfileKeys[guid].inactiveFactions then REP_Data.ProfileKeys[guid].inactiveFactions = {} end
+end
 ------------------------
 -- 04 Slash Handler --
 ------------------------
@@ -1611,7 +1615,8 @@ function REP_ReputationFrame_Update()
           local inactive = IsFactionInactive(factionIndex)
 
           if (guid) then
-            if not REP_Data.ProfileKeys[guid].inactiveFactions then REP_Data.ProfileKeys[guid].inactiveFactions = {} end
+            REP:InitOrCheckSavedVariables()
+
             if (inactive and not REP_Data.ProfileKeys[guid].inactiveFactions[factionID]) then
               REP_Data.ProfileKeys[guid].inactiveFactions[factionID] = true
             end
@@ -1655,8 +1660,8 @@ function REP_ReputationFrame_Update()
           inactive = IsFactionInactive(factionIndex)
         end
 
-        if (guid and REP_Data.ProfileKeys[guid]) then
-          if not REP_Data.ProfileKeys[guid].inactiveFactions then REP_Data.ProfileKeys[guid].inactiveFactions = {} end
+        if (guid) then
+          REP:InitOrCheckSavedVariables()
           if (inactive and not REP_Data.ProfileKeys[guid].inactiveFactions[factionID]) then
             REP_Data.ProfileKeys[guid].inactiveFactions[factionID] = true
           end
@@ -3243,8 +3248,10 @@ function REP:DumpReputationChangesToChatForSingleFaction(info)
     end
   end
 
+  REP:InitOrCheckSavedVariables()
+
   local guid = UnitGUID("player")
-  if guid and REP_Data.ProfileKeys[guid] and REP_Data.ProfileKeys[guid].factions then
+  if guid then
     local currentStandingID
 
     if info.isFriend then
@@ -3445,7 +3452,9 @@ function REP:StandingSort()
       standingID = standingID + 2
     end
 
-    if (guid and REP_Data.ProfileKeys[guid] and not REP_Data.ProfileKeys[guid].inactiveFactions[factionID]) then
+    REP:InitOrCheckSavedVariables()
+
+    if (guid and not REP_Data.ProfileKeys[guid].inactiveFactions[factionID]) then
       if (REP.AfterWoD and REP_Orig_IsFactionParagon and REP_Orig_IsFactionParagon(factionID) and REP_Data.Global.ShowParagonBar) then
         local currentValue, threshold, _, _ = REP_Orig_GetFactionParagonInfo(factionID)
         barMax, barValue, standingID = threshold, mod(currentValue, threshold), 9
@@ -4034,8 +4043,7 @@ function REP:CustomSetFactionActiveOrInactive(isChecked, factionIndex)
 
   if (factionID) then
     local guid = UnitGUID("player")
-    
-    if not REP_Data.ProfileKeys[guid].inactiveFactions then REP_Data.ProfileKeys[guid].inactiveFactions = {} end
+    REP:InitOrCheckSavedVariables()
 
     if shouldBeActive then
       REP_Data.ProfileKeys[guid].inactiveFactions[factionID] = nil

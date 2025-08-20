@@ -96,6 +96,7 @@ if (GetLocale() =="frFR") then
   REP_TXT.instance	= "[Instance]"
   REP_TXT.items	= "[Objets]"
   REP_TXT.unknown	= "n'est pas connu de ce personnage"
+  REP_TXT.guildReputation	= "Guild reputation"
   -- mob Details
   REP_TXT.tmob	= "trash mob"
   REP_TXT.oboss	= "autres boss"

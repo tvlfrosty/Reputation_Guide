@@ -95,6 +95,7 @@ if (GetLocale() =="koKR") then
   REP_TXT.instance	= "[인던]"
   REP_TXT.items	= "[아이템]"
   REP_TXT.unknown	= "is not known to this player"
+  REP_TXT.guildReputation	= "Guild reputation"
   -- mob Details
   REP_TXT.tmob	= "일반 몹"
   REP_TXT.oboss	= "다른 보스들"
