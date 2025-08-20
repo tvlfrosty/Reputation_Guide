@@ -96,6 +96,7 @@ REP_TXT.quest	= "[Quest]"
 REP_TXT.instance	= "[Instance]"
 REP_TXT.items	= "[Items]"
 REP_TXT.unknown	= "is not known to this player"
+REP_TXT.guildReputation	= "Guild reputation"
 -- mob Details
 REP_TXT.tmob	= "Trash mobs"
 REP_TXT.oboss	= "Other Bosses"

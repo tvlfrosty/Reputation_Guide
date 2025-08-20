@@ -74,11 +74,10 @@ function ReputationGuide:IndexFaction(factionData)
 
     if factions[factionData.factionID].info then
       local guid = UnitGUID("player")
+      ReputationGuide:InitOrCheckSavedVariables()
 
-      if not REP_Data.ProfileKeys then REP_Data.ProfileKeys = {} end
-      
       -- If you want to recache all factions on login, temp remove "and not REP_Data.ProfileKeys[guid].factions[factionData.factionID]".
-      if guid and REP_Data.ProfileKeys and REP_Data.ProfileKeys[guid] and REP_Data.ProfileKeys[guid].factions and not REP_Data.ProfileKeys[guid].factions[factionData.factionID] then 
+      if guid and REP_Data.ProfileKeys[guid].factions and not REP_Data.ProfileKeys[guid].factions[factionData.factionID] then 
         local currentStandingID
 
         if factions[factionData.factionID].info.isFriend then

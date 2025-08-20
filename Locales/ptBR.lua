@@ -96,6 +96,7 @@ if (GetLocale() =="ptBR") then
   REP_TXT.instance	= "[Instância]"
   REP_TXT.items	= "[Itens]"
   REP_TXT.unknown	= "é desconhecida para este jogador"
+  REP_TXT.guildReputation	= "Guild reputation"
   -- mob Details
   REP_TXT.tmob	= "mobs lixo"
   REP_TXT.oboss	= "outros chefes"
