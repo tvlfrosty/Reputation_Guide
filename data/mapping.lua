@@ -306,12 +306,12 @@ function ReputationGuide:getRepInfo(info)
 end
 
 function ReputationGuide:getFactionInfo(info)
-  if ReputationGuide.Factions[info.factionID] then
+  if ReputationGuide.factions[info.factionID] then
     local session = ReputationGuide:getFactionSession(info)
-    ReputationGuide.Factions[info.factionID].session = session
+    ReputationGuide.factions[info.factionID].session = session
     info["lastUpdated"] = time()
     info["session"] = session
-    ReputationGuide.Factions[info.factionID].info = ReputationGuide:getRepInfo(info)
+    ReputationGuide.factions[info.factionID].info = ReputationGuide:getRepInfo(info)
   end
   return info
 end
@@ -321,15 +321,15 @@ function ReputationGuide:getFactionInfoForNewFaction(info)
     local factionData = ReputationGuide:GetFactionDataByID(info.factionID)
     if factionData and factionData.factionID and not factions[factionData.factionID] then
       ReputationGuide:IndexFaction(factionData)
-      ReputationGuide.Factions = factions
+      ReputationGuide.factions = factions
     end
 
     info = ReputationGuide:getFactionInfo(info)
   else
     ReputationGuide:IndexFactions(false, false, true)
-    ReputationGuide.Factions = factions
+    ReputationGuide.factions = factions
 
-    for i, factionData in pairs(ReputationGuide.Factions) do
+    for i, factionData in pairs(ReputationGuide.factions) do
       if factionData.info and factionData.info.faction and factionData.info.faction == info.faction then
         info = factionData.info
         break
