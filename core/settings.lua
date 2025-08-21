@@ -1,11 +1,11 @@
 ----------------------------
 -- TODO: Clean up this file
 ----------------------------
-local addonName, REP = ...
+local addonName, ReputationGuide = ...
 
-REP.Tools = {}
+ReputationGuide.Tools = {}
 
-local REPT = REP.Tools
+local REPT = ReputationGuide.Tools
 
 REPT.Settings = {}
 
@@ -48,10 +48,22 @@ local function GetOptionsContainerWidth()
   end
 end
 
+-- Utility: get insets depending on container
+local function GetScrollFrameInsets()
+  if ReputationGuide.AfterShadowLands then
+    return 0, -20, -4, 4
+  else
+    return 0, -26, -4, 4
+  end
+end
+
 -- Utility: create a scrollable content area
 local function CreateScrollablePanel(name, parent)
   local scrollFrame = CreateFrame("ScrollFrame", name .. "ScrollFrame", parent, "UIPanelScrollFrameTemplate")
-  scrollFrame:SetAllPoints()
+
+  local left, right, top, bottom = GetScrollFrameInsets()
+  scrollFrame:SetPoint("TOPLEFT", parent, "TOPLEFT", left, top)
+  scrollFrame:SetPoint("BOTTOMRIGHT", parent, "BOTTOMRIGHT", right, bottom)
 
   local content = CreateFrame("Frame", name .. "Content", scrollFrame)
   content:SetSize(GetOptionsContainerWidth() - 30, 1) -- start small, grow with content
@@ -78,7 +90,7 @@ REPSettings.CreateOptionsPage = function(self, text, parentCategory, isRootCateg
       category = Settings.RegisterCanvasLayoutCategory(outerFrame, text)
       Settings.RegisterAddOnCategory(category)
       AddOnCategoryID = category.ID
-      REP.settingsCategory = AddOnCategoryID
+      ReputationGuide.settingsCategory = AddOnCategoryID
     else
       parentCategory = Categories[parentCategory or addonName]
       category = Settings.RegisterCanvasLayoutSubcategory(parentCategory.category, outerFrame, text)
@@ -128,7 +140,7 @@ local function checkbox(name, label, description, parent, onclick)
   check.tooltipText = label
   check.tooltipRequirement = description
 
-  if REP.AfterCata then
+  if ReputationGuide.AfterCata then
     SetCustomTooltip(check, description)
   end
 
@@ -151,8 +163,8 @@ end
 
 local function REP_ToggleReputationBuff()
   REP_FactionGain = {}
-  REP_InitEnFactionGains(REP.GuildName)
-  if not REP.AfterDragonflight then
+  REP_InitEnFactionGains(ReputationGuide.GuildName)
+  if not ReputationGuide.AfterDragonflight then
     ReputationFrame_Update()
   end
 end
@@ -194,14 +206,14 @@ local REP_OptionsGeneralTab, REP_OptionsCharactersTab, REP_OptionsCharactersTabC
  
 function REPSettings:Open()
   if InterfaceOptionsFrame_OpenToCategory then
-    InterfaceOptionsFrame_OpenToCategory(REP.settingsCategory)
+    InterfaceOptionsFrame_OpenToCategory(ReputationGuide.settingsCategory)
   else
-    Settings.OpenToCategory(REP.settingsCategory)
+    Settings.OpenToCategory(ReputationGuide.settingsCategory)
   end
 end
 
 
-function REP:RenderAddonSettingsFrame()
+function ReputationGuide:RenderAddonSettingsFrame()
   REP_OptionsGeneralTab = REPSettings:CreateOptionsPage(addonName)
   REP_OptionsCharactersTab = REPSettings:CreateOptionsPage("Characters", addonName, true)
 
@@ -253,15 +265,15 @@ function REP:RenderAddonSettingsFrame()
   buffSubTitle:SetWordWrap(true)
 
   ---- Reputation Buffs options init part 2
-  if REP.AfterTBC then
+  if ReputationGuide.AfterTBC then
     harvestBountyRepBuff = checkbox("HarvestBountyRepBuffBox", REP_TXT.settings.harvestBountyRepBuff, REP_TXT.settings.info.harvestBountyRepBuff, REP_OptionsGeneralTab, function(_, checked) REP_Data.Global.HarvestBountyRepBuff = checked REP_ToggleReputationBuff() end)
   end
 
-  if REP.AfterWotlk then
+  if ReputationGuide.AfterWotlk then
     noGuildGain = checkbox("NoGuildGainBox", REP_TXT.noGuildGain, REP_TXT.elements.tip.REP_NoGuildGainBox, REP_OptionsGeneralTab, function(_, checked) REP_Data.Global.NoGuildGain = checked end)
     noGuildSwitch = checkbox("NoGuildSwitchBox", REP_TXT.noGuildSwitch, REP_TXT.elements.tip.REP_NoGuildSwitchBox, REP_OptionsGeneralTab, function(_, checked) REP_Data.Global.NoGuildSwitch = checked end)
     
-    if REP.IsAlliance then -- Alliance
+    if ReputationGuide.IsAlliance then -- Alliance
       wickermanRepBuff = checkbox("WickermanRepBuffBox", REP_TXT.settings.wickermanRepBuffUnburdened, REP_TXT.settings.info.wickermanRepBuffUnburdened, REP_OptionsGeneralTab, function(_, checked) REP_Data.Global.WickermanRepBuff = checked REP_ToggleReputationBuff() end)
     else -- Horde
       wickermanRepBuff = checkbox("WickermanRepBuffBox", REP_TXT.settings.wickermanRepBuffGrimVisage, REP_TXT.settings.info.wickermanRepBuffGrimVisage, REP_OptionsGeneralTab, function(_, checked) REP_Data.Global.WickermanRepBuff = checked REP_ToggleReputationBuff() end)
@@ -271,7 +283,7 @@ function REP:RenderAddonSettingsFrame()
     showPreviewRep:SetPoint("TOPLEFT", noGuildGain, "BOTTOMLEFT", -20, 0)
     noGuildSwitch:SetPoint("TOPLEFT", silentSwitch, "BOTTOMLEFT", 0, 0)
     
-    if not REP.AfterMoP then
+    if not ReputationGuide.AfterMoP then
       guildRepBuffRankOne = checkbox("GuildRepBuffRankOneBox", REP_TXT.settings.MrPopularityRankOne, REP_TXT.settings.info.MrPopularityRankOne, REP_OptionsGeneralTab, function(_, checked) REP_Data.Global.GuildRepBuffRankOne = checked ToggleMrPopularityRank(guildRepBuffRankOne, guildRepBuffRankTwo) REP_ToggleReputationBuff() end)
       guildRepBuffRankTwo = checkbox("GuildRepBuffRankTwoBox", REP_TXT.settings.MrPopularityRankTwo, REP_TXT.settings.info.MrPopularityRankTwo, REP_OptionsGeneralTab, function(_, checked) REP_Data.Global.GuildRepBuffRankTwo = checked ToggleMrPopularityRank(guildRepBuffRankOne, guildRepBuffRankTwo) REP_ToggleReputationBuff() end)
       guildRepBuffRankOne:SetPoint("TOPLEFT", harvestBountyRepBuff, "BOTTOMLEFT", 0, 0)
@@ -279,14 +291,14 @@ function REP:RenderAddonSettingsFrame()
       ToggleMrPopularityRank(guildRepBuffRankOne, guildRepBuffRankTwo)
     end
 
-    if REP.AfterCata then
+    if ReputationGuide.AfterCata then
       darkmoonfaireWeeRepBuff = checkbox("DarkmoonFaireWeeRepBuffBox", REP_TXT.settings.DarkmoonFaireWeeRepBuff, REP_TXT.settings.info.DarkmoonFaireWeeRepBuff, REP_OptionsGeneralTab, function(_, checked) REP_Data.Global.DarkmoonfaireWeeRepBuff = checked REP_ToggleReputationBuff() ToggleDarkmoonFaireBuff(darkmoonfaireWeeRepBuff, darkmoonfaireHatRepBuff) end)
       darkmoonfaireHatRepBuff = checkbox("DarkmoonFaireHatRepBuffBox", REP_TXT.settings.DarkmoonFaireHatRep, REP_TXT.settings.info.DarkmoonFaireHatRep, REP_OptionsGeneralTab, function(_, checked) REP_Data.Global.DarkmoonfaireHatRepBuff = checked REP_ToggleReputationBuff() ToggleDarkmoonFaireBuff(darkmoonfaireWeeRepBuff, darkmoonfaireHatRepBuff) end)
       ToggleDarkmoonFaireBuff(darkmoonfaireWeeRepBuff, darkmoonfaireHatRepBuff)
 
       showBonusGainsInChat = checkbox("ShowBonusGainsInChatBox", REP_TXT.settings.ShowBonusGainsInChat, REP_TXT.settings.info.ShowBonusGainsInChat, REP_OptionsGeneralTab, function(_, checked) REP_Data.Global.ShowBonusGainsInChat = checked end)
 
-      if REP.AfterMoP then
+      if ReputationGuide.AfterMoP then
         darkmoonfaireWeeRepBuff:SetPoint("TOPLEFT", harvestBountyRepBuff, "BOTTOMLEFT", 0, 0)
       else
         darkmoonfaireWeeRepBuff:SetPoint("TOPLEFT", guildRepBuffRankTwo, "BOTTOMLEFT", 0, 0)
@@ -295,7 +307,7 @@ function REP:RenderAddonSettingsFrame()
       darkmoonfaireHatRepBuff:SetPoint("TOPLEFT", darkmoonfaireWeeRepBuff, "BOTTOMLEFT", 0, 0)
     end
 
-    if REP.AfterWoD then
+    if ReputationGuide.AfterWoD then
       enableParagonBar = checkbox("EnableParagonBarBox", REP_TXT.EnableParagonBar, REP_TXT.elements.tip.REP_EnableParagonBarBox, REP_OptionsGeneralTab, function(_, checked) REP_Data.Global.ShowParagonBar = checked end)
       enableParagonBar:SetPoint("TOPLEFT", noGuildSwitch, "BOTTOMLEFT", -20, 0)
       showAllFactionsGains:SetPoint("TOPLEFT", enableParagonBar, "BOTTOMLEFT", 0, 0)
@@ -309,7 +321,7 @@ function REP:RenderAddonSettingsFrame()
     showAllFactionsGains:SetPoint("TOPLEFT", silentSwitch, "BOTTOMLEFT", -20, 0)
   end
 
-  if REP.AfterCata then
+  if ReputationGuide.AfterCata then
     showBonusGainsInChat:SetPoint("TOPLEFT", showAllFactionsGains, "BOTTOMLEFT", 0, 0)
     buffsDivider:SetStartPoint("BOTTOMLEFT", showBonusGainsInChat, 0, -16)
     buffsDivider:SetEndPoint("BOTTOMRIGHT", showBonusGainsInChat, 400, -16)
@@ -319,14 +331,14 @@ function REP:RenderAddonSettingsFrame()
   end
 
   wickermanRepBuff:SetPoint("TOPLEFT", buffSubTitle, "BOTTOMLEFT", -5, -16)
-  if REP.AfterTBC then
+  if ReputationGuide.AfterTBC then
     harvestBountyRepBuff:SetPoint("TOPLEFT", wickermanRepBuff, "BOTTOMLEFT", 0, 0)
   end
 
   --------------------------------------
   -- Characters for tooltip --
   --------------------------------------
-  if REP_Data.ProfileKeys and REP:TableSize(REP_Data.ProfileKeys) > 0 then
+  if REP_Data.ProfileKeys and ReputationGuide:TableSize(REP_Data.ProfileKeys) > 0 then
     local tooltipDivider = REP_OptionsGeneralTab:CreateLine()
     local tooltipTitle = REP_OptionsGeneralTab:CreateFontString(nil, "ARTWORK", "GameFontNormalLarge")
     local tooltipSubTitle = REP_OptionsGeneralTab:CreateFontString(nil, "ARTWORK", "GameFontNormalSmall")
@@ -334,10 +346,10 @@ function REP:RenderAddonSettingsFrame()
     tooltipDivider:SetColorTexture(0.82, 0.82, 0.82, 0.2)
     tooltipDivider:SetThickness(1)
   
-    if not REP.realm then REP.realm = GetRealmName() end
+    if not ReputationGuide.realm then ReputationGuide.realm = GetRealmName() end
 
     ---- Buff title
-    tooltipTitle:SetText("Show these " .. REP.realm .. " characters on tooltips:")
+    tooltipTitle:SetText("Show these " .. ReputationGuide.realm .. " characters on tooltips:")
     tooltipTitle:SetPoint("TOPLEFT", tooltipDivider, "BOTTOMLEFT", 0, -16)
     ---- Buff subtitle
     -- tooltipSubTitle:SetJustifyH("LEFT")
@@ -347,15 +359,15 @@ function REP:RenderAddonSettingsFrame()
     -- tooltipSubTitle:SetPoint("TOPLEFT", tooltipTitle, "BOTTOMLEFT", 0, -10)
     -- tooltipSubTitle:SetWordWrap(true)
 
-    if REP.AfterCata then
+    if ReputationGuide.AfterCata then
       tooltipDivider:SetStartPoint("BOTTOMLEFT", darkmoonfaireHatRepBuff, 0, -16)
       tooltipDivider:SetEndPoint("BOTTOMRIGHT", darkmoonfaireHatRepBuff, 400, -16)
     else
-      if REP.AfterWotlk then
+      if ReputationGuide.AfterWotlk then
         tooltipDivider:SetStartPoint("BOTTOMLEFT", guildRepBuffRankTwo, 0, -16)
         tooltipDivider:SetEndPoint("BOTTOMRIGHT", guildRepBuffRankTwo, 400, -16)
       else
-        if REP.AfterTBC then
+        if ReputationGuide.AfterTBC then
           tooltipDivider:SetStartPoint("BOTTOMLEFT", harvestBountyRepBuff, 0, -16)
           tooltipDivider:SetEndPoint("BOTTOMRIGHT", harvestBountyRepBuff, 400, -16)
         else
@@ -369,8 +381,8 @@ function REP:RenderAddonSettingsFrame()
 
     for profileKey, profileData in pairs(REP_Data.ProfileKeys) do
       local k = REP_Data.ProfileKeys[profileKey]
-      if k and k.profile and REP.realm == k.profile.realm and k.profile.class then
-        local color = "|c" .. REP:GetClassColor(k.profile.class)
+      if k and k.profile and ReputationGuide.realm == k.profile.realm and k.profile.class then
+        local color = "|c" .. ReputationGuide:GetClassColor(k.profile.class)
         local cb = checkbox("Show"..profileKey.."InTooltipBox", color .. k.profile.name .. " |r(Level " .. k.profile.level .. ")", "", REP_OptionsGeneralTab, function(_, checked) k.profile.ShowChar = checked end)
         cb:SetChecked(k.profile.ShowChar)
 
@@ -414,7 +426,7 @@ function REP:RenderAddonSettingsFrame()
   REP_OptionsCharactersTabContent:SetSize(REP_OptionsCharactersTab:GetWidth(), 400)
   REP_OptionsCharactersTabScrollFrame:SetScrollChild(REP_OptionsCharactersTabContent)
   
-  REP:DisplayProfileFrames(true)
+  ReputationGuide:DisplayProfileFrames(true)
 
   ----------------------------------
   -- Init addon settings --
@@ -430,27 +442,27 @@ function REP:RenderAddonSettingsFrame()
 
     wickermanRepBuff:SetChecked(REP_Data.Global.WickermanRepBuff)
 
-    if REP.AfterTBC then
+    if ReputationGuide.AfterTBC then
       harvestBountyRepBuff:SetChecked(REP_Data.Global.HarvestBountyRepBuff)
     end
 
-    if REP.AfterWotlk then
+    if ReputationGuide.AfterWotlk then
       noGuildGain:SetChecked(REP_Data.Global.NoGuildGain)
       noGuildSwitch:SetChecked(REP_Data.Global.NoGuildSwitch)
       
-      if not REP.AfterMoP then
+      if not ReputationGuide.AfterMoP then
         guildRepBuffRankOne:SetChecked(REP_Data.Global.GuildRepBuffRankOne)
         guildRepBuffRankTwo:SetChecked(REP_Data.Global.GuildRepBuffRankTwo)
       end
     end
 
-    if REP.AfterCata then
+    if ReputationGuide.AfterCata then
       showBonusGainsInChat:SetChecked(REP_Data.Global.ShowBonusGainsInChat)
       darkmoonfaireWeeRepBuff:SetChecked(REP_Data.Global.DarkmoonfaireWeeRepBuff)
       darkmoonfaireHatRepBuff:SetChecked(REP_Data.Global.DarkmoonfaireHatRepBuff)
     end
 
-    if REP.AfterWoD then
+    if ReputationGuide.AfterWoD then
       enableParagonBar:SetChecked(REP_Data.Global.ShowParagonBar)
     end
   end
@@ -459,9 +471,9 @@ function REP:RenderAddonSettingsFrame()
 end
 
 renderedProfileFrames = {}
-REP.renderedProfileFrames = renderedProfileFrames
+ReputationGuide.renderedProfileFrames = renderedProfileFrames
 
-function REP:DisplayProfileFrames(initOnly)
+function ReputationGuide:DisplayProfileFrames(initOnly)
   if REP_OptionsCharactersTabContent then
     for i, child in ipairs({REP_OptionsCharactersTabContent:GetChildren()}) do
       child:Hide()
@@ -471,7 +483,7 @@ function REP:DisplayProfileFrames(initOnly)
   local index = 0
   for profileKey, profileData in pairs(REP_Data.ProfileKeys) do
     index = index + 1
-    profileFrame = REP.renderedProfileFrames[index]
+    profileFrame = ReputationGuide.renderedProfileFrames[index]
     
     if profileFrame then
       if not initOnly then
@@ -484,14 +496,14 @@ function REP:DisplayProfileFrames(initOnly)
   end
 end
 
-function REP:RenderProfileFrames()  
+function ReputationGuide:RenderProfileFrames()  
   for profileKey, profileData in pairs(REP_Data.ProfileKeys) do
-    local profileFrame = REP:CreateProfileFrame(#renderedProfileFrames + 1, profileKey)
+    local profileFrame = ReputationGuide:CreateProfileFrame(#renderedProfileFrames + 1, profileKey)
     table.insert(renderedProfileFrames, profileFrame)
   end
 end
 
-function REP:CreateProfileFrame(index, profileKey, yOffset)
+function ReputationGuide:CreateProfileFrame(index, profileKey, yOffset)
   local characterProfile = REP_Data.ProfileKeys[profileKey]
   local profileName = format("%s-%s", characterProfile.profile.name, characterProfile.profile.realm)
 
@@ -509,7 +521,7 @@ function REP:CreateProfileFrame(index, profileKey, yOffset)
   frame.resetButton:SetText("Reset")
   frame.resetButton:SetScript("OnClick", function()
     REP_Data.ProfileKeys[profileKey] = {}
-    REP:Print("The saved variables for "..tostring(profileName).." has been reset.")
+    ReputationGuide:Print("The saved variables for "..tostring(profileName).." has been reset.")
   end)
 
   frame.deleteButton = CreateFrame("Button", "REP_OptionsDeleteCharacterVariablesButton"..index, REP_OptionsCharactersTabContent, "UIPanelButtonTemplate")
@@ -517,16 +529,16 @@ function REP:CreateProfileFrame(index, profileKey, yOffset)
   frame.deleteButton:SetPoint("LEFT", frame.resetButton, "RIGHT", 10, 0)
   frame.deleteButton:SetText("Delete")
   frame.deleteButton:SetScript("OnClick", function()
-    REP:RemoveProfileFrame(index)
+    ReputationGuide:RemoveProfileFrame(index)
     REP_Data.ProfileKeys[profileKey] = nil
-    REP:Print(tostring(profileName).." has been removed from the saved variables.")
+    ReputationGuide:Print(tostring(profileName).." has been removed from the saved variables.")
     frame = nil
   end)
 
   return frame
 end
 
-function REP:RemoveProfileFrame(index)
+function ReputationGuide:RemoveProfileFrame(index)
   local frame = renderedProfileFrames[index]
   if frame then
     if frame.text then
@@ -551,5 +563,5 @@ function REP:RemoveProfileFrame(index)
   end
 
   table.remove(renderedProfileFrames, index)
-  REP:DisplayProfileFrames()
+  ReputationGuide:DisplayProfileFrames()
 end
