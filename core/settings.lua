@@ -498,8 +498,11 @@ end
 
 function ReputationGuide:RenderProfileFrames()  
   for profileKey, profileData in pairs(REP_Data.ProfileKeys) do
-    local profileFrame = ReputationGuide:CreateProfileFrame(#renderedProfileFrames + 1, profileKey)
-    table.insert(renderedProfileFrames, profileFrame)
+    local k = REP_Data.ProfileKeys[profileKey]
+    if k and k.profile then
+      local profileFrame = ReputationGuide:CreateProfileFrame(#renderedProfileFrames + 1, profileKey)
+      table.insert(renderedProfileFrames, profileFrame)
+    end
   end
 end
 

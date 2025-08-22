@@ -301,7 +301,7 @@ function REP_OnEvent(self, event, ...)
     --   ReputationDetailFrame:Hide();
     -- end
 
-    if (REP_Orig_GetSelectedFaction() ~= 0 and REP_Orig_ReputationDetailFrame:IsVisible()) then
+    if (REP_Orig_GetSelectedFaction() ~= 0 and REP_Orig_ReputationDetailFrame and REP_Orig_ReputationDetailFrame:IsVisible()) then
       REP_BuildUpdateList()
       REP_UpdateList_Update()
     end    
@@ -309,7 +309,7 @@ function REP_OnEvent(self, event, ...)
     local faction, change = GetCurrentCombatTextEventInfo()
     REP:DumpReputationChangesToChatOnUpdate(faction, change)
   elseif (event == "BAG_UPDATE") then
-    if (REP_Orig_ReputationDetailFrame:IsVisible() and not REP.AfterDragonflight) then
+    if (REP_Orig_ReputationDetailFrame and REP_Orig_ReputationDetailFrame:IsVisible() and not REP.AfterDragonflight) then
       -- Update rep frame (implicitely updates detail frame which In turn implicitely reparses bag contents)
       ReputationFrame_Update()
     end
@@ -320,7 +320,7 @@ function REP_OnEvent(self, event, ...)
     if (REP_BankOpen) then
       -- this is the first call
       REP_BankOpen = nil
-      if (REP_Orig_ReputationDetailFrame:IsVisible() and not REP.AfterDragonflight) then
+      if (REP_Orig_ReputationDetailFrame and REP_Orig_ReputationDetailFrame:IsVisible() and not REP.AfterDragonflight) then
         -- Update rep frame (implicitely updates detail frame which In turn implicitely reparses bag contents)
         ReputationFrame_Update()
       end
@@ -332,7 +332,7 @@ function REP_OnEvent(self, event, ...)
     if (ReputationFrame:IsVisible() and not REP.AfterDragonflight) then
       ReputationFrame_Update()
     end
-    if (REP_Orig_ReputationDetailFrame:IsVisible()) then
+    if (REP_Orig_ReputationDetailFrame and REP_Orig_ReputationDetailFrame:IsVisible()) then
       REP_BuildUpdateList()
       REP_UpdateList_Update()
     end
@@ -640,7 +640,7 @@ function REP_SlashHandler(msg)
             ReputationFrame_Update()
           end
 
-          if (REP_Orig_ReputationDetailFrame:IsVisible()) then
+          if (REP_Orig_ReputationDetailFrame and REP_Orig_ReputationDetailFrame:IsVisible()) then
             REP_BuildUpdateList()
             REP_UpdateList_Update()
           end
@@ -699,7 +699,7 @@ function REP_SlashHandler(msg)
             ReputationFrame_Update()
           end
 
-          if (REP_Orig_ReputationDetailFrame:IsVisible()) then
+          if (REP_Orig_ReputationDetailFrame and REP_Orig_ReputationDetailFrame:IsVisible()) then
             REP_BuildUpdateList()
             REP_UpdateList_Update()
           end
@@ -758,7 +758,7 @@ function REP_SlashHandler(msg)
             ReputationFrame_Update()
           end
 
-          if (REP_Orig_ReputationDetailFrame:IsVisible()) then
+          if (REP_Orig_ReputationDetailFrame and REP_Orig_ReputationDetailFrame:IsVisible()) then
             REP_BuildUpdateList()
             REP_UpdateList_Update()
           end
@@ -880,7 +880,7 @@ end
 function REP:ToggleDetailWindow()
   if ReputationFrame:IsVisible() then
     if (REP_Data.Global.ExtendDetails) then
-      if REP_Orig_ReputationDetailFrame:IsVisible() then
+      if (REP_Orig_ReputationDetailFrame and REP_Orig_ReputationDetailFrame:IsVisible()) then
         -- both windows shown -> hide them both
         REP_Orig_ReputationDetailFrame:Hide()
         HideUIPanel(CharacterFrame)
@@ -1938,11 +1938,11 @@ end
 
 function REP_ReputationBar_OnClick(self)
   -- redo from the main Reputation file
-  if ((ReputationDetailFrame:IsVisible() or REP_Orig_ReputationDetailFrame:IsVisible()) and (REP_Orig_GetSelectedFaction() == self.index)) then
+  if ((ReputationDetailFrame:IsVisible() or (REP_Orig_ReputationDetailFrame and REP_Orig_ReputationDetailFrame:IsVisible())) and (REP_Orig_GetSelectedFaction() == self.index)) then
     REP:PlayCheckBoxSound(false)
     REP_Orig_ReputationDetailFrame:Hide()
   else
-    if (self.hasRep) then
+    if (self.hasRep and REP_Orig_ReputationDetailFrame) then
       if not REP.AfterDragonflight then SetSelectedFaction(self.index) end
 
       REP:PlayCheckBoxSound(true)
@@ -1965,7 +1965,7 @@ REP_UPDATE_LIST_HEIGHT = 13
 
 function REP_UpdateList_Update()
   -- usually called In conjuction with REP_BuildUpdateList
-  if (not REP_Orig_ReputationDetailFrame:IsVisible()) then return end
+  if (not REP_Orig_ReputationDetailFrame or not REP_Orig_ReputationDetailFrame:IsVisible()) then return end
 
   -- Fix for GetGuildInfo() function returning nil upon first login.
   if (IsInGuild() and REP.GuildName == nil) then
@@ -2199,7 +2199,7 @@ function REP:Update_Tooltip(x, l1,r1)
 end
 
 function REP_BuildUpdateList()
-  if (not REP_Orig_ReputationDetailFrame:IsVisible()) then return end
+  if (not REP_Orig_ReputationDetailFrame or not REP_Orig_ReputationDetailFrame:IsVisible()) then return end
 
   REP_UpdateList = {}
   REP_CurrentRepInBag = 0
@@ -4021,7 +4021,7 @@ function REP:CustomSetFactionActiveOrInactive(isChecked, factionIndex)
   local isHeader = reputationInfo.isHeader
   local factionID = reputationInfo.factionID
 
-  if (REP_Orig_ReputationDetailFrame:IsShown() and isChecked) then
+  if (REP_Orig_ReputationDetailFrame and REP_Orig_ReputationDetailFrame:IsShown() and isChecked) then
     REP_Orig_ReputationDetailFrame:Hide()
   end
 
@@ -4724,7 +4724,7 @@ function REP:WatchedFactionDetails(watchedFactionID)
       if (not ReputationFrame:IsVisible()) then ToggleCharacter('ReputationFrame') end
     end
 
-    if (not REP_Orig_ReputationDetailFrame:IsVisible()) then REP_Orig_ReputationDetailFrame:Show() end
+    if (REP_Orig_ReputationDetailFrame and not REP_Orig_ReputationDetailFrame:IsVisible()) then REP_Orig_ReputationDetailFrame:Show() end
 
     SetSelectedFaction(factionIndex)
     REP:FillReputationDetailFrameWithData()
