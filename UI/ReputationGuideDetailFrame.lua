@@ -4,6 +4,7 @@ local addonName, REP = ...
 --  Changing the default Detail window instead of creating my own to prevent issues
 --  with new API where getSelectedFaction returns 0 when default window is hidden....
 ---------------------------------------------------------------------------------------------
+
 function REP:ChangeReputationDetailFrameUI()
   -----------------------------------
   --  Detail frame UI
@@ -345,8 +346,7 @@ end
 
 function REP:FillReputationDetailFrameWithData()
   local factionData = REP:GetFactionDataToBuildReputationlist();
-
-  if not factionData then return end
+  if not factionData or not REP_Orig_ReputationDetailFrame then return end
 
   if REP.AfterShadowLands then
     local isMajorFaction = C_Reputation.IsMajorFaction(factionData.factionID);
