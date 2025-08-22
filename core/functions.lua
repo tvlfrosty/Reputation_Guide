@@ -319,32 +319,35 @@ function ReputationGuide:GetCharacterDataForToolTip(factionID)
 
   for profileKey, profileData in pairs(REP_Data.ProfileKeys) do
     local k = REP_Data.ProfileKeys[profileKey]
-    local showCharacter = (k.profile.ShowChar and ReputationGuide.realm == k.profile.realm) or false
 
-    if showCharacter then
-      local currentCharacter = {}
+    if k and k.profile then
+      local showCharacter = (k.profile.ShowChar and ReputationGuide.realm == k.profile.realm) or false
 
-      if k.factions and k.factions[factionID] then
-        currentCharacter = {
-          name = k.profile.name,
-          class = k.profile.class,
-          standing = k.factions[factionID].standing,
-          standingID = k.factions[factionID].standingID,
-          current = k.factions[factionID].current,
-          max = k.factions[factionID].max
-        }
-      else
-        currentCharacter = {
-          name = k.profile.name,
-          class = k.profile.class,
-          standing = "",
-          standingID = 0,
-          current = 0,
-          max = 0
-        }
+      if showCharacter then
+        local currentCharacter = {}
+
+        if k.factions and k.factions[factionID] then
+          currentCharacter = {
+            name = k.profile.name,
+            class = k.profile.class,
+            standing = k.factions[factionID].standing,
+            standingID = k.factions[factionID].standingID,
+            current = k.factions[factionID].current,
+            max = k.factions[factionID].max
+          }
+        else
+          currentCharacter = {
+            name = k.profile.name,
+            class = k.profile.class,
+            standing = "",
+            standingID = 0,
+            current = 0,
+            max = 0
+          }
+        end
+
+        table.insert(charactersForToolTip, currentCharacter)
       end
-
-      table.insert(charactersForToolTip, currentCharacter)
     end
   end
 
