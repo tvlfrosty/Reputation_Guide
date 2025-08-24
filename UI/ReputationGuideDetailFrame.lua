@@ -67,6 +67,10 @@ function REP:ChangeReputationDetailFrameUI()
     end
   else
     if REP.AfterDragonflight then
+      REP_Orig_ReputationDetailFrame.MakeInactiveCheckbox.Label:SetFontObject(ReputationDetailFont)
+      REP_Orig_ReputationDetailFrame.WatchFactionCheckbox.Label:SetFontObject(ReputationDetailFont)
+      REP_Orig_ReputationDetailFrame.AtWarCheckbox.Label:SetFontObject(ReputationDetailFont)
+
       REP_Orig_ReputationDetailFrame.MakeInactiveCheckbox.Label:SetTextColor(1, 1, 1, 1)
       REP_Orig_ReputationDetailFrame.MakeInactiveCheckbox:SetScript("OnClick", function(self) REP:CustomSetFactionActiveOrInactive(self:GetChecked(), REP_Orig_GetSelectedFaction()) end)
       REP_Orig_ReputationDetailFrame.WatchFactionCheckbox:ClearAllPoints()
@@ -98,7 +102,7 @@ function REP:ChangeReputationDetailFrameUI()
   REP_DetailThirdDivider:SetSize(615, 32)
   REP_DetailThirdDivider:SetPoint("TOPLEFT", REP_DetailSecondDivider, "BOTTOMLEFT", 0, -193)
 
-  REP_DetailNoInformationText = REP_Orig_ReputationDetailFrame:CreateFontString(nil, "OVERLAY", "GameFontHighlight")
+  REP_DetailNoInformationText = REP_Orig_ReputationDetailFrame:CreateFontString(nil, "OVERLAY", "ReputationDetailFont")
   REP_DetailNoInformationText:SetPoint("TOPLEFT", REP_DetailSecondDivider, "BOTTOMLEFT", 15, 15)
   REP_DetailNoInformationText:SetHeight(20)
 
@@ -110,39 +114,39 @@ function REP:ChangeReputationDetailFrameUI()
   REP_DetailInfoBackground:SetSize(375, 128)
   REP_DetailInfoBackground:SetPoint("TOPLEFT", REP_DetailFactionInfoBackground, "TOPRIGHT", -70, 0)
 
-  REP_DetailStandingName = REP_Orig_ReputationDetailFrame:CreateFontString(nil, "OVERLAY", "GameFontNormal")
+  REP_DetailStandingName = REP_Orig_ReputationDetailFrame:CreateFontString(nil, "OVERLAY", "ReputationDetailFont")
   REP_DetailStandingName:SetPoint("TOPLEFT", REP_DetailInfoBackground, "TOPLEFT", 10, -10)
   REP_DetailStandingName:SetHeight(10)
 
-  REP_DetailStandingNeeded = REP_Orig_ReputationDetailFrame:CreateFontString(nil, "OVERLAY", "GameFontHighlightSmall")
+  REP_DetailStandingNeeded = REP_Orig_ReputationDetailFrame:CreateFontString(nil, "OVERLAY", "ReputationDetailFont")
   REP_DetailStandingNeeded:SetPoint("TOPLEFT", REP_DetailStandingName, "BOTTOMLEFT", 0, -2)
   REP_DetailStandingNeeded:SetHeight(10)
 
-  REP_DetailStandingCurrent = REP_Orig_ReputationDetailFrame:CreateFontString(nil, "OVERLAY", "GameFontHighlightSmall")
+  REP_DetailStandingCurrent = REP_Orig_ReputationDetailFrame:CreateFontString(nil, "OVERLAY", "ReputationDetailFont")
   REP_DetailStandingCurrent:SetPoint("TOPLEFT", REP_DetailStandingNeeded, "BOTTOMLEFT", 0, -2)
   REP_DetailStandingCurrent:SetHeight(10)
 
-  REP_DetailStandingMissing = REP_Orig_ReputationDetailFrame:CreateFontString(nil, "OVERLAY", "GameFontHighlightSmall")
+  REP_DetailStandingMissing = REP_Orig_ReputationDetailFrame:CreateFontString(nil, "OVERLAY", "ReputationDetailFont")
   REP_DetailStandingMissing:SetPoint("TOPLEFT", REP_DetailStandingCurrent, "BOTTOMLEFT", 0, -7)
   REP_DetailStandingMissing:SetHeight(10)
 
-  REP_DetailStandingBag = REP_Orig_ReputationDetailFrame:CreateFontString(nil, "OVERLAY", "GameFontHighlightSmall")
+  REP_DetailStandingBag = REP_Orig_ReputationDetailFrame:CreateFontString(nil, "OVERLAY", "ReputationDetailFont")
   REP_DetailStandingBag:SetPoint("TOPLEFT", REP_DetailStandingMissing, "BOTTOMLEFT", 0, -2)
   REP_DetailStandingBag:SetHeight(10)
 
-  REP_DetailStandingBagBank = REP_Orig_ReputationDetailFrame:CreateFontString(nil, "OVERLAY", "GameFontHighlightSmall")
+  REP_DetailStandingBagBank = REP_Orig_ReputationDetailFrame:CreateFontString(nil, "OVERLAY", "ReputationDetailFont")
   REP_DetailStandingBagBank:SetPoint("TOPLEFT", REP_DetailStandingBag, "BOTTOMLEFT", 0, -2)
   REP_DetailStandingBagBank:SetHeight(10)
 
-  REP_DetailStandingQuests = REP_Orig_ReputationDetailFrame:CreateFontString(nil, "OVERLAY", "GameFontHighlightSmall")
+  REP_DetailStandingQuests = REP_Orig_ReputationDetailFrame:CreateFontString(nil, "OVERLAY", "ReputationDetailFont")
   REP_DetailStandingQuests:SetPoint("TOPLEFT", REP_DetailStandingBagBank, "BOTTOMLEFT", 0, -2)
   REP_DetailStandingQuests:SetHeight(10)
 
-  REP_DetailStandingGained = REP_Orig_ReputationDetailFrame:CreateFontString(nil, "OVERLAY", "GameFontHighlightSmall")
+  REP_DetailStandingGained = REP_Orig_ReputationDetailFrame:CreateFontString(nil, "OVERLAY", "ReputationDetailFont")
   REP_DetailStandingGained:SetPoint("TOPLEFT", REP_DetailStandingQuests, "BOTTOMLEFT", 0, -5)
   REP_DetailStandingGained:SetHeight(10)
 
-  REP_DetailStandingToExaltedHeader = REP_Orig_ReputationDetailFrame:CreateFontString(nil, "OVERLAY", "GameFontHighlightSmall")
+  REP_DetailStandingToExaltedHeader = REP_Orig_ReputationDetailFrame:CreateFontString(nil, "OVERLAY", "ReputationDetailFont")
   REP_DetailStandingToExaltedHeader:SetPoint("TOPLEFT", REP_DetailStandingGained, "BOTTOMLEFT", 0, -2)
   REP_DetailStandingToExaltedHeader:SetHeight(10)
 
@@ -158,49 +162,49 @@ function REP:ChangeReputationDetailFrameUI()
   -----------------------------------
   --  Detail frame Info values
   -----------------------------------
-  REP_DetailStandingNextValue = REP_Orig_ReputationDetailFrame:CreateFontString(nil, "OVERLAY", "GameFontHighlightSmall")
+  REP_DetailStandingNextValue = REP_Orig_ReputationDetailFrame:CreateFontString(nil, "OVERLAY", "ReputationDetailFont")
   REP_DetailStandingNextValue:SetPoint("TOP", REP_DetailStandingName, "TOP", 0, 0)
   REP_DetailStandingNextValue:SetPoint("RIGHT", REP_Orig_ReputationDetailFrame, "RIGHT", -40, 0)
   REP_DetailStandingNextValue:SetHeight(10)
   REP_DetailStandingNextValue:SetJustifyH("RIGHT")
 
-  REP_DetailStandingNeededValue = REP_Orig_ReputationDetailFrame:CreateFontString(nil, "OVERLAY", "GameFontHighlightSmall")
+  REP_DetailStandingNeededValue = REP_Orig_ReputationDetailFrame:CreateFontString(nil, "OVERLAY", "ReputationDetailFont")
   REP_DetailStandingNeededValue:SetPoint("TOP", REP_DetailStandingNeeded, "TOP", 0, 0)
   REP_DetailStandingNeededValue:SetPoint("RIGHT", REP_Orig_ReputationDetailFrame, "RIGHT", -15, 0)
   REP_DetailStandingNeededValue:SetHeight(10)
   REP_DetailStandingNeededValue:SetJustifyH("RIGHT")
 
-  REP_DetailStandingCurrentValue = REP_Orig_ReputationDetailFrame:CreateFontString(nil, "OVERLAY", "GameFontHighlightSmall")
+  REP_DetailStandingCurrentValue = REP_Orig_ReputationDetailFrame:CreateFontString(nil, "OVERLAY", "ReputationDetailFont")
   REP_DetailStandingCurrentValue:SetPoint("TOPRIGHT", REP_DetailStandingNeededValue, "BOTTOMRIGHT", 0, -2)
   REP_DetailStandingCurrentValue:SetHeight(10)
   REP_DetailStandingCurrentValue:SetJustifyH("RIGHT")
 
-  REP_DetailStandingMissingValue = REP_Orig_ReputationDetailFrame:CreateFontString(nil, "OVERLAY", "GameFontHighlightSmall")
+  REP_DetailStandingMissingValue = REP_Orig_ReputationDetailFrame:CreateFontString(nil, "OVERLAY", "ReputationDetailFont")
   REP_DetailStandingMissingValue:SetPoint("TOPRIGHT", REP_DetailStandingCurrentValue, "BOTTOMRIGHT", 0, -7)
   REP_DetailStandingMissingValue:SetHeight(10)
   REP_DetailStandingMissingValue:SetJustifyH("RIGHT")
 
-  REP_DetailStandingBagValue = REP_Orig_ReputationDetailFrame:CreateFontString(nil, "OVERLAY", "GameFontHighlightSmall")
+  REP_DetailStandingBagValue = REP_Orig_ReputationDetailFrame:CreateFontString(nil, "OVERLAY", "ReputationDetailFont")
   REP_DetailStandingBagValue:SetPoint("TOPRIGHT", REP_DetailStandingMissingValue, "BOTTOMRIGHT", 0, -2)
   REP_DetailStandingBagValue:SetHeight(10)
   REP_DetailStandingBagValue:SetJustifyH("RIGHT")
 
-  REP_DetailStandingBagBankValue = REP_Orig_ReputationDetailFrame:CreateFontString(nil, "OVERLAY", "GameFontHighlightSmall")
+  REP_DetailStandingBagBankValue = REP_Orig_ReputationDetailFrame:CreateFontString(nil, "OVERLAY", "ReputationDetailFont")
   REP_DetailStandingBagBankValue:SetPoint("TOPRIGHT", REP_DetailStandingBagValue, "BOTTOMRIGHT", 0, -2)
   REP_DetailStandingBagBankValue:SetHeight(10)
   REP_DetailStandingBagBankValue:SetJustifyH("RIGHT")
 
-  REP_DetailStandingQuestsValue = REP_Orig_ReputationDetailFrame:CreateFontString(nil, "OVERLAY", "GameFontHighlightSmall")
+  REP_DetailStandingQuestsValue = REP_Orig_ReputationDetailFrame:CreateFontString(nil, "OVERLAY", "ReputationDetailFont")
   REP_DetailStandingQuestsValue:SetPoint("TOPRIGHT", REP_DetailStandingBagBankValue, "BOTTOMRIGHT", 0, -2)
   REP_DetailStandingQuestsValue:SetHeight(10)
   REP_DetailStandingQuestsValue:SetJustifyH("RIGHT")
 
-  REP_DetailStandingGainedValue = REP_Orig_ReputationDetailFrame:CreateFontString(nil, "OVERLAY", "GameFontHighlightSmall")
+  REP_DetailStandingGainedValue = REP_Orig_ReputationDetailFrame:CreateFontString(nil, "OVERLAY", "ReputationDetailFont")
   REP_DetailStandingGainedValue:SetPoint("TOPRIGHT", REP_DetailStandingQuestsValue, "BOTTOMRIGHT", 0, -5)
   REP_DetailStandingGainedValue:SetHeight(10)
   REP_DetailStandingGainedValue:SetJustifyH("RIGHT")
 
-  REP_DetailStandingToExaltedValue = REP_Orig_ReputationDetailFrame:CreateFontString(nil, "OVERLAY", "GameFontHighlightSmall")
+  REP_DetailStandingToExaltedValue = REP_Orig_ReputationDetailFrame:CreateFontString(nil, "OVERLAY", "ReputationDetailFont")
   REP_DetailStandingToExaltedValue:SetPoint("TOPRIGHT", REP_DetailStandingGainedValue, "BOTTOMRIGHT", 0, -2)
   REP_DetailStandingToExaltedValue:SetHeight(10)
   REP_DetailStandingToExaltedValue:SetJustifyH("RIGHT")
@@ -236,7 +240,7 @@ function REP:ChangeReputationDetailFrameUI()
   -------------------------------------
   --  Default detail frame buttons
   -------------------------------------
-  REP_DetailReputationSuppressHint = REP_Orig_ReputationDetailFrame:CreateFontString(nil, "OVERLAY", "GameFontHighlightSmall")
+  REP_DetailReputationSuppressHint = REP_Orig_ReputationDetailFrame:CreateFontString(nil, "OVERLAY", "ReputationDetailFont")
   REP_DetailReputationSuppressHint:SetPoint("TOPLEFT", REP_DetailShowGeneralButton, "BOTTOMLEFT", 0, -2)
   REP_DetailReputationSuppressHint:SetSize(210, 0)
   REP_DetailReputationSuppressHint:SetJustifyH("LEFT")
@@ -309,6 +313,8 @@ function REP:CreateDetailFrameCheckbox(name, label, description, onclick, parent
   labelFont:SetText(label)
   labelFont:SetPoint("LEFT", DetailFrameCheckbox, "RIGHT", -2, 0)
   labelFont:SetHeight(20)
+  labelFont:SetFontObject(ReputationDetailFont)
+  labelFont:SetTextColor(1, 1, 1, 1)
 
   DetailFrameCheckbox.Text = labelFont
   DetailFrameCheckbox.tooltipText = label
@@ -341,6 +347,16 @@ function REP:CreateDetailFrameButton(name, label, onclick, parent)
   DetailFrameButton:SetScript("OnClick", function(self) onclick() end)
   DetailFrameButton:SetScript("OnEnter", function(self) REP_ShowHelpToolTip(self, name) end)
   DetailFrameButton:SetScript("OnLeave", function(self) if GameTooltip:GetOwner() == self then GameTooltip:Hide() end end)
+
+  local highlightFont = _G["DetailFontHighlighted"]
+  local disabledFont = _G["DetailFontGrey"]
+
+  if highlightFont and disabledFont then
+    DetailFrameButton:SetNormalFontObject(highlightFont)
+    DetailFrameButton:SetHighlightFontObject(highlightFont)
+    DetailFrameButton:SetDisabledFontObject(disabledFont)
+  end
+
   return DetailFrameButton
 end
 

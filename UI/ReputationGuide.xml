@@ -18,19 +18,23 @@
   <!-- =========================================
     General Templates
   ========================================== -->
-	<Button name="SmallFontButton" inherits="UIPanelButtonTemplate" virtual="true">
-		<NormalFont inherits="GameFontNormalSmall"/>
-		<HighlightFont inherits="GameFontHighlightSmall"/>
-		<DisabledFont inherits="GameFontDisableSmall"/>
-	</Button>
-
-  <Font name="DetailFontWhite" inherits="GameFontNormalSmall" virtual="true">
+  <Font name="DetailFontWhite" inherits="ReputationDetailFont" virtual="true">
 		<Color r="1.0" g="1.0" b="1.0"/>
 	</Font>
 
-	<Font name="DetailFontGrey" inherits="GameFontNormalSmall" virtual="true">
+	<Font name="DetailFontGrey" inherits="ReputationDetailFont" virtual="true">
 		<Color r="0.5" g="0.5" b="0.5"/>
 	</Font>
+
+  <Font name="DetailFontHighlighted" inherits="ReputationDetailFont" virtual="true">
+		<Color r="1.0" g="0.82" b="0.0"/>
+	</Font>
+
+	<Button name="SmallFontButton" inherits="UIPanelButtonTemplate" virtual="true">
+		<NormalFont inherits="DetailFontWhite"/>
+		<HighlightFont inherits="DetailFontHighlighted"/>
+		<DisabledFont inherits="DetailFontGrey"/>
+	</Button>  
 
   <!-- =========================================
     Personal addon Templates
