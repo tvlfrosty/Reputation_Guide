@@ -637,6 +637,7 @@ if (GetLocale() =="frFR") then
   ---- General
   REP_TXT.settings = {}
   REP_TXT.settings.info = {}
+  REP_TXT.settings.tooltips = {}
   ---- Titles
   REP_TXT.settings.buffTitle = "Améliorations de réputation"
   REP_TXT.settings.buffSubTitle = "Vous pouvez activer ou désactiver ces améliorations de réputation pour voir quelle réputation vous obtiendriez grâce à différentes activités. Les buffs qui ne se cumulent pas seront désactivés lors du basculement de leurs homologues."

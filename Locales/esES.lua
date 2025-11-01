@@ -641,6 +641,7 @@ if (GetLocale() =="esES" or GetLocale() =="esMX") then
   ---- General
   REP_TXT.settings = {}
   REP_TXT.settings.info = {}
+  REP_TXT.settings.tooltips = {}
   ---- Titles
   REP_TXT.settings.buffTitle = "Mejoras de reputación"
   REP_TXT.settings.buffSubTitle = "Puedes alternar estas mejoras de reputación para ver cuánta reputación obtendrías de diferentes actividades. Las ventajas que no se acumulan se desactivarán al alternar entre sus contrapartes."

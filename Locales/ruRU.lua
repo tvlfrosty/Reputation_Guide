@@ -639,6 +639,7 @@ if (GetLocale() =="ruRU") then
   ---- General
   REP_TXT.settings = {}
   REP_TXT.settings.info = {}
+  REP_TXT.settings.tooltips = {}
   ---- Titles
   REP_TXT.settings.buffTitle = "Увеличение репутации"
   REP_TXT.settings.buffSubTitle = "Вы можете переключать эти усиления репутации, чтобы увидеть, сколько репутации вы получите от различных действий. Усиления, которые не суммируются, будут отключены при переключении их аналогов."

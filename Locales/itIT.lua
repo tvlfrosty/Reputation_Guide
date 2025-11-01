@@ -639,6 +639,7 @@ if (GetLocale() == "itIT") then
   ---- General
   REP_TXT.settings = {}
   REP_TXT.settings.info = {}
+  REP_TXT.settings.tooltips = {}
   ---- Titles
   REP_TXT.settings.buffTitle = "Appassionati di reputazione"
   REP_TXT.settings.buffSubTitle = "Puoi attivare questi potenziamenti della reputazione per vedere quanta reputazione otterresti da diverse attività. I buff che non si accumulano verranno disabilitati quando si alternano le loro controparti."

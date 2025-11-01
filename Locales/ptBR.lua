@@ -639,6 +639,7 @@ if (GetLocale() =="ptBR") then
   ---- General
   REP_TXT.settings = {}
   REP_TXT.settings.info = {}
+  REP_TXT.settings.tooltips = {}
   ---- Titles
   REP_TXT.settings.buffTitle = "Fãs de reputação"
   REP_TXT.settings.buffSubTitle = "Você pode alternar esses buffs de reputação para ver quanta reputação você obteria com diferentes atividades. Buffs que não acumulam serão desativados ao alternar seus equivalentes."

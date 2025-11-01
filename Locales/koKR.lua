@@ -636,6 +636,7 @@ if (GetLocale() =="koKR") then
   ---- General
   REP_TXT.settings = {}
   REP_TXT.settings.info = {}
+  REP_TXT.settings.tooltips = {}
   ---- Titles
   REP_TXT.settings.buffTitle = "평판 버프"
   REP_TXT.settings.buffSubTitle = "이러한 평판 버프를 전환하여 다양한 활동을 통해 얼마나 많은 평판을 얻을 수 있는지 확인할 수 있습니다. 중첩되지 않는 버프는 전환 시 비활성화됩니다."
