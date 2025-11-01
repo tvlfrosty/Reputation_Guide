@@ -336,74 +336,6 @@ function ReputationGuide:RenderAddonSettingsFrame()
   end
 
   --------------------------------------
-  -- Characters for tooltip --
-  --------------------------------------
-  if REP_Data.ProfileKeys and ReputationGuide:TableSize(REP_Data.ProfileKeys) > 0 then
-    local tooltipDivider = REP_OptionsGeneralTab:CreateLine()
-    local tooltipTitle = REP_OptionsGeneralTab:CreateFontString(nil, "ARTWORK", "GameFontNormalLarge")
-    local tooltipSubTitle = REP_OptionsGeneralTab:CreateFontString(nil, "ARTWORK", "GameFontNormalSmall")
-    ---- Buff divider
-    tooltipDivider:SetColorTexture(0.82, 0.82, 0.82, 0.2)
-    tooltipDivider:SetThickness(1)
-  
-    if not ReputationGuide.realm then ReputationGuide.realm = GetRealmName() end
-
-    ---- Buff title
-    tooltipTitle:SetText("Show these " .. ReputationGuide.realm .. " characters on tooltips:")
-    tooltipTitle:SetPoint("TOPLEFT", tooltipDivider, "BOTTOMLEFT", 0, -16)
-    ---- Buff subtitle
-    -- tooltipSubTitle:SetJustifyH("LEFT")
-    -- tooltipSubTitle:SetText("")
-    -- tooltipSubTitle:SetWidth(640)
-    -- tooltipSubTitle:SetTextColor(1, 1, 1, 0.8)
-    -- tooltipSubTitle:SetPoint("TOPLEFT", tooltipTitle, "BOTTOMLEFT", 0, -10)
-    -- tooltipSubTitle:SetWordWrap(true)
-
-    if ReputationGuide.AfterCata then
-      tooltipDivider:SetStartPoint("BOTTOMLEFT", darkmoonfaireHatRepBuff, 0, -16)
-      tooltipDivider:SetEndPoint("BOTTOMRIGHT", darkmoonfaireHatRepBuff, 400, -16)
-    else
-      if ReputationGuide.AfterWotlk then
-        tooltipDivider:SetStartPoint("BOTTOMLEFT", guildRepBuffRankTwo, 0, -16)
-        tooltipDivider:SetEndPoint("BOTTOMRIGHT", guildRepBuffRankTwo, 400, -16)
-      else
-        if ReputationGuide.AfterTBC then
-          tooltipDivider:SetStartPoint("BOTTOMLEFT", harvestBountyRepBuff, 0, -16)
-          tooltipDivider:SetEndPoint("BOTTOMRIGHT", harvestBountyRepBuff, 400, -16)
-        else
-          tooltipDivider:SetStartPoint("BOTTOMLEFT", wickermanRepBuff, 0, -16)
-          tooltipDivider:SetEndPoint("BOTTOMRIGHT", wickermanRepBuff, 400, -16)
-        end
-      end
-    end
-
-    local lastCheckbox
-
-    for profileKey, profileData in pairs(REP_Data.ProfileKeys) do
-      local k = REP_Data.ProfileKeys[profileKey]
-      if k and k.profile and ReputationGuide.realm == k.profile.realm and k.profile.class then
-        local color = "|c" .. ReputationGuide:GetClassColor(k.profile.class)
-        local cb = checkbox("Show"..profileKey.."InTooltipBox", color .. k.profile.name .. " |r(Level " .. k.profile.level .. ")", "", REP_OptionsGeneralTab, function(_, checked) k.profile.ShowChar = checked end)
-        cb:SetChecked(k.profile.ShowChar)
-
-        if not lastCheckbox then
-          cb:SetPoint("TOPLEFT", tooltipTitle, "BOTTOMLEFT", -2, -10)
-        else
-          cb:SetPoint("TOPLEFT", lastCheckbox, "BOTTOMLEFT", 0, -4)
-        end
-
-        lastCheckbox = cb
-      end
-    end
-
-    if lastCheckbox then
-      local spacer = CreateFrame("Frame", nil, REP_OptionsGeneralTab)
-      spacer:SetSize(1, 30) -- width doesn't matter, height = extra space
-      spacer:SetPoint("TOPLEFT", lastCheckbox, "BOTTOMLEFT", 0, -10)
-    end
-  end
-
-  --------------------------------------
   -- Reputation Character options tab --
   --------------------------------------
   local characterTabTitle = REP_OptionsCharactersTab:CreateFontString(nil, "ARTWORK", "GameFontNormalLarge")
@@ -418,13 +350,10 @@ function ReputationGuide:RenderAddonSettingsFrame()
   characterTabSubTitle:SetPoint("TOPLEFT", characterTabTitle, "BOTTOMLEFT", 0, -10)
   characterTabSubTitle:SetWordWrap(true)
 
-  REP_OptionsCharactersTabScrollFrame = CreateFrame("ScrollFrame", nil, REP_OptionsCharactersTab, "UIPanelScrollFrameTemplate")
-  REP_OptionsCharactersTabScrollFrame:SetPoint("TOPLEFT", characterTabSubTitle, "BOTTOMLEFT", 0, -20)
-  REP_OptionsCharactersTabScrollFrame:SetSize(REP_OptionsCharactersTab:GetWidth(), 400)
-
-  REP_OptionsCharactersTabContent = CreateFrame("Frame", nil, REP_OptionsCharactersTabScrollFrame)
-  REP_OptionsCharactersTabContent:SetSize(REP_OptionsCharactersTab:GetWidth(), 400)
-  REP_OptionsCharactersTabScrollFrame:SetScrollChild(REP_OptionsCharactersTabContent)
+  REP_OptionsCharactersTabContent = CreateFrame("Frame", nil, REP_OptionsCharactersTab)
+  REP_OptionsCharactersTabContent:SetPoint("TOPLEFT", characterTabSubTitle, "BOTTOMLEFT", 0, -20)
+  REP_OptionsCharactersTabContent:SetPoint("RIGHT", 0, 0)
+  REP_OptionsCharactersTabContent:SetHeight(1)
   
   ReputationGuide:DisplayProfileFrames(true)
 
@@ -496,10 +425,32 @@ function ReputationGuide:DisplayProfileFrames(initOnly)
   end
 end
 
-function ReputationGuide:RenderProfileFrames()  
-  for profileKey, profileData in pairs(REP_Data.ProfileKeys) do
+function ReputationGuide:RenderProfileFrames()
+  local keys = {}
+  for profileKey in pairs(REP_Data.ProfileKeys) do
+    table.insert(keys, profileKey)
+  end
+
+  table.sort(keys, function(a, b)
+    local pa = REP_Data.ProfileKeys[a]
+    local pb = REP_Data.ProfileKeys[b]
+
+    if not pa or not pa.profile or not pb or not pb.profile then return end
+    local realmA = (pa.profile.realm or ""):lower()
+    local realmB = (pb.profile.realm or ""):lower()
+    local nameA  = (pa.profile.name or ""):lower()
+    local nameB  = (pb.profile.name or ""):lower()
+
+    if realmA == realmB then
+      return nameA < nameB
+    else
+      return realmA < realmB
+    end
+  end)
+
+  for _, profileKey in ipairs(keys) do
     local k = REP_Data.ProfileKeys[profileKey]
-    if k and k.profile then
+    if k and k.profile and k.profile.class then
       local profileFrame = ReputationGuide:CreateProfileFrame(#renderedProfileFrames + 1, profileKey)
       table.insert(renderedProfileFrames, profileFrame)
     end
@@ -508,37 +459,101 @@ end
 
 function ReputationGuide:CreateProfileFrame(index, profileKey, yOffset)
   local characterProfile = REP_Data.ProfileKeys[profileKey]
-  local profileName = format("%s-%s", characterProfile.profile.name, characterProfile.profile.realm)
+  if not characterProfile and not characterProfile.profile then return end
+  local color = "|c" .. ReputationGuide:GetClassColor(characterProfile.profile.class)
+  local profileName = color .. characterProfile.profile.name .. "-" .. characterProfile.profile.realm .. " |r(Level " .. characterProfile.profile.level .. ")"
 
   local frame = CreateFrame("Frame", nil, REP_OptionsCharactersTabContent)
   frame:SetSize(300, 50)
   frame:SetPoint("TOPLEFT", REP_OptionsCharactersTabContent, "TOPLEFT", 0, (-10 - ((index - 1) * 30)))
-
+  ------ ADD TOOLTIP BUTTON
+  frame.addTooltipButton = CreateFrame("Button", "REP_OptionsResetCharacterVariablesButton"..index, REP_OptionsCharactersTabContent)
+  frame.addTooltipButton:SetSize(15, 15)
+  frame.addTooltipButton:SetPoint("TOPLEFT", frame, "TOPLEFT", 0, 0)
+  frame.addTooltipButton.icon = frame.addTooltipButton:CreateTexture(nil, "ARTWORK")
+  frame.addTooltipButton.icon:SetAllPoints()
+  frame.addTooltipButton.icon:SetTexture(922035)
+  frame.addTooltipButton.icon:SetTexCoord(0.15, 0.77, 0.15, 0.77)
+  ReputationGuide:CheckCharacterToolTipState(frame.addTooltipButton.icon, profileKey)
+  frame.addTooltipButton:SetScript("OnClick", function()
+    REP_Data.ProfileKeys[profileKey].profile.ShowChar = not REP_Data.ProfileKeys[profileKey].profile.ShowChar
+    ReputationGuide:Print(string.format(REP_TXT.settings.characterUpdated, tostring(profileName)))
+    ReputationGuide:CheckCharacterToolTipState(frame.addTooltipButton.icon, profileKey)
+  end)
+  frame.addTooltipButton:SetScript("OnEnter", function()
+    GameTooltip:SetOwner(frame.addTooltipButton, "ANCHOR_RIGHT")
+    if characterProfile.profile.ShowChar then
+      GameTooltip:SetText(REP_TXT.settings.tooltips.removeCharacter)
+    else
+      GameTooltip:SetText(REP_TXT.settings.tooltips.addCharacter)
+    end
+    GameTooltip:Show()
+    frame.addTooltipButton:SetAlpha(0.7)
+  end)
+  frame.addTooltipButton:SetScript("OnLeave", function()
+    GameTooltip:Hide()
+    frame.addTooltipButton:SetAlpha(1)
+  end)
+  ------ Character name + realm
   frame.text = REP_OptionsCharactersTabContent:CreateFontString(nil, "OVERLAY", "GameFontNormal")
-  frame.text:SetPoint("TOPLEFT", frame, "TOPLEFT", 0, 0)
+  frame.text:SetPoint("LEFT", frame.addTooltipButton, "RIGHT", 5, 0)
   frame.text:SetText(profileName)
-  
-  frame.resetButton = CreateFrame("Button", "REP_OptionsResetCharacterVariablesButton"..index, REP_OptionsCharactersTabContent, "UIPanelButtonTemplate")
-  frame.resetButton:SetSize(80, 20)
+  ------ RESET BUTTON
+  frame.resetButton = CreateFrame("Button", "REP_OptionsResetCharacterVariablesButton"..index, REP_OptionsCharactersTabContent)
+  frame.resetButton:SetSize(15, 15)
   frame.resetButton:SetPoint("LEFT", frame.text, "RIGHT", 10, 0)
-  frame.resetButton:SetText("Reset")
   frame.resetButton:SetScript("OnClick", function()
     REP_Data.ProfileKeys[profileKey] = {}
-    ReputationGuide:Print("The saved variables for "..tostring(profileName).." has been reset.")
+    ReputationGuide:Print(string.format(REP_TXT.settings.characterReset, tostring(profileName)))
   end)
-
-  frame.deleteButton = CreateFrame("Button", "REP_OptionsDeleteCharacterVariablesButton"..index, REP_OptionsCharactersTabContent, "UIPanelButtonTemplate")
-  frame.deleteButton:SetSize(80, 20)
+  frame.resetButton:SetScript("OnEnter", function()
+    GameTooltip:SetOwner(frame.resetButton, "ANCHOR_RIGHT")
+    GameTooltip:SetText(REP_TXT.settings.reset)
+    GameTooltip:Show()
+    frame.resetButton:SetAlpha(0.7)
+  end)
+  frame.resetButton:SetScript("OnLeave", function()
+    GameTooltip:Hide()
+    frame.resetButton:SetAlpha(1)
+  end)
+  frame.resetButton.icon = frame.resetButton:CreateTexture(nil, "ARTWORK")
+  frame.resetButton.icon:SetAllPoints()
+  frame.resetButton.icon:SetTexture(851904)
+  ------ DELETE BUTTON
+  frame.deleteButton = CreateFrame("Button", "REP_OptionsDeleteCharacterVariablesButton"..index, REP_OptionsCharactersTabContent)
+  frame.deleteButton:SetSize(15, 15)
   frame.deleteButton:SetPoint("LEFT", frame.resetButton, "RIGHT", 10, 0)
-  frame.deleteButton:SetText("Delete")
+  frame.deleteButton:SetNormalAtlas("transmog-icon-remove")
   frame.deleteButton:SetScript("OnClick", function()
     ReputationGuide:RemoveProfileFrame(index)
     REP_Data.ProfileKeys[profileKey] = nil
-    ReputationGuide:Print(tostring(profileName).." has been removed from the saved variables.")
+    ReputationGuide:Print(string.format(REP_TXT.settings.characterDeleted, tostring(profileName)))
     frame = nil
+  end)
+  frame.deleteButton:SetScript("OnEnter", function()
+    GameTooltip:SetOwner(frame.deleteButton, "ANCHOR_RIGHT")
+    GameTooltip:SetText(REP_TXT.settings.delete)
+    GameTooltip:Show()
+    frame.deleteButton:SetAlpha(0.5)
+  end)
+  frame.deleteButton:SetScript("OnLeave", function()
+    GameTooltip:Hide()
+    frame.deleteButton:SetAlpha(1)
   end)
 
   return frame
+end
+
+function ReputationGuide:CheckCharacterToolTipState(frame, profileKey)
+  if not frame or not profileKey then return end
+  local characterProfile = REP_Data.ProfileKeys[profileKey]
+  if not characterProfile and not characterProfile.profile then return end
+
+  if characterProfile.profile.ShowChar then
+    frame:SetVertexColor(1, 1, 1)
+  else
+    frame:SetVertexColor(1, 0, 0)
+  end
 end
 
 function ReputationGuide:RemoveProfileFrame(index)

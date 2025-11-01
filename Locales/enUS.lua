@@ -641,6 +641,7 @@ REP_TXT.elements.tip.REP_OptionEnableParagonBarCB = REP_TXT.elements.tip.REP_Ena
 ---- General
 REP_TXT.settings = {}
 REP_TXT.settings.info = {}
+REP_TXT.settings.tooltips = {}
 ---- Titles
 REP_TXT.settings.buffTitle = "Reputation Buffs"
 REP_TXT.settings.buffSubTitle = "You can toggle these reputation buffs to see how much reputation you would get from different activities. Buffs that don't stack will be disabled when toggling their counterparts."
@@ -667,3 +668,10 @@ REP_TXT.settings.info.ShowBonusGainsInChat = "Show bonus reputation from commend
 -- Characters tab settings
 ---------------------------
 REP_TXT.settings.characterTabSubTitle = "You can either reset or delete one of your character's addon settings from the list below."
+REP_TXT.settings.tooltips.removeCharacter = "Remove this character from tooltips."
+REP_TXT.settings.tooltips.addCharacter = "Add this character to tooltips."
+REP_TXT.settings.delete = "Delete"
+REP_TXT.settings.reset = "Reset"
+REP_TXT.settings.characterUpdated = "The saved variables for %s have been updated."
+REP_TXT.settings.characterReset = "The saved variables for %s have been reset."
+REP_TXT.settings.characterDeleted = "The saved variables for %s have been deleted."

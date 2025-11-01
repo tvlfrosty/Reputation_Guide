@@ -315,13 +315,11 @@ end
 function ReputationGuide:GetCharacterDataForToolTip(factionID)
   local charactersForToolTip = {}
 
-  if not ReputationGuide.realm then ReputationGuide.realm = GetRealmName() end
-
   for profileKey, profileData in pairs(REP_Data.ProfileKeys) do
     local k = REP_Data.ProfileKeys[profileKey]
 
     if k and k.profile then
-      local showCharacter = (k.profile.ShowChar and ReputationGuide.realm == k.profile.realm) or false
+      local showCharacter = k.profile.ShowChar or false
 
       if showCharacter then
         local currentCharacter = {}
@@ -330,6 +328,7 @@ function ReputationGuide:GetCharacterDataForToolTip(factionID)
           currentCharacter = {
             name = k.profile.name,
             class = k.profile.class,
+            realm = k.profile.realm,
             standing = k.factions[factionID].standing,
             standingID = k.factions[factionID].standingID,
             current = k.factions[factionID].current,
@@ -339,6 +338,7 @@ function ReputationGuide:GetCharacterDataForToolTip(factionID)
           currentCharacter = {
             name = k.profile.name,
             class = k.profile.class,
+            realm = k.profile.realm,
             standing = "",
             standingID = 0,
             current = 0,
@@ -389,9 +389,10 @@ function ReputationGuide:AppendLinesForAnyToolTip(factionID, tooltip)
   for _, data in ipairs(charData) do
     local classColor = RAID_CLASS_COLORS[data.class] or { r = 1, g = 1, b = 1 }
     local standingColor = ReputationGuide.FACTION_BAR_COLORS[data.standingID] or {r = 0, g = 0.6, b = 0.1}
+    local charName = format("%s-%s", data.name, data.realm)
 
     tooltip:AddDoubleLine(
-      data.name,
+      charName,
       string.format("%s (%d/%d)", data.standing, data.current, data.max),
       classColor.r, classColor.g, classColor.b,
       standingColor.r, standingColor.g, standingColor.b
