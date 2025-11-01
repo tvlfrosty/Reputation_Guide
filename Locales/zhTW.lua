@@ -637,6 +637,7 @@ if (GetLocale() =="zhTW") then
   ---- General
   REP_TXT.settings = {}
   REP_TXT.settings.info = {}
+  REP_TXT.settings.tooltips = {}
   ---- Titles
   REP_TXT.settings.buffTitle = "聲望增益"
   REP_TXT.settings.buffSubTitle = "您可以切換這些聲望增益，以查看您可以從不同的活動中獲得多少聲望。不疊加的增益效果在切換其對應增益效果時將會停用。"

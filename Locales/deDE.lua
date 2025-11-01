@@ -642,6 +642,7 @@ if (GetLocale() == "deDE") then
   ---- General
   REP_TXT.settings = {}
   REP_TXT.settings.info = {}
+  REP_TXT.settings.tooltips = {}
   ---- Titles
   REP_TXT.settings.buffTitle = "Rufstärkungen"
   REP_TXT.settings.buffSubTitle = "Sie können diese Rufstärkungen umschalten, um zu sehen, wie viel Ruf Sie durch verschiedene Aktivitäten erhalten würden. Buffs, die nicht stapelbar sind, werden beim Umschalten ihrer Gegenstücke deaktiviert."
