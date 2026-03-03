@@ -1,6 +1,9 @@
 # Reputation Guide
 A World of Warcraft addon to help you manage your reputation and Factions.
 
+# Addon wil no longer be updated by me, I am currently not playing wow anymore, people are free to upload their own updated version, thanks for all the feedback through the years, and enjoy wow!
+
+
 ## Issues
 #### For any issues please refer to the issues tab [https://github.com/tvlfrosty/Reputation_Guide/issues](https://github.com/tvlfrosty/Reputation_Guide/issues) or in the [#issues](https://discord.com/channels/1006569125449056317/1007076956489142294) channel in discord.
 
