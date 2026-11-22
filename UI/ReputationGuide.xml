@@ -2,8 +2,6 @@
 	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
 	xsi:schemaLocation="http://www.blizzard.com/wow/ui/ ..\FrameXML\UI.xsd">
 
-	<Script file="ReputationGuide.lua"/>
-
   <!-- ==========================================================================================
     Initialize addon
   ========================================================================================== -->
@@ -11,7 +9,6 @@
 		<Scripts>
 			<OnLoad>REP_OnLoad(self)</OnLoad>
 			<OnEvent>REP_OnEvent(self, event, ...)</OnEvent>
-			<OnUpdate>REP_OnUpdate(self)</OnUpdate>
 		</Scripts>
 	</Frame>
 
@@ -197,8 +194,8 @@
 		</HitRectInsets>
 		<Scripts>
 			<OnClick>
-				REP_Data.Global.SortByStanding = self:GetChecked()
-				if (REP_Data.Global.SortByStanding) then
+				REP_SetSortByStanding(self:GetChecked())
+				if (REP_GetSortByStanding()) then
 					if SOUNDKIT then PlaySound(SOUNDKIT.IG_MAINMENU_OPTION_CHECKBOX_ON); end
 				else
 					if SOUNDKIT then PlaySound(SOUNDKIT.IG_MAINMENU_OPTION_CHECKBOX_OFF); end

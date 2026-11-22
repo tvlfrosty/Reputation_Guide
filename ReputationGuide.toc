@@ -15,8 +15,8 @@
 ## Category-zhTW: 使用者介面
 ## Description: ReputationGuide helps you manage your reputations by showing a more detailed reputation screen per faction.
 ## Notes: ReputationGuide helps you manage your reputations.
-## Version: full-1.6.0-release
-## Interface: 11307, 11404, 11508, 20505, 30405, 40402, 50503, 100207, 110207, 120000, 120001
+## Version: 2.0.0-release
+## Interface: 11307, 11404, 11508, 16001, 20504, 20505, 30405, 40402, 50503, 120000, 120001, 120005, 120100, 120105
 ## X-Curse-Project-ID: 657534
 ## SavedVariables: REP_Data
 ## SavedVariablesPerCharacter: REP_Suppressed
@@ -30,15 +30,42 @@ locales/locale.xml
 data/questdb.lua
 data/zones.lua
 data/mapping.lua
-data/content.lua
+data/registry.lua
+data/factions/classic.lua
+data/factions/tbc.lua
+data/factions/wotlk.lua
+data/factions/cata.lua
+data/factions/mop.lua
+data/factions/wod.lua
+data/factions/legion.lua
+data/factions/bfa.lua
+data/factions/shadowlands.lua
+data/factions/dragonflight.lua
+data/factions/thewarwithin.lua
+data/factions/guild.lua
+data/factions/forever.lua
+data/sources.lua
 
 # Core
 core/functions.lua
 core/variables.lua
+core/compat.lua
+data/friendships.lua
+core/player.lua
+core/reputation.lua
+core/chat.lua
+core/commands.lua
+core/verify.lua
+core/record.lua
 core/settings.lua
 core/addons.lua
 
 # UI
+ReputationGuide.lua
+UI/ReputationGuideSourcesList.lua
+UI/ReputationGuideClassicList.lua
 UI/ReputationGuide.xml
 UI/ReputationGuideSkin.lua
 UI/ReputationGuideDetailFrame.lua
+UI/ReputationGuideDetailPanel.lua
+UI/ReputationGuideManualEntry.lua

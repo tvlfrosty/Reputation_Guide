@@ -50,7 +50,7 @@ end
 
 -- Utility: get insets depending on container
 local function GetScrollFrameInsets()
-  if ReputationGuide.AfterShadowLands then
+  if ReputationGuide.UseScrollBoxReputationUI then
     return 0, -20, -4, 4
   else
     return 0, -26, -4, 4
@@ -68,6 +68,7 @@ local function CreateScrollablePanel(name, parent)
   local content = CreateFrame("Frame", name .. "Content", scrollFrame)
   content:SetSize(GetOptionsContainerWidth() - 30, 1) -- start small, grow with content
   scrollFrame:SetScrollChild(content)
+  ReputationGuide:ElvSkin("scrollBar", scrollFrame.ScrollBar or _G[name .. "ScrollFrameScrollBar"])
 
   return scrollFrame, content
 end
@@ -114,10 +115,15 @@ REPSettings.CreateOptionsPage = function(self, text, parentCategory, isRootCateg
 end
 
 ---- Fix for removed standard tooltips from the InterfaceOptionsCheckButtonTemplate
-local function SetCustomTooltip(self, text)
+local function SetCustomTooltip(self, text, title)
 	self:SetScript("OnEnter", function(self)
 		GameTooltip:SetOwner(self, "ANCHOR_RIGHT")
-		GameTooltip:SetText(text, nil, nil, nil, nil, true)
+		if title and title ~= "" then
+			GameTooltip:SetText(title, 1, 1, 1)
+			if text and text ~= "" then GameTooltip:AddLine(text, NORMAL_FONT_COLOR.r, NORMAL_FONT_COLOR.g, NORMAL_FONT_COLOR.b, true) end
+		else
+			GameTooltip:SetText(text or "", nil, nil, nil, nil, true)
+		end
 		GameTooltip:Show()
 	end)
 
@@ -140,11 +146,105 @@ local function checkbox(name, label, description, parent, onclick)
   check.tooltipText = label
   check.tooltipRequirement = description
 
-  if ReputationGuide.AfterCata then
-    SetCustomTooltip(check, description)
-  end
+  -- The options checkbox template of the current clients (Classic included) no longer shows tooltipText.
+  SetCustomTooltip(check, description, label)
+  ReputationGuide:ElvSkin("check", check)
 
   return check
+end
+
+-- Choice between a few values: a dropdown on clients with the menu API, otherwise a button that cycles.
+local function selector(label, description, parent, options, getValue, onSelect)
+  local holder = CreateFrame("Frame", nil, parent)
+  holder:SetSize(400, 26)
+
+  local text = holder:CreateFontString(nil, "ARTWORK", "GameFontHighlight")
+  text:SetPoint("LEFT", holder, "LEFT", 4, 0)
+  text:SetText(label)
+
+  local function TextOf(value)
+    for _, option in ipairs(options) do
+      if option.value == value then return option.text end
+    end
+    return ""
+  end
+
+  local ok, dropdown = false, nil
+  if MenuUtil then ok, dropdown = pcall(CreateFrame, "DropdownButton", nil, holder, "WowStyle1DropdownTemplate") end
+
+  if ok and dropdown and dropdown.SetupMenu then
+    dropdown:SetWidth(140)
+    dropdown:SetupMenu(function(_, rootDescription)
+      for _, option in ipairs(options) do
+        rootDescription:CreateRadio(option.text, function() return getValue() == option.value end, function() onSelect(option.value) end)
+      end
+    end)
+    holder.Refresh = function() dropdown:GenerateMenu() end
+    ReputationGuide:ElvSkin("dropdown", dropdown, 140)
+  else
+    dropdown = CreateFrame("Button", nil, holder, "UIPanelButtonTemplate")
+    dropdown:SetSize(140, 22)
+    dropdown:SetScript("OnClick", function(self)
+      local current, nextIndex = getValue(), 1
+      for i, option in ipairs(options) do
+        if option.value == current then nextIndex = (i % #options) + 1 end
+      end
+      onSelect(options[nextIndex].value)
+      self:SetText(TextOf(getValue()))
+    end)
+    holder.Refresh = function() dropdown:SetText(TextOf(getValue())) end
+    ReputationGuide:ElvSkin("button", dropdown)
+  end
+
+  dropdown:SetPoint("LEFT", text, "RIGHT", 12, 0)
+  SetCustomTooltip(holder, description, label)
+  holder:EnableMouse(true)
+
+  return holder
+end
+
+-- Slider from minValue to maxValue (step), the value is shown next to it.
+local function slider(label, description, parent, minValue, maxValue, step, formatValue, onChange)
+  local holder = CreateFrame("Frame", nil, parent)
+  holder:SetSize(400, 26)
+
+  local text = holder:CreateFontString(nil, "ARTWORK", "GameFontHighlight")
+  text:SetPoint("LEFT", holder, "LEFT", 4, 0)
+  text:SetText(label)
+
+  local bar = CreateFrame("Slider", nil, holder, BackdropTemplateMixin and "BackdropTemplate" or nil)
+  bar:SetOrientation("HORIZONTAL")
+  bar:SetSize(160, 17)
+  bar:SetPoint("LEFT", text, "RIGHT", 14, 0)
+  if bar.SetBackdrop then
+    bar:SetBackdrop({ bgFile = "Interface\\Buttons\\UI-SliderBar-Background", edgeFile = "Interface\\Buttons\\UI-SliderBar-Border", tile = true, tileSize = 8, edgeSize = 8, insets = { left = 3, right = 3, top = 6, bottom = 6 } })
+  end
+  bar:SetThumbTexture("Interface\\Buttons\\UI-SliderBar-Button-Horizontal")
+  bar:SetMinMaxValues(minValue, maxValue)
+  bar:SetValueStep(step)
+  if bar.SetObeyStepOnDrag then bar:SetObeyStepOnDrag(true) end
+  ReputationGuide:ElvSkin("slider", bar)
+
+  local valueText = holder:CreateFontString(nil, "ARTWORK", "GameFontHighlightSmall")
+  valueText:SetPoint("LEFT", bar, "RIGHT", 8, 0)
+
+  bar:SetScript("OnValueChanged", function(_, value)
+    value = math.floor(value / step + 0.5) * step
+    valueText:SetText(formatValue(value))
+    if not holder.isRefreshing then onChange(value) end
+  end)
+
+  holder.SetValue = function(self, value)
+    self.isRefreshing = true
+    bar:SetValue(value)
+    valueText:SetText(formatValue(value))
+    self.isRefreshing = false
+  end
+
+  SetCustomTooltip(holder, description, label)
+  holder:EnableMouse(true)
+
+  return holder
 end
 
 local function button(text, tooltip, parent, onclick)
@@ -153,18 +253,15 @@ local function button(text, tooltip, parent, onclick)
   btn.tooltipText = tooltip
   btn:SetScript("OnClick", function(self) onclick(self) end)
   btn:SetHeight(24)
+  ReputationGuide:ElvSkin("button", btn)
   return btn
 end
 
-local function HideBlizzOptions()
-  HideUIPanel(InterfaceOptionsFrame)
-  HideUIPanel(GameMenuFrame)
-end
-
+-- The reputation factor is applied when the sources list is built, a refresh is enough.
 local function REP_ToggleReputationBuff()
-  REP_FactionGain = {}
-  REP_InitEnFactionGains(ReputationGuide.GuildName)
-  if not ReputationGuide.AfterDragonflight then
+  if ReputationGuide.UseModernReputationUI then
+    ReputationGuide:RequestDetailFrameRefresh()
+  else
     ReputationFrame_Update()
   end
 end
@@ -181,6 +278,24 @@ local function ToggleMrPopularityRank(lowerRank, higherRank)
   elseif REP_Data.Global.GuildRepBuffRankTwo then
     lowerRank:Disable()
     lowerRank:SetAlpha(0.4)
+  end
+end
+
+function ReputationGuide:RefreshDarkmoonFaireBuffOptions()
+  local buffOne, buffTwo = _G["REPCheck_DarkmoonFaireWeeRepBuffBox"], _G["REPCheck_DarkmoonFaireHatRepBuffBox"]
+  if not buffOne or not buffTwo then return end
+
+  buffOne:Enable()
+  buffOne:SetAlpha(1)
+  buffTwo:Enable()
+  buffTwo:SetAlpha(1)
+
+  if REP_Data.Global.DarkmoonfaireWeeRepBuff then
+    buffTwo:Disable()
+    buffTwo:SetAlpha(0.4)
+  elseif REP_Data.Global.DarkmoonfaireHatRepBuff then
+    buffOne:Disable()
+    buffOne:SetAlpha(0.4)
   end
 end
 
@@ -202,7 +317,7 @@ end
 -------------------------------------------------------------------------------
 -- TODO: Clean up this function (Options page should only be rendered once.)
 -------------------------------------------------------------------------------
-local REP_OptionsGeneralTab, REP_OptionsCharactersTab, REP_OptionsCharactersTabContent
+local REP_OptionsGeneralTab, REP_OptionsCharactersTab, REP_OptionsCharactersTabContent, REP_OptionsDetailsTab
  
 function REPSettings:Open()
   if InterfaceOptionsFrame_OpenToCategory then
@@ -216,6 +331,7 @@ end
 function ReputationGuide:RenderAddonSettingsFrame()
   REP_OptionsGeneralTab = REPSettings:CreateOptionsPage(addonName)
   REP_OptionsCharactersTab = REPSettings:CreateOptionsPage("Characters", addonName, true)
+  REP_OptionsDetailsTab = REPSettings:CreateOptionsPage(REP_TXT.settings.detailsTabTitle, addonName)
 
   ---------------------------
   -- General options --
@@ -225,7 +341,6 @@ function ReputationGuide:RenderAddonSettingsFrame()
   title:SetPoint("TOPLEFT", 16, -16)
 
   local showMissing = checkbox("EnableMissingBox", REP_TXT.showMissing, REP_TXT.elements.tip.REP_EnableMissingBox, REP_OptionsGeneralTab, function(_, checked) REP_Data.Global.ShowMissing = checked end)
-  local extendDetails = checkbox("ExtendDetailsBox", REP_TXT.extendDetails, REP_TXT.elements.tip.REP_ExtendDetailsBox, REP_OptionsGeneralTab, function(_, checked) REP_Data.Global.ExtendDetails = checked end)
   local gainToChat = checkbox("GainToChatBox", REP_TXT.gainToChat, REP_TXT.elements.tip.REP_GainToChatBox, REP_OptionsGeneralTab, function(_, checked) REP_Data.Global.WriteChatMessage = checked end)
   local showPreviewRep = checkbox("ShowPreviewRepBox", REP_TXT.showPreviewRep, REP_TXT.elements.tip.REP_ShowPreviewRepBox, REP_OptionsGeneralTab, function(_, checked) REP_Data.Global.ShowPreviewRep = checked end)
   local switchFactionBar = checkbox("SwitchFactionBarBox", REP_TXT.switchFactionBar, REP_TXT.elements.tip.REP_SwitchFactionBarBox, REP_OptionsGeneralTab, function(_, checked) REP_Data.Global.SwitchFactionBar = checked end)
@@ -237,8 +352,7 @@ function ReputationGuide:RenderAddonSettingsFrame()
   ---- General options positioning
   title:SetPoint("TOPLEFT", 16, -16)
   showMissing:SetPoint("TOPLEFT", title, "BOTTOMLEFT", -2, -16)
-  extendDetails:SetPoint("TOPLEFT", showMissing, "BOTTOMLEFT", 0, 0)
-  gainToChat:SetPoint("TOPLEFT", extendDetails, "BOTTOMLEFT", 0, 0)
+  gainToChat:SetPoint("TOPLEFT", showMissing, "BOTTOMLEFT", 0, 0)
   switchFactionBar:SetPoint("TOPLEFT", showPreviewRep, "BOTTOMLEFT", 0, 0)  
   silentSwitch:SetPoint("TOPLEFT", switchFactionBar, "BOTTOMLEFT", 20, 0)
 
@@ -266,7 +380,7 @@ function ReputationGuide:RenderAddonSettingsFrame()
 
   ---- Reputation Buffs options init part 2
   if ReputationGuide.AfterTBC then
-    harvestBountyRepBuff = checkbox("HarvestBountyRepBuffBox", REP_TXT.settings.harvestBountyRepBuff, REP_TXT.settings.info.harvestBountyRepBuff, REP_OptionsGeneralTab, function(_, checked) REP_Data.Global.HarvestBountyRepBuff = checked REP_ToggleReputationBuff() end)
+    harvestBountyRepBuff = checkbox("HarvestBountyRepBuffBox", REP_TXT.settings.harvestBountyRepBuff, REP_TXT.settings.info.harvestBountyRepBuff, REP_OptionsGeneralTab, function(_, checked) ReputationGuide:SetReputationBuffManually("HarvestBountyRepBuff", checked) REP_ToggleReputationBuff() end)
   end
 
   if ReputationGuide.AfterWotlk then
@@ -274,9 +388,9 @@ function ReputationGuide:RenderAddonSettingsFrame()
     noGuildSwitch = checkbox("NoGuildSwitchBox", REP_TXT.noGuildSwitch, REP_TXT.elements.tip.REP_NoGuildSwitchBox, REP_OptionsGeneralTab, function(_, checked) REP_Data.Global.NoGuildSwitch = checked end)
     
     if ReputationGuide.IsAlliance then -- Alliance
-      wickermanRepBuff = checkbox("WickermanRepBuffBox", REP_TXT.settings.wickermanRepBuffUnburdened, REP_TXT.settings.info.wickermanRepBuffUnburdened, REP_OptionsGeneralTab, function(_, checked) REP_Data.Global.WickermanRepBuff = checked REP_ToggleReputationBuff() end)
+      wickermanRepBuff = checkbox("WickermanRepBuffBox", REP_TXT.settings.wickermanRepBuffUnburdened, REP_TXT.settings.info.wickermanRepBuffUnburdened, REP_OptionsGeneralTab, function(_, checked) ReputationGuide:SetReputationBuffManually("WickermanRepBuff", checked) REP_ToggleReputationBuff() end)
     else -- Horde
-      wickermanRepBuff = checkbox("WickermanRepBuffBox", REP_TXT.settings.wickermanRepBuffGrimVisage, REP_TXT.settings.info.wickermanRepBuffGrimVisage, REP_OptionsGeneralTab, function(_, checked) REP_Data.Global.WickermanRepBuff = checked REP_ToggleReputationBuff() end)
+      wickermanRepBuff = checkbox("WickermanRepBuffBox", REP_TXT.settings.wickermanRepBuffGrimVisage, REP_TXT.settings.info.wickermanRepBuffGrimVisage, REP_OptionsGeneralTab, function(_, checked) ReputationGuide:SetReputationBuffManually("WickermanRepBuff", checked) REP_ToggleReputationBuff() end)
     end
 
     noGuildGain:SetPoint("TOPLEFT", gainToChat, "BOTTOMLEFT", 20, 0)
@@ -292,8 +406,8 @@ function ReputationGuide:RenderAddonSettingsFrame()
     end
 
     if ReputationGuide.AfterCata then
-      darkmoonfaireWeeRepBuff = checkbox("DarkmoonFaireWeeRepBuffBox", REP_TXT.settings.DarkmoonFaireWeeRepBuff, REP_TXT.settings.info.DarkmoonFaireWeeRepBuff, REP_OptionsGeneralTab, function(_, checked) REP_Data.Global.DarkmoonfaireWeeRepBuff = checked REP_ToggleReputationBuff() ToggleDarkmoonFaireBuff(darkmoonfaireWeeRepBuff, darkmoonfaireHatRepBuff) end)
-      darkmoonfaireHatRepBuff = checkbox("DarkmoonFaireHatRepBuffBox", REP_TXT.settings.DarkmoonFaireHatRep, REP_TXT.settings.info.DarkmoonFaireHatRep, REP_OptionsGeneralTab, function(_, checked) REP_Data.Global.DarkmoonfaireHatRepBuff = checked REP_ToggleReputationBuff() ToggleDarkmoonFaireBuff(darkmoonfaireWeeRepBuff, darkmoonfaireHatRepBuff) end)
+      darkmoonfaireWeeRepBuff = checkbox("DarkmoonFaireWeeRepBuffBox", REP_TXT.settings.DarkmoonFaireWeeRepBuff, REP_TXT.settings.info.DarkmoonFaireWeeRepBuff, REP_OptionsGeneralTab, function(_, checked) ReputationGuide:SetReputationBuffManually("DarkmoonfaireWeeRepBuff", checked) REP_ToggleReputationBuff() ToggleDarkmoonFaireBuff(darkmoonfaireWeeRepBuff, darkmoonfaireHatRepBuff) end)
+      darkmoonfaireHatRepBuff = checkbox("DarkmoonFaireHatRepBuffBox", REP_TXT.settings.DarkmoonFaireHatRep, REP_TXT.settings.info.DarkmoonFaireHatRep, REP_OptionsGeneralTab, function(_, checked) ReputationGuide:SetReputationBuffManually("DarkmoonfaireHatRepBuff", checked) REP_ToggleReputationBuff() ToggleDarkmoonFaireBuff(darkmoonfaireWeeRepBuff, darkmoonfaireHatRepBuff) end)
       ToggleDarkmoonFaireBuff(darkmoonfaireWeeRepBuff, darkmoonfaireHatRepBuff)
 
       showBonusGainsInChat = checkbox("ShowBonusGainsInChatBox", REP_TXT.settings.ShowBonusGainsInChat, REP_TXT.settings.info.ShowBonusGainsInChat, REP_OptionsGeneralTab, function(_, checked) REP_Data.Global.ShowBonusGainsInChat = checked end)
@@ -315,19 +429,22 @@ function ReputationGuide:RenderAddonSettingsFrame()
       showAllFactionsGains:SetPoint("TOPLEFT", noGuildSwitch, "BOTTOMLEFT", -20, 0)
     end
   else
-    wickermanRepBuff = checkbox("WickermanRepBuffBox", REP_TXT.settings.wickermanRepBuff, REP_TXT.settings.info.wickermanRepBuff, REP_OptionsGeneralTab, function(_, checked) REP_Data.Global.WickermanRepBuff = checked REP_ToggleReputationBuff() end)
+    wickermanRepBuff = checkbox("WickermanRepBuffBox", REP_TXT.settings.wickermanRepBuff, REP_TXT.settings.info.wickermanRepBuff, REP_OptionsGeneralTab, function(_, checked) ReputationGuide:SetReputationBuffManually("WickermanRepBuff", checked) REP_ToggleReputationBuff() end)
 
     showPreviewRep:SetPoint("TOPLEFT", gainToChat, "BOTTOMLEFT", 0, 0)
     showAllFactionsGains:SetPoint("TOPLEFT", silentSwitch, "BOTTOMLEFT", -20, 0)
   end
 
+  local showSyncMessages = checkbox("ShowSyncMessagesBox", REP_TXT.showSyncMessages, REP_TXT.showSyncMessagesTip, REP_OptionsGeneralTab, function(_, checked) REP_Data.Global.ShowSyncMessages = checked end)
+  showSyncMessages:SetPoint("TOPLEFT", showAllFactionsGains, "BOTTOMLEFT", 0, 0)
+
   if ReputationGuide.AfterCata then
-    showBonusGainsInChat:SetPoint("TOPLEFT", showAllFactionsGains, "BOTTOMLEFT", 0, 0)
+    showBonusGainsInChat:SetPoint("TOPLEFT", showSyncMessages, "BOTTOMLEFT", 0, 0)
     buffsDivider:SetStartPoint("BOTTOMLEFT", showBonusGainsInChat, 0, -16)
     buffsDivider:SetEndPoint("BOTTOMRIGHT", showBonusGainsInChat, 400, -16)
   else
-    buffsDivider:SetStartPoint("BOTTOMLEFT", showAllFactionsGains, 0, -16)
-    buffsDivider:SetEndPoint("BOTTOMRIGHT", showAllFactionsGains, 400, -16)
+    buffsDivider:SetStartPoint("BOTTOMLEFT", showSyncMessages, 0, -16)
+    buffsDivider:SetEndPoint("BOTTOMRIGHT", showSyncMessages, 400, -16)
   end
 
   wickermanRepBuff:SetPoint("TOPLEFT", buffSubTitle, "BOTTOMLEFT", -5, -16)
@@ -339,7 +456,7 @@ function ReputationGuide:RenderAddonSettingsFrame()
   -- Reputation Character options tab --
   --------------------------------------
   local characterTabTitle = REP_OptionsCharactersTab:CreateFontString(nil, "ARTWORK", "GameFontNormalLarge")
-  characterTabTitle:SetText(addonName.." Characters")
+  characterTabTitle:SetText(addonName.." "..REP_TXT.characters)
   characterTabTitle:SetPoint("TOPLEFT", 16, -16)
 
   local characterTabSubTitle = REP_OptionsCharactersTab:CreateFontString(nil, "ARTWORK", "GameFontNormalSmall")
@@ -357,17 +474,96 @@ function ReputationGuide:RenderAddonSettingsFrame()
   
   ReputationGuide:DisplayProfileFrames(true)
 
+  ------------------------------------
+  -- Details frame options tab --
+  ------------------------------------
+  local detailsTabTitle = REP_OptionsDetailsTab:CreateFontString(nil, "ARTWORK", "GameFontNormalLarge")
+  detailsTabTitle:SetText(addonName.." "..REP_TXT.settings.detailsTabTitle)
+  detailsTabTitle:SetPoint("TOPLEFT", 16, -16)
+
+  local detailsTabSubTitle = REP_OptionsDetailsTab:CreateFontString(nil, "ARTWORK", "GameFontNormalSmall")
+  detailsTabSubTitle:SetJustifyH("LEFT")
+  detailsTabSubTitle:SetText(REP_TXT.settings.detailsTabSubTitle)
+  detailsTabSubTitle:SetWidth(640)
+  detailsTabSubTitle:SetTextColor(1, 1, 1, 0.8)
+  detailsTabSubTitle:SetPoint("TOPLEFT", detailsTabTitle, "BOTTOMLEFT", 0, -10)
+  detailsTabSubTitle:SetWordWrap(true)
+
+  local extendDetails = checkbox("ExtendDetailsBox", REP_TXT.extendDetails, REP_TXT.elements.tip.REP_ExtendDetailsBox, REP_OptionsDetailsTab, function(_, checked)
+    REP_Data.Global.ExtendDetails = checked
+    if ReputationGuide.ApplyDetailFrameMode then ReputationGuide:ApplyDetailFrameMode() end
+  end)
+  extendDetails:SetPoint("TOPLEFT", detailsTabSubTitle, "BOTTOMLEFT", -2, -16)
+
+  local showStandingBar = checkbox("ShowStandingBarBox", REP_TXT.settings.showStandingBar, REP_TXT.settings.info.showStandingBar, REP_OptionsDetailsTab, function(_, checked)
+    REP_Data.Global.ShowStandingBar = checked
+    if REP_DetailPanel and REP_DetailPanel.ApplyOptions then REP_DetailPanel:ApplyOptions() end
+  end)
+  showStandingBar:SetPoint("TOPLEFT", extendDetails, "BOTTOMLEFT", 0, 0)
+
+  local allowResize = checkbox("AllowDetailResizeBox", REP_TXT.settings.allowDetailResize, REP_TXT.settings.info.allowDetailResize, REP_OptionsDetailsTab, function(_, checked)
+    REP_Data.Global.AllowDetailResize = checked
+    if ReputationGuide.ApplyDetailResizeOption then ReputationGuide:ApplyDetailResizeOption() end
+  end)
+  allowResize:SetPoint("TOPLEFT", showStandingBar, "BOTTOMLEFT", 0, 0)
+
+  local function ApplyDetailOptions()
+    if REP_DetailPanel and REP_DetailPanel.ApplyOptions then REP_DetailPanel:ApplyOptions() end
+  end
+
+  local showDescription = checkbox("ShowDetailDescriptionBox", REP_TXT.settings.showDetailDescription, REP_TXT.settings.info.showDetailDescription, REP_OptionsDetailsTab, function(_, checked)
+    REP_Data.Global.ShowDetailDescription = checked
+    ApplyDetailOptions()
+  end)
+  showDescription:SetPoint("TOPLEFT", allowResize, "BOTTOMLEFT", 0, 0)
+
+  local showStatistics = checkbox("ShowDetailStatisticsBox", REP_TXT.settings.showDetailStatistics, REP_TXT.settings.info.showDetailStatistics, REP_OptionsDetailsTab, function(_, checked)
+    REP_Data.Global.ShowDetailStatistics = checked
+    ApplyDetailOptions()
+  end)
+  showStatistics:SetPoint("TOPLEFT", showDescription, "BOTTOMLEFT", 0, 0)
+
+  local expandByDefault = checkbox("ExpandSourcesByDefaultBox", REP_TXT.settings.expandSourcesByDefault, REP_TXT.settings.info.expandSourcesByDefault, REP_OptionsDetailsTab, function(_, checked)
+    REP_Data.Global.ExpandSourcesByDefault = checked
+    if REP_BuildUpdateList then REP_BuildUpdateList() end
+  end)
+  expandByDefault:SetPoint("TOPLEFT", showStatistics, "BOTTOMLEFT", 0, 0)
+
+  local fontSize = selector(REP_TXT.settings.listFontSize, REP_TXT.settings.info.listFontSize, REP_OptionsDetailsTab, {
+    { value = "small", text = REP_TXT.settings.fontSmall },
+    { value = "normal", text = REP_TXT.settings.fontNormal },
+    { value = "large", text = REP_TXT.settings.fontLarge },
+  }, function() return REP_Data.Global.DetailListFontSize or "normal" end, function(value)
+    REP_Data.Global.DetailListFontSize = value
+    ApplyDetailOptions()
+  end)
+  fontSize:SetPoint("TOPLEFT", expandByDefault, "BOTTOMLEFT", 0, -8)
+
+  local transparency = slider(REP_TXT.settings.backgroundAlpha, REP_TXT.settings.info.backgroundAlpha, REP_OptionsDetailsTab, 20, 100, 5, function(value) return value.."%" end, function(value)
+    REP_Data.Global.DetailBackgroundAlpha = value / 100
+    ApplyDetailOptions()
+  end)
+  transparency:SetPoint("TOPLEFT", fontSize, "BOTTOMLEFT", 0, -10)
+
   ----------------------------------
   -- Init addon settings --
   ----------------------------------
   local function initOptions()
     showMissing:SetChecked(REP_Data.Global.ShowMissing)
     extendDetails:SetChecked(REP_Data.Global.ExtendDetails)
+    showStandingBar:SetChecked(REP_Data.Global.ShowStandingBar ~= false)
+    allowResize:SetChecked(REP_Data.Global.AllowDetailResize ~= false)
+    showDescription:SetChecked(REP_Data.Global.ShowDetailDescription ~= false)
+    showStatistics:SetChecked(REP_Data.Global.ShowDetailStatistics ~= false)
+    expandByDefault:SetChecked(REP_Data.Global.ExpandSourcesByDefault and true or false)
+    fontSize:Refresh()
+    transparency:SetValue(math.floor((tonumber(REP_Data.Global.DetailBackgroundAlpha) or 1) * 100 + 0.5))
     gainToChat:SetChecked(REP_Data.Global.WriteChatMessage)
     showPreviewRep:SetChecked(REP_Data.Global.ShowPreviewRep)
     switchFactionBar:SetChecked(REP_Data.Global.SwitchFactionBar)
     silentSwitch:SetChecked(REP_Data.Global.SilentSwitch)
     showAllFactionsGains:SetChecked(REP_Data.Global.ShowAllFactionsGains)
+    showSyncMessages:SetChecked(REP_Data.Global.ShowSyncMessages ~= false)
 
     wickermanRepBuff:SetChecked(REP_Data.Global.WickermanRepBuff)
 
@@ -412,7 +608,7 @@ function ReputationGuide:DisplayProfileFrames(initOnly)
   local index = 0
   for profileKey, profileData in pairs(REP_Data.ProfileKeys) do
     index = index + 1
-    profileFrame = ReputationGuide.renderedProfileFrames[index]
+    local profileFrame = ReputationGuide.renderedProfileFrames[index]
     
     if profileFrame then
       if not initOnly then
@@ -461,7 +657,7 @@ function ReputationGuide:CreateProfileFrame(index, profileKey, yOffset)
   local characterProfile = REP_Data.ProfileKeys[profileKey]
   if not characterProfile and not characterProfile.profile then return end
   local color = "|c" .. ReputationGuide:GetClassColor(characterProfile.profile.class)
-  local profileName = color .. characterProfile.profile.name .. "-" .. characterProfile.profile.realm .. " |r(Level " .. characterProfile.profile.level .. ")"
+  local profileName = color .. characterProfile.profile.name .. "-" .. characterProfile.profile.realm .. " |r(" .. (LEVEL or "Level") .. " " .. characterProfile.profile.level .. ")"
 
   local frame = CreateFrame("Frame", nil, REP_OptionsCharactersTabContent)
   frame:SetSize(300, 50)
@@ -582,4 +778,4 @@ function ReputationGuide:RemoveProfileFrame(index)
 
   table.remove(renderedProfileFrames, index)
   ReputationGuide:DisplayProfileFrames()
-end
+end
