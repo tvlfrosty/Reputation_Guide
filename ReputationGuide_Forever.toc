@@ -1,0 +1,61 @@
+## Title: ReputationGuide |cff3fc7eb(Forever)|r
+## IconTexture: Interface/Addons/ReputationGuide/assets/factions_logo_256x256
+## Name: ReputationGuide
+## Author: Tvlfrosty
+## Category: User Interface
+## Category-deDE: Benutzerinterface
+## Category-esES: Interfaz de usuario
+## Category-esMX: Interfaz de usuario
+## Category-frFR: Interface utilisateur
+## Category-itIT: Interfaccia utente
+## Category-koKR: 사용자 인터페이스
+## Category-ptBR: Interface do usuário
+## Category-ruRU: Интерфейс пользователя
+## Category-zhCN: 用户界面
+## Category-zhTW: 使用者介面
+## Description: ReputationGuide helps you manage your reputations by showing a more detailed reputation screen per faction.
+## Notes: ReputationGuide helps you manage your reputations.
+## Version: 2.0.0-release
+## Interface: 16001
+## X-Curse-Project-ID: 657534
+## SavedVariables: REP_Data
+## SavedVariablesPerCharacter: REP_Suppressed
+## X-Discord: https://discord.gg/3zh4EFptta
+## URL: https://www.curseforge.com/wow/addons/reputation-guide
+
+# Locales
+locales/locale.xml
+
+# Data
+data/questdb.lua
+data/zones.lua
+data/mapping.lua
+data/registry.lua
+data/factions/classic.lua
+data/factions/forever.lua
+data/sources.lua
+
+# Core
+core/functions.lua
+core/variables.lua
+core/compat.lua
+data/friendships.lua
+core/player.lua
+core/reputation.lua
+core/chat.lua
+core/commands.lua
+core/verify.lua
+core/record.lua
+core/settings.lua
+core/addons.lua
+
+# UI
+ReputationGuide.lua
+UI/ReputationGuideSourcesList.lua
+UI/ReputationGuide.xml
+UI/ReputationGuideDetailPanel.xml
+UI/ReputationGuideSkin.lua
+UI/ReputationGuideDetailFrame.lua
+UI/ReputationGuideDetailPanel.lua
+UI/ReputationGuideSortedList.lua
+UI/ReputationGuideManualEntry.lua

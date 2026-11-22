@@ -7,16 +7,16 @@ local addonName, ReputationGuide = ...
 -- General Addon Functions --
 -----------------------------
 function ReputationGuide:About()
-  local ver = GetAddOnMetadata("ReputationGuide", "Version")
-  local date = GetAddOnMetadata("ReputationGuide", "X-Date")
-  local author = GetAddOnMetadata("ReputationGuide", "Author")
-  local web = GetAddOnMetadata("ReputationGuide", "X-Website")
+  local ver = ReputationGuide:GetAddOnMetadata(addonName, "Version")
+  local date = ReputationGuide:GetAddOnMetadata(addonName, "X-Date")
+  local author = ReputationGuide:GetAddOnMetadata(addonName, "Author")
+  local web = ReputationGuide:GetAddOnMetadata(addonName, "X-Website")
 
   if (author ~= nil) then
     if ReputationGuide.AfterShadowLands then
       ReputationGuide:Print(addonName.." "..REP_TXT.by..": "..ReputationGuide.HELP_COLOUR..author.."|r", true)
     else
-      ReputationGuide:Print(addonName.." "..REP_TXT.by..": "..ReputationGuide.HELP_COLOUR..author.."|r"..", updated and maintained by: "..ReputationGuide.HELP_COLOUR.."Tvlfrosty-Firemaw".."|r", true)
+      ReputationGuide:Print(addonName.." "..REP_TXT.by..": "..ReputationGuide.HELP_COLOUR..author.."|r"..", "..REP_TXT.maintainedBy..": "..ReputationGuide.HELP_COLOUR.."Tvlfrosty-Firemaw".."|r", true)
     end
   end
   if (ver ~= nil) then
@@ -39,10 +39,12 @@ function ReputationGuide:Help()
   ReputationGuide:Print(ReputationGuide.HELP_COLOUR..REP_TXT.usage..":|r /rep status "..ReputationGuide.HELP_COLOUR..REP_TXT.helpstatus, true)
   
   if ReputationGuide.AfterClassic then
-    ReputationGuide:Print(ReputationGuide.HELP_COLOUR..REP_TXT.usage..":|r /rep watch <factionID> "..ReputationGuide.HELP_COLOUR.."Set faction as watched", true) -- TODO: Add as localised text
+    ReputationGuide:Print(ReputationGuide.HELP_COLOUR..REP_TXT.usage..":|r /rep watch <factionID> "..ReputationGuide.HELP_COLOUR..REP_TXT.helpwatch, true)
   end
 
-  ReputationGuide:Print(ReputationGuide.HELP_COLOUR..REP_TXT.usage..":|r /rep watchindex <factionIndex> "..ReputationGuide.HELP_COLOUR.."Set faction as watched", true) -- TODO: Add as localised text
+  ReputationGuide:Print(ReputationGuide.HELP_COLOUR..REP_TXT.usage..":|r /rep watchindex <factionIndex> "..ReputationGuide.HELP_COLOUR..REP_TXT.helpwatch, true)
+  ReputationGuide:Print(ReputationGuide.HELP_COLOUR..REP_TXT.usage..":|r /rep sync "..ReputationGuide.HELP_COLOUR..REP_TXT.helpsync, true)
+  ReputationGuide:Print(ReputationGuide.HELP_COLOUR..REP_TXT.usage..":|r /rep record [status] "..ReputationGuide.HELP_COLOUR..REP_TXT.helprecord, true)
   ReputationGuide:Print(ReputationGuide.HELP_COLOUR..REP_TXT.usage..":|r /rep enable { mobs | quests | pvpquests | instances | items | all }", true)
   ReputationGuide:Print(ReputationGuide.HELP_COLOUR..REP_TXT.usage..":|r /rep disable { mobs | quests | pvpquests | instances | items | all }", true)
   ReputationGuide:Print(ReputationGuide.HELP_COLOUR..REP_TXT.usage..":|r /rep toggle { mobs | quests | pvpquests | instances | items | all }", true)
@@ -86,11 +88,13 @@ function ReputationGuide:Print(msg, forceDefault)
   if ((REP_Data == nil) or forceDefault) then
     DEFAULT_CHAT_FRAME:AddMessage(msg)
   else
-    for i = 1, NUM_CHAT_WINDOWS do
+    local numChatWindows = NUM_CHAT_WINDOWS or (Constants and Constants.ChatFrameConstants and Constants.ChatFrameConstants.MaxChatWindows) or 10
+
+    for i = 1, numChatWindows do
       local chatTab = _G["ChatFrame"..i.."Tab"]
-      if chatTab:IsShown() then
+      if chatTab and chatTab:IsShown() then
         local chatFrame = _G["ChatFrame"..i]
-        local messageTypes = chatFrame.messageTypeList
+        local messageTypes = chatFrame and chatFrame.messageTypeList or {}
         for j = 1, #messageTypes do
           if messageTypes[j] == "COMBAT_FACTION_CHANGE" then
             _G["ChatFrame"..i]:AddMessage(msg)
@@ -115,9 +119,6 @@ function ReputationGuide:DumpTable(o)
   end
 end
 ---------------------------------------------------
-function ReputationGuide:Printtest(msg, msg1, msg2)
-  ReputationGuide:Print(""..tostring(msg).." "..tostring(msg1).."  "..tostring(msg2), nil)
-end
 
 function ReputationGuide:PrintSlash(msg, msg1)
   ReputationGuide:Print(ReputationGuide.HELP_COLOUR..addonName..":|r "..msg.." ["..ReputationGuide.HELP_COLOUR..msg1.."|r]", true)
@@ -142,7 +143,7 @@ function ReputationGuide:GetWords(str)
   local pos = 0
   local index = 0
   while(true) do
-    local word
+    local _, word
     _, pos, word = string.find(str, "^ *([^%s]+) *", pos + 1)
     if(not word) then
       return ret
@@ -152,20 +153,6 @@ function ReputationGuide:GetWords(str)
   end
 end
 ---------------------------------------------------
-function ReputationGuide:Concat(list, start, stop)
-  local ret = ""
-
-  if (start == nil) then start = 0 end
-  if (stop == nil) then stop = ReputationGuide:TableSize(list) end
-
-  for i = start, stop do
-    if list[i] then
-      if (ret ~= "") then ret = ret.." " end
-        ret = ret..list[i]
-      end
-    end
-  return ret
-end
 ---------------------------------------------------
 function ReputationGuide:BoolToEnabled(b)
   local result = REP_TXT.disabled
@@ -191,26 +178,7 @@ function ReputationGuide:TableSort(a, b)
   return a.rep > b.rep
 end
 ---------------------------------------------------
-function ReputationGuide:GetTableCount(table)
-  local count = 0
-  for _ in pairs(table) do count = count + 1 end
-  return count
-end
 ---------------------------------------------------
-function ReputationGuide:FormatLongName(name)
-  -- Fix for super long names to force name on 2nd line
-  local formattedName = name
-  if (string.len(name) > 25 and string.find(name, "-")) then
-    local tb = {}
-    for i in (name .. "-"):gmatch("([^-]*)-") do
-      table.insert(tb, i)
-    end
-
-    formattedName = tostring(tb[1]).." -"..string.char(10)..tostring(tb[2])
-  end
-
-  return formattedName
-end
 ---------------------------------------------------
 function ReputationGuide:PlayCheckBoxSound(isChecked)
   if SOUNDKIT then
@@ -233,7 +201,46 @@ function ReputationGuide:GetClassColor(class)
   end
 end
 ---------------------------------------------------
-function ReputationGuide:GetReputationFactor(isHuman, factionName)
+-- Factions with a bonus from the Draenor trading post (by factionID, so it works in every client language).
+local DRAENOR_TRADING_POST_FACTIONS = {
+  [1731] = true, -- Council of Exarchs
+  [1445] = true, -- Frostwolf Orcs
+  [1682] = true, -- Wrynn's Vanguard
+  [1681] = true, -- Vol'jin's Spear
+  [1710] = true, -- Sha'tari Defense
+  [1708] = true, -- Laughing Skull Orcs
+  [1847] = true, -- Hand of the Prophet
+  [1848] = true, -- Vol'jin's Headhunters
+  [1515] = true, -- Arakkoa Outcasts
+  [1849] = true, -- Order of the Awakened
+  [1850] = true, -- The Saberstalkers
+  [1711] = true, -- Steamwheedle Preservation Society
+}
+
+-- FactionIDs of the factions with a bonus reputation gain, read once per (re)load of the reputation sources
+-- instead of scanning the faction list for every single source.
+function ReputationGuide:GetBonusReputationFactions()
+  if ReputationGuide._bonusRepFactions then return ReputationGuide._bonusRepFactions end
+
+  local bonusFactions = {}
+
+  for factionIndex = 1, ReputationGuide.Orig_GetNumFactions() do
+    local factionData = ReputationGuide:GetFactionDataByIndex(factionIndex)
+
+    if factionData and factionData.factionID and factionData.hasBonusRepGain then
+      bonusFactions[factionData.factionID] = true
+    end
+  end
+
+  ReputationGuide._bonusRepFactions = bonusFactions
+  return bonusFactions
+end
+
+function ReputationGuide:ClearBonusReputationFactions()
+  ReputationGuide._bonusRepFactions = nil
+end
+
+function ReputationGuide:GetReputationFactor(isHuman, factionID)
   local factor = 1.0
 
   -- Race check (Human racial removed in 11.0.0)
@@ -261,55 +268,19 @@ function ReputationGuide:GetReputationFactor(isHuman, factionName)
     factor = factor + 0.1
   end
 
-  if factionName then
-    local draenorFactions = {
-      "Council of Exarchs",
-      "Frostwolf Orcs",
-      "Wrynn's Vanguard",
-      "Vol'jin's Spear",
-      "Sha'tari Defense",
-      "Laughing Skull Orcs",
-      "Hand of the Prophet",
-      "Vol'jin's Headhunters",
-      "Arakkoa Outcasts",
-      "Order of the Awakened",
-      "The Saberstalkers",
-      "Steamwheedle Preservation Society"
-    }
-
+  if factionID then
     -- WoD Faction trading post bonus
-    if ReputationGuide:has_value(draenorFactions, factionName) and ReputationGuide.HasTradingPost then
+    if ReputationGuide.HasTradingPost and DRAENOR_TRADING_POST_FACTIONS[factionID] then
       factor = factor + 0.2
     end
-  
-    -- bonus repgain check
-    local factionOffset = 0
-    local factionIndex
-    local numFactions = REP_Orig_GetNumFactions()
 
-    for i = 1, numFactions do
-      local factionIndex = factionOffset + i
-      if (factionIndex <= numFactions) then
-        local factionData = ReputationGuide:GetFactionDataByIndex(factionIndex)
-
-        if factionData then
-          name = factionData.name
-          factionID = factionData.factionID
-          hasBonusRepGain = factionData.hasBonusRepGain
-
-          if factionID == 1168 then
-            name = tostring(name).." (guild)"
-          end
-        end
-
-        if (factionName == name) and hasBonusRepGain then
-          factor = factor + 1
-        end
-      end
+    -- Bonus reputation gain (e.g. commendations)
+    if ReputationGuide:GetBonusReputationFactions()[factionID] then
+      factor = factor + 1
     end
   end
 
-  return factor or 1.0
+  return factor
 end
 ---------------------------------------------------
 function ReputationGuide:GetCharacterDataForToolTip(factionID)
@@ -362,7 +333,7 @@ function ReputationGuide:GetCharacterDataForToolTip(factionID)
   return charactersForToolTip
 end
 ---------------------------------------------------
-function ReputationGuide:ShowReputationTooltip(frame, factionID)
+function ReputationGuide:ShowReputationTooltip(frame, factionID, anchor)
   local factionData = ReputationGuide:GetFactionDataByID(factionID)
   if not factionData then return end
 
@@ -377,7 +348,13 @@ function ReputationGuide:ShowReputationTooltip(frame, factionID)
     factionData.description = ""
   end
 
-  GameTooltip:SetOwner(frame, "ANCHOR_CURSOR", 0, 40)
+  if anchor then
+    GameTooltip:SetOwner(frame, anchor)
+  elseif ReputationGuide.IsForever then
+    GameTooltip:SetOwner(frame, "ANCHOR_RIGHT")
+  else
+    GameTooltip:SetOwner(frame, "ANCHOR_CURSOR", 0, 40)
+  end
   GameTooltip:ClearLines()
   GameTooltip:AddLine(factionName)
   GameTooltip:AddLine(factionData.description .. "\n\n", 1, 1, 1, 1)
@@ -411,11 +388,19 @@ function ReputationGuide:AppendLinesForModernToolTip(row)
 
   local factionID = row.factionID
   if not factionID and row.factionIndex then
-    local data = ReputationGuide.GetFactionDataByIndex(row.factionIndex)
+    local data = ReputationGuide:GetFactionDataByIndex(row.factionIndex)
     factionID = data and data.factionID
   end
 
-  if not factionID then return end
+  if not factionID or factionID == 0 then return end
+
+  local ownsTooltip = (GameTooltip:GetOwner() == row and GameTooltip:IsShown()) or (EmbeddedItemTooltip and EmbeddedItemTooltip:GetOwner() == row and EmbeddedItemTooltip:IsShown())
+
+  if not ownsTooltip then
+    -- The default UI did not show a tooltip for this row (Forever only shows progress text), so show our own.
+    ReputationGuide:ShowReputationTooltip(row, factionID)
+    return
+  end
 
   if C_Reputation.IsFactionParagon(factionID) then
     local anchorTip = ReputationGuide:GetActiveAnchorTooltip(row)
@@ -514,45 +499,71 @@ function ReputationGuide:HookFactionFrameMixinBar()
     end
     if PrettyRepsReputationHeaderMixin then
       hooksecurefunc(PrettyRepsReputationHeaderMixin, "OnClick", function(self)
-        if REP_Orig_ReputationDetailFrame and REP_Orig_ReputationDetailFrame:IsShown() then
-          REP_Orig_ReputationDetailFrame:Hide();
+        if ReputationGuide.Orig_ReputationDetailFrame and ReputationGuide.Orig_ReputationDetailFrame:IsShown() then
+          ReputationGuide.Orig_ReputationDetailFrame:Hide();
         end
       end)
     end
   else
+    local function OnLeave(row)
+      ReputationGuide:HideExtraTooltip()
+
+      -- The tooltip is our own when the default UI doesn't show one (Forever), so hide it as well.
+      if GameTooltip:GetOwner() == row then
+        GameTooltip:Hide()
+      end
+    end
+
     if ReputationEntryMixin then
       hooksecurefunc(ReputationEntryMixin, "OnEnter", function(row) ReputationGuide:AppendLinesForModernToolTip(row) end)
-      hooksecurefunc(ReputationEntryMixin, "OnLeave", function() ReputationGuide:HideExtraTooltip() end)
+      hooksecurefunc(ReputationEntryMixin, "OnLeave", OnLeave)
     end
     if ReputationSubHeaderMixin then
       hooksecurefunc(ReputationSubHeaderMixin, "OnEnter", function(row) ReputationGuide:AppendLinesForModernToolTip(row) end)
-      hooksecurefunc(ReputationSubHeaderMixin, "OnLeave", function() ReputationGuide:HideExtraTooltip() end)
+      hooksecurefunc(ReputationSubHeaderMixin, "OnLeave", OnLeave)
     end
   end
 end
 ---------------------------------------------------
 function ReputationGuide:HookWatchedFactionBar()
-  if ReputationGuide.AfterDragonflight then
-    if SecondaryStatusTrackingBarContainer and SecondaryStatusTrackingBarContainer:IsShown() then
-      SecondaryStatusTrackingBarContainer:HookScript("OnEnter", function(self)
-          self:ShowText()
-          local factionInfo = C_Reputation.GetWatchedFactionData()
-          if factionInfo then
-            ReputationGuide:ShowReputationTooltip(self, factionInfo.factionID)
-          end
-        end)
-        SecondaryStatusTrackingBarContainer:HookScript("OnLeave", function(self) self:HideText() GameTooltip:Hide() end)
-    else
-      if MainStatusTrackingBarContainer then
-        MainStatusTrackingBarContainer:HookScript("OnEnter", function(self)
-          self:ShowText()
-          local factionInfo = C_Reputation.GetWatchedFactionData()
-          if factionInfo then
-            ReputationGuide:ShowReputationTooltip(self, factionInfo.factionID)
-          end
-        end)
-        MainStatusTrackingBarContainer:HookScript("OnLeave", function(self) self:HideText() GameTooltip:Hide() end)
+  if ReputationGuide.UseModernReputationUI then
+    -- Hook the reputation bar itself, so the tooltip doesn't show on the experience (or any other) bar.
+    local reputationBarIndex = StatusTrackingBarInfo and StatusTrackingBarInfo.BarsEnum and StatusTrackingBarInfo.BarsEnum.Reputation
+    local hookedAny = false
+
+    if reputationBarIndex then
+      for _, container in ipairs({MainStatusTrackingBarContainer, SecondaryStatusTrackingBarContainer}) do
+        local bar = container and container.bars and container.bars[reputationBarIndex]
+
+        if bar and not bar._repTooltipHooked then
+          bar:HookScript("OnEnter", function(self)
+            -- Paragon factions already show their rewards tooltip.
+            if EmbeddedItemTooltip and EmbeddedItemTooltip:IsShown() and EmbeddedItemTooltip:GetOwner() == self then return end
+
+            local factionInfo = C_Reputation.GetWatchedFactionData()
+            if factionInfo and factionInfo.factionID and factionInfo.factionID > 0 then
+              ReputationGuide:ShowReputationTooltip(self, factionInfo.factionID, "ANCHOR_TOP")
+            end
+          end)
+          bar:HookScript("OnLeave", function(self)
+            if GameTooltip:GetOwner() == self then GameTooltip:Hide() end
+          end)
+
+          bar._repTooltipHooked = true
+          hookedAny = true
+        end
       end
+    end
+
+    if not hookedAny and MainStatusTrackingBarContainer and not MainStatusTrackingBarContainer._repTooltipHooked then
+      MainStatusTrackingBarContainer:HookScript("OnEnter", function(self)
+        local factionInfo = C_Reputation.GetWatchedFactionData()
+        if factionInfo and factionInfo.factionID and factionInfo.factionID > 0 then
+          ReputationGuide:ShowReputationTooltip(self, factionInfo.factionID, "ANCHOR_TOP")
+        end
+      end)
+      MainStatusTrackingBarContainer:HookScript("OnLeave", function(self) if GameTooltip:GetOwner() == self then GameTooltip:Hide() end end)
+      MainStatusTrackingBarContainer._repTooltipHooked = true
     end
   else
     if ReputationWatchBar then
@@ -565,7 +576,7 @@ end
 function ReputationGuide:IsFactionUpdateEvent(event)
   if event == "UPDATE_FACTION" then return true end
 
-  return ReputationGuide.AfterShadowLands and (
+  return ReputationGuide.UseScrollBoxReputationUI and (
     event == "MAJOR_FACTION_RENOWN_LEVEL_CHANGED"
     or event == "MAJOR_FACTION_UNLOCKED"
   )
@@ -574,30 +585,46 @@ end
 -- Reputation Functions --
 ------------------------------
 function ReputationGuide:WatchFactionByIndex(watchIndex)
+  watchIndex = tonumber(watchIndex)
   if not watchIndex then return end
  
   local factionData = ReputationGuide:GetFactionDataByIndex(watchIndex)
 
-  if factionData then
-    REP_Orig_SetWatchedFaction(watchIndex)
+  if factionData and factionData.name then
+    if C_Reputation and C_Reputation.SetWatchedFactionByIndex then
+      C_Reputation.SetWatchedFactionByIndex(watchIndex)
+    elseif SetWatchedFactionIndex then
+      SetWatchedFactionIndex(watchIndex)
+    else
+      ReputationGuide.Orig_SetWatchedFaction(watchIndex)
+    end
     local name = factionData.name
     ReputationGuide:PrintNewWatchedFaction(name)
   else
-    ReputationGuide:Print("Could not find an active faction with index #"..tostring(watchIndex))
+    ReputationGuide:Print(string.format(REP_TXT.watchIndexNotFound, tostring(watchIndex)))
   end
 end
 ---------------------------------------------------
 function ReputationGuide:WatchFactionById(watchID)
+  watchID = tonumber(watchID)
   if not watchID then return end
 
   local factionData = ReputationGuide:GetFactionDataByID(watchID)
 
-  if factionData then
-    REP_Orig_SetWatchedFaction(watchID)
+  if factionData and factionData.name then
+    if C_Reputation and C_Reputation.SetWatchedFactionByID then
+      C_Reputation.SetWatchedFactionByID(watchID)
+    elseif C_Reputation and C_Reputation.SetWatchedFaction then
+      C_Reputation.SetWatchedFaction(watchID)
+    else
+      local watchIndex = ReputationGuide:GetFactionIndexBasedOnFactionID(watchID)
+      if watchIndex then ReputationGuide:WatchFactionByIndex(watchIndex) end
+      return
+    end
     local name = factionData.name
     ReputationGuide:PrintNewWatchedFaction(name)
   else
-    ReputationGuide:Print("Could not find a faction with factionID: "..tostring(watchID))
+    ReputationGuide:Print(string.format(REP_TXT.watchIDNotFound, tostring(watchID)))
   end
 end
 ---------------------------------------------------
@@ -609,7 +636,7 @@ end
 function ReputationGuide:GetFactionIndexBasedOnFactionID(factionIdForIndex)
   local factionIndexByID
 
-  for i = 1, REP_Orig_GetNumFactions(), 1 do
+  for i = 1, ReputationGuide.Orig_GetNumFactions(), 1 do
     local index = i
     local factionID = ReputationGuide:GetFactionDataByIndex(index).factionID
 
@@ -626,10 +653,10 @@ function ReputationGuide:GetFactionDataByIndex(factionIndex)
 
   local factionDataObj
 
-  if ReputationGuide.AfterDragonflight then
-    factionDataObj = REP_Orig_GetFactionDataByIndex(factionIndex)
+  if ReputationGuide.UseModernReputationUI then
+    factionDataObj = ReputationGuide.Orig_GetFactionDataByIndex(factionIndex)
   else
-    local factionData = {REP_Orig_GetFactionDataByIndex(factionIndex)}
+    local factionData = {ReputationGuide.Orig_GetFactionDataByIndex(factionIndex)}
     factionDataObj = {
       name = factionData[1],
       description = factionData[2],
@@ -660,12 +687,12 @@ function ReputationGuide:GetFactionDataByID(factionID)
 
   local factionDataObj
 
-  if ReputationGuide.AfterDragonflight then
-    factionDataObj = REP_Orig_GetFactionDataByID(factionID)
+  if ReputationGuide.UseModernReputationUI then
+    factionDataObj = ReputationGuide.Orig_GetFactionDataByID(factionID)
   else
     local factionData
-    if REP_Orig_GetFactionDataByID then
-      factionData = {REP_Orig_GetFactionDataByID(factionID)}
+    if ReputationGuide.Orig_GetFactionDataByID then
+      factionData = {ReputationGuide.Orig_GetFactionDataByID(factionID)}
     else
       factionData = {GetFactionInfoByID(factionID)}
     end
@@ -732,8 +759,8 @@ function ReputationGuide:GetFriendFactionDataByID(factionID)
 
   local friendshipFactionDataObj = {}
 
-  if REP_Orig_GetFriendshipReputation then
-    friendshipFactionDataObj = REP_Orig_GetFriendshipReputation(factionID)
+  if ReputationGuide.Orig_GetFriendshipReputation then
+    friendshipFactionDataObj = ReputationGuide.Orig_GetFriendshipReputation(factionID)
   else
     local friendshipFactionData = {GetFriendshipReputation(factionID)}
 
@@ -776,30 +803,33 @@ function ReputationGuide:GetFactionDataToBuildReputationlist()
 
   if ReputationGuide.hasPrettyRepsLoaded and ReputationGuide.PrettyRepsFactonID and ReputationGuide.PrettyRepsFactonID ~= 0 then
     factionDataObj = ReputationGuide:GetFactionDataByID(ReputationGuide.PrettyRepsFactonID)
+  elseif ReputationGuide.UseDetailPanel then
+    factionDataObj = ReputationGuide:GetSelectedFactionData()
   else
-    local factionIndex = REP_Orig_GetSelectedFaction()
+    local factionIndex = ReputationGuide.Orig_GetSelectedFaction()
     factionDataObj = ReputationGuide:GetFactionDataByIndex(factionIndex)
   end
 
   if not factionDataObj or not factionDataObj.factionID then return end
 
   local standingID, barMin, barMax, barValue, isCapped, repToNext
-  local isFriend = false
+  local isFriend, atParagon = false, false
   local factionID = factionDataObj.factionID
-  local isMajorFaction = REP_Orig_IsMajorFaction and REP_Orig_IsMajorFaction(factionID)
+  local isMajorFaction = ReputationGuide.Orig_IsMajorFaction and ReputationGuide.Orig_IsMajorFaction(factionID)
 
   if isMajorFaction then
-    local majorFactionData = REP_Orig_GetMajorFactionData(factionID)
-    local hasParagon = REP_Orig_GetFactionParagonInfo(factionID)
+    local majorFactionData = ReputationGuide.Orig_GetMajorFactionData(factionID)
+    local hasParagon = ReputationGuide:IsAtParagon(factionID)
 
     barMin = 0
     standingID = majorFactionData.renownLevel
-    isCapped = REP_Orig_HasMaximumRenown(factionID)
+    isCapped = ReputationGuide.Orig_HasMaximumRenown(factionID)
 
     if isCapped and hasParagon then
-      -- Set reputation bar to paragon values if user option is activated and faction is at paragon rep
-      local currentValue, threshold, _, _ = REP_Orig_GetFactionParagonInfo(factionID)
-      barMax, barValue = threshold, mod(currentValue, threshold)     
+      -- Max renown with a paragon track: the sources count towards the next paragon reward.
+      local currentValue, threshold, _, _ = ReputationGuide.Orig_GetFactionParagonInfo(factionID)
+      barMax, barValue = threshold, mod(currentValue, threshold)
+      atParagon = true
     else
       barValue = isCapped and majorFactionData.renownLevelThreshold or majorFactionData.renownReputationEarned or 0
       barMax = standingID * majorFactionData.renownLevelThreshold
@@ -818,8 +848,8 @@ function ReputationGuide:GetFactionDataToBuildReputationlist()
     else
       barMin = factionDataObj.currentReactionThreshold
       barValue = factionDataObj.currentStanding
-      isCapped = standingID == 8 and (factionDataObj.nextReactionThreshold - factionDataObj.currentStanding) == 1
       standingID = factionDataObj.reaction
+      isCapped = standingID == 8 and (factionDataObj.nextReactionThreshold - factionDataObj.currentStanding) <= 1
 
       if standingID >= 4 then
         barMax = factionDataObj.nextReactionThreshold or 0
@@ -831,9 +861,10 @@ function ReputationGuide:GetFactionDataToBuildReputationlist()
     end
   end
 
-  if REP_Orig_IsFactionParagon and REP_Orig_IsFactionParagon(factionID) then
-    local currentValue, threshold, rewardQuestID, hasRewardPending = REP_Orig_GetFactionParagonInfo(factionID)
+  if not isMajorFaction and ReputationGuide:IsAtParagon(factionID, factionDataObj.reaction) then
+    local currentValue, threshold, rewardQuestID, hasRewardPending = ReputationGuide.Orig_GetFactionParagonInfo(factionID)
     barMin, barMax, barValue = 0, threshold, mod(currentValue, threshold)
+    atParagon = true
   end
 
   -- Normalize Values
@@ -851,7 +882,10 @@ function ReputationGuide:GetFactionDataToBuildReputationlist()
   else
     normMax = barMax - barMin
 
-    if isCapped then
+    if atParagon then
+      -- Capped, but the paragon track keeps going.
+      repToNext = barMax - barValue
+    elseif isCapped then
       repToNext = 0
     else
       repToNext = barMax - barValue
@@ -882,8 +916,19 @@ end
 ---------------------------------------------------
 function ReputationGuide:DetectReputationChanges()
   local changes = {}
+
+  if ReputationGuide.UseModernReputationUI then
+    ReputationGuide:IndexNewFactionsFromList()
+  end
   local oldSnapshot = ReputationGuide._repSnapshot or {}
   local newSnapshot = ReputationGuide:BuildReputationSnapshot()
+
+  -- Building the snapshot refreshes the cached info of every faction, so afterwards every faction
+  -- is back at "no change" (0). Store that directly instead of scanning all factions again.
+  local baseline = {}
+  for factionID in pairs(newSnapshot) do
+    baseline[factionID] = 0
+  end
 
   for factionID, newValue in pairs(newSnapshot) do
     local oldValue = oldSnapshot[factionID]
@@ -923,5 +968,17 @@ function ReputationGuide:DetectReputationChanges()
     end
   end
 
+  -- A new faction can index more factions, take a full snapshot then (rare).
+  local hasNewFaction = false
+  for _, change in ipairs(changes) do
+    if change.isNewFaction then hasNewFaction = true break end
+  end
+
+  if hasNewFaction then
+    ReputationGuide:TakeReputationSnapshot()
+  else
+    ReputationGuide._repSnapshot = baseline
+  end
+
   return changes
-end
+end

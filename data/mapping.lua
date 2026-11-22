@@ -6,47 +6,237 @@ ReputationGuide.factions = factions
 ReputationGuide._repSnapshot = {}
 
 local factionPanelFix = true
+local MAX_FACTION_ID = 5000
+local FACTION_IDS_PER_FRAME = 250
+local STEP_TIME_BUDGET = 4 -- milliseconds of work per frame
 
 -- Thanks to the Pretty Reputation Addon (https://www.curseforge.com/wow/addons/pretty-reputation) for the factionPanelFix fix.
 function ReputationGuide:IndexFactions(isInitialLogin, isReloadingUi, forceFactionPanelFix)
   if not (isInitialLogin or isReloadingUi or forceFactionPanelFix) then return end
   
-  if ReputationGuide.AfterShadowLands then
+  if ReputationGuide.UseScrollBoxReputationUI then
     do
-      for _, factionId in ipairs(REP_Orig_GetMajorFactionIDs()) do
-        ReputationGuide:IndexFaction(REP_Orig_GetMajorFactionData(factionId))
+      for _, factionId in ipairs(ReputationGuide.Orig_GetMajorFactionIDs()) do
+        ReputationGuide:IndexFaction(ReputationGuide.Orig_GetMajorFactionData(factionId))
       end
     end
   end
 
+  -- Modern clients look factions up by ID (below), so the faction list doesn't need to be expanded first.
+  local expandHeaders = not ReputationGuide.UseModernReputationUI
+
   do
-    local collapsedHeaders = ReputationGuide:saveRepHeaders()
-    for i = 1, REP_Orig_GetNumFactions() do
+    local collapsedHeaders = expandHeaders and ReputationGuide:saveRepHeaders() or {}
+    for i = 1, ReputationGuide.Orig_GetNumFactions() do
       ReputationGuide:IndexFaction(ReputationGuide:GetFactionDataByIndex(i))
     end
     ReputationGuide:restoreRepHeaders(collapsedHeaders)
   end
 
-  if ReputationGuide.AfterDragonflight or forceFactionPanelFix then
-    do
-      if factionPanelFix or forceFactionPanelFix then
-        factionPanelFix = false
-        for factionID = 1, 5000 do
-          local factionData = ReputationGuide:GetFactionDataByID(factionID)
-          if factionData and factionData.factionID and not factions[factionData.factionID] then
-            ReputationGuide:IndexFaction(factionData)
-            if factions[factionData.factionID] then
-              factions[factionData.factionID].blizzFix = true
-            end
+  if ReputationGuide.UseModernReputationUI or forceFactionPanelFix then
+    if factionPanelFix or forceFactionPanelFix then
+      factionPanelFix = false
+
+      if forceFactionPanelFix then
+        -- Needed right away (a reputation change of an unknown faction).
+        ReputationGuide:IndexFactionsByID(1, MAX_FACTION_ID)
+        ReputationGuide:MarkFactionIDCacheComplete()
+      else
+        -- Reputation changes aren't reported until the lookup is done (the snapshot is taken then).
+        ReputationGuide.FactionIndexInProgress = true
+        ReputationGuide:RunAfterLoadingScreen(function()
+          if ReputationGuide:IsFactionIDCacheValid() then
+            -- Same game build as a previous full scan: only the faction IDs found then (and since) are looked up.
+            ReputationGuide:IndexFactionsByIDInSteps(ReputationGuide:GetCachedFactionIDs())
+          else
+            ReputationGuide:IndexFactionsByIDInSteps()
           end
-        end
+        end)
       end
     end
   end
 end
 
+-- Factions that aren't in the reputation list (yet), looked up by ID.
+function ReputationGuide:IndexFactionsByID(firstID, lastID)
+  for factionID = firstID, lastID do
+    local factionData = ReputationGuide:GetFactionDataByID(factionID)
+    if factionData and factionData.factionID and not factions[factionData.factionID] then
+      ReputationGuide:IndexFaction(factionData)
+      if factions[factionData.factionID] then
+        factions[factionData.factionID].blizzFix = true
+      end
+    end
+  end
+end
+
+-- After the loading screen the lookup is spread over several frames (a few milliseconds of work per frame).
+-- Reputation changes aren't reported until it is done, then the baseline snapshot is taken.
+-- Without a list of IDs all IDs (1 - MAX_FACTION_ID) are scanned and the result is cached for this build;
+-- only that full scan (first login on a new game build) is announced in the chat, with its progress.
+function ReputationGuide:IndexFactionsByIDInSteps(factionIDs, isManual)
+  ReputationGuide.FactionIndexInProgress = true
+  ReputationGuide.FactionSyncRunning = true
+
+  local isFullScan = factionIDs == nil
+  local total = isFullScan and MAX_FACTION_ID or #factionIDs
+  local position = 1
+  local announced = false
+  local combatAnnounced = false
+  local useTimer = debugprofilestop ~= nil
+
+  local function ShowMessages()
+    return isFullScan and not (REP_Data and REP_Data.Global and REP_Data.Global.ShowSyncMessages == false)
+  end
+
+  local function Announce()
+    if announced then return end
+    announced = true
+    if ShowMessages() then ReputationGuide:Print(isManual and REP_TXT.factionSyncManualStart or REP_TXT.factionSyncStart) end
+  end
+
+  local function IndexNext()
+    if isFullScan then
+      ReputationGuide:IndexFactionsByID(position, position)
+    else
+      ReputationGuide:IndexFactionsByID(factionIDs[position], factionIDs[position])
+    end
+    position = position + 1
+  end
+
+  local function Step()
+    -- Not during combat: wait (checked every second) and go on where it stopped.
+    if InCombatLockdown and InCombatLockdown() then
+      if not combatAnnounced and ShowMessages() then ReputationGuide:Print(REP_TXT.factionSyncCombat) end
+      combatAnnounced = true
+      C_Timer.After(1, Step)
+      return
+    end
+    combatAnnounced = false
+
+    Announce()
+
+    if useTimer then
+      local started = debugprofilestop()
+      repeat IndexNext() until position > total or debugprofilestop() - started >= STEP_TIME_BUDGET
+    else
+      local last = math.min(position + FACTION_IDS_PER_FRAME - 1, total)
+      while position <= last do IndexNext() end
+    end
+
+    if position <= total then
+      C_Timer.After(0, Step)
+    else
+      if isFullScan then
+        ReputationGuide:MarkFactionIDCacheComplete()
+        if ShowMessages() then ReputationGuide:Print(REP_TXT.factionSyncDone) end
+      end
+      ReputationGuide.FactionIndexInProgress = false
+      ReputationGuide.FactionSyncRunning = false
+      ReputationGuide:TakeReputationSnapshot()
+      if ReputationGuide.RefreshSortedReputationList then ReputationGuide:RefreshSortedReputationList() end
+    end
+  end
+
+  C_Timer.After(0, Step)
+end
+
+-- /rep sync: every faction ID again, with the progress in the chat.
+function ReputationGuide:StartManualFactionSync()
+  if ReputationGuide.FactionSyncRunning then
+    ReputationGuide:Print(REP_TXT.factionSyncBusy)
+    return
+  end
+  ReputationGuide:IndexFactionsByIDInSteps(nil, true)
+end
+
+---------------------------------------------------------------------------------------------
+-- Faction ID cache (per character)
+-- The default reputation list doesn't always contain every faction the character knows (Blizzard
+-- drops some of them at login), so every faction ID was looked up at every login. The IDs that
+-- exist are now remembered per character and game build:
+--  * the first login on a new build still scans every ID (new factions can be added by a patch),
+--  * every faction that gets indexed later on (any source) is added to the cache,
+--  * factions that appear in the reputation list during play are picked up on every faction update.
+---------------------------------------------------------------------------------------------
+local buildKey
+local function GetBuildKey()
+  if not buildKey then
+    local version, build, _, interface = GetBuildInfo()
+    buildKey = tostring(interface).."-"..tostring(version).."-"..tostring(build)
+  end
+  return buildKey
+end
+
+local factionIDCache
+local function GetFactionIDCache()
+  local guid = UnitGUID("player")
+  if not guid or not REP_Data then return end
+
+  local profile = REP_Data.ProfileKeys and REP_Data.ProfileKeys[guid]
+  if factionIDCache and profile and profile.factionIDCache == factionIDCache then return factionIDCache end
+
+  ReputationGuide:InitOrCheckSavedVariables()
+  profile = REP_Data.ProfileKeys[guid]
+  if not profile then return end
+
+  if not profile.factionIDCache or profile.factionIDCache.build ~= GetBuildKey() then
+    profile.factionIDCache = { build = GetBuildKey(), complete = false, ids = {} }
+  end
+
+  factionIDCache = profile.factionIDCache
+  return factionIDCache
+end
+
+function ReputationGuide:IsFactionIDCacheValid()
+  local cache = GetFactionIDCache()
+  return cache and cache.complete and next(cache.ids) ~= nil
+end
+
+function ReputationGuide:GetCachedFactionIDs()
+  local cache = GetFactionIDCache()
+  local ids = {}
+
+  for factionID in pairs(cache and cache.ids or {}) do
+    table.insert(ids, factionID)
+  end
+
+  table.sort(ids)
+  return ids
+end
+
+function ReputationGuide:MarkFactionIDCacheComplete()
+  local cache = GetFactionIDCache()
+  if cache then cache.complete = true end
+end
+
+function ReputationGuide:AddToFactionIDCache(factionID)
+  if type(factionID) ~= "number" or not ReputationGuide.UseModernReputationUI then return end
+
+  local cache = GetFactionIDCache()
+  if cache then cache.ids[factionID] = true end
+end
+
+-- Factions that showed up in the reputation list since the last check (for example a faction that was
+-- just discovered) are indexed, so their reputation changes are reported like any other faction.
+function ReputationGuide:IndexNewFactionsFromList()
+  local newFactions = false
+
+  for i = 1, ReputationGuide.Orig_GetNumFactions() do
+    local factionData = ReputationGuide:GetFactionDataByIndex(i)
+
+    if factionData and factionData.factionID and factionData.factionID ~= 0 and not factions[factionData.factionID] then
+      ReputationGuide:IndexFaction(factionData)
+      newFactions = true
+    end
+  end
+
+  return newFactions
+end
+
 function ReputationGuide:IndexFaction(factionData)
   if factionData and factionData.name and factionData.factionID and factionData.factionID ~= 0 then
+    ReputationGuide:AddToFactionIDCache(factionData.factionID)
 
     if not factions[factionData.factionID] then
       factions[factionData.factionID] = { id = factionData.factionID, session = 0}
@@ -99,8 +289,8 @@ function ReputationGuide:saveRepHeaders()
   local parse = true
   local collapsed = {}
   if not parse then
-    if REP_Orig_ExpandAllFactionHeaders then
-      REP_Orig_ExpandAllFactionHeaders()
+    if ReputationGuide.Orig_ExpandAllFactionHeaders then
+      ReputationGuide.Orig_ExpandAllFactionHeaders()
     else
       ExpandAllFactionHeaders()
     end
@@ -116,8 +306,8 @@ function ReputationGuide:saveRepHeaders()
     if not factionData or not factionData.name or (factionData.name == previousName and factionData.name ~= GUILD) then break end
     if (factionData.factionID == nil) then factionData.factionID = factionData.name	end
     if factionData.isHeader and factionData.isCollapsed then
-      if REP_Orig_ExpandFactionHeader then
-        REP_Orig_ExpandFactionHeader(i)
+      if ReputationGuide.Orig_ExpandFactionHeader then
+        ReputationGuide.Orig_ExpandFactionHeader(i)
       else
         ExpandFactionHeader(i)
       end
@@ -130,8 +320,8 @@ function ReputationGuide:saveRepHeaders()
   end
 
    -- to be sure every header is expanded
-  if REP_Orig_ExpandAllFactionHeaders then
-    REP_Orig_ExpandAllFactionHeaders()
+  if ReputationGuide.Orig_ExpandAllFactionHeaders then
+    ReputationGuide.Orig_ExpandAllFactionHeaders()
   else
     ExpandAllFactionHeaders()
   end
@@ -140,13 +330,13 @@ end
 
 function ReputationGuide:restoreRepHeaders(collapsed)
   if next(collapsed) == nil then return end
-  for i = REP_Orig_GetNumFactions(), 1, -1 do
+  for i = ReputationGuide.Orig_GetNumFactions(), 1, -1 do
     local factionData = ReputationGuide:GetFactionDataByIndex(i)
     if (factionData.factionID == nil) then factionData.factionID = factionData.name	end
 
     if factionData.isHeader and collapsed[factionData.factionID] then
-      if REP_Orig_CollapseFactionHeader then
-        REP_Orig_CollapseFactionHeader(i)
+      if ReputationGuide.Orig_CollapseFactionHeader then
+        ReputationGuide.Orig_CollapseFactionHeader(i)
       else
         CollapseFactionHeader(i)
       end
@@ -170,12 +360,12 @@ function ReputationGuide:getRepInfo(info)
     info["standingTextNext"] = ""
     info["reward"] = ""
 
-    if ReputationGuide.AfterShadowLands then
-      if (REP_Orig_IsMajorFaction(info.factionID)) then
+    if ReputationGuide.UseScrollBoxReputationUI then
+      if (ReputationGuide.Orig_IsMajorFaction(info.factionID)) then
         info["isRenown"] = true
-        local data = REP_Orig_GetMajorFactionData(info.factionID)
-        local isCapped = REP_Orig_HasMaximumRenown(info.factionID)
-        local isParagon = REP_Orig_IsFactionParagon(info.factionID)
+        local data = ReputationGuide.Orig_GetMajorFactionData(info.factionID)
+        local isCapped = ReputationGuide.Orig_HasMaximumRenown(info.factionID)
+        local isParagon = ReputationGuide.Orig_IsFactionParagon(info.factionID)
   
         if data then
           info["bottom"] = (data.renownLevel - 1) * data.renownLevelThreshold
@@ -191,7 +381,7 @@ function ReputationGuide:getRepInfo(info)
           if not isCapped or not isParagon then return info end
           if isCapped then info["isCapped"] = true end
   
-          local currentValue, threshold, totalValue, hasRewardPending = REP_Orig_GetFactionParagonInfo(info.factionID)
+          local currentValue, threshold, totalValue, hasRewardPending = ReputationGuide.Orig_GetFactionParagonInfo(info.factionID)
           
           if not currentValue then currentValue = 0 end
           if not totalValue then totalValue = 0 end
@@ -236,9 +426,9 @@ function ReputationGuide:getRepInfo(info)
       return info
     end
 
-    if ReputationGuide.AfterWoD then
-      if (REP_Orig_IsFactionParagon(info.factionID)) then
-        local currentValue, threshold, totalValue, hasRewardPending = REP_Orig_GetFactionParagonInfo(info.factionID);
+    if ReputationGuide.HasParagonAPI and ReputationGuide.Orig_IsFactionParagon then
+      if (ReputationGuide.Orig_IsFactionParagon(info.factionID)) then
+        local currentValue, threshold, totalValue, hasRewardPending = ReputationGuide.Orig_GetFactionParagonInfo(info.factionID);
 
         if not currentValue then currentValue = 0 end
         if not totalValue then totalValue = 0 end
@@ -266,7 +456,7 @@ function ReputationGuide:getRepInfo(info)
       end  
     end
 
-    local friendInfo = REP_Orig_GetFriendshipReputation(info.factionID)
+    local friendInfo = ReputationGuide.Orig_GetFriendshipReputation(info.factionID)
     if (friendInfo.friendshipFactionID and friendInfo.friendshipFactionID ~= 0) then
       info["current"] = 1
       info["maximum"] = 1
@@ -386,4 +576,4 @@ end
 function ReputationGuide:TakeReputationSnapshot()
   local snapshot = ReputationGuide:BuildReputationSnapshot()
   self._repSnapshot = snapshot
-end
+end

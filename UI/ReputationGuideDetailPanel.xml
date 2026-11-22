@@ -1,0 +1,17 @@
+<Ui xmlns="http://www.blizzard.com/wow/ui/"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://www.blizzard.com/wow/ui/ ..\FrameXML\UI.xsd">
+
+	<!-- Templates for the World of Warcraft: Forever detail panel (UI/ReputationGuideForever.lua) -->
+	<Frame name="REP_ScrollingDescriptionTemplate" inherits="ScrollingFontTemplate" virtual="true">
+		<KeyValues>
+			<KeyValue key="fontName" value="GameFontHighlightSmall" type="string"/>
+		</KeyValues>
+	</Frame>
+
+	<EventFrame name="REP_MinimalScrollBarTemplate" inherits="MinimalScrollBar" virtual="true">
+		<KeyValues>
+			<KeyValue key="hideIfUnscrollable" value="true" type="boolean"/>
+		</KeyValues>
+	</EventFrame>
+</Ui>

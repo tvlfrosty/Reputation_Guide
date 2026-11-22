@@ -717,6 +717,7 @@ function ReputationGuide:SetZoneIdsBasedOnExpansion()
     zone.The_Ringing_Deeps = 2214
     zone.Azj_Kahet = 2255
     zone.Undermine = 2346
+    zone.K_aresh = 2371
   end
 
   ReputationGuide.zone = zone
