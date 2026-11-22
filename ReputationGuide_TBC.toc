@@ -16,7 +16,7 @@
 ## Description: ReputationGuide helps you manage your reputations by showing a more detailed reputation screen per faction.
 ## Notes: ReputationGuide helps you manage your reputations.
 ## Version: 2.0.0-release
-## Interface: 20504, 20505
+## Interface: 20504, 20505, 20506
 ## X-Curse-Project-ID: 657534
 ## SavedVariables: REP_Data
 ## SavedVariablesPerCharacter: REP_Suppressed
