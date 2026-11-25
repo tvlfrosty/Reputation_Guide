@@ -19,7 +19,7 @@ REP:RegisterFaction(990, { -- The Scale of the Sands
 })
 
 REP:RegisterFaction(942, { -- Cenarion Expedition
-  Quest{ from = 4, to = 5, id = 9802, name = "Plants of Zangarmarsh", rep = 250, items = {[24401] = 10}, since = "tbc" }, -- Plants of Zangarmarsh QuestID: 9802
+  Quest{ from = 4, to = 5, id = 9784, name = "Identify Plant Parts", rep = 250, items = {[24401] = 10}, since = "tbc" }, -- Identify Plant Parts QuestID: 9784
   Quest{ from = 4, to = 6, id = 9875, name = "Uncatalogued Species", rep = 500, items = {[24407] = 1}, since = "tbc" }, -- Uncatalogued Species QuestID: 9875
   Quest{ from = 4, to = 8, id = 9766, notRetail = true, name = "Coilfang Armaments", rep = 75, items = {[24368] = 1}, since = "tbc" }, -- Coilfang Armaments QuestID: 9766
   Quest{ from = 4, to = 8, id = 11867, rep = 150, since = "wotlk" }, -- Can't Get Ear-nough... QuestID: 11867
@@ -76,7 +76,7 @@ REP:RegisterFaction(1038, { -- Ogri'la
 })
 
 REP:RegisterFaction(1031, { -- Sha'tari Skyguard
-  Quest{ from = 4, to = 8, id = 11004, name = "World of Shadows", rep = 150, items = {[32388] = 6}, since = "tbc" }, -- World of Shadows QuestID: 11004
+  Quest{ from = 4, to = 8, id = 11006, name = "More Shadow Dust", rep = 150, items = {[32388] = 6}, since = "tbc" }, -- More Shadow Dust QuestID: 11006
   Quest{ from = 4, to = 8, id = 11074, name = "Tokens of the Descendants", rep = 350, items = {[32718] = 1, [32715] = 1, [32717] = 1, [32716] = 1}, since = "tbc" }, -- Tokens of the Descendants QuestID: 11074
   Quest{ from = 4, to = 8, id = 11008, name = "Fires Over Skettis", rep = 350, since = "tbc" }, -- Fires Over Skettis QuestID: 11008
   Quest{ from = 4, to = 8, id = 11085, name = "Escape from Skettis", rep = 150, since = "tbc" }, -- Escape from Skettis QuestID: 11085
@@ -95,7 +95,7 @@ REP:RegisterFaction(1031, { -- Sha'tari Skyguard
 REP:RegisterFaction(970, { -- Sporeggar
   Mob{ from = 3, to = 6, text = "bogLordsBogGiants", rep = 15, since = "tbc" },
   Mob{ from = 3, to = 8, text = "marshDredgerMarshLurker", rep = 15, since = "tbc" },
-  Quest{ from = 3, to = 4, id = 9739, name = "The Sporelings' Plight", rep = 250, items = {[24290] = 10}, since = "tbc" }, -- The Sporelings' Plight QuestID: 9739
+  Quest{ from = 3, to = 4, id = 9742, name = "More Spore Sacs", rep = 250, items = {[24290] = 10}, since = "tbc" }, -- More Spore Sacs QuestID: 9742
   Quest{ from = 3, to = 4, id = 9744, name = "More Tendrils!", rep = 750, items = {[24291] = 6}, since = "tbc" }, -- More Tendrils! QuestID: 9744
   Quest{ from = 3, to = 4, id = 9809, notRetail = true, name = "More Glowcaps", rep = 250, items = {[24245] = 10}, since = "tbc" }, -- Glowcap Mushrooms QuestID: 9809
   Quest{ from = 4, to = 8, id = 9727, name = "Now That We're Still Friends...", rep = 750, since = "tbc" }, -- Now That We're Still Friends... QuestID: 9727
@@ -112,7 +112,7 @@ REP:RegisterFaction(933, { -- The Consortium
   Quest{ from = 5, to = 8, id = 9892, name = "More Obsidian Warbeads", rep = 250, items = {[25433] = 10}, since = "tbc" }, -- More Obsidian Warbeads QuestID: 9892
   Quest{ from = 5, to = 8, id = 10308, name = "Another Heap of Ethereals", rep = 250, items = {[29209] = 10}, since = "tbc" }, -- Another Heap of Ethereals QuestID: 10308
   Quest{ from = 6, to = 8, id = 10972, name = "Ethereum Prisoner I.D. Catalogue", rep = 250, items = {[31957] = 1}, since = "tbc" }, -- Ethereum Prisoner I.D. Catalogue QuestID: 10972
-  Quest{ from = 7, to = 8, id = 10973, name = "A Thousand Worlds", rep = 500, items = {[29460] = 5}, since = "tbc" }, -- A Thousand Worlds QuestID: 10973
+  Quest{ from = 7, to = 8, id = 10973, name = "A Thousand Worlds", rep = 500, items = {[29460] = 5}, since = "tbc", repeatable = false }, -- A Thousand Worlds QuestID: 10973
   Quest{ from = 7, to = 8, id = 10975, name = "Purging the Chambers of Bash'ir", rep = 500, items = {[29460] = 5}, since = "tbc" }, -- Purging the Chambers of Bash'ir QuestID: 10975
   Instance{ from = 4, to = 5, instance = "Mana_Tombs", rep = 1200, heroic = false, since = "tbc" },
   Instance{ from = 4, to = 8, instance = "Mana_Tombs", rep = 2400, heroic = true, since = "tbc", phase = "cata 1" },
@@ -201,8 +201,8 @@ REP:RegisterFaction(935, { -- The Sha'tar
 
 REP:RegisterFaction(930, { -- Exodar
   Quest{ from = 4, to = 8, id = 10358, rep = 75, items = {[14047] = 20}, since = "tbc", before = "cata", side = "Alliance" }, -- Additional Runecloth QuestID: 10358
-  Quest{ from = 4, to = 8, id = 2, rep = 65, profession = "Cooking", since = "cata", side = "Alliance" },
-  Quest{ from = 4, to = 8, id = 4, rep = 65, profession = "Fishing", since = "cata", side = "Alliance" },
+  Quest{ from = 4, to = 8, text = "coq", rep = 65, profession = "Cooking", since = "cata", side = "Alliance" },
+  Quest{ from = 4, to = 8, text = "foq", rep = 65, profession = "Fishing", since = "cata", side = "Alliance" },
   Quest{ from = 4, to = 8, id = 7386, name = "Crystal Cluster", rep = 18.75, items = {[17423] = 5}, repeatable = true, renown = false, pvp = true, since = "tbc", side = "Alliance" }, -- Crystal Cluster QuestID: 7386
   Quest{ from = 4, to = 8, id = 6881, rep = 2.5, items = {[17423] = 1}, repeatable = true, renown = false, pvp = true, since = "tbc", side = "Alliance" },
   Quest{ from = 4, to = 8, id = 6943, rep = 10, items = {[17504] = 1}, repeatable = true, renown = false, pvp = true, since = "tbc", side = "Alliance" },
@@ -219,7 +219,9 @@ REP:RegisterFaction(930, { -- Exodar
 })
 
 REP:RegisterFaction(946, { -- Honor Hold
-  Quest{ from = 4, to = 7, id = 13410, name = "Hellfire Fortifications", rep = 150, since = "tbc", side = "Alliance" }, -- Hellfire Fortifications QuestID: 13410
+  Quest{ from = 4, to = 8, id = 10106, name = "Hellfire Fortifications", rep = 150, since = "tbc", side = "Alliance" }, -- Hellfire Fortifications (daily) QuestID: 10106
+  Quest{ from = 4, to = 8, id = 13408, name = "Hellfire Fortifications", rep = 150, repeatable = false, since = "wotlk", side = "Alliance", notClass = "DEATHKNIGHT" }, -- Hellfire Fortifications QuestID: 13408
+  Quest{ from = 4, to = 8, id = 13410, name = "Hellfire Fortifications", rep = 150, repeatable = false, since = "wotlk", side = "Alliance", class = "DEATHKNIGHT" }, -- Hellfire Fortifications QuestID: 13410
   Instance{ from = 4, to = 5, instance = "Hellfire_Ramparts", rep = 600, heroic = false, since = "tbc", side = "Alliance" },
   Instance{ from = 6, to = 8, instance = "Hellfire_Ramparts", rep = 2000, heroic = true, since = "tbc", side = "Alliance" },
   Instance{ from = 4, to = 5, instance = "The_Blood_Furnace", rep = 750, heroic = false, since = "tbc", side = "Alliance" },
@@ -243,8 +245,8 @@ REP:RegisterFaction(978, { -- Kurenai
 
 REP:RegisterFaction(911, { -- Silvermoon City
   Quest{ from = 4, to = 8, id = 10363, rep = 75, items = {[14047] = 20}, since = "tbc", before = "cata", side = "Horde" }, -- Additional Runecloth QuestID: 10363
-  Quest{ from = 4, to = 8, id = 2, rep = 65, profession = "Cooking", since = "cata", side = "Horde" },
-  Quest{ from = 4, to = 8, id = 4, rep = 65, profession = "Fishing", since = "cata", side = "Horde" },
+  Quest{ from = 4, to = 8, text = "coq", rep = 65, profession = "Cooking", since = "cata", side = "Horde" },
+  Quest{ from = 4, to = 8, text = "foq", rep = 65, profession = "Fishing", since = "cata", side = "Horde" },
   Quest{ from = 4, to = 8, id = 7385, name = "A Gallon of Blood", rep = 18.75, items = {[17306] = 5}, repeatable = true, renown = false, pvp = true, since = "tbc", side = "Horde" }, -- A Gallon of Blood QuestID: 7385
   Quest{ from = 4, to = 8, id = 6801, rep = 2.5, items = {[17306] = 1}, repeatable = true, renown = false, pvp = true, since = "tbc", side = "Horde" },
   Quest{ from = 4, to = 8, id = 6825, rep = 10, items = {[17326] = 1}, repeatable = true, renown = false, pvp = true, since = "tbc", side = "Horde" },
@@ -261,7 +263,9 @@ REP:RegisterFaction(911, { -- Silvermoon City
 })
 
 REP:RegisterFaction(947, { -- Thrallmar
-  Quest{ from = 4, to = 7, id = 13410, rep = 150, since = "tbc", side = "Horde" },
+  Quest{ from = 4, to = 8, id = 10110, name = "Hellfire Fortifications", rep = 150, since = "tbc", side = "Horde" }, -- Hellfire Fortifications (daily) QuestID: 10110
+  Quest{ from = 4, to = 8, id = 13409, name = "Hellfire Fortifications", rep = 150, repeatable = false, since = "wotlk", side = "Horde", notClass = "DEATHKNIGHT" }, -- Hellfire Fortifications QuestID: 13409
+  Quest{ from = 4, to = 8, id = 13411, name = "Hellfire Fortifications", rep = 150, repeatable = false, since = "wotlk", side = "Horde", class = "DEATHKNIGHT" }, -- Hellfire Fortifications QuestID: 13411
   Instance{ from = 4, to = 5, instance = "Hellfire_Ramparts", rep = 600, heroic = false, since = "tbc", side = "Horde" },
   Instance{ from = 6, to = 8, instance = "Hellfire_Ramparts", rep = 2000, heroic = true, since = "tbc", side = "Horde" },
   Instance{ from = 4, to = 5, instance = "The_Blood_Furnace", rep = 750, heroic = false, since = "tbc", side = "Horde" },

@@ -28,6 +28,7 @@ if (GetLocale() == "itIT") then
   REP_TXT.enabled	= "abilitato"
   REP_TXT.statMobs	= "Mostra Mobs [M]"
   REP_TXT.statQuests	= "Mostra Missioni [Q]"
+  REP_TXT.statRepeatableQuests	= "Mostra Missioni ripetibili [R]"
   REP_TXT.statInstances	= "Mostra istanze [D]"
   REP_TXT.statItems	= "Mostra elementi [I]"
   REP_TXT.statGeneral	= "Mostra generale [G]"
@@ -43,6 +44,7 @@ if (GetLocale() == "itIT") then
   REP_TXT.statGuildCap	= "Mostra cap reputazione gilda in chat"
   -- XML UI elements
   REP_TXT.showQuests	= "Mostra Missioni"
+  REP_TXT.showRepeatableQuests	= "Mostra Missioni ripetibili"
   REP_TXT.showPvPQuests	= "Mostra PvP Missioni"
   REP_TXT.showInstances	= "Mostra istanze"
   REP_TXT.showMobs	= "Mostra mob"
@@ -540,8 +542,10 @@ if (GetLocale() == "itIT") then
   REP_TXT.elements.tip.REP_OrderByStandingCheckBox	= "Se questa casella non è selezionata, l'elenco fazione viene visualizzata per impostazione predefinita (Blizzard) ordinamento, raggruppate per ordine logico e alfabetico. \r \n \r \nSe questa casella è selezionata, l'elenco fazione è ordinato per data. \r \n\r \nPer vista i | cFFFAA0A0inactive | r fazioni , deselezionare questa casella e andare in fondo alla lista."
   REP_TXT.elements.name.REP_ShowMobsButton	= REP_TXT.showMobs
   REP_TXT.elements.tip.REP_ShowMobsButton	= "Selezionare questo pulsante per vedere mob si può uccidere per migliorare la vostra reputazione."
-  REP_TXT.elements.name.REP_ShowNonPvPQuestsButton	= REP_TXT.showQuests
-  REP_TXT.elements.tip.REP_ShowNonPvPQuestsButton	= "Controllare questo pulsante per visualizzare le quest si possono fare per migliorare la vostra reputazione."
+  REP_TXT.elements.name.REP_ShowOneTimeQuestsButton	= REP_TXT.showQuests
+  REP_TXT.elements.tip.REP_ShowOneTimeQuestsButton	= "Controllare questo pulsante per visualizzare le missioni uniche che si possono fare per migliorare la vostra reputazione."
+  REP_TXT.elements.name.REP_ShowNonPvPQuestsButton	= REP_TXT.showRepeatableQuests
+  REP_TXT.elements.tip.REP_ShowNonPvPQuestsButton	= "Controllare questo pulsante per visualizzare le missioni ripetibili, giornaliere e settimanali che si possono fare per migliorare la vostra reputazione."
   REP_TXT.elements.name.REP_ShowPvPQuestsButton	= REP_TXT.showPvPQuests
   REP_TXT.elements.tip.REP_ShowPvPQuestsButton	= "Controllare questo pulsante per visualizzare le PvP quest si possono fare per migliorare la vostra reputazione."
   REP_TXT.elements.name.REP_ShowItemsButton	= REP_TXT.showItems
@@ -739,6 +743,9 @@ if (GetLocale() == "itIT") then
   REP_TXT.manualUntil = "Fino a"
   REP_TXT.manualZone = "Zona"
   REP_TXT.recordCount = "%d fonti registrate per %d fazioni."
+  REP_TXT.recordIssues = "%d con una reputazione diversa dai dati, %d missioni uniche consegnate di nuovo."
+  REP_TXT.recordExport = "%d righe registrate. Premi Ctrl+A e Ctrl+C per copiarle."
+  REP_TXT.recordCleared = "righe registrate rimosse."
   REP_TXT.recordOff = "la registrazione delle fonti di reputazione sconosciute è disattivata."
   REP_TXT.recordOn = "la registrazione delle fonti di reputazione sconosciute è attiva."
   REP_TXT.renownFrameUnavailable = "Impossibile caricare la finestra della fama, aprila una volta con il pulsante Mostra fama dell'elenco reputazione normale (Ordina per posizione disattivato)."

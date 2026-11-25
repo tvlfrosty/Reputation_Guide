@@ -143,48 +143,15 @@ function REP:Quest_Names(questIndex)
   local quest = nil
 
   if (type(questIndex) == "number") then
-    if (REP_QuestDB[questIndex]) then
-      local localization = GetLocale()
-      if localization == "esMX" then localization = "esES" end
-      if localization == "zhTW" then localization = "zhCN" end
-
-      quest = REP_QuestDB[questIndex][localization]
-    else
-      quest = REP:GetQuestTitleByID(questIndex) or (REP.QuestFallbackNames and REP.QuestFallbackNames[questIndex])
-
-      if not quest then
-        quest = "Quest name translation not available. QuestID: "..questIndex
-      end
-    end
+    quest = REP.QuestNames[questIndex] or REP:GetQuestTitleByID(questIndex)
+      or REP.QuestNamesEnglish[questIndex] or REP.QuestFallbackNames[questIndex]
+      or ("Quest name translation not available. QuestID: "..questIndex)
   else
     quest = questIndex
   end
 
-  if questIndex == 1 then
-    quest = REP_TXT.cdq
-  elseif questIndex == 2 then
-    quest = REP_TXT.coq
-  elseif questIndex == 3 then
-    quest = REP_TXT.fdq
-  elseif questIndex == 4 then
-    quest = REP_TXT.foq
-  elseif questIndex == 5 then
-    quest = REP_TXT.ndq
-  elseif questIndex == 6 then
-    quest = REP_TXT.deleted
-  elseif questIndex == 7 then
-    quest = REP_TXT.Championing
-  elseif questIndex == 8 then
-    quest = REP_TXT.bpqfg
-  elseif questIndex == 9 then
-    quest = REP_TXT.djdq
-  elseif questIndex == 99 then
-    quest = REP_TXT.tbd
-  else
-    if not quest then
-      quest = questIndex
-    end
-  end
+  -- Texts instead of a quest (cooking and fishing dailies, ...) are "text" sources and never get here as a number.
+  if quest == nil then quest = "?" end
 
   return quest
 end

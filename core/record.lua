@@ -2,6 +2,9 @@
 -- Reputation Guide | Recording unknown reputation sources --
 -- Reputation gains from sources that aren't in the data are saved account wide in
 -- REP_Data.Global.RecordedSources[factionID] = { name = "Faction", sources = { { type = "Quest", id = 123, rep = 250, standing = 5, ... } } }
+-- Quests that are in the data are saved too when the data is wrong, with an issue field:
+--   issue = "rep"        the reputation differs from the data (expected = the amount in the data);
+--   issue = "repeatable" a quest marked one-time was turned in again by the same character.
 -- Manually added sources (REP_Data.Global.ManualSources) are part of the sources list like the data.
 ----------------------------------------------------------
 local addonName, vars = ...
@@ -10,6 +13,7 @@ local REP = vars
 local WINDOW = 3 -- seconds between the action (turn-in, kill, item use) and the reputation gain
 local MAX_PER_FACTION = 500 -- recorded sources per faction (the saved variables stay small)
 local SKIPPED_FACTIONS = { [1168] = true } -- guild: every quest gives guild reputation
+local REP_TOLERANCE = 1 -- rounding (12.5 shown as 12, bonuses applied to each gain)
 
 local recent = {}
 local pendingQuestID
@@ -111,15 +115,17 @@ local function MatchesSource(source, record)
   return false
 end
 
-function REP:IsKnownSource(factionID, record)
+function REP:FindKnownSource(factionID, record)
   local sources = REP.Sources and REP.Sources[factionID]
-  if not sources then return false end
+  if not sources then return end
 
   for _, source in ipairs(sources) do
-    if InRange(source, record.standing) and MatchesSource(source, record) then return true end
+    if InRange(source, record.standing) and MatchesSource(source, record) then return source end
   end
+end
 
-  return false
+function REP:IsKnownSource(factionID, record)
+  return REP:FindKnownSource(factionID, record) ~= nil
 end
 
 ---------------------------
@@ -165,7 +171,7 @@ local function BuildRecord()
   return record
 end
 
-local IDENTITY_FIELDS = { "type", "id", "npc", "instance", "item", "spell", "standing", "rep" }
+local IDENTITY_FIELDS = { "type", "id", "npc", "instance", "item", "spell", "standing", "rep", "issue" }
 
 local function IsSameRecord(a, b)
   for _, field in ipairs(IDENTITY_FIELDS) do
@@ -199,6 +205,12 @@ local function SaveRecord(factionID, factionName, record)
   table.insert(faction.sources, record)
 end
 
+local TABARD_SLOT = INVSLOT_TABARD or 19
+local function IsWearingTabard()
+  local itemID = GetInventoryItemID and GetInventoryItemID("player", TABARD_SLOT)
+  return itemID ~= nil and not IsSecret(itemID)
+end
+
 local function RoundRep(value)
   return math.floor(value * 100 + 0.5) / 100
 end
@@ -220,17 +232,28 @@ function REP:RecordReputationChanges(changes)
       end
 
       local record = BuildRecord()
-      record.standing = standing
-      if standingType and standingType ~= "reaction" then record.standingType = standingType end
+      -- Kills in a dungeon or raid with a tabard on: championing gives reputation for every mob, that isn't
+      -- something to add per mob (the data has championing as a general source).
+      if record.type == "Instance" and IsWearingTabard() then record = nil end
+      if record then
+        record.standing = standing
+        if standingType and standingType ~= "reaction" then record.standingType = standingType end
 
-      local factor = REP:GetReputationFactor(REP.IsHuman, change.factionID) or 1
-      record.rep = RoundRep(amount / factor)
-      if factor ~= 1 then record.gained = amount end
-      record.side = REP.IsAlliance and "Alliance" or "Horde"
-      record.build = REP.GameBuildVersion
+        local factor = REP:GetReputationFactor(REP.IsHuman, change.factionID) or 1
+        record.rep = RoundRep(amount / factor)
+        if factor ~= 1 then record.gained = amount end
+        record.side = REP.IsAlliance and "Alliance" or "Horde"
+        record.build = REP.GameBuildVersion
 
-      if not REP:IsKnownSource(change.factionID, record) then
-        SaveRecord(change.factionID, info.name, record)
+        local known = REP:FindKnownSource(change.factionID, record)
+        if not known then
+          SaveRecord(change.factionID, info.name, record)
+        elseif record.type == "Quest" and type(known.rep) == "number" and math.abs(record.rep - known.rep) > REP_TOLERANCE then
+          -- A quest of the data that gave a different amount.
+          record.issue = "rep"
+          record.expected = known.rep
+          SaveRecord(change.factionID, info.name, record)
+        end
       end
     end
   end
@@ -239,11 +262,58 @@ end
 ---------------------------
 -- Events
 ---------------------------
+-- Quests marked one-time in the sources of this client: questID -> { factionID = source, ... }
+local oneTimeIndex, oneTimeIndexOf
+local function OneTimeSources(questID)
+  if oneTimeIndexOf ~= REP.Sources then
+    oneTimeIndex, oneTimeIndexOf = {}, REP.Sources
+    for factionID, sources in pairs(REP.Sources or {}) do
+      for _, source in ipairs(sources) do
+        if source.kind == "quest" and source.repeatable == false and type(source.id) == "number" then
+          oneTimeIndex[source.id] = oneTimeIndex[source.id] or {}
+          oneTimeIndex[source.id][factionID] = source
+        end
+      end
+    end
+  end
+  return oneTimeIndex[questID]
+end
+
+-- One-time quests this character turned in (per character, so a second turn-in means the quest is repeatable).
+local function CharacterTurnIns()
+  local store = GetStore("OneTimeTurnIns")
+  local guid = UnitGUID and UnitGUID("player")
+  if not store or not guid or IsSecret(guid) then return end
+  store[guid] = store[guid] or {}
+  return store[guid]
+end
+
+local function CheckOneTimeQuest(questID, name)
+  local sources = OneTimeSources(questID)
+  if not sources then return end
+  local turnIns = CharacterTurnIns()
+  if not turnIns then return end
+
+  if turnIns[questID] then
+    local zone, mapID = GetZone()
+    for factionID, source in pairs(sources) do
+      local factionData = REP.GetFactionDataByID and REP:GetFactionDataByID(factionID)
+      local factionName = type(factionData) == "table" and factionData.name or nil
+      SaveRecord(factionID, factionName, {
+        type = "Quest", id = questID, name = name, issue = "repeatable", rep = source.rep,
+        zone = zone, mapID = mapID, side = REP.IsAlliance and "Alliance" or "Horde", build = REP.GameBuildVersion,
+      })
+    end
+  end
+  turnIns[questID] = true
+end
+
 local function OnQuestTurnedIn(questID)
   if not questID or IsSecret(questID) then return end
   local name = C_QuestLog and C_QuestLog.GetTitleForQuestID and C_QuestLog.GetTitleForQuestID(questID)
   if not name and REP.GetQuestTitleByID then name = REP:GetQuestTitleByID(questID) end
   recent.quest = { id = questID, name = not IsSecret(name) and name or nil, time = GetTime() }
+  CheckOneTimeQuest(questID, recent.quest.name)
 end
 
 local function OnCombatLog()
@@ -332,15 +402,119 @@ end
 
 function REP:PrintRecordedSources()
   local store = REP_Data and REP_Data.Global and REP_Data.Global.RecordedSources or {}
-  local factions, sources = 0, 0
+  local factions, sources, wrongRep, repeatable = 0, 0, 0, 0
 
   for _, faction in pairs(store) do
     factions = factions + 1
-    sources = sources + #(faction.sources or {})
+    for _, record in ipairs(faction.sources or {}) do
+      if record.issue == "rep" then wrongRep = wrongRep + 1
+      elseif record.issue == "repeatable" then repeatable = repeatable + 1
+      else sources = sources + 1 end
+    end
   end
 
   local state = REP:IsRecordingSources() and REP_TXT.recordOn or REP_TXT.recordOff
   REP:Print(REP.HELP_COLOUR..addonName..":|r "..state.." "..string.format(REP_TXT.recordCount, sources, factions), true)
+  if wrongRep > 0 or repeatable > 0 then
+    REP:Print("   "..string.format(REP_TXT.recordIssues, wrongRep, repeatable), true)
+  end
+end
+
+-- /rep record clear: forget the recorded lines (the one-time quests a character turned in stay, they're needed
+-- to notice a one-time quest that's turned in again).
+function REP:ClearRecordedSources()
+  if not REP_Data or not REP_Data.Global then return end
+  REP_Data.Global.RecordedSources = {}
+  if REP.RecordExportFrame and REP.RecordExportFrame:IsShown() then REP:ShowRecordedSourcesExport() end
+  REP:Print(REP.HELP_COLOUR..addonName..":|r "..REP_TXT.recordCleared, true)
+end
+
+---------------------------
+-- Copy window (/rep record debug)
+---------------------------
+local EXPORT_FIELDS = { "type", "id", "npc", "item", "spell", "instance", "name", "instanceName", "rep", "gained", "expected",
+  "issue", "standing", "standingType", "count", "zone", "mapID", "side", "build" }
+
+-- One tab separated line per record, with the faction in front, under a header line.
+function REP:GetRecordedSourcesText()
+  local store = REP_Data and REP_Data.Global and REP_Data.Global.RecordedSources or {}
+  local lines = { "faction\tfactionName\t"..table.concat(EXPORT_FIELDS, "\t") }
+
+  local factionIDs = {}
+  for factionID in pairs(store) do factionIDs[#factionIDs + 1] = factionID end
+  table.sort(factionIDs)
+
+  for _, factionID in ipairs(factionIDs) do
+    local faction = store[factionID]
+    for _, record in ipairs(faction.sources or {}) do
+      local fields = { tostring(factionID), tostring(faction.name or "") }
+      for _, key in ipairs(EXPORT_FIELDS) do
+        local value = record[key]
+        fields[#fields + 1] = value ~= nil and tostring(value):gsub("[\t\n]", " ") or ""
+      end
+      lines[#lines + 1] = table.concat(fields, "\t")
+    end
+  end
+
+  return table.concat(lines, "\n"), #lines - 1
+end
+
+function REP:ShowRecordedSourcesExport()
+  local text, count = REP:GetRecordedSourcesText()
+  local frame = REP.RecordExportFrame
+
+  if not frame then
+    frame = CreateFrame("Frame", "REP_RecordExportFrame", UIParent, "BasicFrameTemplateWithInset")
+    frame:SetSize(640, 420)
+    frame:SetPoint("CENTER")
+    frame:SetFrameStrata("DIALOG")
+    frame:SetMovable(true)
+    frame:EnableMouse(true)
+    frame:RegisterForDrag("LeftButton")
+    frame:SetScript("OnDragStart", frame.StartMoving)
+    frame:SetScript("OnDragStop", frame.StopMovingOrSizing)
+    frame:SetClampedToScreen(true)
+    tinsert(UISpecialFrames, "REP_RecordExportFrame")
+
+    frame.title = frame:CreateFontString(nil, "OVERLAY", "GameFontHighlight")
+    frame.title:SetPoint("TOP", frame, "TOP", 0, -5)
+
+    frame.hint = frame:CreateFontString(nil, "OVERLAY", "GameFontNormalSmall")
+    frame.hint:SetPoint("TOPLEFT", frame, "TOPLEFT", 14, -32)
+    frame.hint:SetPoint("RIGHT", frame, "RIGHT", -14, 0)
+    frame.hint:SetJustifyH("LEFT")
+
+    local scroll = CreateFrame("ScrollFrame", "REP_RecordExportScroll", frame, "UIPanelScrollFrameTemplate")
+    scroll:SetPoint("TOPLEFT", frame, "TOPLEFT", 12, -50)
+    scroll:SetPoint("BOTTOMRIGHT", frame, "BOTTOMRIGHT", -32, 12)
+
+    local edit = CreateFrame("EditBox", nil, scroll)
+    edit:SetMultiLine(true)
+    edit:SetAutoFocus(false)
+    edit:SetFontObject(ChatFontNormal)
+    edit:SetWidth(590)
+    edit:SetScript("OnEscapePressed", function() frame:Hide() end)
+    -- Read only: typing puts the text back.
+    edit:SetScript("OnTextChanged", function(self, userInput)
+      if userInput and self.exportText then self:SetText(self.exportText) self:HighlightText() end
+    end)
+    scroll:SetScrollChild(edit)
+    frame.edit = edit
+
+    if REP.ElvSkin then
+      REP:ElvSkin("panel", frame)
+      REP:ElvSkin("scrollBar", REP_RecordExportScrollScrollBar)
+    end
+    REP.RecordExportFrame = frame
+  end
+
+  frame.title:SetText(addonName)
+  frame.hint:SetText(string.format(REP_TXT.recordExport, count))
+  frame.edit.exportText = text
+  frame.edit:SetText(text)
+  frame:Show()
+  frame.edit:SetFocus()
+  frame.edit:HighlightText()
 end
 
 ---------------------------

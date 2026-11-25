@@ -46,6 +46,7 @@ function REP_OnLoad(self)
   local defaultData = {
     ShowInstances = true,
     ShowQuests = true,
+    ShowNonRepeatableQuests = true,
     ShowPvPQuests = true,
     SwitchFactionBar = false,
     SilentSwitch = false,
@@ -471,6 +472,7 @@ function REP:RunInit()
   local changed = 0
   changed = changed + REP:InitVariable("ShowMobs", true)
   changed = changed + REP:InitVariable("ShowQuests", true)
+  changed = changed + REP:InitVariable("ShowNonRepeatableQuests", REP_Data.Global.ShowQuests ~= false)
   changed = changed + REP:InitVariable("ShowPvPQuests", true)
   changed = changed + REP:InitVariable("ShowInstances", true)
   changed = changed + REP:InitVariable("ShowItems", true)

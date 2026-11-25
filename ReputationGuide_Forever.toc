@@ -27,12 +27,12 @@
 locales/locale.xml
 
 # Data
-data/questdb.lua
 data/zones.lua
 data/mapping.lua
 data/registry.lua
 data/factions/classic.lua
 data/factions/forever.lua
+data/quests/forever.lua
 data/sources.lua
 
 # Core

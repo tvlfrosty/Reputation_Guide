@@ -29,6 +29,7 @@ if (GetLocale() == "deDE") then
   REP_TXT.enabled	= "aktiv"
   REP_TXT.statMobs	= "Mobs zeigen [M]"
   REP_TXT.statQuests	= "Quests zeigen [Q]"
+  REP_TXT.statRepeatableQuests	= "Wiederholbare Quests zeigen [R]"
   REP_TXT.statInstances	= "Instanzen zeigen [D]"
   REP_TXT.statItems	= "Gegenstände zeigen [I]"
   REP_TXT.statGeneral	= "Allgemein zeigen [G]"
@@ -44,6 +45,7 @@ if (GetLocale() == "deDE") then
   REP_TXT.statGuildCap	= "Gildenruflimit im Chat anzeigen"
   -- XML UI elements
   REP_TXT.showQuests	= "Quests"
+  REP_TXT.showRepeatableQuests	= "Wiederholbare Quests"
   REP_TXT.showPvPQuests	= "PvP Quests"
   REP_TXT.showInstances	= "Instanzen"
   REP_TXT.showMobs	= "Mobs"
@@ -543,8 +545,10 @@ if (GetLocale() == "deDE") then
   REP_TXT.elements.tip.REP_OrderByStandingCheckBox	= "Wenn diese Option nicht aktiviert ist, wird die Fraktionsliste wie im Original (Blizzard) sortiert, d.h. logisch und alphabetisch gruppiert.\r\n\r\nWenn diese Option aktiviert ist, wird die Fraktionsliste nach Ruf sortiert.\r\n\r\nUm |cFFFAA0A0inaktive"
   REP_TXT.elements.name.REP_ShowMobsButton	= REP_TXT.showMobs
   REP_TXT.elements.tip.REP_ShowMobsButton	= "Diese Option aktivieren, um Mobs anzuzeigen, mit denen Du Deinen Ruf steigern kannst."
-  REP_TXT.elements.name.REP_ShowNonPvPQuestsButton	= REP_TXT.showQuests
-  REP_TXT.elements.tip.REP_ShowNonPvPQuestsButton	= "Diese Option aktivieren, um Quests anzuzeigen, mit denen Du Deinen Ruf steigern kannst."
+  REP_TXT.elements.name.REP_ShowOneTimeQuestsButton	= REP_TXT.showQuests
+  REP_TXT.elements.tip.REP_ShowOneTimeQuestsButton	= "Diese Option aktivieren, um einmalige Quests anzuzeigen, mit denen Du Deinen Ruf steigern kannst."
+  REP_TXT.elements.name.REP_ShowNonPvPQuestsButton	= REP_TXT.showRepeatableQuests
+  REP_TXT.elements.tip.REP_ShowNonPvPQuestsButton	= "Diese Option aktivieren, um wiederholbare, tägliche und wöchentliche Quests anzuzeigen, mit denen Du Deinen Ruf steigern kannst."
   REP_TXT.elements.name.REP_ShowPvPQuestsButton	= REP_TXT.showPvPQuests
   REP_TXT.elements.tip.REP_ShowPvPQuestsButton	= "Diese Option aktivieren, um PvP Quests anzuzeigen, mit denen Du Deinen Ruf steigern kannst."
   REP_TXT.elements.name.REP_ShowItemsButton	= REP_TXT.showItems
@@ -742,6 +746,9 @@ if (GetLocale() == "deDE") then
   REP_TXT.manualUntil = "Bis"
   REP_TXT.manualZone = "Gebiet"
   REP_TXT.recordCount = "%d aufgezeichnete Quellen für %d Fraktionen."
+  REP_TXT.recordIssues = "%d mit anderem Ruf als in den Daten, %d einmalige Quests erneut abgegeben."
+  REP_TXT.recordExport = "%d aufgezeichnete Zeilen. Mit Strg+A und Strg+C kopieren."
+  REP_TXT.recordCleared = "aufgezeichnete Zeilen entfernt."
   REP_TXT.recordOff = "Aufzeichnung unbekannter Rufquellen ist aus."
   REP_TXT.recordOn = "Aufzeichnung unbekannter Rufquellen ist an."
   REP_TXT.renownFrameUnavailable = "Das Ruhmfenster konnte nicht geladen werden. Öffne es einmal mit der Schaltfläche 'Ruhm anzeigen' der normalen Rufliste ('Nach Ruf sortieren' aus)."

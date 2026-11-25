@@ -241,24 +241,28 @@ function REP:CreateDetailFrameButtonLayout()
   -------------------------------------
   --  Detail frame checkboxes
   -------------------------------------
-  REP_DetailShowNonPvPQuestsButton = REP:CreateDetailFrameCheckbox("REP_DetailShowNonPvPQuestsButton", REP_TXT.showQuests, "REP_ShowNonPvPQuestsButton", function(_, checked) REP_Data.Global.ShowQuests = checked end, REP.Orig_ReputationDetailFrame)
-  REP_DetailShowNonPvPQuestsButton:SetPoint("TOPLEFT", REP_DetailThirdDivider, "BOTTOMLEFT", 10, 18)
+  REP_DetailShowOneTimeQuestsButton = REP:CreateDetailFrameCheckbox("REP_DetailShowOneTimeQuestsButton", REP_TXT.showQuests, "REP_ShowOneTimeQuestsButton", function(_, checked) REP_Data.Global.ShowNonRepeatableQuests = checked end, REP.Orig_ReputationDetailFrame)
+  REP_DetailShowOneTimeQuestsButton:SetPoint("TOPLEFT", REP_DetailThirdDivider, "BOTTOMLEFT", 10, 18)
+
+  REP_DetailShowNonPvPQuestsButton = REP:CreateDetailFrameCheckbox("REP_DetailShowNonPvPQuestsButton", REP_TXT.showRepeatableQuests, "REP_ShowNonPvPQuestsButton", function(_, checked) REP_Data.Global.ShowQuests = checked end, REP.Orig_ReputationDetailFrame)
+  REP_DetailShowNonPvPQuestsButton:SetPoint("TOPLEFT", REP_DetailThirdDivider, "BOTTOMLEFT", 115, 18)
 
   REP_DetailShowPvPQuestsButton = REP:CreateDetailFrameCheckbox("REP_DetailShowPvPQuestsButton", REP_TXT.showPvPQuests, "REP_ShowPvPQuestsButton", function(_, checked) REP_Data.Global.ShowPvPQuests = checked end, REP.Orig_ReputationDetailFrame)
-  REP_DetailShowPvPQuestsButton:SetPoint("TOPLEFT", REP_DetailThirdDivider, "BOTTOMLEFT", 115, 18)
+  REP_DetailShowPvPQuestsButton:SetPoint("TOPLEFT", REP_DetailThirdDivider, "BOTTOMLEFT", 10, 0)
 
   REP_DetailShowItemsButton = REP:CreateDetailFrameCheckbox("REP_DetailShowItemsButton", REP_TXT.showItems, "REP_ShowItemsButton", function(_, checked) REP_Data.Global.ShowItems = checked end, REP.Orig_ReputationDetailFrame)
   REP_DetailShowItemsButton:SetPoint("TOPLEFT", REP_DetailThirdDivider, "BOTTOMLEFT", 115, 0)
 
   REP_DetailShowMobsButton = REP:CreateDetailFrameCheckbox("REP_DetailShowMobsButton", REP_TXT.showMobs, "REP_ShowMobsButton", function(_, checked) REP_Data.Global.ShowMobs = checked end, REP.Orig_ReputationDetailFrame)
-  REP_DetailShowMobsButton:SetPoint("TOPLEFT", REP_DetailThirdDivider, "BOTTOMLEFT", 10, 0)
+  REP_DetailShowMobsButton:SetPoint("TOPLEFT", REP_DetailThirdDivider, "BOTTOMLEFT", 10, -20)
 
   REP_DetailShowInstancesButton = REP:CreateDetailFrameCheckbox("REP_DetailShowInstancesButton", REP_TXT.showInstances, "REP_ShowInstancesButton", function(_, checked) REP_Data.Global.ShowInstances = checked end, REP.Orig_ReputationDetailFrame)
   REP_DetailShowInstancesButton:SetPoint("TOPLEFT", REP_DetailThirdDivider, "BOTTOMLEFT", 115, -20)
 
   REP_DetailShowGeneralButton = REP:CreateDetailFrameCheckbox("REP_DetailShowGeneralButton", REP_TXT.showGeneral, "REP_ShowGeneralButton", function(_, checked) REP_Data.Global.ShowGeneral = checked end, REP.Orig_ReputationDetailFrame)
-  REP_DetailShowGeneralButton:SetPoint("TOPLEFT", REP_DetailThirdDivider, "BOTTOMLEFT", 10, -20)
+  REP_DetailShowGeneralButton:SetPoint("TOPLEFT", REP_DetailThirdDivider, "BOTTOMLEFT", 10, -40)
 
+  REP_DetailShowOneTimeQuestsButton:SetChecked(REP_Data.Global.ShowNonRepeatableQuests)
   REP_DetailShowNonPvPQuestsButton:SetChecked(REP_Data.Global.ShowQuests)
   REP_DetailShowPvPQuestsButton:SetChecked(REP_Data.Global.ShowPvPQuests)
   REP_DetailShowItemsButton:SetChecked(REP_Data.Global.ShowItems)
@@ -652,6 +656,7 @@ function REP:FillReputationDetailFrameWithData()
   if REP.UseDetailPanel or REP.UseClassicPanel then
     REP:UpdateDetailPanel(factionData, reputationGains, standingColor)
   elseif REP_DetailShowNonPvPQuestsButton then
+    REP_DetailShowOneTimeQuestsButton:SetChecked(REP_Data.Global.ShowNonRepeatableQuests)
     REP_DetailShowNonPvPQuestsButton:SetChecked(REP_Data.Global.ShowQuests)
     REP_DetailShowPvPQuestsButton:SetChecked(REP_Data.Global.ShowPvPQuests)
     REP_DetailShowItemsButton:SetChecked(REP_Data.Global.ShowItems)

@@ -40,6 +40,31 @@ REP.SourceRecords = REP.SourceRecords or {}
 -- English quest names of the quests in the data, shown until the game has loaded the (localized) quest title.
 REP.QuestFallbackNames = REP.QuestFallbackNames or {}
 
+-- Localized quest names (data/quests, Classic versions and WoW Forever): only the client's locale is kept, English
+-- separately as a fallback. Retail has none: it loads the localized title from the server.
+REP.QuestNames = REP.QuestNames or {}
+REP.QuestNamesEnglish = REP.QuestNamesEnglish or {}
+local QUEST_LOCALES = {
+  esMX = { "esMX", "esES" }, zhTW = { "zhTW", "zhCN" }, enGB = { "enUS" },
+}
+
+-- Quest names as one function per locale ({ enUS = function() return { [id] = name } end, deDE = ... }): only English
+-- and the client's locale are built.
+function REP:RegisterQuestNameLists(lists)
+  local locale = GetLocale()
+  if lists.enUS then
+    for id, name in pairs(lists.enUS()) do REP.QuestNamesEnglish[id] = name end
+  end
+  for _, key in ipairs(QUEST_LOCALES[locale] or { locale }) do
+    local list = lists[key]
+    if list then
+      for id, name in pairs(key == "enUS" and REP.QuestNamesEnglish or list()) do
+        if not REP.QuestNames[id] or key == locale then REP.QuestNames[id] = name end
+      end
+    end
+  end
+end
+
 function REP:RegisterFaction(factionID, sources, group)
   for _, source in ipairs(sources) do
     source.factionID = factionID
@@ -194,11 +219,28 @@ local function ParsePhase(value)
   return expansionKey, tonumber(number)
 end
 
+local function InMask(mask, index)
+  if not index or index < 1 then return true end
+  local bit = 2 ^ (index - 1)
+  return math.floor(mask / bit) % 2 == 1
+end
+
+local playerRaceID, playerClassID
+local function PlayerRaceID()
+  if not playerRaceID then playerRaceID = select(3, UnitRace("player")) end
+  return playerRaceID
+end
+local function PlayerClassID()
+  if not playerClassID then playerClassID = select(3, UnitClass("player")) end
+  return playerClassID
+end
+
 function REP:IsSourceAvailable(source)
   local expansion = REP.ExpansionIndex or 0
   local build = REP.GameBuildVersion or 0
 
   if source.forever and not REP.IsForever then return false end
+  if source.notForever and REP.IsForever then return false end
   -- Quests removed from the retail client (checked with /rep verify), still there on the Classic clients.
   if source.notRetail and REP.IsRetail then return false end
   if source.expansion and expansion ~= EXPANSIONS[source.expansion] then return false end
@@ -223,6 +265,9 @@ function REP:IsSourceAvailable(source)
   if source.class and not REP[CLASS_FLAGS[source.class]] then return false end
   if source.notClass and REP[CLASS_FLAGS[source.notClass]] then return false end
   if source.race and not REP[RACE_FLAGS[source.race]] then return false end
+  -- Race and class masks of the quest data (bit = 2^(raceID - 1) / 2^(classID - 1)).
+  if source.races and not InMask(source.races, PlayerRaceID()) then return false end
+  if source.classes and not InMask(source.classes, PlayerClassID()) then return false end
   if source.notRace and REP[RACE_FLAGS[source.notRace]] then return false end
 
   return true
@@ -316,6 +361,8 @@ local function BuildEntry(source, standing, factor)
     entry.name = source.id or source.name or REP:GetSourceText(source.text)
     entry.rep = source.rep * factor
     if source.repeatable == nil then entry.repeatable = true else entry.repeatable = source.repeatable end
+    entry.questID = source.id
+    entry.alsoIDs = source.alsoIDs
     if source.pvp == nil then entry.isPvp = false else entry.isPvp = source.pvp end
     entry.items = CopyTable(source.items)
     entry.profession = source.profession and REP[PROFESSIONS[source.profession]]

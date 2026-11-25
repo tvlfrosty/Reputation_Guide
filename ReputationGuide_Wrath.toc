@@ -27,13 +27,13 @@
 locales/locale.xml
 
 # Data
-data/questdb.lua
 data/zones.lua
 data/mapping.lua
 data/registry.lua
 data/factions/classic.lua
 data/factions/tbc.lua
 data/factions/wotlk.lua
+data/quests/wrath.lua
 data/sources.lua
 
 # Core

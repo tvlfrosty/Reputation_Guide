@@ -116,54 +116,24 @@ REP:RegisterFaction(1105, { -- The Oracles
 })
 
 REP:RegisterFaction(1037, { -- Alliance Vanguard
-  Quest{ from = 4, to = 8, id = 11391, rep = 62.5, since = "wotlk", side = "Alliance" }, -- Steel Gate Patrol QuestID: 11391
-  Quest{ from = 4, to = 8, id = 12869, rep = 62.5, since = "wotlk", side = "Alliance" }, -- Pushed Too Far QuestID: 12869
-  Quest{ from = 4, to = 8, id = 13671, rep = 62.5, since = "wotlk", side = "Alliance" }, -- Training In The Field QuestID: 13671
-  Quest{ from = 4, to = 8, id = 13625, rep = 62.5, since = "wotlk", side = "Alliance" }, -- Learning The Reins QuestID: 13625
-  Quest{ from = 4, to = 8, id = 11153, rep = 62.5, since = "wotlk", side = "Alliance" }, -- Break the Blockade QuestID: 11153
-  Quest{ from = 4, to = 8, id = 13309, rep = 62.5, since = "wotlk", side = "Alliance" }, -- Assault by Air QuestID: 13309
-  Quest{ from = 4, to = 8, id = 13284, rep = 62.5, since = "wotlk", side = "Alliance" }, -- Assault by Ground QuestID: 13284
-  Quest{ from = 4, to = 8, id = 13336, rep = 62.5, since = "wotlk", side = "Alliance" }, -- Blood of the Chosen QuestID: 13336
-  Quest{ from = 4, to = 8, id = 13280, rep = 62.5, since = "wotlk", side = "Alliance" }, -- King of the Mountain QuestID: 13280
-  Quest{ from = 4, to = 8, id = 12444, rep = 62.5, since = "wotlk", side = "Alliance" }, -- Blackriver Skirmish QuestID: 12444
-  Quest{ from = 4, to = 8, id = 12296, rep = 62.5, since = "wotlk", side = "Alliance" }, -- Life or Death QuestID: 12296
-  Quest{ from = 4, to = 8, id = 12289, rep = 62.5, since = "wotlk", side = "Alliance" }, -- Kick 'Em While They're Down QuestID: 12289
-  Quest{ from = 4, to = 8, id = 12268, rep = 62.5, since = "wotlk", side = "Alliance" }, -- Pieces Parts QuestID: 12268
-  Quest{ from = 4, to = 8, id = 12244, rep = 62.5, since = "wotlk", side = "Alliance" }, -- Shredder Repair QuestID: 12244
-  Quest{ from = 4, to = 8, id = 13666, rep = 62.5, since = "wotlk", side = "Alliance" }, -- A Blade Fit For A Champion QuestID: 13666
-  Quest{ from = 4, to = 8, id = 33625, notRetail = true, rep = 62.5, since = "wotlk", side = "Alliance" }, -- The Edge Of Winter QuestID: 33625
-  Quest{ from = 4, to = 8, id = 13600, rep = 62.5, since = "wotlk", side = "Alliance" }, -- A Worthy Weapon QuestID: 13600
-  Quest{ from = 4, to = 8, id = 13847, rep = 62.5, since = "wotlk", side = "Alliance" }, -- At The Enemy's Gates QuestID: 13847
-  Quest{ from = 4, to = 8, id = 13665, rep = 62.5, since = "wotlk", side = "Alliance" }, -- The Grand Melee QuestID: 13665
-  Quest{ from = 4, to = 8, id = 13788, rep = 125, since = "wotlk", side = "Alliance", class = "DEATHKNIGHT" }, -- Threat From Above QuestID: 13788
-  Quest{ from = 4, to = 8, id = 13791, rep = 125, since = "wotlk", side = "Alliance", class = "DEATHKNIGHT" }, -- Taking Battle To The Enemy QuestID: 13791
-  Quest{ from = 4, to = 8, id = 13864, rep = 125, since = "wotlk", side = "Alliance", class = "DEATHKNIGHT" }, -- Battle Before The Citadel QuestID: 13864
-  Quest{ from = 4, to = 8, id = 13793, rep = 125, since = "wotlk", side = "Alliance", class = "DEATHKNIGHT" }, -- Among the Champions QuestID: 13793
-  Quest{ from = 4, to = 8, id = 13682, rep = 125, since = "wotlk", side = "Alliance", notClass = "DEATHKNIGHT" }, -- Threat From Above QuestID: 13682
-  Quest{ from = 4, to = 8, id = 13789, rep = 125, since = "wotlk", side = "Alliance", notClass = "DEATHKNIGHT" }, -- Taking Battle To The Enemy QuestID: 13789
-  Quest{ from = 4, to = 8, id = 13861, rep = 125, since = "wotlk", side = "Alliance", notClass = "DEATHKNIGHT" }, -- Battle Before The Citadel QuestID: 13861
-  Quest{ from = 4, to = 8, id = 13790, rep = 125, since = "wotlk", side = "Alliance", notClass = "DEATHKNIGHT" }, -- Among the Champions QuestID: 13790
   Instance{ from = 4, to = 8, code = 1, rep = 3000, heroic = true, since = "wotlk", side = "Alliance" },
   Item{ from = 1, to = 8, rep = 500, items = {[129955] = 1}, since = "wod", side = "Alliance" },
-})
-
-REP:RegisterFaction(1068, { -- Explorer's League
   Quest{ from = 4, to = 8, id = 11391, rep = 125, since = "wotlk", side = "Alliance" }, -- Steel Gate Patrol QuestID: 11391
-  Quest{ from = 4, to = 8, id = 12869, rep = 62.5, since = "wotlk", side = "Alliance" }, -- Pushed Too Far QuestID: 12869
-  Quest{ from = 4, to = 8, id = 13671, rep = 62.5, since = "wotlk", side = "Alliance" }, -- Training In The Field QuestID: 13671
-  Quest{ from = 4, to = 8, id = 13625, rep = 62.5, since = "wotlk", side = "Alliance" }, -- Learning The Reins QuestID: 13625
-  Quest{ from = 4, to = 8, id = 11153, rep = 62.5, since = "wotlk", side = "Alliance" }, -- Break the Blockade QuestID: 11153
-  Quest{ from = 4, to = 8, id = 13309, rep = 62.5, since = "wotlk", side = "Alliance" }, -- Assault by Air QuestID: 13309
-  Quest{ from = 4, to = 8, id = 13284, rep = 62.5, since = "wotlk", side = "Alliance" }, -- Assault by Ground QuestID: 13284
-  Quest{ from = 4, to = 8, id = 13336, rep = 62.5, since = "wotlk", side = "Alliance" }, -- Blood of the Chosen QuestID: 13336
-  Quest{ from = 4, to = 8, id = 13280, rep = 62.5, since = "wotlk", side = "Alliance" }, -- King of the Mountain QuestID: 13280
-  Quest{ from = 4, to = 8, id = 12444, rep = 62.5, since = "wotlk", side = "Alliance" }, -- Blackriver Skirmish QuestID: 12444
-  Quest{ from = 4, to = 8, id = 12296, rep = 62.5, since = "wotlk", side = "Alliance" }, -- Life or Death QuestID: 12296
-  Quest{ from = 4, to = 8, id = 12289, rep = 62.5, since = "wotlk", side = "Alliance" }, -- Kick 'Em While They're Down QuestID: 12289
-  Quest{ from = 4, to = 8, id = 12268, rep = 62.5, since = "wotlk", side = "Alliance" }, -- Pieces Parts QuestID: 12268
-  Quest{ from = 4, to = 8, id = 12244, rep = 62.5, since = "wotlk", side = "Alliance" }, -- Shredder Repair QuestID: 12244
+  Quest{ from = 4, to = 8, id = 12869, rep = 125, since = "wotlk", side = "Alliance" }, -- Pushed Too Far QuestID: 12869
+  Quest{ from = 4, to = 8, id = 13671, rep = 125, since = "wotlk", side = "Alliance" }, -- Training In The Field QuestID: 13671
+  Quest{ from = 4, to = 8, id = 13625, rep = 125, since = "wotlk", side = "Alliance" }, -- Learning The Reins QuestID: 13625
+  Quest{ from = 4, to = 8, id = 11153, rep = 125, since = "wotlk", side = "Alliance" }, -- Break the Blockade QuestID: 11153
+  Quest{ from = 4, to = 8, id = 13309, rep = 125, since = "wotlk", side = "Alliance" }, -- Assault by Air QuestID: 13309
+  Quest{ from = 4, to = 8, id = 13284, rep = 125, since = "wotlk", side = "Alliance" }, -- Assault by Ground QuestID: 13284
+  Quest{ from = 4, to = 8, id = 13336, rep = 125, since = "wotlk", side = "Alliance" }, -- Blood of the Chosen QuestID: 13336
+  Quest{ from = 4, to = 8, id = 13280, rep = 125, since = "wotlk", side = "Alliance" }, -- King of the Mountain QuestID: 13280
+  Quest{ from = 4, to = 8, id = 12444, rep = 125, since = "wotlk", side = "Alliance" }, -- Blackriver Skirmish QuestID: 12444
+  Quest{ from = 4, to = 8, id = 12296, rep = 125, since = "wotlk", side = "Alliance" }, -- Life or Death QuestID: 12296
+  Quest{ from = 4, to = 8, id = 12289, rep = 125, since = "wotlk", side = "Alliance" }, -- Kick 'Em While They're Down QuestID: 12289
+  Quest{ from = 4, to = 8, id = 12268, rep = 125, since = "wotlk", side = "Alliance" }, -- Pieces Parts QuestID: 12268
+  Quest{ from = 4, to = 8, id = 12244, rep = 125, since = "wotlk", side = "Alliance" }, -- Shredder Repair QuestID: 12244
   Quest{ from = 4, to = 8, id = 13666, rep = 125, since = "wotlk", side = "Alliance" }, -- A Blade Fit For A Champion QuestID: 13666
-  Quest{ from = 4, to = 8, id = 33625, notRetail = true, rep = 125, since = "wotlk", side = "Alliance" }, -- The Edge Of Winter QuestID: 33625
+  Quest{ from = 4, to = 8, id = 13670, rep = 125, since = "wotlk", side = "Alliance" }, -- The Edge Of Winter QuestID: 13670
   Quest{ from = 4, to = 8, id = 13600, rep = 125, since = "wotlk", side = "Alliance" }, -- A Worthy Weapon QuestID: 13600
   Quest{ from = 4, to = 8, id = 13847, rep = 125, since = "wotlk", side = "Alliance" }, -- At The Enemy's Gates QuestID: 13847
   Quest{ from = 4, to = 8, id = 13665, rep = 125, since = "wotlk", side = "Alliance" }, -- The Grand Melee QuestID: 13665
@@ -175,119 +145,72 @@ REP:RegisterFaction(1068, { -- Explorer's League
   Quest{ from = 4, to = 8, id = 13789, rep = 125, since = "wotlk", side = "Alliance", notClass = "DEATHKNIGHT" }, -- Taking Battle To The Enemy QuestID: 13789
   Quest{ from = 4, to = 8, id = 13861, rep = 125, since = "wotlk", side = "Alliance", notClass = "DEATHKNIGHT" }, -- Battle Before The Citadel QuestID: 13861
   Quest{ from = 4, to = 8, id = 13790, rep = 125, since = "wotlk", side = "Alliance", notClass = "DEATHKNIGHT" }, -- Among the Champions QuestID: 13790
+  Quest{ from = 4, to = 8, id = 13759, rep = 125, since = "wotlk", side = "Alliance" }, -- The Edge Of Winter QuestID: 13759
+})
+
+REP:RegisterFaction(1068, { -- Explorer's League
   Instance{ from = 4, to = 8, code = 1, rep = 1500, heroic = true, since = "wotlk", side = "Alliance" },
+  Quest{ from = 4, to = 8, id = 11391, rep = 250, since = "wotlk", side = "Alliance" }, -- Steel Gate Patrol QuestID: 11391
 })
 
 REP:RegisterFaction(1126, { -- The Frostborn
-  Quest{ from = 4, to = 8, id = 11391, rep = 62.5, since = "wotlk", side = "Alliance" }, -- Steel Gate Patrol QuestID: 11391
-  Quest{ from = 4, to = 8, id = 12869, rep = 125, since = "wotlk", side = "Alliance" }, -- Pushed Too Far QuestID: 12869
-  Quest{ from = 4, to = 8, id = 13671, rep = 62.5, since = "wotlk", side = "Alliance" }, -- Training In The Field QuestID: 13671
-  Quest{ from = 4, to = 8, id = 13625, rep = 62.5, since = "wotlk", side = "Alliance" }, -- Learning The Reins QuestID: 13625
-  Quest{ from = 4, to = 8, id = 11153, rep = 62.5, since = "wotlk", side = "Alliance" }, -- Break the Blockade QuestID: 11153
-  Quest{ from = 4, to = 8, id = 13309, rep = 62.5, since = "wotlk", side = "Alliance" }, -- Assault by Air QuestID: 13309
-  Quest{ from = 4, to = 8, id = 13284, rep = 62.5, since = "wotlk", side = "Alliance" }, -- Assault by Ground QuestID: 13284
-  Quest{ from = 4, to = 8, id = 13336, rep = 62.5, since = "wotlk", side = "Alliance" }, -- Blood of the Chosen QuestID: 13336
-  Quest{ from = 4, to = 8, id = 13280, rep = 62.5, since = "wotlk", side = "Alliance" }, -- King of the Mountain QuestID: 13280
-  Quest{ from = 4, to = 8, id = 12444, rep = 62.5, since = "wotlk", side = "Alliance" }, -- Blackriver Skirmish QuestID: 12444
-  Quest{ from = 4, to = 8, id = 12296, rep = 62.5, since = "wotlk", side = "Alliance" }, -- Life or Death QuestID: 12296
-  Quest{ from = 4, to = 8, id = 12289, rep = 62.5, since = "wotlk", side = "Alliance" }, -- Kick 'Em While They're Down QuestID: 12289
-  Quest{ from = 4, to = 8, id = 12268, rep = 62.5, since = "wotlk", side = "Alliance" }, -- Pieces Parts QuestID: 12268
-  Quest{ from = 4, to = 8, id = 12244, rep = 62.5, since = "wotlk", side = "Alliance" }, -- Shredder Repair QuestID: 12244
-  Quest{ from = 4, to = 8, id = 13666, rep = 62.5, since = "wotlk", side = "Alliance" }, -- A Blade Fit For A Champion QuestID: 13666
-  Quest{ from = 4, to = 8, id = 33625, notRetail = true, rep = 62.5, since = "wotlk", side = "Alliance" }, -- The Edge Of Winter QuestID: 33625
-  Quest{ from = 4, to = 8, id = 13600, rep = 62.5, since = "wotlk", side = "Alliance" }, -- A Worthy Weapon QuestID: 13600
-  Quest{ from = 4, to = 8, id = 13847, rep = 62.5, since = "wotlk", side = "Alliance" }, -- At The Enemy's Gates QuestID: 13847
-  Quest{ from = 4, to = 8, id = 13665, rep = 62.5, since = "wotlk", side = "Alliance" }, -- The Grand Melee QuestID: 13665
-  Quest{ from = 4, to = 8, id = 13788, rep = 125, since = "wotlk", side = "Alliance", class = "DEATHKNIGHT" }, -- Threat From Above QuestID: 13788
-  Quest{ from = 4, to = 8, id = 13791, rep = 125, since = "wotlk", side = "Alliance", class = "DEATHKNIGHT" }, -- Taking Battle To The Enemy QuestID: 13791
-  Quest{ from = 4, to = 8, id = 13864, rep = 125, since = "wotlk", side = "Alliance", class = "DEATHKNIGHT" }, -- Battle Before The Citadel QuestID: 13864
-  Quest{ from = 4, to = 8, id = 13793, rep = 125, since = "wotlk", side = "Alliance", class = "DEATHKNIGHT" }, -- Among the Champions QuestID: 13793
-  Quest{ from = 4, to = 8, id = 13682, rep = 125, since = "wotlk", side = "Alliance", notClass = "DEATHKNIGHT" }, -- Threat From Above QuestID: 13682
-  Quest{ from = 4, to = 8, id = 13789, rep = 125, since = "wotlk", side = "Alliance", notClass = "DEATHKNIGHT" }, -- Taking Battle To The Enemy QuestID: 13789
-  Quest{ from = 4, to = 8, id = 13861, rep = 125, since = "wotlk", side = "Alliance", notClass = "DEATHKNIGHT" }, -- Battle Before The Citadel QuestID: 13861
-  Quest{ from = 4, to = 8, id = 13790, rep = 125, since = "wotlk", side = "Alliance", notClass = "DEATHKNIGHT" }, -- Among the Champions QuestID: 13790
   Instance{ from = 4, to = 8, code = 1, rep = 1500, heroic = true, since = "wotlk", side = "Alliance" },
+  Quest{ from = 4, to = 8, id = 12869, rep = 250, since = "wotlk", side = "Alliance" }, -- Pushed Too Far QuestID: 12869
 })
 
 REP:RegisterFaction(1094, { -- The Silver Covenant
-  Quest{ from = 4, to = 8, id = 11391, rep = 62.5, since = "wotlk", side = "Alliance" }, -- Steel Gate Patrol QuestID:
-  Quest{ from = 4, to = 8, id = 12869, rep = 62.5, since = "wotlk", side = "Alliance" }, -- Pushed Too Far QuestID: 12869
-  Quest{ from = 4, to = 8, id = 13759, rep = 62.5, since = "wotlk", side = "Alliance" }, -- The Edge Of Winter QuestID: 13759
-  Quest{ from = 4, to = 8, id = 13671, rep = 62.5, since = "wotlk", side = "Alliance" }, -- Training In The Field QuestID: 13671
-  Quest{ from = 4, to = 8, id = 13625, rep = 62.5, since = "wotlk", side = "Alliance" }, -- Learning The Reins QuestID: 13625
-  Quest{ from = 4, to = 8, id = 11153, rep = 62.5, since = "wotlk", side = "Alliance" }, -- Break the Blockade QuestID: 11153
-  Quest{ from = 4, to = 8, id = 13309, rep = 62.5, since = "wotlk", side = "Alliance" }, -- Assault by Air QuestID: 13309
-  Quest{ from = 4, to = 8, id = 13284, rep = 62.5, since = "wotlk", side = "Alliance" }, -- Assault by Ground QuestID: 13284
-  Quest{ from = 4, to = 8, id = 13336, rep = 62.5, since = "wotlk", side = "Alliance" }, -- Blood of the Chosen QuestID: 13336
-  Quest{ from = 4, to = 8, id = 13280, rep = 62.5, since = "wotlk", side = "Alliance" }, -- King of the Mountain QuestID: 13280
-  Quest{ from = 4, to = 8, id = 12444, rep = 62.5, since = "wotlk", side = "Alliance" }, -- Blackriver Skirmish QuestID: 12444
-  Quest{ from = 4, to = 8, id = 12296, rep = 62.5, since = "wotlk", side = "Alliance" }, -- Life or Death QuestID: 12296
-  Quest{ from = 4, to = 8, id = 12289, rep = 62.5, since = "wotlk", side = "Alliance" }, -- Kick 'Em While They're Down QuestID: 12289
-  Quest{ from = 4, to = 8, id = 12268, rep = 62.5, since = "wotlk", side = "Alliance" }, -- Pieces Parts QuestID: 12268
-  Quest{ from = 4, to = 8, id = 12244, rep = 62.5, since = "wotlk", side = "Alliance" }, -- Shredder Repair QuestID: 12244
-  Quest{ from = 4, to = 8, id = 13666, rep = 62.5, since = "wotlk", side = "Alliance" }, -- A Blade Fit For A Champion QuestID: 13666
-  Quest{ from = 4, to = 8, id = 13600, rep = 62.5, since = "wotlk", side = "Alliance" }, -- A Worthy Weapon QuestID: 13600
-  Quest{ from = 4, to = 8, id = 13847, rep = 62.5, since = "wotlk", side = "Alliance" }, -- At The Enemy's Gates QuestID: 13847
-  Quest{ from = 4, to = 8, id = 13665, rep = 62.5, since = "wotlk", side = "Alliance" }, -- The Grand Melee QuestID: 13665
-  Quest{ from = 4, to = 8, id = 13788, rep = 125, since = "wotlk", side = "Alliance", class = "DEATHKNIGHT" }, -- Threat From Above QuestID: 13788
-  Quest{ from = 4, to = 8, id = 13791, rep = 125, since = "wotlk", side = "Alliance", class = "DEATHKNIGHT" }, -- Taking Battle To The Enemy QuestID: 13791
-  Quest{ from = 4, to = 8, id = 13864, rep = 125, since = "wotlk", side = "Alliance", class = "DEATHKNIGHT" }, -- Battle Before The Citadel QuestID: 13864
-  Quest{ from = 4, to = 8, id = 13793, rep = 125, since = "wotlk", side = "Alliance", class = "DEATHKNIGHT" }, -- Among the Champions QuestID: 13793
-  Quest{ from = 4, to = 8, id = 13682, rep = 125, since = "wotlk", side = "Alliance", notClass = "DEATHKNIGHT" }, -- Threat From Above QuestID: 13682
-  Quest{ from = 4, to = 8, id = 13789, rep = 125, since = "wotlk", side = "Alliance", notClass = "DEATHKNIGHT" }, -- Taking Battle To The Enemy QuestID: 13789
-  Quest{ from = 4, to = 8, id = 13861, rep = 125, since = "wotlk", side = "Alliance", notClass = "DEATHKNIGHT" }, -- Battle Before The Citadel QuestID: 13861
-  Quest{ from = 4, to = 8, id = 13790, rep = 125, since = "wotlk", side = "Alliance", notClass = "DEATHKNIGHT" }, -- Among the Champions QuestID: 13790
   Instance{ from = 4, to = 8, code = 1, rep = 1500, heroic = true, since = "wotlk", side = "Alliance" },
+  Quest{ from = 4, to = 8, id = 13671, rep = 250, since = "wotlk", side = "Alliance" }, -- Training In The Field QuestID: 13671
+  Quest{ from = 4, to = 8, id = 13625, rep = 250, since = "wotlk", side = "Alliance" }, -- Learning The Reins QuestID: 13625
+  Quest{ from = 4, to = 8, id = 13666, rep = 250, since = "wotlk", side = "Alliance" }, -- A Blade Fit For A Champion QuestID: 13666
+  Quest{ from = 4, to = 8, id = 13670, rep = 250, since = "wotlk", side = "Alliance" }, -- The Edge Of Winter QuestID: 13670
+  Quest{ from = 4, to = 8, id = 13600, rep = 250, since = "wotlk", side = "Alliance" }, -- A Worthy Weapon QuestID: 13600
+  Quest{ from = 4, to = 8, id = 13847, rep = 250, since = "wotlk", side = "Alliance" }, -- At The Enemy's Gates QuestID: 13847
+  Quest{ from = 4, to = 8, id = 13665, rep = 250, since = "wotlk", side = "Alliance" }, -- The Grand Melee QuestID: 13665
+  Quest{ from = 4, to = 8, id = 13788, rep = 250, since = "wotlk", side = "Alliance", class = "DEATHKNIGHT" }, -- Threat From Above QuestID: 13788
+  Quest{ from = 4, to = 8, id = 13791, rep = 250, since = "wotlk", side = "Alliance", class = "DEATHKNIGHT" }, -- Taking Battle To The Enemy QuestID: 13791
+  Quest{ from = 4, to = 8, id = 13864, rep = 250, since = "wotlk", side = "Alliance", class = "DEATHKNIGHT" }, -- Battle Before The Citadel QuestID: 13864
+  Quest{ from = 4, to = 8, id = 13793, rep = 250, since = "wotlk", side = "Alliance", class = "DEATHKNIGHT" }, -- Among the Champions QuestID: 13793
+  Quest{ from = 4, to = 8, id = 13682, rep = 250, since = "wotlk", side = "Alliance", notClass = "DEATHKNIGHT" }, -- Threat From Above QuestID: 13682
+  Quest{ from = 4, to = 8, id = 13789, rep = 250, since = "wotlk", side = "Alliance", notClass = "DEATHKNIGHT" }, -- Taking Battle To The Enemy QuestID: 13789
+  Quest{ from = 4, to = 8, id = 13861, rep = 250, since = "wotlk", side = "Alliance", notClass = "DEATHKNIGHT" }, -- Battle Before The Citadel QuestID: 13861
+  Quest{ from = 4, to = 8, id = 13790, rep = 250, since = "wotlk", side = "Alliance", notClass = "DEATHKNIGHT" }, -- Among the Champions QuestID: 13790
+  Quest{ from = 4, to = 8, id = 13759, rep = 250, since = "wotlk", side = "Alliance" }, -- The Edge Of Winter QuestID: 13759
 })
 
 REP:RegisterFaction(1050, { -- Valiance Expedition
-  Quest{ from = 4, to = 8, id = 11391, rep = 62.5, since = "wotlk", side = "Alliance" }, -- Steel Gate Patrol QuestID: 11391
-  Quest{ from = 4, to = 8, id = 12869, rep = 125, since = "wotlk", side = "Alliance" }, -- Pushed Too Far QuestID: 12869
-  Quest{ from = 4, to = 8, id = 13671, rep = 62.5, since = "wotlk", side = "Alliance" }, -- Training In The Field QuestID: 13671
-  Quest{ from = 4, to = 8, id = 13625, rep = 62.5, since = "wotlk", side = "Alliance" }, -- Learning The Reins QuestID: 13625
-  Quest{ from = 4, to = 8, id = 11153, rep = 62.5, since = "wotlk", side = "Alliance" }, -- Break the Blockade QuestID: 11153
-  Quest{ from = 4, to = 8, id = 13309, rep = 62.5, since = "wotlk", side = "Alliance" }, -- Assault by Air QuestID: 13309
-  Quest{ from = 4, to = 8, id = 13284, rep = 62.5, since = "wotlk", side = "Alliance" }, -- Assault by Ground QuestID: 13284
-  Quest{ from = 4, to = 8, id = 13336, rep = 62.5, since = "wotlk", side = "Alliance" }, -- Blood of the Chosen QuestID: 13336
-  Quest{ from = 4, to = 8, id = 13280, rep = 62.5, since = "wotlk", side = "Alliance" }, -- King of the Mountain QuestID: 13280
-  Quest{ from = 4, to = 8, id = 12444, rep = 62.5, since = "wotlk", side = "Alliance" }, -- Blackriver Skirmish QuestID: 12444
-  Quest{ from = 4, to = 8, id = 12296, rep = 62.5, since = "wotlk", side = "Alliance" }, -- Life or Death QuestID: 12296
-  Quest{ from = 4, to = 8, id = 12289, rep = 62.5, since = "wotlk", side = "Alliance" }, -- Kick 'Em While They're Down QuestID: 12289
-  Quest{ from = 4, to = 8, id = 12268, rep = 62.5, since = "wotlk", side = "Alliance" }, -- Pieces Parts QuestID: 12268
-  Quest{ from = 4, to = 8, id = 12244, rep = 62.5, since = "wotlk", side = "Alliance" }, -- Shredder Repair QuestID: 12244
-  Quest{ from = 4, to = 8, id = 13666, rep = 62.5, since = "wotlk", side = "Alliance" }, -- A Blade Fit For A Champion QuestID: 13666
-  Quest{ from = 4, to = 8, id = 33625, notRetail = true, rep = 62.5, since = "wotlk", side = "Alliance" }, -- The Edge Of Winter QuestID: 33625
-  Quest{ from = 4, to = 8, id = 13600, rep = 62.5, since = "wotlk", side = "Alliance" }, -- A Worthy Weapon QuestID: 13600
-  Quest{ from = 4, to = 8, id = 13847, rep = 62.5, since = "wotlk", side = "Alliance" }, -- At The Enemy's Gates QuestID: 13847
-  Quest{ from = 4, to = 8, id = 13665, rep = 62.5, since = "wotlk", side = "Alliance" }, -- The Grand Melee QuestID: 13665
-  Quest{ from = 4, to = 8, id = 13788, rep = 125, since = "wotlk", side = "Alliance", class = "DEATHKNIGHT" }, -- Threat From Above QuestID: 13788
-  Quest{ from = 4, to = 8, id = 13791, rep = 125, since = "wotlk", side = "Alliance", class = "DEATHKNIGHT" }, -- Taking Battle To The Enemy QuestID: 13791
-  Quest{ from = 4, to = 8, id = 13864, rep = 125, since = "wotlk", side = "Alliance", class = "DEATHKNIGHT" }, -- Battle Before The Citadel QuestID: 13864
-  Quest{ from = 4, to = 8, id = 13793, rep = 125, since = "wotlk", side = "Alliance", class = "DEATHKNIGHT" }, -- Among the Champions QuestID: 13793
-  Quest{ from = 4, to = 8, id = 13682, rep = 125, since = "wotlk", side = "Alliance", notClass = "DEATHKNIGHT" }, -- Threat From Above QuestID: 13682
-  Quest{ from = 4, to = 8, id = 13789, rep = 125, since = "wotlk", side = "Alliance", notClass = "DEATHKNIGHT" }, -- Taking Battle To The Enemy QuestID: 13789
-  Quest{ from = 4, to = 8, id = 13861, rep = 125, since = "wotlk", side = "Alliance", notClass = "DEATHKNIGHT" }, -- Battle Before The Citadel QuestID: 13861
-  Quest{ from = 4, to = 8, id = 13790, rep = 125, since = "wotlk", side = "Alliance", notClass = "DEATHKNIGHT" }, -- Among the Champions QuestID: 13790
   Instance{ from = 4, to = 8, code = 1, rep = 1500, heroic = true, since = "wotlk", side = "Alliance" },
+  Quest{ from = 4, to = 8, id = 11153, rep = 250, since = "wotlk", side = "Alliance" }, -- Break the Blockade QuestID: 11153
+  Quest{ from = 4, to = 8, id = 13309, rep = 250, since = "wotlk", side = "Alliance" }, -- Assault by Air QuestID: 13309
+  Quest{ from = 4, to = 8, id = 13284, rep = 250, since = "wotlk", side = "Alliance" }, -- Assault by Ground QuestID: 13284
+  Quest{ from = 4, to = 8, id = 13336, rep = 250, since = "wotlk", side = "Alliance" }, -- Blood of the Chosen QuestID: 13336
+  Quest{ from = 4, to = 8, id = 13280, rep = 250, since = "wotlk", side = "Alliance" }, -- King of the Mountain QuestID: 13280
+  Quest{ from = 4, to = 8, id = 12444, rep = 250, since = "wotlk", side = "Alliance" }, -- Blackriver Skirmish QuestID: 12444
+  Quest{ from = 4, to = 8, id = 12296, rep = 250, since = "wotlk", side = "Alliance" }, -- Life or Death QuestID: 12296
+  Quest{ from = 4, to = 8, id = 12289, rep = 250, since = "wotlk", side = "Alliance" }, -- Kick 'Em While They're Down QuestID: 12289
+  Quest{ from = 4, to = 8, id = 12268, rep = 250, since = "wotlk", side = "Alliance" }, -- Pieces Parts QuestID: 12268
+  Quest{ from = 4, to = 8, id = 12244, rep = 250, since = "wotlk", side = "Alliance" }, -- Shredder Repair QuestID: 12244
 })
 
 REP:RegisterFaction(1052, { -- Horde Expedition
-  Quest{ from = 4, to = 8, id = 12170, rep = 125, since = "wotlk", side = "Horde" }, -- Blackriver Brawl QuestID: 12170
-  Quest{ from = 4, to = 8, id = 13677, rep = 62.5, since = "wotlk", side = "Horde" }, -- Learning The Reins QuestID: 13677
-  Quest{ from = 4, to = 8, id = 13676, rep = 62.5, since = "wotlk", side = "Horde" }, -- Training In The Field QuestID: 13676
-  Quest{ from = 4, to = 8, id = 12284, rep = 62.5, since = "wotlk", side = "Horde" }, -- Keep 'Em on Their Heels QuestID: 12284
-  Quest{ from = 4, to = 8, id = 12280, rep = 62.5, since = "wotlk", side = "Horde" }, -- Making Repairs QuestID: 12280
-  Quest{ from = 4, to = 8, id = 12288, rep = 62.5, since = "wotlk", side = "Horde" }, -- Overwhelmed! QuestID: 12288
-  Quest{ from = 4, to = 8, id = 12270, rep = 62.5, since = "wotlk", side = "Horde" }, -- Shred the Alliance QuestID: 12270
-  Quest{ from = 4, to = 8, id = 13310, rep = 62.5, since = "wotlk", side = "Horde" }, -- Assault by Air QuestID: 13310
-  Quest{ from = 4, to = 8, id = 13301, rep = 62.5, since = "wotlk", side = "Horde" }, -- Assault by Ground QuestID: 13301
-  Quest{ from = 4, to = 8, id = 13330, rep = 62.5, since = "wotlk", side = "Horde" }, -- Blood of the Chosen QuestID: 13330
-  Quest{ from = 4, to = 8, id = 13283, rep = 62.5, since = "wotlk", side = "Horde" }, -- King of the Mountain QuestID: 13283
-  Quest{ from = 4, to = 8, id = 13673, rep = 62.5, since = "wotlk", side = "Horde" }, -- A Blade Fit For A Champion QuestID: 13673
-  Quest{ from = 4, to = 8, id = 13772, rep = 62.5, since = "wotlk", side = "Horde" }, -- The Grand Melee QuestID: 13772
-  Quest{ from = 4, to = 8, id = 13675, rep = 62.5, since = "wotlk", side = "Horde" }, -- The Edge Of Winter QuestID: 13675
-  Quest{ from = 4, to = 8, id = 13769, rep = 62.5, since = "wotlk", side = "Horde" }, -- A Worthy Weapon QuestID: 13769
-  Quest{ from = 4, to = 8, id = 13856, rep = 62.5, since = "wotlk", side = "Horde" }, -- At The Enemy's Gates QuestID: 13856
+  Instance{ from = 4, to = 8, code = 1, rep = 3000, heroic = true, since = "wotlk", side = "Horde" },
+  Item{ from = 1, to = 8, rep = 500, items = {[129954] = 1}, since = "wod", side = "Horde" },
+  Quest{ from = 4, to = 8, id = 12170, rep = 250, since = "wotlk", side = "Horde" }, -- Blackriver Brawl QuestID: 12170
+  Quest{ from = 4, to = 8, id = 13677, rep = 125, since = "wotlk", side = "Horde" }, -- Learning The Reins QuestID: 13677
+  Quest{ from = 4, to = 8, id = 13676, rep = 125, since = "wotlk", side = "Horde" }, -- Training In The Field QuestID: 13676
+  Quest{ from = 4, to = 8, id = 12284, rep = 125, since = "wotlk", side = "Horde" }, -- Keep 'Em on Their Heels QuestID: 12284
+  Quest{ from = 4, to = 8, id = 12280, rep = 125, since = "wotlk", side = "Horde" }, -- Making Repairs QuestID: 12280
+  Quest{ from = 4, to = 8, id = 12288, rep = 125, since = "wotlk", side = "Horde" }, -- Overwhelmed! QuestID: 12288
+  Quest{ from = 4, to = 8, id = 12270, rep = 125, since = "wotlk", side = "Horde" }, -- Shred the Alliance QuestID: 12270
+  Quest{ from = 4, to = 8, id = 13310, rep = 125, since = "wotlk", side = "Horde" }, -- Assault by Air QuestID: 13310
+  Quest{ from = 4, to = 8, id = 13301, rep = 125, since = "wotlk", side = "Horde" }, -- Assault by Ground QuestID: 13301
+  Quest{ from = 4, to = 8, id = 13330, rep = 125, since = "wotlk", side = "Horde" }, -- Blood of the Chosen QuestID: 13330
+  Quest{ from = 4, to = 8, id = 13283, rep = 125, since = "wotlk", side = "Horde" }, -- King of the Mountain QuestID: 13283
+  Quest{ from = 4, to = 8, id = 13673, rep = 125, since = "wotlk", side = "Horde" }, -- A Blade Fit For A Champion QuestID: 13673
+  Quest{ from = 4, to = 8, id = 13772, rep = 125, since = "wotlk", side = "Horde" }, -- The Grand Melee QuestID: 13772
+  Quest{ from = 4, to = 8, id = 13675, rep = 125, since = "wotlk", side = "Horde" }, -- The Edge Of Winter QuestID: 13675
+  Quest{ from = 4, to = 8, id = 13769, rep = 125, since = "wotlk", side = "Horde" }, -- A Worthy Weapon QuestID: 13769
+  Quest{ from = 4, to = 8, id = 13856, rep = 125, since = "wotlk", side = "Horde" }, -- At The Enemy's Gates QuestID: 13856
   Quest{ from = 4, to = 8, id = 13812, rep = 125, since = "wotlk", side = "Horde", class = "DEATHKNIGHT" }, -- Threat From Above QuestID: 13812
   Quest{ from = 4, to = 8, id = 13813, rep = 125, since = "wotlk", side = "Horde", class = "DEATHKNIGHT" }, -- Taking Battle To The Enemy QuestID: 13813
   Quest{ from = 4, to = 8, id = 13863, rep = 125, since = "wotlk", side = "Horde", class = "DEATHKNIGHT" }, -- Battle Before The Citadel QuestID: 13863
@@ -296,118 +219,47 @@ REP:RegisterFaction(1052, { -- Horde Expedition
   Quest{ from = 4, to = 8, id = 13810, rep = 125, since = "wotlk", side = "Horde", notClass = "DEATHKNIGHT" }, -- Taking Battle To The Enemy QuestID: 13810
   Quest{ from = 4, to = 8, id = 13862, rep = 125, since = "wotlk", side = "Horde", notClass = "DEATHKNIGHT" }, -- Battle Before The Citadel QuestID: 13862
   Quest{ from = 4, to = 8, id = 13811, rep = 125, since = "wotlk", side = "Horde", notClass = "DEATHKNIGHT" }, -- Among the Champions QuestID: 13811
-  Instance{ from = 4, to = 8, code = 1, rep = 3000, heroic = true, since = "wotlk", side = "Horde" },
-  Item{ from = 1, to = 8, rep = 500, items = {[129954] = 1}, since = "wod", side = "Horde" },
 })
 
 REP:RegisterFaction(1067, { -- The Hand of Vengeance
-  Quest{ from = 4, to = 8, id = 12170, rep = 125, since = "wotlk", side = "Horde" }, -- Blackriver Brawl QuestID: 12170
-  Quest{ from = 4, to = 8, id = 13677, rep = 62.5, since = "wotlk", side = "Horde" }, -- Learning The Reins QuestID: 13677
-  Quest{ from = 4, to = 8, id = 13676, rep = 62.5, since = "wotlk", side = "Horde" }, -- Training In The Field QuestID: 13676
-  Quest{ from = 4, to = 8, id = 12284, rep = 62.5, since = "wotlk", side = "Horde" }, -- Keep 'Em on Their Heels QuestID: 12284
-  Quest{ from = 4, to = 8, id = 12280, rep = 62.5, since = "wotlk", side = "Horde" }, -- Making Repairs QuestID: 12280
-  Quest{ from = 4, to = 8, id = 12288, rep = 62.5, since = "wotlk", side = "Horde" }, -- Overwhelmed! QuestID: 12288
-  Quest{ from = 4, to = 8, id = 12270, rep = 62.5, since = "wotlk", side = "Horde" }, -- Shred the Alliance QuestID: 12270
-  Quest{ from = 4, to = 8, id = 13310, rep = 62.5, since = "wotlk", side = "Horde" }, -- Assault by Air QuestID: 13310
-  Quest{ from = 4, to = 8, id = 13301, rep = 62.5, since = "wotlk", side = "Horde" }, -- Assault by Ground QuestID: 13301
-  Quest{ from = 4, to = 8, id = 13330, rep = 62.5, since = "wotlk", side = "Horde" }, -- Blood of the Chosen QuestID: 13330
-  Quest{ from = 4, to = 8, id = 13283, rep = 62.5, since = "wotlk", side = "Horde" }, -- King of the Mountain QuestID: 13283
-  Quest{ from = 4, to = 8, id = 13673, rep = 62.5, since = "wotlk", side = "Horde" }, -- A Blade Fit For A Champion QuestID: 13673
-  Quest{ from = 4, to = 8, id = 13772, rep = 62.5, since = "wotlk", side = "Horde" }, -- The Grand Melee QuestID: 13772
-  Quest{ from = 4, to = 8, id = 13675, rep = 62.5, since = "wotlk", side = "Horde" }, -- The Edge Of Winter QuestID: 13675
-  Quest{ from = 4, to = 8, id = 13769, rep = 62.5, since = "wotlk", side = "Horde" }, -- A Worthy Weapon QuestID: 13769
-  Quest{ from = 4, to = 8, id = 13856, rep = 62.5, since = "wotlk", side = "Horde" }, -- At The Enemy's Gates QuestID: 13856
-  Quest{ from = 4, to = 8, id = 13812, rep = 125, since = "wotlk", side = "Horde", class = "DEATHKNIGHT" }, -- Threat From Above QuestID: 13812
-  Quest{ from = 4, to = 8, id = 13813, rep = 125, since = "wotlk", side = "Horde", class = "DEATHKNIGHT" }, -- Taking Battle To The Enemy QuestID: 13813
-  Quest{ from = 4, to = 8, id = 13863, rep = 125, since = "wotlk", side = "Horde", class = "DEATHKNIGHT" }, -- Battle Before The Citadel QuestID: 13863
-  Quest{ from = 4, to = 8, id = 13814, rep = 125, since = "wotlk", side = "Horde", class = "DEATHKNIGHT" }, -- Among the Champions QuestID: 13814
-  Quest{ from = 4, to = 8, id = 13809, rep = 125, since = "wotlk", side = "Horde", notClass = "DEATHKNIGHT" }, -- Threat From Above QuestID: 13809
-  Quest{ from = 4, to = 8, id = 13810, rep = 125, since = "wotlk", side = "Horde", notClass = "DEATHKNIGHT" }, -- Taking Battle To The Enemy QuestID: 13810
-  Quest{ from = 4, to = 8, id = 13862, rep = 125, since = "wotlk", side = "Horde", notClass = "DEATHKNIGHT" }, -- Battle Before The Citadel QuestID: 13862
-  Quest{ from = 4, to = 8, id = 13811, rep = 125, since = "wotlk", side = "Horde", notClass = "DEATHKNIGHT" }, -- Among the Champions QuestID: 13811
   Instance{ from = 4, to = 8, code = 1, rep = 1500, heroic = true, since = "wotlk", side = "Horde" },
+  Quest{ from = 4, to = 8, id = 12170, rep = 125, since = "wotlk", side = "Horde" }, -- Blackriver Brawl QuestID: 12170
 })
 
 REP:RegisterFaction(1124, { -- The Sunreavers
-  Quest{ from = 4, to = 8, id = 12170, rep = 125, since = "wotlk", side = "Horde" }, -- Blackriver Brawl QuestID: 12170
-  Quest{ from = 4, to = 8, id = 13677, rep = 62.5, since = "wotlk", side = "Horde" }, -- Learning The Reins QuestID: 13677
-  Quest{ from = 4, to = 8, id = 13676, rep = 62.5, since = "wotlk", side = "Horde" }, -- Training In The Field QuestID: 13676
-  Quest{ from = 4, to = 8, id = 12284, rep = 62.5, since = "wotlk", side = "Horde" }, -- Keep 'Em on Their Heels QuestID: 12284
-  Quest{ from = 4, to = 8, id = 12280, rep = 62.5, since = "wotlk", side = "Horde" }, -- Making Repairs QuestID: 12280
-  Quest{ from = 4, to = 8, id = 12288, rep = 62.5, since = "wotlk", side = "Horde" }, -- Overwhelmed! QuestID: 12288
-  Quest{ from = 4, to = 8, id = 12270, rep = 62.5, since = "wotlk", side = "Horde" }, -- Shred the Alliance QuestID: 12270
-  Quest{ from = 4, to = 8, id = 13310, rep = 62.5, since = "wotlk", side = "Horde" }, -- Assault by Air QuestID: 13310
-  Quest{ from = 4, to = 8, id = 13301, rep = 62.5, since = "wotlk", side = "Horde" }, -- Assault by Ground QuestID: 13301
-  Quest{ from = 4, to = 8, id = 13330, rep = 62.5, since = "wotlk", side = "Horde" }, -- Blood of the Chosen QuestID: 13330
-  Quest{ from = 4, to = 8, id = 13283, rep = 62.5, since = "wotlk", side = "Horde" }, -- King of the Mountain QuestID: 13283
-  Quest{ from = 4, to = 8, id = 13673, rep = 62.5, since = "wotlk", side = "Horde" }, -- A Blade Fit For A Champion QuestID: 13673
-  Quest{ from = 4, to = 8, id = 13772, rep = 62.5, since = "wotlk", side = "Horde" }, -- The Grand Melee QuestID: 13772
-  Quest{ from = 4, to = 8, id = 13675, rep = 62.5, since = "wotlk", side = "Horde" }, -- The Edge Of Winter QuestID: 13675
-  Quest{ from = 4, to = 8, id = 13769, rep = 62.5, since = "wotlk", side = "Horde" }, -- A Worthy Weapon QuestID: 13769
-  Quest{ from = 4, to = 8, id = 13856, rep = 62.5, since = "wotlk", side = "Horde" }, -- At The Enemy's Gates QuestID: 13856
-  Quest{ from = 4, to = 8, id = 13812, rep = 125, since = "wotlk", side = "Horde", class = "DEATHKNIGHT" }, -- Threat From Above QuestID: 13812
-  Quest{ from = 4, to = 8, id = 13813, rep = 125, since = "wotlk", side = "Horde", class = "DEATHKNIGHT" }, -- Taking Battle To The Enemy QuestID: 13813
-  Quest{ from = 4, to = 8, id = 13863, rep = 125, since = "wotlk", side = "Horde", class = "DEATHKNIGHT" }, -- Battle Before The Citadel QuestID: 13863
-  Quest{ from = 4, to = 8, id = 13814, rep = 125, since = "wotlk", side = "Horde", class = "DEATHKNIGHT" }, -- Among the Champions QuestID: 13814
-  Quest{ from = 4, to = 8, id = 13809, rep = 125, since = "wotlk", side = "Horde", notClass = "DEATHKNIGHT" }, -- Threat From Above QuestID: 13809
-  Quest{ from = 4, to = 8, id = 13810, rep = 125, since = "wotlk", side = "Horde", notClass = "DEATHKNIGHT" }, -- Taking Battle To The Enemy QuestID: 13810
-  Quest{ from = 4, to = 8, id = 13862, rep = 125, since = "wotlk", side = "Horde", notClass = "DEATHKNIGHT" }, -- Battle Before The Citadel QuestID: 13862
-  Quest{ from = 4, to = 8, id = 13811, rep = 125, since = "wotlk", side = "Horde", notClass = "DEATHKNIGHT" }, -- Among the Champions QuestID: 13811
   Instance{ from = 4, to = 8, code = 1, rep = 1500, heroic = true, since = "wotlk", side = "Horde" },
+  Quest{ from = 4, to = 8, id = 12170, rep = 125, since = "wotlk", side = "Horde" }, -- Blackriver Brawl QuestID: 12170
+  Quest{ from = 4, to = 8, id = 13677, rep = 250, since = "wotlk", side = "Horde" }, -- Learning The Reins QuestID: 13677
+  Quest{ from = 4, to = 8, id = 13676, rep = 250, since = "wotlk", side = "Horde" }, -- Training In The Field QuestID: 13676
+  Quest{ from = 4, to = 8, id = 13673, rep = 250, since = "wotlk", side = "Horde" }, -- A Blade Fit For A Champion QuestID: 13673
+  Quest{ from = 4, to = 8, id = 13772, rep = 250, since = "wotlk", side = "Horde" }, -- The Grand Melee QuestID: 13772
+  Quest{ from = 4, to = 8, id = 13675, rep = 250, since = "wotlk", side = "Horde" }, -- The Edge Of Winter QuestID: 13675
+  Quest{ from = 4, to = 8, id = 13769, rep = 250, since = "wotlk", side = "Horde" }, -- A Worthy Weapon QuestID: 13769
+  Quest{ from = 4, to = 8, id = 13856, rep = 250, since = "wotlk", side = "Horde" }, -- At The Enemy's Gates QuestID: 13856
+  Quest{ from = 4, to = 8, id = 13812, rep = 250, since = "wotlk", side = "Horde", class = "DEATHKNIGHT" }, -- Threat From Above QuestID: 13812
+  Quest{ from = 4, to = 8, id = 13813, rep = 250, since = "wotlk", side = "Horde", class = "DEATHKNIGHT" }, -- Taking Battle To The Enemy QuestID: 13813
+  Quest{ from = 4, to = 8, id = 13863, rep = 250, since = "wotlk", side = "Horde", class = "DEATHKNIGHT" }, -- Battle Before The Citadel QuestID: 13863
+  Quest{ from = 4, to = 8, id = 13814, rep = 250, since = "wotlk", side = "Horde", class = "DEATHKNIGHT" }, -- Among the Champions QuestID: 13814
+  Quest{ from = 4, to = 8, id = 13809, rep = 250, since = "wotlk", side = "Horde", notClass = "DEATHKNIGHT" }, -- Threat From Above QuestID: 13809
+  Quest{ from = 4, to = 8, id = 13810, rep = 250, since = "wotlk", side = "Horde", notClass = "DEATHKNIGHT" }, -- Taking Battle To The Enemy QuestID: 13810
+  Quest{ from = 4, to = 8, id = 13862, rep = 250, since = "wotlk", side = "Horde", notClass = "DEATHKNIGHT" }, -- Battle Before The Citadel QuestID: 13862
+  Quest{ from = 4, to = 8, id = 13811, rep = 250, since = "wotlk", side = "Horde", notClass = "DEATHKNIGHT" }, -- Among the Champions QuestID: 13811
 })
 
 REP:RegisterFaction(1085, { -- Warsong Offensive
-  Quest{ from = 4, to = 8, id = 12170, rep = 125, since = "wotlk", side = "Horde" }, -- Blackriver Brawl QuestID: 12170
-  Quest{ from = 4, to = 8, id = 13677, rep = 62.5, since = "wotlk", side = "Horde" }, -- Learning The Reins QuestID: 13677
-  Quest{ from = 4, to = 8, id = 13676, rep = 62.5, since = "wotlk", side = "Horde" }, -- Training In The Field QuestID: 13676
-  Quest{ from = 4, to = 8, id = 12284, rep = 62.5, since = "wotlk", side = "Horde" }, -- Keep 'Em on Their Heels QuestID: 12284
-  Quest{ from = 4, to = 8, id = 12280, rep = 62.5, since = "wotlk", side = "Horde" }, -- Making Repairs QuestID: 12280
-  Quest{ from = 4, to = 8, id = 12288, rep = 62.5, since = "wotlk", side = "Horde" }, -- Overwhelmed! QuestID: 12288
-  Quest{ from = 4, to = 8, id = 12270, rep = 62.5, since = "wotlk", side = "Horde" }, -- Shred the Alliance QuestID: 12270
-  Quest{ from = 4, to = 8, id = 13310, rep = 62.5, since = "wotlk", side = "Horde" }, -- Assault by Air QuestID: 13310
-  Quest{ from = 4, to = 8, id = 13301, rep = 62.5, since = "wotlk", side = "Horde" }, -- Assault by Ground QuestID: 13301
-  Quest{ from = 4, to = 8, id = 13330, rep = 62.5, since = "wotlk", side = "Horde" }, -- Blood of the Chosen QuestID: 13330
-  Quest{ from = 4, to = 8, id = 13283, rep = 62.5, since = "wotlk", side = "Horde" }, -- King of the Mountain QuestID: 13283
-  Quest{ from = 4, to = 8, id = 13673, rep = 62.5, since = "wotlk", side = "Horde" }, -- A Blade Fit For A Champion QuestID: 13673
-  Quest{ from = 4, to = 8, id = 13772, rep = 62.5, since = "wotlk", side = "Horde" }, -- The Grand Melee QuestID: 13772
-  Quest{ from = 4, to = 8, id = 13675, rep = 62.5, since = "wotlk", side = "Horde" }, -- The Edge Of Winter QuestID: 13675
-  Quest{ from = 4, to = 8, id = 13769, rep = 62.5, since = "wotlk", side = "Horde" }, -- A Worthy Weapon QuestID: 13769
-  Quest{ from = 4, to = 8, id = 13856, rep = 62.5, since = "wotlk", side = "Horde" }, -- At The Enemy's Gates QuestID: 13856
-  Quest{ from = 4, to = 8, id = 13812, rep = 125, since = "wotlk", side = "Horde", class = "DEATHKNIGHT" }, -- Threat From Above QuestID: 13812
-  Quest{ from = 4, to = 8, id = 13813, rep = 125, since = "wotlk", side = "Horde", class = "DEATHKNIGHT" }, -- Taking Battle To The Enemy QuestID: 13813
-  Quest{ from = 4, to = 8, id = 13863, rep = 125, since = "wotlk", side = "Horde", class = "DEATHKNIGHT" }, -- Battle Before The Citadel QuestID: 13863
-  Quest{ from = 4, to = 8, id = 13814, rep = 125, since = "wotlk", side = "Horde", class = "DEATHKNIGHT" }, -- Among the Champions QuestID: 13814
-  Quest{ from = 4, to = 8, id = 13809, rep = 125, since = "wotlk", side = "Horde", notClass = "DEATHKNIGHT" }, -- Threat From Above QuestID: 13809
-  Quest{ from = 4, to = 8, id = 13810, rep = 125, since = "wotlk", side = "Horde", notClass = "DEATHKNIGHT" }, -- Taking Battle To The Enemy QuestID: 13810
-  Quest{ from = 4, to = 8, id = 13862, rep = 125, since = "wotlk", side = "Horde", notClass = "DEATHKNIGHT" }, -- Battle Before The Citadel QuestID: 13862
-  Quest{ from = 4, to = 8, id = 13811, rep = 125, since = "wotlk", side = "Horde", notClass = "DEATHKNIGHT" }, -- Among the Champions QuestID: 13811
   Instance{ from = 4, to = 8, code = 1, rep = 1500, heroic = true, since = "wotlk", side = "Horde" },
+  Quest{ from = 4, to = 8, id = 12170, rep = 125, since = "wotlk", side = "Horde" }, -- Blackriver Brawl QuestID: 12170
+  Quest{ from = 4, to = 8, id = 12284, rep = 250, since = "wotlk", side = "Horde" }, -- Keep 'Em on Their Heels QuestID: 12284
+  Quest{ from = 4, to = 8, id = 12280, rep = 250, since = "wotlk", side = "Horde" }, -- Making Repairs QuestID: 12280
+  Quest{ from = 4, to = 8, id = 12288, rep = 250, since = "wotlk", side = "Horde" }, -- Overwhelmed! QuestID: 12288
+  Quest{ from = 4, to = 8, id = 12270, rep = 250, since = "wotlk", side = "Horde" }, -- Shred the Alliance QuestID: 12270
+  Quest{ from = 4, to = 8, id = 13310, rep = 250, since = "wotlk", side = "Horde" }, -- Assault by Air QuestID: 13310
+  Quest{ from = 4, to = 8, id = 13301, rep = 250, since = "wotlk", side = "Horde" }, -- Assault by Ground QuestID: 13301
+  Quest{ from = 4, to = 8, id = 13330, rep = 250, since = "wotlk", side = "Horde" }, -- Blood of the Chosen QuestID: 13330
+  Quest{ from = 4, to = 8, id = 13283, rep = 250, since = "wotlk", side = "Horde" }, -- King of the Mountain QuestID: 13283
 })
 
 REP:RegisterFaction(1064, { -- The Taunka
-  Quest{ from = 4, to = 8, id = 12170, rep = 125, since = "wotlk", side = "Horde" }, -- Blackriver Brawl QuestID: 12170
-  Quest{ from = 4, to = 8, id = 13677, rep = 62.5, since = "wotlk", side = "Horde" }, -- Learning The Reins QuestID: 13677
-  Quest{ from = 4, to = 8, id = 13676, rep = 62.5, since = "wotlk", side = "Horde" }, -- Training In The Field QuestID: 13676
-  Quest{ from = 4, to = 8, id = 12284, rep = 62.5, since = "wotlk", side = "Horde" }, -- Keep 'Em on Their Heels QuestID: 12284
-  Quest{ from = 4, to = 8, id = 12280, rep = 62.5, since = "wotlk", side = "Horde" }, -- Making Repairs QuestID: 12280
-  Quest{ from = 4, to = 8, id = 12288, rep = 62.5, since = "wotlk", side = "Horde" }, -- Overwhelmed! QuestID: 12288
-  Quest{ from = 4, to = 8, id = 12270, rep = 62.5, since = "wotlk", side = "Horde" }, -- Shred the Alliance QuestID: 12270
-  Quest{ from = 4, to = 8, id = 13310, rep = 62.5, since = "wotlk", side = "Horde" }, -- Assault by Air QuestID: 13310
-  Quest{ from = 4, to = 8, id = 13301, rep = 62.5, since = "wotlk", side = "Horde" }, -- Assault by Ground QuestID: 13301
-  Quest{ from = 4, to = 8, id = 13330, rep = 62.5, since = "wotlk", side = "Horde" }, -- Blood of the Chosen QuestID: 13330
-  Quest{ from = 4, to = 8, id = 13283, rep = 62.5, since = "wotlk", side = "Horde" }, -- King of the Mountain QuestID: 13283
-  Quest{ from = 4, to = 8, id = 13673, rep = 62.5, since = "wotlk", side = "Horde" }, -- A Blade Fit For A Champion QuestID: 13673
-  Quest{ from = 4, to = 8, id = 13772, rep = 62.5, since = "wotlk", side = "Horde" }, -- The Grand Melee QuestID: 13772
-  Quest{ from = 4, to = 8, id = 13675, rep = 62.5, since = "wotlk", side = "Horde" }, -- The Edge Of Winter QuestID: 13675
-  Quest{ from = 4, to = 8, id = 13769, rep = 62.5, since = "wotlk", side = "Horde" }, -- A Worthy Weapon QuestID: 13769
-  Quest{ from = 4, to = 8, id = 13856, rep = 62.5, since = "wotlk", side = "Horde" }, -- At The Enemy's Gates QuestID: 13856
-  Quest{ from = 4, to = 8, id = 13812, rep = 125, since = "wotlk", side = "Horde", class = "DEATHKNIGHT" }, -- Threat From Above QuestID: 13812
-  Quest{ from = 4, to = 8, id = 13813, rep = 125, since = "wotlk", side = "Horde", class = "DEATHKNIGHT" }, -- Taking Battle To The Enemy QuestID: 13813
-  Quest{ from = 4, to = 8, id = 13863, rep = 125, since = "wotlk", side = "Horde", class = "DEATHKNIGHT" }, -- Battle Before The Citadel QuestID: 13863
-  Quest{ from = 4, to = 8, id = 13814, rep = 125, since = "wotlk", side = "Horde", class = "DEATHKNIGHT" }, -- Among the Champions QuestID: 13814
-  Quest{ from = 4, to = 8, id = 13809, rep = 125, since = "wotlk", side = "Horde", notClass = "DEATHKNIGHT" }, -- Threat From Above QuestID: 13809
-  Quest{ from = 4, to = 8, id = 13810, rep = 125, since = "wotlk", side = "Horde", notClass = "DEATHKNIGHT" }, -- Taking Battle To The Enemy QuestID: 13810
-  Quest{ from = 4, to = 8, id = 13862, rep = 125, since = "wotlk", side = "Horde", notClass = "DEATHKNIGHT" }, -- Battle Before The Citadel QuestID: 13862
-  Quest{ from = 4, to = 8, id = 13811, rep = 125, since = "wotlk", side = "Horde", notClass = "DEATHKNIGHT" }, -- Among the Champions QuestID: 13811
   Instance{ from = 4, to = 8, code = 1, rep = 1500, heroic = true, since = "wotlk", side = "Horde" },
+  Quest{ from = 4, to = 8, id = 12170, rep = 125, since = "wotlk", side = "Horde" }, -- Blackriver Brawl QuestID: 12170
 })

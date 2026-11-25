@@ -28,6 +28,7 @@ if (GetLocale() =="ruRU") then
   REP_TXT.enabled	= "включено"
   REP_TXT.statMobs	= "Показывать мобов [М]"
   REP_TXT.statQuests	= "Показывать квесты [К]"
+  REP_TXT.statRepeatableQuests	= "Показывать повторяемые квесты [П]"
   REP_TXT.statInstances	= "Показывать подземелья [П]"
   REP_TXT.statItems	= "Показывать вещи [В]"
   REP_TXT.statGeneral	= "Показать общее [G]"
@@ -43,6 +44,7 @@ if (GetLocale() =="ruRU") then
   REP_TXT.statGuildCap	= "Показать лимит репутации с гильдией в чат"
   -- XML UI elements
   REP_TXT.showQuests	= "Квесты"
+  REP_TXT.showRepeatableQuests	= "Повторяемые квесты"
   REP_TXT.showPvPQuests	= "PvP Квесты"
   REP_TXT.showInstances	= "Подземелья"
   REP_TXT.showMobs	= "Мобы"
@@ -540,8 +542,10 @@ if (GetLocale() =="ruRU") then
   REP_TXT.elements.tip.REP_OrderByStandingCheckBox	= "Если это поле не отмечено, то список фракций отображается в порядке по умолчанию, т.е. фракции группируются на логические группы, а внутри них по алфавиту. \\r\\nЕсли это поле отмечено, то список фракций сортируется по отношению с ними. \\r\\nЧтобы увидеть |cFFFAA0A0неактивные|r фракции, уберите отметку в этом поле и прокрутите до низа списка."
   REP_TXT.elements.name.REP_ShowMobsButton	= REP_TXT.showMobs
   REP_TXT.elements.tip.REP_ShowMobsButton	= "Нажмите кнопку, чтобы видеть мобов, за убийство которых растет репутация."
-  REP_TXT.elements.name.REP_ShowNonPvPQuestsButton	= REP_TXT.showQuests
-  REP_TXT.elements.tip.REP_ShowNonPvPQuestsButton	= "Нажмите кнопку, чтобы видеть квесты, за выполнение которых растет репутация."
+  REP_TXT.elements.name.REP_ShowOneTimeQuestsButton	= REP_TXT.showQuests
+  REP_TXT.elements.tip.REP_ShowOneTimeQuestsButton	= "Нажмите кнопку, чтобы видеть одноразовые квесты, за выполнение которых растет репутация."
+  REP_TXT.elements.name.REP_ShowNonPvPQuestsButton	= REP_TXT.showRepeatableQuests
+  REP_TXT.elements.tip.REP_ShowNonPvPQuestsButton	= "Нажмите кнопку, чтобы видеть повторяемые, ежедневные и еженедельные квесты, за выполнение которых растет репутация."
   REP_TXT.elements.name.REP_ShowPvPQuestsButton	= REP_TXT.showPvPQuests
   REP_TXT.elements.tip.REP_ShowPvPQuestsButton	= "Нажмите кнопку, чтобы видеть PvP квесты, за выполнение которых растет репутация."
   REP_TXT.elements.name.REP_ShowItemsButton	= REP_TXT.showItems
@@ -739,6 +743,9 @@ if (GetLocale() =="ruRU") then
   REP_TXT.manualUntil = "До"
   REP_TXT.manualZone = "Зона"
   REP_TXT.recordCount = "Записано источников: %d для фракций: %d."
+  REP_TXT.recordIssues = "С другой репутацией, чем в данных: %d. Одноразовых квестов, сданных повторно: %d."
+  REP_TXT.recordExport = "Записанных строк: %d. Нажмите Ctrl+A и Ctrl+C, чтобы скопировать."
+  REP_TXT.recordCleared = "записанные строки удалены."
   REP_TXT.recordOff = "запись неизвестных источников репутации выключена."
   REP_TXT.recordOn = "запись неизвестных источников репутации включена."
   REP_TXT.renownFrameUnavailable = "Не удалось загрузить окно известности, откройте его один раз кнопкой «Показать известность» в обычном списке репутации («Сортировать по репе» выключено)."

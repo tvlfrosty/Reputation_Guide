@@ -197,8 +197,8 @@ REP:RegisterFaction(1177, { -- Baradin's Wardens
 })
 
 REP:RegisterFaction(1134, { -- Gilneas
-  Quest{ from = 4, to = 8, id = 2, rep = 65, profession = "Cooking", since = "cata", side = "Alliance" },
-  Quest{ from = 4, to = 8, id = 4, rep = 65, profession = "Fishing", since = "cata", side = "Alliance" },
+  Quest{ from = 4, to = 8, text = "coq", rep = 65, profession = "Cooking", since = "cata", side = "Alliance" },
+  Quest{ from = 4, to = 8, text = "foq", rep = 65, profession = "Fishing", since = "cata", side = "Alliance" },
   General{ from = 4, to = 8, text = "killingGreyLevelMobsInInstancesWhile", rep = 3, headText = "killingGreyLevelMobsInInstancesWhile", tipText = "killingGreyLevelMobsInInstancesWhile2", since = "cata", side = "Alliance" },
   General{ from = 4, to = 8, text = "killingGreyLevelBossesInInstancesWhile", rep = 60, headText = "killingGreyLevelBossesInInstancesWhile", tipText = "killingGreyLevelBossesInInstancesWhile2", since = "cata", side = "Alliance" },
   General{ from = 4, to = 8, text = "killingGreenOrHigherLevelMobsIn", rep = 15, headText = "killingGreenOrHigherLevelMobsIn", tipText = "killingGreenOrHigherLevelMobsIn2", since = "cata", side = "Alliance" },
@@ -206,8 +206,8 @@ REP:RegisterFaction(1134, { -- Gilneas
 })
 
 REP:RegisterFaction(1133, { -- Bilgewater Cartel
-  Quest{ from = 4, to = 8, id = 2, rep = 65, profession = "Cooking", since = "cata", untilPhase = "thewarwithin 1", side = "Horde" },
-  Quest{ from = 4, to = 8, id = 4, rep = 65, profession = "Fishing", since = "cata", untilPhase = "thewarwithin 1", side = "Horde" },
+  Quest{ from = 4, to = 8, text = "coq", rep = 65, profession = "Cooking", since = "cata", untilPhase = "thewarwithin 1", side = "Horde" },
+  Quest{ from = 4, to = 8, text = "foq", rep = 65, profession = "Fishing", since = "cata", untilPhase = "thewarwithin 1", side = "Horde" },
   General{ from = 4, to = 8, text = "killingGreyLevelMobsInInstancesWhile3", rep = 3, headText = "killingGreyLevelMobsInInstancesWhile3", tipText = "killingGreyLevelMobsInInstancesWhile4", since = "cata", untilPhase = "thewarwithin 1", side = "Horde" },
   General{ from = 4, to = 8, text = "killingGreyLevelBossesInInstancesWhile3", rep = 60, headText = "killingGreyLevelBossesInInstancesWhile3", tipText = "killingGreyLevelBossesInInstancesWhile4", since = "cata", untilPhase = "thewarwithin 1", side = "Horde" },
   General{ from = 4, to = 8, text = "killingGreenOrHigherLevelMobsIn3", rep = 15, headText = "killingGreenOrHigherLevelMobsIn3", tipText = "killingGreenOrHigherLevelMobsIn4", since = "cata", untilPhase = "thewarwithin 1", side = "Horde" },

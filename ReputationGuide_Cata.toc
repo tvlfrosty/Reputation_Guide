@@ -27,7 +27,6 @@
 locales/locale.xml
 
 # Data
-data/questdb.lua
 data/zones.lua
 data/mapping.lua
 data/registry.lua
@@ -36,6 +35,7 @@ data/factions/tbc.lua
 data/factions/wotlk.lua
 data/factions/cata.lua
 data/factions/guild.lua
+data/quests/cata.lua
 data/sources.lua
 
 # Core

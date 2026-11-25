@@ -13,11 +13,11 @@ local function RegisterForeverFaction(factionID, sources)
 end
 
 RegisterForeverFaction(2779, { -- High Order (Alliance Skyborne)
-  Quest{ from = 4, to = 8, id = 99199, name = "A Donation of Runecloth", rep = 150, items = {[14047] = 60} }, -- Oura Stormspinner
+  Quest{ from = 4, to = 8, id = 99194, name = "A Donation of Runecloth", rep = 150, items = {[14047] = 60}, repeatable = false }, -- Oura Stormspinner
 })
 
 RegisterForeverFaction(2778, { -- Windshapers (Horde Skyborne)
-  Quest{ from = 4, to = 8, id = 99199, name = "A Donation of Runecloth", rep = 150, items = {[14047] = 60} }, -- Oura Stormspinner
+  Quest{ from = 4, to = 8, id = 99199, name = "A Donation of Runecloth", rep = 150, items = {[14047] = 60}, repeatable = false }, -- Oura Stormspinner
 })
 
 RegisterForeverFaction(2758, { -- Nightclaw Druids
@@ -109,13 +109,13 @@ RegisterForeverFaction(2747, { -- Barkskin Burrow
 RegisterForeverFaction(2799, { -- Theramore Expeditionary Force (Darkspear Islands, Alliance)
   Quest{ from = 4, to = 8, id = 98896, name = "Darkspear Islands Clash", rep = 100, pvp = true },
   Quest{ from = 4, to = 8, id = 98901, name = "Darkspear Islands Clash", rep = 150, pvp = true, repeatable = false },
-  Quest{ from = 4, to = 8, id = 98905, name = "The Battle for Darkspear Islands!", rep = 200, pvp = true },
+  Quest{ from = 4, to = 8, id = 98905, name = "The Battle for Darkspear Islands!", rep = 200, pvp = true, repeatable = false },
 })
 
 RegisterForeverFaction(2798, { -- Darkspear Raiders (Darkspear Islands, Horde)
   Quest{ from = 4, to = 8, id = 98888, name = "Conflict at Darkspear Islands", rep = 100, pvp = true },
   Quest{ from = 4, to = 8, id = 98893, name = "Conflict at Darkspear Islands", rep = 150, pvp = true, repeatable = false },
-  Quest{ from = 4, to = 8, id = 98908, name = "The Battle for Darkspear Islands!", rep = 200, pvp = true },
+  Quest{ from = 4, to = 8, id = 98908, name = "The Battle for Darkspear Islands!", rep = 200, pvp = true, repeatable = false },
 })
 
 -- No known sources yet: 2719 Cenarion Scouts, 2782 Bolder'ok Clan, 2819 The Watchers, 2826 Brotherhood of the Horse, 2827 Powderfuse.

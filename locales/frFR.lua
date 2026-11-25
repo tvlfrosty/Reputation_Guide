@@ -28,6 +28,7 @@ if (GetLocale() =="frFR") then
   REP_TXT.enabled	= "activé"
   REP_TXT.statMobs	= "Afficher Mobs [M]"
   REP_TXT.statQuests	= "Afficher Quêtes[Q]"
+  REP_TXT.statRepeatableQuests	= "Afficher Quêtes répétables [R]"
   REP_TXT.statInstances	= "Afficher Donjons [D]"
   REP_TXT.statItems	= "Afficher Objets [I]"
   REP_TXT.statGeneral	= "Afficher Général [G]"
@@ -43,6 +44,7 @@ if (GetLocale() =="frFR") then
   REP_TXT.statGuildCap	= "Afficher le CAP de réputation de guilde dans le chat"
   -- XML UI elements
   REP_TXT.showQuests	= "Quêtes"
+  REP_TXT.showRepeatableQuests	= "Quêtes répétables"
   REP_TXT.showPvPQuests	= "PvP Quêtes"
   REP_TXT.showInstances	= "Donjons"
   REP_TXT.showMobs	= "Mobs"
@@ -538,8 +540,10 @@ if (GetLocale() =="frFR") then
   REP_TXT.elements.tip.REP_OrderByStandingCheckBox	= "Si cette case n'est pas cochée, la liste de faction est affichée triée par défaut (Blizzard), regroupées par ordre logique et alphabétique. \r\n\r\n Si cette case est cochée, la liste de factions est triée par date. \r\n\r\n Pour vopir les factions | cFFFAA0A0inactive |r  , décochez cette case et allez à la fin de la liste."
   REP_TXT.elements.name.REP_ShowMobsButton	= REP_TXT.showMobs
   REP_TXT.elements.tip.REP_ShowMobsButton	= "Cochez cette case pour voir les mobs que vous pouvez tuer pour améliorer votre réputation."
-  REP_TXT.elements.name.REP_ShowNonPvPQuestsButton	= REP_TXT.showQuests
-  REP_TXT.elements.tip.REP_ShowNonPvPQuestsButton	= "Cochez cette case pour voir quêtes que vous pouvez faire pour améliorer votre réputation."
+  REP_TXT.elements.name.REP_ShowOneTimeQuestsButton	= REP_TXT.showQuests
+  REP_TXT.elements.tip.REP_ShowOneTimeQuestsButton	= "Cochez cette case pour voir les quêtes uniques que vous pouvez faire pour améliorer votre réputation."
+  REP_TXT.elements.name.REP_ShowNonPvPQuestsButton	= REP_TXT.showRepeatableQuests
+  REP_TXT.elements.tip.REP_ShowNonPvPQuestsButton	= "Cochez cette case pour voir les quêtes répétables, journalières et hebdomadaires que vous pouvez faire pour améliorer votre réputation."
   REP_TXT.elements.name.REP_ShowPvPQuestsButton	= REP_TXT.showPvPQuests
   REP_TXT.elements.tip.REP_ShowPvPQuestsButton	= "Cochez cette case pour voir PvP quêtes que vous pouvez faire pour améliorer votre réputation."
   REP_TXT.elements.name.REP_ShowItemsButton	= REP_TXT.showItems
@@ -737,6 +741,9 @@ if (GetLocale() =="frFR") then
   REP_TXT.manualUntil = "Jusqu'à"
   REP_TXT.manualZone = "Zone"
   REP_TXT.recordCount = "%d sources enregistrées pour %d factions."
+  REP_TXT.recordIssues = "%d avec une réputation différente des données, %d quêtes uniques rendues à nouveau."
+  REP_TXT.recordExport = "%d lignes enregistrées. Appuyez sur Ctrl+A puis Ctrl+C pour les copier."
+  REP_TXT.recordCleared = "lignes enregistrées supprimées."
   REP_TXT.recordOff = "l'enregistrement des sources de réputation inconnues est désactivé."
   REP_TXT.recordOn = "l'enregistrement des sources de réputation inconnues est activé."
   REP_TXT.renownFrameUnavailable = "La fenêtre de renommée n'a pas pu être chargée, ouvrez-la une fois avec le bouton Voir la renommée de la liste de réputation normale (Trier par niveau de réputation désactivé)."

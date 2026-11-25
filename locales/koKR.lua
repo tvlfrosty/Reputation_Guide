@@ -27,6 +27,7 @@ if (GetLocale() =="koKR") then
   REP_TXT.enabled	= "활성화"
   REP_TXT.statMobs	= "몬스터 표시 [몹]"
   REP_TXT.statQuests	= "퀘스트 표시 [퀘]"
+  REP_TXT.statRepeatableQuests	= "반복 퀘스트 표시 [반]"
   REP_TXT.statInstances	= "인스턴스 표시 [인]"
   REP_TXT.statItems	= "아이템 표시 [템]"
   REP_TXT.statGeneral	= "일반 표시 [G]"
@@ -42,6 +43,7 @@ if (GetLocale() =="koKR") then
   REP_TXT.statGuildCap	= "길드 평판 획득 제한치(Cap) 표시"
   -- XML UI elements
   REP_TXT.showQuests	= "퀘스트 표시"
+  REP_TXT.showRepeatableQuests	= "반복 퀘스트 표시"
   REP_TXT.showPvPQuests	= "PvP 퀘스트 표시"
   REP_TXT.showInstances	= "인스턴스 표시"
   REP_TXT.showMobs	= "몬스터 표시"
@@ -537,8 +539,10 @@ if (GetLocale() =="koKR") then
   REP_TXT.elements.tip.REP_OrderByStandingCheckBox	= "이 항목을 선택하면, 진영 목록을 평판순으로 정렬합니다.\r\n\r\n이 항목을 선택하지 않으면 진영 목록은 블리자드 기본 그룹에 가나다 순으로 표시합니다.\r\n\r\n|cFFFAA0A0비활성|r 진영을 표시하려면, 이 항목을 해제한 뒤 목록의 맨 아래로 이동하면 볼 수 있습니다."
   REP_TXT.elements.name.REP_ShowMobsButton	= REP_TXT.showMobs
   REP_TXT.elements.tip.REP_ShowMobsButton	= "평판을 얻기 위해 잡을 수 있는 몹을 보려면 이 단추를 선택하십시오."
-  REP_TXT.elements.name.REP_ShowNonPvPQuestsButton	= REP_TXT.showQuests
-  REP_TXT.elements.tip.REP_ShowNonPvPQuestsButton	= "평판을 얻기 위해 할 수 있는 퀘스트를 보려면\r\n이 단추를 선택하십시오."
+  REP_TXT.elements.name.REP_ShowOneTimeQuestsButton	= REP_TXT.showQuests
+  REP_TXT.elements.tip.REP_ShowOneTimeQuestsButton	= "평판을 얻기 위해 할 수 있는 일회성 퀘스트를 보려면\r\n이 단추를 선택하십시오."
+  REP_TXT.elements.name.REP_ShowNonPvPQuestsButton	= REP_TXT.showRepeatableQuests
+  REP_TXT.elements.tip.REP_ShowNonPvPQuestsButton	= "평판을 얻기 위해 할 수 있는 반복, 일일 및 주간 퀘스트를 보려면\r\n이 단추를 선택하십시오."
   REP_TXT.elements.name.REP_ShowPvPQuestsButton	= REP_TXT.showPvPQuests
   REP_TXT.elements.tip.REP_ShowPvPQuestsButton	= "평판을 얻기 위해 할 수 있는 PvP 퀘스트를 보려면\r\n이 단추를 선택하십시오."
   REP_TXT.elements.name.REP_ShowItemsButton	= REP_TXT.showItems
@@ -736,6 +740,9 @@ if (GetLocale() =="koKR") then
   REP_TXT.manualUntil = "종료 확장팩"
   REP_TXT.manualZone = "지역"
   REP_TXT.recordCount = "기록된 출처 %d개, 진영 %d개."
+  REP_TXT.recordIssues = "데이터와 평판이 다른 항목 %d개, 다시 완료한 일회성 퀘스트 %d개."
+  REP_TXT.recordExport = "기록된 줄 %d개. Ctrl+A와 Ctrl+C로 복사하세요."
+  REP_TXT.recordCleared = "기록된 줄을 삭제했습니다."
   REP_TXT.recordOff = "알 수 없는 평판 출처 기록이 꺼졌습니다."
   REP_TXT.recordOn = "알 수 없는 평판 출처 기록이 켜졌습니다."
   REP_TXT.renownFrameUnavailable = "명성 창을 불러올 수 없습니다. 일반 평판 목록(평판 순 정렬 끔)의 명성 보기 버튼으로 한 번 여세요."

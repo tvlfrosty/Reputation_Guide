@@ -28,6 +28,7 @@ if (GetLocale() =="esES" or GetLocale() =="esMX") then
   REP_TXT.enabled	= "habilitado"
   REP_TXT.statMobs	= "Mostrar mobs [M]"
   REP_TXT.statQuests	= "Mostrar misiones [Q]"
+  REP_TXT.statRepeatableQuests	= "Mostrar misiones repetibles [R]"
   REP_TXT.statInstances	= "Mostrar instancias [D]"
   REP_TXT.statItems	= "Mostrar objetos [I]"
   REP_TXT.statGeneral	= "Mostrar general [G]"
@@ -43,6 +44,7 @@ if (GetLocale() =="esES" or GetLocale() =="esMX") then
   REP_TXT.statGuildCap	= "Mostrar tapón gremio reputación en el chat"
   -- XML UI elements
   REP_TXT.showQuests	= "Mostrar misiones"
+  REP_TXT.showRepeatableQuests	= "Mostrar misiones repetibles"
   REP_TXT.showPvPQuests	= "PvP misiones"
   REP_TXT.showInstances	= "Mostrar instancias"
   REP_TXT.showMobs	= "Mostrar mobs"
@@ -542,8 +544,10 @@ if (GetLocale() =="esES" or GetLocale() =="esMX") then
   REP_TXT.elements.tip.REP_OrderByStandingCheckBox	= "Si esta casilla no está marcada, la lista facción se muestra mediante la clasificación por defecto de Blizzard, agrupados por orden lógico y alfabético. \r\n\r\n Si se marca esta casilla, la lista se ordena las reputaciones por nivel. \r\n\r\n Para ver las reputaciones inactivas, desactive esta casilla y vaya a la parte inferior de la lista."
   REP_TXT.elements.name.REP_ShowMobsButton	= REP_TXT.showMobs
   REP_TXT.elements.tip.REP_ShowMobsButton	= "Marque este botón para ver los mobs que se pueden matar para mejorar su reputación."
-  REP_TXT.elements.name.REP_ShowNonPvPQuestsButton	= REP_TXT.showQuests
-  REP_TXT.elements.tip.REP_ShowNonPvPQuestsButton	= "Marque este botón para ver las misiones que se pueden hacer para mejorar su reputación."
+  REP_TXT.elements.name.REP_ShowOneTimeQuestsButton	= REP_TXT.showQuests
+  REP_TXT.elements.tip.REP_ShowOneTimeQuestsButton	= "Marque este botón para ver las misiones únicas que se pueden hacer para mejorar su reputación."
+  REP_TXT.elements.name.REP_ShowNonPvPQuestsButton	= REP_TXT.showRepeatableQuests
+  REP_TXT.elements.tip.REP_ShowNonPvPQuestsButton	= "Marque este botón para ver las misiones repetibles, diarias y semanales que se pueden hacer para mejorar su reputación."
   REP_TXT.elements.name.REP_ShowPvPQuestsButton	= REP_TXT.showPvPQuests
   REP_TXT.elements.tip.REP_ShowPvPQuestsButton	= "Marque este botón para ver las PvP misiones que se pueden hacer para mejorar su reputación."
   REP_TXT.elements.name.REP_ShowItemsButton	= REP_TXT.showItems
@@ -741,6 +745,9 @@ if (GetLocale() =="esES" or GetLocale() =="esMX") then
   REP_TXT.manualUntil = "Hasta"
   REP_TXT.manualZone = "Zona"
   REP_TXT.recordCount = "%d fuentes grabadas para %d facciones."
+  REP_TXT.recordIssues = "%d con una reputación distinta a la de los datos, %d misiones únicas entregadas de nuevo."
+  REP_TXT.recordExport = "%d líneas grabadas. Pulsa Ctrl+A y Ctrl+C para copiarlas."
+  REP_TXT.recordCleared = "líneas grabadas eliminadas."
   REP_TXT.recordOff = "la grabación de fuentes de reputación desconocidas está desactivada."
   REP_TXT.recordOn = "la grabación de fuentes de reputación desconocidas está activada."
   REP_TXT.renownFrameUnavailable = "No se pudo cargar la ventana de renombre, ábrela una vez con el botón Ver renombre de la lista de reputación normal (Ordenar por nivel desactivado)."

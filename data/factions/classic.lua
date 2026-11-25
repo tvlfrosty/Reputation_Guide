@@ -7,11 +7,11 @@ local REP = vars
 local Quest, Mob, Item, Instance, General = REP:SourceTypes()
 
 REP:RegisterFaction(169, { -- Steamwheedle Cartel
-  Quest{ from = 1, to = 8, id = 5525, name = "Free Knot!", rep = 150, items = {[18250] = 1}, expansion = "classic", before = "cata" }, -- Free Knot! (Gordok Shackle Key) QuestID: 5525
+  Quest{ from = 1, to = 8, id = 7429, name = "Free Knot!", rep = 150, items = {[18250] = 1}, expansion = "classic", before = "cata" }, -- Free Knot! (Gordok Shackle Key) QuestID: 7429
   Quest{ from = 1, to = 8, id = 7726, name = "Refuel for the Zapping", rep = 25, items = {[18958] = 6}, expansion = "classic", before = "cata" }, -- Refuel for the Zapping (Water Elemental Core) QuestID: 7726
   Quest{ from = 1, to = 8, id = 7725, name = "Again With the Zapped Giants", rep = 25, items = {[18956] = 10}, expansion = "classic", before = "cata" }, -- Again With the Zapped Giants (Miniaturization Residue) QuestID: 7725
   Quest{ from = 1, to = 8, id = 5519, name = "The Gordok Ogre Suit", rep = 50, items = {[18240] = 1, [14048] = 4, [8170] = 8, [14341] = 2}, expansion = "classic", before = "cata" }, -- The Gordok Ogre Suit (repeatable) QuestID: 5519
-  Quest{ from = 1, to = 8, id = 5525, name = "Free Knot!", rep = 350, items = {[18250] = 1}, notExpansion = "classic", before = "cata" }, -- Free Knot! (Gordok Shackle Key) QuestID: 5525
+  Quest{ from = 1, to = 8, id = 7429, name = "Free Knot!", rep = 350, items = {[18250] = 1}, notExpansion = "classic", before = "cata" }, -- Free Knot! (Gordok Shackle Key) QuestID: 7429
   Quest{ from = 1, to = 8, id = 7726, name = "Refuel for the Zapping", rep = 25, items = {[18958] = 6}, notExpansion = "classic", before = "cata" }, -- Refuel for the Zapping (Water Elemental Core) QuestID: 7726
   Quest{ from = 1, to = 8, id = 7725, name = "Again With the Zapped Giants", rep = 25, items = {[18956] = 10}, notExpansion = "classic", before = "cata" }, -- Again With the Zapped Giants (Miniaturization Residue) QuestID: 7725
   Quest{ from = 1, to = 8, id = 5519, name = "The Gordok Ogre Suit", rep = 75, items = {[18240] = 1, [14048] = 4, [8170] = 8, [14341] = 2}, notExpansion = "classic", before = "cata" }, -- The Gordok Ogre Suit (repeatable) QuestID: 5519
@@ -45,11 +45,11 @@ REP:RegisterFaction(21, { -- Booty Bay
   Quest{ from = 1, to = 3, id = 9266, rep = 250, items = {[14047] = 40, [3857] = 4} },
   Quest{ from = 1, to = 3, id = 9268, rep = 250, items = {[4338] = 40, [3466] = 4} },
   Quest{ from = 1, to = 3, id = 9267, rep = 250, items = {[2589] = 40, [3371] = 4} },
-  Quest{ from = 1, to = 8, id = 5525, name = "Free Knot!", rep = 150, items = {[18250] = 1}, expansion = "classic", before = "cata" }, -- Free Knot! (Gordok Shackle Key) QuestID: 5525
+  Quest{ from = 1, to = 8, id = 7429, name = "Free Knot!", rep = 150, items = {[18250] = 1}, expansion = "classic", before = "cata" }, -- Free Knot! (Gordok Shackle Key) QuestID: 7429
   Quest{ from = 1, to = 8, id = 7726, name = "Refuel for the Zapping", rep = 25, items = {[18958] = 6}, expansion = "classic", before = "cata" }, -- Refuel for the Zapping (Water Elemental Core) QuestID: 7726
   Quest{ from = 1, to = 8, id = 7725, name = "Again With the Zapped Giants", rep = 25, items = {[18956] = 10}, expansion = "classic", before = "cata" }, -- Again With the Zapped Giants (Miniaturization Residue) QuestID: 7725
   Quest{ from = 1, to = 8, id = 5519, name = "The Gordok Ogre Suit", rep = 50, items = {[18240] = 1, [14048] = 4, [8170] = 8, [14341] = 2}, expansion = "classic", before = "cata" }, -- The Gordok Ogre Suit (repeatable) QuestID: 5519
-  Quest{ from = 1, to = 8, id = 5525, name = "Free Knot!", rep = 350, items = {[18250] = 1}, notExpansion = "classic", before = "cata" }, -- Free Knot! (Gordok Shackle Key) QuestID: 5525
+  Quest{ from = 1, to = 8, id = 7429, name = "Free Knot!", rep = 350, items = {[18250] = 1}, notExpansion = "classic", before = "cata" }, -- Free Knot! (Gordok Shackle Key) QuestID: 7429
   Quest{ from = 1, to = 8, id = 7726, name = "Refuel for the Zapping", rep = 25, items = {[18958] = 6}, notExpansion = "classic", before = "cata" }, -- Refuel for the Zapping (Water Elemental Core) QuestID: 7726
   Quest{ from = 1, to = 8, id = 7725, name = "Again With the Zapped Giants", rep = 25, items = {[18956] = 10}, notExpansion = "classic", before = "cata" }, -- Again With the Zapped Giants (Miniaturization Residue) QuestID: 7725
   Quest{ from = 1, to = 8, id = 5519, name = "The Gordok Ogre Suit", rep = 75, items = {[18240] = 1, [14048] = 4, [8170] = 8, [14341] = 2}, notExpansion = "classic", before = "cata" }, -- The Gordok Ogre Suit (repeatable) QuestID: 5519
@@ -83,11 +83,11 @@ REP:RegisterFaction(577, { -- Everlook
   Quest{ from = 1, to = 3, id = 9268, rep = 250, items = {[4338] = 40, [3466] = 4} },
   Quest{ from = 1, to = 3, id = 9267, rep = 250, items = {[2589] = 40, [3371] = 4} },
   Quest{ from = 1, to = 3, id = 9259, rep = 250, items = {[4306] = 40, [2604] = 4} },
-  Quest{ from = 1, to = 8, id = 5525, name = "Free Knot!", rep = 150, items = {[18250] = 1}, expansion = "classic", before = "cata" }, -- Free Knot! (Gordok Shackle Key) QuestID: 5525
+  Quest{ from = 1, to = 8, id = 7429, name = "Free Knot!", rep = 150, items = {[18250] = 1}, expansion = "classic", before = "cata" }, -- Free Knot! (Gordok Shackle Key) QuestID: 7429
   Quest{ from = 1, to = 8, id = 7726, name = "Refuel for the Zapping", rep = 25, items = {[18958] = 6}, expansion = "classic", before = "cata" }, -- Refuel for the Zapping (Water Elemental Core) QuestID: 7726
   Quest{ from = 1, to = 8, id = 7725, name = "Again With the Zapped Giants", rep = 25, items = {[18956] = 10}, expansion = "classic", before = "cata" }, -- Again With the Zapped Giants (Miniaturization Residue) QuestID: 7725
   Quest{ from = 1, to = 8, id = 5519, name = "The Gordok Ogre Suit", rep = 50, items = {[18240] = 1, [14048] = 4, [8170] = 8, [14341] = 2}, expansion = "classic", before = "cata" }, -- The Gordok Ogre Suit (repeatable) QuestID: 5519
-  Quest{ from = 1, to = 8, id = 5525, name = "Free Knot!", rep = 350, items = {[18250] = 1}, notExpansion = "classic", before = "cata" }, -- Free Knot! (Gordok Shackle Key) QuestID: 5525
+  Quest{ from = 1, to = 8, id = 7429, name = "Free Knot!", rep = 350, items = {[18250] = 1}, notExpansion = "classic", before = "cata" }, -- Free Knot! (Gordok Shackle Key) QuestID: 7429
   Quest{ from = 1, to = 8, id = 7726, name = "Refuel for the Zapping", rep = 25, items = {[18958] = 6}, notExpansion = "classic", before = "cata" }, -- Refuel for the Zapping (Water Elemental Core) QuestID: 7726
   Quest{ from = 1, to = 8, id = 7725, name = "Again With the Zapped Giants", rep = 25, items = {[18956] = 10}, notExpansion = "classic", before = "cata" }, -- Again With the Zapped Giants (Miniaturization Residue) QuestID: 7725
   Quest{ from = 1, to = 8, id = 5519, name = "The Gordok Ogre Suit", rep = 75, items = {[18240] = 1, [14048] = 4, [8170] = 8, [14341] = 2}, notExpansion = "classic", before = "cata" }, -- The Gordok Ogre Suit (repeatable) QuestID: 5519
@@ -121,11 +121,11 @@ REP:RegisterFaction(369, { -- Gadgetzan
   Quest{ from = 1, to = 3, id = 9266, rep = 250, items = {[14047] = 40, [3857] = 4} },
   Quest{ from = 1, to = 3, id = 9267, rep = 250, items = {[2589] = 40, [3371] = 4} },
   Quest{ from = 1, to = 3, id = 9259, rep = 250, items = {[4306] = 40, [2604] = 4} },
-  Quest{ from = 1, to = 8, id = 5525, name = "Free Knot!", rep = 150, items = {[18250] = 1}, expansion = "classic", before = "cata" }, -- Free Knot! (Gordok Shackle Key) QuestID: 5525
+  Quest{ from = 1, to = 8, id = 7429, name = "Free Knot!", rep = 150, items = {[18250] = 1}, expansion = "classic", before = "cata" }, -- Free Knot! (Gordok Shackle Key) QuestID: 7429
   Quest{ from = 1, to = 8, id = 7726, name = "Refuel for the Zapping", rep = 25, items = {[18958] = 6}, expansion = "classic", before = "cata" }, -- Refuel for the Zapping (Water Elemental Core) QuestID: 7726
   Quest{ from = 1, to = 8, id = 7725, name = "Again With the Zapped Giants", rep = 25, items = {[18956] = 10}, expansion = "classic", before = "cata" }, -- Again With the Zapped Giants (Miniaturization Residue) QuestID: 7725
   Quest{ from = 1, to = 8, id = 5519, name = "The Gordok Ogre Suit", rep = 50, items = {[18240] = 1, [14048] = 4, [8170] = 8, [14341] = 2}, expansion = "classic", before = "cata" }, -- The Gordok Ogre Suit (repeatable) QuestID: 5519
-  Quest{ from = 1, to = 8, id = 5525, name = "Free Knot!", rep = 350, items = {[18250] = 1}, notExpansion = "classic", before = "cata" }, -- Free Knot! (Gordok Shackle Key) QuestID: 5525
+  Quest{ from = 1, to = 8, id = 7429, name = "Free Knot!", rep = 350, items = {[18250] = 1}, notExpansion = "classic", before = "cata" }, -- Free Knot! (Gordok Shackle Key) QuestID: 7429
   Quest{ from = 1, to = 8, id = 7726, name = "Refuel for the Zapping", rep = 25, items = {[18958] = 6}, notExpansion = "classic", before = "cata" }, -- Refuel for the Zapping (Water Elemental Core) QuestID: 7726
   Quest{ from = 1, to = 8, id = 7725, name = "Again With the Zapped Giants", rep = 25, items = {[18956] = 10}, notExpansion = "classic", before = "cata" }, -- Again With the Zapped Giants (Miniaturization Residue) QuestID: 7725
   Quest{ from = 1, to = 8, id = 5519, name = "The Gordok Ogre Suit", rep = 75, items = {[18240] = 1, [14048] = 4, [8170] = 8, [14341] = 2}, notExpansion = "classic", before = "cata" }, -- The Gordok Ogre Suit (repeatable) QuestID: 5519
@@ -160,11 +160,11 @@ REP:RegisterFaction(470, { -- Ratchet
   Quest{ from = 1, to = 3, id = 9266, rep = 250, items = {[14047] = 40, [3857] = 4} },
   Quest{ from = 1, to = 3, id = 9268, rep = 250, items = {[4338] = 40, [3466] = 4} },
   Quest{ from = 1, to = 3, id = 9259, rep = 250, items = {[4306] = 40, [2604] = 4} },
-  Quest{ from = 1, to = 8, id = 5525, name = "Free Knot!", rep = 150, items = {[18250] = 1}, expansion = "classic", before = "cata" }, -- Free Knot! (Gordok Shackle Key) QuestID: 5525
+  Quest{ from = 1, to = 8, id = 7429, name = "Free Knot!", rep = 150, items = {[18250] = 1}, expansion = "classic", before = "cata" }, -- Free Knot! (Gordok Shackle Key) QuestID: 7429
   Quest{ from = 1, to = 8, id = 7726, name = "Refuel for the Zapping", rep = 25, items = {[18958] = 6}, expansion = "classic", before = "cata" }, -- Refuel for the Zapping (Water Elemental Core) QuestID: 7726
   Quest{ from = 1, to = 8, id = 7725, name = "Again With the Zapped Giants", rep = 25, items = {[18956] = 10}, expansion = "classic", before = "cata" }, -- Again With the Zapped Giants (Miniaturization Residue) QuestID: 7725
   Quest{ from = 1, to = 8, id = 5519, name = "The Gordok Ogre Suit", rep = 50, items = {[18240] = 1, [14048] = 4, [8170] = 8, [14341] = 2}, expansion = "classic", before = "cata" }, -- The Gordok Ogre Suit (repeatable) QuestID: 5519
-  Quest{ from = 1, to = 8, id = 5525, name = "Free Knot!", rep = 350, items = {[18250] = 1}, notExpansion = "classic", before = "cata" }, -- Free Knot! (Gordok Shackle Key) QuestID: 5525
+  Quest{ from = 1, to = 8, id = 7429, name = "Free Knot!", rep = 350, items = {[18250] = 1}, notExpansion = "classic", before = "cata" }, -- Free Knot! (Gordok Shackle Key) QuestID: 7429
   Quest{ from = 1, to = 8, id = 7726, name = "Refuel for the Zapping", rep = 25, items = {[18958] = 6}, notExpansion = "classic", before = "cata" }, -- Refuel for the Zapping (Water Elemental Core) QuestID: 7726
   Quest{ from = 1, to = 8, id = 7725, name = "Again With the Zapped Giants", rep = 25, items = {[18956] = 10}, notExpansion = "classic", before = "cata" }, -- Again With the Zapped Giants (Miniaturization Residue) QuestID: 7725
   Quest{ from = 1, to = 8, id = 5519, name = "The Gordok Ogre Suit", rep = 75, items = {[18240] = 1, [14048] = 4, [8170] = 8, [14341] = 2}, notExpansion = "classic", before = "cata" }, -- The Gordok Ogre Suit (repeatable) QuestID: 5519
@@ -476,7 +476,7 @@ REP:RegisterFaction(910, { -- Brood of Nozdormu
   Mob{ from = 1, to = 8, text = "twinEmperors", rep = 200, zone = "Temple_of_AhnQiraj" },
   Mob{ from = 1, to = 8, npc = 15517, name = "Ouro", rep = 500, zone = "Temple_of_AhnQiraj" },
   Mob{ from = 1, to = 8, text = "cthun", rep = 2500, zone = "Temple_of_AhnQiraj" },
-  Quest{ from = 1, to = 8, id = 8579, name = "Mortal Champions", rep = 500, items = {[21229] = 1} }, -- Qiraji Lord's Insignia QuestID: 8579
+  Quest{ from = 1, to = 8, id = 8595, name = "Mortal Champions", rep = 500, items = {[21229] = 1} }, -- Qiraji Lord's Insignia QuestID: 8595
   Quest{ from = 1, to = 8, id = 8784, name = "Secrets of the Qiraji", rep = 1000, items = {[21230] = 1} }, -- Ancient Qiraji Artifact
 })
 
@@ -485,14 +485,14 @@ REP:RegisterFaction(609, { -- Cenarion Circle
   Instance{ from = 4, to = 8, instance = "Temple_of_AhnQiraj", rep = 1200, phase = "aq" },
   General{ from = 4, to = 8, text = "silithystGeyser", rep = 10, headText = "silithystGeyser", tipText = "turnInTheSilithystGeyserAtYour" },
   Quest{ from = 4, to = 8, id = 8319, rep = 100, items = {[20404] = 10}, expansion = "classic" }, -- Encrypted Twilight Texts QuestID: 8319
-  Quest{ from = 4, to = 8, id = 8579, name = "Mortal Champions", rep = 100, items = {[21229] = 1}, expansion = "classic" }, -- Mortal Champions QuestID: 8579
+  Quest{ from = 4, to = 8, id = 8595, name = "Mortal Champions", rep = 100, items = {[21229] = 1}, expansion = "classic" }, -- Mortal Champions QuestID: 8595
   Mob{ from = 4, to = 5, text = "anyTwilightCultistMobs", rep = 1, zone = "Silithus", expansion = "classic" },
   Mob{ from = 4, to = 6, npc = 15201, name = "Twilight Flamereaver", rep = 1, zone = "Silithus", expansion = "classic" },
   Mob{ from = 4, to = 6, text = "twilightKeeper", rep = 1, zone = "Silithus", expansion = "classic" },
   Mob{ from = 4, to = 6, npc = 14479, name = "Twilight Lord Everun", rep = 5, zone = "Silithus", expansion = "classic" },
   Mob{ from = 4, to = 6, npc = 15308, name = "Twilight Prophet", rep = 5, zone = "Silithus", expansion = "classic" },
   Quest{ from = 4, to = 8, id = 8319, rep = 500, items = {[20404] = 10}, notExpansion = "classic" }, -- Encrypted Twilight Texts QuestID: 8319
-  Quest{ from = 4, to = 8, id = 8579, name = "Mortal Champions", rep = 250, items = {[21229] = 1}, notExpansion = "classic" }, -- Mortal Champions QuestID: 8579
+  Quest{ from = 4, to = 8, id = 8595, name = "Mortal Champions", rep = 250, items = {[21229] = 1}, notExpansion = "classic" }, -- Mortal Champions QuestID: 8595
   Mob{ from = 4, to = 5, text = "anyTwilightCultistMobs", rep = 10, zone = "Silithus", notExpansion = "classic" },
   Mob{ from = 4, to = 6, npc = 15201, name = "Twilight Flamereaver", rep = 10, zone = "Silithus", notExpansion = "classic" },
   Mob{ from = 4, to = 6, text = "twilightKeeper", rep = 10, zone = "Silithus", notExpansion = "classic" },
@@ -566,7 +566,7 @@ REP:RegisterFaction(270, { -- Zandalar Tribe
 })
 
 REP:RegisterFaction(92, { -- Gelkis Clan Centaur
-  Quest{ from = 1, to = 8, id = 14394, rep = 100000, since = "cata" }, -- Death to Agogridon QuestID: 14394
+  Quest{ from = 1, to = 8, id = 14394, rep = 100000, since = "cata", repeatable = false }, -- Death to Agogridon QuestID: 14394
   Mob{ from = 1, to = 4, npc = 6068, name = "Warug's Bodyguard", rep = 5, before = "cata" },
   Mob{ from = 1, to = 5, npc = 5601, name = "Khan Jehn", rep = 25, before = "cata" },
   Mob{ from = 1, to = 6, npc = 4662, name = "Magram Bonepaw", rep = 25, before = "cata" },
@@ -581,7 +581,7 @@ REP:RegisterFaction(92, { -- Gelkis Clan Centaur
 })
 
 REP:RegisterFaction(93, { -- Magram Clan Centaur
-  Quest{ from = 1, to = 8, id = 14394, rep = 100000, since = "cata" }, -- Death to Agogridon QuestID: 14394
+  Quest{ from = 1, to = 8, id = 14394, rep = 100000, since = "cata", repeatable = false }, -- Death to Agogridon QuestID: 14394
   Mob{ from = 1, to = 5, npc = 5602, name = "Khan Shaka", rep = 25, before = "cata" },
   Mob{ from = 1, to = 6, npc = 4652, name = "Gelkis Mauler", rep = 20, before = "cata" },
   Mob{ from = 1, to = 6, npc = 4653, name = "Gelkis Marauder", rep = 20, before = "cata" },
@@ -605,10 +605,10 @@ REP:RegisterFaction(72, { -- Stormwind
   Quest{ from = 4, to = 8, id = 8822, rep = 75, items = {[21436] = 10}, expansion = "classic", before = "cata", phase = "aq", untilPhase = "aq", side = "Alliance" }, -- Ten Commendation Signet QuestID = 8822
   Quest{ from = 4, to = 8, id = 7796, rep = 75, items = {[14047] = 20}, notExpansion = "classic", before = "cata", side = "Alliance" },
   Quest{ from = 4, to = 8, id = 1423, rep = 25, items = {[6172] = 1}, before = "cata", side = "Alliance" },
-  Quest{ from = 4, to = 8, id = 1, rep = 250, profession = "Cooking", since = "cata", side = "Alliance" },
-  Quest{ from = 4, to = 8, id = 2, rep = 65, profession = "Cooking", since = "cata", side = "Alliance" },
-  Quest{ from = 4, to = 8, id = 3, rep = 250, profession = "Fishing", since = "cata", side = "Alliance" },
-  Quest{ from = 4, to = 8, id = 4, rep = 65, profession = "Fishing", since = "cata", side = "Alliance" },
+  Quest{ from = 4, to = 8, text = "cdq", rep = 250, profession = "Cooking", since = "cata", side = "Alliance" },
+  Quest{ from = 4, to = 8, text = "coq", rep = 65, profession = "Cooking", since = "cata", side = "Alliance" },
+  Quest{ from = 4, to = 8, text = "fdq", rep = 250, profession = "Fishing", since = "cata", side = "Alliance" },
+  Quest{ from = 4, to = 8, text = "foq", rep = 65, profession = "Fishing", since = "cata", side = "Alliance" },
   Quest{ from = 4, to = 8, id = 7386, name = "Crystal Cluster", rep = 18.75, items = {[17423] = 5}, repeatable = true, renown = false, pvp = true, side = "Alliance" }, -- Crystal Cluster QuestID: 7386
   Quest{ from = 4, to = 8, id = 6881, rep = 2.5, items = {[17423] = 1}, repeatable = true, renown = false, pvp = true, side = "Alliance" },
   Quest{ from = 4, to = 8, id = 6943, rep = 10, items = {[17504] = 1}, repeatable = true, renown = false, pvp = true, side = "Alliance" },
@@ -630,10 +630,10 @@ REP:RegisterFaction(47, { -- Ironforge
   Quest{ from = 4, to = 8, id = 8813, rep = 5, items = {[21436] = 1}, expansion = "classic", before = "cata", phase = "aq", untilPhase = "aq", side = "Alliance" }, -- One Commendation Signet QuestID = 8813
   Quest{ from = 4, to = 8, id = 8821, rep = 75, items = {[21436] = 10}, expansion = "classic", before = "cata", phase = "aq", untilPhase = "aq", side = "Alliance" }, -- Ten Commendation Signet QuestID = 8821
   Quest{ from = 4, to = 8, id = 7806, rep = 75, items = {[14047] = 20}, notExpansion = "classic", before = "cata", side = "Alliance" },
-  Quest{ from = 4, to = 8, id = 1, rep = 250, profession = "Cooking", since = "cata", side = "Alliance" },
-  Quest{ from = 4, to = 8, id = 2, rep = 65, profession = "Cooking", since = "cata", side = "Alliance" },
-  Quest{ from = 4, to = 8, id = 3, rep = 250, profession = "Fishing", since = "cata", side = "Alliance" },
-  Quest{ from = 4, to = 8, id = 4, rep = 65, profession = "Fishing", since = "cata", side = "Alliance" },
+  Quest{ from = 4, to = 8, text = "cdq", rep = 250, profession = "Cooking", since = "cata", side = "Alliance" },
+  Quest{ from = 4, to = 8, text = "coq", rep = 65, profession = "Cooking", since = "cata", side = "Alliance" },
+  Quest{ from = 4, to = 8, text = "fdq", rep = 250, profession = "Fishing", since = "cata", side = "Alliance" },
+  Quest{ from = 4, to = 8, text = "foq", rep = 65, profession = "Fishing", since = "cata", side = "Alliance" },
   Quest{ from = 4, to = 8, id = 7386, name = "Crystal Cluster", rep = 50, items = {[17423] = 5}, repeatable = true, renown = false, pvp = true, expansion = "classic", side = "Alliance" }, -- Crystal Cluster QuestID: 7386
   Quest{ from = 4, to = 8, id = 7386, name = "Crystal Cluster", rep = 75, items = {[17423] = 5}, repeatable = true, renown = false, pvp = true, notExpansion = "classic", side = "Alliance" }, -- Crystal Cluster QuestID: 7386
   Quest{ from = 4, to = 8, id = 6881, rep = 10, items = {[17423] = 1}, repeatable = true, renown = false, pvp = true, side = "Alliance" },
@@ -656,10 +656,10 @@ REP:RegisterFaction(69, { -- Darnassus
   Quest{ from = 4, to = 8, id = 8811, rep = 5, items = {[21436] = 1}, expansion = "classic", before = "cata", phase = "aq", untilPhase = "aq", side = "Alliance" }, -- One Commendation Signet QuestID = 8811
   Quest{ from = 4, to = 8, id = 8819, rep = 75, items = {[21436] = 10}, expansion = "classic", before = "cata", phase = "aq", untilPhase = "aq", side = "Alliance" }, -- Ten Commendation Signet QuestID = 8819
   Quest{ from = 4, to = 8, id = 7801, rep = 75, items = {[14047] = 20}, notExpansion = "classic", before = "cata", side = "Alliance" },
-  Quest{ from = 4, to = 8, id = 1, rep = 250, profession = "Cooking", since = "cata", side = "Alliance" },
-  Quest{ from = 4, to = 8, id = 2, rep = 65, profession = "Cooking", since = "cata", side = "Alliance" },
-  Quest{ from = 4, to = 8, id = 3, rep = 250, profession = "Fishing", since = "cata", side = "Alliance" },
-  Quest{ from = 4, to = 8, id = 4, rep = 65, profession = "Fishing", since = "cata", side = "Alliance" },
+  Quest{ from = 4, to = 8, text = "cdq", rep = 250, profession = "Cooking", since = "cata", side = "Alliance" },
+  Quest{ from = 4, to = 8, text = "coq", rep = 65, profession = "Cooking", since = "cata", side = "Alliance" },
+  Quest{ from = 4, to = 8, text = "fdq", rep = 250, profession = "Fishing", since = "cata", side = "Alliance" },
+  Quest{ from = 4, to = 8, text = "foq", rep = 65, profession = "Fishing", since = "cata", side = "Alliance" },
   Quest{ from = 4, to = 8, id = 7386, name = "Crystal Cluster", rep = 18.75, items = {[17423] = 5}, repeatable = true, renown = false, pvp = true, side = "Alliance" }, -- Crystal Cluster QuestID: 7386
   Quest{ from = 4, to = 8, id = 6881, rep = 2.5, items = {[17423] = 1}, repeatable = true, renown = false, pvp = true, side = "Alliance" },
   Quest{ from = 4, to = 8, id = 6943, rep = 10, items = {[17504] = 1}, repeatable = true, renown = false, pvp = true, side = "Alliance" },
@@ -681,8 +681,8 @@ REP:RegisterFaction(54, { -- Gnomeregan Exiles
   Quest{ from = 4, to = 8, id = 8812, rep = 5, items = {[21436] = 1}, expansion = "classic", before = "cata", phase = "aq", untilPhase = "aq", side = "Alliance" }, -- One Commendation Signet QuestID = 8812
   Quest{ from = 4, to = 8, id = 8820, rep = 75, items = {[21436] = 10}, expansion = "classic", before = "cata", phase = "aq", untilPhase = "aq", side = "Alliance" }, -- Ten Commendation Signet QuestID = 8820
   Quest{ from = 4, to = 8, id = 7812, rep = 75, items = {[14047] = 20}, notExpansion = "classic", before = "cata", side = "Alliance" },
-  Quest{ from = 4, to = 8, id = 2, rep = 65, profession = "Cooking", since = "cata", side = "Alliance" },
-  Quest{ from = 4, to = 8, id = 4, rep = 65, profession = "Fishing", since = "cata", side = "Alliance" },
+  Quest{ from = 4, to = 8, text = "coq", rep = 65, profession = "Cooking", since = "cata", side = "Alliance" },
+  Quest{ from = 4, to = 8, text = "foq", rep = 65, profession = "Fishing", since = "cata", side = "Alliance" },
   Quest{ from = 4, to = 8, id = 7386, name = "Crystal Cluster", rep = 18.75, items = {[17423] = 5}, repeatable = true, renown = false, pvp = true, side = "Alliance" }, -- Crystal Cluster QuestID: 7386
   Quest{ from = 4, to = 8, id = 6881, rep = 2.5, items = {[17423] = 1}, repeatable = true, renown = false, pvp = true, side = "Alliance" },
   Quest{ from = 4, to = 8, id = 6943, rep = 10, items = {[17504] = 1}, repeatable = true, renown = false, pvp = true, side = "Alliance" },
@@ -727,7 +727,7 @@ REP:RegisterFaction(730, { -- Stormpike Guard (Alterac Valley)
 
 REP:RegisterFaction(509, { -- The League of Arathor (Arathi Basin)
   Quest{ from = 4, to = 8, id = 8385, name = "Concerted Efforts", rep = 100, items = {[20560] = 3, [20559] = 3, [20558] = 3}, expansion = "classic", before = "wod", side = "Alliance" }, -- Concerted Efforts QuestID: 8385
-  Quest{ from = 4, to = 8, id = 8297, name = "Arathi Basin Resources!", rep = 100, items = {[20559] = 3}, expansion = "classic", before = "wod", side = "Alliance" }, -- Arathi Basin Resources! QuestID: 8297 (and so many more...)
+  Quest{ from = 4, to = 8, id = 8298, name = "More Resource Crates", rep = 75, items = {[19725] = 1}, expansion = "classic", before = "wod", side = "Alliance" }, -- More Resource Crates QuestID: 8298
   Quest{ from = 4, to = 8, text = "stranglethornLumber", rep = 200, items = {["Shipment of Stranglethorn Lumber"] = 1}, expansion = "classic", before = "wod", phase = "classic 1", season = "SOD", side = "Alliance" }, -- Stranglethorn Lumber QuestID: 79990 (ItemId: 216491)
   General{ from = 4, to = 8, text = "arathiBasinCollect160Resources", rep = 10, headText = "collect160Resources", tipText = "forEvery160ResourcesYourTeamCollects", before = "wod", side = "Alliance" },
   General{ from = 4, to = 8, text = "arathiBasinWin1500Resources", rep = 100, headText = "arathiBasinWin1500Resources", tipText = "ifYourTeamWinsWith1500Resources", before = "wod", side = "Alliance" },
@@ -736,7 +736,7 @@ REP:RegisterFaction(509, { -- The League of Arathor (Arathi Basin)
 })
 
 REP:RegisterFaction(471, { -- Wildhammer Clan
-  Quest{ from = 4, to = 8, id = 2880, rep = 100, items = {[9259] = 5}, expansion = "classic", side = "Alliance" },
+  Quest{ from = 4, to = 8, id = 2881, rep = 25, items = {[9259] = 5}, expansion = "classic", side = "Alliance" },
   Quest{ from = 4, to = 8, id = 2881, rep = 25, items = {[9259] = 5}, expansion = "classic", side = "Alliance" },
   Mob{ from = 4, to = 8, text = "witherbarkMobs", rep = 5, zone = "The_Hinterlands", expansion = "classic", side = "Alliance" },
   Mob{ from = 4, to = 8, text = "vilebranchMobs", rep = 5, zone = "The_Hinterlands", expansion = "classic", side = "Alliance" },
@@ -749,12 +749,12 @@ REP:RegisterFaction(589, { -- Wintersaber Trainers
   Quest{ from = 4, to = 8, id = 4970, rep = 250, items = {[12622] = 5, [12623] = 5}, notExpansion = "classic", before = "cata", side = "Alliance" },
   Quest{ from = 4, to = 8, id = 5201, rep = 250, notExpansion = "classic", before = "cata", side = "Alliance" },
   Quest{ from = 6, to = 8, id = 5981, rep = 350, notExpansion = "classic", before = "cata", side = "Alliance" },
-  Quest{ from = 1, to = 4, id = 29032, rep = 3000, since = "cata", side = "Alliance" }, -- Get Them While They're Young QuestID: 29032
+  Quest{ from = 1, to = 4, id = 29032, rep = 3000, since = "cata", side = "Alliance", repeatable = false }, -- Get Them While They're Young QuestID: 29032
   Quest{ from = 4, to = 6, id = 29035, rep = 1500, since = "cata", side = "Alliance" }, -- A Cub's Cravings QuestID: 29035
   Quest{ from = 4, to = 6, id = 29037, rep = 1500, since = "cata", side = "Alliance" }, -- 'Borrowing' From the Winterfall QuestID: 29037
   Quest{ from = 4, to = 6, id = 29038, rep = 1500, since = "cata", side = "Alliance" }, -- Hunting Practice QuestID: 29038
   Quest{ from = 4, to = 6, id = 29040, rep = 1500, since = "cata", side = "Alliance" }, -- Cub's First Toy QuestID: 29040
-  Quest{ from = 5, to = 8, id = 29034, rep = 42999, since = "cata", side = "Alliance" }, -- They Grow Up So Fast QuestID: 29034
+  Quest{ from = 5, to = 8, id = 29034, rep = 42999, since = "cata", side = "Alliance", repeatable = false }, -- They Grow Up So Fast QuestID: 29034
 })
 
 REP:RegisterFaction(2586, { -- Azeroth Commerce Authority
@@ -868,10 +868,10 @@ REP:RegisterFaction(76, { -- Orgrimmar
   Quest{ from = 4, to = 8, id = 8815, rep = 5, items = {[21438] = 1}, expansion = "classic", before = "cata", phase = "aq", untilPhase = "aq", side = "Horde" }, -- One Commendation Signet QuestID: 8815
   Quest{ from = 4, to = 8, id = 8823, rep = 75, items = {[21438] = 10}, expansion = "classic", before = "cata", phase = "aq", untilPhase = "aq", side = "Horde" }, -- Ten Commendation Signets QuestID: 8823
   Quest{ from = 4, to = 8, id = 7832, rep = 75, items = {[14047] = 20}, notExpansion = "classic", before = "cata", side = "Horde" }, -- Additional Runecloth QuestID: 7832
-  Quest{ from = 4, to = 8, id = 1, rep = 250, profession = "Cooking", since = "cata", side = "Horde" },
-  Quest{ from = 4, to = 8, id = 2, rep = 65, profession = "Cooking", since = "cata", side = "Horde" },
-  Quest{ from = 4, to = 8, id = 3, rep = 250, profession = "Fishing", since = "cata", side = "Horde" },
-  Quest{ from = 4, to = 8, id = 4, rep = 65, profession = "Fishing", since = "cata", side = "Horde" },
+  Quest{ from = 4, to = 8, text = "cdq", rep = 250, profession = "Cooking", since = "cata", side = "Horde" },
+  Quest{ from = 4, to = 8, text = "coq", rep = 65, profession = "Cooking", since = "cata", side = "Horde" },
+  Quest{ from = 4, to = 8, text = "fdq", rep = 250, profession = "Fishing", since = "cata", side = "Horde" },
+  Quest{ from = 4, to = 8, text = "foq", rep = 65, profession = "Fishing", since = "cata", side = "Horde" },
   Quest{ from = 4, to = 8, id = 7385, rep = 18.75, items = {[17306] = 5}, repeatable = true, renown = false, pvp = true, side = "Horde" },
   Quest{ from = 4, to = 8, id = 6801, rep = 2.5, items = {[17306] = 1}, repeatable = true, renown = false, pvp = true, side = "Horde" },
   Quest{ from = 4, to = 8, id = 6825, rep = 10, items = {[17326] = 1}, repeatable = true, renown = false, pvp = true, side = "Horde" },
@@ -892,10 +892,10 @@ REP:RegisterFaction(81, { -- Thunder Bluff
   Quest{ from = 4, to = 8, id = 8818, rep = 5, items = {[21438] = 1}, expansion = "classic", before = "cata", phase = "aq", untilPhase = "aq", side = "Horde" }, -- One Commendation Signet QuestID: 8818
   Quest{ from = 4, to = 8, id = 8825, rep = 75, items = {[21438] = 10}, expansion = "classic", before = "cata", phase = "aq", untilPhase = "aq", side = "Horde" }, -- Ten Commendation Signets QuestID: 8825
   Quest{ from = 4, to = 8, id = 7825, rep = 75, items = {[14047] = 20}, notExpansion = "classic", before = "cata", side = "Horde" }, -- Additional Runecloth QuestID: 7825
-  Quest{ from = 4, to = 8, id = 1, rep = 250, profession = "Cooking", since = "cata", side = "Horde" },
-  Quest{ from = 4, to = 8, id = 2, rep = 65, profession = "Cooking", since = "cata", side = "Horde" },
-  Quest{ from = 4, to = 8, id = 3, rep = 250, profession = "Fishing", since = "cata", side = "Horde" },
-  Quest{ from = 4, to = 8, id = 4, rep = 65, profession = "Fishing", since = "cata", side = "Horde" },
+  Quest{ from = 4, to = 8, text = "cdq", rep = 250, profession = "Cooking", since = "cata", side = "Horde" },
+  Quest{ from = 4, to = 8, text = "coq", rep = 65, profession = "Cooking", since = "cata", side = "Horde" },
+  Quest{ from = 4, to = 8, text = "fdq", rep = 250, profession = "Fishing", since = "cata", side = "Horde" },
+  Quest{ from = 4, to = 8, text = "foq", rep = 65, profession = "Fishing", since = "cata", side = "Horde" },
   Quest{ from = 4, to = 8, id = 7385, rep = 18.75, items = {[17306] = 5}, repeatable = true, renown = false, pvp = true, side = "Horde" },
   Quest{ from = 4, to = 8, id = 6801, rep = 2.5, items = {[17306] = 1}, repeatable = true, renown = false, pvp = true, side = "Horde" },
   Quest{ from = 4, to = 8, id = 6825, rep = 10, items = {[17326] = 1}, repeatable = true, renown = false, pvp = true, side = "Horde" },
@@ -916,10 +916,10 @@ REP:RegisterFaction(68, { -- Undercity
   Quest{ from = 4, to = 8, id = 8817, rep = 5, items = {[21438] = 1}, expansion = "classic", before = "cata", phase = "aq", untilPhase = "aq", side = "Horde" }, -- One Commendation Signet QuestID: 8817
   Quest{ from = 4, to = 8, id = 8826, rep = 75, items = {[21438] = 10}, expansion = "classic", before = "cata", phase = "aq", untilPhase = "aq", side = "Horde" }, -- Ten Commendation Signets QuestID: 8826
   Quest{ from = 4, to = 8, id = 7819, rep = 75, items = {[14047] = 20}, notExpansion = "classic", before = "cata", side = "Horde" }, -- Additional Runecloth QuestID: 7819
-  Quest{ from = 4, to = 8, id = 1, rep = 250, profession = "Cooking", since = "cata", side = "Horde" },
-  Quest{ from = 4, to = 8, id = 2, rep = 65, profession = "Cooking", since = "cata", side = "Horde" },
-  Quest{ from = 4, to = 8, id = 3, rep = 250, profession = "Fishing", since = "cata", side = "Horde" },
-  Quest{ from = 4, to = 8, id = 4, rep = 65, profession = "Fishing", since = "cata", side = "Horde" },
+  Quest{ from = 4, to = 8, text = "cdq", rep = 250, profession = "Cooking", since = "cata", side = "Horde" },
+  Quest{ from = 4, to = 8, text = "coq", rep = 65, profession = "Cooking", since = "cata", side = "Horde" },
+  Quest{ from = 4, to = 8, text = "fdq", rep = 250, profession = "Fishing", since = "cata", side = "Horde" },
+  Quest{ from = 4, to = 8, text = "foq", rep = 65, profession = "Fishing", since = "cata", side = "Horde" },
   Quest{ from = 4, to = 8, id = 7385, rep = 18.75, items = {[17306] = 5}, repeatable = true, renown = false, pvp = true, side = "Horde" },
   Quest{ from = 4, to = 8, id = 6801, rep = 2.5, items = {[17306] = 1}, repeatable = true, renown = false, pvp = true, side = "Horde" },
   Quest{ from = 4, to = 8, id = 6825, rep = 10, items = {[17326] = 1}, repeatable = true, renown = false, pvp = true, side = "Horde" },
@@ -940,8 +940,8 @@ REP:RegisterFaction(530, { -- Darkspear Trolls
   Quest{ from = 4, to = 8, id = 8816, rep = 5, items = {[21438] = 1}, expansion = "classic", before = "cata", phase = "aq", untilPhase = "aq", side = "Horde" }, -- One Commendation Signet QuestID: 8816
   Quest{ from = 4, to = 8, id = 8824, rep = 75, items = {[21438] = 10}, expansion = "classic", before = "cata", phase = "aq", untilPhase = "aq", side = "Horde" }, -- Ten Commendation Signets QuestID: 8824
   Quest{ from = 4, to = 8, id = 7837, rep = 75, items = {[14047] = 20}, notExpansion = "classic", before = "cata", side = "Horde" }, -- Additional Runecloth QuestID: 7837
-  Quest{ from = 4, to = 8, id = 2, rep = 65, profession = "Cooking", since = "cata", side = "Horde" },
-  Quest{ from = 4, to = 8, id = 4, rep = 65, profession = "Fishing", since = "cata", side = "Horde" },
+  Quest{ from = 4, to = 8, text = "coq", rep = 65, profession = "Cooking", since = "cata", side = "Horde" },
+  Quest{ from = 4, to = 8, text = "foq", rep = 65, profession = "Fishing", since = "cata", side = "Horde" },
   Quest{ from = 4, to = 8, id = 7385, rep = 18.75, items = {[17306] = 5}, repeatable = true, renown = false, pvp = true, side = "Horde" },
   Quest{ from = 4, to = 8, id = 6801, rep = 2.5, items = {[17306] = 1}, repeatable = true, renown = false, pvp = true, side = "Horde" },
   Quest{ from = 4, to = 8, id = 6825, rep = 10, items = {[17326] = 1}, repeatable = true, renown = false, pvp = true, side = "Horde" },
@@ -986,7 +986,7 @@ REP:RegisterFaction(729, { -- Frostwolf Clan (Alterac Valley)
 
 REP:RegisterFaction(510, { -- The Defilers (Arathi Basin)
   Quest{ from = 4, to = 8, id = 8388, name = "For Great Honor", rep = 100, items = {[20560] = 3, [20559] = 3, [20558] = 3}, expansion = "classic", before = "wod", side = "Horde" }, -- For Great Honor QuestID: 8388
-  Quest{ from = 4, to = 8, id = 8297, name = "Arathi Basin Resources!", rep = 75, items = {[20559] = 1}, expansion = "classic", before = "wod", side = "Horde" }, -- Arathi Basin Resources! QuestID: 8297 (and so many more...)
+  Quest{ from = 4, to = 8, id = 8300, name = "More Resource Crates", rep = 75, items = {[19725] = 1}, expansion = "classic", before = "wod", side = "Horde" }, -- More Resource Crates QuestID: 8300
   Quest{ from = 4, to = 8, text = "stranglethornLumber", rep = 200, items = {["Shipment of Stranglethorn Lumber"] = 1}, expansion = "classic", before = "wod", phase = "classic 1", season = "SOD", side = "Horde" }, -- Stranglethorn Lumber QuestID: 79991 (ItemId: 216491)
   General{ from = 4, to = 8, text = "arathiBasinCollect160Resources", rep = 10, headText = "collect160Resources", tipText = "forEvery160ResourcesYourTeamCollects", before = "wod", side = "Horde" },
   General{ from = 4, to = 8, text = "arathiBasinWin1500Resources", rep = 100, headText = "arathiBasinWin1500Resources", tipText = "ifYourTeamWinsWith1500Resources", before = "wod", side = "Horde" },

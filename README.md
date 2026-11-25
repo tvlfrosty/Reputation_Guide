@@ -36,7 +36,7 @@ This addon is made to help you reach Exalted (or the next renown / friendship le
 * `/rep sync` - Look up all factions again (for factions that seem to be missing)
 * `/rep verify` - Check the NPC and quest IDs of the reputation data against the game
 * `/rep nosources` - List your factions without reputation sources
-* `/rep record [status]` - Switch recording of unknown reputation sources off or on (status: show what's recorded)
+* `/rep record [status | debug | clear]` - Switch recording of unknown reputation sources off or on (status: show what's recorded, debug: a window to copy the recorded lines from, clear: remove the recorded lines). Quests of the data with a different reputation, and one-time quests turned in again, are recorded too
 
 ## Installation
 Download the addon via the CurseForge App or the [Curse website](https://www.curseforge.com/wow/addons/reputation-guide).  
@@ -65,6 +65,7 @@ Further additions were made to Classic/TBC factions/reputations to be more up to
 * [Classic Wowhead](http://classic.wowhead.com)
 * [TBC Wowhead](http://tbc.wowhead.com)
 * [Retail Wowhead](http://wowhead.com)
+* [QuestieDB](https://github.com/Questie/QuestieDB) (GPLv3): repeatable, daily and weekly quests and localized quest names of the Classic versions, see `tools/questie`
 
 ## Contribute
 Contributions/Suggestions and bug reports/fixes to the addon are always welcome, to contribute you can make a [pull request](https://github.com/tvlfrosty/Reputation_Guide/pulls) or simply open a [new issue](https://github.com/tvlfrosty/Reputation_Guide/issues) in the repository.

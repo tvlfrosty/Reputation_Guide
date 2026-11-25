@@ -24,6 +24,8 @@ function REP_SlashHandler(msg)
           if (wordsLower[1]=="mobs") then
             FD_SH.ShowMobs = true
           elseif (wordsLower[1]=="quests") then
+            FD_SH.ShowNonRepeatableQuests = true
+          elseif (wordsLower[1]=="repeatable") then
             FD_SH.ShowQuests = true
           elseif (wordsLower[1]=="pvpquests") then
             FD_SH.ShowPvPQuests = true
@@ -51,6 +53,7 @@ function REP_SlashHandler(msg)
           elseif (wordsLower[1]=="all") then
             FD_SH.ShowMobs = true
             FD_SH.ShowQuests = true
+            FD_SH.ShowNonRepeatableQuests = true
             FD_SH.ShowPvPQuests = true
             FD_SH.ShowInstances = true
             FD_SH.ShowItems = true
@@ -85,6 +88,8 @@ function REP_SlashHandler(msg)
           if (wordsLower[1]=="mobs") then
             FD_SH.ShowMobs = false
           elseif (wordsLower[1]=="quests") then
+            FD_SH.ShowNonRepeatableQuests = false
+          elseif (wordsLower[1]=="repeatable") then
             FD_SH.ShowQuests = false
           elseif (wordsLower[1]=="pvpquests") then
             FD_SH.ShowPvPQuests = false
@@ -112,6 +117,7 @@ function REP_SlashHandler(msg)
           elseif (wordsLower[1]=="all") then
             FD_SH.ShowMobs = false
             FD_SH.ShowQuests = false
+            FD_SH.ShowNonRepeatableQuests = false
             FD_SH.ShowPvPQuests = false
             FD_SH.ShowInstances = false
             FD_SH.ShowItems = false
@@ -146,6 +152,8 @@ function REP_SlashHandler(msg)
           if (wordsLower[1]=="mobs") then
             FD_SH.ShowMobs = not FD_SH.ShowMobs
           elseif (wordsLower[1]=="quests") then
+            FD_SH.ShowNonRepeatableQuests = not FD_SH.ShowNonRepeatableQuests
+          elseif (wordsLower[1]=="repeatable") then
             FD_SH.ShowQuests = not FD_SH.ShowQuests
           elseif (wordsLower[1]=="pvpquests") then
             FD_SH.ShowPvPQuests = not FD_SH.ShowPvPQuests
@@ -173,6 +181,7 @@ function REP_SlashHandler(msg)
           elseif (wordsLower[1]=="all") then
             FD_SH.ShowMobs = not FD_SH.ShowMobs
             FD_SH.ShowQuests = not FD_SH.ShowQuests
+            FD_SH.ShowNonRepeatableQuests = not FD_SH.ShowNonRepeatableQuests
             FD_SH.ShowPvPQuests = not FD_SH.ShowPvPQuests
             FD_SH.ShowInstances = not FD_SH.ShowInstances
             FD_SH.ShowItems = not FD_SH.ShowItems
@@ -267,7 +276,10 @@ function REP_SlashHandler(msg)
       elseif (wordsLower[0] == "sync") then
         REP:StartManualFactionSync()
       elseif (wordsLower[0] == "record") then
-        if wordsLower[1] == "status" then REP:PrintRecordedSources() else REP:ToggleSourceRecording() end
+        if wordsLower[1] == "status" then REP:PrintRecordedSources()
+        elseif wordsLower[1] == "debug" then REP:ShowRecordedSourcesExport()
+        elseif wordsLower[1] == "clear" then REP:ClearRecordedSources()
+        else REP:ToggleSourceRecording() end
       else
         REP:PrintSlash(REP_TXT.command, msgLower)
       end

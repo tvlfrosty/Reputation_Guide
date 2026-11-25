@@ -1,0 +1,17 @@
+# Local development output (not part of the addon)
+
+# QuestieDB checkout used by tools/questie
+QuestieDB/
+
+# Reports written by tools/questie (compare.lua, audit.lua)
+tools/
+*.tsv
+quest-rep-review.md
+
+# Editor and OS files
+.vscode/
+.idea/
+*.swp
+Thumbs.db
+Desktop.ini
+.DS_Store

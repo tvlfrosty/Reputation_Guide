@@ -12,6 +12,10 @@
 - Missing texts in other languages now fall back to English.
 - Reputation sources for the new World of Warcraft: Forever factions (High Order, Windshapers, Nightclaw Druids, Kirin Tor, Earthen Ring, Guardians of Hyjal, Barkskin Burrow, Theramore Expeditionary Force, Darkspear Raiders).
 - Recording of unknown reputation sources: reputation gains from quests, kills (also in instances), items and other sources that aren't in the data are saved account wide with the reputation and standing (/rep record to switch it off or on).
+- Recording also saves quests of the data that gave a different reputation (with the amount in the data) and one-time quests that were turned in again by the same character; /rep record status counts them.
+- /rep record debug: a window with all recorded lines (tab separated) to copy.
+- /rep record clear: remove all recorded lines.
+- Recording skips kills in dungeons and raids while wearing a tabard (championing reputation for every mob).
 - Classic clients: the default details frame is replaced by the details panel of Forever/retail (header, standing bar, statistics, filter and options dropdowns), next to the character frame and as high as it.
 - New settings page "Details frame" (Options > ReputationGuide): "Show extended reputation detail frame" (addon details frame or the default one) moved there, plus options for the reputation bar, description, statistics, resizing, expanded lists, list font size and background opacity.
 - Order by Standing on Forever and retail: the reputation list can be ordered Paragon > Renown > Exalted > ... > Hated.
@@ -25,6 +29,16 @@
 - ElvUI skins for the details panel, the ordered list, the manual line popup and the settings pages.
 - Paragon Reputation integration: the paragon bars and the paragon standing text use the bar color chosen in Paragon Reputation, the ordered list also uses its text format.
 - Reputation sources for The K'aresh Trust, the Gallagio Loyalty Rewards Club and the Winterpelt Furbolg.
+- Quest data fixes (checked against QuestieDB):
+  - Hellfire Fortifications: the dailies (10106 / 10110) instead of the Alliance one-time quest for both factions, plus the one-time quests from Wrath on.
+  - Wrath: Alliance Vanguard and Horde Expedition quests give their reputation to the right sub-faction, with 50% to the Vanguard / Expedition (was 62.5 to every sub-faction).
+  - Mists: Dominance Offensive and Sunreaver Onslaught used the Alliance quest IDs; now the Horde quests.
+  - One-time quests that were listed as repeatable now point to their repeatable version (Free Knot!, Mortal Champions, Identify Plant Parts, More Shadow Dust, More Spore Sacs, More Resource Crates, Troll Necklace Bounty) or are marked as one-time.
+  - Nat Pagle's fishing quests from Warlords of Draenor on, A Donation of Runecloth (High Order) with the Alliance quest.
+- Separate filters for one-time quests (Show Quests) and repeatable quests (Show Repeatable Quests); existing settings keep working. `/rep enable|disable|toggle repeatable` for the repeatable quests.
+- Quests from QuestieDB that were missing, repeatable and one-time, on the Classic versions and WoW Forever: Classic Era 2436, The Burning Crusade 3303, Wrath of the Lich King 4994, Cataclysm 8420, Mists of Pandaria 8950 and WoW Forever 4580.
+- One-time quests the character has already done are hidden from the list. Quests for some races or classes only show for those races and classes.
+- Localized names for all quests of the guide on the Classic versions and WoW Forever (from QuestieDB), shown before the game has loaded the quest.
 - /rep sync: looks up all factions again (for factions that seem to be missing).
 - Setting "Show faction sync messages" (General).
 
