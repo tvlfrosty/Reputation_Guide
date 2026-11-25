@@ -27,6 +27,7 @@ if (GetLocale() =="zhCN") then
   REP_TXT.enabled	= "启用"
   REP_TXT.statMobs	= "显示怪物 [M]"
   REP_TXT.statQuests	= "显示任务 [Q]"
+  REP_TXT.statRepeatableQuests	= "显示可重复任务 [R]"
   REP_TXT.statInstances	= "显示副本 [D]"
   REP_TXT.statItems	= "显示物品 [I]"
   REP_TXT.statGeneral	= "显示一般 [G]"
@@ -42,6 +43,7 @@ if (GetLocale() =="zhCN") then
   REP_TXT.statGuildCap	= "Show guild reputation cap in chat"
   -- XML UI elements
   REP_TXT.showQuests	= "任务"
+  REP_TXT.showRepeatableQuests	= "可重复任务"
   REP_TXT.showPvPQuests	= "PvP 任务"
   REP_TXT.showInstances	= "副本"
   REP_TXT.showMobs	= "怪物"
@@ -538,8 +540,10 @@ if (GetLocale() =="zhCN") then
   REP_TXT.elements.tip.REP_OrderByStandingCheckBox	= "停用此选项，声望列表按照暴雪默认排序，依资料片和字母顺序排列。\r\n\r\n启用此选项，声望列表按声望等级排序\r\n\r\n要查看|cFFFAA0A0移至閒置|r的阵营声望，停用此选项，然后查看列表底部。"
   REP_TXT.elements.name.REP_ShowMobsButton	= REP_TXT.showMobs
   REP_TXT.elements.tip.REP_ShowMobsButton	= "显示击杀可以获得声望的小怪。"
-  REP_TXT.elements.name.REP_ShowNonPvPQuestsButton	= REP_TXT.showQuests
-  REP_TXT.elements.tip.REP_ShowNonPvPQuestsButton	= "显示可以提高声望的任务。"
+  REP_TXT.elements.name.REP_ShowOneTimeQuestsButton	= REP_TXT.showQuests
+  REP_TXT.elements.tip.REP_ShowOneTimeQuestsButton	= "显示可以提高声望的一次性任务。"
+  REP_TXT.elements.name.REP_ShowNonPvPQuestsButton	= REP_TXT.showRepeatableQuests
+  REP_TXT.elements.tip.REP_ShowNonPvPQuestsButton	= "显示可以提高声望的可重复、日常和周常任务。"
   REP_TXT.elements.name.REP_ShowPvPQuestsButton	= REP_TXT.showPvPQuests
   REP_TXT.elements.tip.REP_ShowPvPQuestsButton	= "显示可以提高声望的 PVP 任务。"
   REP_TXT.elements.name.REP_ShowItemsButton	= REP_TXT.showItems
@@ -737,6 +741,9 @@ if (GetLocale() =="zhCN") then
   REP_TXT.manualUntil = "截止版本"
   REP_TXT.manualZone = "区域"
   REP_TXT.recordCount = "已记录 %d 个来源，涉及 %d 个阵营。"
+  REP_TXT.recordIssues = "声望与数据不同：%d 个；再次交付的一次性任务：%d 个。"
+  REP_TXT.recordExport = "已记录 %d 行。按 Ctrl+A 和 Ctrl+C 复制。"
+  REP_TXT.recordCleared = "已删除记录的行。"
   REP_TXT.recordOff = "记录未知声望来源已关闭。"
   REP_TXT.recordOn = "记录未知声望来源已开启。"
   REP_TXT.renownFrameUnavailable = "无法加载名望窗口，请在普通声望列表中（关闭声望排序）使用查看名望按钮打开一次。"

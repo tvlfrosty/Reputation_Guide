@@ -42,7 +42,7 @@ local function CollectIDs()
     for _, source in ipairs(factionSources) do
       if source.kind == "mob" and source.npc then
         npcs[source.npc] = npcs[source.npc] or source.name or ""
-      elseif source.kind == "quest" and type(source.id) == "number" and source.id >= 100 then
+      elseif source.kind == "quest" and type(source.id) == "number" and source.id >= 1 then
         quests[source.id] = quests[source.id] or (REP.QuestFallbackNames and REP.QuestFallbackNames[source.id]) or false
       end
     end

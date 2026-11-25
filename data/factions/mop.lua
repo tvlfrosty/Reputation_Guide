@@ -102,7 +102,7 @@ REP:RegisterFaction(1341, { -- The August Celestials
   Quest{ from = 1, to = 8, id = 30737, rep = 350, since = "mop" },
   Quest{ from = 1, to = 8, id = 30717, rep = 250, since = "mop" },
   Quest{ from = 1, to = 8, id = 30734, rep = 350, since = "mop" },
-  Quest{ from = 1, to = 8, id = 30273, rep = 350, since = "mop" },
+  Quest{ from = 1, to = 8, id = 30273, rep = 350, since = "mop", repeatable = false },
   Quest{ from = 1, to = 8, id = 30729, rep = 250, since = "mop" },
   Quest{ from = 1, to = 8, id = 30731, rep = 350, since = "mop" },
   Quest{ from = 1, to = 8, id = 30735, rep = 250, since = "mop" },
@@ -130,7 +130,7 @@ REP:RegisterFaction(1341, { -- The August Celestials
   Quest{ from = 1, to = 8, id = 30954, rep = 250, since = "mop" },
   Quest{ from = 1, to = 8, id = 30953, rep = 250, since = "mop" },
   Quest{ from = 1, to = 8, id = 30958, notRetail = true, rep = 250, since = "mop" },
-  Quest{ from = 1, to = 8, id = 30925, rep = 250, since = "mop" },
+  Quest{ from = 1, to = 8, id = 30925, rep = 250, since = "mop", repeatable = false },
   Quest{ from = 1, to = 8, id = 30955, rep = 250, since = "mop" },
   Quest{ from = 1, to = 8, id = 30959, notRetail = true, rep = 250, since = "mop" },
   Quest{ from = 1, to = 8, id = 30957, notRetail = true, rep = 250, since = "mop" },
@@ -218,7 +218,7 @@ REP:RegisterFaction(1271, { -- Order of the Cloud Serpent
 })
 
 REP:RegisterFaction(1216, { -- Shang Xi's Academy
-  Quest{ from = 1, to = 8, id = 5, rep = 1, since = "mop" },
+  Quest{ from = 1, to = 8, text = "ndq", rep = 1, since = "mop" },
 })
 
 REP:RegisterFaction(1359, { -- The Black Prince
@@ -264,14 +264,14 @@ REP:RegisterFaction(1302, { -- The Anglers
 })
 
 REP:RegisterFaction(1358, { -- Nat Pagle
-  Quest{ from = 1, to = 8, id = 36804, rep = 350, items = {[116820] = 1}, since = "mop" },
-  Quest{ from = 1, to = 8, id = 39283, rep = 350, items = {[127994] = 1}, since = "mop" },
-  Quest{ from = 1, to = 8, id = 36800, rep = 350, items = {[116819] = 1}, since = "mop" },
-  Quest{ from = 1, to = 8, id = 36802, rep = 350, items = {[116818] = 1}, since = "mop" },
-  Quest{ from = 1, to = 8, id = 36805, rep = 350, items = {[116821] = 1}, since = "mop" },
-  Quest{ from = 1, to = 8, id = 38406, rep = 350, items = {[122696] = 1}, since = "mop" },
-  Quest{ from = 1, to = 8, id = 36803, rep = 350, items = {[116817] = 1}, since = "mop" },
-  Quest{ from = 1, to = 8, id = 36806, rep = 350, items = {[116822] = 1}, since = "mop" },
+  Quest{ from = 1, to = 8, id = 36804, rep = 350, items = {[116820] = 1}, since = "wod" },
+  Quest{ from = 1, to = 8, id = 39283, rep = 350, items = {[127994] = 1}, since = "wod" },
+  Quest{ from = 1, to = 8, id = 36800, rep = 350, items = {[116819] = 1}, since = "wod" },
+  Quest{ from = 1, to = 8, id = 36802, rep = 350, items = {[116818] = 1}, since = "wod" },
+  Quest{ from = 1, to = 8, id = 36805, rep = 350, items = {[116821] = 1}, since = "wod" },
+  Quest{ from = 1, to = 8, id = 38406, rep = 350, items = {[122696] = 1}, since = "wod" },
+  Quest{ from = 1, to = 8, id = 36803, rep = 350, items = {[116817] = 1}, since = "wod" },
+  Quest{ from = 1, to = 8, id = 36806, rep = 350, items = {[116822] = 1}, since = "wod" },
   Quest{ from = 1, to = 8, id = 31443, rep = 600, items = {[86542] = 1}, since = "mop" },
   Quest{ from = 1, to = 8, id = 31444, rep = 600, items = {[86544] = 1}, since = "mop" },
   Quest{ from = 1, to = 8, id = 31446, rep = 600, items = {[86545] = 1}, since = "mop" },
@@ -444,11 +444,11 @@ REP:RegisterFaction(1492, { -- Emperor Shaohao
   Mob{ from = 1, to = 7, npc = 72894, name = "Ordon Fire-Watcher", rep = 10, zone = "Timeless_Isle", since = "mop" },
   Mob{ from = 1, to = 7, npc = 72892, name = "Ordon Oathguard", rep = 10, zone = "Timeless_Isle", since = "mop" },
   Mob{ from = 1, to = 7, npc = 72875, name = "Ordon Candlekeeper", rep = 5, zone = "Timeless_Isle", since = "mop" },
-  Quest{ from = 1, to = 8, id = 33335, rep = 250, since = "mop" },
-  Quest{ from = 1, to = 8, id = 33340, rep = 250, since = "mop" },
-  Quest{ from = 1, to = 8, id = 33341, rep = 250, since = "mop" },
-  Quest{ from = 1, to = 8, id = 33342, rep = 250, since = "mop" },
-  Quest{ from = 1, to = 8, id = 33343, rep = 250, since = "mop" },
+  Quest{ from = 1, to = 8, id = 33335, rep = 250, since = "mop", repeatable = false },
+  Quest{ from = 1, to = 8, id = 33340, rep = 250, since = "mop", repeatable = false },
+  Quest{ from = 1, to = 8, id = 33341, rep = 250, since = "mop", repeatable = false },
+  Quest{ from = 1, to = 8, id = 33342, rep = 250, since = "mop", repeatable = false },
+  Quest{ from = 1, to = 8, id = 33343, rep = 250, since = "mop", repeatable = false },
   Quest{ from = 1, to = 8, id = 33374, rep = 250, since = "mop" },
   Item{ from = 1, to = 8, rep = 500, items = {[143947] = 1}, since = "legion" },
 })
@@ -463,7 +463,6 @@ REP:RegisterFaction(1435, { -- Shado-Pan Assault
 })
 
 REP:RegisterFaction(1376, { -- Operation: Shieldwall
-  Quest{ from = 1, to = 8, id = 32643, rep = 400, since = "mop", side = "Alliance" },
   Quest{ from = 1, to = 8, id = 32148, notRetail = true, rep = 150, since = "mop", side = "Alliance" },
   Quest{ from = 1, to = 8, id = 32153, notRetail = true, rep = 300, since = "mop", side = "Alliance" },
   Quest{ from = 1, to = 8, id = 32149, notRetail = true, rep = 150, since = "mop", side = "Alliance" },
@@ -493,6 +492,8 @@ REP:RegisterFaction(1376, { -- Operation: Shieldwall
   Quest{ from = 1, to = 8, id = 32170, rep = 200, since = "mop", side = "Alliance" },
   Quest{ from = 1, to = 8, id = 32171, rep = 200, since = "mop", side = "Alliance" },
   Item{ from = 1, to = 8, rep = 300, items = {[143944] = 1}, since = "legion", side = "Alliance" },
+  Quest{ from = 1, to = 8, id = 32147, rep = 250, since = "mop", side = "Alliance" }, -- Attack Daily 06 QuestID: 32147
+  Quest{ from = 1, to = 8, id = 32646, rep = 400, since = "mop", side = "Alliance" }, -- Work Order: Operation: Shieldwall II QuestID: 32646
 })
 
 REP:RegisterFaction(1387, { -- Kirin Tor Offensive
@@ -570,16 +571,16 @@ REP:RegisterFaction(1387, { -- Kirin Tor Offensive
 })
 
 REP:RegisterFaction(1419, { -- Bizmo's Brawlpub
-  Quest{ from = 1, to = 8, id = 5, rep = 1, since = "mop", side = "Alliance" },
+  Quest{ from = 1, to = 8, text = "ndq", rep = 1, since = "mop", side = "Alliance" },
 })
 
 REP:RegisterFaction(1242, { -- Pearlfin Jinyu
-  Quest{ from = 1, to = 8, id = 5, rep = 1, since = "mop", side = "Alliance" },
+  Quest{ from = 1, to = 8, text = "ndq", rep = 1, since = "mop", side = "Alliance" },
 })
 
 REP:RegisterFaction(1353, { -- Tushui Pandaren
-  Quest{ from = 4, to = 8, id = 2, rep = 65, profession = "Cooking", since = "mop", side = "Alliance" },
-  Quest{ from = 4, to = 8, id = 4, rep = 65, profession = "Fishing", since = "mop", side = "Alliance" },
+  Quest{ from = 4, to = 8, text = "coq", rep = 65, profession = "Cooking", since = "mop", side = "Alliance" },
+  Quest{ from = 4, to = 8, text = "foq", rep = 65, profession = "Fishing", since = "mop", side = "Alliance" },
   General{ from = 4, to = 8, text = "killingGreyLevelMobsInInstancesWhile20", rep = 3, headText = "killingGreyLevelMobsInInstancesWhile20", tipText = "killingGreyLevelMobsInInstancesWhile21", since = "mop", side = "Alliance" },
   General{ from = 4, to = 8, text = "killingGreyLevelBossesInInstancesWhile20", rep = 60, headText = "killingGreyLevelBossesInInstancesWhile20", tipText = "killingGreyLevelBossesInInstancesWhile21", since = "mop", side = "Alliance" },
   General{ from = 4, to = 8, text = "killingGreenOrHigherLevelMobsIn21", rep = 15, headText = "killingGreenOrHigherLevelMobsIn21", tipText = "killingGreenOrHigherLevelMobsIn22", since = "mop", side = "Alliance" },
@@ -587,8 +588,8 @@ REP:RegisterFaction(1353, { -- Tushui Pandaren
 })
 
 REP:RegisterFaction(1352, { -- Huojin Pandaren
-  Quest{ from = 4, to = 8, id = 2, rep = 65, profession = "Cooking", since = "mop", side = "Horde" },
-  Quest{ from = 4, to = 8, id = 4, rep = 65, profession = "Fishing", since = "mop", side = "Horde" },
+  Quest{ from = 4, to = 8, text = "coq", rep = 65, profession = "Cooking", since = "mop", side = "Horde" },
+  Quest{ from = 4, to = 8, text = "foq", rep = 65, profession = "Fishing", since = "mop", side = "Horde" },
   General{ from = 4, to = 8, text = "killingGreyLevelMobsInInstancesWhile22", rep = 3, headText = "killingGreyLevelMobsInInstancesWhile22", tipText = "killingGreyLevelMobsInInstancesWhile23", since = "mop", side = "Horde" },
   General{ from = 4, to = 8, text = "killingGreyLevelBossesInInstancesWhile22", rep = 60, headText = "killingGreyLevelBossesInInstancesWhile22", tipText = "killingGreyLevelBossesInInstancesWhile23", since = "mop", side = "Horde" },
   General{ from = 4, to = 8, text = "killingGreenOrHigherLevelMobsIn23", rep = 15, headText = "killingGreenOrHigherLevelMobsIn23", tipText = "killingGreenOrHigherLevelMobsIn24", since = "mop", side = "Horde" },
@@ -596,129 +597,135 @@ REP:RegisterFaction(1352, { -- Huojin Pandaren
 })
 
 REP:RegisterFaction(1374, { -- Brawl'gar Arena
-  Quest{ from = 1, to = 8, id = 5, rep = 1, since = "mop", side = "Horde" },
+  Quest{ from = 1, to = 8, text = "ndq", rep = 1, since = "mop", side = "Horde" },
 })
 
 REP:RegisterFaction(1228, { -- Forest Hozen
-  Quest{ from = 1, to = 8, id = 5, rep = 1, since = "mop", side = "Horde" },
+  Quest{ from = 1, to = 8, text = "ndq", rep = 1, since = "mop", side = "Horde" },
 })
 
 REP:RegisterFaction(1375, { -- Dominance Offensive
   Quest{ from = 1, to = 8, id = 32643, rep = 400, since = "mop", side = "Horde" },
-  Quest{ from = 1, to = 8, id = 32148, notRetail = true, rep = 150, since = "mop", side = "Horde" },
-  Quest{ from = 1, to = 8, id = 32153, notRetail = true, rep = 150, since = "mop", side = "Horde" },
-  Quest{ from = 1, to = 8, id = 32152, notRetail = true, rep = 150, since = "mop", side = "Horde" },
-  Quest{ from = 1, to = 8, id = 32150, notRetail = true, rep = 150, since = "mop", side = "Horde" },
-  Quest{ from = 1, to = 8, id = 32151, notRetail = true, rep = 150, since = "mop", side = "Horde" },
+  Quest{ from = 1, to = 8, id = 32135, rep = 300, since = "mop", side = "Horde" },
   Quest{ from = 1, to = 8, id = 32132, rep = 150, since = "mop", side = "Horde" },
-  Quest{ from = 1, to = 8, id = 32146, rep = 300, since = "mop", side = "Horde" },
-  Quest{ from = 1, to = 8, id = 32145, rep = 150, since = "mop", side = "Horde" },
-  Quest{ from = 1, to = 8, id = 32142, rep = 150, since = "mop", side = "Horde" },
-  Quest{ from = 1, to = 8, id = 32143, rep = 150, since = "mop", side = "Horde" },
-  Quest{ from = 1, to = 8, id = 32144, rep = 150, since = "mop", side = "Horde" },
-  Quest{ from = 1, to = 8, id = 32122, rep = 300, since = "mop", side = "Horde" },
-  Quest{ from = 1, to = 8, id = 32121, rep = 150, since = "mop", side = "Horde" },
-  Quest{ from = 1, to = 8, id = 32119, rep = 150, since = "mop", side = "Horde" },
-  Quest{ from = 1, to = 8, id = 32347, rep = 150, since = "mop", side = "Horde" },
-  Quest{ from = 1, to = 8, id = 32115, rep = 150, since = "mop", side = "Horde" },
-  Quest{ from = 1, to = 8, id = 32346, rep = 150, since = "mop", side = "Horde" },
+  Quest{ from = 1, to = 8, id = 32343, rep = 300, since = "mop", side = "Horde" },
+  Quest{ from = 1, to = 8, id = 32342, rep = 150, since = "mop", side = "Horde" },
+  Quest{ from = 1, to = 8, id = 32344, rep = 150, since = "mop", side = "Horde" },
   Quest{ from = 1, to = 8, id = 32199, rep = 150, since = "mop", side = "Horde" },
-  Quest{ from = 1, to = 8, id = 32149, notRetail = true, rep = 150, since = "mop", side = "Horde" },
-  Quest{ from = 1, to = 8, id = 32157, rep = 150, since = "mop", side = "Horde" },
-  Quest{ from = 1, to = 8, id = 32446, notRetail = true, rep = 150, since = "mop", side = "Horde" },
-  Quest{ from = 1, to = 8, id = 32158, notRetail = true, rep = 300, since = "mop", side = "Horde" },
   Quest{ from = 1, to = 8, id = 32214, rep = 150, since = "mop", side = "Horde" },
-  Quest{ from = 1, to = 8, id = 32433, notRetail = true, rep = 300, since = "mop", side = "Horde" },
   Quest{ from = 1, to = 8, id = 32197, rep = 150, since = "mop", side = "Horde" },
-  Quest{ from = 1, to = 8, id = 32155, notRetail = true, rep = 150, since = "mop", side = "Horde" },
   Quest{ from = 1, to = 8, id = 32137, rep = 150, since = "mop", side = "Horde" },
   Quest{ from = 1, to = 8, id = 32141, rep = 150, since = "mop", side = "Horde" },
   Quest{ from = 1, to = 8, id = 32236, rep = 150, since = "mop", side = "Horde" },
-  Quest{ from = 1, to = 8, id = 32172, rep = 200, since = "mop", side = "Horde" },
-  Quest{ from = 1, to = 8, id = 32170, rep = 200, since = "mop", side = "Horde" },
-  Quest{ from = 1, to = 8, id = 32171, rep = 200, since = "mop", side = "Horde" },
+  Quest{ from = 1, to = 8, id = 32169, rep = 200, since = "mop", side = "Horde" },
+  Quest{ from = 1, to = 8, id = 32167, rep = 200, since = "mop", side = "Horde" },
+  Quest{ from = 1, to = 8, id = 32168, rep = 200, since = "mop", side = "Horde" },
   Item{ from = 1, to = 8, rep = 300, items = {[143943] = 1}, since = "legion", side = "Horde" },
+  Quest{ from = 1, to = 8, id = 32120, rep = 150, since = "mop", side = "Horde" }, -- Legacy of Ogudei QuestID: 32120
+  Quest{ from = 1, to = 8, id = 32123, rep = 150, since = "mop", side = "Horde" }, -- Death on Two Legs QuestID: 32123
+  Quest{ from = 1, to = 8, id = 32126, rep = 150, since = "mop", side = "Horde" }, -- Tear It Up QuestID: 32126
+  Quest{ from = 1, to = 8, id = 32127, rep = 300, since = "mop", side = "Horde" }, -- All Dead, All Dead QuestID: 32127
+  Quest{ from = 1, to = 8, id = 32128, rep = 150, since = "mop", side = "Horde" }, -- Another One Bites the Dust QuestID: 32128
+  Quest{ from = 1, to = 8, id = 32129, rep = 250, since = "mop", side = "Horde" }, -- Defense Daily 06 QuestID: 32129
+  Quest{ from = 1, to = 8, id = 32130, rep = 150, since = "mop", side = "Horde" }, -- Good Luck, Have Fun QuestID: 32130
+  Quest{ from = 1, to = 8, id = 32131, rep = 150, since = "mop", side = "Horde" }, -- We Require More Minerals! QuestID: 32131
+  Quest{ from = 1, to = 8, id = 32133, rep = 150, since = "mop", side = "Horde" }, -- Sentry Wards QuestID: 32133
+  Quest{ from = 1, to = 8, id = 32134, rep = 150, since = "mop", side = "Horde" }, -- Hard Counter QuestID: 32134
+  Quest{ from = 1, to = 8, id = 32139, rep = 150, since = "mop", side = "Horde" }, -- Stacked! QuestID: 32139
+  Quest{ from = 1, to = 8, id = 32221, rep = 150, since = "mop", side = "Horde" }, -- Storming the Beach QuestID: 32221
+  Quest{ from = 1, to = 8, id = 32222, rep = 300, since = "mop", side = "Horde" }, -- Wanted: Chief Engineer Cogwrench QuestID: 32222
+  Quest{ from = 1, to = 8, id = 32223, rep = 300, since = "mop", side = "Horde" }, -- Wanted: Lieutenant Ethan Jacobson QuestID: 32223
+  Quest{ from = 1, to = 8, id = 32235, rep = 150, since = "mop", side = "Horde" }, -- Flash! Aaaaaahhhh! QuestID: 32235
+  Quest{ from = 1, to = 8, id = 32237, rep = 150, since = "mop", side = "Horde" }, -- Precious Resource QuestID: 32237
+  Quest{ from = 1, to = 8, id = 32238, rep = 150, since = "mop", side = "Horde" }, -- Universal Remote-Explode QuestID: 32238
+  Quest{ from = 1, to = 8, id = 32345, rep = 150, since = "mop", side = "Horde" }, -- We're Not Monsters! QuestID: 32345
+  Quest{ from = 1, to = 8, id = 32348, rep = 150, since = "mop", side = "Horde" }, -- Kick 'em While They're Down QuestID: 32348
 })
 
 REP:RegisterFaction(1388, { -- Sunreaver Onslaught
-  Quest{ from = 4, to = 8, id = 32571, rep = 150, since = "mop", side = "Horde" },
-  Quest{ from = 4, to = 8, id = 32578, rep = 200, since = "mop", side = "Horde" },
-  Quest{ from = 4, to = 8, id = 32525, rep = 150, since = "mop", side = "Horde" },
-  Quest{ from = 4, to = 8, id = 32485, rep = 150, since = "mop", side = "Horde" },
-  Quest{ from = 4, to = 8, id = 32634, notRetail = true, rep = 150, since = "mop", side = "Horde" },
-  Quest{ from = 4, to = 8, id = 32636, rep = 150, since = "mop", side = "Horde" },
-  Quest{ from = 4, to = 8, id = 32627, rep = 150, since = "mop", side = "Horde" },
-  Quest{ from = 4, to = 8, id = 32576, notRetail = true, rep = 200, since = "mop", side = "Horde" },
-  Quest{ from = 4, to = 8, id = 32576, notRetail = true, rep = 200, since = "mop", side = "Horde" },
-  Quest{ from = 4, to = 8, id = 32551, rep = 150, since = "mop", side = "Horde" },
-  Quest{ from = 4, to = 8, id = 32543, rep = 150, since = "mop", side = "Horde" },
-  Quest{ from = 4, to = 8, id = 32539, rep = 150, since = "mop", side = "Horde" },
-  Quest{ from = 4, to = 8, id = 32537, rep = 150, since = "mop", side = "Horde" },
-  Quest{ from = 4, to = 8, id = 32639, rep = 150, since = "mop", side = "Horde" },
+  Quest{ from = 4, to = 8, id = 32506, rep = 150, since = "mop", side = "Horde" },
+  Quest{ from = 4, to = 8, id = 32293, rep = 200, since = "mop", side = "Horde" },
+  Quest{ from = 4, to = 8, id = 32218, rep = 150, since = "mop", side = "Horde" },
+  Quest{ from = 4, to = 8, id = 32288, rep = 150, since = "mop", side = "Horde" },
+  Quest{ from = 4, to = 8, id = 32269, rep = 150, since = "mop", side = "Horde" },
+  Quest{ from = 4, to = 8, id = 32262, rep = 150, since = "mop", side = "Horde" },
+  Quest{ from = 4, to = 8, id = 32265, rep = 150, since = "mop", side = "Horde" },
+  Quest{ from = 4, to = 8, id = 32520, rep = 350, since = "mop", side = "Horde" },
+  Quest{ from = 4, to = 8, id = 32561, rep = 200, since = "mop", side = "Horde" },
+  Quest{ from = 4, to = 8, id = 32282, rep = 150, since = "mop", side = "Horde" },
+  Quest{ from = 4, to = 8, id = 32200, rep = 150, since = "mop", side = "Horde" },
+  Quest{ from = 4, to = 8, id = 32217, rep = 150, since = "mop", side = "Horde" },
+  Quest{ from = 4, to = 8, id = 32255, rep = 150, since = "mop", side = "Horde" },
   Quest{ from = 4, to = 8, id = 32492, rep = 250, since = "mop", side = "Horde" },
-  Quest{ from = 4, to = 8, id = 32554, rep = 150, since = "mop", side = "Horde" },
+  Quest{ from = 4, to = 8, id = 32298, rep = 150, since = "mop", side = "Horde" },
   Quest{ from = 4, to = 8, id = 32297, rep = 150, since = "mop", side = "Horde" },
   Quest{ from = 4, to = 8, id = 32300, rep = 150, since = "mop", side = "Horde" },
-  Quest{ from = 4, to = 8, id = 32585, rep = 200, since = "mop", side = "Horde" },
-  Quest{ from = 4, to = 8, id = 32573, rep = 150, since = "mop", side = "Horde" },
-  Quest{ from = 4, to = 8, id = 32607, notRetail = true, rep = 400, since = "mop", side = "Horde" },
-  Quest{ from = 4, to = 8, id = 32724, notRetail = true, rep = 200, since = "mop", side = "Horde" },
-  Quest{ from = 4, to = 8, id = 32570, notRetail = true, rep = 150, since = "mop", side = "Horde" },
-  Quest{ from = 4, to = 8, id = 32527, rep = 150, since = "mop", side = "Horde" },
-  Quest{ from = 4, to = 8, id = 32540, rep = 150, since = "mop", side = "Horde" },
-  Quest{ from = 4, to = 8, id = 32538, rep = 150, since = "mop", side = "Horde" },
-  Quest{ from = 4, to = 8, id = 32631, notRetail = true, rep = 200, since = "mop", side = "Horde" },
-  Quest{ from = 4, to = 8, id = 32581, rep = 200, since = "mop", side = "Horde" },
-  Quest{ from = 4, to = 8, id = 32528, rep = 150, since = "mop", side = "Horde" },
-  Quest{ from = 4, to = 8, id = 32546, rep = 150, since = "mop", side = "Horde" },
+  Quest{ from = 4, to = 8, id = 32521, rep = 200, since = "mop", side = "Horde" },
+  Quest{ from = 4, to = 8, id = 32563, rep = 200, since = "mop", side = "Horde" },
+  Quest{ from = 4, to = 8, id = 32565, rep = 200, since = "mop", side = "Horde" },
+  Quest{ from = 4, to = 8, id = 32287, rep = 150, since = "mop", side = "Horde" },
+  Quest{ from = 4, to = 8, id = 32676, rep = 400, since = "mop", side = "Horde" },
+  Quest{ from = 4, to = 8, id = 32292, rep = 200, since = "mop", side = "Horde" },
+  Quest{ from = 4, to = 8, id = 32722, rep = 200, since = "mop", side = "Horde" },
+  Quest{ from = 4, to = 8, id = 32205, rep = 150, since = "mop", side = "Horde" },
+  Quest{ from = 4, to = 8, id = 32201, rep = 150, since = "mop", side = "Horde" },
+  Quest{ from = 4, to = 8, id = 32252, rep = 150, since = "mop", side = "Horde" },
+  Quest{ from = 4, to = 8, id = 32215, rep = 150, since = "mop", side = "Horde" },
+  Quest{ from = 4, to = 8, id = 32304, rep = 200, since = "mop", side = "Horde" },
+  Quest{ from = 4, to = 8, id = 32522, rep = 200, since = "mop", side = "Horde" },
+  Quest{ from = 4, to = 8, id = 32562, rep = 200, since = "mop", side = "Horde" },
+  Quest{ from = 4, to = 8, id = 32226, rep = 150, since = "mop", side = "Horde" },
+  Quest{ from = 4, to = 8, id = 32299, rep = 150, since = "mop", side = "Horde" },
   Quest{ from = 4, to = 8, id = 32286, rep = 250, since = "mop", side = "Horde" },
   Quest{ from = 4, to = 8, id = 32210, rep = 250, since = "mop", side = "Horde" },
   Quest{ from = 4, to = 8, id = 32229, rep = 250, since = "mop", side = "Horde" },
   Quest{ from = 4, to = 8, id = 32234, rep = 150, since = "mop", side = "Horde" },
-  Quest{ from = 4, to = 8, id = 32548, rep = 150, since = "mop", side = "Horde" },
-  Quest{ from = 4, to = 8, id = 32552, rep = 150, since = "mop", side = "Horde" },
-  Quest{ from = 4, to = 8, id = 32632, rep = 150, since = "mop", side = "Horde" },
+  Quest{ from = 4, to = 8, id = 32491, rep = 150, since = "mop", side = "Horde" },
+  Quest{ from = 4, to = 8, id = 32283, rep = 150, since = "mop", side = "Horde" },
+  Quest{ from = 4, to = 8, id = 32303, rep = 150, since = "mop", side = "Horde" },
   Quest{ from = 4, to = 8, id = 32266, rep = 150, since = "mop", side = "Horde" },
-  Quest{ from = 4, to = 8, id = 32536, rep = 150, since = "mop", side = "Horde" },
-  Quest{ from = 4, to = 8, id = 32586, rep = 150, since = "mop", side = "Horde" },
-  Quest{ from = 4, to = 8, id = 32301, rep = 150, since = "mop", side = "Horde" },
-  Quest{ from = 4, to = 8, id = 32637, rep = 150, since = "mop", side = "Horde" },
+  Quest{ from = 4, to = 8, id = 32254, rep = 150, since = "mop", side = "Horde" },
+  Quest{ from = 4, to = 8, id = 32208, rep = 150, since = "mop", side = "Horde" },
+  Quest{ from = 4, to = 8, id = 32213, rep = 150, since = "mop", side = "Horde" },
+  Quest{ from = 4, to = 8, id = 32305, rep = 150, since = "mop", side = "Horde" },
   Quest{ from = 4, to = 8, id = 32494, rep = 150, since = "mop", side = "Horde" },
-  Quest{ from = 4, to = 8, id = 32541, rep = 150, since = "mop", side = "Horde" },
-  Quest{ from = 4, to = 8, id = 32544, rep = 150, since = "mop", side = "Horde" },
-  Quest{ from = 4, to = 8, id = 32701, notRetail = true, rep = 1850, since = "mop", side = "Horde" },
-  Quest{ from = 4, to = 8, id = 32703, notRetail = true, rep = 1900, since = "mop", side = "Horde" },
-  Quest{ from = 4, to = 8, id = 32704, notRetail = true, rep = 2150, since = "mop", side = "Horde" },
-  Quest{ from = 4, to = 8, id = 32700, notRetail = true, rep = 1250, since = "mop", side = "Horde" },
-  Quest{ from = 4, to = 8, id = 32608, rep = 400, since = "mop", side = "Horde" },
-  Quest{ from = 4, to = 8, id = 32582, notRetail = true, rep = 200, since = "mop", side = "Horde" },
-  Quest{ from = 4, to = 8, id = 32532, rep = 150, since = "mop", side = "Horde" },
-  Quest{ from = 4, to = 8, id = 32550, rep = 150, since = "mop", side = "Horde" },
+  Quest{ from = 4, to = 8, id = 32227, rep = 150, since = "mop", side = "Horde" },
+  Quest{ from = 4, to = 8, id = 32216, rep = 150, since = "mop", side = "Horde" },
+  Quest{ from = 4, to = 8, id = 32695, rep = 1850, since = "mop", side = "Horde" },
+  Quest{ from = 4, to = 8, id = 32697, rep = 1900, since = "mop", side = "Horde" },
+  Quest{ from = 4, to = 8, id = 32698, rep = 2150, since = "mop", side = "Horde" },
+  Quest{ from = 4, to = 8, id = 32694, rep = 1250, since = "mop", side = "Horde" },
+  Quest{ from = 4, to = 8, id = 32677, rep = 400, since = "mop", side = "Horde" },
+  Quest{ from = 4, to = 8, id = 32294, rep = 200, since = "mop", side = "Horde" },
+  Quest{ from = 4, to = 8, id = 32224, rep = 150, since = "mop", side = "Horde" },
+  Quest{ from = 4, to = 8, id = 32207, rep = 150, since = "mop", side = "Horde" },
   Quest{ from = 4, to = 8, id = 32209, rep = 150, since = "mop", side = "Horde" },
-  Quest{ from = 4, to = 8, id = 32526, notRetail = true, rep = 150, since = "mop", side = "Horde" },
-  Quest{ from = 4, to = 8, id = 32633, rep = 150, since = "mop", side = "Horde" },
-  Quest{ from = 4, to = 8, id = 32533, rep = 150, since = "mop", side = "Horde" },
-  Quest{ from = 4, to = 8, id = 32606, rep = 150, since = "mop", side = "Horde" },
+  Quest{ from = 4, to = 8, id = 32220, rep = 150, since = "mop", side = "Horde" },
+  Quest{ from = 4, to = 8, id = 32264, rep = 150, since = "mop", side = "Horde" },
+  Quest{ from = 4, to = 8, id = 32219, rep = 150, since = "mop", side = "Horde" },
+  Quest{ from = 4, to = 8, id = 32605, rep = 150, since = "mop", side = "Horde" },
   Quest{ from = 4, to = 8, id = 32275, rep = 150, since = "mop", side = "Horde" },
-  Quest{ from = 4, to = 8, id = 32628, rep = 150, since = "mop", side = "Horde" },
+  Quest{ from = 4, to = 8, id = 32268, rep = 150, since = "mop", side = "Horde" },
   Quest{ from = 4, to = 8, id = 32482, rep = 250, since = "mop", side = "Horde" },
-  Quest{ from = 4, to = 8, id = 32530, rep = 150, since = "mop", side = "Horde" },
-  Quest{ from = 4, to = 8, id = 32529, rep = 150, since = "mop", side = "Horde" },
-  Quest{ from = 4, to = 8, id = 32531, rep = 150, since = "mop", side = "Horde" },
-  Quest{ from = 4, to = 8, id = 32547, rep = 150, since = "mop", side = "Horde" },
-  Quest{ from = 4, to = 8, id = 32545, rep = 150, since = "mop", side = "Horde" },
-  Quest{ from = 4, to = 8, id = 32574, rep = 150, since = "mop", side = "Horde" },
-  Quest{ from = 4, to = 8, id = 32535, rep = 150, since = "mop", side = "Horde" },
-  Quest{ from = 4, to = 8, id = 32572, rep = 150, since = "mop", side = "Horde" },
-  Quest{ from = 4, to = 8, id = 32575, rep = 150, since = "mop", side = "Horde" },
+  Quest{ from = 4, to = 8, id = 32495, rep = 150, since = "mop", side = "Horde" },
+  Quest{ from = 4, to = 8, id = 32516, rep = 250, since = "mop", side = "Horde" },
+  Quest{ from = 4, to = 8, id = 32225, rep = 150, since = "mop", side = "Horde" },
+  Quest{ from = 4, to = 8, id = 32517, rep = 150, since = "mop", side = "Horde" },
+  Quest{ from = 4, to = 8, id = 32489, rep = 150, since = "mop", side = "Horde" },
+  Quest{ from = 4, to = 8, id = 32274, rep = 150, since = "mop", side = "Horde" },
+  Quest{ from = 4, to = 8, id = 32228, rep = 150, since = "mop", side = "Horde" },
+  Quest{ from = 4, to = 8, id = 32204, rep = 150, since = "mop", side = "Horde" },
+  Quest{ from = 4, to = 8, id = 32534, rep = 250, since = "mop", side = "Horde" },
+  Quest{ from = 4, to = 8, id = 32285, rep = 150, since = "mop", side = "Horde" },
+  Quest{ from = 4, to = 8, id = 32230, rep = 150, since = "mop", side = "Horde" },
   Quest{ from = 4, to = 8, id = 32493, rep = 150, since = "mop", side = "Horde" },
   Quest{ from = 4, to = 8, id = 32206, rep = 150, since = "mop", side = "Horde" },
   Quest{ from = 4, to = 8, id = 32233, rep = 150, since = "mop", side = "Horde" },
   Quest{ from = 4, to = 8, id = 32232, rep = 150, since = "mop", side = "Horde" },
-  Quest{ from = 4, to = 8, id = 32583, notRetail = true, rep = 200, since = "mop", side = "Horde" },
+  Quest{ from = 4, to = 8, id = 32564, rep = 200, since = "mop", side = "Horde" },
   Item{ from = 1, to = 8, rep = 300, items = {[143939] = 1}, since = "legion", side = "Horde" },
 })
 
 REP:RegisterFaction(1351, { -- The Brewmasters
-  Quest{ from = 1, to = 8, id = 6, rep = 1, since = "mop" },
+  Quest{ from = 1, to = 8, text = "deleted", rep = 1, since = "mop" },
 })

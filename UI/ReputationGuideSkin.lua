@@ -126,6 +126,7 @@ function REP:SetReputationDetailFrameAndOptionsSkins()
       REPCheck_DarkmoonFaireWeeRepBuffBox,
       REPCheck_DarkmoonFaireHatRepBuffBox,
       -- DetailFrame checkboxes
+      REP_DetailShowOneTimeQuestsButton,
       REP_DetailShowNonPvPQuestsButton,
       REP_DetailShowPvPQuestsButton,
       REP_DetailShowInstancesButton,

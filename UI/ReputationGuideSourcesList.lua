@@ -49,9 +49,24 @@ local function UpdateRemoveButton(entryFrame, entryName, source)
   button:Show()
 end
 
+-- A quest (or one of the other IDs of the same quest) is done by this character.
+local IsQuestFlaggedDone = (C_QuestLog and C_QuestLog.IsQuestFlaggedCompleted) or IsQuestFlaggedCompleted
+function REP:IsQuestDone(questID, alsoIDs)
+  if type(questID) ~= "number" or not IsQuestFlaggedDone then return false end
+  if IsQuestFlaggedDone(questID) then return true end
+  if alsoIDs then
+    for _, id in ipairs(alsoIDs) do
+      if IsQuestFlaggedDone(id) then return true end
+    end
+  end
+  return false
+end
+
 -- Filter and options menus of the sources list (details panel and the Classic details frame).
+-- ShowQuests is the setting of the repeatable quests (it used to cover all quests), ShowNonRepeatableQuests the one-time quests.
 local SOURCE_FILTERS = {
-  {"ShowQuests", "showQuests"},
+  {"ShowNonRepeatableQuests", "showQuests"},
+  {"ShowQuests", "showRepeatableQuests"},
   {"ShowPvPQuests", "showPvPQuests"},
   {"ShowInstances", "showInstances"},
   {"ShowMobs", "showMobs"},
@@ -477,7 +492,7 @@ function REP_BuildUpdateList()
       end
 
       -- quests (may have items)
-      if (fg_sid.quests and (REP_Data.Global.ShowQuests or REP_Data.Global.ShowPvPQuests)) then
+      if (fg_sid.quests and (REP_Data.Global.ShowQuests or REP_Data.Global.ShowNonRepeatableQuests or REP_Data.Global.ShowPvPQuests)) then
         local sum = 0
         local count = 0
         local fg_sid_x = fg_sid.quests
@@ -486,11 +501,16 @@ function REP_BuildUpdateList()
           local fg_sid_x_d = fg_sid_x.data[i]
           local showQuest = true
 
-          if (not REP_Data.Global.ShowPvPQuests and fg_sid_x_d.isPvp) then
-            showQuest = false
+          if (fg_sid_x_d.isPvp) then
+            showQuest = REP_Data.Global.ShowPvPQuests and true or false
+          elseif (fg_sid_x_d.repeatable) then
+            showQuest = REP_Data.Global.ShowQuests and true or false
+          else
+            showQuest = REP_Data.Global.ShowNonRepeatableQuests and true or false
           end
 
-          if (not REP_Data.Global.ShowQuests and not fg_sid_x_d.isPvp) then
+          -- One-time quests the character has done give no reputation any more.
+          if (showQuest and not fg_sid_x_d.repeatable and REP:IsQuestDone(fg_sid_x_d.questID, fg_sid_x_d.alsoIDs)) then
             showQuest = false
           end
 
@@ -1105,6 +1125,7 @@ end
 
 function REP_ToggleAllTypesToShow(toggled)
   REP_Data.Global.ShowQuests = toggled
+  REP_Data.Global.ShowNonRepeatableQuests = toggled
   REP_Data.Global.ShowPvPQuests = toggled
   REP_Data.Global.ShowMobs = toggled
   REP_Data.Global.ShowInstances = toggled
